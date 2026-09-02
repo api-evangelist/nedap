@@ -1,23 +1,179 @@
 aid: nedap
 name: Nedap
-description: 'Nedap is a company surfaced via the API Evangelist harvest backlog (source: openehr-coalition)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Nedap N.V. is a Dutch technology company founded in 1929 and listed on
+  Euronext Amsterdam, headquartered in Groenlo, the Netherlands, with roughly 1,000
+  employees. It builds what it calls Digital Twin Technology across four markets —
+  Healthcare (the Ons electronic health record suite and MediKIT for general
+  practitioners), Livestock (cow monitoring), Retail (the iD Cloud RFID inventory
+  platform and iSenseOS loss prevention) and Security (Nedap Access physical identity
+  management and long-range vehicle/driver identification readers). Its most openly
+  documented API surface is Ons API at ons-api.nl, a 926-operation OpenAPI 3.0.3 REST
+  contract for the Ons care platform covering client dossiers, care planning,
+  scheduling, rostering, payroll and finance, together with a 31-path openEHR
+  composition and archetype surface, a webhook event service described in OpenAPI 3.1
+  webhooks, and a small scopes-and-clearances authorization API. A FHIR read/search
+  surface built on the Dutch ZIB information models is documented but is not in the
+  public specification — those endpoints sit behind the Ons API Dashboard. Access is
+  gated on a client TLS certificate signed by Nedap''s own CA and issued through the
+  Ons API Dashboard, so the specifications are public while the runtime is not.'
 url: https://raw.githubusercontent.com/api-evangelist/nedap/refs/heads/main/apis.yml
+image: https://stream.nedap.com/57pq0bsyu489/w_1200,ex_0,ey_247,ew_1200,eh_628/nedap-logo-avatar-blue-at-2x.jpg
 x-type: company
 x-source: harvest:openehr-coalition
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-09-02'
 modified: '2026-09-02'
 tags:
 - Company
-apis: []
+- Healthcare
+- Electronic Health Records
+- Interoperability
+- FHIR
+- openEHR
+- RFID
+- Retail
+- Physical Security
+- Livestock
+- Netherlands
+- Webhooks
+apis:
+- aid: nedap-ons-api
+  name: Nedap Ons API
+  description: 'The REST API for the Nedap Ons electronic health record suite used by
+    Dutch care organisations. 926 operations across 782 paths covering clients,
+    employees, dossiers and reports, care plans, goals and actions, medical notes,
+    agenda and rostering, care allocation and orders, declarations, payroll and
+    expenses, surveys and client stories — plus an openEHR composition and archetype
+    surface, three FHIR R3 bundle-wrapper endpoints, and domain models written against
+    the Dutch ZIBs, SNOMED CT and the Omaha System.
+    Requests are authenticated with an SSL client certificate signed by Nedap''s own
+    Certificate Authority and bound to one connector and one customer environment.'
+  humanURL: https://ons-api.nl/english/english.html
+  baseURL: https://api.ons.io
+  tags:
+  - Healthcare
+  - Electronic Health Records
+  - FHIR
+  - openEHR
+  - Interoperability
+  properties:
+  - type: OpenAPI
+    url: openapi/nedap-ons-openapi-original.json
+  - type: OpenAPI
+    name: Ons API authorization (scopes and clearances)
+    url: openapi/nedap-ons-authorization-openapi-original.json
+  - type: OpenAPI
+    name: Ons API Webhooks (OpenAPI 3.1 webhooks)
+    url: openapi/nedap-ons-webhooks-openapi-original.yml
+  - type: OpenAPI
+    name: Ons API deprecated endpoints (removed 2026-05-19)
+    url: openapi/nedap-ons-deprecated-openapi-original.json
+  - type: Documentation
+    url: https://ons-api.nl/english/english.html
+  - type: APIReference
+    url: https://ons-api.nl/english/technical/APIS.html
+  - type: GettingStarted
+    url: https://ons-api.nl/english/integration_process/Integration_process.html
+  - type: Authentication
+    url: https://ons-api.nl/english/technical/Certificate_requirements.html
+- aid: nedap-retail-id-cloud-api
+  name: Nedap Retail iD Cloud API
+  description: 'The API for iD Cloud, Nedap''s RFID item-level inventory platform for
+    unified commerce, used to integrate store and supply-chain stock data with ERP and
+    point-of-sale systems on top of an EPCIS engine. The developer portal and the
+    OpenAPI description it offers sit behind a login; the API host answers
+    unauthenticated requests with 401 "Missing required header: Authorization", so no
+    public machine-readable contract could be harvested.'
+  humanURL: https://developer.nedapretail.com/
+  baseURL: https://api.nedapretail.com
+  tags:
+  - Retail
+  - RFID
+  - Inventory
+  - EPCIS
+  properties:
+  - type: DeveloperPortal
+    url: https://developer.nedapretail.com/
+  - type: SourceCode
+    url: https://github.com/nedap/retail-services-API
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: VulnerabilityDisclosure
+  url: security/nedap-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/nedap-domain-security.yml
 - type: Website
-  url: https://nedap-healthcare.com/
+  url: https://www.nedap.com/en
+- type: DeveloperPortal
+  url: https://ons-api.nl/english/english.html
+- type: Documentation
+  url: https://ons-api.nl/english/technical/technical.html
+- type: APIReference
+  url: https://ons-api.nl/english/technical/APIS.html
+- type: GettingStarted
+  url: https://ons-api.nl/english/integration_process/Integration_process.html
+- type: SignUp
+  url: https://api-dashboard.ons.io/intake
+- type: Support
+  url: https://support.nedap-ons.nl/
+- type: Roadmap
+  url: https://portal.productboard.com/za1bhxsuikno2tvic9kvcryd
+- type: GitHubOrganization
+  url: https://github.com/nedap
+- type: Blog
+  url: https://www.nedap.com/en/news
+- type: TermsOfService
+  url: https://www.nedap.com/en/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://www.nedap.com/en/privacy-statement-disclaimer
+- type: Security
+  url: https://www.nedap.com/en/coordinated-vulnerability-disclosure-policy
+- type: StatusPage
+  url: https://support.nedap-ons.nl/
+- type: Deprecation
+  url: https://ons-api.nl/english/technical/APIS-deprecated.html
+- type: Packages
+  url: packages/nedap-packages.yml
+- type: SDKs
+  url: packages/nedap-packages.yml
+- type: WellKnown
+  url: well-known/nedap-well-known.yml
+- type: SecurityTxt
+  url: well-known/nedap-security.txt
+- type: LLMsTxt
+  url: llms/nedap-llms.txt
+- type: Overlay
+  url: overlays/nedap-ons-overlay.yaml
+- type: Conformance
+  url: conformance/nedap-conformance.yml
+- type: ErrorCatalog
+  url: errors/nedap-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/nedap-lifecycle.yml
+- type: ChangeLog
+  url: changelog/nedap-changelog.yml
+- type: Authentication
+  url: authentication/nedap-authentication.yml
+- type: Conventions
+  url: conventions/nedap-conventions.yml
+- type: Sandbox
+  url: sandbox/nedap-sandbox.yml
+- type: DataModel
+  url: data-model/nedap-data-model.yml
+- type: Plans
+  url: plans/nedap-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/nedap-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/nedap-ons-webhooks.yml
+x-enrichment:
+  date: '2026-09-02'
+  status: enriched
+  artifacts_added: 30
+  pass: local-v1

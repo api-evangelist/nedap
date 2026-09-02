@@ -1,0 +1,100 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://ons-api.nl/english/technical/API_properties.html,
+  https://ons-api.nl/english/technical/API_migration_2025.html,
+  https://ons-api.nl/english/contact.html
+api: Nedap Ons API
+versioning:
+  scheme: none
+  current: null
+  path_prefix: /v0
+  docs: https://ons-api.nl/english/technical/API_properties.html
+  note: >-
+    "Our APIs are not versioned. Rather, we rely on marking resources as deprecated 6
+    months prior to removal." New resources are added without notice. The /v0 prefix
+    came out of the 2025 infrastructure migration and names the Ons Suite application
+    generation, not an API version.
+deprecation:
+  policy_url: https://ons-api.nl/english/technical/APIS-deprecated.html
+  notice_period: 6 months
+  notification: >-
+    The technical contact registered in the Ons API Dashboard is notified directly when
+    a resource is deprecated.
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    The policy is stated clearly and the notice period is real, but it is delivered out
+    of band — by email to a registered contact and by a page in the docs. Nothing in the
+    HTTP response tells a client that the operation it just called is going away, so an
+    autonomous consumer cannot detect a deprecation on its own.
+  deprecated_specification: openapi/nedap-ons-deprecated-openapi-original.json
+  deprecated_operations_count: 929
+migrations:
+- name: Ons API 2025 path migration
+  docs: https://ons-api.nl/english/technical/API_migration_2025.html
+  mapping: lifecycle/nedap-ons-api-migration-2025.csv
+  announced_change: >-
+    Every endpoint's /t/ prefix replaced with /v0/<ons-suite-application>/. 877 endpoint
+    pairs are published as an old-path to new-path mapping with per-parameter notes.
+  parameter_changes: 41 endpoints (31 query parameters renamed, 7 query-to-path, 4 path-to-query)
+  guarantees_unchanged:
+  - functionality and response of the endpoints
+  - request and response schemas/models
+  - HTTP methods
+  - OpenAPI operationId
+  - OpenAPI parameter order
+  dual_running_until: '2026-05-19'
+  removal_date: '2026-05-19'
+  status: old endpoints removed on 2026-05-19
+  note: >-
+    This is the strongest lifecycle artifact Nedap publishes and it is unusually
+    disciplined: a full machine-readable old-to-new mapping, an explicit dual-running
+    window, and a written promise that operationIds and parameter order are stable so a
+    generated client survives the move by swapping one input file. Both sides were
+    published as separate complete OpenAPI documents; the deprecated one is harvested
+    here alongside the current one.
+deprecated_operations:
+  in_current_spec: 33
+  note: >-
+    33 operations in the current specification carry deprecated: true. The separate
+    deprecated specification carries all 929 of its operations flagged.
+status_page:
+  url: https://support.nedap-ons.nl/
+  type: support portal
+  note: >-
+    Nedap does not run a status.* subdomain. Current disruptions of Ons applications are
+    posted on the Support Portal, and the docs direct integrators there first when an
+    integration misbehaves. It is a support site with a disruption feed rather than a
+    component-level uptime page, and it publishes no historical uptime data and no
+    machine-readable status endpoint.
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime commitment was found for Ons API.
+support:
+  ticketing: https://support.nedap-ons.nl/support/tickets
+  email: ons-api@nedap-healthcare.com
+  note: >-
+    Technical support requires the credentials issued during connector registration.
+    Functional questions are routed to Nedap's certified integration partners.
+roadmap:
+  url: https://portal.productboard.com/za1bhxsuikno2tvic9kvcryd
+  type: Productboard public portal
+  note: A "Product developments" portal where integrators can see planned work and submit ideas.
+environments:
+- name: DEVELOPMENT
+  url: https://api-development.ons.io
+  use: developing a connector against fictional data
+- name: STAGING
+  url: https://api-staging.ons.io
+  use: testing a connector on a customer's test environment
+- name: PRODUCTION
+  url: https://api.ons.io
+  use: running a connector on a customer's production environment
+promotion:
+  note: >-
+    A connector is promoted through development, staging and production stages; the
+    functional and technical design and the selected webhook subscriptions are reviewed
+    by Nedap before promotion to the next stage.
+  docs: https://ons-api.nl/english/integration_process/Development_stages.html

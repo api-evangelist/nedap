@@ -1,0 +1,79 @@
+# Nedap
+
+> Nedap is a leader in Digital Twin Technology, bridging the physical and digital worlds in Healthcare, Livestock, Retail, and Security. Through our Technology for Life philosophy, we create sustainable, forward-thinking solutions that help people and organizations succeed in an ever-changing world.
+> Nedap has a workforce of over 1,000 employees and operates on a global scale. The company was founded in 1929 and has been listed on Euronext Amsterdam since 1947. Its headquarters is located in Groenlo, the Netherlands.
+
+The links below point to English-language pages. For current financial information, use the latest dated investor publication. For current company announcements, use the News section. Some product information is maintained on the official specialist websites listed below.
+
+## Company
+
+- [Home](https://www.nedap.com/en): Overview of Nedap, its purpose, markets, solutions, careers, and latest news.
+- [About Nedap](https://www.nedap.com/en/about-nedap): Company profile, people, culture, and long-term approach.
+- [Technology for Life](https://www.nedap.com/en/technology-for-life): Nedap's purpose and the Digital Twin Technology stack behind its solutions.
+- [Sustainable impact](https://www.nedap.com/en/insights/sustainable-impact): Nedap's approach to long-term value, sustainable solutions, and responsible operations.
+
+## Markets and solutions
+
+- [Nedap in Healthcare](https://www.nedap.com/en/healthcare): Electronic health record solutions that help care professionals spend more time with the people in their care.
+- [Nedap in Livestock](https://www.nedap.com/en/livestock): Cow monitoring technology that supports animal health, welfare, farm performance, and sustainable dairy farming.
+- [Nedap in Retail](https://www.nedap.com/en/retail): Item-level inventory visibility and connected loss prevention for unified commerce.
+- [Nedap in Security](https://www.nedap.com/en/security): Access management and identification solutions for secure, seamless movement.
+
+## Retail
+
+- [Inventory Engine](https://www.nedap.com/en/retail/inventory-engine): Nedap's connected, continuously improving inventory capability for unified commerce.
+- [iD Cloud](https://www.nedap.com/en/retail/inventory-engine/id-cloud): The RFID platform that provides accurate, real-time item-level inventory visibility across stores and supply chains.
+- [Inventory Engine vision](https://www.nedap.com/en/retail/inventory-engine/vision): Nedap's vision for moving from inventory visibility to inventory orchestration.
+- [Use cases](https://www.nedap.com/en/retail/inventory-engine/use-cases): Product availability, omnichannel fulfillment, shrink prevention, and supply chain visibility.
+- [Teams](https://www.nedap.com/en/retail/inventory-engine/teams): Applications for retail operations, asset protection, IT, and leadership teams.
+- [Industries](https://www.nedap.com/en/retail/inventory-engine/industries): Applications across fashion, footwear, luxury, and value retail.
+- [iSenseOS](https://www.nedap.com/en/retail/isenseos): Connected RF EAS that turns alarms and system data into real-time loss-prevention insights.
+- [Retail articles](https://www.nedap.com/en/retail/inventory-engine/articles): News and perspectives on inventory intelligence, RFID, and loss prevention.
+- [Retail case studies](https://www.nedap.com/en/retail/inventory-engine/education/case-studies): Examples of retailers using item-level data to improve inventory visibility and operations.
+
+## Investors
+
+- [Investors](https://www.nedap.com/en/investors): Strategy, performance, financial publications, and key dates.
+- [Publications](https://www.nedap.com/en/investors/publications): Official annual reports, half year reports, trading updates, presentations, and financial press releases.
+- [The Nedap Share](https://www.nedap.com/en/investors/nedap-share): Share information and market data for Nedap N.V.
+- [Financial calendar](https://www.nedap.com/en/investors/financial-calendar): Reporting dates, the Annual General Meeting, dividend dates, and other financial milestones.
+- [Corporate governance](https://www.nedap.com/en/investors/corporate-governance): Governance structure, the Board of Directors, the Supervisory Board, policies, and official documents.
+- [Shareholder meetings](https://www.nedap.com/en/investors/shareholder-meetings): Annual General Meeting information, agendas, resolutions, voting outcomes, and archives.
+- [Investor events](https://www.nedap.com/en/investors/events): Investor presentations and event materials, including Capital Markets Days.
+
+## Careers
+
+- [Working at Nedap](https://www.nedap.com/en/careers): Culture, development, and career opportunities at Nedap.
+- [Vacancies](https://www.nedap.com/en/careers/vacancies): Current jobs, internships, and graduation assignments.
+- [Students at Nedap](https://www.nedap.com/en/careers/students): Opportunities for students and graduates.
+- [Personal stories](https://www.nedap.com/en/careers/personal-stories): First-hand stories from people working at Nedap.
+
+## News and media
+
+- [News](https://www.nedap.com/en/news): Current corporate, financial, market, product, and people announcements.
+- [Media and press](https://www.nedap.com/en/contact-us/media-press): Media contacts, company information, executive portraits, logos, and image resources.
+
+## Contact
+
+- [Contact Nedap](https://www.nedap.com/en/contact-us): General inquiries, support routes, and contact options.
+- [Global offices](https://www.nedap.com/en/contact-us/offices): Nedap office locations and regional contact details.
+
+## Official specialist product websites
+
+- [Nedap Ons](https://www.nedap-ons.nl): Electronic health record platform supporting the full care process in the Netherlands.
+- [Nedap MediKIT](https://www.nedap-medikit.nl): Cloud-based electronic health record for general practitioners in the Netherlands.
+- [Cow monitoring platform](https://www.nedap-livestockmanagement.com): Cow monitoring solutions for health, fertility, welfare, and farm performance.
+- [Nedap Access](https://www.nedapsecurity.com): Enterprise access management and physical identity solutions.
+- [Nedap Readers](https://www.nedapidentification.com): Long-range vehicle, driver, and perimeter identification solutions.
+- [Nedap UV](https://www.nedap-uv.com): UV and ozone driver technology for treatment-system manufacturers.
+
+## Optional
+
+- [Our history](https://www.nedap.com/en/history): Milestones since Nedap's founding in 1929.
+- [Retail glossary](https://www.nedap.com/en/retail/inventory-engine/education/glossary): RFID and inventory terminology used in fashion retail.
+- [Privacy statement, cookies, and disclaimer](https://www.nedap.com/en/privacy-statement-disclaimer): How Nedap handles personal data, cookies, and website use.
+- [Terms and conditions](https://www.nedap.com/en/terms-and-conditions): General terms for Nedap's products and services.
+- [Coordinated Vulnerability Disclosure Policy](https://www.nedap.com/en/coordinated-vulnerability-disclosure-policy): How to report a security vulnerability responsibly.
+- [Modern Slavery Statement](https://www.nedap.com/en/modern-slavery-statement): Nedap's approach to preventing forced labor, human trafficking, and child labor.
+- [Dutch site](https://www.nedap.com/nl): Dutch-language company, healthcare, careers, and news content.
+- [Spanish site](https://www.nedap.com/es): Spanish-language Nedap content.

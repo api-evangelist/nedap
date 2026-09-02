@@ -1,0 +1,126 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  openapi/nedap-ons-openapi-original.json, https://ons-api.nl/english/technical/FHIR-ZIBS-GettingStartedWithFhir.html,
+  https://ons-api.nl/english/technical/Certificate_requirements.html
+api: Nedap Ons API
+note: >-
+  Nedap Ons sits inside the Dutch care-information ecosystem, and its contract shows
+  it: openEHR archetypes and compositions are a first-class part of the API surface,
+  the domain models cite ZIBs (zorginformatiebouwstenen) by name and version, SNOMED CT
+  and HL7 NullFlavor codes appear in field descriptions, and the national identifier
+  systems BSN and AGB are used verbatim as FHIR NamingSystem URIs. What is NOT in the
+  public contract is the FHIR resource surface itself: the docs describe read and
+  search endpoints at /v0/fhir/<Resource> with a capability statement at
+  /v0/fhir/metadata, but the published openapi.json contains none of them — only three
+  FHIR R3 bundle-wrapper endpoints for the ZorgDomein and referral modules. Nedap says
+  the FHIR endpoints "are available in the Ons API Dashboard", which is login-gated, so
+  a public reader can read the FHIR conventions but cannot obtain the FHIR contract.
+standards:
+- id: openehr
+  conforms: true
+  domain_standard: true
+  evidence: >-
+    31 openEHR paths in the published spec (/v0/openehr_dossier/... composition_wrappers,
+    archetype_wrappers, composition_versions, item_tags), an
+    openehr.CompositionValidationErrorResponse carrying archetypeId and archetypePath,
+    and a typed validation enum including ARCHETYPE_SLOT_ID_MISMATCH and
+    ARCHETYPE_NOT_FOUND. "openEHR" appears 410 times and "archetype" 387 times in the
+    spec.
+  spec_location: openapi/nedap-ons-openapi-original.json#/paths (/v0/openehr_dossier/*)
+- id: hl7-fhir
+  conforms: partial
+  domain_standard: true
+  evidence: >-
+    Three FHIR R3 bundle-wrapper endpoints are published
+    (/v0/ketenverkeer/fhir/r3/bundle_wrapper and two module variants) with FHIR Bundle
+    parse errors declared as 422. The documented /v0/fhir/<Resource> read+search surface
+    and the /v0/fhir/metadata CapabilityStatement are described in the docs but are NOT
+    in the public OpenAPI — they are behind the Ons API Dashboard login.
+  docs: https://ons-api.nl/english/technical/FHIR-ZIBS-GettingStartedWithFhir.html
+- id: zib
+  conforms: true
+  domain_standard: true
+  label: Zorginformatiebouwstenen (Dutch Health and Care Information Models)
+  evidence: >-
+    Domain models are described against named ZIBs — e.g. medication administration
+    records "shaped somewhat according to the Medicatietoediening ZIB", and Wzd freedom-
+    restricting measures pointing at zibs.nl/wiki/VrijheidsbeperkendeInterventie-v1.0(2020NL).
+    Nedap publishes a dedicated ZIBs page and a FHIR/ZIBs getting-started guide.
+  docs: https://ons-api.nl/english/technical/Zibs.html
+- id: snomed-ct
+  conforms: true
+  evidence: >-
+    SNOMED CT appears 55 times; FHIR search examples use the SNOMED system URI
+    (http://snomed.info/sct|365470003), and MP9 medication administration reasons use
+    the SNOMED subset "Codelijst" with HL7 NullFlavor OTH for deviations.
+- id: bsn-agb-naming-systems
+  conforms: true
+  label: Dutch national identifier systems (BSN, AGB)
+  evidence: >-
+    Identifier search is defined against http://fhir.nl/fhir/NamingSystem/bsn
+    (urn:oid:2.16.840.1.113883.2.4.6.3) for patients and
+    http://fhir.nl/fhir/NamingSystem/agb-z (urn:oid:2.16.840.1.113883.2.4.6.1) for
+    organisations and practitioners.
+- id: omaha-system
+  conforms: true
+  label: Omaha System (nursing classification)
+  evidence: >-
+    A full Omaha classification surface in the schemas — dossier.omaha.Problem,
+    ClassifiedProblem with knowledge/behaviour/status ratings, Domain,
+    ModifierProblemLevel, SignOrSymptom. "Omaha" appears 209 times.
+- id: dbc-ggz-nza
+  conforms: true
+  label: DBC/DBBC declaration rules (NZa) for Dutch mental healthcare
+  evidence: >-
+    dbc.ggz.ValidationError types include DBC_SPELREGEL ("Validation error for NZa
+    spelregels") with real messages such as "DBC niet gesloten binnen 365 dagen";
+    "DBC" appears 333 times.
+- id: mutual-tls
+  conforms: true
+  evidence: >-
+    Every request requires an SSL client certificate signed by Nedap's own CA; minimum
+    TLS 1.2, SNI required, eight named cipher suites, 4096-bit CSR minimum.
+  docs: https://ons-api.nl/english/technical/Certificate_requirements.html
+- id: rfc9457-problem-details
+  conforms: partial
+  evidence: >-
+    A ProblemResponse schema of the correct shape (type, title, status, detail,
+    instance, reasons[] with a JSON Pointer) exists and is used on 5 operations, but it
+    is served as application/json — no application/problem+json media type appears
+    anywhere in the spec.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: >-
+    PGP-signed security.txt at https://www.nedap.com/.well-known/security.txt with
+    Canonical, Expires (2027-07-01), Policy, two Contacts, Encryption, Hiring and
+    Preferred-Languages.
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 security scheme in any published spec; access is mutual TLS only
+- id: openid-connect
+  conforms: false
+  evidence: /.well-known/openid-configuration 404 on www.nedap.com, 403 on the API gateway hosts
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: >-
+    Deprecation is announced by email to the technical contact registered in the Ons API
+    Dashboard and by marking resources in the docs; no Sunset or Deprecation response
+    header is documented.
+- id: pagination
+  conforms: partial
+  evidence: limit/offset on 39 and 38 operations respectively; no cursor, envelope or total count
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key in the spec or the docs; see conventions/nedap-conventions.yml
+- id: json-api
+  conforms: false
+  evidence: plain JSON arrays and objects, no JSON:API document structure
+compliance_program:
+  published: false
+  note: >-
+    No trust center, no SOC 2 / ISO 27001 / NEN 7510 certification page and no
+    compliance portal was found on nedap.com, nedap-healthcare.com or ons-api.nl.
+    probe-security-programs.py returned trust=none. Nedap publishes a Coordinated
+    Vulnerability Disclosure policy and a PGP-signed security.txt, but no certification
+    evidence — so no Compliance pointer is emitted.

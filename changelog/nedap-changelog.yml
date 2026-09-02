@@ -1,0 +1,50 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://ons-api.nl/english/technical/Webhooks.html,
+  https://ons-api.nl/english/technical/API_migration_2025.html
+api: Nedap Ons API
+scheme: none
+current_version: null
+entry_count: 2
+note: >-
+  Nedap publishes no dated changelog or release-notes feed for Ons API. What exists
+  instead is a set of one-off change notices embedded in the docs pages themselves — a
+  "Recent changes" block on the Webhooks page and a standalone migration article — each
+  carrying a real removal date but no date of publication. There is no RSS feed, no
+  archive and no way to diff two points in time. The Productboard "product developments"
+  portal covers planned work rather than shipped change. Recording the two published
+  notices here; this is a genuine gap in Nedap's operational transparency, not an
+  absence of change.
+entries:
+- version: null
+  date: null
+  effective_until: '2027-03-01'
+  type: deprecation
+  source: https://ons-api.nl/english/technical/Webhooks.html
+  highlights:
+  - >-
+    CUSTOM webhook events now carry event-specific data under payload. Integrations
+    should read custom identifiers from payload; the deprecated top-level custom-event
+    id remains for backwards compatibility only until it is removed after 1 Mar 2027.
+- version: null
+  date: null
+  effective_until: '2026-05-19'
+  type: breaking
+  source: https://ons-api.nl/english/technical/API_migration_2025.html
+  highlights:
+  - >-
+    Every endpoint path migrated from the /t/ prefix to /v0/<ons-suite-application>/.
+    877 endpoints remapped; 41 with parameter changes. Old endpoints removed 2026-05-19.
+  - >-
+    operationIds and OpenAPI parameter order deliberately held stable so generated
+    clients migrate by swapping the input specification.
+  additions: []
+  breaking: true
+missing:
+  dated_changelog: true
+  feed: true
+  note: >-
+    "New resources are added as they become available, without further notice" — the API
+    properties page says so outright, which means additive change is undocumented by
+    design and only removals are announced.

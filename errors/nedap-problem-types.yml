@@ -1,0 +1,156 @@
+generated: '2026-09-02'
+method: derived
+source: >-
+  openapi/nedap-ons-openapi-original.json (4xx/5xx responses on 926 operations),
+  enriched from https://ons-api.nl/english/technical/API_properties.html
+format: mixed
+api: Nedap Ons API
+note: >-
+  Ons API has four coexisting error envelopes and no single one wins. A legacy
+  field-level ErrorResponse carries the bulk of the 4xx surface; an RFC 9457-shaped
+  ProblemResponse (type, title, status, detail, instance, plus reasons[] with a JSON
+  Pointer per reason) exists but is declared on only 5 operations, and even there the
+  media type is application/json rather than application/problem+json — the shape
+  conforms, the content negotiation does not. Two product areas ship their own: the
+  Kamino messaging surface uses a string error code enum, and openEHR composition
+  writes return a validation entry list with an archetype path and a typed reason. An
+  agent must switch on the operation, not on a provider-wide error contract.
+envelopes:
+- name: ErrorResponse
+  schema: '#/components/schemas/ErrorResponse'
+  shape: '{ errorResponseEntries: [ { field, value, message } ] }'
+  media_type: application/json
+  note: The default envelope; field-level validation detail, no machine-readable code.
+- name: ProblemResponse
+  schema: '#/components/schemas/ProblemResponse'
+  shape: '{ type, title, status, detail, instance, provider, reasons: [ { code, detail, pointer } ] }'
+  media_type: application/json
+  rfc: RFC 9457 (shape only — not served as application/problem+json)
+  reason_codes:
+  - DUPLICATE_KEY
+  - MISSING_FIELD
+  - INVALID_FORMAT
+  - INVALID_STATE
+  - NOT_FOUND
+  - TIME_CONFLICT
+  note: Declared on 5 operations (ons_administration and moves.Absence).
+- name: kamino.Error
+  schema: '#/components/schemas/kamino.Error'
+  shape: '{ error, message, params: [ { code, field, resource } ] }'
+  media_type: application/json
+  codes:
+  - token_missing
+  - token_unauthorized
+  - token_expired
+  - employee_without_team
+  - not_found
+  - validation_failed
+  - internal_server_error
+  - service_unavailable
+- name: openehr.CompositionValidationErrorResponse
+  schema: '#/components/schemas/openehr.CompositionValidationErrorResponse'
+  shape: '{ errorResponseEntries: [ { field, value, archetypeId, archetypePath, message, type } ] }'
+  media_type: application/json
+  reason_codes:
+  - DEFAULT
+  - REQUIRED
+  - WRONG_TYPE
+  - CARDINALITY_MISMATCH
+  - EMPTY_OBSERVATION
+  - ARCHETYPE_SLOT_ID_MISMATCH
+  - ARCHETYPE_NOT_FOUND
+  - INVARIANT_ERROR
+  - EXCEPTION
+  note: >-
+    Deliberately reuses the errorResponseEntries property name so clients written
+    against ErrorResponse keep working. Clients are told to switch on type rather than
+    show the raw validator message.
+- name: moves.MovesRatelimitError
+  schema: '#/components/schemas/moves.MovesRatelimitError'
+  shape: '{ type, title, status }'
+  media_type: application/json
+  note: The only rate-limit-specific error body in the spec; declared on 4 operations.
+problems:
+- status: 400
+  title: Bad request
+  detail: >-
+    The combination of query parameters is invalid, or the given content is incorrect.
+    Most common descriptions in the spec are "Could not parse request parameter" (100
+    operations) and "Validation errors" (54).
+  occurrences: 275
+  envelope: ErrorResponse
+- status: 401
+  title: Unauthorized
+  detail: Insufficient rights to access the resource.
+  occurrences: 8
+- status: 403
+  title: Forbidden
+  detail: >-
+    Authentication unsuccessful. Also used for domain refusals — e.g. an Intent created
+    by the OA-CONVERTER cannot be modified.
+  occurrences: 33
+- status: 404
+  title: Not found
+  detail: The requested resource was not found.
+  occurrences: 331
+  envelope: ErrorResponse
+- status: 405
+  title: Method not allowed
+  occurrences: 2
+- status: 406
+  title: Not acceptable
+  detail: Wrong Accept header. From mid-2024 only JSON is supported, not XML.
+  occurrences: 0
+  source: docs
+- status: 409
+  title: Conflict
+  detail: The given resource already exists or was changed by another call.
+  occurrences: 6
+- status: 410
+  title: Gone
+  detail: The requested resource is no longer available at the requested address.
+  occurrences: 1
+- status: 412
+  title: Precondition failed
+  detail: Bundle processing precondition failed, e.g. a wrong customer code.
+  occurrences: 3
+- status: 415
+  title: Unsupported media type
+  occurrences: 1
+- status: 422
+  title: Unprocessable entity
+  detail: Request parameters did not validate; FHIR Bundle parse error or missing required element.
+  occurrences: 10
+- status: 423
+  title: Locked
+  detail: The resource is not yet ready — used for delayed jobs that take time to process.
+  occurrences: 0
+  source: docs
+- status: 429
+  title: Too many requests
+  detail: Rate limit reached for this request.
+  occurrences: 4
+  envelope: moves.MovesRatelimitError
+- status: 495
+  title: Invalid certificate
+  detail: >-
+    The SSL client certificate is invalid — expired, or not signed by the correct
+    certificate authority. Documented only; nginx-specific, never declared in the spec.
+  occurrences: 0
+  source: docs
+- status: 500
+  title: Internal server error
+  occurrences: 113
+- status: 502
+  title: Bad gateway
+  detail: Invalid upstream; happens during updates.
+  occurrences: 1
+- status: 503
+  title: Service unavailable
+  detail: A service is down; happens during updates.
+  occurrences: 1
+- status: 504
+  title: Gateway timeout
+  detail: A timeout somewhere in the infrastructure, or a congested network on either end.
+  occurrences: 0
+  source: docs

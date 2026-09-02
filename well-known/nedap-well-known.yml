@@ -1,0 +1,114 @@
+generated: '2026-09-02'
+method: probed
+source: live GET of the named /.well-known/ path list on every apis.yml and OpenAPI servers[] host
+note: >-
+  Five hosts probed. Only www.nedap.com serves a real document: an RFC 9116
+  security.txt, PGP-signed, valid until July 2027, pointing at Nedap's Coordinated
+  Vulnerability Disclosure policy and its Zerocopter-managed CVD program. The two Ons
+  API gateway hosts (api.ons.io, api-development.ons.io) 301 that one path to
+  www.nedap.com and answer every other /.well-known/ path with an HTML 403 — the
+  gateway rejects unauthenticated requests outright, so those rows are a closed door,
+  not an absence. ons-api.nl is an S3-backed static docs site that returns an XML 403
+  AccessDenied for anything it does not hold.
+path_echo_control: passed
+negative_control:
+  path: /.well-known/nedap-negative-control-7f3ab91c.json
+  www.nedap.com: 404
+  nedap-healthcare.com: 404
+  api.ons.io: 403
+hosts:
+- host: https://www.nedap.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: nedap-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: https://api.ons.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    note: 301 to https://www.nedap.com/.well-known/security.txt (the Canonical named in the document)
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  - path: /.well-known/aauth-resource.json
+    status: 403
+- host: https://api-development.ons.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    note: 301 to https://www.nedap.com/.well-known/security.txt
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  - path: /.well-known/aauth-resource.json
+    status: 403
+- host: https://nedap-healthcare.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: https://ons-api.nl
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    note: S3 static site returns XML AccessDenied for every path it does not hold
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+hit_count: 1

@@ -1,0 +1,79 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  Maven Central (search.maven.org), PyPI (pypi.org/pypi/<pkg>/json), npm registry,
+  and the github.com/nedap organisation listing
+note: >-
+  Nedap publishes no client library for Ons API — the docs tell integrators to
+  generate their own client from the OpenAPI specification instead, and the 2025
+  migration guide is written around generated clients. The only first-party API client
+  on a public registry is the Java library for the Nedap Retail iD Cloud API, and its
+  last release was 2017-01-02, more than nine years before this check. npm, RubyGems,
+  NuGet, crates.io and pkg.go.dev carry no first-party Nedap API client.
+packages:
+- language: java
+  registry: maven
+  name: com.nedap.retail.services:api
+  url: https://central.sonatype.com/artifact/com.nedap.retail.services/api
+  install: 'Maven: com.nedap.retail.services:api:1.47'
+  official: true
+  api: Nedap Retail iD Cloud API
+  version: '1.47'
+  published: '2017-01-02'
+  note: >-
+    Java client for the Nedap Retail API, published from github.com/nedap/retail-services-API.
+    Nine years without a release while the iD Cloud platform continued to ship — the
+    strongest published decay signal on Nedap's API surface.
+- language: java
+  registry: maven
+  name: com.nedap.retail.services:messages
+  url: https://central.sonatype.com/artifact/com.nedap.retail.services/messages
+  install: 'Maven: com.nedap.retail.services:messages:1.47'
+  official: true
+  api: Nedap Retail iD Cloud API
+  version: '1.47'
+  published: '2017-01-02'
+- language: java
+  registry: maven
+  name: com.nedap.retail.services:examples
+  url: https://central.sonatype.com/artifact/com.nedap.retail.services/examples
+  install: 'Maven: com.nedap.retail.services:examples:1.47'
+  official: true
+  api: Nedap Retail iD Cloud API
+  version: '1.47'
+  published: '2017-01-02'
+- language: python
+  registry: pypi
+  name: epcpy
+  url: https://pypi.org/project/epcpy/
+  install: pip install epcpy
+  official: true
+  version: 0.1.8
+  published: '2025-02-03'
+  note: >-
+    First-party (github.com/nedap/retail-epcpy) — creation, validation and
+    transformation of EPC representations per the GS1 EPC Tag Data Standard. A domain
+    library for the RFID/EPCIS data the iD Cloud API carries, not an API client.
+- language: python
+  registry: pypi
+  name: deidentify
+  url: https://pypi.org/project/deidentify/
+  install: pip install deidentify
+  official: true
+  version: 0.7.3
+  published: '2022-05-05'
+  note: >-
+    First-party (github.com/nedap/deidentify) — NLP de-identification of free-text
+    Dutch medical records, from Nedap Healthcare research. A domain library, not an
+    Ons API client.
+registries_checked:
+- registry: npm
+  result: no first-party Nedap package (@nedap/*, nedap, ons-api all 404)
+- registry: rubygems
+  result: no first-party API client
+- registry: nuget
+  result: no first-party API client
+- registry: crates.io
+  result: no first-party API client
+- registry: pkg.go.dev
+  result: no first-party API client

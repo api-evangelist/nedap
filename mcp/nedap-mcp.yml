@@ -1,0 +1,85 @@
+generated: '2026-09-02'
+method: derived
+status: candidate
+source: openapi/nedap-ons-openapi-original.json
+api: Nedap Ons API
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+note: >-
+  Nedap ships no MCP server. Searched the Ons API docs, the github.com/nedap
+  organisation (100 most-recently-updated repositories), npm and the MCP registries; no
+  hosted endpoint, no stdio package, no mention of Model Context Protocol anywhere on
+  Nedap's surface. The tools below are a DERIVED candidate set — a proposal shaped from
+  real operationIds in the published OpenAPI, not something Nedap operates. No endpoint
+  URL is guessed.
+  Worth stating plainly why an MCP server here would be harder than usual: Ons API is
+  mutual-TLS only, with a certificate bound to one connector and one customer
+  environment, so a server would have to hold a per-customer client certificate and
+  carry the acting user through X-Cupido-User-Name into Nedap's own audit trail. That is
+  a real design problem in a care record, not a missing feature.
+tools:
+- name: get_client
+  description: Return the client (person receiving care) for a given id.
+  source_operation: openapi/nedap-ons-openapi-original.json#ClientAPI.byId
+  read_only: true
+- name: search_clients
+  description: Find clients in the care organisation.
+  source_operation: openapi/nedap-ons-openapi-original.json#ClientAPI.search
+  read_only: true
+- name: get_employee
+  description: Return a care professional by id.
+  source_operation: openapi/nedap-ons-openapi-original.json#EmployeeAPI.byId
+  read_only: true
+- name: list_client_reports
+  description: List dossier reports written about a client.
+  source_operation: openapi/nedap-ons-openapi-original.json#dossier.ReportAPI.searchByClient
+  read_only: true
+- name: get_care_plan
+  description: Return a client's care plan with its entries, goals and actions.
+  source_operation: openapi/nedap-ons-openapi-original.json#dossier.CarePlanAPI.activeCarePlanByClientId
+  read_only: true
+- name: list_care_task_occurrences
+  description: List the care tasks scheduled for a client or an employee.
+  source_operation: openapi/nedap-ons-openapi-original.json#tasque.CareTaskOccurrenceAPI.byClientId
+  read_only: true
+- name: list_agenda_occurrences
+  description: List agenda occurrences for a client, employee or team.
+  source_operation: openapi/nedap-ons-openapi-original.json#agenda.AgendaOccurrenceAPI.byClientId
+  read_only: true
+- name: get_openehr_composition
+  description: Retrieve an openEHR composition wrapper and its versions.
+  source_operation: openapi/nedap-ons-openapi-original.json#openehr.CompositionWrapperAPI.byId
+  read_only: true
+- name: check_clearance
+  description: >-
+    Ask whether a user or employee is allowed to access a specific client for a named
+    Ons Autorisatie right. This is the operation an agent should call FIRST — it is the
+    provider's own authorization oracle.
+  source_operation: openapi/nedap-ons-authorization-openapi-original.json#clearanceForUser
+  read_only: true
+- name: get_user_scope
+  description: Return the set of client ids a user or employee may reach for a named right.
+  source_operation: openapi/nedap-ons-authorization-openapi-original.json#scopeForUser
+  read_only: true
+pointer_policy: >-
+  NO MCPServer pointer is emitted in apis.yml for this artifact. Nedap operates no MCP
+  server, and an MCPServer pointer asserts that the provider ships one — the same rule
+  the pipeline applies to the A2A agent card and to a WellKnown manifest whose every
+  path 404s. This file documents a candidate design, and a candidate is not a surface.
+candidate_scope_note: >-
+  Deliberately read-only. Ons API has 308 write operations against live care records
+  with no idempotency key, no dry-run and no documented reversal, so a candidate tool
+  surface that writes would be irresponsible to propose. See
+  conventions/nedap-conventions.yml.
+searched:
+- source: https://ons-api.nl/english/english.html
+  result: no MCP mention
+- source: https://github.com/nedap
+  result: no MCP repository in the 100 most recently updated
+- source: npm registry (@nedap/*, nedap, ons-api)
+  result: 404

@@ -1,0 +1,60 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Nedap Ons API
+  version: 1.0.0
+x-generated: '2026-09-02'
+x-method: generated
+x-source: openapi/nedap-ons-openapi-original.json
+extends: openapi/nedap-ons-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-profile: https://apis.io/provider/nedap/
+    x-apievangelist-note: >-
+      Harvested verbatim from https://ons-api.nl/assets/openapi.json on 2026-09-02.
+      926 operations across 782 paths, 790 component schemas, 266 tags. This overlay
+      records observations made during profiling; it never mutates the harvested
+      document.
+    x-contact-published: false
+    x-license-published: false
+    x-info-version-note: >-
+      info.version is "0.0.0" and info carries no description, contact, termsOfService
+      or license. A consumer cannot tell one harvest of this document from another —
+      pinning a version of the contract is impossible from the contract itself.
+- target: $.servers
+  update:
+    x-apievangelist-note: >-
+      The published document declares only https://api-development.ons.io. The two other
+      real environments — https://api-staging.ons.io and https://api.ons.io — are
+      documented on the API properties page but absent from servers[], so a generated
+      client defaults to development.
+- target: $.components
+  update:
+    x-apievangelist-security-note: >-
+      components.securitySchemes is absent and no operation declares security[]. The API
+      is in fact mutual-TLS only; OpenAPI 3.0.3 can express this as a mutualTLS security
+      scheme and does not. See authentication/nedap-authentication.yml.
+- target: $.info
+  update:
+    x-apievangelist-content-observations:
+      operations: 926
+      unique_operation_ids: 926
+      operations_without_summary: 30
+      operations_without_description: 767
+      operations_with_response_examples: 0
+      deprecated_operations: 33
+      response_media_types: [application/json, application/x-ndjson, application/octet-stream, text/plain, image/jpeg, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet]
+      note: >-
+        operationIds are unique across all 926 operations and were deliberately held
+        stable through the 2025 path migration, which is a real discipline. The weak
+        spots are descriptions (83% of operations have none) and examples (no response
+        example anywhere in the document, though many schemas carry an example block).
+- target: $.info
+  update:
+    x-apievangelist-conventions:
+      idempotency: none
+      dry_run: none
+      reversibility: none documented
+      pagination: limit/offset on a minority of collections, no cursor, no total
+      rate_limit_headers: none published
+      request_id_header: none published

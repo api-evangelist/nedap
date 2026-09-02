@@ -1,0 +1,23 @@
+generated: '2026-09-02'
+method: searched
+source: https://www.nedap.com/llms.txt
+file: nedap-llms.txt
+http_status: 200
+bytes: 7423
+note: >-
+  Nedap publishes a real, hand-written llms.txt at the root of its corporate site and it
+  is unusually good — a summary blockquote, an explicit instruction to prefer the latest
+  dated investor publication for financials, and grouped link lists for company, markets,
+  retail, investors, careers, news, contact and the six official specialist product
+  sites. Saved verbatim. It is a corporate-communications document, not a developer one:
+  it names nedap-ons.nl and nedap-medikit.nl as product sites but does not link
+  ons-api.nl, the OpenAPI, the webhooks specification or the Ons API Dashboard, so an
+  agent following it reaches Nedap's story and never reaches Nedap's API.
+  nedap-healthcare.com and ons-api.nl serve no llms.txt (404 and 403 respectively).
+probes:
+- url: https://www.nedap.com/llms.txt
+  status: 200
+- url: https://nedap-healthcare.com/llms.txt
+  status: 404
+- url: https://ons-api.nl/llms.txt
+  status: 403

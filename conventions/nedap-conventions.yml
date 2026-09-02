@@ -1,0 +1,157 @@
+generated: '2026-09-02'
+method: searched
+source: https://ons-api.nl/english/technical/API_properties.html
+derived_from: openapi/nedap-ons-openapi-original.json
+api: Nedap Ons API
+authentication:
+  style: mutual TLS (client certificate signed by Nedap's CA)
+  detail: authentication/nedap-authentication.yml
+base_path:
+  scheme: '/v0/<ons-suite-application>/<resource>'
+  note: >-
+    Every endpoint starts with /v0/ followed by the Ons Suite application name
+    (administration, dossier, agenda, finance, payroll, moves, openehr, fhir,
+    authorization, xstream), except /ping. The /v0 is a path prefix left over from the
+    2025 infrastructure migration, not a version — see versioning below.
+  example: GET /v0/administration/clients/3
+methods:
+  get: retrieve resources; query parameters select or filter and are almost always optional
+  post: create a resource, or perform an action at /resource/{id}/action; also used when sensitive data is transferred
+  put: update an existing resource
+  delete: remove a resource, or remove a relation between resources
+headers:
+  request:
+  - name: Accept
+    required: true
+    note: >-
+      Defines the returned format; a mismatch returns 406. Multiple formats with
+      weights are supported and the first is the preference. Clients that do not
+      specify get JSON. From mid-2024 only JSON is supported — XML is refused even when
+      explicitly requested.
+  - name: Content-Type
+    required: for POST and PUT
+    note: charset optional but recommended
+  - name: User-Agent
+    required: false
+    note: 'Optional but requested; form: connector/1.1+http://your-domain.com'
+  - name: X-Cupido-User-Name
+    required: false
+    note: The acting user behind the connector; accepted on 130 operations.
+  - name: X-Cupido-Active-Identity
+    required: false
+    note: Accepted on 127 operations.
+  response: []
+pagination:
+  style: limit/offset
+  params:
+  - limit
+  - offset
+  coverage: 'limit on 39 operations, offset on 38 — a minority of the 618 GET operations'
+  response_fields: []
+  note: >-
+    There is no envelope, no next-page cursor and no total count: paginated collections
+    return a bare JSON array and the client walks offset itself. Most collection
+    endpoints have no pagination at all and rely on the filter parameters instead.
+filtering:
+  common_params:
+  - since
+  - valid_from
+  - valid_to
+  - date
+  - from
+  - to
+  - include
+  - keyword
+  data_minimisation: >-
+    Nedap publishes a dedicated data-minimisation and filtering guide and expects
+    connectors to request the narrowest set of client data their purpose requires —
+    this is a GDPR/WGBO obligation in Dutch care, not a performance tip.
+  docs: https://ons-api.nl/english/technical/Dataminimization_filtering.html
+bulk_and_sync:
+  streaming: '/resource/x-stream-connect/data — request all entries in a streaming manner'
+  media_type: application/x-ndjson (declared on 100 responses)
+  delta_endpoints:
+  - /v0/xstream/api/<resource>/updates
+  - /v0/xstream/api/<resource>/deletes
+  note: >-
+    The documented pattern is: fetch everything once from the stream endpoint, then
+    stay current by subscribing to webhooks; polling updates/deletes is the fallback
+    and leaves you at least one interval behind.
+conditional_requests:
+  supported: partial
+  note: 304 Not Modified is declared on 2 operations.
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No idempotency key exists. The string "idempoten" appears nowhere in the 3MB
+    OpenAPI and nowhere in the docs, and there is no Idempotency-Key parameter on any
+    of the 238 write operations. A retried POST after a network timeout may create a
+    duplicate; a 409 Conflict is documented for "the given resource already exists or
+    was changed by another call", which is the only protection an integrator gets.
+    No Idempotency pointer is emitted for this provider because there is nothing to
+    point at.
+versioning:
+  scheme: none
+  current: null
+  detail: >-
+    Nedap states outright that the APIs are not versioned. New resources appear without
+    notice; removals are announced by marking a resource deprecated six months ahead
+    and notifying the technical contact registered in the Ons API Dashboard. The /v0
+    prefix does not increment — it was introduced in the 2025 path migration and names
+    the platform generation, not an API version.
+  docs: https://ons-api.nl/english/technical/API_properties.html
+error_envelope:
+  primary: ErrorResponse (field/value/message entries)
+  rfc9457: partial — a ProblemResponse schema of the right shape on 5 operations, served as application/json
+  detail: errors/nedap-problem-types.yml
+rate_limit_signaling:
+  status: 429
+  headers: none documented
+  detail: rate-limits/nedap-rate-limits.yml
+request_tracing:
+  request_id_header: none documented
+  note: >-
+    No correlation or request-id header is published. The User-Agent convention is the
+    only handle Nedap offers for identifying a connector's traffic when something goes
+    wrong, which puts the burden of correlation on the support ticket rather than on
+    the response.
+dry_run_mode:
+  supported: false
+  note: >-
+    No preview, validate-only or dry-run parameter exists on any write operation. The
+    DEVELOPMENT environment with fictional data is the rehearsal surface instead — see
+    sandbox/nedap-sandbox.yml.
+reversibility:
+  grade: none
+  applicable: true
+  write_operations: 308
+  note: >-
+    Ons API has a substantial write surface — 129 POST, 95 PUT, 70 DELETE, 14 PATCH —
+    and publishes no reversal contract for any of it. There is no cancel, refund, void,
+    undo, rollback or restore operation, and no stated window inside which a write can
+    be taken back. The closest thing to a soft delete is archiving: dossier.CarePlanAPI
+    .archive and agenda.AgendaSeriesAPI.archiveGroup move records out of the active
+    view, and DocumentAPI.documentsByClientInPeriodIncludeArchived proves archived
+    documents remain readable — but no un-archive operation is published and no
+    retention period is stated, so an agent cannot know whether archiving is reversible
+    or for how long. DELETE is documented only as "removes a particular resource or
+    removes a relation between resources", with no note on recoverability. Treat every
+    write against a production care record as irreversible from the API's point of
+    view; recovery, if any, is a support ticket.
+  reversal_operations: []
+  windows: []
+  evidence:
+  - source: openapi/nedap-ons-openapi-original.json
+    finding: >-
+      no operationId matching cancel|revoke|restore|undo|reverse|rollback|refund|void
+      across 926 operations; 3 archive-related operations found
+  - source: https://ons-api.nl/english/technical/API_properties.html
+    finding: DELETE described with no recovery or retention statement
+cross_links:
+  errors: errors/nedap-problem-types.yml
+  lifecycle: lifecycle/nedap-lifecycle.yml
+  authentication: authentication/nedap-authentication.yml
+  rate_limits: rate-limits/nedap-rate-limits.yml
+  sandbox: sandbox/nedap-sandbox.yml
+  webhooks: asyncapi/nedap-ons-webhooks.yml

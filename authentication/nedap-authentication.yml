@@ -1,0 +1,91 @@
+generated: '2026-09-02'
+method: searched
+source: openapi/nedap-ons-openapi-original.json
+docs: https://ons-api.nl/english/technical/Certificate_requirements.html
+api: Nedap Ons API
+note: >-
+  The harvested OpenAPI declares no components.securitySchemes at all — running
+  derive-authentication.py over it yields nothing — so this profile is read from the
+  docs instead. Ons API is mutual-TLS only. There is no bearer token, no API key and no
+  OAuth: every request must be made with an SSL client certificate signed by Nedap's
+  own Certificate Authority, and that certificate binds one connector to one customer
+  environment. That is the strongest auth posture in this pipeline and the least
+  agent-reachable one — an agent cannot self-serve a credential; a human completes an
+  intake, has a connector reviewed, submits a CSR and receives a PEM back.
+summary:
+  types:
+  - mutualTLS
+  api_key_in: []
+  oauth2_flows: []
+  self_serve: false
+  spec_declares_security: false
+schemes:
+- name: OnsApiClientCertificate
+  type: mutualTLS
+  documented_only: true
+  sources:
+  - https://ons-api.nl/english/technical/Certificate_requirements.html
+  issuance:
+    authority: Nedap's own Certificate Authority (per environment)
+    process: >-
+      Generate a 4096-bit CSR, upload it to the Ons API Dashboard, receive a signed PEM
+      back. The private key is never shared with Nedap; if it leaks, the certificate is
+      disabled in the Dashboard.
+    csr_requirements:
+    - Key length of at least 4096 bits
+    - CN, OU, O, L, ST, C and email address all filled in
+    - 'CN structured as {technical_name_connector}-{customer_code}-{identification}'
+    cn_example: hr_integration-TE1002-free_text
+  transport:
+    min_tls: TLSv1.2
+    sni_required: true
+    ciphers:
+    - ECDHE-ECDSA-AES256-GCM-SHA384
+    - ECDHE-ECDSA-AES128-GCM-SHA256
+    - ECDHE-ECDSA-CHACHA20-POLY1305
+    - ECDHE-RSA-AES256-GCM-SHA384
+    - ECDHE-RSA-AES128-GCM-SHA256
+    - ECDHE-RSA-CHACHA20-POLY1305
+    - DHE-RSA-AES256-GCM-SHA384
+    - DHE-RSA-AES128-GCM-SHA256
+  ca_chains:
+    production: https://ons-api.nl/assets/production-chain.pem
+    staging: https://ons-api.nl/assets/staging-chain.pem
+    development: https://ons-api.nl/assets/development-chain.pem
+    legacy_note: >-
+      Separate legacy chains are published for certificates signed before 02-09-2025
+      (production), 28-08-2025 (staging) and 20-08-2025 (development); no new
+      certificates are issued from them.
+  verification:
+    endpoint: GET /ping
+    expected: '200 = the certificate works; 403 = the certificate does not work with this URL'
+authorization:
+  model: Ons Autorisatie rights, evaluated per user/employee per client
+  note: >-
+    Authorization is not OAuth scopes. It is Nedap's own rights model, and a connector
+    queries it rather than carrying it in a token. Four read operations expose it —
+    scopeForUser, scopeForEmployee, clearanceForUser, clearanceForEmployee — returning
+    either the set of client ids a user may reach for a named right, or a boolean
+    clearance for one client. A right not linked to the connector's version yields 404.
+  spec: openapi/nedap-ons-authorization-openapi-original.json
+  docs: https://ons-api.nl/english/authorization/UsingAuthorizationAPIs.html
+  operations:
+  - scopeForUser
+  - scopeForEmployee
+  - clearanceForUser
+  - clearanceForEmployee
+identity_headers:
+- name: X-Cupido-User-Name
+  used_by: 130 operations
+  note: Names the acting user behind the connector; feeds Ons' own audit trail.
+- name: X-Cupido-Active-Identity
+  used_by: 127 operations
+webhooks:
+  method: HMAC
+  note: >-
+    Inbound webhook notifications are authenticated the other way round — the connector
+    generates a secret in the Ons API Dashboard and verifies a Hash-based Message
+    Authentication Code on each POST, answering 200 for a valid HMAC and 401 for an
+    invalid one. Nedap sends two NOP events at configuration time, one with a correct
+    HMAC and one with a deliberately wrong one, to prove the receiver checks.
+  docs: https://ons-api.nl/english/technical/Webhooks.html

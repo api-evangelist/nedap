@@ -1,0 +1,262 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OnsApi Scopes and Clearances OpenAPI Specification",
+    "version": "v0"
+  },
+  "paths": {
+    "/v0/authorization/scope_for_user": {
+      "get": {
+        "tags": [
+          "OnsApiScopeResponse"
+        ],
+        "summary": "Retrieve current scope for a user in the context of an Ons Autorisatie right",
+        "operationId": "scopeForUser",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "right",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnsApiScopeResponse"
+                },
+                "examples": {
+                  "All clients are in scope": {
+                    "$ref": "#/components/examples/AllClientsInScopeExample"
+                  },
+                  "Some clients are in scope": {
+                    "$ref": "#/components/examples/SomeClientsInScopeExample"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/authorization/scope_for_employee": {
+      "get": {
+        "tags": [
+          "OnsApiScopeResponse"
+        ],
+        "summary": "Retrieve current scope for an employee in the context of an Ons Autorisatie right",
+        "operationId": "scopeForEmployee",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "right",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnsApiScopeResponse"
+                },
+                "examples": {
+                  "All clients are in scope": {
+                    "$ref": "#/components/examples/AllClientsInScopeExample"
+                  },
+                  "Some clients are in scope": {
+                    "$ref": "#/components/examples/SomeClientsInScopeExample"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/authorization/clearance_for_user": {
+      "get": {
+        "tags": [
+          "OnsApiClearanceResponse"
+        ],
+        "summary": "Retrieve clearance for a user in the context of a client and an Ons Autorisatie right",
+        "operationId": "clearanceForUser",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "right",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnsApiClearanceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/authorization/clearance_for_employee": {
+      "get": {
+        "tags": [
+          "OnsApiClearanceResponse"
+        ],
+        "summary": "Retrieve clearance for an employee in the context of a client and an Ons Autorisatie right",
+        "operationId": "clearanceForEmployee",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "right",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnsApiClearanceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OnsApiScopeResponse": {
+        "type": "object",
+        "properties": {
+          "userUuid": {
+            "type": "string"
+          },
+          "employeeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "date": {
+            "type": "string"
+          },
+          "clientIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "all": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OnsApiClearanceResponse": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "examples": {
+      "AllClientsInScopeExample": {
+        "description": "All clients are in scope. The value of 'clientIds' will be an empty list, and the value of 'all' will be true.",
+        "value": {
+          "userUuid": "string",
+          "employeeId": 123,
+          "date": "2024-01-01T00:00:00.000+01:00",
+          "clientIds": [],
+          "all": true
+        }
+      },
+      "SomeClientsInScopeExample": {
+        "description": "Only some clients are in scope. The value of 'clientIds' will contain a list of all clients that are in scope, and the value of 'all' will be false.",
+        "value": {
+          "userUuid": "string",
+          "employeeId": 123,
+          "date": "2024-01-01T00:00:00.000+01:00",
+          "clientIds": [1, 2, 3],
+          "all": false
+        }
+      }
+    }
+  }
+}

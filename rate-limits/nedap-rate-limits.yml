@@ -1,0 +1,44 @@
+generated: '2026-09-02'
+method: searched
+source: https://ons-api.nl/english/technical/API_properties.html
+api: Nedap Ons API
+limit_count: 3
+note: >-
+  Ons API publishes three limits, scoped to the client certificate rather than to an
+  account or an endpoint, and states plainly that only the concurrency limit is
+  enforced today. No RateLimit-* or X-RateLimit-* response headers are documented, and
+  no Retry-After is documented on 429 — an agent gets the status code and nothing to
+  back off against, which is the gap worth closing here.
+limits:
+- scope: per-certificate
+  window: concurrent
+  limit: 4
+  unit: parallel requests
+  enforced: true
+  note: 4 requests in parallel per certificate; the only limit currently enforced.
+- scope: per-connector
+  window: 1s
+  limit: 100
+  unit: requests
+  enforced: false
+  note: 100 requests per second — documented but stated as not currently enforced.
+- scope: per-connector
+  window: 1d
+  limit: 10000
+  unit: seconds of request time
+  enforced: false
+  note: >-
+    10,000 seconds of cumulative request time per day, summed across all requests
+    (100,000 requests of 100ms, or one request of 10,000s). Documented as not
+    currently enforced.
+exhaustion:
+  status: 429
+  text: Too many requests
+  body: not documented
+headers:
+  request: []
+  response: []
+  retry_after: not documented
+  note: >-
+    Neither the API properties page nor the harvested OpenAPI declares a rate-limit
+    response header. The OpenAPI does declare 429 on 4 operations.

@@ -1,0 +1,29 @@
+generated: '2026-09-02'
+method: generated
+source: >-
+  openapi/nedap-ons-openapi-original.json, openapi/nedap-ons-authorization-openapi-original.json,
+  openapi/nedap-ons-webhooks-openapi-original.yml, and the ons-api.nl documentation
+note: >-
+  Four skills covering the flows an integrator actually has to get right on Ons API:
+  establishing mutual TLS, consulting Ons Autorisatie before reading a care record,
+  keeping a dataset in sync over webhooks, and writing to a care plan with the
+  no-idempotency / no-dry-run / no-reversal caveats stated up front. No provider-published
+  AGENTS.md or skill files were found on nedap.com, nedap-healthcare.com or ons-api.nl.
+  Every operationId referenced was verified against the harvested specification.
+skills:
+- file: nedap-connect-and-verify.md
+  name: Connect to Nedap Ons API and verify the certificate
+  api: openapi/nedap-ons-openapi-original.json
+  operations: []
+- file: nedap-authorize-before-reading-a-client.md
+  name: Check authorization before reading a client record
+  api: openapi/nedap-ons-authorization-openapi-original.json
+  operations: [scopeForUser, scopeForEmployee, clearanceForUser, clearanceForEmployee, ClientAPI.byId]
+- file: nedap-sync-with-webhooks.md
+  name: Keep a dataset in sync with Ons API webhooks
+  api: openapi/nedap-ons-webhooks-openapi-original.yml
+  operations: [ClientAPI.streamAll, ClientAPI.streamUpdates, ClientAPI.streamDeletes, EmployeeAPI.streamAll, dossier.ReportAPI.streamAll]
+- file: nedap-write-to-a-care-plan.md
+  name: Write to a client care plan safely
+  api: openapi/nedap-ons-openapi-original.json
+  operations: [dossier.CarePlanAPI.newDraft, dossier.CarePlanAPI.create, dossier.CarePlanAPI.update, dossier.CarePlanAPI.activate, dossier.CarePlanAPI.archive, dossier.CarePlanAPI.delete, dossier.CarePlanAPI.activeCarePlanByClientId, dossier.CarePlanAPI.draftCarePlanByClientId, dossier.CarePlanAPI.byClientId]

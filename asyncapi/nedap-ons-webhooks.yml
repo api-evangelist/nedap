@@ -1,0 +1,148 @@
+generated: '2026-09-02'
+method: searched
+source: https://ons-api.nl/english/technical/Webhooks.html
+spec_type: OpenAPI 3.1 webhooks
+spec_file: openapi/nedap-ons-webhooks-openapi-original.yml
+spec_url: https://ons-api.nl/assets/webhooks-spec.yml
+api: Nedap Ons API Webhooks
+asyncapi: false
+note: >-
+  Nedap publishes no AsyncAPI document. It does publish a real machine-readable event
+  contract: an OpenAPI 3.1.0 document using the webhooks keyword, describing the single
+  POST /events callback and the Event schema Nedap sends. That is a genuine
+  machine-readable event surface, so this is captured as a Webhooks artifact rather
+  than as a fabricated AsyncAPI. 21 CREATE/UPDATE/DELETE model types and 8 CUSTOM
+  events are documented; the model type and event type are the only routing keys, and
+  the payload for CREATE/UPDATE/DELETE carries an id and nothing else — the consumer
+  must fetch the resource back through the REST API to learn what changed.
+transport: HTTPS POST to a URL the integrator registers in the Ons API Dashboard
+subscription:
+  where: Ons API Dashboard, per connector version
+  urls_required: 3 (development, staging, production)
+  review: >-
+    Selected Model + event-type subscriptions are part of the review Nedap performs
+    before a connector is promoted to the next stage.
+  propagation: up to 5 minutes after saving before subscriptions reliably start or stop
+  precondition: events are only sent from customer environments with an active certificate
+authentication:
+  method: HMAC-SHA512
+  header: X-Signature-SHA512
+  detail: >-
+    HMAC of the request payload keyed on a secret the integrator generates on the
+    connector page. The receiver must answer 200 for a valid HMAC and 401 for an invalid
+    one; Nedap sends two NOP events at configuration time, one correctly and one
+    incorrectly signed, to verify the receiver actually checks. HTTPS is required.
+delivery:
+  timeout: 3 seconds
+  success: HTTP 200
+  ordering: not guaranteed
+  ordering_note: >-
+    An UPDATE may arrive before the CREATE for the same record — the service runs
+    multiple instances that prefetch in batches, and a retried notification can land
+    after a later one that succeeded. Consumers must be built to tolerate it.
+  retries: none automatic
+  failed_event_retention: 24 hours
+  failed_event_capacity: 1,000,000 events, after which events overflow and are lost
+  redelivery:
+    operation: PUT /webhooks/redeliver
+    body: empty
+    auth: a connector certificate
+    scope: all missed notifications for that connector, per stage
+    window: 24 hours from the failed delivery
+    note: >-
+      This is the one recovery operation with a stated window anywhere on Nedap's API
+      surface. Beyond 24 hours the notifications are gone and the docs tell integrators
+      to design their own resynchronisation path.
+  peak_guidance: plan for hundreds of events per second during bulk corrections, imports, bulk redelivery or catch-up
+event_schema:
+  fields:
+  - name: customerCode
+    required: true
+    example: TE1002
+  - name: eventType
+    required: true
+    enum: [CREATE, UPDATE, DELETE, CUSTOM]
+  - name: modelType
+    required: true
+  - name: id
+    required: false
+    note: >-
+      The changed resource id for CREATE/UPDATE/DELETE. For CUSTOM events the top-level
+      id is deprecated and is removed after 2027-03-01; read the identifier from payload.
+  - name: payload
+    required: false
+    note: present for CUSTOM events only
+  - name: timestamp
+    required: true
+    format: date-time
+  - name: amountOfRetries
+    required: true
+crud_events:
+  event_types: [CREATE, UPDATE, DELETE]
+  model_types:
+  - {model: client, events: [CREATE, UPDATE, DELETE]}
+  - {model: client_address, events: [CREATE, UPDATE, DELETE]}
+  - {model: client_contact_relation, events: [CREATE, UPDATE, DELETE]}
+  - {model: client_contact_relation_address, events: [CREATE, UPDATE, DELETE]}
+  - {model: insurance, events: [CREATE, UPDATE, DELETE]}
+  - {model: location_assignment, events: [CREATE, UPDATE, DELETE]}
+  - {model: report, events: [CREATE, UPDATE, DELETE]}
+  - {model: employee, events: [CREATE, UPDATE, DELETE]}
+  - {model: employee_address, events: [CREATE, UPDATE, DELETE]}
+  - {model: hour_type, events: [CREATE, UPDATE]}
+  - {model: location, events: [CREATE, UPDATE, DELETE]}
+  - {model: team, events: [CREATE, UPDATE, DELETE]}
+  - {model: user, events: [CREATE, UPDATE, DELETE]}
+  - {model: address, events: [CREATE, UPDATE, DELETE]}
+  - {model: expertise_profile, events: [CREATE, UPDATE]}
+  - {model: contract, events: [CREATE, UPDATE, DELETE]}
+  - {model: care_plan, events: [CREATE, UPDATE, DELETE]}
+  - {model: team_assignment, events: [CREATE, UPDATE, DELETE]}
+  - {model: care_allocation, events: [CREATE, UPDATE, DELETE]}
+  - {model: client_employee_relation, events: [CREATE, UPDATE, DELETE]}
+  - {model: medication_administration, events: [CREATE, UPDATE], note: 'only for medication charts dated today or earlier'}
+custom_events:
+- model: external_care_providers_changed
+  payload: [clientId]
+  description: The external care providers of a client changed.
+- model: client_employee_relations_changed
+  payload: [clientId]
+  description: The employee relations of a client changed.
+- model: team_assignment_changed
+  payload: [employeeId]
+  description: An employee changed team.
+- model: care_plan_activated
+  payload: [clientId]
+  description: A client's care plan was activated.
+- model: client_careallocations_changed
+  payload: [clientId]
+  description: A client's care allocation changed.
+- model: employee_schedule_changed
+  payload: [employeeId, from, to, date, source]
+  description: >-
+    An employee's roster or planning changed in Ons Planning. source is availability,
+    shift_assignment or location_authorization.
+- model: care_tech_order_created
+  payload: [orderId, productCode]
+  description: A care technology order was created.
+- model: roster_slot_changed
+  payload: [rosterSlotId, order, source, action]
+  description: >-
+    A shift assignment, flex request or flex signup changed a roster slot in Ons
+    Planning. action is CREATE, UPDATE or DELETE.
+polling_alternative:
+  bulk: /v0/xstream/api/<resource>/data
+  deltas:
+  - /v0/xstream/api/<resource>/updates
+  - /v0/xstream/api/<resource>/deletes
+  note: >-
+    The documented pattern is one bulk fetch from the stream endpoint followed by webhook
+    subscription; polling the updates/deletes endpoints is the fallback and leaves a
+    consumer at least one interval behind.
+hazards:
+  event_loops: >-
+    Nedap devotes a section of the docs to event loops: writing back the record you were
+    notified about produces another event, and two integrations can trigger each other
+    indefinitely. Consumers are told to detect that nothing actually changed and skip the
+    write. This is unusually candid operational guidance and worth reading before
+    building any bidirectional sync.

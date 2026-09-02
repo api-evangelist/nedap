@@ -1,0 +1,68 @@
+openapi: 3.1.0
+
+info:
+  description: 'A microservice for Ons API Webhooks. '
+  title: Ons API Webhooks
+  version: latest
+webhooks:
+  /events:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Event"
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+        - Open API Specification
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        customerCode:
+           type: string
+           example: TE1002
+        eventType:
+          type: string
+          enum:
+            - CREATE
+            - UPDATE
+            - DELETE
+            - CUSTOM
+        id:
+          type: integer
+          format: int64
+          description: The id of the changed resource. Required for CREATE, UPDATE, and DELETE events. For CUSTOM events, this top-level id is deprecated and will be removed after 1 Mar 2027; until then, it is only present when payload contains exactly one top-level field whose name ends with id, case-insensitive, and whose value is an integral JSON number that fits in a signed 64-bit integer (Long). Otherwise it is omitted and the original value remains in payload.
+        payload:
+          type: object
+          additionalProperties: true
+          description: Custom event data. Present for CUSTOM events and omitted for CREATE, UPDATE, and DELETE events.
+        modelType:
+          type: string
+          example: client
+        timestamp:
+          type: string
+          format: date-time
+        amountOfRetries:
+          type: integer
+          format: int32
+      required:
+        - amountOfRetries
+        - customerCode
+        - eventType
+        - modelType
+        - timestamp
+      if:
+        properties:
+          eventType:
+            enum:
+              - CREATE
+              - UPDATE
+              - DELETE
+      then:
+        required:
+          - id

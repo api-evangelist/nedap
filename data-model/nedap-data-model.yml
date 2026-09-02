@@ -1,0 +1,158 @@
+generated: '2026-09-02'
+method: derived
+source: openapi/nedap-ons-openapi-original.json
+api: Nedap Ons API
+schema_count: 790
+note: >-
+  Derived from the 790 component schemas: $ref links become has_one/has_many, and
+  fields matching <entity>Id become belongs_to edges. Two identifiers dominate the whole
+  model — clientId appears as a foreign key on 50 schemas and employeeId on 42 — which
+  is the shape you would expect of a care record: almost everything in Ons hangs off
+  either the person receiving care or the person delivering it. A second identifier
+  layer runs alongside the numeric ids: *ObjectId fields (clientObjectId,
+  employeeObjectId, careOrderObjectId, teamObjectId) and UUID paths coexist with int64
+  ids, so an integrator must know which of the two an operation expects.
+identifier_scheme:
+  primary: int64 numeric ids, marked in the schema with the vendor extension x-cupido-id
+  secondary: >-
+    *ObjectId fields (employeeObjectId 29 schemas, clientObjectId 14,
+    careOrderObjectId 14, teamObjectId 5) and uuid path parameters on 18 operations
+  external: externalId on 11 schemas — the integrator's own key carried through
+  archetype: >-
+    openEHR compositions are addressed by archetypeId and versioned_composition_id
+    rather than by a numeric id
+core_entities:
+- name: Client
+  description: The person receiving care; the root of the record.
+  operations: 22
+  referenced_by_fk: clientId on 50 schemas
+- name: Employee
+  description: The care professional; the second root.
+  operations: 15
+  referenced_by_fk: employeeId on 42 schemas
+- name: User
+  description: An Ons login identity, distinct from Employee.
+  operations: 16
+- name: Team
+  operations: 11
+  referenced_by_fk: teamId on 13 schemas
+- name: Location
+  operations: 9
+  referenced_by_fk: locationId on 10 schemas
+- name: CareProvider
+  operations: 8
+- name: dossier.Report
+  description: Free-text and structured reporting on a client; the single largest tag.
+  operations: 28
+- name: dossier.CarePlan
+  operations: 10
+- name: dossier.Goal
+  operations: 8
+- name: dossier.Action
+  operations: 8
+- name: dossier.MedicalNote
+  operations: 7
+- name: openehr.CompositionWrapper
+  description: An openEHR composition, versioned and archetype-bound.
+  operations: 15
+- name: tasque.CareTaskOccurrence
+  operations: 19
+- name: agenda.AgendaOccurrence
+  operations: 9
+- name: finance.CareOrder
+  operations: 9
+- name: finance.CareOrderProduct
+  operations: 7
+- name: finance.DeclarationRule
+  operations: 7
+- name: payroll.AccountEntry
+  operations: 7
+- name: moves.RosterSlot
+  operations: 7
+- name: survey.SurveyResult
+  operations: 7
+- name: client_story.Story
+  operations: 7
+relationships:
+- from: '*'
+  to: Client
+  type: belongs_to
+  via: clientId
+  cardinality: 50 schemas
+- from: '*'
+  to: Employee
+  type: belongs_to
+  via: employeeId
+  cardinality: 42 schemas
+- from: ClientEmployeeRelation
+  to: Client
+  type: belongs_to
+  via: clientId
+- from: ClientEmployeeRelation
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: TeamAssignment
+  to: Team
+  type: belongs_to
+  via: teamId
+- from: LocationAssignment
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: dossier.CarePlan
+  to: dossier.CarePlanEntry
+  type: has_many
+- from: dossier.CarePlanEntry
+  to: dossier.Goal
+  type: has_many
+- from: dossier.Goal
+  to: dossier.GoalEntry
+  type: has_many
+- from: dossier.Action
+  to: dossier.ActionEntry
+  type: has_many
+- from: dossier.omaha.ClassifiedProblem
+  to: dossier.omaha.Problem
+  type: belongs_to
+  via: omahaClassificationId
+- from: dossier.omaha.Problem
+  to: dossier.omaha.SignOrSymptom
+  type: has_many
+- from: openehr.CompositionWrapper
+  to: openehr.ItemTag
+  type: has_many
+- from: finance.CareOrder
+  to: finance.CareOrderProduct
+  type: has_many
+  via: careOrderObjectId
+- from: payroll.AccountEntry
+  to: HourType
+  type: belongs_to
+  via: hourTypeId
+- from: '*'
+  to: ExpertiseProfile
+  type: belongs_to
+  via: expertiseProfileId
+- from: AuditedBase
+  to: User
+  type: belongs_to
+  via: createdById / updatedById
+  note: >-
+    AuditedBase is the shared audit mixin — createdAt, updatedAt, createdBy — inherited
+    by most persisted entities via allOf.
+domains:
+- name: administration
+  entities: [Client, Employee, User, Team, Location, Address, Document, CareProvider]
+- name: dossier
+  entities: [Report, CarePlan, CarePlanEntry, Goal, Action, MedicalNote, omaha.*]
+- name: openehr
+  entities: [CompositionWrapper, ArchetypeWrapper, ItemTag, EmployeeGroup]
+- name: agenda / moves / tasque
+  entities: [AgendaOccurrence, AgendaSeries, RosterSlot, PlannedVisit, CareTaskOccurrence]
+- name: finance / dbc
+  entities: [CareOrder, CareOrderProduct, DeclarationRule, dbc.ggz.*]
+- name: payroll / expense
+  entities: [AccountEntry, CollectiveAgreementAssignment, Expense]
+- name: survey / client_story
+  entities: [SurveyResult, Answer, Story]

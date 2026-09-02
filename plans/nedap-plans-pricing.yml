@@ -1,0 +1,23 @@
+generated: '2026-09-02'
+method: searched
+source: https://ons-api.nl/english/integration_process/Integration_process.html
+plan_count: 0
+note: >-
+  Nedap publishes no price list, tier table or usage-based pricing for any of its APIs.
+  Ons API is not a self-serve product: access is granted through an intake at the Ons
+  API Dashboard, a connector is specified and reviewed, a client certificate is issued
+  per customer environment, and the commercial relationship sits between the integrator
+  and the care organisation that licenses Ons — Nedap never publishes a rate for the
+  API itself. The Retail iD Cloud developer portal is behind a login and publishes no
+  pricing either. Both were probed; neither has a pricing page to record.
+plans: []
+evidence:
+- url: https://ons-api.nl/english/integration_process/Integration_process.html
+  status: 200
+  finding: intake-and-review onboarding, no pricing
+- url: https://developer.nedapretail.com/
+  status: 200
+  finding: login-gated single-page app, no public pricing
+- url: https://www.nedap.com/en/healthcare
+  status: 200
+  finding: marketing page, no pricing

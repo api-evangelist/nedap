@@ -1,0 +1,34 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+# This security.txt policy is valid until July 2027
+Canonical: https://www.nedap.com/.well-known/security.txt
+Expires: 2027-07-01T00:00:00.000Z
+
+# Link to our Coordinated Vulnerability Disclosure policy
+Policy: https://www.nedap.com/en/coordinated-vulnerability-disclosure-policy
+
+# Report through Zerocopter's managed CVD program
+Contact: https://app.zerocopter.com/en/cvd/f5ab53e6-c693-4f8d-adf1-0f1dff8790d7
+
+# Alternatively, send us an e-mail to our Coordinated Vulnerability Disclosure
+# e-mail address: cvd@nedap.com. You can optionally use PGP encryption.
+Contact: mailto:cvd@nedap.com
+
+# Link to our PGP public key
+Encryption: https://www.nedap.com/.well-known/pgp-key.txt
+
+# Links to our vacancies
+Hiring: https://www.nedap.com/en/careers/vacancies
+
+# We speak English and Dutch
+Preferred-Languages: en, nl
+
+-----BEGIN PGP SIGNATURE-----
+
+iKAEARYKAEgWIQTat0Xkk2B+g0OP40P/d6Ea0B2awAUCab58uhsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwwLDMOHGN2ZEBuZWRhcC5jb20ACgkQ/3ehGtAdmsCe8AD/
+SH7TnMqfM9urnjF5N7CqjpzTnPne6yqW1EH/RbTlm8kBALVG0Cuqg/S0w29vMXP/
+2glI5LsthXTzT7ihwYGiNCgF
+=metb
+-----END PGP SIGNATURE-----

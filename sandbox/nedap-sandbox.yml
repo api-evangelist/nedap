@@ -1,0 +1,70 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://ons-api.nl/english/technical/API_properties.html,
+  https://ons-api.nl/english/technical/Certificate_requirements.html,
+  https://ons-api.nl/english/technical/Webhooks.html
+api: Nedap Ons API
+model: separate-environment
+note: >-
+  Nedap separates test from live by environment and by certificate, not by key prefix or
+  a mode flag. There are three hosts and a client certificate is issued per environment,
+  so a development certificate physically cannot reach production — presenting it there
+  returns 403. There are no test card numbers or magic values in the usual sense; the
+  DEVELOPMENT environment is loaded with fictional client and employee data supplied by
+  Nedap, and the fixed development customer code TE1002 is the only published test
+  value.
+environments:
+- name: DEVELOPMENT
+  url: https://api-development.ons.io
+  data: fictional
+  customer_code: TE1002
+  use: build a connector before touching any real care organisation
+  ca_chain: https://ons-api.nl/assets/development-chain.pem
+- name: STAGING
+  url: https://api-staging.ons.io
+  data: a customer's test environment
+  use: test the connector against a real customer's non-production data
+  ca_chain: https://ons-api.nl/assets/staging-chain.pem
+- name: PRODUCTION
+  url: https://api.ons.io
+  data: live
+  ca_chain: https://ons-api.nl/assets/production-chain.pem
+test_values:
+- name: development customer code
+  value: TE1002
+  note: >-
+    Published verbatim in the certificate requirements as the customer code to use in
+    the CN for development purposes, e.g. hr_integration-TE1002-free_text.
+credentials:
+  self_serve: false
+  how: >-
+    Submit an intake at the Ons API Dashboard, generate a 4096-bit CSR with the required
+    CN structure, upload it, and receive a signed PEM. No sandbox key can be minted
+    without Nedap issuing a certificate first.
+  intake: https://api-dashboard.ons.io/intake
+connectivity_check:
+  endpoint: GET /ping
+  expected: '200 when the certificate is valid for that environment; 403 when it is not'
+  note: >-
+    /ping is the only endpoint outside the /v0/ prefix and returns text/plain. It is the
+    documented way to prove a certificate before writing any integration code.
+webhook_testing:
+  nop_events:
+    note: >-
+      When a webhook URL is configured, Nedap sends two NOP events to it — one with a
+      correct HMAC and one with a deliberately incorrect HMAC. The receiver must answer
+      200 to the first and 401 to the second, which proves it actually verifies the
+      signature rather than trusting the source.
+    docs: https://ons-api.nl/english/technical/Webhooks.html
+  propagation: up to 5 minutes after saving before subscriptions reliably start or stop
+  delivery_timeout: 3 seconds — no connection or no 200 within 3s counts as a failed delivery
+time_simulation:
+  supported: false
+  note: No test clock or time-travel facility is published.
+fixtures:
+  supported: false
+  note: >-
+    No fixture or trigger tooling is published. Development data is whatever Nedap has
+    seeded into the DEVELOPMENT environment; the docs do not describe how to reset or
+    extend it.
