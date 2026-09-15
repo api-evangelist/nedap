@@ -1,21 +1,18 @@
 aid: nedap
 name: Nedap
-description: 'Nedap N.V. is a Dutch technology company founded in 1929 and listed on
-  Euronext Amsterdam, headquartered in Groenlo, the Netherlands, with roughly 1,000
-  employees. It builds what it calls Digital Twin Technology across four markets —
-  Healthcare (the Ons electronic health record suite and MediKIT for general
-  practitioners), Livestock (cow monitoring), Retail (the iD Cloud RFID inventory
-  platform and iSenseOS loss prevention) and Security (Nedap Access physical identity
-  management and long-range vehicle/driver identification readers). Its most openly
-  documented API surface is Ons API at ons-api.nl, a 926-operation OpenAPI 3.0.3 REST
-  contract for the Ons care platform covering client dossiers, care planning,
-  scheduling, rostering, payroll and finance, together with a 31-path openEHR
-  composition and archetype surface, a webhook event service described in OpenAPI 3.1
-  webhooks, and a small scopes-and-clearances authorization API. A FHIR read/search
-  surface built on the Dutch ZIB information models is documented but is not in the
-  public specification — those endpoints sit behind the Ons API Dashboard. Access is
-  gated on a client TLS certificate signed by Nedap''s own CA and issued through the
-  Ons API Dashboard, so the specifications are public while the runtime is not.'
+description: Nedap N.V. is a Dutch technology company founded in 1929 and listed on Euronext Amsterdam,
+  headquartered in Groenlo, the Netherlands, with roughly 1,000 employees. It builds what it calls Digital
+  Twin Technology across four markets — Healthcare (the Ons electronic health record suite and MediKIT
+  for general practitioners), Livestock (cow monitoring), Retail (the iD Cloud RFID inventory platform
+  and iSenseOS loss prevention) and Security (Nedap Access physical identity management and long-range
+  vehicle/driver identification readers). Its most openly documented API surface is Ons API at ons-api.nl,
+  a 926-operation OpenAPI 3.0.3 REST contract for the Ons care platform covering client dossiers, care
+  planning, scheduling, rostering, payroll and finance, together with a 31-path openEHR composition and
+  archetype surface, a webhook event service described in OpenAPI 3.1 webhooks, and a small scopes-and-clearances
+  authorization API. A FHIR read/search surface built on the Dutch ZIB information models is documented
+  but is not in the public specification — those endpoints sit behind the Ons API Dashboard. Access is
+  gated on a client TLS certificate signed by Nedap's own CA and issued through the Ons API Dashboard,
+  so the specifications are public while the runtime is not.
 url: https://raw.githubusercontent.com/api-evangelist/nedap/refs/heads/main/apis.yml
 image: https://stream.nedap.com/57pq0bsyu489/w_1200,ex_0,ey_247,ew_1200,eh_628/nedap-logo-avatar-blue-at-2x.jpg
 x-type: company
@@ -35,19 +32,30 @@ tags:
 - Physical Security
 - Livestock
 - Netherlands
+- Webhook
+tags_raw:
+- Company
+- Healthcare
+- Electronic Health Records
+- Interoperability
+- FHIR
+- openEHR
+- RFID
+- Retail
+- Physical Security
+- Livestock
+- Netherlands
 - Webhooks
 apis:
-- aid: nedap-ons-api
+- aid: nedap:nedap-ons-api
   name: Nedap Ons API
-  description: 'The REST API for the Nedap Ons electronic health record suite used by
-    Dutch care organisations. 926 operations across 782 paths covering clients,
-    employees, dossiers and reports, care plans, goals and actions, medical notes,
-    agenda and rostering, care allocation and orders, declarations, payroll and
-    expenses, surveys and client stories — plus an openEHR composition and archetype
-    surface, three FHIR R3 bundle-wrapper endpoints, and domain models written against
-    the Dutch ZIBs, SNOMED CT and the Omaha System.
-    Requests are authenticated with an SSL client certificate signed by Nedap''s own
-    Certificate Authority and bound to one connector and one customer environment.'
+  description: The REST API for the Nedap Ons electronic health record suite used by Dutch care organisations.
+    926 operations across 782 paths covering clients, employees, dossiers and reports, care plans, goals
+    and actions, medical notes, agenda and rostering, care allocation and orders, declarations, payroll
+    and expenses, surveys and client stories — plus an openEHR composition and archetype surface, three
+    FHIR R3 bundle-wrapper endpoints, and domain models written against the Dutch ZIBs, SNOMED CT and
+    the Omaha System. Requests are authenticated with an SSL client certificate signed by Nedap's own
+    Certificate Authority and bound to one connector and one customer environment.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
   tags:
@@ -76,14 +84,13 @@ apis:
     url: https://ons-api.nl/english/integration_process/Integration_process.html
   - type: Authentication
     url: https://ons-api.nl/english/technical/Certificate_requirements.html
-- aid: nedap-retail-id-cloud-api
+- aid: nedap:nedap-retail-id-cloud-api
   name: Nedap Retail iD Cloud API
-  description: 'The API for iD Cloud, Nedap''s RFID item-level inventory platform for
-    unified commerce, used to integrate store and supply-chain stock data with ERP and
-    point-of-sale systems on top of an EPCIS engine. The developer portal and the
-    OpenAPI description it offers sit behind a login; the API host answers
-    unauthenticated requests with 401 "Missing required header: Authorization", so no
-    public machine-readable contract could be harvested.'
+  description: 'The API for iD Cloud, Nedap''s RFID item-level inventory platform for unified commerce,
+    used to integrate store and supply-chain stock data with ERP and point-of-sale systems on top of an
+    EPCIS engine. The developer portal and the OpenAPI description it offers sit behind a login; the API
+    host answers unauthenticated requests with 401 "Missing required header: Authorization", so no public
+    machine-readable contract could be harvested.'
   humanURL: https://developer.nedapretail.com/
   baseURL: https://api.nedapretail.com
   tags:
