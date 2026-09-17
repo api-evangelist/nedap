@@ -548,24 +548,6 @@ apis:
     url: https://ons-api.nl/english/integration_process/Integration_process.html
   - type: Authentication
     url: https://ons-api.nl/english/technical/Certificate_requirements.html
-- aid: nedap:nedap-bankaccount-api
-  name: Nedap Bank Account API
-  description: The BankAccount API from Nedap — 6 operation(s) for bankaccount.
-  humanURL: https://ons-api.nl/english/english.html
-  baseURL: https://api.ons.io
-  tags:
-  - BankAccount
-  properties:
-  - type: OpenAPI
-    url: openapi/nedap-bankaccount-api-openapi.yml
-  - type: Documentation
-    url: https://ons-api.nl/english/english.html
-  - type: APIReference
-    url: https://ons-api.nl/english/technical/APIS.html
-  - type: GettingStarted
-    url: https://ons-api.nl/english/integration_process/Integration_process.html
-  - type: Authentication
-    url: https://ons-api.nl/english/technical/Certificate_requirements.html
 - aid: nedap:nedap-bsn-api
   name: Nedap Bsn API
   description: The Bsn API from Nedap — 6 operation(s) for bsn.
@@ -2829,24 +2811,6 @@ apis:
     url: https://ons-api.nl/english/integration_process/Integration_process.html
   - type: Authentication
     url: https://ons-api.nl/english/technical/Certificate_requirements.html
-- aid: nedap:nedap-hourtype-api
-  name: Nedap Hour Type API
-  description: The HourType API from Nedap — 8 operation(s) for hourtype.
-  humanURL: https://ons-api.nl/english/english.html
-  baseURL: https://api.ons.io
-  tags:
-  - HourType
-  properties:
-  - type: OpenAPI
-    url: openapi/nedap-hourtype-api-openapi.yml
-  - type: Documentation
-    url: https://ons-api.nl/english/english.html
-  - type: APIReference
-    url: https://ons-api.nl/english/technical/APIS.html
-  - type: GettingStarted
-    url: https://ons-api.nl/english/integration_process/Integration_process.html
-  - type: Authentication
-    url: https://ons-api.nl/english/technical/Certificate_requirements.html
 - aid: nedap:nedap-hourtypecategory-api
   name: Nedap Hour Type Category API
   description: The HourTypeCategory API from Nedap — 6 operation(s) for hourtypecategory.
@@ -4992,6 +4956,42 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/nedap-zpm-zpmzorglabel-api-openapi.yml
+  - type: Documentation
+    url: https://ons-api.nl/english/english.html
+  - type: APIReference
+    url: https://ons-api.nl/english/technical/APIS.html
+  - type: GettingStarted
+    url: https://ons-api.nl/english/integration_process/Integration_process.html
+  - type: Authentication
+    url: https://ons-api.nl/english/technical/Certificate_requirements.html
+- aid: nedap:nedap-bank-account-api
+  name: Nedap Bank Account API
+  description: The Bank Account API from Nedap — 6 operation(s) for bank account.
+  humanURL: https://developer.nedapretail.com/
+  baseURL: https://api.nedapretail.com
+  tags:
+  - Bank Account
+  properties:
+  - type: OpenAPI
+    url: openapi/nedap-bank-account-api-openapi.yml
+  - type: Documentation
+    url: https://ons-api.nl/english/english.html
+  - type: APIReference
+    url: https://ons-api.nl/english/technical/APIS.html
+  - type: GettingStarted
+    url: https://ons-api.nl/english/integration_process/Integration_process.html
+  - type: Authentication
+    url: https://ons-api.nl/english/technical/Certificate_requirements.html
+- aid: nedap:nedap-hour-type-api
+  name: Nedap Hour Type API
+  description: The Hour Type API from Nedap — 8 operation(s) for hour type.
+  humanURL: https://developer.nedapretail.com/
+  baseURL: https://api.nedapretail.com
+  tags:
+  - Hour Type
+  properties:
+  - type: OpenAPI
+    url: openapi/nedap-hour-type-api-openapi.yml
   - type: Documentation
     url: https://ons-api.nl/english/english.html
   - type: APIReference
