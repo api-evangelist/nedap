@@ -90,7 +90,8 @@ apis:
   description: The admin.BackgroundImage API from Nedap — 2 operation(s) for admin.backgroundimage.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - admin.BackgroundImage
   properties:
   - type: OpenAPI
@@ -108,7 +109,8 @@ apis:
   description: The admin.License API from Nedap — 2 operation(s) for admin.license.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - admin.License
   properties:
   - type: OpenAPI
@@ -126,7 +128,8 @@ apis:
   description: The admin.LogoImage API from Nedap — 4 operation(s) for admin.logoimage.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - admin.LogoImage
   properties:
   - type: OpenAPI
@@ -144,7 +147,8 @@ apis:
   description: The admin.TimesheetConfig API from Nedap — 2 operation(s) for admin.timesheetconfig.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - admin.TimesheetConfig
   properties:
   - type: OpenAPI
@@ -162,7 +166,8 @@ apis:
   description: The admin.Version API from Nedap — 2 operation(s) for admin.version.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - admin.Version
   properties:
   - type: OpenAPI
@@ -199,7 +204,8 @@ apis:
     The agenda.AgendaOccurrence API from Nedap — 18 operation(s) for agenda.agendaoccurrence.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - agenda.AgendaOccurrence
   properties:
   - type: OpenAPI
@@ -217,7 +223,8 @@ apis:
   description: The agenda.AgendaSeries API from Nedap — 6 operation(s) for agenda.agendaseries.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - agenda.AgendaSeries
   properties:
   - type: OpenAPI
@@ -236,7 +243,8 @@ apis:
     The agenda.ClientAbsenceOccurrence API from Nedap — 4 operation(s) for agenda.clientabsenceoccurrence.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - agenda.ClientAbsenceOccurrence
   properties:
   - type: OpenAPI
@@ -254,7 +262,8 @@ apis:
   description: The agenda.Label API from Nedap — 2 operation(s) for agenda.label.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - agenda.Label
   properties:
   - type: OpenAPI
@@ -273,7 +282,8 @@ apis:
     The agenda.RegistrationStatus API from Nedap — 2 operation(s) for agenda.registrationstatus.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - agenda.RegistrationStatus
   properties:
   - type: OpenAPI
@@ -292,7 +302,8 @@ apis:
     The agenda.ReservationCreate API from Nedap — 2 operation(s) for agenda.reservationcreate.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - agenda.ReservationCreate
   properties:
   - type: OpenAPI
@@ -311,7 +322,8 @@ apis:
     The agenda.ReservationOccurrence API from Nedap — 6 operation(s) for agenda.reservationoccurrence.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - agenda.ReservationOccurrence
   properties:
   - type: OpenAPI
@@ -329,7 +341,8 @@ apis:
   description: The agenda.Unavailability API from Nedap — 2 operation(s) for agenda.unavailability.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - agenda.Unavailability
   properties:
   - type: OpenAPI
@@ -347,7 +360,8 @@ apis:
   description: The arrangement.Intent API from Nedap — 10 operation(s) for arrangement.intent.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - arrangement.Intent
   properties:
   - type: OpenAPI
@@ -366,7 +380,8 @@ apis:
     The arrangement.IntentPreference API from Nedap — 10 operation(s) for arrangement.intentpreference.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - arrangement.IntentPreference
   properties:
   - type: OpenAPI
@@ -384,7 +399,8 @@ apis:
   description: The arrangement.Stakeholder API from Nedap — 8 operation(s) for arrangement.stakeholder.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - arrangement.Stakeholder
   properties:
   - type: OpenAPI
@@ -402,7 +418,8 @@ apis:
   description: The arrangement.TimeSlot API from Nedap — 10 operation(s) for arrangement.timeslot.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - arrangement.TimeSlot
   properties:
   - type: OpenAPI
@@ -421,7 +438,8 @@ apis:
     The authorization.provisioning.DefaultScope API from Nedap — 2 operation(s) for authorization.provisioning.defaultscope.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - authorization.provisioning.DefaultScope
   properties:
   - type: OpenAPI
@@ -440,7 +458,8 @@ apis:
     The authorization.provisioning.MyLocations API from Nedap — 2 operation(s) for authorization.provisioning.mylocations.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - authorization.provisioning.MyLocations
   properties:
   - type: OpenAPI
@@ -459,7 +478,8 @@ apis:
     The authorization.provisioning.MyTeams API from Nedap — 2 operation(s) for authorization.provisioning.myteams.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - authorization.provisioning.MyTeams
   properties:
   - type: OpenAPI
@@ -478,7 +498,8 @@ apis:
     The authorization.provisioning.Role API from Nedap — 2 operation(s) for authorization.provisioning.role.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - authorization.provisioning.Role
   properties:
   - type: OpenAPI
@@ -497,7 +518,8 @@ apis:
     The authorization.provisioning.User API from Nedap — 2 operation(s) for authorization.provisioning.user.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - authorization.provisioning.User
   properties:
   - type: OpenAPI
@@ -516,7 +538,8 @@ apis:
     The authorization.provisioning.UserDuties API from Nedap — 2 operation(s) for authorization.provisioning.userduties.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - authorization.provisioning.UserDuties
   properties:
   - type: OpenAPI
@@ -535,7 +558,8 @@ apis:
     The authorization.provisioning.UserScopeSettings API from Nedap — 2 operation(s) for authorization.provisioning.userscopesettings.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - authorization.provisioning.UserScopeSettings
   properties:
   - type: OpenAPI
@@ -572,7 +596,8 @@ apis:
     The capacity.CapacityProfile API from Nedap — 6 operation(s) for capacity.capacityprofile.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - capacity.CapacityProfile
   properties:
   - type: OpenAPI
@@ -626,7 +651,8 @@ apis:
   description: The carepath.CarePath API from Nedap — 4 operation(s) for carepath.carepath.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - carepath.CarePath
   properties:
   - type: OpenAPI
@@ -644,7 +670,8 @@ apis:
   description: The carepath.Template API from Nedap — 4 operation(s) for carepath.template.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - carepath.Template
   properties:
   - type: OpenAPI
@@ -698,7 +725,8 @@ apis:
   description: The caretech.Order API from Nedap — 6 operation(s) for caretech.order.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - caretech.Order
   properties:
   - type: OpenAPI
@@ -717,7 +745,8 @@ apis:
     The caretech.ProductAllocation API from Nedap — 2 operation(s) for caretech.productallocation.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - caretech.ProductAllocation
   properties:
   - type: OpenAPI
@@ -735,7 +764,8 @@ apis:
   description: The caretech.ReturnRequest API from Nedap — 6 operation(s) for caretech.returnrequest.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - caretech.ReturnRequest
   properties:
   - type: OpenAPI
@@ -754,6 +784,8 @@ apis:
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
   tags:
+  - Clients
+  tags_raw:
   - Client
   properties:
   - type: OpenAPI
@@ -1027,7 +1059,8 @@ apis:
   description: The dbc.DBCSubTraject API from Nedap — 6 operation(s) for dbc.dbcsubtraject.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dbc.DBCSubTraject
   properties:
   - type: OpenAPI
@@ -1045,7 +1078,8 @@ apis:
   description: The dbc.DBCTraject API from Nedap — 4 operation(s) for dbc.dbctraject.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dbc.DBCTraject
   properties:
   - type: OpenAPI
@@ -1064,7 +1098,8 @@ apis:
     The dbc.ggz.DiagnoseToekenning API from Nedap — 2 operation(s) for dbc.ggz.diagnosetoekenning.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dbc.ggz.DiagnoseToekenning
   properties:
   - type: OpenAPI
@@ -1082,7 +1117,8 @@ apis:
   description: The dbc.ggz.fz.Subtraject API from Nedap — 6 operation(s) for dbc.ggz.fz.subtraject.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dbc.ggz.fz.Subtraject
   properties:
   - type: OpenAPI
@@ -1101,7 +1137,8 @@ apis:
     The dbc.ggz.PresenceLogSynchronisationError API from Nedap — 4 operation(s) for dbc.ggz.presencelogsynchronisationerror.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dbc.ggz.PresenceLogSynchronisationError
   properties:
   - type: OpenAPI
@@ -1119,7 +1156,8 @@ apis:
   description: The dbc.ggz.Subtraject API from Nedap — 10 operation(s) for dbc.ggz.subtraject.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dbc.ggz.Subtraject
   properties:
   - type: OpenAPI
@@ -1137,7 +1175,8 @@ apis:
   description: The dbc.ggz.ValidationError API from Nedap — 4 operation(s) for dbc.ggz.validationerror.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dbc.ggz.ValidationError
   properties:
   - type: OpenAPI
@@ -1155,7 +1194,8 @@ apis:
   description: The dbc.ggz.Zorgtraject API from Nedap — 6 operation(s) for dbc.ggz.zorgtraject.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dbc.ggz.Zorgtraject
   properties:
   - type: OpenAPI
@@ -1211,6 +1251,8 @@ apis:
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
   tags:
+  - Documents
+  tags_raw:
   - Document
   properties:
   - type: OpenAPI
@@ -1228,7 +1270,8 @@ apis:
   description: The dossier.Action API from Nedap — 12 operation(s) for dossier.action.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.Action
   properties:
   - type: OpenAPI
@@ -1246,7 +1289,8 @@ apis:
   description: The dossier.ActionEntry API from Nedap — 6 operation(s) for dossier.actionentry.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.ActionEntry
   properties:
   - type: OpenAPI
@@ -1265,7 +1309,8 @@ apis:
     The dossier.ActionEntrySummary API from Nedap — 2 operation(s) for dossier.actionentrysummary.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.ActionEntrySummary
   properties:
   - type: OpenAPI
@@ -1284,7 +1329,8 @@ apis:
     The dossier.ActiveCarePlanMetadata API from Nedap — 2 operation(s) for dossier.activecareplanmetadata.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.ActiveCarePlanMetadata
   properties:
   - type: OpenAPI
@@ -1303,7 +1349,8 @@ apis:
     The dossier.admin.alerts.Topic API from Nedap — 4 operation(s) for dossier.admin.alerts.topic.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.admin.alerts.Topic
   properties:
   - type: OpenAPI
@@ -1321,7 +1368,8 @@ apis:
   description: The dossier.Alert API from Nedap — 8 operation(s) for dossier.alert.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.Alert
   properties:
   - type: OpenAPI
@@ -1339,7 +1387,8 @@ apis:
   description: The dossier.CarePlan API from Nedap — 16 operation(s) for dossier.careplan.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.CarePlan
   properties:
   - type: OpenAPI
@@ -1358,7 +1407,8 @@ apis:
     The dossier.CarePlanAgreement API from Nedap — 2 operation(s) for dossier.careplanagreement.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.CarePlanAgreement
   properties:
   - type: OpenAPI
@@ -1376,7 +1426,8 @@ apis:
   description: The dossier.CarePlanEntry API from Nedap — 8 operation(s) for dossier.careplanentry.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.CarePlanEntry
   properties:
   - type: OpenAPI
@@ -1395,7 +1446,8 @@ apis:
     The dossier.CarePlanReportRight API from Nedap — 2 operation(s) for dossier.careplanreportright.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.CarePlanReportRight
   properties:
   - type: OpenAPI
@@ -1414,7 +1466,8 @@ apis:
     The dossier.CarePlanSignatureRequirement API from Nedap — 2 operation(s) for dossier.careplansignaturerequirement.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.CarePlanSignatureRequirement
   properties:
   - type: OpenAPI
@@ -1432,7 +1485,8 @@ apis:
   description: The dossier.ClientNote API from Nedap — 6 operation(s) for dossier.clientnote.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.ClientNote
   properties:
   - type: OpenAPI
@@ -1450,7 +1504,8 @@ apis:
   description: The dossier.Demand API from Nedap — 8 operation(s) for dossier.demand.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.Demand
   properties:
   - type: OpenAPI
@@ -1468,7 +1523,8 @@ apis:
   description: The dossier.DemandEntry API from Nedap — 4 operation(s) for dossier.demandentry.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.DemandEntry
   properties:
   - type: OpenAPI
@@ -1486,7 +1542,8 @@ apis:
   description: The dossier.Domain API from Nedap — 6 operation(s) for dossier.domain.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.Domain
   properties:
   - type: OpenAPI
@@ -1504,7 +1561,8 @@ apis:
   description: The dossier.episodes.Action API from Nedap — 8 operation(s) for dossier.episodes.action.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.episodes.Action
   properties:
   - type: OpenAPI
@@ -1523,7 +1581,8 @@ apis:
     The dossier.episodes.Episode API from Nedap — 6 operation(s) for dossier.episodes.episode.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.episodes.Episode
   properties:
   - type: OpenAPI
@@ -1542,7 +1601,8 @@ apis:
     The dossier.episodes.SubGoal API from Nedap — 6 operation(s) for dossier.episodes.subgoal.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.episodes.SubGoal
   properties:
   - type: OpenAPI
@@ -1560,7 +1620,8 @@ apis:
   description: The dossier.Goal API from Nedap — 12 operation(s) for dossier.goal.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.Goal
   properties:
   - type: OpenAPI
@@ -1578,7 +1639,8 @@ apis:
   description: The dossier.GoalEntry API from Nedap — 4 operation(s) for dossier.goalentry.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.GoalEntry
   properties:
   - type: OpenAPI
@@ -1597,7 +1659,8 @@ apis:
     The dossier.InvoluntaryCareExportEntry API from Nedap — 2 operation(s) for dossier.involuntarycareexportentry.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.InvoluntaryCareExportEntry
   properties:
   - type: OpenAPI
@@ -1616,7 +1679,8 @@ apis:
     The dossier.LastMedicalMoment API from Nedap — 2 operation(s) for dossier.lastmedicalmoment.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.LastMedicalMoment
   properties:
   - type: OpenAPI
@@ -1635,7 +1699,8 @@ apis:
     The dossier.medical.advance_directives.Context API from Nedap — 6 operation(s) for dossier.medical.advance_directives.context.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.advance_directives.Context
   properties:
   - type: OpenAPI
@@ -1654,7 +1719,8 @@ apis:
     The dossier.medical.dsm.Classification API from Nedap — 4 operation(s) for dossier.medical.dsm.classification.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.dsm.Classification
   properties:
   - type: OpenAPI
@@ -1673,7 +1739,8 @@ apis:
     The dossier.medical.dsm.ClassificationSeries API from Nedap — 7 operation(s) for dossier.medical.dsm.classificationseries.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.dsm.ClassificationSeries
   properties:
   - type: OpenAPI
@@ -1692,7 +1759,8 @@ apis:
     The dossier.medical.involuntary_care.Incompetence API from Nedap — 4 operation(s) for dossier.medical.involuntary_care.incompetence.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.involuntary_care.Incompetence
   properties:
   - type: OpenAPI
@@ -1711,7 +1779,8 @@ apis:
     The dossier.medical.involuntary_care.LegalStatus API from Nedap — 6 operation(s) for dossier.medical.involuntary_care.legalstatus.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.involuntary_care.LegalStatus
   properties:
   - type: OpenAPI
@@ -1730,7 +1799,8 @@ apis:
     The dossier.medical.MedicalSummary API from Nedap — 2 operation(s) for dossier.medical.medicalsummary.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.MedicalSummary
   properties:
   - type: OpenAPI
@@ -1748,7 +1818,8 @@ apis:
   description: The dossier.medical.Problem API from Nedap — 4 operation(s) for dossier.medical.problem.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.Problem
   properties:
   - type: OpenAPI
@@ -1767,7 +1838,8 @@ apis:
     The dossier.medical.PropensityToAdverseReaction API from Nedap — 6 operation(s) for dossier.medical.propensitytoadversereaction.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.PropensityToAdverseReaction
   properties:
   - type: OpenAPI
@@ -1786,7 +1858,8 @@ apis:
     The dossier.medical.SimplifiedPropensityToAdverseReaction API from Nedap — 2 operation(s) for dossier.medical.simplifiedpropensitytoadversereaction.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.medical.SimplifiedPropensityToAdverseReaction
   properties:
   - type: OpenAPI
@@ -1804,7 +1877,8 @@ apis:
   description: The dossier.MedicalNote API from Nedap — 8 operation(s) for dossier.medicalnote.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.MedicalNote
   properties:
   - type: OpenAPI
@@ -1823,7 +1897,8 @@ apis:
     The dossier.omaha.ClassifiedProblem API from Nedap — 4 operation(s) for dossier.omaha.classifiedproblem.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.omaha.ClassifiedProblem
   properties:
   - type: OpenAPI
@@ -1842,7 +1917,8 @@ apis:
     The dossier.omaha.InterventionCategory API from Nedap — 2 operation(s) for dossier.omaha.interventioncategory.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.omaha.InterventionCategory
   properties:
   - type: OpenAPI
@@ -1861,7 +1937,8 @@ apis:
     The dossier.omaha.InterventionTarget API from Nedap — 2 operation(s) for dossier.omaha.interventiontarget.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.omaha.InterventionTarget
   properties:
   - type: OpenAPI
@@ -1880,7 +1957,8 @@ apis:
     The dossier.omaha.OmahaClassification API from Nedap — 6 operation(s) for dossier.omaha.omahaclassification.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.omaha.OmahaClassification
   properties:
   - type: OpenAPI
@@ -1898,7 +1976,8 @@ apis:
   description: The dossier.omaha.Problem API from Nedap — 2 operation(s) for dossier.omaha.problem.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.omaha.Problem
   properties:
   - type: OpenAPI
@@ -1916,7 +1995,8 @@ apis:
   description: The dossier.Report API from Nedap — 52 operation(s) for dossier.report.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.Report
   properties:
   - type: OpenAPI
@@ -1934,7 +2014,8 @@ apis:
   description: The dossier.ReportType API from Nedap — 4 operation(s) for dossier.reporttype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.ReportType
   properties:
   - type: OpenAPI
@@ -1953,7 +2034,8 @@ apis:
     The dossier.ReportWithActions API from Nedap — 2 operation(s) for dossier.reportwithactions.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.ReportWithActions
   properties:
   - type: OpenAPI
@@ -1972,7 +2054,8 @@ apis:
     The dossier.RestrictiveMeasureCarePlanEntry API from Nedap — 6 operation(s) for dossier.restrictivemeasurecareplanentry.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.RestrictiveMeasureCarePlanEntry
   properties:
   - type: OpenAPI
@@ -1991,7 +2074,8 @@ apis:
     The dossier.RestrictiveMeasureRegistration API from Nedap — 6 operation(s) for dossier.restrictivemeasureregistration.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.RestrictiveMeasureRegistration
   properties:
   - type: OpenAPI
@@ -2009,7 +2093,8 @@ apis:
   description: The dossier.SystemNote API from Nedap — 4 operation(s) for dossier.systemnote.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - dossier.SystemNote
   properties:
   - type: OpenAPI
@@ -2099,7 +2184,8 @@ apis:
   description: The evs.EvsAbility API from Nedap — 2 operation(s) for evs.evsability.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - evs.EvsAbility
   properties:
   - type: OpenAPI
@@ -2117,7 +2203,8 @@ apis:
   description: The evs.ResponseMessage API from Nedap — 2 operation(s) for evs.responsemessage.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - evs.ResponseMessage
   properties:
   - type: OpenAPI
@@ -2135,7 +2222,8 @@ apis:
   description: The expense.Expense API from Nedap — 10 operation(s) for expense.expense.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - expense.Expense
   properties:
   - type: OpenAPI
@@ -2154,7 +2242,8 @@ apis:
     The expense.ExpenseAddressModel API from Nedap — 4 operation(s) for expense.expenseaddressmodel.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - expense.ExpenseAddressModel
   properties:
   - type: OpenAPI
@@ -2172,7 +2261,8 @@ apis:
   description: The expense.ExpenseType API from Nedap — 4 operation(s) for expense.expensetype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - expense.ExpenseType
   properties:
   - type: OpenAPI
@@ -2246,7 +2336,8 @@ apis:
     The export.ExportPresenceLog API from Nedap — 6 operation(s) for export.exportpresencelog.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - export.ExportPresenceLog
   properties:
   - type: OpenAPI
@@ -2264,7 +2355,8 @@ apis:
   description: The finance.CareOrder API from Nedap — 14 operation(s) for finance.careorder.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.CareOrder
   properties:
   - type: OpenAPI
@@ -2283,7 +2375,8 @@ apis:
     The finance.CareOrderProduct API from Nedap — 10 operation(s) for finance.careorderproduct.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.CareOrderProduct
   properties:
   - type: OpenAPI
@@ -2302,7 +2395,8 @@ apis:
     The finance.ClientFinancedProduct API from Nedap — 4 operation(s) for finance.clientfinancedproduct.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.ClientFinancedProduct
   properties:
   - type: OpenAPI
@@ -2320,7 +2414,8 @@ apis:
   description: The finance.DebtorGroup API from Nedap — 6 operation(s) for finance.debtorgroup.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.DebtorGroup
   properties:
   - type: OpenAPI
@@ -2339,7 +2434,8 @@ apis:
     The finance.DeclarationRule API from Nedap — 10 operation(s) for finance.declarationrule.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.DeclarationRule
   properties:
   - type: OpenAPI
@@ -2357,7 +2453,8 @@ apis:
   description: The finance.ExportProfile API from Nedap — 4 operation(s) for finance.exportprofile.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.ExportProfile
   properties:
   - type: OpenAPI
@@ -2375,7 +2472,8 @@ apis:
   description: The finance.FinanceLog API from Nedap — 4 operation(s) for finance.financelog.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.FinanceLog
   properties:
   - type: OpenAPI
@@ -2393,7 +2491,8 @@ apis:
   description: The finance.FinanceType API from Nedap — 6 operation(s) for finance.financetype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.FinanceType
   properties:
   - type: OpenAPI
@@ -2412,7 +2511,8 @@ apis:
     The finance.ForensicCareOrder API from Nedap — 4 operation(s) for finance.forensiccareorder.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.ForensicCareOrder
   properties:
   - type: OpenAPI
@@ -2431,7 +2531,8 @@ apis:
     The finance.GroupActivitySuggestionModel API from Nedap — 4 operation(s) for finance.groupactivitysuggestionmodel.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.GroupActivitySuggestionModel
   properties:
   - type: OpenAPI
@@ -2449,7 +2550,8 @@ apis:
   description: The finance.Invoice API from Nedap — 4 operation(s) for finance.invoice.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.Invoice
   properties:
   - type: OpenAPI
@@ -2468,7 +2570,8 @@ apis:
     The finance.InvoiceProviderGroup API from Nedap — 2 operation(s) for finance.invoiceprovidergroup.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.InvoiceProviderGroup
   properties:
   - type: OpenAPI
@@ -2486,7 +2589,8 @@ apis:
   description: The finance.InvoiceRow API from Nedap — 4 operation(s) for finance.invoicerow.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.InvoiceRow
   properties:
   - type: OpenAPI
@@ -2505,7 +2609,8 @@ apis:
     The finance.InvoiceRowFinanceLog API from Nedap — 2 operation(s) for finance.invoicerowfinancelog.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.InvoiceRowFinanceLog
   properties:
   - type: OpenAPI
@@ -2524,7 +2629,8 @@ apis:
     The finance.ParallelCareOrder API from Nedap — 2 operation(s) for finance.parallelcareorder.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.ParallelCareOrder
   properties:
   - type: OpenAPI
@@ -2542,7 +2648,8 @@ apis:
   description: The finance.Product API from Nedap — 8 operation(s) for finance.product.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.Product
   properties:
   - type: OpenAPI
@@ -2560,7 +2667,8 @@ apis:
   description: The finance.Restitution API from Nedap — 4 operation(s) for finance.restitution.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.Restitution
   properties:
   - type: OpenAPI
@@ -2579,7 +2687,8 @@ apis:
     The finance.VecozoInvoiceRelation API from Nedap — 4 operation(s) for finance.vecozoinvoicerelation.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - finance.VecozoInvoiceRelation
   properties:
   - type: OpenAPI
@@ -2651,7 +2760,8 @@ apis:
   description: The fvc.FvcMessage API from Nedap — 2 operation(s) for fvc.fvcmessage.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - fvc.FvcMessage
   properties:
   - type: OpenAPI
@@ -2669,7 +2779,8 @@ apis:
   description: The groepsplanning.Group API from Nedap — 2 operation(s) for groepsplanning.group.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - groepsplanning.Group
   properties:
   - type: OpenAPI
@@ -2687,7 +2798,8 @@ apis:
   description: The groupcare.Group API from Nedap — 6 operation(s) for groupcare.group.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - groupcare.Group
   properties:
   - type: OpenAPI
@@ -2705,7 +2817,8 @@ apis:
   description: The groupcare.Occurrence API from Nedap — 2 operation(s) for groupcare.occurrence.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - groupcare.Occurrence
   properties:
   - type: OpenAPI
@@ -2724,7 +2837,8 @@ apis:
     The harmony.ZorgdomeinFhirConnector API from Nedap — 2 operation(s) for harmony.zorgdomeinfhirconnector.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - harmony.ZorgdomeinFhirConnector
   properties:
   - type: OpenAPI
@@ -2743,7 +2857,8 @@ apis:
     The herald.AnnouncementCount API from Nedap — 2 operation(s) for herald.announcementcount.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - herald.AnnouncementCount
   properties:
   - type: OpenAPI
@@ -2762,7 +2877,8 @@ apis:
     The hermes.CareProviderSettings API from Nedap — 2 operation(s) for hermes.careprovidersettings.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - hermes.CareProviderSettings
   properties:
   - type: OpenAPI
@@ -2780,7 +2896,8 @@ apis:
   description: The hermes.ContactMethod API from Nedap — 4 operation(s) for hermes.contactmethod.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - hermes.ContactMethod
   properties:
   - type: OpenAPI
@@ -2798,7 +2915,8 @@ apis:
   description: The hermes.Notification API from Nedap — 8 operation(s) for hermes.notification.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - hermes.Notification
   properties:
   - type: OpenAPI
@@ -2871,7 +2989,8 @@ apis:
   description: The jw.JwZorglegitimatie API from Nedap — 4 operation(s) for jw.jwzorglegitimatie.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - jw.JwZorglegitimatie
   properties:
   - type: OpenAPI
@@ -2889,7 +3008,8 @@ apis:
   description: The kamino.KaminoSetting API from Nedap — 2 operation(s) for kamino.kaminosetting.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - kamino.KaminoSetting
   properties:
   - type: OpenAPI
@@ -2981,7 +3101,8 @@ apis:
   description: The medication.DoubleCheck API from Nedap — 2 operation(s) for medication.doublecheck.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - medication.DoubleCheck
   properties:
   - type: OpenAPI
@@ -3000,7 +3121,8 @@ apis:
     The medication.DoubleCheckChange API from Nedap — 2 operation(s) for medication.doublecheckchange.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - medication.DoubleCheckChange
   properties:
   - type: OpenAPI
@@ -3019,7 +3141,8 @@ apis:
     The medication.MedicationAdministration API from Nedap — 4 operation(s) for medication.medicationadministration.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - medication.MedicationAdministration
   properties:
   - type: OpenAPI
@@ -3038,7 +3161,8 @@ apis:
     The medication.MedicationPlan API from Nedap — 6 operation(s) for medication.medicationplan.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - medication.MedicationPlan
   properties:
   - type: OpenAPI
@@ -3056,7 +3180,8 @@ apis:
   description: The milo.Device API from Nedap — 12 operation(s) for milo.device.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - milo.Device
   properties:
   - type: OpenAPI
@@ -3074,7 +3199,8 @@ apis:
   description: The moves.Absence API from Nedap — 4 operation(s) for moves.absence.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.Absence
   properties:
   - type: OpenAPI
@@ -3092,7 +3218,8 @@ apis:
   description: The moves.Availability API from Nedap — 6 operation(s) for moves.availability.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.Availability
   properties:
   - type: OpenAPI
@@ -3110,7 +3237,8 @@ apis:
   description: The moves.AvailabilityType API from Nedap — 2 operation(s) for moves.availabilitytype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.AvailabilityType
   properties:
   - type: OpenAPI
@@ -3129,7 +3257,8 @@ apis:
     The moves.ClientPlannedSchedulePlannedVisit API from Nedap — 2 operation(s) for moves.clientplannedscheduleplannedvisit.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.ClientPlannedSchedulePlannedVisit
   properties:
   - type: OpenAPI
@@ -3148,7 +3277,8 @@ apis:
     The moves.ClientPlanningFilter API from Nedap — 2 operation(s) for moves.clientplanningfilter.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.ClientPlanningFilter
   properties:
   - type: OpenAPI
@@ -3166,7 +3296,8 @@ apis:
   description: The moves.Container API from Nedap — 2 operation(s) for moves.container.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.Container
   properties:
   - type: OpenAPI
@@ -3184,7 +3315,8 @@ apis:
   description: The moves.EmployeeExportJob API from Nedap — 4 operation(s) for moves.employeeexportjob.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.EmployeeExportJob
   properties:
   - type: OpenAPI
@@ -3203,7 +3335,8 @@ apis:
     The moves.EmployeeHoursReport API from Nedap — 2 operation(s) for moves.employeehoursreport.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.EmployeeHoursReport
   properties:
   - type: OpenAPI
@@ -3222,7 +3355,8 @@ apis:
     The moves.EmployeeMovesProfile API from Nedap — 2 operation(s) for moves.employeemovesprofile.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.EmployeeMovesProfile
   properties:
   - type: OpenAPI
@@ -3240,7 +3374,8 @@ apis:
   description: The moves.EmployeePlanning API from Nedap — 4 operation(s) for moves.employeeplanning.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.EmployeePlanning
   properties:
   - type: OpenAPI
@@ -3258,7 +3393,8 @@ apis:
   description: The moves.EmployeeSchedule API from Nedap — 2 operation(s) for moves.employeeschedule.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.EmployeeSchedule
   properties:
   - type: OpenAPI
@@ -3276,7 +3412,8 @@ apis:
   description: The moves.ExpertiseProfile API from Nedap — 6 operation(s) for moves.expertiseprofile.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.ExpertiseProfile
   properties:
   - type: OpenAPI
@@ -3294,7 +3431,8 @@ apis:
   description: The moves.FlexSignup API from Nedap — 2 operation(s) for moves.flexsignup.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.FlexSignup
   properties:
   - type: OpenAPI
@@ -3312,7 +3450,8 @@ apis:
   description: The moves.Membership API from Nedap — 6 operation(s) for moves.membership.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.Membership
   properties:
   - type: OpenAPI
@@ -3331,7 +3470,8 @@ apis:
     The moves.NavigationAvailability API from Nedap — 2 operation(s) for moves.navigationavailability.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.NavigationAvailability
   properties:
   - type: OpenAPI
@@ -3350,7 +3490,8 @@ apis:
     The moves.PlanCardOccurrence API from Nedap — 6 operation(s) for moves.plancardoccurrence.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.PlanCardOccurrence
   properties:
   - type: OpenAPI
@@ -3368,7 +3509,8 @@ apis:
   description: The moves.PlannedVisit API from Nedap — 4 operation(s) for moves.plannedvisit.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.PlannedVisit
   properties:
   - type: OpenAPI
@@ -3386,7 +3528,8 @@ apis:
   description: The moves.RosterSlot API from Nedap — 14 operation(s) for moves.rosterslot.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.RosterSlot
   properties:
   - type: OpenAPI
@@ -3404,7 +3547,8 @@ apis:
   description: The moves.Shift API from Nedap — 8 operation(s) for moves.shift.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.Shift
   properties:
   - type: OpenAPI
@@ -3422,7 +3566,8 @@ apis:
   description: The moves.ShiftAssignment API from Nedap — 4 operation(s) for moves.shiftassignment.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.ShiftAssignment
   properties:
   - type: OpenAPI
@@ -3440,7 +3585,8 @@ apis:
   description: The moves.Team API from Nedap — 6 operation(s) for moves.team.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.Team
   properties:
   - type: OpenAPI
@@ -3458,7 +3604,8 @@ apis:
   description: The moves.Unit API from Nedap — 6 operation(s) for moves.unit.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.Unit
   properties:
   - type: OpenAPI
@@ -3477,7 +3624,8 @@ apis:
     The moves.WorkingEmployeeReport API from Nedap — 2 operation(s) for moves.workingemployeereport.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - moves.WorkingEmployeeReport
   properties:
   - type: OpenAPI
@@ -3514,7 +3662,8 @@ apis:
     The nexus.ClientContactRelationType API from Nedap — 4 operation(s) for nexus.clientcontactrelationtype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - nexus.ClientContactRelationType
   properties:
   - type: OpenAPI
@@ -3533,7 +3682,8 @@ apis:
     The nexus.ClientEmployeeRelation API from Nedap — 12 operation(s) for nexus.clientemployeerelation.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - nexus.ClientEmployeeRelation
   properties:
   - type: OpenAPI
@@ -3552,7 +3702,8 @@ apis:
     The nexus.ClientEmployeeRelationType API from Nedap — 4 operation(s) for nexus.clientemployeerelationtype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - nexus.ClientEmployeeRelationType
   properties:
   - type: OpenAPI
@@ -3571,7 +3722,8 @@ apis:
     The nexus.OrganisationCategory API from Nedap — 4 operation(s) for nexus.organisationcategory.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - nexus.OrganisationCategory
   properties:
   - type: OpenAPI
@@ -3590,7 +3742,8 @@ apis:
     The nexus.PersonalRelationType API from Nedap — 4 operation(s) for nexus.personalrelationtype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - nexus.PersonalRelationType
   properties:
   - type: OpenAPI
@@ -3608,7 +3761,8 @@ apis:
   description: The nuts.Consent API from Nedap — 4 operation(s) for nuts.consent.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - nuts.Consent
   properties:
   - type: OpenAPI
@@ -3869,7 +4023,8 @@ apis:
   description: The onsimport.Run API from Nedap — 22 operation(s) for onsimport.run.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - onsimport.Run
   properties:
   - type: OpenAPI
@@ -3888,7 +4043,8 @@ apis:
     The openehr.ArchetypeWrapper API from Nedap — 10 operation(s) for openehr.archetypewrapper.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - openehr.ArchetypeWrapper
   properties:
   - type: OpenAPI
@@ -3907,7 +4063,8 @@ apis:
     The openehr.CarePlanVvtCareProfileLink API from Nedap — 2 operation(s) for openehr.careplanvvtcareprofilelink.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - openehr.CarePlanVvtCareProfileLink
   properties:
   - type: OpenAPI
@@ -3926,7 +4083,8 @@ apis:
     The openehr.CompositionWrapper API from Nedap — 23 operation(s) for openehr.compositionwrapper.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - openehr.CompositionWrapper
   properties:
   - type: OpenAPI
@@ -3944,7 +4102,8 @@ apis:
   description: The openehr.EmployeeGroup API from Nedap — 6 operation(s) for openehr.employeegroup.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - openehr.EmployeeGroup
   properties:
   - type: OpenAPI
@@ -3962,7 +4121,8 @@ apis:
   description: The openehr.ItemTag API from Nedap — 4 operation(s) for openehr.itemtag.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - openehr.ItemTag
   properties:
   - type: OpenAPI
@@ -3980,7 +4140,8 @@ apis:
   description: The openehr.MultimediaFile API from Nedap — 8 operation(s) for openehr.multimediafile.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - openehr.MultimediaFile
   properties:
   - type: OpenAPI
@@ -3998,7 +4159,8 @@ apis:
   description: The payroll.AccountEntry API from Nedap — 14 operation(s) for payroll.accountentry.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.AccountEntry
   properties:
   - type: OpenAPI
@@ -4016,7 +4178,8 @@ apis:
   description: The payroll.AccountType API from Nedap — 4 operation(s) for payroll.accounttype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.AccountType
   properties:
   - type: OpenAPI
@@ -4035,7 +4198,8 @@ apis:
     The payroll.AccountTypeExpireStatistic API from Nedap — 2 operation(s) for payroll.accounttypeexpirestatistic.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.AccountTypeExpireStatistic
   properties:
   - type: OpenAPI
@@ -4054,7 +4218,8 @@ apis:
     The payroll.CollectiveAgreement API from Nedap — 4 operation(s) for payroll.collectiveagreement.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.CollectiveAgreement
   properties:
   - type: OpenAPI
@@ -4073,7 +4238,8 @@ apis:
     The payroll.CollectiveAgreementAssignment API from Nedap — 6 operation(s) for payroll.collectiveagreementassignment.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.CollectiveAgreementAssignment
   properties:
   - type: OpenAPI
@@ -4092,7 +4258,8 @@ apis:
     The payroll.CollectiveAgreementRule API from Nedap — 4 operation(s) for payroll.collectiveagreementrule.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.CollectiveAgreementRule
   properties:
   - type: OpenAPI
@@ -4110,7 +4277,8 @@ apis:
   description: The payroll.Contract API from Nedap — 10 operation(s) for payroll.contract.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.Contract
   properties:
   - type: OpenAPI
@@ -4128,7 +4296,8 @@ apis:
   description: The payroll.ContractType API from Nedap — 4 operation(s) for payroll.contracttype.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.ContractType
   properties:
   - type: OpenAPI
@@ -4146,7 +4315,8 @@ apis:
   description: The payroll.holiday.Holiday API from Nedap — 4 operation(s) for payroll.holiday.holiday.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.holiday.Holiday
   properties:
   - type: OpenAPI
@@ -4164,7 +4334,8 @@ apis:
   description: The payroll.HourlyWage API from Nedap — 8 operation(s) for payroll.hourlywage.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.HourlyWage
   properties:
   - type: OpenAPI
@@ -4183,7 +4354,8 @@ apis:
     The payroll.PayableHoursAverage API from Nedap — 8 operation(s) for payroll.payablehoursaverage.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.PayableHoursAverage
   properties:
   - type: OpenAPI
@@ -4202,7 +4374,8 @@ apis:
     The payroll.WorkHoursBalance API from Nedap — 8 operation(s) for payroll.workhoursbalance.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.WorkHoursBalance
   properties:
   - type: OpenAPI
@@ -4220,7 +4393,8 @@ apis:
   description: The payroll.WorkLoad API from Nedap — 2 operation(s) for payroll.workload.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - payroll.WorkLoad
   properties:
   - type: OpenAPI
@@ -4257,7 +4431,8 @@ apis:
     The portal.EmployeePortalProfile API from Nedap — 2 operation(s) for portal.employeeportalprofile.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - portal.EmployeePortalProfile
   properties:
   - type: OpenAPI
@@ -4385,6 +4560,8 @@ apis:
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
   tags:
+  - Referrals
+  tags_raw:
   - Referral
   properties:
   - type: OpenAPI
@@ -4421,7 +4598,8 @@ apis:
     The status.ApplicationStatus API from Nedap — 2 operation(s) for status.applicationstatus.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - status.ApplicationStatus
   properties:
   - type: OpenAPI
@@ -4439,7 +4617,8 @@ apis:
   description: The survey.Answer API from Nedap — 2 operation(s) for survey.answer.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - survey.Answer
   properties:
   - type: OpenAPI
@@ -4458,7 +4637,8 @@ apis:
     The survey.AnswerDefinitionGroup API from Nedap — 4 operation(s) for survey.answerdefinitiongroup.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - survey.AnswerDefinitionGroup
   properties:
   - type: OpenAPI
@@ -4476,7 +4656,8 @@ apis:
   description: The survey.GroupAnswer API from Nedap — 2 operation(s) for survey.groupanswer.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - survey.GroupAnswer
   properties:
   - type: OpenAPI
@@ -4494,7 +4675,8 @@ apis:
   description: The survey.Survey API from Nedap — 6 operation(s) for survey.survey.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - survey.Survey
   properties:
   - type: OpenAPI
@@ -4512,7 +4694,8 @@ apis:
   description: The survey.SurveyResult API from Nedap — 10 operation(s) for survey.surveyresult.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - survey.SurveyResult
   properties:
   - type: OpenAPI
@@ -4530,7 +4713,8 @@ apis:
   description: The tasque.CareTaskGroup API from Nedap — 4 operation(s) for tasque.caretaskgroup.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - tasque.CareTaskGroup
   properties:
   - type: OpenAPI
@@ -4549,7 +4733,8 @@ apis:
     The tasque.CareTaskGroupStatus API from Nedap — 2 operation(s) for tasque.caretaskgroupstatus.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - tasque.CareTaskGroupStatus
   properties:
   - type: OpenAPI
@@ -4568,7 +4753,8 @@ apis:
     The tasque.CareTaskOccurrence API from Nedap — 38 operation(s) for tasque.caretaskoccurrence.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - tasque.CareTaskOccurrence
   properties:
   - type: OpenAPI
@@ -4586,7 +4772,8 @@ apis:
   description: The tasque.CareTaskSeries API from Nedap — 2 operation(s) for tasque.caretaskseries.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - tasque.CareTaskSeries
   properties:
   - type: OpenAPI
@@ -4658,7 +4845,8 @@ apis:
   description: The toezicht.Audit API from Nedap — 2 operation(s) for toezicht.audit.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - toezicht.Audit
   properties:
   - type: OpenAPI
@@ -4677,7 +4865,8 @@ apis:
     The transport.ClientTransport API from Nedap — 2 operation(s) for transport.clienttransport.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - transport.ClientTransport
   properties:
   - type: OpenAPI
@@ -4768,7 +4957,8 @@ apis:
     The whismur.CareProviderSetting API from Nedap — 2 operation(s) for whismur.careprovidersetting.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - whismur.CareProviderSetting
   properties:
   - type: OpenAPI
@@ -4786,7 +4976,8 @@ apis:
   description: The wlz.WlzZorglegitimatie API from Nedap — 4 operation(s) for wlz.wlzzorglegitimatie.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - wlz.WlzZorglegitimatie
   properties:
   - type: OpenAPI
@@ -4804,7 +4995,8 @@ apis:
   description: The wmo.WmoZorglegitimatie API from Nedap — 4 operation(s) for wmo.wmozorglegitimatie.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - wmo.WmoZorglegitimatie
   properties:
   - type: OpenAPI
@@ -4822,7 +5014,8 @@ apis:
   description: The worksheet.Worksheet API from Nedap — 2 operation(s) for worksheet.worksheet.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - worksheet.Worksheet
   properties:
   - type: OpenAPI
@@ -4897,7 +5090,8 @@ apis:
   description: The zpm.CareOrderZpmDetails API from Nedap — 4 operation(s) for zpm.careorderzpmdetails.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - zpm.CareOrderZpmDetails
   properties:
   - type: OpenAPI
@@ -4915,7 +5109,8 @@ apis:
   description: The zpm.ZpmGbggzProfiel API from Nedap — 2 operation(s) for zpm.zpmgbggzprofiel.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - zpm.ZpmGbggzProfiel
   properties:
   - type: OpenAPI
@@ -4933,7 +5128,8 @@ apis:
   description: The zpm.ZpmSetting API from Nedap — 2 operation(s) for zpm.zpmsetting.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - zpm.ZpmSetting
   properties:
   - type: OpenAPI
@@ -4951,7 +5147,8 @@ apis:
   description: The zpm.ZpmZorglabel API from Nedap — 2 operation(s) for zpm.zpmzorglabel.
   humanURL: https://ons-api.nl/english/english.html
   baseURL: https://api.ons.io
-  tags:
+  tags: []
+  tags_raw:
   - zpm.ZpmZorglabel
   properties:
   - type: OpenAPI
