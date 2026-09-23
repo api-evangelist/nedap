@@ -1,0 +1,631 @@
+openapi: 3.2.0
+info:
+  title: Nedap Team Assignment API
+  version: 0.0.0
+  description: 'Operations tagged TeamAssignment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: TeamAssignment
+paths:
+  /t/employees/{employee_id}/team_assignments:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return the team assignments of a Employee corresponding to the given id
+      operationId: TeamAssignmentAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamAssignmentList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/teams
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - TeamAssignment
+      summary: Create the provided team assignment and assign it to the employee corresponding…
+      operationId: TeamAssignmentAPI.createForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAssignment'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+      x-replaced-by: /v0/administration/employees/{employee_id}/teams
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/team_assignments/{team_assignment_id}:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Update the team assignment with the provided id assigned to the employee…
+      operationId: TeamAssignmentAPI.byEmployeeIdAndAssignmentId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: team_assignment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+      x-replaced-by: /v0/administration/employees/{employee_id}/teams/{team_assignment_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - TeamAssignment
+      summary: Update the team assignment with the provided id assigned to the employee…
+      operationId: TeamAssignmentAPI.updateForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: team_assignment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAssignment'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+      x-replaced-by: /v0/administration/employees/{employee_id}/teams/{team_assignment_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - TeamAssignment
+      summary: Remove the team assignment with the provided id assigned to the employee…
+      operationId: TeamAssignmentAPI.removeForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: team_assignment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No response was specified
+      x-replaced-by: /v0/administration/employees/{employee_id}/teams/{team_assignment_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/team_assignments/{id}:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return the team assignment with the given id
+      operationId: TeamAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: id of the team assignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+        '404':
+          description: Team assignment not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/team_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/team_assignments/x-stream-connect/data:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return all TeamAssignment models in a streaming manner
+      operationId: TeamAssignmentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/team_assignments/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/team_assignments/x-stream-connect/deletes:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return all TeamAssignment models which where deleted since the date given in…
+      description: 'If no date is
+
+        given it will return all deleted TeamAssignment models'
+      operationId: TeamAssignmentAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/team_assignments/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/team_assignments/x-stream-connect/updates:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return all TeamAssignment models which where updated since the date given in…
+      operationId: TeamAssignmentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/team_assignments/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/teams:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return the team assignments of a Employee corresponding to the given id
+      operationId: TeamAssignmentAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamAssignmentList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/team_assignments
+    post:
+      tags:
+      - TeamAssignment
+      summary: Create the provided team assignment and assign it to the employee corresponding…
+      operationId: TeamAssignmentAPI.createForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAssignment'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+      x-replacement-for:
+      - /t/employees/{employee_id}/team_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/teams/{team_assignment_id}:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Update the team assignment with the provided id assigned to the employee…
+      operationId: TeamAssignmentAPI.byEmployeeIdAndAssignmentId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: team_assignment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+      x-replacement-for:
+      - /t/employees/{employee_id}/team_assignments/{team_assignment_id}
+    put:
+      tags:
+      - TeamAssignment
+      summary: Update the team assignment with the provided id assigned to the employee…
+      operationId: TeamAssignmentAPI.updateForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: team_assignment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAssignment'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+      x-replacement-for:
+      - /t/employees/{employee_id}/team_assignments/{team_assignment_id}
+    delete:
+      tags:
+      - TeamAssignment
+      summary: Remove the team assignment with the provided id assigned to the employee…
+      operationId: TeamAssignmentAPI.removeForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: team_assignment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No response was specified
+      x-replacement-for:
+      - /t/employees/{employee_id}/team_assignments/{team_assignment_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/team_assignments/{id}:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return the team assignment with the given id
+      operationId: TeamAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: id of the team assignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+        '404':
+          description: Team assignment not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/team_assignments/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/team_assignments/data:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return all TeamAssignment models in a streaming manner
+      operationId: TeamAssignmentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/team_assignments/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/team_assignments/deletes:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return all TeamAssignment models which where deleted since the date given in…
+      description: 'If no date is
+
+        given it will return all deleted TeamAssignment models'
+      operationId: TeamAssignmentAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/team_assignments/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/team_assignments/updates:
+    get:
+      tags:
+      - TeamAssignment
+      summary: Return all TeamAssignment models which where updated since the date given in…
+      operationId: TeamAssignmentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/TeamAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/team_assignments/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    TeamAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        employeeObjectId:
+          type: integer
+          format: int64
+        teamObjectId:
+          type: integer
+          format: int64
+      description: Team assignment.
+      example:
+        id: 1
+        beginDate: '2012-08-02'
+        endDate: '2012-08-02'
+        employeeObjectId: 8948
+        teamObjectId: 337
+      xml:
+        name: teamAssignment
+    list.TeamAssignmentList:
+      type: object
+      properties:
+        teamAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamAssignment'
+          xml:
+            name: teamAssignment
+      description: TeamAssignmentList model (no description)
+      example:
+        teamAssignments:
+        - id: 1
+          beginDate: '2012-08-02'
+          endDate: '2012-08-02'
+          employeeObjectId: 8948
+          teamObjectId: 337
+      xml:
+        name: teamAssignments
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

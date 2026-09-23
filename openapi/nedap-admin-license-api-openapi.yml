@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  title: Nedap Admin.License API
+  version: 0.0.0
+  description: 'Operations tagged admin.License across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: admin.License
+paths:
+  /t/admin/licenses:
+    get:
+      tags:
+      - admin.License
+      summary: Returns every License available from the LicenseAPI
+      operationId: admin.LicenseAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.list.LicenseList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/admin/licenses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/admin/licenses:
+    get:
+      tags:
+      - admin.License
+      summary: Returns every License available from the LicenseAPI
+      operationId: admin.LicenseAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.list.LicenseList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/admin/licenses
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    admin.list.LicenseList:
+      type: object
+      properties:
+        licenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/admin.License'
+          xml:
+            name: license
+      description: LicenseList model (no description)
+      example:
+        licenses:
+        - id: 1
+          module: FORENSIC_CARE
+          active: true
+      xml:
+        name: licenses
+    admin.License:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        module:
+          type: string
+          description: The name of the license
+        active:
+          type: boolean
+          description: Indication if the license is activated or not.
+      description: Licenses that are maintained in Ons Administratie
+      example:
+        id: 1
+        module: FORENSIC_CARE
+        active: true
+      xml:
+        name: license
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

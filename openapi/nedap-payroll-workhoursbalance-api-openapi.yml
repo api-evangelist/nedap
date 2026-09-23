@@ -1,0 +1,310 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Work Hours Balance API
+  version: 0.0.0
+  description: 'Operations tagged payroll.WorkHoursBalance across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.WorkHoursBalance
+paths:
+  /t/payroll/work_hours_balances/by_employee_at_date/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkHoursBalance
+      summary: Retrieves a list with all workhour balances for the given employee and for the…
+      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAtDate
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.WorkHoursBalanceList'
+      x-replaced-by: /v0/administration/work_hours_balances/by_employee_at_date/{employee_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/work_hours_balances/by_employee_with_type_at_date/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkHoursBalance
+      summary: Retrieves a workhour balance for the given employee/accounttype and date
+      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAndAccountTypeAtDate
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: account_type_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.WorkHoursBalance'
+      x-replaced-by: /v0/administration/work_hours_balances/by_employee_with_type_at_date/{employee_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/work_hours_balances/by_employee_with_type/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkHoursBalance
+      summary: Retrieves a workhour balance for the given employee and account type
+      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAndAccountType
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: account_type_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.WorkHoursBalance'
+      x-replaced-by: /v0/administration/work_hours_balances/by_employee_with_type/{employee_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/work_hours_balances/by_employee/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkHoursBalance
+      summary: Retrieves a list with all workhour balances for the given employee
+      operationId: payroll.WorkHoursBalanceAPI.byEmployee
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.WorkHoursBalanceList'
+      x-replaced-by: /v0/administration/work_hours_balances/by_employee/{employee_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/work_hours_balances/by_employee_at_date/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkHoursBalance
+      summary: Retrieves a list with all workhour balances for the given employee and for the…
+      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAtDate
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.WorkHoursBalanceList'
+      x-replacement-for:
+      - /t/payroll/work_hours_balances/by_employee_at_date/{employee_object_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/work_hours_balances/by_employee_with_type_at_date/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkHoursBalance
+      summary: Retrieves a workhour balance for the given employee/accounttype and date
+      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAndAccountTypeAtDate
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: account_type_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.WorkHoursBalance'
+      x-replacement-for:
+      - /t/payroll/work_hours_balances/by_employee_with_type_at_date/{employee_object_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/work_hours_balances/by_employee_with_type/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkHoursBalance
+      summary: Retrieves a workhour balance for the given employee and account type
+      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAndAccountType
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: account_type_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.WorkHoursBalance'
+      x-replacement-for:
+      - /t/payroll/work_hours_balances/by_employee_with_type/{employee_object_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/work_hours_balances/by_employee/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkHoursBalance
+      summary: Retrieves a list with all workhour balances for the given employee
+      operationId: payroll.WorkHoursBalanceAPI.byEmployee
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.WorkHoursBalanceList'
+      x-replacement-for:
+      - /t/payroll/work_hours_balances/by_employee/{employee_object_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.WorkHoursBalance:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        accountTypeId:
+          type: integer
+          format: int64
+        unverifiedBalance:
+          type: integer
+          format: int64
+        verifiedBalance:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        verifiedUntil:
+          type: string
+          format: date
+      description: WorkHoursBalance model (no description)
+      example:
+        employeeId: 4
+        accountTypeId: 3
+        unverifiedBalance: 2
+        verifiedBalance: 1
+        date: '2016-01-02'
+        verifiedUntil: '2016-01-15'
+    payroll.list.WorkHoursBalanceList:
+      type: object
+      properties:
+        workHoursBalances:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.WorkHoursBalance'
+      description: WorkHoursBalanceList model (no description)
+      example:
+        workHoursBalances:
+        - employeeId: 4
+          accountTypeId: 3
+          unverifiedBalance: 2
+          verifiedBalance: 1
+          date: '2016-01-02'
+          verifiedUntil: '2016-01-15'
+        - employeeId: 1
+          accountTypeId: 2
+          unverifiedBalance: 3
+          verifiedBalance: 4
+          date: '2016-02-15'
+          verifiedUntil: '2016-02-27'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

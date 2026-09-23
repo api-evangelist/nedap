@@ -1,0 +1,115 @@
+openapi: 3.2.0
+info:
+  title: Nedap Navigation Availability API
+  version: 0.0.0
+  description: 'Operations tagged NavigationAvailability across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: NavigationAvailability
+paths:
+  /t/navigation/availabilities:
+    get:
+      tags:
+      - NavigationAvailability
+      summary: Get all navigation availabilities for Ons Administration
+      operationId: NavigationAvailabilityAPI.getCupidoNavigationAvailabilities
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.NavigationAvailabilityList'
+      x-replaced-by: /v0/administration/navigation/availabilities
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/navigation/availabilities:
+    get:
+      tags:
+      - NavigationAvailability
+      summary: Get all navigation availabilities for Ons Administration
+      operationId: NavigationAvailabilityAPI.getCupidoNavigationAvailabilities
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.NavigationAvailabilityList'
+      x-replacement-for:
+      - /t/navigation/availabilities
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    NavigationAvailabilityKey:
+      enum:
+      - VERIFY_DECLARATION_RULES
+      type: string
+      description: Item for navigation availability request
+      example: VERIFY_DECLARATION_RULES
+    list.NavigationAvailabilityList:
+      type: object
+      properties:
+        navigationAvailabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/NavigationAvailability'
+          xml:
+            name: navigationAvailability
+      description: List of navigation items with their availability
+      example:
+        navigationAvailabilities:
+        - key: VERIFY_DECLARATION_RULES
+          value: AVAILABLE
+      xml:
+        name: navigationAvailabilities
+    NavigationAvailability:
+      type: object
+      properties:
+        key:
+          allOf:
+          - $ref: '#/components/schemas/NavigationAvailabilityKey'
+          description: Item for navigation availability request
+        value:
+          allOf:
+          - $ref: '#/components/schemas/NavigationAvailabilityState'
+          description: State of the navigation availability
+      description: A navigation item with its availability
+      example:
+        key: VERIFY_DECLARATION_RULES
+        value: AVAILABLE
+      xml:
+        name: navigationAvailability
+    NavigationAvailabilityState:
+      enum:
+      - AVAILABLE
+      - DISABLED
+      - UNAVAILABLE
+      type: string
+      description: Item for navigation availability request
+      example: AVAILABLE
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

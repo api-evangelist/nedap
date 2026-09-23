@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Administration.Time Compensation Factor Model API
+  version: 0.0.0
+  description: 'Operations tagged ons_administration.TimeCompensationFactorModel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_administration.TimeCompensationFactorModel
+paths:
+  /t/employees/time_compensation_factors:
+    get:
+      tags:
+      - ons_administration.TimeCompensationFactorModel
+      summary: Returns the time compensation factor (minimum wage divided by hourly wage) for…
+      operationId: ons_administration.TimeCompensationFactorModelAPI.forEmployeesInPeriod
+      parameters:
+      - name: id
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: period_start
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: period_end
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.TimeCompensationFactorModelList'
+        '400':
+          description: Validation errors
+        '404':
+          description: One or more employees not found
+      x-replaced-by: /v0/administration/employees/time_compensation_factors
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/time_compensation_factors:
+    get:
+      tags:
+      - ons_administration.TimeCompensationFactorModel
+      summary: Returns the time compensation factor (minimum wage divided by hourly wage) for…
+      operationId: ons_administration.TimeCompensationFactorModelAPI.forEmployeesInPeriod
+      parameters:
+      - name: id
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: period_start
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: period_end
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.TimeCompensationFactorModelList'
+        '400':
+          description: Validation errors
+        '404':
+          description: One or more employees not found
+      x-replacement-for:
+      - /t/employees/time_compensation_factors
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_administration.TimeCompensationFactorModel:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          description: The object id of the employee
+          format: int64
+          readOnly: true
+        endDate:
+          type: string
+          description: The end date of the period for which the factor is valid
+          format: date
+          readOnly: true
+        factor:
+          type: number
+          description: The value of the factor (minimum wage divided by hourly wage)
+          format: double
+          readOnly: true
+        startDate:
+          type: string
+          description: The start date of the period for which the factor is valid
+          format: date
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/ons_administration.TimeCompensationFactorStatus'
+          readOnly: true
+      description: This model gives the time compensation factor (minimum wage divided by hourly wage) for a GHZ employee when time compensation is enabled on the CLA asssignment
+      example:
+        employeeId: 7
+        startDate: '2026-01-01'
+        endDate: '2026-03-15'
+        factor: 0.16715909090909092
+        status: COMPENSATION_IN_TIME
+    ons_administration.list.TimeCompensationFactorModelList:
+      type: object
+      properties:
+        timeCompensationFactorModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.TimeCompensationFactorModel'
+      description: List of TimeCompensationFactorModels
+      example:
+        timeCompensationFactorModels:
+        - employeeId: 7
+          startDate: '2026-01-01'
+          endDate: '2026-03-15'
+          factor: 0.16
+          status: COMPENSATION_IN_TIME
+        - employeeId: 8
+          startDate: '2026-02-01'
+          endDate: '2026-04-30'
+          factor: 0.12
+          status: DEFAULT_COMPENSATION_IN_TIME
+    ons_administration.TimeCompensationFactorStatus:
+      enum:
+      - COMPENSATION_IN_TIME
+      - COMPENSATION_IN_MONEY
+      - COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE
+      - DEFAULT_COMPENSATION_IN_MONEY
+      - DEFAULT_COMPENSATION_IN_TIME
+      type: string
+      description: 'Information on the factor computation: COMPENSATION_IN_TIME, COMPENSATION_IN_MONEY, COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE, DEFAULT_COMPENSATION_IN_MONEY, DEFAULT_COMPENSATION_IN_TIME'
+      example: COMPENSATION_IN_TIME
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

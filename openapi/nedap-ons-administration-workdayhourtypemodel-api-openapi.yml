@@ -1,0 +1,110 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Administration.Workday Hour Type Model API
+  version: 0.0.0
+  description: 'Operations tagged ons_administration.WorkdayHourTypeModel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_administration.WorkdayHourTypeModel
+paths:
+  /t/hour_types/workdays:
+    get:
+      tags:
+      - ons_administration.WorkdayHourTypeModel
+      summary: Returns all workday hour types (activities) with their validity periods.
+      operationId: ons_administration.WorkdayHourTypeModelAPI.getWorkdayHourTypes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayHourTypeModelList'
+        '500':
+          description: Internal server error
+      x-replaced-by: /v0/administration/hour_types/workdays
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hour_types/workdays:
+    get:
+      tags:
+      - ons_administration.WorkdayHourTypeModel
+      summary: Returns all workday hour types (activities) with their validity periods.
+      operationId: ons_administration.WorkdayHourTypeModelAPI.getWorkdayHourTypes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayHourTypeModelList'
+        '500':
+          description: Internal server error
+      x-replacement-for:
+      - /t/hour_types/workdays
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_administration.WorkdayHourTypeModel:
+      required:
+      - hourTypeObjectId
+      type: object
+      properties:
+        hourTypeObjectId:
+          type: integer
+          description: The object id of the hour type (activity)
+          format: int64
+        validPeriods:
+          type: array
+          items:
+            $ref: '#/components/schemas/Period'
+          description: The list of periods during which this hour type is counted as a workday
+      description: 'This model describes when a given hour type (activity) will be counted as a workday according to the workday norm.
+
+        '
+      example:
+        hourTypeObjectId: 7
+        validPeriods:
+        - start: '2025-12-29'
+          end: '2026-12-27'
+        - start: '2027-12-27'
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          description: Starting time with inclusive boundary
+          format: date
+        end:
+          type: string
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+      example:
+        start: '2018-03-26'
+        end: '2018-04-02'
+    ons_administration.list.WorkdayHourTypeModelList:
+      type: object
+      properties:
+        workdayHourTypeModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.WorkdayHourTypeModel'
+      description: List of WorkdayHourTypeModels
+      example:
+        workdayHourTypeModels:
+        - hourTypeObjectId: 13
+          validPeriods:
+          - start: '2025-12-29'
+        - hourTypeObjectId: 42
+          validPeriods:
+          - start: '2025-12-29'
+            end: '2026-06-28'
+          - start: '2026-12-27'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,2957 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dbc.ggz.Presence Log Synchronisation Error API
+  version: 0.0.0
+  description: 'Operations tagged dbc.ggz.PresenceLogSynchronisationError across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dbc.ggz.PresenceLogSynchronisationError
+paths:
+  /t/dbc/ggz/presencelog_sync_error/{id}:
+    get:
+      tags:
+      - dbc.ggz.PresenceLogSynchronisationError
+      summary: Fetch a synchronization error
+      operationId: dbc.ggz.PresenceLogSynchronisationErrorAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting PresenceLogSynchronisationError
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.PresenceLogSynchronisationError'
+        '404':
+          description: Error not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.PresenceLogSynchronisationError'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dbc/presencelog_sync_error/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dbc/ggz/presencelog_sync_error/in_period:
+    get:
+      tags:
+      - dbc.ggz.PresenceLogSynchronisationError
+      summary: Fetches a number ('limit') of presencelog syncrhonisation errors from ons-dbc…
+      operationId: dbc.ggz.PresenceLogSynchronisationErrorAPI.byPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        description: createdAt >= validFrom (start of day)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: createdAt <= validTo (end of day)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        description: number of results to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        description: index of first result returned
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.list.PresenceLogSynchronisationErrorList'
+      x-replaced-by: /v0/dbc/presencelog_sync_error/in_period
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dbc/presencelog_sync_error/{id}:
+    get:
+      tags:
+      - dbc.ggz.PresenceLogSynchronisationError
+      summary: Fetch a synchronization error
+      operationId: dbc.ggz.PresenceLogSynchronisationErrorAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting PresenceLogSynchronisationError
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.PresenceLogSynchronisationError'
+        '404':
+          description: Error not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.PresenceLogSynchronisationError'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dbc/ggz/presencelog_sync_error/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dbc/presencelog_sync_error/in_period:
+    get:
+      tags:
+      - dbc.ggz.PresenceLogSynchronisationError
+      summary: Fetches a number ('limit') of presencelog syncrhonisation errors from ons-dbc…
+      operationId: dbc.ggz.PresenceLogSynchronisationErrorAPI.byPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        description: createdAt >= validFrom (start of day)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: createdAt <= validTo (end of day)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        description: number of results to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        description: index of first result returned
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.list.PresenceLogSynchronisationErrorList'
+      x-replacement-for:
+      - /t/dbc/ggz/presencelog_sync_error/in_period
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dbc.ggz.ProductGroep:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      properties:
+        codeBehandeling:
+          type: string
+        omschrijvingBehandeling:
+          type: string
+        setting:
+          type: string
+        categorie:
+          type: string
+        lekenvertaling:
+          type: string
+        diagnoseBlinderen:
+          type: boolean
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        brancheIndicatie:
+          type: string
+      description: The product group which was calculated.
+      example:
+        id: 1
+        code: '00230'
+        begindatum: '2007-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Psychodiagnostisch onderzoek
+        codeBehandeling: '123123'
+        omschrijvingBehandeling: Behandeling
+        setting: setting
+        categorie: GEEN
+        lekenvertaling: Behandeling voor problemen
+        diagnoseBlinderen: false
+        brancheIndicatie: GGZ
+      xml:
+        name: productGroep
+    dbc.ggz.Zorgtype:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      properties:
+        groepcode:
+          type: string
+          description: Group for this type
+        element:
+          type: string
+          description: Element in group
+        hierarchieniveau:
+          type: integer
+          description: Nesting level
+          format: int32
+        selecteerbaar:
+          type: string
+          description: 'Can this value be selected
+
+
+            Possible values:
+
+            NIET_SELECTEERBAAR(0)
+
+            SELECTEERBAAR_DIEPSTE_NIVEAU(1)
+
+            SELECTEERBAAR_DIEPER_NIVEAU_MOGELIJK(2)'
+        sorteervolgorde:
+          type: integer
+          description: The sorting order
+          format: int32
+        prestatiecodedeel:
+          type: string
+          description: Part of the declaration code
+        brancheIndicatie:
+          type: string
+          description: 'Possible values:
+
+            BEIDE(0)
+
+            GGZ(1)
+
+            FZ(2)'
+      description: Type of care provided in this DBC
+      example:
+        id: 1
+        code: '100'
+        begindatum: '2016-08-18'
+        einddatum: '2016-08-18'
+        omschrijving: Initieel zorgtype
+        groepcode: ''
+        element: Initieel zorgtype
+        hierarchieniveau: 0
+        selecteerbaar: '0'
+        sorteervolgorde: 30
+        prestatiecodedeel: '100'
+        brancheIndicatie: '0'
+      xml:
+        name: zorgtype
+    dbc.ggz.Verrichting:
+      required:
+      - aantalBehandelingen
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.ggz.Zorgactiviteit'
+      properties:
+        aantalBehandelingen:
+          type: integer
+          description: Number of treatments
+          format: int32
+        declaratiecode:
+          type: string
+          description: Declaration code
+      description: Some operation/treatment that has been performed on/with the client, such as Electroconvulsive therapy (ECT)
+      example:
+        id: 1
+        identificatienummer: 1
+        activiteit:
+          id: 1
+          code: act_2.6
+          begindatum: '2007-01-01'
+          einddatum: '9999-12-31'
+          omschrijving: Psychodiagnostisch onderzoek
+          groepcode: act_2
+          element: Psychodiagnostisch onderzoek
+          aanspraakType: B
+          hierarchieniveau: 2
+          selecteerbaar: '0'
+          sorteervolgorde: 90
+          soort: Tijdschrijven
+          magDirect: false
+          magIndirect: false
+          magReistijd: false
+          magGroep: false
+          brancheIndicatie: '0'
+        datum: '2016-08-18'
+        subtraject:
+          updatedAt: '2016-08-18T00:00:00.000+02:00'
+          createdAt: '2016-08-18T00:00:00.000+02:00'
+          createdBy: Administrator
+          id: 1
+          externalId: 1
+          externalProductToewijzingId: 2
+          identificatienummer: '997881'
+          openingsdatum: '2016-08-18'
+          sluitdatum: '2016-08-18'
+          regiebehandelaar: '12345678'
+          regiebehandelaarId: 1
+          medebehandelaar: '87654321'
+          medebehandelaarId: 2
+          soortVerwijzer:
+            id: 1
+            code: '01'
+            begindatum: '2016-08-18'
+            einddatum: '2016-08-18'
+            omschrijving: huisarts
+          verwijzerAgb: '12345678'
+          debiteurType: CUSTOM
+          customDebtorId: 1
+          excludeInvoicing: false
+          latestGrouperResultaat:
+            updatedAt: '2016-08-16T00:00:00.000+02:00'
+            createdAt: '2016-08-16T00:00:00.000+02:00'
+            createdBy: Administrator
+            id: 1
+            prestatiecode: '101010001230'
+            declaratiecode: 25B019
+            productgroep: '00230'
+            productGroep:
+              id: 5
+              code: '00230'
+              codeBehandeling: '123123'
+              omschrijvingBehandeling: Behandeling
+              setting: setting
+              categorie: GEEN
+              lekenvertaling: Behandeling voor problemen
+              diagnoseBlinderen: false
+              brancheIndicatie: GGZ
+            timestamp: '2016-03-15T00:00:00.000+01:00'
+          numberOfDirectMinutes: 30
+          numberOfIndirectMinutes: 40
+          numberOfTravelMinutes: 50
+          lastRegistrationDate: '2010-10-10T00:00:00.000+02:00'
+          excludeInvoicingReason: we do not want it anymore
+          invoiced: false
+        updatedAt: '2016-08-18T00:00:00.000+02:00'
+        createdAt: '2016-08-18T00:00:00.000+02:00'
+        createdBy: Administrator
+        aantalBehandelingen: 1
+        declaratiecode: 123AA
+      xml:
+        name: verrichting
+    dbc.ggz.fz.Subtraject:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.ggz.Subtraject'
+      properties:
+        aardDelict:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.fz.AardDelict'
+          description: The type of delinquency
+        vluchtGevaar:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.fz.Gevaar'
+          description: The measure of danger the client may flee
+        recidiveGevaar:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.fz.Gevaar'
+          description: The measure of danger the client may relapse
+        fysiekGevaar:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.fz.Gevaar'
+          description: The measure of danger the client may perform physical harm
+        plaatsingsbesluitnummer:
+          type: string
+          description: The identifier for the placement of the client in a facility.
+        strafrechtketennummer:
+          type: string
+          description: SKN identifier that identifies a person in a forensic delict
+        forensischeZorgtitel:
+          $ref: '#/components/schemas/dbc.ggz.fz.ForensischeZorgtitel'
+      description: 'A Forensic DBBC.
+
+        Causes the creation of a ForensicCareOrder.'
+      example:
+        id: 1
+        externalId: 1
+        externalProductToewijzingId: 2
+        zorgtraject:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          externalId: 1
+          beschikkingExternalId: 1
+          clientId: 1
+          verwijzingId: 1
+          jeugd: true
+          privacyBezwaar: true
+          identificatienummer: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          soortVerwijzer:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+          verwijzerAgb: example
+          zorgdomein:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+          uitvoerendeInstellingAgb: example
+          primaireDiagnose:
+            id: 1
+            externalId: 1
+            primair: true
+            trekkenVan: true
+            datum: '2014-12-29'
+            diagnoseAs: 1
+            diagnoseCode:
+              id: 1
+              code: example
+              begindatum: '2014-12-29'
+              einddatum: '2014-12-29'
+              omschrijving: example
+              groepcode: example
+              element: example
+              zvzSubscore: 1
+              aanspraakType: example
+              hierarchieniveau: 1
+              selecteerbaar: example
+              sorteervolgorde: 1
+              diagnoseAs: 1
+              icd9cm: example
+              icd10: example
+              prestatieniveau: example
+              prestatiecodeNaamgevingGGZ: example
+              prestatiecodeNaamgevingFZ: example
+              prestatiecodedeelGGZ: example
+              prestatiecodedeelFZ: example
+              parallelliteitscodeGGZ: example
+              parallelliteitscodeFZ: example
+              brancheIndicatie: example
+            zorgtrajectId: 1
+          subtrajecten:
+          - id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          - id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+        identificatienummer: '997881'
+        openingsdatum: '2016-08-18'
+        sluitdatum: '2016-08-18'
+        redenSluiten:
+          id: 1
+          code: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          omschrijving: example
+          sorteervolgorde: 1
+          brancheIndicatie: example
+        zorgtype:
+          id: 1
+          code: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          omschrijving: example
+          groepcode: example
+          element: example
+          hierarchieniveau: 1
+          selecteerbaar: example
+          sorteervolgorde: 1
+          prestatiecodedeel: example
+          brancheIndicatie: example
+        regiebehandelaar: '12345678'
+        regiebehandelaarId: 1
+        medebehandelaar: '87654321'
+        medebehandelaarId: 2
+        circuitcode:
+          id: 1
+          code: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          omschrijving: example
+          sorteervolgorde: 1
+          brancheIndicatie: example
+        soortVerwijzer:
+          id: 1
+          code: '01'
+          begindatum: '2016-08-18'
+          einddatum: '2016-08-18'
+          omschrijving: huisarts
+        verwijzerAgb: '12345678'
+        debiteurType: CUSTOM
+        customDebtorId: 1
+        tijdschrijvenRegistraties:
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          directeMinuten: 1
+          indirecteAlgemeneMinuten: 1
+          indirecteReistijdminuten: 1
+          behandelaar: example
+          afleidbaar: true
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          directeMinuten: 1
+          indirecteAlgemeneMinuten: 1
+          indirecteReistijdminuten: 1
+          behandelaar: example
+          afleidbaar: true
+        dagbestedingRegistraties:
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalUren: 1
+          declaratiecode: example
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalUren: 1
+          declaratiecode: example
+        verblijfsdagRegistraties:
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalDagen: 1
+          declaratiecode: example
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalDagen: 1
+          declaratiecode: example
+        verrichtingRegistraties:
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalBehandelingen: 1
+          declaratiecode: example
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalBehandelingen: 1
+          declaratiecode: example
+        nevenDiagnosen:
+        - id: 1
+          externalId: 1
+          primair: true
+          trekkenVan: true
+          datum: '2014-12-29'
+          diagnoseAs: 1
+          diagnoseCode:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            zvzSubscore: 1
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            diagnoseAs: 1
+            icd9cm: example
+            icd10: example
+            prestatieniveau: example
+            prestatiecodeNaamgevingGGZ: example
+            prestatiecodeNaamgevingFZ: example
+            prestatiecodedeelGGZ: example
+            prestatiecodedeelFZ: example
+            parallelliteitscodeGGZ: example
+            parallelliteitscodeFZ: example
+            brancheIndicatie: example
+          zorgtrajectId: 1
+        - id: 1
+          externalId: 1
+          primair: true
+          trekkenVan: true
+          datum: '2014-12-29'
+          diagnoseAs: 1
+          diagnoseCode:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            zvzSubscore: 1
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            diagnoseAs: 1
+            icd9cm: example
+            icd10: example
+            prestatieniveau: example
+            prestatiecodeNaamgevingGGZ: example
+            prestatiecodeNaamgevingFZ: example
+            prestatiecodedeelGGZ: example
+            prestatiecodedeelFZ: example
+            parallelliteitscodeGGZ: example
+            parallelliteitscodeFZ: example
+            brancheIndicatie: example
+          zorgtrajectId: 1
+        grouperResultaten:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          prestatiecode: example
+          declaratiecode: example
+          productgroep: example
+          productGroep:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            codeBehandeling: example
+            omschrijvingBehandeling: example
+            setting: example
+            categorie: example
+            lekenvertaling: example
+            diagnoseBlinderen: true
+            brancheIndicatie: example
+          timestamp: '2014-12-29T00:00:00.000+01:00'
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          prestatiecode: example
+          declaratiecode: example
+          productgroep: example
+          productGroep:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            codeBehandeling: example
+            omschrijvingBehandeling: example
+            setting: example
+            categorie: example
+            lekenvertaling: example
+            diagnoseBlinderen: true
+            brancheIndicatie: example
+          timestamp: '2014-12-29T00:00:00.000+01:00'
+        excludeInvoicing: false
+        latestGrouperResultaat:
+          updatedAt: '2016-08-16T00:00:00.000+02:00'
+          createdAt: '2016-08-16T00:00:00.000+02:00'
+          createdBy: Administrator
+          id: 1
+          prestatiecode: '101010001230'
+          declaratiecode: 25B019
+          productgroep: '00230'
+          productGroep:
+            id: 5
+            code: '00230'
+            codeBehandeling: '123123'
+            omschrijvingBehandeling: Behandeling
+            setting: setting
+            categorie: GEEN
+            lekenvertaling: Behandeling voor problemen
+            diagnoseBlinderen: false
+            brancheIndicatie: GGZ
+          timestamp: '2016-03-15T00:00:00.000+01:00'
+        numberOfDirectMinutes: 30
+        numberOfIndirectMinutes: 40
+        numberOfTravelMinutes: 50
+        lastRegistrationDate: '2010-10-10T00:00:00.000+02:00'
+        excludeInvoicingReason: we do not want it anymore
+        invoiced: false
+        updatedAt: '2016-08-18T00:00:00.000+02:00'
+        createdAt: '2016-08-18T00:00:00.000+02:00'
+        createdBy: Administrator
+        aardDelict:
+          id: 1
+          code: '1'
+          begindatum: '2000-01-01'
+          einddatum: '9999-12-31'
+          omschrijving: Test aardDelict!
+        vluchtGevaar:
+          id: 1
+          code: '1'
+          begindatum: '2000-01-01'
+          einddatum: '9999-12-31'
+          omschrijving: Test vluchtGevaar!
+        recidiveGevaar:
+          id: 1
+          code: '1'
+          begindatum: '2000-01-01'
+          einddatum: '9999-12-31'
+          omschrijving: Test recidiveGevaar!
+        fysiekGevaar:
+          id: 1
+          code: '1'
+          begindatum: '2000-01-01'
+          einddatum: '9999-12-31'
+          omschrijving: Test fysiekGevaar!
+        plaatsingsbesluitnummer: '123'
+        strafrechtketennummer: '789789'
+        forensischeZorgtitel:
+          id: 1
+          code: '1'
+          omschrijving: Test zorgtitel!
+          begindatum: '2000-01-01'
+          einddatum: '9999-12-31'
+      xml:
+        name: fzSubtraject
+    dbc.ggz.fz.Gevaar:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      description: The measure of danger this client imposes
+      example:
+        id: 1
+        code: '1'
+        begindatum: '2000-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Test gevaar!
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dbc.ggz.PresenceLogSynchronisationError:
+      required:
+      - clientId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: Technical identification of the corresponding Client
+          format: int64
+        presencelogId:
+          type: integer
+          description: Technical identification of the corresponding PresenceLog
+          format: int64
+        zorgtraject:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Zorgtraject'
+          description: 'The corresponding dbc.ggz.Zorgtraject,
+
+            Only filled in when possible, can be null'
+        subtraject:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Subtraject'
+          description: 'The corresponding dbc.ggz.Subtraject,
+
+            Only filled in when possible, can be null'
+        message:
+          type: string
+          description: 'The (dutch) error message indicating what information is missing that is
+
+            causing the presencelog synchronisation to fail for this PresenceLog'
+      description: 'PresenceLogSynchronisationError:
+
+        Reflects a log entry in ons-dbc generated when the scheduled PresenceLogSynchronizer job resulted in an error'
+      example:
+        updatedAt: '2018-05-04T00:00:00.000+02:00'
+        createdAt: '2018-05-04T00:00:00.000+02:00'
+        createdBy: Administrator
+        id: 1
+        clientId: 1
+        presencelogId: 1
+        zorgtraject:
+          updatedAt: '2018-02-01T00:00:00.000+01:00'
+          createdAt: '2018-02-01T00:00:00.000+01:00'
+          createdBy: Administrator
+          id: 1
+          externalId: 1
+          beschikkingExternalId: 2
+          clientId: 1
+          verwijzingId: 1
+          jeugd: false
+          privacyBezwaar: false
+          identificatienummer: '1'
+          begindatum: '2018-02-01'
+          einddatum: '2018-05-30'
+          soortVerwijzer:
+            id: 1
+            code: '01'
+            begindatum: '2016-08-18'
+            einddatum: '2016-08-18'
+            omschrijving: huisarts
+          verwijzerAgb: '12345678'
+          uitvoerendeInstellingAgb: 04122827
+        subtraject:
+          updatedAt: '2018-02-01T00:00:00.000+01:00'
+          createdAt: '2018-02-01T00:00:00.000+01:00'
+          createdBy: Administrator
+          id: 1
+          externalId: 1
+          externalProductToewijzingId: 2
+          identificatienummer: '997881'
+          openingsdatum: '2018-02-01'
+          sluitdatum: '2018-05-30'
+          regiebehandelaar: '12345678'
+          medebehandelaar: '87654321'
+          soortVerwijzer:
+            id: 1
+            code: '01'
+            begindatum: '2016-08-18'
+            einddatum: '2016-08-18'
+            omschrijving: huisarts
+          verwijzerAgb: '12345678'
+          debiteurType: CUSTOM
+          excludeInvoicing: false
+        message: Geen activiteit gevonden voor registratie met id 1.
+      xml:
+        name: presenceLogSynchronisationError
+    dbc.ggz.Activiteit:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      properties:
+        groepcode:
+          type: string
+          description: Grouping of activity
+        element:
+          type: string
+          description: Element in group
+        aanspraakType:
+          type: string
+          description: 'Possible values:
+
+            NIET_VERZEKERD("A")
+
+            VERZEKERD("B")
+
+            VERZEKERD_INDIEN_DIAGNOSE_ZONDER_AANSPRAAKBEPERKING("C")
+
+            VERZEKERD_INDIEN_DIAGNOSE_ZONDER_AANSPRAAKBEPERKING_MET_AFHANKELIJKHEDEN("D")
+
+            NIET_VERZEKERD_TENZIJ("E")'
+        hierarchieniveau:
+          type: integer
+          description: Nesting level
+          format: int32
+        selecteerbaar:
+          type: string
+          description: 'NIET_SELECTEERBAAR(0)
+
+            SELECTEERBAAR_DIEPSTE_NIVEAU(1)
+
+            SELECTEERBAAR_DIEPER_NIVEAU_MOGELIJK(2)'
+        sorteervolgorde:
+          type: integer
+          description: The order the activities need to be sorted
+          format: int32
+        soort:
+          type: string
+          description: 'Possible values:
+
+            Tijdschrijven
+
+            Verblijfsdag
+
+            Dagbesteding
+
+            Verrichting'
+        magDirect:
+          type: boolean
+          description: May there be direct time declared for this activity
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        magIndirect:
+          type: boolean
+          description: May there be indirect time declared for this activity
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        magReistijd:
+          type: boolean
+          description: May there be travel time declared for this activity
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        magGroep:
+          type: boolean
+          description: May this activity be performed by a group.
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        brancheIndicatie:
+          type: string
+          description: 'Possible values:
+
+            BEIDE(0)
+
+            GGZ(1)
+
+            FZ(2)'
+      description: The activity that the client performed
+      example:
+        id: 1
+        code: act_2.6
+        begindatum: '2007-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Psychodiagnostisch onderzoek
+        groepcode: act_2
+        element: Psychodiagnostisch onderzoek
+        aanspraakType: B
+        hierarchieniveau: 2
+        selecteerbaar: '0'
+        sorteervolgorde: 90
+        soort: Tijdschrijven
+        magDirect: false
+        magIndirect: false
+        magReistijd: false
+        magGroep: false
+        brancheIndicatie: '0'
+      xml:
+        name: activiteit
+    dbc.ggz.fz.AardDelict:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      description: The type of delinquency the client performed
+      example:
+        id: 1
+        code: '1'
+        begindatum: '2000-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Test aard delict!
+    dbc.ggz.fz.ForensischeZorgtitel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: Zorgtitle code from stamdata
+        omschrijving:
+          type: string
+          description: The caretitle description, as given in the stamdata
+        begindatum:
+          type: string
+          description: The startdate of the caretitle
+          format: date
+        einddatum:
+          type: string
+          description: The enddate eof the caretitle
+          format: date
+      description: Forensic care title which defines the funding basis for compensation with DJI
+      example:
+        id: 1
+        code: '1'
+        omschrijving: Test zorgtitel!
+        begindatum: '2000-01-01'
+        einddatum: '9999-12-31'
+    dbc.ggz.Verblijfsdag:
+      required:
+      - aantalDagen
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.ggz.Zorgactiviteit'
+      properties:
+        aantalDagen:
+          type: integer
+          description: 'Larger or equal to 0.
+
+            The number of days the client stayed at a location.'
+          format: int32
+          default: 0
+        declaratiecode:
+          type: string
+          description: Code used for declaring this activity
+      description: A period of time that a client has stayed at a location.
+      example:
+        id: 1
+        identificatienummer: 1
+        activiteit:
+          id: 1
+          code: act_2.6
+          begindatum: '2007-01-01'
+          einddatum: '9999-12-31'
+          omschrijving: Psychodiagnostisch onderzoek
+          groepcode: act_2
+          element: Psychodiagnostisch onderzoek
+          aanspraakType: B
+          hierarchieniveau: 2
+          selecteerbaar: '0'
+          sorteervolgorde: 90
+          soort: Tijdschrijven
+          magDirect: false
+          magIndirect: false
+          magReistijd: false
+          magGroep: false
+          brancheIndicatie: '0'
+        datum: '2016-08-18'
+        subtraject:
+          updatedAt: '2016-08-18T00:00:00.000+02:00'
+          createdAt: '2016-08-18T00:00:00.000+02:00'
+          createdBy: Administrator
+          id: 1
+          externalId: 1
+          externalProductToewijzingId: 2
+          identificatienummer: '997881'
+          openingsdatum: '2016-08-18'
+          sluitdatum: '2016-08-18'
+          regiebehandelaar: '12345678'
+          regiebehandelaarId: 1
+          medebehandelaar: '87654321'
+          medebehandelaarId: 2
+          soortVerwijzer:
+            id: 1
+            code: '01'
+            begindatum: '2016-08-18'
+            einddatum: '2016-08-18'
+            omschrijving: huisarts
+          verwijzerAgb: '12345678'
+          debiteurType: CUSTOM
+          customDebtorId: 1
+          excludeInvoicing: false
+          latestGrouperResultaat:
+            updatedAt: '2016-08-16T00:00:00.000+02:00'
+            createdAt: '2016-08-16T00:00:00.000+02:00'
+            createdBy: Administrator
+            id: 1
+            prestatiecode: '101010001230'
+            declaratiecode: 25B019
+            productgroep: '00230'
+            productGroep:
+              id: 5
+              code: '00230'
+              codeBehandeling: '123123'
+              omschrijvingBehandeling: Behandeling
+              setting: setting
+              categorie: GEEN
+              lekenvertaling: Behandeling voor problemen
+              diagnoseBlinderen: false
+              brancheIndicatie: GGZ
+            timestamp: '2016-03-15T00:00:00.000+01:00'
+          numberOfDirectMinutes: 30
+          numberOfIndirectMinutes: 40
+          numberOfTravelMinutes: 50
+          lastRegistrationDate: '2010-10-10T00:00:00.000+02:00'
+          excludeInvoicingReason: we do not want it anymore
+          invoiced: false
+        updatedAt: '2016-08-18T00:00:00.000+02:00'
+        createdAt: '2016-08-18T00:00:00.000+02:00'
+        createdBy: Administrator
+        aantalDagen: 1
+        declaratiecode: 123AA
+      xml:
+        name: verblijfsdag
+    dbc.ggz.grouper.GrouperResultaat:
+      required:
+      - prestatiecode
+      - declaratiecode
+      - productgroep
+      - productGroep
+      - timestamp
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        prestatiecode:
+          type: string
+          description: The calculated code of the prestatie.
+        declaratiecode:
+          type: string
+          description: Code used for declaring the product.
+        productgroep:
+          type: string
+          description: 'The product group which was calculated.
+
+
+            Will be deleted after 2020-08-01'
+          deprecated: true
+          x-deprecated-since: 01-08-2020
+        productGroep:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.ProductGroep'
+          description: The product group which was calculated.
+        timestamp:
+          type: string
+          description: The time at which the result was calculated.
+          format: date-time
+      description: 'A ''grouping'' result of a DBC or DBBC. This result is recalculated every time changes are made to the DBC/DBBC (Subtraject),
+
+        Zorgtraject or activities. Contains the necessary information for decalring the DBC/DBBC.'
+      example:
+        updatedAt: '2016-08-16T00:00:00.000+02:00'
+        createdAt: '2016-08-16T00:00:00.000+02:00'
+        createdBy: Administrator
+        id: 1
+        prestatiecode: '101010001230'
+        declaratiecode: 25B019
+        productgroep: '00230'
+        productGroep:
+          id: 5
+          code: '00230'
+          codeBehandeling: '123123'
+          omschrijvingBehandeling: Behandeling
+          setting: setting
+          categorie: GEEN
+          lekenvertaling: Behandeling voor problemen
+          diagnoseBlinderen: false
+          brancheIndicatie: GGZ
+        timestamp: '2016-03-15T00:00:00.000+01:00'
+      xml:
+        name: grouperResultaat
+    dbc.ggz.RedenSluiten:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      properties:
+        sorteervolgorde:
+          type: integer
+          description: The order these values need to be sorted with
+          format: int32
+        brancheIndicatie:
+          type: string
+          description: 'Possible values:
+
+            BEIDE(0)
+
+            GGZ(1)
+
+            FZ(2)'
+      description: The reason for closing a DBC or DBBC (Subtraject)
+      example:
+        id: 1
+        code: '1'
+        begindatum: '2000-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Reden voor afsluiting bij patiënt niet bij behandelaar
+        sorteervolgorde: 10
+        brancheIndicatie: '0'
+      xml:
+        name: redenSluiten
+    dbc.ggz.SoortVerwijzer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      description: 'The type of practitioner of this DBC
+
+        Part of a code list of the NZA'
+      example:
+        id: 1
+        code: '01'
+        begindatum: '2016-08-18'
+        einddatum: '2016-08-18'
+        omschrijving: huisarts
+    dbc.ggz.Zorgtraject:
+      required:
+      - clientId
+      - begindatum
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        externalId:
+          type: integer
+          description: Identifier of care order
+          format: int64
+        beschikkingExternalId:
+          type: integer
+          description: Only used for jeugd zorgtrajecten. Object identifier for the beschikking.
+          format: int64
+        clientId:
+          type: integer
+          description: The object identifier of the Client.
+          format: int64
+        verwijzingId:
+          type: integer
+          description: Unused
+          format: int64
+        jeugd:
+          type: boolean
+          description: 'Whether this Zorgtraject concerns a jeugd (youth) traject.
+
+            New Zorgtrajecten may not set this to true.'
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        privacyBezwaar:
+          type: boolean
+          description: 'Whether the client has signed a document which says for privacy reasons the client
+
+            data may not be exposed to external parties.'
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        identificatienummer:
+          type: string
+          description: Filled automatically with a random identifier if left empty.
+        begindatum:
+          type: string
+          description: Start date
+          format: date
+        einddatum:
+          type: string
+          description: 'End date. Set automatically based on the state of the DBCs (Subtraject) contained in this zorgtraject.
+
+            If this value is null, the Zorgtraject is open. If non-null, it is closed.'
+          format: date
+        soortVerwijzer:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.SoortVerwijzer'
+          description: Soort verwijzer moved to subtraject
+          deprecated: true
+        verwijzerAgb:
+          type: string
+          description: Verwijzer moved to subtraject
+          deprecated: true
+          x-deprecated-since: 23-09-2022
+        zorgdomein:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Zorgdomein'
+          description: The zorgdomein as specified by the NZA code lists.
+        uitvoerendeInstellingAgb:
+          type: string
+          description: Unused
+        primaireDiagnose:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.DiagnoseToekenning'
+          description: The primary diagnosis for the client
+        subtrajecten:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.Subtraject'
+            xml:
+              name: subtraject
+          description: Subtrajecten (DBCs or DBBCs) contained in this Zorgtraject.
+          xml:
+            wrapped: true
+        fzSubtrajecten:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.fz.Subtraject'
+            xml:
+              name: fzSubtraject
+          description: Fz-Subtrajecten (DBBCs) contained in this Zorgtraject.
+          xml:
+            wrapped: true
+      description: 'The corresponding dbc.ggz.Zorgtraject,
+
+        Only filled in when possible, can be null'
+      example:
+        updatedAt: '2016-08-18T00:00:00.000+02:00'
+        createdAt: '2016-08-18T00:00:00.000+02:00'
+        createdBy: Administrator
+        id: 1
+        externalId: 1
+        beschikkingExternalId: 2
+        clientId: 1
+        verwijzingId: 1
+        jeugd: false
+        privacyBezwaar: true
+        identificatienummer: '1'
+        begindatum: '2016-08-18'
+        einddatum: '2016-08-18'
+        soortVerwijzer:
+          id: 1
+          code: '01'
+          begindatum: '2016-08-18'
+          einddatum: '2016-08-18'
+          omschrijving: huisarts
+        verwijzerAgb: '12345678'
+        zorgdomein:
+          id: 1
+          code: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          omschrijving: example
+        uitvoerendeInstellingAgb: 04122827
+        primaireDiagnose:
+          id: 1
+          externalId: 1
+          primair: true
+          trekkenVan: true
+          datum: '2014-12-29'
+          diagnoseAs: 1
+          diagnoseCode:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            zvzSubscore: 1
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            diagnoseAs: 1
+            icd9cm: example
+            icd10: example
+            prestatieniveau: example
+            prestatiecodeNaamgevingGGZ: example
+            prestatiecodeNaamgevingFZ: example
+            prestatiecodedeelGGZ: example
+            prestatiecodedeelFZ: example
+            parallelliteitscodeGGZ: example
+            parallelliteitscodeFZ: example
+            brancheIndicatie: example
+          zorgtrajectId: 1
+        subtrajecten:
+        - updatedAt: '2016-08-18T00:00:00.000+02:00'
+          createdAt: '2016-08-18T00:00:00.000+02:00'
+          createdBy: Administrator
+          id: 1
+          externalId: 1
+          externalProductToewijzingId: 2
+          identificatienummer: '997881'
+          openingsdatum: '2016-08-18'
+          sluitdatum: '2016-08-18'
+          regiebehandelaar: '12345678'
+          regiebehandelaarId: 1
+          medebehandelaar: '87654321'
+          medebehandelaarId: 2
+          soortVerwijzer:
+            id: 1
+            code: '01'
+            begindatum: '2016-08-18'
+            einddatum: '2016-08-18'
+            omschrijving: huisarts
+          verwijzerAgb: '12345678'
+          debiteurType: CUSTOM
+          customDebtorId: 1
+          excludeInvoicing: false
+          latestGrouperResultaat:
+            updatedAt: '2016-08-16T00:00:00.000+02:00'
+            createdAt: '2016-08-16T00:00:00.000+02:00'
+            createdBy: Administrator
+            id: 1
+            prestatiecode: '101010001230'
+            declaratiecode: 25B019
+            productgroep: '00230'
+            productGroep:
+              id: 5
+              code: '00230'
+              codeBehandeling: '123123'
+              omschrijvingBehandeling: Behandeling
+              setting: setting
+              categorie: GEEN
+              lekenvertaling: Behandeling voor problemen
+              diagnoseBlinderen: false
+              brancheIndicatie: GGZ
+            timestamp: '2016-03-15T00:00:00.000+01:00'
+          numberOfDirectMinutes: 30
+          numberOfIndirectMinutes: 40
+          numberOfTravelMinutes: 50
+          lastRegistrationDate: '2010-10-10T00:00:00.000+02:00'
+          excludeInvoicingReason: we do not want it anymore
+          invoiced: false
+        fzSubtrajecten:
+        - id: 1
+          externalId: 1
+          externalProductToewijzingId: 2
+          identificatienummer: '997881'
+          openingsdatum: '2016-08-18'
+          sluitdatum: '2016-08-18'
+          regiebehandelaar: '12345678'
+          regiebehandelaarId: 1
+          medebehandelaar: '87654321'
+          medebehandelaarId: 2
+          soortVerwijzer:
+            id: 1
+            code: '01'
+            begindatum: '2016-08-18'
+            einddatum: '2016-08-18'
+            omschrijving: huisarts
+          verwijzerAgb: '12345678'
+          debiteurType: CUSTOM
+          customDebtorId: 1
+          excludeInvoicing: false
+          latestGrouperResultaat:
+            updatedAt: '2016-08-16T00:00:00.000+02:00'
+            createdAt: '2016-08-16T00:00:00.000+02:00'
+            createdBy: Administrator
+            id: 1
+            prestatiecode: '101010001230'
+            declaratiecode: 25B019
+            productgroep: '00230'
+            productGroep:
+              id: 5
+              code: '00230'
+              codeBehandeling: '123123'
+              omschrijvingBehandeling: Behandeling
+              setting: setting
+              categorie: GEEN
+              lekenvertaling: Behandeling voor problemen
+              diagnoseBlinderen: false
+              brancheIndicatie: GGZ
+            timestamp: '2016-03-15T00:00:00.000+01:00'
+          numberOfDirectMinutes: 30
+          numberOfIndirectMinutes: 40
+          numberOfTravelMinutes: 50
+          lastRegistrationDate: '2010-10-10T00:00:00.000+02:00'
+          excludeInvoicingReason: we do not want it anymore
+          invoiced: false
+          updatedAt: '2016-08-18T00:00:00.000+02:00'
+          createdAt: '2016-08-18T00:00:00.000+02:00'
+          createdBy: Administrator
+          plaatsingsbesluitnummer: '1234'
+          strafrechtketennummer: '789789'
+      xml:
+        name: zorgtraject
+    dbc.ggz.Subtraject:
+      required:
+      - openingsdatum
+      - debiteurType
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        externalId:
+          type: integer
+          description: References Administration's CareOrderProduct
+          format: int64
+        externalProductToewijzingId:
+          type: integer
+          description: References beschikking (assigned CareOrderProduct)
+          format: int64
+        zorgtraject:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Zorgtraject'
+          description: The parent zorgtraject containing client and diagnosis information
+        identificatienummer:
+          type: string
+          description: 'Optional user-supplied reference id for this DBC
+
+            by default, an automatically generated unused Long as string'
+        openingsdatum:
+          type: string
+          description: Start date of this DBC
+          format: date
+        sluitdatum:
+          type: string
+          description: 'End date of this DBC.
+
+            If null, this DBC is ''open''. If non-null, this DBC is ''closed''.'
+          format: date
+        redenSluiten:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.RedenSluiten'
+          description: 'Reason for ending this DBC, subject to validation in ons-dbc.
+
+            Part of a code list of the NZA'
+        zorgtype:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Zorgtype'
+          description: Type of care provided in this DBC
+        regiebehandelaar:
+          type: string
+          description: use regiebehandelaar_id
+          deprecated: true
+          x-deprecated-since: 23-09-2022
+        regiebehandelaarId:
+          type: integer
+          description: Object identifier of Employee which is the regiebehandelaar
+          format: int64
+        medebehandelaar:
+          type: string
+          description: use medebehandelaar_id
+          deprecated: true
+          x-deprecated-since: 23-09-2022
+        medebehandelaarId:
+          type: integer
+          description: Object identifier of Employee which is the tweede regiebehandelaar
+          format: int64
+        circuitcode:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Circuit'
+          description: 'The care circuit, dealing with youth, adult or forensic types of care
+
+            Part of a code list of the NZA'
+        soortVerwijzer:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.SoortVerwijzer'
+          description: 'The type of practitioner of this DBC
+
+            Part of a code list of the NZA'
+        verwijzerAgb:
+          type: string
+          description: The AGB code of the referrer for the client.
+        debiteurType:
+          type: string
+          description: 'Debtor type for this subtraject
+
+            possible values:
+
+            - ''CLIENT'', indicating a manually invoiced DBC
+
+            - ''ZORGVERZEKERAAR'', indicating an automatically invoiced DBC
+
+            - ''CUSTOM'', indicating a custom Debtor can be set (`customDebtor`)'
+          default: ZORGVERZEKERAAR
+        customDebtorId:
+          type: integer
+          description: 'Object identifier of Administration''s Debtor that can be set as a custom debtor
+
+            Should only be set when `debiteurType` equals `CUSTOM`'
+          format: int64
+        tijdschrijvenRegistraties:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.Tijdschrijven'
+            xml:
+              name: tijdschrijvenRegistratie
+          description: List of administrative time registrations
+          xml:
+            wrapped: true
+        dagbestedingRegistraties:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.Dagbesteding'
+            xml:
+              name: dagbestedingRegistratie
+          description: List of day care activity registrations
+          xml:
+            wrapped: true
+        verblijfsdagRegistraties:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.Verblijfsdag'
+            xml:
+              name: verblijfsdagRegistratie
+          description: List of residencies
+          xml:
+            wrapped: true
+        verrichtingRegistraties:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.Verrichting'
+            xml:
+              name: verrichtingRegistratie
+          description: List of treatments
+          xml:
+            wrapped: true
+        nevenDiagnosen:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.DiagnoseToekenning'
+            xml:
+              name: nevenDiagnose
+          description: List of evaluative diagnoses
+          xml:
+            wrapped: true
+        grouperResultaten:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.grouper.GrouperResultaat'
+            xml:
+              name: grouperResultaat
+          description: List of derived declarable products based on registered time
+          xml:
+            wrapped: true
+        excludeInvoicing:
+          type: boolean
+          description: 'When true: do not create invoices / declarations for this Subtraject'
+          default: false
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        latestGrouperResultaat:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.grouper.GrouperResultaat'
+          description: 'The latest grouper resultaat for this DBC, ordered in time.
+
+            Can be null if there is none.'
+          xml:
+            name: latestGrouperResultaat
+        numberOfDirectMinutes:
+          type: integer
+          description: The number of direct registered minutes
+          format: int32
+        numberOfIndirectMinutes:
+          type: integer
+          description: The number of direct registered minutes
+          format: int32
+        numberOfTravelMinutes:
+          type: integer
+          description: The number of direct registered minutes
+          format: int32
+        lastRegistrationDate:
+          type: string
+          description: 'The last registration date.
+
+            Null if there are no registrations.'
+          format: date-time
+        excludeInvoicingReason:
+          type: string
+          description: 'When excludeInvoicing is true: this string contains the reason why in free text'
+        invoiced:
+          type: boolean
+          description: Value that tracks if the subtraject has been invoiced
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+      description: 'The corresponding dbc.ggz.Subtraject,
+
+        Only filled in when possible, can be null'
+      example:
+        updatedAt: '2016-08-18T00:00:00.000+02:00'
+        createdAt: '2016-08-18T00:00:00.000+02:00'
+        createdBy: Administrator
+        id: 1
+        externalId: 1
+        externalProductToewijzingId: 2
+        zorgtraject:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          externalId: 1
+          beschikkingExternalId: 1
+          clientId: 1
+          verwijzingId: 1
+          jeugd: true
+          privacyBezwaar: true
+          identificatienummer: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          soortVerwijzer:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+          verwijzerAgb: example
+          zorgdomein:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+          uitvoerendeInstellingAgb: example
+          primaireDiagnose:
+            id: 1
+            externalId: 1
+            primair: true
+            trekkenVan: true
+            datum: '2014-12-29'
+            diagnoseAs: 1
+            diagnoseCode:
+              id: 1
+              code: example
+              begindatum: '2014-12-29'
+              einddatum: '2014-12-29'
+              omschrijving: example
+              groepcode: example
+              element: example
+              zvzSubscore: 1
+              aanspraakType: example
+              hierarchieniveau: 1
+              selecteerbaar: example
+              sorteervolgorde: 1
+              diagnoseAs: 1
+              icd9cm: example
+              icd10: example
+              prestatieniveau: example
+              prestatiecodeNaamgevingGGZ: example
+              prestatiecodeNaamgevingFZ: example
+              prestatiecodedeelGGZ: example
+              prestatiecodedeelFZ: example
+              parallelliteitscodeGGZ: example
+              parallelliteitscodeFZ: example
+              brancheIndicatie: example
+            zorgtrajectId: 1
+          fzSubtrajecten:
+          - id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          - id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+        identificatienummer: '997881'
+        openingsdatum: '2016-08-18'
+        sluitdatum: '2016-08-18'
+        redenSluiten:
+          id: 1
+          code: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          omschrijving: example
+          sorteervolgorde: 1
+          brancheIndicatie: example
+        zorgtype:
+          id: 1
+          code: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          omschrijving: example
+          groepcode: example
+          element: example
+          hierarchieniveau: 1
+          selecteerbaar: example
+          sorteervolgorde: 1
+          prestatiecodedeel: example
+          brancheIndicatie: example
+        regiebehandelaar: '12345678'
+        regiebehandelaarId: 1
+        medebehandelaar: '87654321'
+        medebehandelaarId: 2
+        circuitcode:
+          id: 1
+          code: example
+          begindatum: '2014-12-29'
+          einddatum: '2014-12-29'
+          omschrijving: example
+          sorteervolgorde: 1
+          brancheIndicatie: example
+        soortVerwijzer:
+          id: 1
+          code: '01'
+          begindatum: '2016-08-18'
+          einddatum: '2016-08-18'
+          omschrijving: huisarts
+        verwijzerAgb: '12345678'
+        debiteurType: CUSTOM
+        customDebtorId: 1
+        tijdschrijvenRegistraties:
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          directeMinuten: 1
+          indirecteAlgemeneMinuten: 1
+          indirecteReistijdminuten: 1
+          behandelaar: example
+          afleidbaar: true
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          directeMinuten: 1
+          indirecteAlgemeneMinuten: 1
+          indirecteReistijdminuten: 1
+          behandelaar: example
+          afleidbaar: true
+        dagbestedingRegistraties:
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalUren: 1
+          declaratiecode: example
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalUren: 1
+          declaratiecode: example
+        verblijfsdagRegistraties:
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalDagen: 1
+          declaratiecode: example
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalDagen: 1
+          declaratiecode: example
+        verrichtingRegistraties:
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalBehandelingen: 1
+          declaratiecode: example
+        - id: 1
+          identificatienummer: 1
+          activiteit:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            soort: example
+            magDirect: true
+            magIndirect: true
+            magReistijd: true
+            magGroep: true
+            brancheIndicatie: example
+          datum: '2014-12-29'
+          subtraject:
+            id: 1
+            openingsdatum: '2014-12-29'
+            debiteurType: example
+            excludeInvoicing: false
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          aantalBehandelingen: 1
+          declaratiecode: example
+        nevenDiagnosen:
+        - id: 1
+          externalId: 1
+          primair: true
+          trekkenVan: true
+          datum: '2014-12-29'
+          diagnoseAs: 1
+          diagnoseCode:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            zvzSubscore: 1
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            diagnoseAs: 1
+            icd9cm: example
+            icd10: example
+            prestatieniveau: example
+            prestatiecodeNaamgevingGGZ: example
+            prestatiecodeNaamgevingFZ: example
+            prestatiecodedeelGGZ: example
+            prestatiecodedeelFZ: example
+            parallelliteitscodeGGZ: example
+            parallelliteitscodeFZ: example
+            brancheIndicatie: example
+          zorgtrajectId: 1
+        - id: 1
+          externalId: 1
+          primair: true
+          trekkenVan: true
+          datum: '2014-12-29'
+          diagnoseAs: 1
+          diagnoseCode:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            groepcode: example
+            element: example
+            zvzSubscore: 1
+            aanspraakType: example
+            hierarchieniveau: 1
+            selecteerbaar: example
+            sorteervolgorde: 1
+            diagnoseAs: 1
+            icd9cm: example
+            icd10: example
+            prestatieniveau: example
+            prestatiecodeNaamgevingGGZ: example
+            prestatiecodeNaamgevingFZ: example
+            prestatiecodedeelGGZ: example
+            prestatiecodedeelFZ: example
+            parallelliteitscodeGGZ: example
+            parallelliteitscodeFZ: example
+            brancheIndicatie: example
+          zorgtrajectId: 1
+        grouperResultaten:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          prestatiecode: example
+          declaratiecode: example
+          productgroep: example
+          productGroep:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            codeBehandeling: example
+            omschrijvingBehandeling: example
+            setting: example
+            categorie: example
+            lekenvertaling: example
+            diagnoseBlinderen: true
+            brancheIndicatie: example
+          timestamp: '2014-12-29T00:00:00.000+01:00'
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          prestatiecode: example
+          declaratiecode: example
+          productgroep: example
+          productGroep:
+            id: 1
+            code: example
+            begindatum: '2014-12-29'
+            einddatum: '2014-12-29'
+            omschrijving: example
+            codeBehandeling: example
+            omschrijvingBehandeling: example
+            setting: example
+            categorie: example
+            lekenvertaling: example
+            diagnoseBlinderen: true
+            brancheIndicatie: example
+          timestamp: '2014-12-29T00:00:00.000+01:00'
+        excludeInvoicing: false
+        latestGrouperResultaat:
+          updatedAt: '2016-08-16T00:00:00.000+02:00'
+          createdAt: '2016-08-16T00:00:00.000+02:00'
+          createdBy: Administrator
+          id: 1
+          prestatiecode: '101010001230'
+          declaratiecode: 25B019
+          productgroep: '00230'
+          productGroep:
+            id: 5
+            code: '00230'
+            codeBehandeling: '123123'
+            omschrijvingBehandeling: Behandeling
+            setting: setting
+            categorie: GEEN
+            lekenvertaling: Behandeling voor problemen
+            diagnoseBlinderen: false
+            brancheIndicatie: GGZ
+          timestamp: '2016-03-15T00:00:00.000+01:00'
+        numberOfDirectMinutes: 30
+        numberOfIndirectMinutes: 40
+        numberOfTravelMinutes: 50
+        lastRegistrationDate: '2010-10-10T00:00:00.000+02:00'
+        excludeInvoicingReason: we do not want it anymore
+        invoiced: false
+    dbc.ggz.Dagbesteding:
+      required:
+      - aantalUren
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.ggz.Zorgactiviteit'
+      properties:
+        aantalUren:
+          type: integer
+          description: The number of hours of the duration of this Dagbesteding
+          format: int32
+          default: 0
+        declaratiecode:
+          type: string
+          description: The declaration code which will be used to declare this activity
+      description: An activity which the client performs during the day
+      example:
+        id: 1
+        identificatienummer: 1
+        activiteit:
+          id: 1
+          code: act_2.6
+          begindatum: '2007-01-01'
+          einddatum: '9999-12-31'
+          omschrijving: Psychodiagnostisch onderzoek
+          groepcode: act_2
+          element: Psychodiagnostisch onderzoek
+          aanspraakType: B
+          hierarchieniveau: 2
+          selecteerbaar: '0'
+          sorteervolgorde: 90
+          soort: Tijdschrijven
+          magDirect: false
+          magIndirect: false
+          magReistijd: false
+          magGroep: false
+          brancheIndicatie: '0'
+        datum: '2016-08-18'
+        subtraject:
+          updatedAt: '2016-08-18T00:00:00.000+02:00'
+          createdAt: '2016-08-18T00:00:00.000+02:00'
+          createdBy: Administrator
+          id: 1
+          externalId: 1
+          externalProductToewijzingId: 2
+          identificatienummer: '997881'
+          openingsdatum: '2016-08-18'
+          sluitdatum: '2016-08-18'
+          regiebehandelaar: '12345678'
+          regiebehandelaarId: 1
+          medebehandelaar: '87654321'
+          medebehandelaarId: 2
+          soortVerwijzer:
+            id: 1
+            code: '01'
+            begindatum: '2016-08-18'
+            einddatum: '2016-08-18'
+            omschrijving: huisarts
+          verwijzerAgb: '12345678'
+          debiteurType: CUSTOM
+          customDebtorId: 1
+          excludeInvoicing: false
+          latestGrouperResultaat:
+            updatedAt: '2016-08-16T00:00:00.000+02:00'
+            createdAt: '2016-08-16T00:00:00.000+02:00'
+            createdBy: Administrator
+            id: 1
+            prestatiecode: '101010001230'
+            declaratiecode: 25B019
+            productgroep: '00230'
+            productGroep:
+              id: 5
+              code: '00230'
+              codeBehandeling: '123123'
+              omschrijvingBehandeling: Behandeling
+              setting: setting
+              categorie: GEEN
+              lekenvertaling: Behandeling voor problemen
+              diagnoseBlinderen: false
+              brancheIndicatie: GGZ
+            timestamp: '2016-03-15T00:00:00.000+01:00'
+          numberOfDirectMinutes: 30
+          numberOfIndirectMinutes: 40
+          numberOfTravelMinutes: 50
+          lastRegistrationDate: '2010-10-10T00:00:00.000+02:00'
+          excludeInvoicingReason: we do not want it anymore
+          invoiced: false
+        updatedAt: '2016-08-18T00:00:00.000+02:00'
+        createdAt: '2016-08-18T00:00:00.000+02:00'
+        createdBy: Administrator
+        aantalUren: 1
+        declaratiecode: 123AA
+    dbc.ggz.Tijdschrijven:
+      required:
+      - directeMinuten
+      - indirecteAlgemeneMinuten
+      - indirecteReistijdminuten
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.ggz.Zorgactiviteit'
+      properties:
+        directeMinuten:
+          type: integer
+          description: Number of minutes of activity with direct client contact
+          format: int32
+          default: 0
+        indirecteAlgemeneMinuten:
+          type: integer
+          description: Number of minutes of activity without direct client contact
+          format: int32
+          default: 0
+        indirecteReistijdminuten:
+          type: integer
+          description: Number of minutes of travel time
+          format: int32
+          default: 0
+        behandelaar:
+          type: string
+          description: The Practitioner's reference id in administration
+        afleidbaar:
+          type: boolean
+          description: 'True by default, ons-dbc determines the value of this attribute using
+
+            the behandelaar''s profession and the definitions provided by Vektis below'
+          default: true
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+      description: Tijdschrijven model (no description)
+      example:
+        id: 1
+        identificatienummer: 1
+        activiteit:
+          id: 1
+          code: act_2.6
+          begindatum: '2007-01-01'
+          einddatum: '9999-12-31'
+          omschrijving: Psychodiagnostisch onderzoek
+          groepcode: act_2
+          element: Psychodiagnostisch onderzoek
+          aanspraakType: B
+          hierarchieniveau: 2
+          selecteerbaar: '0'
+          sorteervolgorde: 90
+          soort: Tijdschrijven
+          magDirect: false
+          magIndirect: false
+          magReistijd: false
+          magGroep: false
+          brancheIndicatie: '0'
+        datum: '2016-08-18'
+        subtraject:
+          updatedAt: '2016-08-18T00:00:00.000+02:00'
+          createdAt: '2016-08-18T00:00:00.000+02:00'
+          createdBy: Administrator
+          id: 1
+          externalId: 1
+          externalProductToewijzingId: 2
+          identificatienummer: '997881'
+          openingsdatum: '2016-08-18'
+          sluitdatum: '2016-08-18'
+          regiebehandelaar: '12345678'
+          regiebehandelaarId: 1
+          medebehandelaar: '87654321'
+          medebehandelaarId: 2
+          soortVerwijzer:
+            id: 1
+            code: '01'
+            begindatum: '2016-08-18'
+            einddatum: '2016-08-18'
+            omschrijving: huisarts
+          verwijzerAgb: '12345678'
+          debiteurType: CUSTOM
+          customDebtorId: 1
+          excludeInvoicing: false
+          latestGrouperResultaat:
+            updatedAt: '2016-08-16T00:00:00.000+02:00'
+            createdAt: '2016-08-16T00:00:00.000+02:00'
+            createdBy: Administrator
+            id: 1
+            prestatiecode: '101010001230'
+            declaratiecode: 25B019
+            productgroep: '00230'
+            productGroep:
+              id: 5
+              code: '00230'
+              codeBehandeling: '123123'
+              omschrijvingBehandeling: Behandeling
+              setting: setting
+              categorie: GEEN
+              lekenvertaling: Behandeling voor problemen
+              diagnoseBlinderen: false
+              brancheIndicatie: GGZ
+            timestamp: '2016-03-15T00:00:00.000+01:00'
+          numberOfDirectMinutes: 30
+          numberOfIndirectMinutes: 40
+          numberOfTravelMinutes: 50
+          lastRegistrationDate: '2010-10-10T00:00:00.000+02:00'
+          excludeInvoicingReason: we do not want it anymore
+          invoiced: false
+        updatedAt: '2016-08-18T00:00:00.000+02:00'
+        createdAt: '2016-08-18T00:00:00.000+02:00'
+        createdBy: Administrator
+        directeMinuten: 1
+        indirecteAlgemeneMinuten: 1
+        indirecteReistijdminuten: 1
+        behandelaar: Sjaak Knaak
+        afleidbaar: true
+      xml:
+        name: tijdschrijven
+    dbc.ggz.list.PresenceLogSynchronisationErrorList:
+      type: object
+      properties:
+        presenceLogSynchronisationErrors:
+          type: array
+          items:
+            $ref: '#/components/schemas/dbc.ggz.PresenceLogSynchronisationError'
+          xml:
+            name: presenceLogSynchronisationError
+      description: PresenceLogSynchronisationErrorList model (no description)
+      example:
+        presenceLogSynchronisationErrors:
+        - updatedAt: '2018-05-04T00:00:00.000+02:00'
+          createdAt: '2018-05-04T00:00:00.000+02:00'
+          createdBy: Administrator
+          id: 1
+          clientId: 1
+          presencelogId: 1
+          zorgtraject:
+            updatedAt: '2018-02-01T00:00:00.000+01:00'
+            createdAt: '2018-02-01T00:00:00.000+01:00'
+            createdBy: Administrator
+            id: 1
+            externalId: 1
+            beschikkingExternalId: 2
+            clientId: 1
+            verwijzingId: 1
+            jeugd: false
+            privacyBezwaar: false
+            identificatienummer: '1'
+            begindatum: '2018-02-01'
+            einddatum: '2018-05-30'
+            soortVerwijzer:
+              id: 1
+              code: '01'
+              begindatum: '2016-08-18'
+              einddatum: '2016-08-18'
+              omschrijving: huisarts
+            verwijzerAgb: '12345678'
+            uitvoerendeInstellingAgb: 04122827
+          subtraject:
+            updatedAt: '2018-02-01T00:00:00.000+01:00'
+            createdAt: '2018-02-01T00:00:00.000+01:00'
+            createdBy: Administrator
+            id: 1
+            externalId: 1
+            externalProductToewijzingId: 2
+            identificatienummer: '997881'
+            openingsdatum: '2018-02-01'
+            sluitdatum: '2018-05-30'
+            regiebehandelaar: '12345678'
+            medebehandelaar: '87654321'
+            soortVerwijzer:
+              id: 1
+              code: '01'
+              begindatum: '2016-08-18'
+              einddatum: '2016-08-18'
+              omschrijving: huisarts
+            verwijzerAgb: '12345678'
+            debiteurType: CUSTOM
+            excludeInvoicing: false
+          message: Geen activiteit gevonden voor registratie met id 1.
+      xml:
+        name: presenceLogSynchronisationErrors
+    dbc.StamData:
+      required:
+      - code
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: The code taken from NZA code lists.
+        begindatum:
+          type: string
+          description: The first date this value is valid at.
+          format: date
+        einddatum:
+          type: string
+          description: 'The last date this value is valid at.
+
+
+            May be 9999-12-31 to signify ''valid forever'''
+          format: date
+        omschrijving:
+          type: string
+          description: A humanly readable description for the value, in Dutch
+      description: 'Base class for a code list of the NZA.
+
+        See documentation at https://puc.overheid.nl/nza/zorgsectoren/pagina/NZA003b/-/gdlv/1/p/1/'
+      example:
+        id: 1
+        code: example
+        begindatum: '2014-12-29'
+        einddatum: '2014-12-29'
+        omschrijving: example
+    dbc.ggz.Zorgactiviteit:
+      required:
+      - activiteit
+      - datum
+      - subtraject
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        identificatienummer:
+          type: integer
+          description: The object identifier of a Presence Log
+          format: int64
+        activiteit:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Activiteit'
+          description: The activity that the client performed
+        datum:
+          type: string
+          description: The date at which the activity occurred
+          format: date
+        subtraject:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Subtraject'
+          description: The DBC or DBBC (Subtraject) this activity belongs to.
+      description: A base class for an Activity which a client performs
+      example:
+        updatedAt: '2016-08-18T00:00:00.000+02:00'
+        createdAt: '2016-08-18T00:00:00.000+02:00'
+        createdBy: Administrator
+        id: 1
+        identificatienummer: 3231
+        activiteit:
+          id: 1
+          code: act_2.6
+        datum: '2016-08-18'
+        subtraject:
+          id: 1
+          openingsdatum: '2016-08-18'
+          debiteurType: ZORGVERZEKERAAR
+          excludeInvoicing: false
+    dbc.ggz.Circuit:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      properties:
+        sorteervolgorde:
+          type: integer
+          description: The order the values need to be sorted
+          format: int32
+        brancheIndicatie:
+          type: string
+          description: 'Possible values:
+
+            BEIDE(0)
+
+            GGZ(1)
+
+            FZ(2)'
+      description: 'The care circuit, dealing with youth, adult or forensic types of care
+
+        Part of a code list of the NZA'
+      example:
+        id: 1
+        code: '1'
+        begindatum: '2000-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Volwassenen lang
+        sorteervolgorde: 20
+        brancheIndicatie: '1'
+    dbc.ggz.DiagnoseToekenning:
+      required:
+      - primair
+      - datum
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        externalId:
+          type: integer
+          description: Link a diagnosetoekenning to the original dsm classification series in ons-dossier.
+          format: int64
+        primair:
+          type: boolean
+          description: 'Indicate that this object is the primary part of a set.
+
+            One DSM classification can contain a list of DiagnoseToekenningen. Only one of them can be primary'
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        trekkenVan:
+          type: boolean
+          description: 'To indicate that the client has ''signs of'' a diagnosis.
+
+            This is used when the user is not sure of the diagnosis.'
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        datum:
+          type: string
+          description: The date at which the diagnosis took place
+          format: date
+        diagnoseAs:
+          type: integer
+          description: 'Possible values:
+
+            1,2,3,4,5
+
+            <p>
+
+            A DSM 4 classification consists of 5 axis.
+
+            The speficication says:
+
+            <p>
+
+            1 Klinische stoornis (bijv. depressie)
+
+            2 Persoonlijkheidsstoornissen (bijv. afhankelijke persoonlijkheidsstoornis)
+
+            3 Lichamelijke aandoeningen (relevant voor het begrijpen of behandelen van een psychische stoornis) (bijv. migraine)
+
+            4 Psychosociale en omgevingsfactoren (bijv. scheiding, werkeloosheid )
+
+            5 Algehele beoordeling van het functioneren (Global Assement of Functioning Scale, GAF) uitgedrukt op een schaal van 0 tot 100'
+          format: int32
+        diagnoseCode:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Diagnose'
+          description: NZA Stamdata code for this diagnosis
+        zorgtrajectId:
+          type: integer
+          description: Object identifier for the corresponding Zorgtraject
+          format: int64
+      description: A diagnosis which has been assigned to a client.
+      example:
+        id: 1
+        externalId: 123
+        primair: true
+        trekkenVan: false
+        datum: '2016-08-18'
+        diagnoseAs: 1
+        diagnoseCode:
+          id: 1
+          code: '000'
+          begindatum: '2016-08-16'
+          einddatum: '2016-08-16'
+          omschrijving: Traject
+          icd10: UUU
+        zorgtrajectId: 1
+    dbc.ggz.Zorgdomein:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      description: The zorgdomein as specified by the NZA code lists.
+      example:
+        id: 1
+        code: '01'
+        begindatum: '2000-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Volwassenen EPA
+    dbc.ggz.Diagnose:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      properties:
+        groepcode:
+          type: string
+          description: Group for this diagnosis
+        element:
+          type: string
+          description: Element in group
+        zvzSubscore:
+          type: integer
+          format: int32
+        aanspraakType:
+          type: string
+          description: 'Possible values:
+
+            NIET_VERZEKERD(0),
+
+            VERZEKERD(1);'
+        hierarchieniveau:
+          type: integer
+          description: The nesting level
+          format: int32
+        selecteerbaar:
+          type: string
+          description: 'Whether the user may select this diagnosis
+
+
+            NIET_SELECTEERBAAR(0)
+
+            SELECTEERBAAR_DIEPSTE_NIVEAU(1)
+
+            SELECTEERBAAR_DIEPER_NIVEAU_MOGELIJK(2)'
+        sorteervolgorde:
+          type: integer
+          description: Sorting order
+          format: int32
+        diagnoseAs:
+          type: integer
+          description: 'Possible values:
+
+            1,2,3,4,5'
+          format: int32
+        icd9cm:
+          type: string
+        icd10:
+          type: string
+        prestatieniveau:
+          type: string
+        prestatiecodeNaamgevingGGZ:
+          type: string
+        prestatiecodeNaamgevingFZ:
+          type: string
+        prestatiecodedeelGGZ:
+          type: string
+        prestatiecodedeelFZ:
+          type: string
+        parallelliteitscodeGGZ:
+          type: string
+        parallelliteitscodeFZ:
+          type: string
+        brancheIndicatie:
+          type: string
+          description: 'Possible values:
+
+            BEIDE(0)
+
+            GGZ(1)
+
+            FZ(2)'
+      description: NZA code list values for Diagnosis
+      example:
+        id: 1
+        code: act_2.6
+        begindatum: '2016-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Leesstoornis
+        groepcode: as1_1.01
+        element: Leesstoornis
+        zvzSubscore: 2
+        aanspraakType: '2'
+        hierarchieniveau: 3
+        selecteerbaar: '1'
+        sorteervolgorde: 1000050
+        diagnoseAs: 1
+        icd9cm: '315.00'
+        icd10: F81.0
+        prestatieniveau: fictief_a
+        prestatiecodeNaamgevingGGZ: Overige stoornissen in de kindertijd
+        prestatiecodeNaamgevingFZ: Stoornissen in de kindertijd
+        prestatiecodedeelGGZ: '17'
+        prestatiecodedeelFZ: '1'
+        parallelliteitscodeGGZ: '28'
+        parallelliteitscodeFZ: '1'
+        brancheIndicatie: '0'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

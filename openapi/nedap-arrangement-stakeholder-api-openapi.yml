@@ -1,0 +1,433 @@
+openapi: 3.2.0
+info:
+  title: Nedap Arrangement.Stakeholder API
+  version: 0.0.0
+  description: 'Operations tagged arrangement.Stakeholder across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: arrangement.Stakeholder
+paths:
+  /t/arrangement/stakeholders:
+    post:
+      tags:
+      - arrangement.Stakeholder
+      summary: Create Stakeholder
+      operationId: arrangement.StakeholderAPI.create
+      requestBody:
+        description: Stakeholder to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.Stakeholder'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Stakeholder'
+        '400':
+          description: Intent UUID is required
+        '404':
+          description: Intent not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/arrangement/stakeholders
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/stakeholders/{uuid}:
+    get:
+      tags:
+      - arrangement.Stakeholder
+      summary: Gets an Stakeholder by UUID
+      operationId: arrangement.StakeholderAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the Stakeholder
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Stakeholder'
+        '400':
+          description: Stakeholder UUID is required
+        '404':
+          description: Stakeholder not found
+      x-replaced-by: /v0/administration/arrangement/stakeholders/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - arrangement.Stakeholder
+      summary: Updates the given Stakeholder
+      operationId: arrangement.StakeholderAPI.update
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the Stakeholder
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Stakeholder to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.Stakeholder'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Stakeholder'
+        '400':
+          description: Stakeholder or intent UUID is required
+        '404':
+          description: Stakeholder or intent not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/arrangement/stakeholders/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - arrangement.Stakeholder
+      summary: Deletes the Stakeholder with given uuid
+      operationId: arrangement.StakeholderAPI.delete
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the Stakeholder
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Stakeholder'
+        '400':
+          description: Stakeholder UUID is required
+        '404':
+          description: Stakeholder not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/arrangement/stakeholders/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/stakeholders/by_intent/{intent_uuid}:
+    get:
+      tags:
+      - arrangement.Stakeholder
+      summary: Gets the Stakeholders which belong to an Intent
+      operationId: arrangement.StakeholderAPI.byIntentUuid
+      parameters:
+      - name: intent_uuid
+        in: path
+        description: the UUID of the Intent
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.StakeholderList'
+      x-replaced-by: /v0/administration/arrangement/stakeholders/by_intent/{intent_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/stakeholders/by_timeline/{timeline_uuid}:
+    get:
+      tags:
+      - arrangement.Stakeholder
+      summary: Gets the Stakeholders which belong to a Timeline
+      operationId: arrangement.StakeholderAPI.byTimelineUuid
+      parameters:
+      - name: timeline_uuid
+        in: path
+        description: the UUID of the Timeline
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.StakeholderList'
+      x-replaced-by: /v0/administration/arrangement/stakeholders/by_timeline/{timeline_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/stakeholders:
+    post:
+      tags:
+      - arrangement.Stakeholder
+      summary: Create Stakeholder
+      operationId: arrangement.StakeholderAPI.create
+      requestBody:
+        description: Stakeholder to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.Stakeholder'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Stakeholder'
+        '400':
+          description: Intent UUID is required
+        '404':
+          description: Intent not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/arrangement/stakeholders
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/stakeholders/{uuid}:
+    get:
+      tags:
+      - arrangement.Stakeholder
+      summary: Gets an Stakeholder by UUID
+      operationId: arrangement.StakeholderAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the Stakeholder
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Stakeholder'
+        '400':
+          description: Stakeholder UUID is required
+        '404':
+          description: Stakeholder not found
+      x-replacement-for:
+      - /t/arrangement/stakeholders/{uuid}
+    put:
+      tags:
+      - arrangement.Stakeholder
+      summary: Updates the given Stakeholder
+      operationId: arrangement.StakeholderAPI.update
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the Stakeholder
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Stakeholder to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.Stakeholder'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Stakeholder'
+        '400':
+          description: Stakeholder or intent UUID is required
+        '404':
+          description: Stakeholder or intent not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/arrangement/stakeholders/{uuid}
+    delete:
+      tags:
+      - arrangement.Stakeholder
+      summary: Deletes the Stakeholder with given uuid
+      operationId: arrangement.StakeholderAPI.delete
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the Stakeholder
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Stakeholder'
+        '400':
+          description: Stakeholder UUID is required
+        '404':
+          description: Stakeholder not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/arrangement/stakeholders/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/stakeholders/by_intent/{intent_uuid}:
+    get:
+      tags:
+      - arrangement.Stakeholder
+      summary: Gets the Stakeholders which belong to an Intent
+      operationId: arrangement.StakeholderAPI.byIntentUuid
+      parameters:
+      - name: intent_uuid
+        in: path
+        description: the UUID of the Intent
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.StakeholderList'
+      x-replacement-for:
+      - /t/arrangement/stakeholders/by_intent/{intent_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/stakeholders/by_timeline/{timeline_uuid}:
+    get:
+      tags:
+      - arrangement.Stakeholder
+      summary: Gets the Stakeholders which belong to a Timeline
+      operationId: arrangement.StakeholderAPI.byTimelineUuid
+      parameters:
+      - name: timeline_uuid
+        in: path
+        description: the UUID of the Timeline
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.StakeholderList'
+      x-replacement-for:
+      - /t/arrangement/stakeholders/by_timeline/{timeline_uuid}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    arrangement.list.StakeholderList:
+      type: object
+      properties:
+        stakeholders:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.Stakeholder'
+      description: StakeholderList model (no description)
+      example:
+        stakeholders:
+        - uuid: AAABB
+          timelineUuid: ABCDEF
+          intentUuid: AAAABB
+        - uuid: AAABC
+          timelineUuid: ABCDEF
+          intentUuid: AAAABB
+    arrangement.Stakeholder:
+      required:
+      - uuid
+      - timelineUuid
+      - intentUuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID identifying this Stakeholder across applications
+          x-cupido-id: true
+        timelineUuid:
+          type: string
+          description: UUID for the timeline that groups this Stakeholder with other Stakeholders and Intents
+        intentUuid:
+          type: string
+          description: UUID of the Intent to which this Stakeholder is coupled
+        employeeObjectId:
+          type: integer
+          description: Employee responsible for the Intent
+          format: int64
+        educationObjectId:
+          type: integer
+          description: Education required for the Intent
+          format: int64
+        responsibleClusterObjectId:
+          type: integer
+          description: Team responsible for the Intent
+          format: int64
+        executingClusterObjectId:
+          type: integer
+          description: Team executing the Intent
+          format: int64
+        presenceTime:
+          type: integer
+          description: Time (in minutes) present at the Intent
+          format: int32
+        extraTime:
+          type: integer
+          description: 'Client time (in minutes)
+
+
+            Time registered for the client where the stakeholder is not present at the client'
+          format: int32
+        travelTime:
+          type: integer
+          description: Travel time (in minutes)
+          format: int32
+      description: Stakeholder model (no description)
+      example:
+        uuid: AAABB
+        timelineUuid: ABCDEF
+        intentUuid: AAAABB
+        employeeObjectId: 1
+        educationObjectId: 2
+        responsibleClusterObjectId: 123
+        executingClusterObjectId: 123
+        presenceTime: 60
+        extraTime: 0
+        travelTime: 5
+      xml:
+        name: stakeholder
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

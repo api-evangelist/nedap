@@ -1,0 +1,736 @@
+openapi: 3.2.0
+info:
+  title: Nedap Insurance API
+  version: 0.0.0
+  description: 'Operations tagged Insurance across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Insurance
+paths:
+  /t/clients/{client_id}/insurances:
+    get:
+      tags:
+      - Insurance
+      summary: Return the insurances of a Client corresponding to the given id
+      operationId: InsuranceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.InsuranceList'
+      x-replaced-by: /v0/administration/clients/{client_id}/insurances
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/insurances:
+    post:
+      tags:
+      - Insurance
+      summary: Create an Insurance for a Client
+      operationId: InsuranceAPI.create
+      requestBody:
+        description: the Insurance to create.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Insurance'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insurance'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/insurances
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/insurances/{id}:
+    get:
+      tags:
+      - Insurance
+      summary: Return the Insurance corresponding to the given id
+      operationId: InsuranceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Insurance
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insurance'
+        '404':
+          description: Insurance not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/insurances/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/insurances/x-stream-connect/data:
+    get:
+      tags:
+      - Insurance
+      summary: Return all Insurance models in a streaming manner
+      operationId: InsuranceAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.InsuranceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Insurance'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/insurances/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/insurances/x-stream-connect/updates:
+    get:
+      tags:
+      - Insurance
+      summary: Return all Insurance models which where updated since the date given in the…
+      operationId: InsuranceAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.InsuranceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Insurance'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/insurances/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/insurances:
+    get:
+      tags:
+      - Insurance
+      summary: Return the insurances of a Client corresponding to the given id
+      operationId: InsuranceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.InsuranceList'
+      x-replacement-for:
+      - /t/clients/{client_id}/insurances
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/insurances:
+    post:
+      tags:
+      - Insurance
+      summary: Create an Insurance for a Client
+      operationId: InsuranceAPI.create
+      requestBody:
+        description: the Insurance to create.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Insurance'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insurance'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/insurances
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/insurances/{id}:
+    get:
+      tags:
+      - Insurance
+      summary: Return the Insurance corresponding to the given id
+      operationId: InsuranceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Insurance
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insurance'
+        '404':
+          description: Insurance not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/insurances/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/insurances/data:
+    get:
+      tags:
+      - Insurance
+      summary: Return all Insurance models in a streaming manner
+      operationId: InsuranceAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.InsuranceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Insurance'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/insurances/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/insurances/updates:
+    get:
+      tags:
+      - Insurance
+      summary: Return all Insurance models which where updated since the date given in the…
+      operationId: InsuranceAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.InsuranceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Insurance'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/insurances/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Insurance:
+      required:
+      - clientObjectId
+      - debtorObjectId
+      - sourceType
+      - insuranceType
+      - comments
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        registrationNumber:
+          type: string
+          description: Registration number, required if sourceType is other than SYSTEM.
+        clientObjectId:
+          type: integer
+          description: Client objectId.
+          format: int64
+        debtorObjectId:
+          type: integer
+          description: Debtor objectId.
+          format: int64
+        insurer:
+          allOf:
+          - $ref: '#/components/schemas/Debtor'
+          description: insurer.
+        sourceType:
+          type: integer
+          description: 'Source type. Possible values:
+
+            <pre>
+
+            0 (System defined)
+
+            1 (Manual)
+
+            2 (Third parties)
+
+            3 (Vecozo)
+
+            4 (XML import)
+
+            </pre>'
+          format: int32
+        insuranceType:
+          allOf:
+          - $ref: '#/components/schemas/InsuranceType'
+          description: 'Insurance type. Possible values:
+
+            <pre>
+
+            BV (Basis Verzekering)
+
+            AV (Aanvullende Verzekering)
+
+            TV (Tand Verzekering)
+
+            HV (Hoofd Verzekering)
+
+            </pre>'
+        packageCode:
+          type: string
+          description: Package code, required if sourceType is VECOZO.
+        packageName:
+          type: string
+          description: Package name, required if sourceType is VECOZO.
+        labelCode:
+          type: string
+          description: Label code, must be a label of debtor. Required if sourceType is VECOZO.
+        labelName:
+          type: string
+          description: Label name, must be a label of debtor. Required if sourceType is VECOZO.
+        requestedDate:
+          type: string
+          description: Requested date, required if sourceType is VECOZO.
+          format: date
+        clientIsDead:
+          type: boolean
+          description: Indicates client is deceased.
+        comments:
+          type: string
+          description: Comments.
+          default: ''
+        beginDate:
+          type: string
+          description: Begin date.
+          format: date-time
+        endDate:
+          type: string
+          description: End date.
+          format: date-time
+        careProviderObjectId:
+          type: integer
+          description: Care provider objectId.
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Insurance entry for a Client.
+      example:
+        id: 1
+        registrationNumber: '1'
+        clientObjectId: 1234
+        debtorObjectId: 4321
+        sourceType: 1
+        insuranceType: AV
+        packageCode: 001T0
+        packageName: Top geen Tandarts
+        labelCode: '001'
+        labelName: Salland Zorgverzekeringen
+        requestedDate: '2012-08-02'
+        clientIsDead: false
+        comments: comments
+        beginDate: '2014-08-02T11:48:46.836+02:00'
+        endDate: '2015-08-02T11:48:46.836+02:00'
+        careProviderObjectId: 5678
+        createdAt: '2012-08-02T11:48:46.836+02:00'
+        updatedAt: '2012-08-02T11:48:46.836+02:00'
+      xml:
+        name: insurance
+    BankAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        number:
+          type: string
+        nameOfOwner:
+          type: string
+        cityOfOwner:
+          type: string
+        iban:
+          type: string
+        bic:
+          type: string
+        creditBankAccount:
+          type: boolean
+        authorizationDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: BankAccount model (no description)
+      example:
+        id: 1
+        number: Dummy
+        nameOfOwner: Dummy
+        cityOfOwner: Dummy
+        iban: Dummy
+        bic: Dummy
+        creditBankAccount: false
+        authorizationDate: '2016-01-01'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccount
+    InsuranceType:
+      enum:
+      - BV
+      - AV
+      - TV
+      - HV
+      type: string
+      description: 'Insurance type. Possible values:
+
+        <pre>
+
+        BV (Basis Verzekering)
+
+        AV (Aanvullende Verzekering)
+
+        TV (Tand Verzekering)
+
+        HV (Hoofd Verzekering)
+
+        </pre>'
+      example: BV
+    Debtor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        type:
+          type: string
+          description: 'Possible values:
+
+            ORGANISATIE(0, "Organisatie")
+
+            ASIELZOEKERSCENTRUM(1, "Asielzoekerscentrum")
+
+            ZORGKANTOOR(2, "Zorgkantoor")
+
+            ZORGVERZEKERAAR(3, "Verzekeraar")
+
+            GEMEENTE(4, "Gemeente")
+
+            ONDERAANNEMER(5, "Onderaannemer")
+
+            CLIENT(6, "Cliënt")
+
+            CLIENT_EN_ZORGVERZEKERAAR(7, "Cliënt en verzekeraar")'
+        uzoviCode:
+          type: string
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        phone1:
+          type: string
+        phone2:
+          type: string
+        phone3:
+          type: string
+        fax:
+          type: string
+        email:
+          type: string
+        gender:
+          type: string
+        debtorNumber:
+          type: string
+        organizationName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        lastNameOwn:
+          type: string
+        streetName:
+          type: string
+        addressNumber:
+          type: integer
+          format: int32
+        addressNumberExt:
+          type: string
+        poBoxNumber:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        sourceType:
+          type: string
+        clientObjectId:
+          type: integer
+          format: int64
+        bankAccount:
+          $ref: '#/components/schemas/BankAccount'
+        paymentMethod:
+          type: string
+          description: 'Possible values:
+
+            CASH,
+
+            BANK,
+
+            GIRO,
+
+            COLLECT,
+
+            ACCEPTGIRO,
+
+            CHEQUES,
+
+            BACS,
+
+            REMITTANCE,
+
+            BILLOFEXCHANGE,
+
+            BILLOFEXCHANGEBANK'
+        closedAt:
+          type: string
+          format: date-time
+        hidden:
+          type: boolean
+        invoicePerEmail:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        insurances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insurance'
+          xml:
+            wrapped: true
+        gemeentecode:
+          type: string
+        externalCode:
+          type: string
+        manualInvoiceRetourHandling:
+          type: boolean
+        waitForReturnMessage:
+          type: boolean
+        usePreviousInsuranceForMutationDaysAfterClientDied:
+          type: boolean
+        invoiceHeaderExportPeriod:
+          type: string
+        uuid:
+          type: string
+        zvwSplitOnCareOrderStartDate:
+          type: string
+          format: date-time
+        splitReistoeslagGzsp:
+          type: boolean
+        splitIntegralProductsInSeparatePrestaties:
+          type: boolean
+        practitionerAgbTravelGzspStartDate:
+          type: string
+          format: date-time
+        systemDefined:
+          type: boolean
+        creditOnToewijzingnummerChangeStartDate:
+          type: string
+          format: date-time
+      description: Debtor entry returned from Cupido.
+      example:
+        id: 1
+        type: '2'
+        uzoviCode: '3'
+        beginDate: '2012-08-02T11:48:46.836+02:00'
+        endDate: '2012-08-02T11:48:46.836+02:00'
+        phone1: '4'
+        phone2: '5'
+        phone3: '6'
+        fax: '7'
+        email: '8'
+        gender: '9'
+        debtorNumber: '10'
+        organizationName: '11'
+        firstName: '12'
+        lastName: '13'
+        lastNameOwn: '13'
+        streetName: '14'
+        addressNumber: 15
+        addressNumberExt: '16'
+        poBoxNumber: '1234'
+        zipCode: '17'
+        city: '18'
+        sourceType: '19'
+        clientObjectId: 20
+        bankAccount:
+          id: 1
+          number: NL27TRIO0207182531
+          nameOfOwner: Pietje Puk
+          cityOfOwner: Lutjebroek
+        paymentMethod: '26'
+        closedAt: '2012-08-02T11:48:46.836+02:00'
+        hidden: true
+        invoicePerEmail: false
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        insurances:
+        - id: 1
+          registrationNumber: '1'
+          clientObjectId: 1234
+          debtorObjectId: 4321
+          sourceType: 1
+          insuranceType: AV
+          packageCode: 001T0
+          packageName: Top geen Tandarts
+          labelCode: '001'
+          labelName: Salland Zorgverzekeringen
+          requestedDate: '2012-08-02'
+          clientIsDead: false
+          comments: comments
+          beginDate: '2014-08-02T11:48:46.836+02:00'
+          endDate: '2015-08-02T11:48:46.836+02:00'
+          createdAt: '2012-08-02T11:48:46.836+02:00'
+          updatedAt: '2012-08-02T11:48:46.836+02:00'
+        gemeentecode: '0153'
+        externalCode: '1111'
+        manualInvoiceRetourHandling: true
+        waitForReturnMessage: true
+        usePreviousInsuranceForMutationDaysAfterClientDied: true
+        invoiceHeaderExportPeriod: Use the entire exported period.
+        uuid: d9a856df-8f9a-49a7-90f0-0570a2bde4c0
+        zvwSplitOnCareOrderStartDate: '2015-08-02T11:48:46.836+02:00'
+        splitReistoeslagGzsp: true
+        splitIntegralProductsInSeparatePrestaties: true
+        practitionerAgbTravelGzspStartDate: '2015-08-02T11:48:46.836+02:00'
+        systemDefined: true
+        creditOnToewijzingnummerChangeStartDate: '2015-08-02T11:48:46.836+02:00'
+      xml:
+        name: debtor
+    list.InsuranceList:
+      type: object
+      properties:
+        insurances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insurance'
+          xml:
+            name: insurance
+      description: InsuranceList model (no description)
+      example:
+        insurances:
+        - id: 1
+          registrationNumber: '1'
+          clientObjectId: 1234
+          debtorObjectId: 4321
+          sourceType: 1
+          insuranceType: AV
+          packageCode: 001T0
+          packageName: Top geen Tandarts
+          labelCode: '001'
+          labelName: Salland Zorgverzekeringen
+          requestedDate: '2012-08-02'
+          clientIsDead: false
+          comments: comments
+          beginDate: '2022-01-01T08:00:00.000+01:00'
+          createdAt: '2012-08-02T11:48:46.836+02:00'
+          updatedAt: '2012-08-02T11:48:46.836+02:00'
+      xml:
+        name: insurances
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

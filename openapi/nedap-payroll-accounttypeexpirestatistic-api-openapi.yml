@@ -1,0 +1,139 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Account Type Expire Statistic API
+  version: 0.0.0
+  description: 'Operations tagged payroll.AccountTypeExpireStatistic across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.AccountTypeExpireStatistic
+paths:
+  /t/payroll/account_type_expire_statistics/by_employee_at_date/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountTypeExpireStatistic
+      summary: Retrieve all the AccountTypeExpireStatistic for an Employee calculated at the…
+      description: Retrieve all the {@link AccountTypeExpireStatistic} for an {@link Employee} calculated at the given date
+      operationId: payroll.AccountTypeExpireStatisticAPI.byEmployeeAtDate
+      parameters:
+      - name: employee_id
+        in: path
+        description: of the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: date
+        in: query
+        description: the date for which AccountTypeExpireStatistics are requested
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: subtype
+        in: query
+        description: the subtype of the account types for which AccountTypeExpireStatistics should be returned. Valid inputs are 0 (none), 1 (PLB) and 2 (LFB).
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountTypeExpireStatisticList'
+      x-replaced-by: /v0/administration/account_type_expire_statistics/by_employee_at_date/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_type_expire_statistics/by_employee_at_date/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountTypeExpireStatistic
+      summary: Retrieve all the AccountTypeExpireStatistic for an Employee calculated at the…
+      description: Retrieve all the {@link AccountTypeExpireStatistic} for an {@link Employee} calculated at the given date
+      operationId: payroll.AccountTypeExpireStatisticAPI.byEmployeeAtDate
+      parameters:
+      - name: employee_id
+        in: path
+        description: of the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: date
+        in: query
+        description: the date for which AccountTypeExpireStatistics are requested
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: subtype
+        in: query
+        description: the subtype of the account types for which AccountTypeExpireStatistics should be returned. Valid inputs are 0 (none), 1 (PLB) and 2 (LFB).
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountTypeExpireStatisticList'
+      x-replacement-for:
+      - /t/payroll/account_type_expire_statistics/by_employee_at_date/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.AccountTypeExpireStatistic:
+      type: object
+      properties:
+        accountTypeId:
+          type: integer
+          description: The accountType to which the minutes that will expire on the expirationDate belong.
+          format: int64
+        minutes:
+          type: integer
+          description: The total amount of minutes that will expire on the expirationDate.
+          format: int32
+        expirationDate:
+          type: string
+          description: The date on which the given minutes will expire.
+          format: date
+        year:
+          type: integer
+          description: The original year of the minutes
+          format: int32
+        description:
+          type: string
+      description: AccountTypeExpireStatistic model (no description)
+      example:
+        accountTypeId: 3
+        minutes: 100
+        expirationDate: '2019-12-31'
+        year: 2019
+        description: test description
+    payroll.list.AccountTypeExpireStatisticList:
+      type: object
+      properties:
+        accountTypeExpireStatistics:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.AccountTypeExpireStatistic'
+      description: AccountTypeExpireStatisticList model (no description)
+      example:
+        accountTypeExpireStatistics:
+        - accountTypeId: 3
+          minutes: 100
+          expirationDate: '2019-12-31'
+          year: 2019
+          description: test description
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

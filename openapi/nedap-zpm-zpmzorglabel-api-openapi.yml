@@ -1,0 +1,170 @@
+openapi: 3.2.0
+info:
+  title: Nedap Zpm.Zpm Zorglabel API
+  version: 0.0.0
+  description: 'Operations tagged zpm.ZpmZorglabel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: zpm.ZpmZorglabel
+paths:
+  /t/zpm/zorglabels:
+    get:
+      tags:
+      - zpm.ZpmZorglabel
+      summary: Returns a list of all ZPM zorglabels
+      operationId: zpm.ZpmZorglabelAPI.getAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.list.ZpmZorglabelList'
+      x-replaced-by: /v0/administration/zpm/zorglabels
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/zpm/zorglabels:
+    get:
+      tags:
+      - zpm.ZpmZorglabel
+      summary: Returns a list of all ZPM zorglabels
+      operationId: zpm.ZpmZorglabelAPI.getAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.list.ZpmZorglabelList'
+      x-replacement-for:
+      - /t/zpm/zorglabels
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    zpm.list.ZpmZorglabelList:
+      type: object
+      properties:
+        zpmZorglabels:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.ZpmZorglabel'
+          xml:
+            name: zpmZorglabel
+      description: ZpmZorglabelList model (no description)
+      example:
+        zpmZorglabels:
+        - updatedAt: '2021-08-09T10:52:25.000+02:00'
+          createdAt: '2021-08-09T10:52:25.000+02:00'
+          id: 4
+          code: N04
+          name: Toeslag inzet tolk
+          valueEditable: true
+          allowedValues: Talentolk;Gebarentolk
+          branchIndication: 0
+          beginDate: '2022-01-01'
+      xml:
+        name: zpmZorglabels
+    zpm.ZpmZorglabel:
+      required:
+      - code
+      - name
+      - valueEditable
+      - branchIndication
+      - beginDate
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: Zorglabel code.
+        name:
+          type: string
+          description: Zorglabel name.
+        valueEditable:
+          type: boolean
+          description: 'Indicates if a variable value can be specified with the assigned
+
+            zorglabel.'
+          default: false
+        allowedValues:
+          type: string
+          description: 'Contains a semicolon-separated list of values that may be specified
+
+            with the assigned zorglabel.'
+        branchIndication:
+          type: integer
+          description: 'Indicates if the zorglabel can be used for GGZ, FZ or both.
+
+
+            Possible values:
+
+            <ul>
+
+            <li>0 (BOTH)</li>
+
+            <li>1 (GGZ)</li>
+
+            <li>2 (FZ)</li>
+
+            </ul>'
+          format: int32
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+      description: Indicates extra information linked to activities.
+      example:
+        updatedAt: '2021-08-09T10:52:25.000+02:00'
+        createdAt: '2021-08-09T10:52:25.000+02:00'
+        createdBy: user
+        id: 4
+        code: N04
+        name: Toeslag inzet tolk
+        valueEditable: true
+        allowedValues: Talentolk;Gebarentolk
+        branchIndication: 0
+        beginDate: '2022-01-01'
+        endDate: '2022-12-31'
+      xml:
+        name: zpmZorglabel
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

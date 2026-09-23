@@ -1,0 +1,569 @@
+openapi: 3.2.0
+info:
+  title: Nedap Care Allocation API
+  version: 0.0.0
+  description: 'Operations tagged CareAllocation across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: CareAllocation
+paths:
+  /t/care_allocations:
+    post:
+      tags:
+      - CareAllocation
+      summary: Create a CareAllocation
+      operationId: CareAllocationAPI.create
+      requestBody:
+        description: CareAllocation to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareAllocation'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/careallocations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/care_allocations/{id}:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return the Care Allocation corresponding to the given id
+      operationId: CareAllocationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareAllocation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '404':
+          description: The care allocation cannot be found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/careallocations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - CareAllocation
+      summary: Update the Care Allocation corresponding to the given id
+      operationId: CareAllocationAPI.updateCareAllocationById
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareAllocation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareAllocation'
+        required: true
+      responses:
+        '200':
+          description: Successfully updated care allocation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Validation errors
+        '404':
+          description: The care allocation cannot be found
+      x-replaced-by: /v0/administration/careallocations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/care_allocations:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return the care providers of a Client corresponding to the given id
+      operationId: CareAllocationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareAllocationList'
+      x-replaced-by: /v0/administration/clients/{client_id}/care_allocations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/care_allocations/x-stream-connect/data:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return all CareAllocation models in a streaming manner
+      operationId: CareAllocationAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareAllocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/care_allocations/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/care_allocations/x-stream-connect/deletes:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return all CareAllocation models which where deleted since the date given in…
+      description: 'If no date is
+
+        given it will return all deleted CareAllocation models'
+      operationId: CareAllocationAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareAllocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/care_allocations/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/care_allocations/x-stream-connect/updates:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return all CareAllocation models which where updated since the date given in…
+      operationId: CareAllocationAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareAllocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/care_allocations/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careallocations:
+    post:
+      tags:
+      - CareAllocation
+      summary: Create a CareAllocation
+      operationId: CareAllocationAPI.create
+      requestBody:
+        description: CareAllocation to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareAllocation'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/care_allocations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careallocations/{id}:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return the Care Allocation corresponding to the given id
+      operationId: CareAllocationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareAllocation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '404':
+          description: The care allocation cannot be found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/care_allocations/{id}
+    put:
+      tags:
+      - CareAllocation
+      summary: Update the Care Allocation corresponding to the given id
+      operationId: CareAllocationAPI.updateCareAllocationById
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareAllocation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareAllocation'
+        required: true
+      responses:
+        '200':
+          description: Successfully updated care allocation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Validation errors
+        '404':
+          description: The care allocation cannot be found
+      x-replacement-for:
+      - /t/care_allocations/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/care_allocations:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return the care providers of a Client corresponding to the given id
+      operationId: CareAllocationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareAllocationList'
+      x-replacement-for:
+      - /t/clients/{client_id}/care_allocations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/care_allocations/data:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return all CareAllocation models in a streaming manner
+      operationId: CareAllocationAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareAllocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/care_allocations/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/care_allocations/deletes:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return all CareAllocation models which where deleted since the date given in…
+      description: 'If no date is
+
+        given it will return all deleted CareAllocation models'
+      operationId: CareAllocationAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareAllocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/care_allocations/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/care_allocations/updates:
+    get:
+      tags:
+      - CareAllocation
+      summary: Return all CareAllocation models which where updated since the date given in…
+      operationId: CareAllocationAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareAllocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/CareAllocation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/care_allocations/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    CareAllocation:
+      required:
+      - clientId
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        comments:
+          type: string
+        destination:
+          type: string
+          description: 'NVT: N.v.t.
+
+            EIGEN_OMGEVING: Eigen omgeving
+
+            EIGEN_OMGEVING_DAGBEHANDELING: Eigen omgeving met dagbehandeling
+
+            INSTELLING_WLZ: Instelling (WLZ) of ziekenhuis
+
+            INSTELLING_NIET_WLZ: Instelling (niet-WLZ)'
+        reason:
+          type: string
+          description: 'REJECTED: Afgekeurd
+
+            CLASS_CHANGED: Klasse is aangepast
+
+            REVOKE_MUT: Intrekking MUT
+
+            REVOKE_MAZ: Intrekking MAZ
+
+            IN_CARE: N.v.t.
+
+            DISMISS: Ontslag (intramuraal)
+
+            DEATH: Overlijden
+
+            TEMP_GONE: Tijdelijke afwezigheid
+
+            REFUSED_BY_PROVIDER: Aanbieder weigert functie
+
+            REFUSED_BY_CLIENT: Cliënt weigert functie
+
+            RESUME: Onderbroken functie hervat
+
+            END_OF_CARE: Beëindiging zorg
+
+            TRANSFER: Overplaatsing
+
+            END_OF_CARE_CLOSE_FUNCTION: Einde zorg (functies intrekken)
+
+            END_OF_CARE_OPEN_FUNCTION: Einde zorg (functies openlaten)
+
+            TRANSFER_NO_MAZ: Overplaatsing (er is geen Maz)
+
+            REQUEST_CUSTOM_CARE_ORDER: Aanvraag aangepaste zorgtoewijzing
+
+            END_OF_CARE_AFTER_INTAKE: Beëindiging zorg na intake
+
+            DEATH_BY_SUICIDE: Overlijden door suïcide'
+        reasonTemporary:
+          type: string
+          description: 'NVT: N.v.t.
+
+            VAKANTIEVERLOF: Vakantieverlof
+
+            ZIEKENHUISOPNAME: Ziekenhuisopname
+
+            KORTE_VERBLIJFPLAATSING: Korte verblijfplaatsing in WLZ-erkende instelling
+
+            TIJDELIJK_THUIS: Tijdelijk thuis
+
+            PANDEMIE: Pandemie'
+        careProviderId:
+          type: integer
+          description: Care provider id, required when reason is TRANSFER and destination is INSTELLING_WLZ
+          format: int64
+      description: CareAllocation model (no description)
+      example:
+        id: 1
+        clientId: 10
+        beginDate: '2016-01-01'
+        endDate: '2020-01-01'
+        comments: niets te melden
+        destination: EIGEN_OMGEVING
+        reason: IN_CARE
+        reasonTemporary: VAKANTIEVERLOF
+        careProviderId: 42
+      xml:
+        name: careAllocation
+    list.CareAllocationList:
+      type: object
+      properties:
+        careAllocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CareAllocation'
+          xml:
+            name: careAllocation
+      description: CareAllocationList model (no description)
+      example:
+        careAllocations:
+        - id: 1
+          clientId: 544
+          beginDate: '2016-01-01'
+          endDate: '2020-01-01'
+          comments: niets te melden
+          destination: EIGEN_OMGEVING
+          reason: IN_CARE
+          reasonTemporary: VAKANTIEVERLOF
+      xml:
+        name: careAllocations
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,1595 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Action API
+  version: 0.0.0
+  description: 'Operations tagged dossier.Action across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.Action
+paths:
+  /t/dossier/actions:
+    post:
+      tags:
+      - dossier.Action
+      summary: Create Action
+      operationId: dossier.ActionAPI.create
+      requestBody:
+        description: Action to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Action'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Action'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/actions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/actions/{id}:
+    get:
+      tags:
+      - dossier.Action
+      summary: Get a resource by its ID
+      operationId: dossier.ActionAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Action
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Action'
+        '404':
+          description: Action not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/actions/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.Action
+      summary: Updates the given Action
+      operationId: dossier.ActionAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Action
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Action to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Action'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Action'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/actions/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.Action
+      summary: Deletes the Action with given id
+      operationId: dossier.ActionAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Action
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the action
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/actions/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/actions/multiple:
+    get:
+      tags:
+      - dossier.Action
+      summary: Method used for requesting multiple Action objects using their ids
+      operationId: dossier.ActionAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/actions/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/actions/search:
+    get:
+      tags:
+      - dossier.Action
+      summary: Returns the Actions which meet the search criteria
+      operationId: dossier.ActionAPI.search
+      parameters:
+      - name: keyword
+        in: query
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionList'
+      x-replaced-by: /v0/administration/dossier/actions/search
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/domains/{domain_id}/actions:
+    get:
+      tags:
+      - dossier.Action
+      summary: Return the Actions of a Domain corresponding to the given id
+      operationId: dossier.ActionAPI.byDomainId
+      parameters:
+      - name: domain_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionList'
+      x-replaced-by: /v0/administration/dossier/domains/{domain_id}/actions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/goals/{goal_id}/actions:
+    get:
+      tags:
+      - dossier.Action
+      summary: Return the Actions of a Goal corresponding to the given id
+      operationId: dossier.ActionAPI.byGoalId
+      parameters:
+      - name: goal_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionList'
+      x-replaced-by: /v0/administration/dossier/goals/{goal_id}/actions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/actions:
+    post:
+      tags:
+      - dossier.Action
+      summary: Create Action
+      operationId: dossier.ActionAPI.create
+      requestBody:
+        description: Action to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Action'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Action'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/actions
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/actions/{id}:
+    get:
+      tags:
+      - dossier.Action
+      summary: Get a resource by its ID
+      operationId: dossier.ActionAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Action
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Action'
+        '404':
+          description: Action not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/actions/{id}
+    put:
+      tags:
+      - dossier.Action
+      summary: Updates the given Action
+      operationId: dossier.ActionAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Action
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Action to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Action'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Action'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/actions/{id}
+    delete:
+      tags:
+      - dossier.Action
+      summary: Deletes the Action with given id
+      operationId: dossier.ActionAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Action
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the action
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/actions/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/actions/multiple:
+    get:
+      tags:
+      - dossier.Action
+      summary: Method used for requesting multiple Action objects using their ids
+      operationId: dossier.ActionAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/actions/multiple
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/actions/search:
+    get:
+      tags:
+      - dossier.Action
+      summary: Returns the Actions which meet the search criteria
+      operationId: dossier.ActionAPI.search
+      parameters:
+      - name: keyword
+        in: query
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionList'
+      x-replacement-for:
+      - /t/dossier/actions/search
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/domains/{domain_id}/actions:
+    get:
+      tags:
+      - dossier.Action
+      summary: Return the Actions of a Domain corresponding to the given id
+      operationId: dossier.ActionAPI.byDomainId
+      parameters:
+      - name: domain_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionList'
+      x-replacement-for:
+      - /t/dossier/domains/{domain_id}/actions
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/goals/{goal_id}/actions:
+    get:
+      tags:
+      - dossier.Action
+      summary: Return the Actions of a Goal corresponding to the given id
+      operationId: dossier.ActionAPI.byGoalId
+      parameters:
+      - name: goal_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionList'
+      x-replacement-for:
+      - /t/dossier/goals/{goal_id}/actions
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.Action:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        goal:
+          $ref: '#/components/schemas/dossier.Goal'
+        goalId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        instructionUrl:
+          type: string
+        allowTitleOverride:
+          type: boolean
+          default: false
+        allowComment:
+          type: boolean
+          default: false
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "actie"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        goal:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          demandId: 1
+          definition: example
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: true
+          hidden: true
+          classificationId: example
+        goalId: 3
+        definition: Een definitie
+        instructionUrl: http://www.nedap.com/
+        allowTitleOverride: true
+        allowComment: true
+        hidden: false
+        classificationId: intervention.target.bowel_care
+      xml:
+        name: action
+    dossier.Goal:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        demandId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        allowTitleOverride:
+          type: boolean
+          default: false
+        allowComment:
+          type: boolean
+          default: false
+        reportProgress:
+          type: boolean
+          default: false
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "doel"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        demandId: 3
+        definition: Target definition
+        allowTitleOverride: true
+        allowComment: true
+        reportProgress: false
+        hidden: false
+        classificationId: intervention.category.case_management
+      xml:
+        name: goal
+    dossier.Domain:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
+    dossier.list.ActionList:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Action'
+          xml:
+            name: action
+      description: ActionList model (no description)
+      example:
+        actions:
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2482
+          domainId: 2052
+          goalId: 2421
+          definition: Bespreekbaar maken van het belang van een schoon huis
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2483
+          domainId: 2052
+          goalId: 2421
+          definition: Met verwant bespreekbaar maken
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2484
+          domainId: 2052
+          goalId: 2421
+          definition: Tijd maken voor kennismaken met huishoudelijk medewerkster
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2485
+          domainId: 2052
+          goalId: 2422
+          definition: Leren was sorteren
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2486
+          domainId: 2052
+          goalId: 2422
+          definition: Uitleg wasmachine
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2487
+          domainId: 2052
+          goalId: 2422
+          definition: Wassen onder begeleiding
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2488
+          domainId: 2052
+          goalId: 2422
+          definition: Wassen volgens weekschema
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2489
+          domainId: 2052
+          goalId: 2423
+          definition: Cliënt stimuleren tot schoonmaken
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2490
+          domainId: 2052
+          goalId: 2423
+          definition: Controle door begeleiding
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2491
+          domainId: 2052
+          goalId: 2423
+          definition: Dagelijks na de avondmaaltijd vuile was opruimen
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2492
+          domainId: 2052
+          goalId: 2423
+          definition: Samen met begeleiding opruimen
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2493
+          domainId: 2052
+          goalId: 2423
+          definition: Schoonmaak volgens schema
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2494
+          domainId: 2052
+          goalId: 2423
+          definition: Schoonmaken met begeleiding
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2495
+          domainId: 2052
+          goalId: 2423
+          definition: Zo nodig in gesprek met cliënt
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2496
+          domainId: 2052
+          goalId: 2424
+          definition: Begeleiding houdt contact met civiel ondersteuners
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2497
+          domainId: 2052
+          goalId: 2424
+          definition: Bij gemeente bijzondere bijstand aanvragen
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2498
+          domainId: 2052
+          goalId: 2424
+          definition: Cliënt stimuleren tot schoonmaken
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2499
+          domainId: 2052
+          goalId: 2424
+          definition: Dagelijkse controle door begeleiding
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2500
+          domainId: 2052
+          goalId: 2424
+          definition: 'Ondersteuning door:'
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2501
+          domainId: 2052
+          goalId: 2424
+          definition: Schoonmaak volgens schema
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2502
+          domainId: 2052
+          goalId: 2424
+          definition: Schoonmaken met begeleiding
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2503
+          domainId: 2052
+          goalId: 2424
+          definition: Zo nodig in gesprek met cliënt
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2013-12-16T16:36:45.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2504
+          domainId: 2052
+          goalId: 2425
+          definition: Aanpassingen in de keuken
+          instructionUrl: https://basisvvt.ioservice.net/download/document/3620
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2505
+          domainId: 2052
+          goalId: 2426
+          definition: Afstandsbediening aanschaffen binnen
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2506
+          domainId: 2052
+          goalId: 2426
+          definition: iO Open installeren
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2507
+          domainId: 2052
+          goalId: 2427
+          definition: Douche/toilet aanpassen ivm veiligheid/comfort/zelfredzaamheid
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2508
+          domainId: 2052
+          goalId: 2427
+          definition: Handgrepen en douchestoel bestellen en installeren
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2509
+          domainId: 2052
+          goalId: 2427
+          definition: Ondersteuning en oefeningen bieden die zelfstandigheid vergroten
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2510
+          domainId: 2052
+          goalId: 2427
+          definition: Zorgstoel installeren
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2511
+          domainId: 2052
+          goalId: 2428
+          definition: Bepaal wat voor hulp nodig is (maaltijden, vervoer, huishoudelijk werk)
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2512
+          domainId: 2052
+          goalId: 2428
+          definition: Bepalen welke hulpmiddelen nodig zijn
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2513
+          domainId: 2052
+          goalId: 2429
+          definition: Cliënt voert uit, begeleiding kijkt mee
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2514
+          domainId: 2052
+          goalId: 2429
+          definition: Gebruiksaanwijzing doornemen
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2515
+          domainId: 2052
+          goalId: 2429
+          definition: Oefenen met begeleiding
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2516
+          domainId: 2052
+          goalId: 2430
+          definition: Rollator bestellen en instructie geven
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2517
+          domainId: 2052
+          goalId: 2431
+          definition: Begeleiding gaat hierover in gesprek met cliënt
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2518
+          domainId: 2052
+          goalId: 2431
+          definition: Begeleiding oefent met cliënt
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2519
+          domainId: 2052
+          goalId: 2431
+          definition: Bepalen welke hulpmiddelen nodig zijn
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2520
+          domainId: 2052
+          goalId: 2431
+          definition: Controle door begeleiding
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2521
+          domainId: 2052
+          goalId: 2432
+          definition: Onderzoek naar aanpassingen die zelfstandig blijven wonen mogelijk maken
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2522
+          domainId: 2052
+          goalId: 2432
+          definition: Trap lift bestellen en installeren
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2523
+          domainId: 2052
+          goalId: 2432
+          definition: Warme maaltijd wordt aangeleverd
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2524
+          domainId: 2052
+          goalId: 2432
+          definition: wensen en behoeften voor individuele aanpassingen bespreken met de cliënt
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2525
+          domainId: 2052
+          goalId: 2432
+          definition: Woning aanpassen aan leeftijd en zorgvraag
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2526
+          domainId: 2052
+          goalId: 2432
+          definition: Zoveel mogelijk contactmomenten
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2527
+          domainId: 2052
+          goalId: 2433
+          definition: Alarminstallatie aanbrengen
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2528
+          domainId: 2052
+          goalId: 2433
+          definition: Onderzoek naar eventuele veiligheidsaanpassingen
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2529
+          domainId: 2052
+          goalId: 2433
+          definition: Onderzoek naar veiligheid woning
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2530
+          domainId: 2052
+          goalId: 2434
+          definition: Aanbrengen alarmeringssysteem
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2531
+          domainId: 2052
+          goalId: 2434
+          definition: Aanbrengen van iO open aan de voordeur
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2532
+          domainId: 2052
+          goalId: 2434
+          definition: Brandblusapparaat oefenen met cliënt
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2533
+          domainId: 2052
+          goalId: 2434
+          definition: Nachtlampje aanschaffen
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2534
+          domainId: 2052
+          goalId: 2434
+          definition: Oefenen met cliënt wat te doen bij brand
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2535
+          domainId: 2052
+          goalId: 2434
+          definition: Oefenen met opvolging alarmsysteem
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2536
+          domainId: 2052
+          goalId: 2434
+          definition: Sloten aanbrengen op deuren en kasten
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2537
+          domainId: 2052
+          goalId: 2434
+          definition: Valrisico verlagen in de woning (zie protocol)
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2538
+          domainId: 2052
+          goalId: 2435
+          definition: Persoonlijk begeleider blijft zorg dragen dat hulpmiddelen up to date zijn
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2539
+          domainId: 2052
+          goalId: 2436
+          definition: Bepalen welke hulpmiddelen nodig zijn
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2540
+          domainId: 2052
+          goalId: 2436
+          definition: Cliënt helpen met uitzoeken van de juiste spullen voor de woning
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2541
+          domainId: 2052
+          goalId: 2437
+          definition: Contact met cliënt / verwant houden over toekomst wonen
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2542
+          domainId: 2052
+          goalId: 2437
+          definition: Samen met cliënt plan maken voor inrichting woning
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2543
+          domainId: 2052
+          goalId: 2437
+          definition: Woonsituatie aanpassen aan leeftijd en zorgvraag
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2544
+          domainId: 2052
+          goalId: 2437
+          definition: Zorgloket benaderen voor herindicatie
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2545
+          domainId: 2052
+          goalId: 2438
+          definition: Aanpassingen aan de woning laten maken door ergotherapie
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2546
+          domainId: 2052
+          goalId: 2439
+          definition: Aanpassingen aan de woonkamerverlichting doen
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2547
+          domainId: 2052
+          goalId: 2439
+          definition: Wensenlijstje en inkopen doen
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2548
+          domainId: 2052
+          goalId: 2440
+          definition: Samen met cliënt plan maken voor inrichting woning
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2549
+          domainId: 2052
+          goalId: 2441
+          definition: Inventariseren van woonwensen van de cliënt
+          allowTitleOverride: false
+          allowComment: false
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3688
+          domainId: 2052
+          goalId: 2421
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3689
+          domainId: 2052
+          goalId: 2422
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3690
+          domainId: 2052
+          goalId: 2423
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3691
+          domainId: 2052
+          goalId: 2424
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3692
+          domainId: 2052
+          goalId: 3607
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3693
+          domainId: 2052
+          goalId: 3608
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3694
+          domainId: 2052
+          goalId: 2437
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3695
+          domainId: 2052
+          goalId: 2425
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2013-12-04T17:08:50.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3696
+          domainId: 2052
+          goalId: 2426
+          definition: Actie
+          instructionUrl: http://www.deuren.nl
+          allowTitleOverride: true
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3697
+          domainId: 2052
+          goalId: 2427
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3698
+          domainId: 2052
+          goalId: 3609
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3699
+          domainId: 2052
+          goalId: 2429
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3700
+          domainId: 2052
+          goalId: 2438
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3701
+          domainId: 2052
+          goalId: 2430
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3702
+          domainId: 2052
+          goalId: 3610
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3703
+          domainId: 2052
+          goalId: 2439
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3704
+          domainId: 2052
+          goalId: 2433
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3705
+          domainId: 2052
+          goalId: 2434
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3706
+          domainId: 2052
+          goalId: 2431
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3707
+          domainId: 2052
+          goalId: 2432
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3708
+          domainId: 2052
+          goalId: 2435
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3709
+          domainId: 2052
+          goalId: 2440
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3710
+          domainId: 2052
+          goalId: 2441
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2012-02-08T12:08:12.000+01:00'
+          createdAt: '2010-12-08T16:14:45.000+01:00'
+          id: 3728
+          domainId: 2052
+          goalId: 2164
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:48.000+01:00'
+          createdAt: '2010-12-08T16:14:48.000+01:00'
+          id: 3743
+          domainId: 2052
+          goalId: 3643
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:48.000+01:00'
+          createdAt: '2010-12-08T16:14:48.000+01:00'
+          id: 3744
+          domainId: 2052
+          goalId: 3644
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:48.000+01:00'
+          createdAt: '2010-12-08T16:14:48.000+01:00'
+          id: 3745
+          domainId: 2052
+          goalId: 3645
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:48.000+01:00'
+          createdAt: '2010-12-08T16:14:48.000+01:00'
+          id: 3746
+          domainId: 2052
+          goalId: 3646
+          definition: Actie
+          allowTitleOverride: false
+          allowComment: true
+          hidden: false
+        - updatedAt: '2012-02-08T12:07:52.000+01:00'
+          createdAt: '2012-02-08T12:07:52.000+01:00'
+          id: 16350
+          domainId: 2052
+          goalId: 16050
+          definition: training fysio
+          allowTitleOverride: true
+          allowComment: true
+          hidden: false
+        - updatedAt: '2013-06-13T10:45:46.000+02:00'
+          createdAt: '2013-06-13T10:45:46.000+02:00'
+          id: 39851
+          domainId: 2052
+          goalId: 39802
+          definition: test`112
+          allowTitleOverride: true
+          allowComment: false
+          hidden: false
+      xml:
+        name: actions
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

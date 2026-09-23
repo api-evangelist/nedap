@@ -1,0 +1,256 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Group Activity Suggestion Model API
+  version: 0.0.0
+  description: 'Operations tagged finance.GroupActivitySuggestionModel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.GroupActivitySuggestionModel
+paths:
+  /t/finance/activity_suggestions:
+    get:
+      tags:
+      - finance.GroupActivitySuggestionModel
+      summary: Get all group activities
+      operationId: finance.GroupActivitySuggestionModelAPI.getAllGroupActivities
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.GroupActivityModelList'
+      x-replaced-by: /v0/administration/finance/activity_suggestions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/activity_suggestions/{group_activity_object_id}:
+    get:
+      tags:
+      - finance.GroupActivitySuggestionModel
+      summary: Get activities for a group activity and clients at a given date
+      operationId: finance.GroupActivitySuggestionModelAPI.activityByClientAndGroupActivity
+      parameters:
+      - name: group_activity_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_ids
+        in: query
+        description: Include clientIds
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: date
+        in: query
+        description: Date of registration
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.GroupActivitySuggestionModelList'
+        '400':
+          description: Group activity and client are required
+        '404':
+          description: No suggestion found
+      x-replaced-by: /v0/administration/finance/activity_suggestions/{group_activity_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/activity_suggestions:
+    get:
+      tags:
+      - finance.GroupActivitySuggestionModel
+      summary: Get all group activities
+      operationId: finance.GroupActivitySuggestionModelAPI.getAllGroupActivities
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.GroupActivityModelList'
+      x-replacement-for:
+      - /t/finance/activity_suggestions
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/activity_suggestions/{group_activity_object_id}:
+    get:
+      tags:
+      - finance.GroupActivitySuggestionModel
+      summary: Get activities for a group activity and clients at a given date
+      operationId: finance.GroupActivitySuggestionModelAPI.activityByClientAndGroupActivity
+      parameters:
+      - name: group_activity_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_ids
+        in: query
+        description: Include clientIds
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: date
+        in: query
+        description: Date of registration
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.GroupActivitySuggestionModelList'
+        '400':
+          description: Group activity and client are required
+        '404':
+          description: No suggestion found
+      x-replacement-for:
+      - /t/finance/activity_suggestions/{group_activity_object_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.GroupActivityModel:
+      required:
+      - name
+      type: object
+      properties:
+        distinctFinanceTypeCount:
+          type: integer
+          format: int32
+        financeTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.NamedItemModel'
+        id:
+          type: integer
+          description: Required for UPDATE or DELETE operations, not required for CREATE
+          format: int64
+        name:
+          type: string
+          description: Name of the group activity. Required for create and update operations.
+          example: Group Activity Name
+      description: 'A group-level finance activity used by the finance API. Use this model as the request body when creating or updating a group activity and as the response payload when reading group activities. Field guidance:
+
+        - id: database identifier, optional for create and required for update/delete.
+
+        - name: human-readable label for the group activity (required).
+
+        - financeTypeCount: number of distinct finance types associated with this group activity; clients may omit this and the server can compute it from the `financeTypes` list.
+
+        - financeTypes: optional list of finance types (id + name) attached to this group activity; provide these to explicitly set associations on create/update.'
+      example:
+        id: 1234
+        name: Group Activity Name
+        distinctFinanceTypeCount: 2
+        financeTypes:
+        - id: 1
+          name: Finance Type A
+        - id: 2
+          name: Finance Type B
+    finance.GroupActivitySuggestionModel:
+      required:
+      - clientObjectId
+      - surchargeActivityObjectIds
+      type: object
+      properties:
+        activityObjectId:
+          type: integer
+          description: Optional selected activity object id recommended for the client. May be null to indicate 'no suggestion'.
+          format: int64
+          example: 101
+        clientObjectId:
+          type: integer
+          description: Client object id for which the suggestion applies. Required.
+          format: int64
+          example: 200
+        surchargeActivityObjectIds:
+          type: array
+          items:
+            type: integer
+            description: List of surcharge activity object ids associated with the suggestion. Required (empty list if none).
+            format: int64
+          description: List of surcharge activity object ids associated with the suggestion. Required (empty list if none).
+          example:
+          - 300
+          - 301
+      description: Request model for proposing or storing a suggestion for a client. Contains the target client, optional chosen activity and zero-or-more surcharge activity ids.
+      example:
+        clientObjectId: 200
+        activityObjectId: 101
+        surchargeActivityObjectIds:
+        - 300
+        - 301
+    finance.list.GroupActivityModelList:
+      type: object
+      properties:
+        groupActivities:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.GroupActivityModel'
+      description: List of group activity models
+      example:
+        groupActivities:
+        - id: 1234
+          name: Group Activity Name
+          distinctFinanceTypeCount: 5
+        - id: 2345
+          name: Another Group Activity
+          distinctFinanceTypeCount: 0
+    finance.list.GroupActivitySuggestionModelList:
+      type: object
+      properties:
+        groupActivitySuggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.GroupActivitySuggestionModel'
+      description: List of group activity suggestions
+      example:
+        groupActivitySuggestions:
+        - activityObjectId: 10
+          clientObjectId: 200
+          surchargeActivityObjectIds:
+          - 100
+          - 101
+    finance.NamedItemModel:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique object identifier for the referenced entity. Required when referencing an existing item.
+          format: int64
+          example: 123
+        name:
+          type: string
+          description: Human-friendly name or label for the referenced entity. Required.
+          example: Item name
+      description: Simple reference model used for small id+name pairs across the finance API. Use `NamedItemModel` when an API needs to reference another entity by its identifier and display label.
+      example:
+        id: 123
+        name: Item name
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

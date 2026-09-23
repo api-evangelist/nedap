@@ -1,0 +1,412 @@
+openapi: 3.2.0
+info:
+  title: Nedap Medication.Medication Plan API
+  version: 0.0.0
+  description: 'Operations tagged medication.MedicationPlan across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: medication.MedicationPlan
+paths:
+  /t/medication/medication_plans/weeks/current:
+    get:
+      tags:
+      - medication.MedicationPlan
+      summary: Returns information about current medication plans
+      description: 'Returns all available `MedicationPlan`s for the current week.
+
+        As this is potentially a large list, cursor-based pagination is used.
+
+        When the `Link` header is part of the response, continue fetching the next set of results using the provided URI in the header, until the response does not include the `Link` header anymore.'
+      operationId: medication.MedicationPlanAPI.currentWeekOverview
+      parameters:
+      - name: after
+        in: query
+        description: When no value is supplied, pagination starts from the beginning. Specifies the `client_id` from the last medication plan in the previous response for pagination.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: List of medication plans was determined.
+          headers:
+            Link:
+              description: Supports cursor-based pagination. Includes a link to use to fetch the next set of available medication plans.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.list.MedicationPlanList'
+        '500':
+          description: Unspecified internal error
+      x-replaced-by: /v0/medicatie_legacy/medication_plan_overviews/current_week
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/medication/medication_plans/weeks/next:
+    get:
+      tags:
+      - medication.MedicationPlan
+      summary: Returns information about upcoming medication plans
+      description: 'Returns all available `MedicationPlan`s for the next week.
+
+        As this is potentially a large list, cursor-based pagination is used.
+
+        When the `Link` header is part of the response, continue fetching the next set of results using the provided URI in the header, until the response does not include the `Link` header anymore.'
+      operationId: medication.MedicationPlanAPI.nextWeekOverview
+      parameters:
+      - name: after
+        in: query
+        description: When no value is supplied, pagination starts from the beginning. Specifies the `client_id` from the last medication plan in the previous response for pagination.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: List of medication plans was determined.
+          headers:
+            Link:
+              description: Supports cursor-based pagination. Includes a link to use to fetch the next set of available medication plans.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.list.MedicationPlanList'
+        '500':
+          description: Unspecified internal error
+      x-replaced-by: /v0/medicatie_legacy/medication_plan_overviews/next_week
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/medication/medication_plans/clients/{client_id}/weeks/{week}:
+    get:
+      tags:
+      - medication.MedicationPlan
+      summary: Fetch a medication plan
+      description: 'Returns a PDF version of a medication plan for a specific client and week.
+
+        The `ETag` header is included in each response to save bandwidth. The next request using the same URI should include the value of the `ETag` header in the request header `If-None-Match`. The `ETag` (sent with `If-None-Match`) will be compared to the `ETag` of the current version of the medication plan and if both values match, a 304 `Not Modified` status, without a body, will be returned, meaning the cached version of the response is still good to use (fresh).'
+      operationId: medication.MedicationPlanAPI.getMedicationPlan
+      parameters:
+      - name: client_id
+        in: path
+        description: IoServer objectId of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: week
+        in: path
+        description: The week for which the medication plan will be served
+        required: true
+        schema:
+          pattern: ^([0-9]{4})-W(5[0-3]|[1-4][0-9]|0[1-9])$
+          type: string
+        example: 2023-W12
+      - name: If-None-Match
+        in: header
+        description: The unique identifier for the current version of the resource
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully served a medication plan
+          headers:
+            Etag:
+              description: The version of this medication plan.
+              schema:
+                type: string
+              example: W/"64f48878e1d02d32"
+            Download-path:
+              description: "Contains a suggested path to store the resource.\n First part is the name of the main location assigned to the client, or care provider name if main locations are disabled.\n Second part consists out of the client name and client id. "
+              schema:
+                type: string
+              example: goudbloem_de/janssen_hrja_mvr_239282
+            Digest-Sha1:
+              description: Provides the SHA-1 hash of the message body for integrity verification.
+              schema:
+                type: string
+              example: fb47832c7ddec5db
+            Content-Disposition:
+              description: Suggests the disposition of the content, including filename
+              schema:
+                type: string
+              example: attachment; filename="2023-W12.pdf"
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '304':
+          description: The medication plan was found but not modified.
+          headers:
+            ETag:
+              description: The version of this list of medication plans.
+              schema:
+                type: string
+              example: W/"64f48878e1d02d32"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '410':
+          description: Given week is in the past
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unspecified internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replaced-by: /v0/medicatie_legacy/medication_plans/clients/{client_id}/weeks/{week}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/medicatie_legacy/medication_plan_overviews/current_week:
+    get:
+      tags:
+      - medication.MedicationPlan
+      summary: Returns information about current medication plans
+      description: 'Returns all available `MedicationPlan`s for the current week.
+
+        As this is potentially a large list, cursor-based pagination is used.
+
+        When the `Link` header is part of the response, continue fetching the next set of results using the provided URI in the header, until the response does not include the `Link` header anymore.'
+      operationId: medication.MedicationPlanAPI.currentWeekOverview
+      parameters:
+      - name: after
+        in: query
+        description: When no value is supplied, pagination starts from the beginning. Specifies the `client_id` from the last medication plan in the previous response for pagination.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: List of medication plans was determined.
+          headers:
+            Link:
+              description: Supports cursor-based pagination. Includes a link to use to fetch the next set of available medication plans.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.list.MedicationPlanList'
+        '500':
+          description: Unspecified internal error
+      x-replacement-for:
+      - /t/medication/medication_plans/weeks/current
+    servers:
+    - url: https://api-development.ons.io
+  /v0/medicatie_legacy/medication_plan_overviews/next_week:
+    get:
+      tags:
+      - medication.MedicationPlan
+      summary: Returns information about upcoming medication plans
+      description: 'Returns all available `MedicationPlan`s for the next week.
+
+        As this is potentially a large list, cursor-based pagination is used.
+
+        When the `Link` header is part of the response, continue fetching the next set of results using the provided URI in the header, until the response does not include the `Link` header anymore.'
+      operationId: medication.MedicationPlanAPI.nextWeekOverview
+      parameters:
+      - name: after
+        in: query
+        description: When no value is supplied, pagination starts from the beginning. Specifies the `client_id` from the last medication plan in the previous response for pagination.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: List of medication plans was determined.
+          headers:
+            Link:
+              description: Supports cursor-based pagination. Includes a link to use to fetch the next set of available medication plans.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.list.MedicationPlanList'
+        '500':
+          description: Unspecified internal error
+      x-replacement-for:
+      - /t/medication/medication_plans/weeks/next
+    servers:
+    - url: https://api-development.ons.io
+  /v0/medicatie_legacy/medication_plans/clients/{client_id}/weeks/{week}:
+    get:
+      tags:
+      - medication.MedicationPlan
+      summary: Fetch a medication plan
+      description: 'Returns a PDF version of a medication plan for a specific client and week.
+
+        The `ETag` header is included in each response to save bandwidth. The next request using the same URI should include the value of the `ETag` header in the request header `If-None-Match`. The `ETag` (sent with `If-None-Match`) will be compared to the `ETag` of the current version of the medication plan and if both values match, a 304 `Not Modified` status, without a body, will be returned, meaning the cached version of the response is still good to use (fresh).'
+      operationId: medication.MedicationPlanAPI.getMedicationPlan
+      parameters:
+      - name: client_id
+        in: path
+        description: IoServer objectId of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: week
+        in: path
+        description: The week for which the medication plan will be served
+        required: true
+        schema:
+          pattern: ^([0-9]{4})-W(5[0-3]|[1-4][0-9]|0[1-9])$
+          type: string
+        example: 2023-W12
+      - name: If-None-Match
+        in: header
+        description: The unique identifier for the current version of the resource
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully served a medication plan
+          headers:
+            Etag:
+              description: The version of this medication plan.
+              schema:
+                type: string
+              example: W/"64f48878e1d02d32"
+            Download-path:
+              description: "Contains a suggested path to store the resource.\n First part is the name of the main location assigned to the client, or care provider name if main locations are disabled.\n Second part consists out of the client name and client id. "
+              schema:
+                type: string
+              example: goudbloem_de/janssen_hrja_mvr_239282
+            Digest-Sha1:
+              description: Provides the SHA-1 hash of the message body for integrity verification.
+              schema:
+                type: string
+              example: fb47832c7ddec5db
+            Content-Disposition:
+              description: Suggests the disposition of the content, including filename
+              schema:
+                type: string
+              example: attachment; filename="2023-W12.pdf"
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '304':
+          description: The medication plan was found but not modified.
+          headers:
+            ETag:
+              description: The version of this list of medication plans.
+              schema:
+                type: string
+              example: W/"64f48878e1d02d32"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '410':
+          description: Given week is in the past
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unspecified internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replacement-for:
+      - /t/medication/medication_plans/clients/{client_id}/weeks/{week}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    medication.MedicationPlan:
+      required:
+      - documentUrl
+      type: object
+      properties:
+        documentUrl:
+          type: string
+          description: Complete and working URL where the medication plan can be retrieved from.
+      description: A medication plan holds the document URL required to download a weekly overview of medication information for a given client.
+      example:
+        documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    medication.list.MedicationPlanList:
+      type: object
+      properties:
+        medicationPlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/medication.MedicationPlan'
+      description: MedicationPlanList model (no description)
+      example:
+        medicationPlans:
+        - documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,1174 @@
+openapi: 3.2.0
+info:
+  title: Nedap Survey.Survey API
+  version: 0.0.0
+  description: 'Operations tagged survey.Survey across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: survey.Survey
+paths:
+  /t/survey/surveys:
+    get:
+      tags:
+      - survey.Survey
+      summary: Returns every Survey available from the SurveyAPI
+      operationId: survey.SurveyAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.SurveyList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/surveys
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - survey.Survey
+      summary: Create Survey
+      operationId: survey.SurveyAPI.create
+      requestBody:
+        description: Survey to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.Survey'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.Survey'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/surveys
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/survey/surveys/{id}:
+    get:
+      tags:
+      - survey.Survey
+      operationId: survey.SurveyAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Survey
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.Survey'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/surveys/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Survey survey API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - survey.Survey
+      summary: Updates the given Survey
+      operationId: survey.SurveyAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Survey to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Survey to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.Survey'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.Survey'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/surveys/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - survey.Survey
+      summary: Deletes the Survey with given id
+      description: It's not possible to delete a survey that has results.
+      operationId: survey.SurveyAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Survey to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the survey
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/surveys/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/survey/surveys/creatable_surveys_by_employee/{employee_id}:
+    get:
+      tags:
+      - survey.Survey
+      summary: Return the creatable Surveys for the Employee corresponding to the given id
+      operationId: survey.SurveyAPI.creatableSurveysByEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.SurveyList'
+        '404':
+          description: No surveys found for employee
+      x-replaced-by: /v0/administration/survey/surveys/creatable_surveys_by_employee/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey/surveys:
+    get:
+      tags:
+      - survey.Survey
+      summary: Returns every Survey available from the SurveyAPI
+      operationId: survey.SurveyAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.SurveyList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/surveys
+    post:
+      tags:
+      - survey.Survey
+      summary: Create Survey
+      operationId: survey.SurveyAPI.create
+      requestBody:
+        description: Survey to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.Survey'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.Survey'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/surveys
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey/surveys/{id}:
+    get:
+      tags:
+      - survey.Survey
+      operationId: survey.SurveyAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Survey
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.Survey'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/surveys/{id}
+      summary: Survey survey API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - survey.Survey
+      summary: Updates the given Survey
+      operationId: survey.SurveyAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Survey to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Survey to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.Survey'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.Survey'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/surveys/{id}
+    delete:
+      tags:
+      - survey.Survey
+      summary: Deletes the Survey with given id
+      description: It's not possible to delete a survey that has results.
+      operationId: survey.SurveyAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Survey to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the survey
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/surveys/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey/surveys/creatable_surveys_by_employee/{employee_id}:
+    get:
+      tags:
+      - survey.Survey
+      summary: Return the creatable Surveys for the Employee corresponding to the given id
+      operationId: survey.SurveyAPI.creatableSurveysByEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.SurveyList'
+        '404':
+          description: No surveys found for employee
+      x-replacement-for:
+      - /t/survey/surveys/creatable_surveys_by_employee/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    survey.Category:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        title:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        classificationId:
+          type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Group'
+          xml:
+            wrapped: true
+        surveyId:
+          type: integer
+          format: int32
+      description: Category model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        title: cat1
+        sequenceNumber: 1
+        classificationId: classification.domain.health
+        groups: []
+        surveyId: 1
+      xml:
+        name: category
+    survey.Question:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        sequenceNumber:
+          type: integer
+          format: int32
+          default: 0
+        answerType:
+          type: integer
+          format: int32
+          default: 0
+        text:
+          type: string
+        additionalInfo:
+          type: string
+        defaultAnswer:
+          type: integer
+          format: int32
+        skipOnYes:
+          type: boolean
+        active:
+          type: boolean
+        required:
+          type: boolean
+        answerMaxLength:
+          type: integer
+          format: int32
+        groupId:
+          type: integer
+          format: int64
+        classificationId:
+          type: string
+        answerDefinitionGroup:
+          $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      description: Question model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        sequenceNumber: 1
+        answerType: 1
+        text: uw leeftijd?
+        additionalInfo: vul leeftijd in
+        defaultAnswer: 1
+        skipOnYes: true
+        active: true
+        required: true
+        answerMaxLength: 3
+        groupId: 1
+        classificationId: classification.problem.health.nutrition.signs
+        answerDefinitionGroup:
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          id: 1
+          description: heel oud
+          readOnly: false
+      xml:
+        name: question
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    survey.list.SurveyList:
+      type: object
+      properties:
+        surveys:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Survey'
+          xml:
+            name: survey
+      description: SurveyList model (no description)
+      example:
+        surveys:
+        - createdAt: '2012-08-02T11:48:46.836+02:00'
+          createdBy: jan-willem mooij
+          id: 11
+          description: vragenlijst omschr
+          title: intake
+          active: true
+          useWorkflow: true
+          useStrictEditAuthorization: true
+          copyingAllowed: true
+          signalNonClosed: true
+          signalTitle: let op niet afgehandeld
+      xml:
+        name: surveys
+    survey.SurveyResultStatus:
+      type: string
+      oneOf:
+      - title: New
+        enum:
+        - New
+      - title: Draft
+        enum:
+        - Draft
+      - title: Review
+        enum:
+        - Review
+      - title: Current
+        enum:
+        - Current
+      - title: Archived
+        enum:
+        - Archived
+      description: SurveyResultStatus model (no description)
+      example: New
+    survey.GroupAnswer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        groupId:
+          type: integer
+          format: int64
+        surveyResultId:
+          type: integer
+          format: int64
+        score:
+          type: integer
+          format: int32
+        importantForCareplan:
+          type: boolean
+      description: GroupAnswer model (no description)
+      example:
+        id: 1
+        surveyResultId: 1
+        groupId: 1
+        score: 7
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        importantForCareplan: true
+      xml:
+        name: groupAnswer
+    survey.Group:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        maxScore:
+          type: integer
+          format: int32
+        thresholdScore:
+          type: integer
+          format: int32
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Question'
+          xml:
+            wrapped: true
+        demandDefinitionId:
+          type: integer
+          format: int64
+        classificationId:
+          type: string
+      description: Group model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        description: beschrijving
+        sequenceNumber: 1
+        maxScore: 10
+        thresholdScore: 5
+        questions: []
+        demandDefinitionId: 1
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: group
+    survey.AnswerDefinition:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        definition:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        hasInput:
+          type: boolean
+        active:
+          type: boolean
+        score:
+          type: integer
+          format: int32
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+        answerDefinitionGroupId:
+          type: integer
+          format: int32
+      description: AnswerDefinition model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        definition: heel oud
+        sequenceNumber: 1
+        hasInput: false
+        active: false
+        score: 12
+        answers: []
+        classificationId: classification.reach_modifier.individual
+        answerDefinitionGroupId: 1
+      xml:
+        name: answerDefinition
+    survey.Survey:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        title:
+          type: string
+        active:
+          type: boolean
+        useWorkflow:
+          type: boolean
+        useStrictEditAuthorization:
+          type: boolean
+        copyingAllowed:
+          type: boolean
+        signalNonClosed:
+          type: boolean
+          description: 'Setting no longer provided by Ons Administratie 2016.5.0+
+
+            Instances of this questionaire need to be signaled on the dashboard when incomplete
+
+            '
+          deprecated: true
+        signalTitle:
+          type: string
+          description: 'Setting no longer provided by Ons Administratie 2016.5.0+
+
+            Title of the dashboard signal
+
+            '
+          deprecated: true
+        daysToExpiration:
+          type: integer
+          description: 'Setting no longer provided by Ons Administratie 2016.5.0+
+
+            Number of days the survey is valid
+
+            '
+          format: int32
+          deprecated: true
+        classificationId:
+          type: string
+        surveyResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.SurveyResult'
+          xml:
+            wrapped: true
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Category'
+          xml:
+            wrapped: true
+        allowedToCreateExpertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfile'
+          xml:
+            wrapped: true
+        allowedToEditExpertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfile'
+          xml:
+            wrapped: true
+        allowedToViewExpertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfile'
+          xml:
+            wrapped: true
+        expertiseProfilesAllowedToCreateSurvey:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/ExpertiseProfile'
+            xml:
+              name: expertiseProfile
+          description: Use allowedToCreateExpertiseProfiles instead
+          deprecated: true
+          xml:
+            wrapped: true
+        expertiseProfilesAllowedToEditSurvey:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/ExpertiseProfile'
+            xml:
+              name: expertiseProfile
+          description: Use allowedToEditExpertiseProfiles instead
+          deprecated: true
+          xml:
+            wrapped: true
+        expertiseProfilesAllowedToViewSurvey:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/ExpertiseProfile'
+            xml:
+              name: expertiseProfile
+          description: Use allowedToViewExpertiseProfiles instead
+          deprecated: true
+          xml:
+            wrapped: true
+      description: Survey model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: jan-willem mooij
+        id: 11
+        description: vragenlijst omschr
+        title: intake
+        active: true
+        useWorkflow: true
+        useStrictEditAuthorization: true
+        copyingAllowed: true
+        signalNonClosed: true
+        signalTitle: let op niet afgehandeld
+        daysToExpiration: 30
+        classificationId: omaha
+        surveyResults:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          surveyObjectId: 1
+          clientObjectId: 1
+          employeeObjectId: 1
+          status: New
+          version: 1
+          title: example
+          linkedToActiveCarePlan: true
+          isAnyCarePlanUsingThisResult: true
+          duplicateSurveyResultAbility:
+            enabled: true
+            possible: true
+            message: example
+          editSurveyResultAbility:
+            enabled: true
+            possible: true
+            message: example
+          statusBumpSurveyResultAbility:
+            enabled: true
+            possible: true
+            message: example
+          viewSurveyResultAbility:
+            enabled: true
+            possible: true
+            message: example
+          answers:
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: example
+            important: true
+            booleanAnswer: true
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: example
+            important: true
+            booleanAnswer: true
+          groupAnswers:
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            groupId: 1
+            surveyResultId: 1
+            score: 1
+            importantForCareplan: true
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            groupId: 1
+            surveyResultId: 1
+            score: 1
+            importantForCareplan: true
+          completedAt: '2014-12-29T00:00:00.000+01:00'
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          surveyObjectId: 1
+          clientObjectId: 1
+          employeeObjectId: 1
+          status: New
+          version: 1
+          title: example
+          linkedToActiveCarePlan: true
+          isAnyCarePlanUsingThisResult: true
+          duplicateSurveyResultAbility:
+            enabled: true
+            possible: true
+            message: example
+          editSurveyResultAbility:
+            enabled: true
+            possible: true
+            message: example
+          statusBumpSurveyResultAbility:
+            enabled: true
+            possible: true
+            message: example
+          viewSurveyResultAbility:
+            enabled: true
+            possible: true
+            message: example
+          answers:
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: example
+            important: true
+            booleanAnswer: true
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: example
+            important: true
+            booleanAnswer: true
+          groupAnswers:
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            groupId: 1
+            surveyResultId: 1
+            score: 1
+            importantForCareplan: true
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            groupId: 1
+            surveyResultId: 1
+            score: 1
+            importantForCareplan: true
+          completedAt: '2014-12-29T00:00:00.000+01:00'
+        categories: []
+        allowedToCreateExpertiseProfiles:
+        - id: 5
+          description: Helpenden
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+        allowedToEditExpertiseProfiles:
+        - id: 5
+          description: Helpenden
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+        allowedToViewExpertiseProfiles:
+        - id: 5
+          description: Helpenden
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+        expertiseProfilesAllowedToCreateSurvey:
+        - id: 5
+          description: Helpenden
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+        expertiseProfilesAllowedToEditSurvey:
+        - id: 5
+          description: Helpenden
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+        expertiseProfilesAllowedToViewSurvey:
+        - id: 5
+          description: Helpenden
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+      xml:
+        name: survey
+    survey.SurveyResult:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyObjectId:
+          type: integer
+          format: int64
+        clientObjectId:
+          type: integer
+          format: int64
+        employeeObjectId:
+          type: integer
+          format: int64
+        status:
+          $ref: '#/components/schemas/survey.SurveyResultStatus'
+        version:
+          type: integer
+          format: int64
+        title:
+          type: string
+        linkedToActiveCarePlan:
+          type: boolean
+        isAnyCarePlanUsingThisResult:
+          type: boolean
+        duplicateSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        editSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        statusBumpSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        viewSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        groupAnswers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.GroupAnswer'
+          xml:
+            wrapped: true
+        completedAt:
+          type: string
+          format: date-time
+      description: SurveyResult model (no description)
+      example:
+        id: 111
+        surveyObjectId: 555
+        clientObjectId: 333
+        employeeObjectId: 444
+        version: 1
+        linkedToActiveCarePlan: true
+        isAnyCarePlanUsingThisResult: true
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        completedAt: '2012-08-02T13:48:46.836+02:00'
+        status: Draft
+        title: test
+        duplicateSurveyResultAbility:
+          enabled: true
+          possible: true
+        editSurveyResultAbility:
+          enabled: true
+          possible: true
+        statusBumpSurveyResultAbility:
+          enabled: true
+          possible: true
+        viewSurveyResultAbility:
+          enabled: true
+          possible: true
+        answers: []
+        groupAnswers: []
+      xml:
+        name: surveyResult
+    Ability:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        possible:
+          type: boolean
+        message:
+          type: string
+      description: Ability model (no description)
+      example:
+        enabled: true
+        possible: false
+        message: message
+    survey.Answer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyResultObjectId:
+          type: integer
+          format: int64
+        questionObjectId:
+          type: integer
+          format: int64
+        answerDefinitionObjectId:
+          type: integer
+          format: int64
+        text:
+          type: string
+        important:
+          type: boolean
+        booleanAnswer:
+          type: boolean
+      description: Answer model (no description)
+      example:
+        id: 1
+        surveyResultObjectId: 1
+        questionObjectId: 1
+        text: heeeeel oud
+        answerDefinitionObjectId: 1
+        important: false
+        booleanAnswer: false
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+      xml:
+        name: answer
+    ExpertiseProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        visible:
+          type: boolean
+        beginDate:
+          type: string
+          description: 'Deprecated since: 2024-05-14, unused, always empty'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 14-05-2024
+        endDate:
+          type: string
+          description: 'Deprecated since: 2024-05-14, unused, always empty'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 14-05-2024
+        allowDossierActions:
+          type: boolean
+        allowDossierConfidential:
+          type: boolean
+        hourTypeIds:
+          type: array
+          items:
+            type: integer
+            description: List of Ids of {@link HourType}s assigned to this expertise profile
+            format: int64
+            xml:
+              name: hourTypeId
+          description: List of Ids of {@link HourType}s assigned to this expertise profile
+          xml:
+            wrapped: true
+      description: Model is used to check to see if a person can be connected to a certain {@link HourType}.
+      example:
+        id: 5
+        description: Helpenden
+        visible: true
+        beginDate: '2015-01-01T12:00:00.000+01:00'
+        endDate: '2020-01-01T12:00:00.000+01:00'
+        allowDossierActions: true
+        allowDossierConfidential: false
+        hourTypeIds:
+        - 1
+        - 2
+        - 3
+    survey.AnswerDefinitionGroup:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        readOnly:
+          type: boolean
+        answerDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnswerDefinition'
+          xml:
+            wrapped: true
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Question'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+      description: AnswerDefinitionGroup model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        description: heel oud
+        readOnly: false
+        answerDefinitions: []
+        questions:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: answerDefinitionGroup
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

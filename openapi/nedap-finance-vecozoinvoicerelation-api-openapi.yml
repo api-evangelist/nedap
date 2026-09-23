@@ -1,0 +1,197 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Vecozo Invoice Relation API
+  version: 0.0.0
+  description: 'Operations tagged finance.VecozoInvoiceRelation across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.VecozoInvoiceRelation
+paths:
+  /t/finance/vecozo_invoice_relations/x-stream-connect/data:
+    get:
+      tags:
+      - finance.VecozoInvoiceRelation
+      summary: Return all VecozoInvoiceRelation models in a streaming manner
+      operationId: finance.VecozoInvoiceRelationAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.VecozoInvoiceRelationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.VecozoInvoiceRelation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/vecozo_invoice_relations/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/vecozo_invoice_relations/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.VecozoInvoiceRelation
+      summary: Return all VecozoInvoiceRelation models which where updated since the date…
+      operationId: finance.VecozoInvoiceRelationAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.VecozoInvoiceRelationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.VecozoInvoiceRelation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/vecozo_invoice_relations/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/vecozo_invoice_relations/data:
+    get:
+      tags:
+      - finance.VecozoInvoiceRelation
+      summary: Return all VecozoInvoiceRelation models in a streaming manner
+      operationId: finance.VecozoInvoiceRelationAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.VecozoInvoiceRelationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.VecozoInvoiceRelation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/vecozo_invoice_relations/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/vecozo_invoice_relations/updates:
+    get:
+      tags:
+      - finance.VecozoInvoiceRelation
+      summary: Return all VecozoInvoiceRelation models which where updated since the date…
+      operationId: finance.VecozoInvoiceRelationAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.VecozoInvoiceRelationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.VecozoInvoiceRelation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/vecozo_invoice_relations/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.VecozoInvoiceRelation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        declarationId:
+          type: string
+          description: ID of vecozo declaration reference
+        invoiceId:
+          type: integer
+          description: ID of related invoice
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Model containing relation between vecozo and invoice
+      example:
+        id: 1
+        declarationId: skywalker
+        invoiceId: 123
+        createdAt: '2016-02-01T00:00:00.000+01:00'
+        updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: vecozoInvoiceRelation
+    finance.list.VecozoInvoiceRelationList:
+      type: object
+      properties:
+        vecozoInvoiceRelationList:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/finance.VecozoInvoiceRelation'
+            xml:
+              name: vecozoInvoiceRelation
+          xml:
+            name: vecozoInvoiceRelation
+      description: VecozoInvoiceRelationList model (no description)
+      example:
+        vecozoInvoiceRelationList:
+        - id: 1
+          declarationId: skywalker
+          invoiceId: 123
+          createdAt: '2018-02-01T00:00:00.000+01:00'
+          updatedAt: '2018-02-07T00:00:00.000+01:00'
+        - id: 2
+          declarationId: chewbacca
+          invoiceId: 321
+          createdAt: '2018-04-29T00:00:00.000+02:00'
+          updatedAt: '2018-04-30T00:00:00.000+02:00'
+      xml:
+        name: vecozoInvoiceRelationList
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

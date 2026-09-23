@@ -1,0 +1,67 @@
+openapi: 3.2.0
+info:
+  title: Nedap Admin.Version API
+  version: 0.0.0
+  description: 'Operations tagged admin.Version across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: admin.Version
+paths:
+  /t/admin/version:
+    get:
+      tags:
+      - admin.Version
+      summary: Retrieves the Version
+      operationId: admin.VersionAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.Version'
+      x-replaced-by: /v0/administration/admin/version
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/admin/version:
+    get:
+      tags:
+      - admin.Version
+      summary: Retrieves the Version
+      operationId: admin.VersionAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.Version'
+      x-replacement-for:
+      - /t/admin/version
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    admin.Version:
+      type: object
+      properties:
+        versionNumber:
+          type: string
+        buildDate:
+          type: string
+          format: date
+        versionInfo:
+          type: string
+      description: Version model (no description)
+      example:
+        versionNumber: 2015.5.0
+        buildDate: '2015-06-05'
+        versionInfo: iO server version 2015.5.0 built on Fri Jun 05 10:38:31 CEST 2015
+      xml:
+        name: version
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

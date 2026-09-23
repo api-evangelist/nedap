@@ -1,0 +1,390 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Availability API
+  version: 0.0.0
+  description: 'Operations tagged moves.Availability across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.Availability
+paths:
+  /t/moves/availabilities/x-stream-connect/data:
+    get:
+      tags:
+      - moves.Availability
+      summary: Return all Availability models in a streaming manner
+      operationId: moves.AvailabilityAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.AvailabilityList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Availability'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/availabilities/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/availabilities/x-stream-connect/deletes:
+    get:
+      tags:
+      - moves.Availability
+      summary: Return all Availability models which where deleted since the date given in the…
+      description: 'If no date is
+
+        given it will return all deleted Availability models'
+      operationId: moves.AvailabilityAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.AvailabilityList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Availability'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/availabilities/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/availabilities/x-stream-connect/updates:
+    get:
+      tags:
+      - moves.Availability
+      summary: Return all Availability models which where updated since the date given in the…
+      operationId: moves.AvailabilityAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.AvailabilityList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Availability'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/availabilities/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/availabilities/data:
+    get:
+      tags:
+      - moves.Availability
+      summary: Return all Availability models in a streaming manner
+      operationId: moves.AvailabilityAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.AvailabilityList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Availability'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/availabilities/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/availabilities/deletes:
+    get:
+      tags:
+      - moves.Availability
+      summary: Return all Availability models which where deleted since the date given in the…
+      description: 'If no date is
+
+        given it will return all deleted Availability models'
+      operationId: moves.AvailabilityAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.AvailabilityList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Availability'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/availabilities/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/availabilities/updates:
+    get:
+      tags:
+      - moves.Availability
+      summary: Return all Availability models which where updated since the date given in the…
+      operationId: moves.AvailabilityAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.AvailabilityList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Availability'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/availabilities/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.list.AvailabilityList:
+      type: object
+      properties:
+        availabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Availability'
+          xml:
+            name: availability
+      description: AvailabilityList model (no description)
+      example:
+        availabilities:
+        - id: 1
+          containerId: 2891
+          start: '00:00:00.000'
+          stop: '00:00:00.000'
+          duration: 86400
+          validFrom: '2018-07-09'
+          validTo: '2018-07-09'
+          recurrenceType: incidental
+          cycleBase: '2018-07-23'
+          cycleInterval: 7
+          cycleOffset: 4
+          unitId: 1
+          availabilityTypeId: 2
+          dayPart: 2
+          comment: Comment
+          peopleType: Employee
+          peopleExternalId: 100
+      xml:
+        name: availabilities
+    moves.Availability:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        containerId:
+          type: integer
+          format: int64
+        start:
+          type: string
+          format: time
+        stop:
+          type: string
+          format: time
+        duration:
+          type: integer
+          format: int64
+        validFrom:
+          type: string
+          format: date
+        validTo:
+          type: string
+          format: date
+        recurrenceType:
+          type: string
+          description: '<pre>
+
+            recurrenceType: Possible values
+
+            incidental
+
+            whole_period
+
+            recurring
+
+            </pre>'
+        cycleBase:
+          type: string
+          format: date
+        cycleInterval:
+          type: integer
+          description: '<pre>
+
+            cycleInterval: Every
+
+            1 = day
+
+            7 = week
+
+            14 = 2 weeks
+
+            ...
+
+            </pre>'
+          format: int64
+        cycleOffset:
+          type: integer
+          description: '<pre>
+
+            cycleOffset: Which day
+
+            0 = Sunday
+
+            1 = Monday
+
+            2 = Tuesday
+
+            ...
+
+            </pre>'
+          format: int64
+        unitId:
+          type: integer
+          format: int64
+        availabilityTypeId:
+          type: integer
+          format: int64
+        dayPart:
+          type: integer
+          description: '<pre>
+
+            Daypart
+
+            0 = Night
+
+            1 = Morning
+
+            2 = Evening
+
+            ...
+
+            </pre>'
+          format: int64
+        comment:
+          type: string
+        peopleType:
+          type: string
+          description: '<pre>
+
+            Possible values:
+
+            Employee
+
+            Client
+
+            </pre>'
+        peopleExternalId:
+          type: integer
+          format: int64
+      description: 'An availability is a period of time in which an employee or client has ''something''.
+
+
+        Some examples of availabilities:
+
+        - Employee A is sick in a period
+
+        - Employee B has training every friday in a period
+
+        - Employee C is on holiday for a period'
+      example:
+        id: 1
+        containerId: 2891
+        start: '00:00:00.000'
+        stop: '00:00:00.000'
+        duration: 86400
+        validFrom: '2018-07-09'
+        validTo: '2018-07-09'
+        recurrenceType: incidental
+        cycleBase: '2018-07-23'
+        cycleInterval: 7
+        cycleOffset: 4
+        unitId: 1
+        availabilityTypeId: 2
+        dayPart: 2
+        comment: Comment
+        peopleType: Employee
+        peopleExternalId: 100
+      xml:
+        name: availability
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

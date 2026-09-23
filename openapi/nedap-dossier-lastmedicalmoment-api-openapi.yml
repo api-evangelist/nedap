@@ -1,0 +1,91 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Last Medical Moment API
+  version: 0.0.0
+  description: 'Operations tagged dossier.LastMedicalMoment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.LastMedicalMoment
+paths:
+  /t/dossier/clients/{client_id}/last_medical_moments:
+    get:
+      tags:
+      - dossier.LastMedicalMoment
+      summary: Returns LastMedicalMoment timestamps by client
+      operationId: dossier.LastMedicalMomentAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.LastMedicalMomentList'
+      x-replaced-by: /v0/dossier/back_channel/authorized/clients/{client_id}/last_medical_moments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/clients/{client_id}/last_medical_moments:
+    get:
+      tags:
+      - dossier.LastMedicalMoment
+      summary: Returns LastMedicalMoment timestamps by client
+      operationId: dossier.LastMedicalMomentAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.LastMedicalMomentList'
+      x-replacement-for:
+      - /t/dossier/clients/{client_id}/last_medical_moments
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.LastMedicalMoment:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        updatedAt:
+          type: string
+          format: date-time
+      description: LastMedicalMoment model (no description)
+      example:
+        clientId: 1
+        updatedAt: '2014-06-16T02:00:00.000+02:00'
+    dossier.list.LastMedicalMomentList:
+      type: object
+      properties:
+        lastMedicalMoments:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.LastMedicalMoment'
+      description: LastMedicalMomentList model (no description)
+      example:
+        lastMedicalMoments:
+        - clientId: 1
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+        - clientId: 2
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

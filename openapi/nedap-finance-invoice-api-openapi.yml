@@ -1,0 +1,275 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Invoice API
+  version: 0.0.0
+  description: 'Operations tagged finance.Invoice across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.Invoice
+paths:
+  /t/finance/invoices/x-stream-connect/data:
+    get:
+      tags:
+      - finance.Invoice
+      summary: Return all Invoice models in a streaming manner
+      operationId: finance.InvoiceAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Invoice'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/invoices/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/invoices/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.Invoice
+      summary: Return all Invoice models which where updated since the date given in the…
+      operationId: finance.InvoiceAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Invoice'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/invoices/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/invoices/data:
+    get:
+      tags:
+      - finance.Invoice
+      summary: Return all Invoice models in a streaming manner
+      operationId: finance.InvoiceAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Invoice'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/invoices/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/invoices/updates:
+    get:
+      tags:
+      - finance.Invoice
+      summary: Return all Invoice models which where updated since the date given in the…
+      operationId: finance.InvoiceAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Invoice'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/invoices/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        invoiceCreationDate:
+          type: string
+          format: date-time
+        exportBeginDate:
+          type: string
+          format: date-time
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        provider:
+          type: string
+        debtorId:
+          type: integer
+          format: int64
+        invoiceType:
+          type: integer
+          format: int32
+        exportProfileId:
+          type: integer
+          format: int64
+        description:
+          type: string
+        invoiceNumber:
+          type: string
+        completed:
+          type: boolean
+          default: false
+        returnProcessedAt:
+          type: string
+          format: date-time
+        rejected:
+          type: boolean
+          default: false
+        returnMessage:
+          type: string
+        bookDate:
+          type: string
+          format: date-time
+        numericInvoiceNumber:
+          type: integer
+          format: int64
+        retourEntryNumber:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Invoice model (no description)
+      example:
+        id: 1
+        invoiceCreationDate: '2016-02-01T00:00:00.000+01:00'
+        exportBeginDate: '2016-01-28T00:00:00.000+01:00'
+        beginDate: '2016-01-28T00:00:00.000+01:00'
+        endDate: '2016-01-31T00:00:00.000+01:00'
+        provider: '12345678'
+        debtorId: 44
+        invoiceType: 0
+        exportProfileId: 1
+        description: desc1
+        invoiceNumber: ONS1234
+        completed: true
+        returnProcessedAt: '2016-02-07T00:00:00.000+01:00'
+        rejected: false
+        returnMessage: json
+        bookDate: '2016-02-01T00:00:00.000+01:00'
+        numericInvoiceNumber: 1234
+        retourEntryNumber: 1236
+        createdAt: '2016-02-01T00:00:00.000+01:00'
+        updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: invoice
+    finance.list.InvoiceList:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.Invoice'
+          xml:
+            name: invoice
+      description: InvoiceList model (no description)
+      example:
+        invoices:
+        - id: 1
+          invoiceCreationDate: '2016-02-01T00:00:00.000+01:00'
+          exportBeginDate: '2016-01-28T00:00:00.000+01:00'
+          beginDate: '2016-01-28T00:00:00.000+01:00'
+          endDate: '2016-01-31T00:00:00.000+01:00'
+          provider: '12345678'
+          debtorId: 44
+          invoiceType: 0
+          exportProfileId: 1
+          description: desc1
+          invoiceNumber: ONS1234
+          completed: true
+          returnProcessedAt: '2016-02-07T00:00:00.000+01:00'
+          rejected: false
+          bookDate: '2016-02-01T00:00:00.000+01:00'
+          numericInvoiceNumber: 1234
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+        - id: 2
+          invoiceCreationDate: '2016-02-02T00:00:00.000+01:00'
+          exportBeginDate: '2016-01-28T00:00:00.000+01:00'
+          beginDate: '2016-01-28T00:00:00.000+01:00'
+          endDate: '2016-01-31T00:00:00.000+01:00'
+          provider: '87654321'
+          debtorId: 47
+          invoiceType: 0
+          exportProfileId: 1
+          description: desc2
+          invoiceNumber: ONS1235
+          completed: true
+          returnProcessedAt: '2016-02-07T00:00:00.000+01:00'
+          rejected: false
+          bookDate: '2016-02-01T00:00:00.000+01:00'
+          numericInvoiceNumber: 1235
+          createdAt: '2016-02-02T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: invoices
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

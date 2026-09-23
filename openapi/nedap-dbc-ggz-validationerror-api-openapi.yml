@@ -1,0 +1,223 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dbc.ggz.Validation Error API
+  version: 0.0.0
+  description: 'Operations tagged dbc.ggz.ValidationError across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dbc.ggz.ValidationError
+paths:
+  /t/dbc/ggz/validation_errors/by_subtraject/{subtraject_id}:
+    get:
+      tags:
+      - dbc.ggz.ValidationError
+      summary: Retrieve validation errors by subtrajectId
+      operationId: dbc.ggz.ValidationErrorAPI.bySubtraject
+      parameters:
+      - name: subtraject_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.list.ValidationErrorList'
+      x-replaced-by: /v0/dbc/ggz/subtraject/{subtraject_id}/validation_errors
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dbc/ggz/validation_errors/by_subtrajects:
+    get:
+      tags:
+      - dbc.ggz.ValidationError
+      summary: Requires subtrajectIds.join('&').length < 2000 Retrieve validation errors by…
+      description: 'Requires {@code subtrajectIds.join(''&'').length < 2000}
+
+
+        Retrieve validation errors by multiple subtrajectIds.'
+      operationId: dbc.ggz.ValidationErrorAPI.bySubtrajects
+      parameters:
+      - name: subtraject_ids
+        in: query
+        required: false
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.list.ValidationErrorList'
+      x-replaced-by: /v0/dbc/ggz/subtraject/validation_errors
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dbc/ggz/subtraject/{subtraject_id}/validation_errors:
+    get:
+      tags:
+      - dbc.ggz.ValidationError
+      summary: Retrieve validation errors by subtrajectId
+      operationId: dbc.ggz.ValidationErrorAPI.bySubtraject
+      parameters:
+      - name: subtraject_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.list.ValidationErrorList'
+      x-replacement-for:
+      - /t/dbc/ggz/validation_errors/by_subtraject/{subtraject_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dbc/ggz/subtraject/validation_errors:
+    get:
+      tags:
+      - dbc.ggz.ValidationError
+      summary: Requires subtrajectIds.join('&').length < 2000 Retrieve validation errors by…
+      description: 'Requires {@code subtrajectIds.join(''&'').length < 2000}
+
+
+        Retrieve validation errors by multiple subtrajectIds.'
+      operationId: dbc.ggz.ValidationErrorAPI.bySubtrajects
+      parameters:
+      - name: subtraject_ids
+        in: query
+        required: false
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.list.ValidationErrorList'
+      x-replacement-for:
+      - /t/dbc/ggz/validation_errors/by_subtrajects
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dbc.ggz.ValidationError:
+      required:
+      - subtrajectId
+      - type
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        subtrajectId:
+          type: integer
+          description: The object identifier of the DBC/DBBC (Subtraject) this validation error belongs to.
+          format: int64
+        type:
+          type: string
+          description: 'Possible values:
+
+            DBC_SPELREGEL (Validation error for NZA spelregels)
+
+            SYNC_CAREORDERPRODUCT (Synchronization of general DBC/DBBC financial information)
+
+            SYNC_FORENSIC_CAREORDER (Synchronization of FZ DBBC)
+
+            SYNC_BEHANDELAAR (The employee information could not be synced)'
+        severity:
+          type: string
+          description: 'Possible values:
+
+            ERROR
+
+            WARNING'
+        message:
+          type: string
+          description: The message (in Dutch)
+      description: ValidationError model (no description)
+      example:
+        updatedAt: '2018-01-08T00:00:00.000+01:00'
+        createdAt: '2018-01-08T00:00:00.000+01:00'
+        createdBy: Administrator
+        id: 1
+        subtrajectId: 1
+        type: DBC_SPELREGEL
+        severity: ERROR
+        message: DBC niet gesloten binnen 365 dagen
+      xml:
+        name: validationError
+    dbc.ggz.list.ValidationErrorList:
+      type: object
+      properties:
+        validationErrors:
+          type: array
+          items:
+            $ref: '#/components/schemas/dbc.ggz.ValidationError'
+          xml:
+            name: validationError
+      description: ValidationErrorList model (no description)
+      example:
+        validationErrors:
+        - updatedAt: '2018-01-08T00:00:00.000+01:00'
+          createdAt: '2018-01-08T00:00:00.000+01:00'
+          createdBy: Administrator
+          id: 1
+          subtrajectId: 1
+          type: DBC_SPELREGEL
+          severity: ERROR
+          message: DBC niet gesloten binnen 365 dagen
+      xml:
+        name: validationErrors
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

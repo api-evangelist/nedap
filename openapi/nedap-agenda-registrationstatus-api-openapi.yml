@@ -1,0 +1,189 @@
+openapi: 3.2.0
+info:
+  title: Nedap Agenda.Registration Status API
+  version: 0.0.0
+  description: 'Operations tagged agenda.RegistrationStatus across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: agenda.RegistrationStatus
+paths:
+  /t/agenda_registration_status:
+    get:
+      tags:
+      - agenda.RegistrationStatus
+      summary: Return the agenda registrations status of a specific type corresponding to the…
+      description: Return the agenda registrations status of a specific type corresponding to the given id.
+      operationId: agenda.RegistrationStatusAPI.byTypeIds
+      parameters:
+      - name: valid_from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: type
+        in: query
+        description: 'type of status, can be: employee, client, team, location'
+        required: true
+        schema:
+          $ref: '#/components/schemas/agenda.RegistrationStatusType'
+      - name: type_ids
+        in: query
+        description: List of ids
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.RegistrationStatusList'
+      x-replaced-by: /v0/agenda/agenda_registration_status
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_registration_status:
+    get:
+      tags:
+      - agenda.RegistrationStatus
+      summary: Return the agenda registrations status of a specific type corresponding to the…
+      description: Return the agenda registrations status of a specific type corresponding to the given id.
+      operationId: agenda.RegistrationStatusAPI.byTypeIds
+      parameters:
+      - name: valid_from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: type
+        in: query
+        description: 'type of status, can be: employee, client, team, location'
+        required: true
+        schema:
+          $ref: '#/components/schemas/agenda.RegistrationStatusType'
+      - name: type_ids[]
+        in: query
+        description: List of ids
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+        x-original-parameter:
+          name: type_ids
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.RegistrationStatusList'
+      x-replacement-for:
+      - /t/agenda_registration_status
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    agenda.RegistrationStatus:
+      title: RegistrationStatus
+      type: object
+      properties:
+        undeclared:
+          type: integer
+          description: Amount of undeclared registrations
+          format: int32
+        failed:
+          type: integer
+          description: Amount of failed registrations
+          format: int32
+        type:
+          type: string
+          description: 'Type
+
+            <pre>
+
+            Possible values:
+
+            client
+
+            employee
+
+            team
+
+            location
+
+            </pre>'
+        typeId:
+          type: integer
+          description: Type ID
+          format: int32
+      description: Ons Agenda - Registrations status domain model used by Cupido system.
+      example:
+        undeclared: 1
+        failed: 1
+        type: employee
+        typeId: 1
+    agenda.list.RegistrationStatusList:
+      title: RegistrationStatusList
+      type: object
+      properties:
+        registrationStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.RegistrationStatus'
+      description: RegistrationStatusList model (no description)
+      example:
+        registrationStatuses:
+        - undeclared: 1
+          failed: 1
+          type: employee
+          typeId: 1
+    agenda.RegistrationStatusType:
+      type: string
+      oneOf:
+      - title: EMPLOYEE
+        enum:
+        - employee
+      - title: CLIENT
+        enum:
+        - client
+      - title: TEAM
+        enum:
+        - team
+      - title: LOCATION
+        enum:
+        - location
+      description: RegistrationStatusType model (no description)
+      example: employee
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

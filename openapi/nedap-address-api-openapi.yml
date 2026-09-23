@@ -1,0 +1,663 @@
+openapi: 3.2.0
+info:
+  title: Nedap Address API
+  version: 0.0.0
+  description: 'Operations tagged Address across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Address
+paths:
+  /t/addresses/{id}:
+    get:
+      tags:
+      - Address
+      summary: Find address by id
+      operationId: AddressAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: the id of an address
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '404':
+          description: Address not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/addresses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/external_care_providers/{care_provider_id}/addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of a CareProvider corresponding to the given id
+      operationId: AddressAPI.byCareProviderId
+      parameters:
+      - name: care_provider_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      x-replaced-by: /v0/administration/careproviders/{care_provider_id}/addresses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_contact_relations/{relation_id}/addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of a ClientContactRelation corresponding to the given id
+      operationId: AddressAPI.byClientContactRelationId
+      parameters:
+      - name: relation_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      x-replaced-by: /v0/administration/client_contact_relations/{relation_id}/addresses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_contact_relations/{relation_id}/client_contact_relation_addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of a ClientContactRelation corresponding to the given id
+      operationId: AddressAPI.byClientContactRelationId2
+      parameters:
+      - name: relation_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      deprecated: true
+      description: Deprecated operation, please use 'AddressAPI.byClientContactRelationId' instead
+      x-deprecated-since: 03-05-2023
+      x-replaced-by: /v0/administration/client_contact_relations/{relation_id}/addresses
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of a Client corresponding to the given id
+      operationId: AddressAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: type
+        in: query
+        description: 'the type of address. possible values: 0 (ONBEKEND), 1 (GBA), 2 (CORRESPONDENTIE), 3 (VERBLIJF), 4 (TIJDELIJK), 50 (SLEUTEL_ADDRESS), 98 (OVERIG), 100 (FACTUUR_ADRES)'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      x-replaced-by: /v0/administration/clients/{client_id}/addresses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/main_address:
+    get:
+      tags:
+      - Address
+      summary: Return the address where the client currently resides
+      description: 'Note: this is not the legal address
+
+        Returns the address where the client currently resides. Not to be used to retrieve the legal address.
+
+        Sorts the currently active addresses by type, and returns the first one it finds. It uses the following order: temporary, residence, legal (GBA), correspondence, unknown, other, invoice, key address.'
+      operationId: AddressAPI.mainAddressByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+      x-replaced-by: /v0/administration/clients/{client_id}/primary_address
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of an Employee corresponding to the given id
+      operationId: AddressAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/addresses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/main_address:
+    get:
+      tags:
+      - Address
+      summary: Return the currently active main address of the employee corresponding to the…
+      description: 'Returns the currently active main address of the employee corresponding to the given id. The search order corresponds to the order shown when searching for employees.
+
+        This can be configured in the application - but this can be set by Nedap only. It defaults to the legal address search order.'
+      operationId: AddressAPI.mainAddressByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+      x-replaced-by: /v0/administration/employees/{employee_id}/primary_address
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/addresses/{id}:
+    get:
+      tags:
+      - Address
+      summary: Find address by id
+      operationId: AddressAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: the id of an address
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '404':
+          description: Address not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/addresses/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careproviders/{care_provider_id}/addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of a CareProvider corresponding to the given id
+      operationId: AddressAPI.byCareProviderId
+      parameters:
+      - name: care_provider_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      x-replacement-for:
+      - /t/external_care_providers/{care_provider_id}/addresses
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_contact_relations/{relation_id}/addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of a ClientContactRelation corresponding to the given id
+      operationId: AddressAPI.byClientContactRelationId
+      parameters:
+      - name: relation_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      x-replacement-for:
+      - /t/client_contact_relations/{relation_id}/addresses
+      - /t/client_contact_relations/{relation_id}/client_contact_relation_addresses
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of a Client corresponding to the given id
+      operationId: AddressAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: type
+        in: query
+        description: 'the type of address. possible values: 0 (ONBEKEND), 1 (GBA), 2 (CORRESPONDENTIE), 3 (VERBLIJF), 4 (TIJDELIJK), 50 (SLEUTEL_ADDRESS), 98 (OVERIG), 100 (FACTUUR_ADRES)'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      x-replacement-for:
+      - /t/clients/{client_id}/addresses
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/primary_address:
+    get:
+      tags:
+      - Address
+      summary: Return the address where the client currently resides
+      description: 'Note: this is not the legal address
+
+        Returns the address where the client currently resides. Not to be used to retrieve the legal address.
+
+        Sorts the currently active addresses by type, and returns the first one it finds. It uses the following order: temporary, residence, legal (GBA), correspondence, unknown, other, invoice, key address.'
+      operationId: AddressAPI.mainAddressByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+      x-replacement-for:
+      - /t/clients/{client_id}/main_address
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/addresses:
+    get:
+      tags:
+      - Address
+      summary: Return the addresses of an Employee corresponding to the given id
+      operationId: AddressAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AddressList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/addresses
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/primary_address:
+    get:
+      tags:
+      - Address
+      summary: Return the currently active main address of the employee corresponding to the…
+      description: 'Returns the currently active main address of the employee corresponding to the given id. The search order corresponds to the order shown when searching for employees.
+
+        This can be configured in the application - but this can be set by Nedap only. It defaults to the legal address search order.'
+      operationId: AddressAPI.mainAddressByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+      x-replacement-for:
+      - /t/employees/{employee_id}/main_address
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    list.AddressList:
+      type: object
+      properties:
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+      description: AddressList model (no description)
+      example:
+        addresses:
+        - id: 1
+          beginDate: '2010-02-16'
+          endDate: '2010-02-17'
+          homeNumber: 4
+          homeNumberExtension: a
+          poBoxNumber: 123a
+          street: Parallelweg
+          city: Groenlo
+          zipcode: 7513KC
+          municipality: Enschede
+          country: Netherlands
+          telephoneNumber: 053-1234567
+          telephoneCountryCode: '+31'
+          telephoneNumber2: 053-1234567
+          telephoneCountryCode2: '+31'
+          faxNumber: 053-1234567
+          email: mike.wazowski@nedap.com
+          type: '3'
+          typeString: residence address
+          residentType: '?'
+          personType: '1'
+          personTypeString: client
+          roomNumber: '1'
+          locationDescription: Afdeling noord
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          latitude: 52.1
+          longitude: 6.9
+          situationDescription: Woont bij ex
+        - id: 1
+          beginDate: '2010-02-16'
+          endDate: '2010-02-17'
+          homeNumber: 4
+          homeNumberExtension: b
+          poBoxNumber: 123a
+          street: Parallelweg
+          city: Groenlo
+          zipcode: 7513KC
+          municipality: Enschede
+          country: Netherlands
+          telephoneNumber: 053-1234567
+          telephoneCountryCode: '+31'
+          telephoneNumber2: 053-1234567
+          telephoneCountryCode2: '+31'
+          faxNumber: 053-1234567
+          email: mike.wazowski@nedap.com
+          type: '3'
+          typeString: residence address
+          residentType: '?'
+          personType: '1'
+          personTypeString: client
+          roomNumber: '1'
+          locationDescription: Afdeling noord
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          latitude: 52.1
+          longitude: 6.9
+          situationDescription: Sleutel bij buurman
+    Address:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        homeNumber:
+          type: integer
+          format: int32
+        homeNumberExtension:
+          type: string
+        poBoxNumber:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        zipcode:
+          type: string
+        municipality:
+          type: string
+        country:
+          type: string
+        telephoneNumber:
+          type: string
+        telephoneCountryCode:
+          type: string
+        telephoneNumber2:
+          type: string
+        telephoneCountryCode2:
+          type: string
+        faxNumber:
+          type: string
+        email:
+          type: string
+        type:
+          type: string
+          description: '0: Unknown
+
+            1: Living
+
+            2: Postal
+
+            3: Residence
+
+            4: Temporary
+
+            50: Sleuteladres
+
+            98: Other
+
+            100: Factuuradres'
+        typeString:
+          type: string
+        residentType:
+          type: string
+          description: '0: Unknown
+
+            1: One-family house
+
+            2: Upstairs apartment
+
+            3: Ground floor apartment
+
+            4: Apartment or flat
+
+            5: Apartment or flat, with elevator between floors
+
+            6: Houseboat
+
+            7: Trailer
+
+            8: WLZ organisation (with stay facilities)
+
+            9: Homeless
+
+            11: Assisted living
+
+            12: WLZ organisation
+
+            13: ZVW organisation
+
+            14: WMO organisation
+
+            21: asylum seekers center
+
+            31: Correctional Institution
+
+            99: Other'
+        personType:
+          type: string
+          description: '1: Client
+
+            2: Employee
+
+            3: Relation
+
+            4: Careprovider
+
+            5: Unit'
+        personTypeString:
+          type: string
+        roomNumber:
+          type: string
+        locationDescription:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        situationDescription:
+          type: string
+          description: Toelichting woonsituatie
+        residenceAccessInfo:
+          type: string
+          description: Informatie over toegang tot de woning
+      description: Address model.
+      example:
+        id: 1
+        beginDate: '2010-02-16'
+        endDate: '2010-02-17'
+        homeNumber: 4
+        homeNumberExtension: b
+        poBoxNumber: 123a
+        street: Parallelweg
+        city: Groenlo
+        zipcode: 7513KC
+        municipality: Enschede
+        country: Netherlands
+        telephoneNumber: 053-1234567
+        telephoneCountryCode: '+31'
+        telephoneNumber2: 053-1234567
+        telephoneCountryCode2: '+31'
+        faxNumber: 053-1234567
+        email: mike.wazowski@nedap.com
+        type: '3'
+        typeString: residence address
+        residentType: '?'
+        personType: '1'
+        personTypeString: client
+        roomNumber: '1'
+        locationDescription: Afdeling noord
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        latitude: 52.1
+        longitude: 6.9
+        situationDescription: Woont bij ex
+        residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

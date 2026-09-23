@@ -1,0 +1,300 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Hourly Wage API
+  version: 0.0.0
+  description: 'Operations tagged payroll.HourlyWage across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.HourlyWage
+paths:
+  /t/payroll/hourly_wages/{id}:
+    get:
+      tags:
+      - payroll.HourlyWage
+      summary: Return the Hourly Wage corresponding to the given id
+      operationId: payroll.HourlyWageAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting HourlyWage
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.HourlyWage'
+        '404':
+          description: The hourly wage could not be found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/hourly_wages/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/hourly_wages/by_employee/{employee_object_id}:
+    get:
+      tags:
+      - payroll.HourlyWage
+      summary: Retrieves all the hourly wages of the employee
+      operationId: payroll.HourlyWageAPI.byEmployee
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.HourlyWageList'
+      x-replaced-by: /v0/administration/hourly_wages/by_employee/{employee_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/hourly_wages/x-stream-connect/data:
+    get:
+      tags:
+      - payroll.HourlyWage
+      summary: Return all Hourly wages odels in a streaming manner
+      operationId: payroll.HourlyWageAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.HourlyWageList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.HourlyWage'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/hourly_wages/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/hourly_wages/x-stream-connect/updates:
+    get:
+      tags:
+      - payroll.HourlyWage
+      summary: Return all Hourly wages models which where updated since the date given in the…
+      operationId: payroll.HourlyWageAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.HourlyWageList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.HourlyWage'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/hourly_wages/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hourly_wages/{id}:
+    get:
+      tags:
+      - payroll.HourlyWage
+      summary: Return the Hourly Wage corresponding to the given id
+      operationId: payroll.HourlyWageAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting HourlyWage
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.HourlyWage'
+        '404':
+          description: The hourly wage could not be found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/hourly_wages/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hourly_wages/by_employee/{employee_object_id}:
+    get:
+      tags:
+      - payroll.HourlyWage
+      summary: Retrieves all the hourly wages of the employee
+      operationId: payroll.HourlyWageAPI.byEmployee
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.HourlyWageList'
+      x-replacement-for:
+      - /t/payroll/hourly_wages/by_employee/{employee_object_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/hourly_wages/data:
+    get:
+      tags:
+      - payroll.HourlyWage
+      summary: Return all Hourly wages odels in a streaming manner
+      operationId: payroll.HourlyWageAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.HourlyWageList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.HourlyWage'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/hourly_wages/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/hourly_wages/updates:
+    get:
+      tags:
+      - payroll.HourlyWage
+      summary: Return all Hourly wages models which where updated since the date given in the…
+      operationId: payroll.HourlyWageAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.HourlyWageList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.HourlyWage'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/hourly_wages/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.HourlyWage:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeId:
+          type: integer
+          format: int64
+        wageInCents:
+          type: integer
+          format: int32
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: HourlyWage model (no description)
+      example:
+        id: 1
+        employeeId: 10
+        wageInCents: 1500
+        beginDate: '2017-01-01'
+        endDate: '2017-10-01'
+        createdAt: '2017-10-23T00:00:00.000+02:00'
+        updatedAt: '2017-10-23T00:00:00.000+02:00'
+      xml:
+        name: hourlyWage
+    payroll.list.HourlyWageList:
+      type: object
+      properties:
+        hourlyWages:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.HourlyWage'
+      description: HourlyWageList model (no description)
+      example:
+        hourlyWages:
+        - id: 1
+          employeeId: 10
+          wageInCents: 1500
+          beginDate: '2017-01-01'
+          endDate: '2017-10-01'
+          createdAt: '2017-10-23T00:00:00.000+02:00'
+          updatedAt: '2017-10-23T00:00:00.000+02:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

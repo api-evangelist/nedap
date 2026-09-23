@@ -1,0 +1,290 @@
+openapi: 3.2.0
+info:
+  title: Nedap Expense.Expense Address Model API
+  version: 0.0.0
+  description: 'Operations tagged expense.ExpenseAddressModel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: expense.ExpenseAddressModel
+paths:
+  /t/employees/{employee_id}/expense_address:
+    get:
+      tags:
+      - expense.ExpenseAddressModel
+      summary: Returns the expense addresses of given employee
+      operationId: expense.ExpenseAddressModelAPI.getExpenseAddresses
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.list.ExpenseAddressModelList'
+        '403':
+          description: Insufficient rights
+      x-replaced-by: /v0/administration/authorized/employees/{employee_id}/expense_address
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - expense.ExpenseAddressModel
+      summary: Update an expense address
+      operationId: expense.ExpenseAddressModelAPI.createOrUpdateExpenseAddress
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: ExpenseAddress to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense.ExpenseAddressModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.ExpenseAddressModel'
+        '400':
+          description: Validation errors
+        '403':
+          description: Insufficient rights
+      x-replaced-by: /v0/administration/authorized/employees/{employee_id}/expense_address
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/expense_address/{expenseAddress_id}:
+    delete:
+      tags:
+      - expense.ExpenseAddressModel
+      summary: Removes expense address
+      operationId: expense.ExpenseAddressModelAPI.removeExpenseAddress
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: expenseAddress_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '403':
+          description: Insufficient rights
+        '404':
+          description: Expense address not found
+      x-replaced-by: /v0/administration/authorized/employees/{employee_id}/expense_address/{expenseAddress_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/authorized/employees/{employee_id}/expense_address:
+    get:
+      tags:
+      - expense.ExpenseAddressModel
+      summary: Returns the expense addresses of given employee
+      operationId: expense.ExpenseAddressModelAPI.getExpenseAddresses
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.list.ExpenseAddressModelList'
+        '403':
+          description: Insufficient rights
+      x-replacement-for:
+      - /t/employees/{employee_id}/expense_address
+    put:
+      tags:
+      - expense.ExpenseAddressModel
+      summary: Update an expense address
+      operationId: expense.ExpenseAddressModelAPI.createOrUpdateExpenseAddress
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: ExpenseAddress to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense.ExpenseAddressModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.ExpenseAddressModel'
+        '400':
+          description: Validation errors
+        '403':
+          description: Insufficient rights
+      x-replacement-for:
+      - /t/employees/{employee_id}/expense_address
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/authorized/employees/{employee_id}/expense_address/{expenseAddress_id}:
+    delete:
+      tags:
+      - expense.ExpenseAddressModel
+      summary: Removes expense address
+      operationId: expense.ExpenseAddressModelAPI.removeExpenseAddress
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: expenseAddress_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '403':
+          description: Insufficient rights
+        '404':
+          description: Expense address not found
+      x-replacement-for:
+      - /t/employees/{employee_id}/expense_address/{expenseAddress_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    expense.list.ExpenseAddressModelList:
+      type: object
+      properties:
+        expenseAddressModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense.ExpenseAddressModel'
+      description: List of departe location settings (ExpenseAddressModel) for an employee
+      example:
+        expenseAddressModels:
+        - id: 124
+          beginDate: '2020-01-01'
+          departureLocation: HOME
+          endDate: '2020-01-31'
+    DepartureLocation:
+      enum:
+      - HOME
+      - OFFICE
+      type: string
+      description: DepartureLocation which is used to determine which address should be used for the automated travel calculations
+      example: HOME
+    expense.ExpenseAddressModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Begindate of this departure location settings
+          format: date
+        departureLocation:
+          $ref: '#/components/schemas/DepartureLocation'
+        endDate:
+          type: string
+          description: Enddate of this departure location settings
+          format: date
+      description: Departure location of an employee
+      example:
+        id: 123
+        beginDate: '2020-01-01'
+        departureLocation: HOME
+        endDate: '2020-01-31'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

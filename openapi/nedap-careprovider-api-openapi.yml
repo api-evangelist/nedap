@@ -1,0 +1,570 @@
+openapi: 3.2.0
+info:
+  title: Nedap Care Provider API
+  version: 0.0.0
+  description: 'Operations tagged CareProvider across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: CareProvider
+paths:
+  /t/external_care_providers:
+    post:
+      tags:
+      - CareProvider
+      summary: Create CareProvider
+      operationId: CareProviderAPI.create
+      requestBody:
+        description: CareProvider to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareProvider'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareProvider'
+        '400':
+          description: Bad request
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/careproviders
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/external_care_providers/{care_provider_id}/assign_to_client/{client_id}:
+    post:
+      tags:
+      - CareProvider
+      summary: Assigns an external care provider to a client
+      description: After doing this, that care provider will be returned when calling /clients/{id}/care_providers
+      operationId: CareProviderAPI.assignCareProviderToClient
+      parameters:
+      - name: care_provider_id
+        in: path
+        description: the id of the care provider
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: External care provider assigned
+      x-replaced-by: /v0/administration/careproviders/{care_provider_id}/assign_to_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/external_care_providers/{care_provider_id}/unassign_from_client/{client_id}:
+    delete:
+      tags:
+      - CareProvider
+      summary: Unassigns an external care provider from a client
+      description: After doing this, that care provider will no longer be returned when calling /clients/{id}/care_providers
+      operationId: CareProviderAPI.unassignCareProviderFromClient
+      parameters:
+      - name: care_provider_id
+        in: path
+        description: the id of the care provider
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: External care provider unassigned
+      x-replaced-by: /v0/administration/careproviders/{care_provider_id}/unassign_from_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/external_care_providers/{id}:
+    get:
+      tags:
+      - CareProvider
+      summary: Return the Care Provider corresponding to the given id
+      operationId: CareProviderAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareProvider
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareProvider'
+        '404':
+          description: Care provider not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/careproviders/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/external_care_providers/category/{category_id}/{identification}:
+    get:
+      tags:
+      - CareProvider
+      operationId: CareProviderAPI.byCategoryAndIdentification
+      parameters:
+      - name: category_id
+        in: path
+        description: Category of CareProvider
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: identification
+        in: path
+        description: ID of care provider (not object ID)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareProvider'
+      x-replaced-by: /v0/administration/careproviders/category/{category_id}/{identification}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Care provider API by category and identification
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /t/external_care_providers/identification/{identification}:
+    get:
+      tags:
+      - CareProvider
+      summary: Return the Care Provider corresponding to the given identification
+      operationId: CareProviderAPI.byIdentification
+      parameters:
+      - name: identification
+        in: path
+        description: identification of care provider (not object ID)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareProviderList'
+        '404':
+          description: Care provider not found
+      x-replaced-by: /v0/administration/careproviders/identification/{identification}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/external_care_providers/ura/{ura_number}:
+    get:
+      tags:
+      - CareProvider
+      summary: Return the Care Providers corresponding to the given URA number
+      operationId: CareProviderAPI.byUraNumber
+      parameters:
+      - name: ura_number
+        in: path
+        description: URA number used for selecting CareProviders. Must consist of exactly 8 digits.
+        required: true
+        schema:
+          pattern: ^[0-9]{8}$
+          type: string
+          example: '12345678'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareProviderList'
+        '400':
+          description: Invalid URA number. Must consist of exactly 8 digits.
+      x-replaced-by: /v0/administration/careproviders/ura/{ura_number}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/care_providers:
+    get:
+      tags:
+      - CareProvider
+      summary: Return the care providers of a Client corresponding to the given id
+      operationId: CareProviderAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareProviderList'
+      x-replaced-by: /v0/administration/clients/{client_id}/careproviders
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careproviders:
+    post:
+      tags:
+      - CareProvider
+      summary: Create CareProvider
+      operationId: CareProviderAPI.create
+      requestBody:
+        description: CareProvider to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareProvider'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareProvider'
+        '400':
+          description: Bad request
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/external_care_providers
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careproviders/{care_provider_id}/assign_to_client/{client_id}:
+    post:
+      tags:
+      - CareProvider
+      summary: Assigns an external care provider to a client
+      description: After doing this, that care provider will be returned when calling /clients/{id}/care_providers
+      operationId: CareProviderAPI.assignCareProviderToClient
+      parameters:
+      - name: care_provider_id
+        in: path
+        description: the id of the care provider
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: External care provider assigned
+      x-replacement-for:
+      - /t/external_care_providers/{care_provider_id}/assign_to_client/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careproviders/{care_provider_id}/unassign_from_client/{client_id}:
+    delete:
+      tags:
+      - CareProvider
+      summary: Unassigns an external care provider from a client
+      description: After doing this, that care provider will no longer be returned when calling /clients/{id}/care_providers
+      operationId: CareProviderAPI.unassignCareProviderFromClient
+      parameters:
+      - name: care_provider_id
+        in: path
+        description: the id of the care provider
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: External care provider unassigned
+      x-replacement-for:
+      - /t/external_care_providers/{care_provider_id}/unassign_from_client/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careproviders/{id}:
+    get:
+      tags:
+      - CareProvider
+      summary: Return the Care Provider corresponding to the given id
+      operationId: CareProviderAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareProvider
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareProvider'
+        '404':
+          description: Care provider not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/external_care_providers/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careproviders/category/{category_id}/{identification}:
+    get:
+      tags:
+      - CareProvider
+      operationId: CareProviderAPI.byCategoryAndIdentification
+      parameters:
+      - name: category_id
+        in: path
+        description: Category of CareProvider
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: identification
+        in: path
+        description: ID of care provider (not object ID)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareProvider'
+      x-replacement-for:
+      - /t/external_care_providers/category/{category_id}/{identification}
+      summary: Care provider API by category and identification
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careproviders/identification/{identification}:
+    get:
+      tags:
+      - CareProvider
+      summary: Return the Care Provider corresponding to the given identification
+      operationId: CareProviderAPI.byIdentification
+      parameters:
+      - name: identification
+        in: path
+        description: identification of care provider (not object ID)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareProviderList'
+        '404':
+          description: Care provider not found
+      x-replacement-for:
+      - /t/external_care_providers/identification/{identification}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/careproviders/ura/{ura_number}:
+    get:
+      tags:
+      - CareProvider
+      summary: Return the Care Providers corresponding to the given URA number
+      operationId: CareProviderAPI.byUraNumber
+      parameters:
+      - name: ura_number
+        in: path
+        description: URA number used for selecting CareProviders. Must consist of exactly 8 digits.
+        required: true
+        schema:
+          pattern: ^[0-9]{8}$
+          type: string
+          example: '12345678'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareProviderList'
+        '400':
+          description: Invalid URA number. Must consist of exactly 8 digits.
+      x-replacement-for:
+      - /t/external_care_providers/ura/{ura_number}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/careproviders:
+    get:
+      tags:
+      - CareProvider
+      summary: Return the care providers of a Client corresponding to the given id
+      operationId: CareProviderAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CareProviderList'
+      x-replacement-for:
+      - /t/clients/{client_id}/care_providers
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    CareProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        identificationNumber:
+          type: string
+        beholdenId:
+          type: string
+        companyName:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        initials:
+          type: string
+        prefix:
+          type: string
+        gender:
+          type: string
+          description: '<pre>
+
+            Possible values:
+
+            M - Male
+
+            F - Female
+
+            U - Unknown
+
+            </pre>'
+        preferredContactTime:
+          type: string
+        comments:
+          type: string
+        categoryObjectId:
+          type: integer
+          format: int64
+        organisationCategoryId:
+          type: integer
+          format: int64
+        isDispensing:
+          type: boolean
+        uraNumber:
+          type: string
+      description: 'The source of this MedicationChart. A pharmacy.
+
+        identificationNumber and companyName should be filled.
+
+        The identificationNumber should be the AGB-code of the pharmacy.
+
+        All other fields are optional.'
+      example:
+        id: 111
+        identificationNumber: '555'
+        beholdenId: '333'
+        companyName: compname
+        name: name
+        firstName: firstname
+        initials: initials
+        prefix: prefix
+        gender: F
+        preferredContactTime: preferredContactTime
+        comments: comments
+        categoryObjectId: 123
+        organisationCategoryId: 456
+        isDispensing: false
+        uraNumber: '12345678'
+      xml:
+        name: careProvider
+    list.CareProviderList:
+      type: object
+      properties:
+        careProviders:
+          type: array
+          items:
+            $ref: '#/components/schemas/CareProvider'
+          xml:
+            name: careProvider
+      description: CareProviderList model (no description)
+      example:
+        careProviders:
+        - id: 111
+          identificationNumber: '555'
+          beholdenId: '333'
+          companyName: compname
+          name: name
+          firstName: firstname
+          initials: initials
+          prefix: prefix
+          gender: F
+          comments: comments
+          categoryObjectId: 1234
+          organisationCategoryId: 456
+      xml:
+        name: careProviders
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

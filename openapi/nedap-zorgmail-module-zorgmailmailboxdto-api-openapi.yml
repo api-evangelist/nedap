@@ -1,0 +1,155 @@
+openapi: 3.2.0
+info:
+  title: Nedap Zorgmail Module.Zorgmail Mailbox Dto API
+  version: 0.0.0
+  description: 'Operations tagged zorgmail_module.ZorgmailMailboxDto across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: zorgmail_module.ZorgmailMailboxDto
+paths:
+  /t/zorgmail-module/cupido/zorgmail/credentials/validate:
+    post:
+      tags:
+      - zorgmail_module.ZorgmailMailboxDto
+      summary: validate
+      description: Checks if the provided Zorgmail credentials are valid.
+      operationId: zorgmail_module.ZorgmailMailboxDtoAPI.validate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/zorgmail_module.ZorgmailMailboxDto'
+        required: true
+      responses:
+        '200':
+          description: Whether the credentials are valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanWithReason'
+        '500':
+          description: Something went wrong internally while processing the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Something went wrong while connecting to Zorgmail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replaced-by: /v0/zorgmail_module/cupido/zorgmail/credentials/validate
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/zorgmail_module/cupido/zorgmail/credentials/validate:
+    post:
+      tags:
+      - zorgmail_module.ZorgmailMailboxDto
+      summary: validate
+      description: Checks if the provided Zorgmail credentials are valid.
+      operationId: zorgmail_module.ZorgmailMailboxDtoAPI.validate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/zorgmail_module.ZorgmailMailboxDto'
+        required: true
+      responses:
+        '200':
+          description: Whether the credentials are valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanWithReason'
+        '500':
+          description: Something went wrong internally while processing the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Something went wrong while connecting to Zorgmail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replacement-for:
+      - /t/zorgmail-module/cupido/zorgmail/credentials/validate
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    BooleanWithReason:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: Answer to the question
+        reason:
+          type: string
+      description: This class is used to answer a simple true/false question with an optional reason.
+      example:
+        result: true
+        reason: Just Because!
+      xml:
+        name: booleanWithReason
+    zorgmail_module.ZorgmailMailboxDto:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        domain:
+          type: string
+        password:
+          type: string
+        username:
+          type: string
+      description: Zorgmail Mailbox model.
+      example:
+        accountNumber: '5005132548'
+        domain: lms.lifeline.nl
+        password: my-secret-password
+        username: '5005132548'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

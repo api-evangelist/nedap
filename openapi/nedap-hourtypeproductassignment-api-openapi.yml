@@ -1,0 +1,256 @@
+openapi: 3.2.0
+info:
+  title: Nedap Hour Type Product Assignment API
+  version: 0.0.0
+  description: 'Operations tagged HourTypeProductAssignment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: HourTypeProductAssignment
+paths:
+  /t/hour_type_product_assignments:
+    get:
+      tags:
+      - HourTypeProductAssignment
+      summary: Returns every HourTypeProductAssignment available
+      operationId: HourTypeProductAssignmentAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeProductAssignmentList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/hour_type_product_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/hour_type_product_assignments/{id}:
+    get:
+      tags:
+      - HourTypeProductAssignment
+      summary: Returns the HourTypeProductAssignment with the provided id
+      operationId: HourTypeProductAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting HourTypeProductAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HourTypeProductAssignment'
+        '404':
+          description: HourTypeProductAssignment not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/hour_type_product_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/hour_types/{id}/product_assignments:
+    get:
+      tags:
+      - HourTypeProductAssignment
+      summary: Returns the HourTypeProductAssignments assigned to the HourType with the…
+      operationId: HourTypeProductAssignmentAPI.byHourTypeId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting HourType for which to get the assignments
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeProductAssignmentList'
+        '404':
+          description: Hour type not found
+      x-replaced-by: /v0/administration/hour_types/{id}/product_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hour_type_product_assignments:
+    get:
+      tags:
+      - HourTypeProductAssignment
+      summary: Returns every HourTypeProductAssignment available
+      operationId: HourTypeProductAssignmentAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeProductAssignmentList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/hour_type_product_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hour_type_product_assignments/{id}:
+    get:
+      tags:
+      - HourTypeProductAssignment
+      summary: Returns the HourTypeProductAssignment with the provided id
+      operationId: HourTypeProductAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting HourTypeProductAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HourTypeProductAssignment'
+        '404':
+          description: HourTypeProductAssignment not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/hour_type_product_assignments/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hour_types/{id}/product_assignments:
+    get:
+      tags:
+      - HourTypeProductAssignment
+      summary: Returns the HourTypeProductAssignments assigned to the HourType with the…
+      operationId: HourTypeProductAssignmentAPI.byHourTypeId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting HourType for which to get the assignments
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeProductAssignmentList'
+        '404':
+          description: Hour type not found
+      x-replacement-for:
+      - /t/hour_types/{id}/product_assignments
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    HourTypeProductAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique ID of this HourTypeProductAssignment
+          format: int64
+          x-cupido-id: true
+        productId:
+          type: integer
+          description: Id of the {@link Product} in the {@link CareOrderProduct} this assignment matches on.
+          format: int64
+        debtorId:
+          type: integer
+          description: Optional id of the {@link Debtor} this assignment matches on.
+          format: int64
+        hourTypeId:
+          type: integer
+          description: Id of the {@link HourType} this assignment belongs to.
+          format: int64
+        expertiseProfileId:
+          type: integer
+          description: Optional id of the {@link ExpertiseProfile} this assignment matches on.
+          format: int64
+        agbCode:
+          type: string
+          description: Optional AGB code this assignment matches on.
+        rank:
+          type: integer
+          description: Rank of this assignment in the assignment matching sequence for the {@link HourType} this assignment belongs to. A lower number means a higher priority.
+          format: int32
+        declarableProductId:
+          type: integer
+          description: Id of the {@link Product} is used for invoicing when this assignment matches.
+          format: int64
+        leveringsvoorwaardePerClient:
+          type: boolean
+          description: This field indicates if the leveringsvoorwaarde should be used when matching the assignment. It is only used for old AWBZ {@link CareOrder}s.
+        beginDate:
+          type: string
+          description: Begin date of the validity period for this assignment.
+          format: date
+        endDate:
+          type: string
+          description: End date of the validity period for this assignment.
+          format: date
+        percentage:
+          type: integer
+          description: Percentage that this rule contributes to the final invoice
+          format: int32
+      description: A.K.A. ProductActivityAssignment in IOServer
+      example:
+        id: 1
+        productId: 1
+        debtorId: 1
+        hourTypeId: 1
+        expertiseProfileId: 1
+        agbCode: '12345678'
+        rank: 1
+        declarableProductId: 1
+        leveringsvoorwaardePerClient: false
+        beginDate: '2022-01-01'
+        endDate: '2022-12-31'
+        percentage: 100
+      xml:
+        name: hourTypeProductAssignment
+    list.HourTypeProductAssignmentList:
+      type: object
+      properties:
+        hourTypeProductAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/HourTypeProductAssignment'
+          xml:
+            name: hourTypeProductAssignment
+      description: HourTypeProductAssignmentList model (no description)
+      example:
+        hourTypeProductAssignments:
+        - id: 1
+          productId: 1
+          debtorId: 1
+          hourTypeId: 1
+          expertiseProfileId: 1
+          agbCode: '12345678'
+          rank: 1
+          declarableProductId: 1
+          leveringsvoorwaardePerClient: false
+          beginDate: '2022-01-01'
+          endDate: '2022-12-31'
+          percentage: 100
+      xml:
+        name: hourTypeProductAssignments
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

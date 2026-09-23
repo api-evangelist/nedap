@@ -1,0 +1,207 @@
+openapi: 3.2.0
+info:
+  title: Nedap Authorization.provisioning.User API
+  version: 0.0.0
+  description: 'Operations tagged authorization.provisioning.User across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: authorization.provisioning.User
+paths:
+  /t/authorization/provisioning/users/{user_uuid}:
+    put:
+      tags:
+      - authorization.provisioning.User
+      summary: This endpoint is meant to assign roles with a certain scope (teams/locations)…
+      description: 'Provide the complete set of all roles that should be assigned (roleUuid, teams and locations) to the user.
+
+        As this API is idempotent, the state provided in the last call is the final state. Any roles previously assigned but not specified in the body will be revoked.
+
+        The connector is only able to control roles which are assigned by the connector itself (identified by the connector_name and connector_source).
+
+        The changes can be seen in the Ons Autorisatie UI if you navigate to the specific user. The added roles are listed in the role overview. All the roles added by a specific connector are marked as such.
+
+        More explanation can be found here: https://ons-api.nl/support/Shield.html'
+      operationId: authorization.provisioning.UserAPI.update
+      parameters:
+      - name: user_uuid
+        in: path
+        description: Identifier of User to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: User to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorization.provisioning.User'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization.provisioning.User'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 11-11-2025
+      x-replaced-by: /v0/authorization/provisioning/users/{user_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/authorization/provisioning/users/{user_uuid}:
+    put:
+      tags:
+      - authorization.provisioning.User
+      summary: This endpoint is meant to assign roles with a certain scope (teams/locations)…
+      description: 'Provide the complete set of all roles that should be assigned (roleUuid, teams and locations) to the user.
+
+        As this API is idempotent, the state provided in the last call is the final state. Any roles previously assigned but not specified in the body will be revoked.
+
+        The connector is only able to control roles which are assigned by the connector itself (identified by the connector_name and connector_source).
+
+        The changes can be seen in the Ons Autorisatie UI if you navigate to the specific user. The added roles are listed in the role overview. All the roles added by a specific connector are marked as such.
+
+        More explanation can be found here: https://ons-api.nl/support/Shield.html'
+      operationId: authorization.provisioning.UserAPI.update
+      parameters:
+      - name: user_uuid
+        in: path
+        description: Identifier of User to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: User to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorization.provisioning.User'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization.provisioning.User'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 11-11-2025
+      x-replacement-for:
+      - /t/authorization/provisioning/users/{user_uuid}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    authorization.provisioning.User:
+      type: object
+      properties:
+        userUuid:
+          type: string
+          x-cupido-id: true
+        source:
+          type: string
+        duties:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization.provisioning.Duty'
+        defaultScopedDuties:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization.provisioning.Duty'
+        roleScopedDuties:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization.provisioning.Duty'
+      description: User model (no description)
+      example:
+        userUuid: 1b9243a9-83b5-4edf-ab93-507f88fdcb01
+        source: Koppelingnaam
+        duties:
+        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
+          locationIds:
+          - 1
+          - 2
+          - 3
+          teamIds:
+          - 4
+          - 5
+          - 6
+          myself: true
+          allEmployees: true
+          myPlanning: true
+          myRoster: true
+          clientEmployeeRelationTypeIds:
+          - 7
+          - 8
+          - 9
+        defaultScopedDuties:
+        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
+        roleScopedDuties:
+        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
+    authorization.provisioning.Duty:
+      type: object
+      properties:
+        roleUuid:
+          type: string
+        validFrom:
+          type: string
+          format: date-time
+        validTo:
+          type: string
+          format: date-time
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        teamIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        myself:
+          type: boolean
+        allEmployees:
+          type: boolean
+        allClients:
+          type: boolean
+        myPlanning:
+          type: boolean
+        myRoster:
+          type: boolean
+        employeesOnMyRoster:
+          type: boolean
+        clientEmployeeRelationTypeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+      description: Duty is a role assigned to the user. It consists of roleUuid, the validity timeline, and scoping policy options, determining what clients and/or employees will be accessible in the context of that role.
+      example:
+        roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
+        validFrom: '2018-03-01T00:00:00.000+01:00'
+        validTo: '2019-03-01T00:00:00.000+01:00'
+        locationIds:
+        - 1
+        - 2
+        - 3
+        teamIds:
+        - 4
+        - 5
+        - 6
+        myself: true
+        allEmployees: true
+        allClients: false
+        myPlanning: true
+        myRoster: true
+        employeesOnMyRoster: true
+        clientEmployeeRelationTypeIds:
+        - 7
+        - 8
+        - 9
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

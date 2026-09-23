@@ -1,0 +1,440 @@
+openapi: 3.2.0
+info:
+  title: Nedap Openehr.Multimedia File API
+  version: 0.0.0
+  description: 'Operations tagged openehr.MultimediaFile across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: openehr.MultimediaFile
+paths:
+  /t/openehr/multimedia_files:
+    post:
+      tags:
+      - openehr.MultimediaFile
+      summary: Creates a MultimediaFile and associated meta object
+      description: 'POST body:
+
+
+        POST /uc/openehr/multimedia_files HTTP/1.1
+
+        Accept: application/json
+
+        Accept-Encoding: gzip, deflate
+
+        Connection: keep-alive
+
+        Content-Type: multipart/form-data;boundary=Boundary_1_1610615050_1558687905265
+
+        Content-Length: 554
+
+        --Boundary_1_1610615050_1558687905265
+
+        Content-Disposition: form-data; name="metadata"
+
+        Content-Type: application/json
+
+
+        {"clientId":3,"mediaType":"image/jpeg"}
+
+        --Boundary_1_1610615050_1558687905265
+
+        Content-Disposition: form-data; name="attachment"; filename="dude_icon.jpg"
+
+        Content-Type: image/jpeg
+
+
+        [jpeg data, e.g. output of ''cat dude_icon.jpeg | pbcopy'']
+
+        --Boundary_1_1610615050_1558687905265--
+
+
+        This method is not actually used, but just a decoy to fool openapi2 into
+
+        generating the correct doc for create(Long, MultimediaFile, String, InputStream)'
+      operationId: openehr.MultimediaFileAPI.create
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/openehr.MultimediaFileCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.MultimediaFile'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/multimedia_files
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/multimedia_files/{id}:
+    get:
+      tags:
+      - openehr.MultimediaFile
+      summary: Finds a MultimediaFile metadata
+      operationId: openehr.MultimediaFileAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: The id of the MultimediaFile in Chiron
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.MultimediaFile'
+        '404':
+          description: When the multimedia file does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/multimedia_files/{id}/download:
+    get:
+      tags:
+      - openehr.MultimediaFile
+      summary: Returns a stream of bytes representing the file related to this MultimediaFile…
+      operationId: openehr.MultimediaFileAPI.download
+      parameters:
+      - name: id
+        in: path
+        description: The id of the MultimediaFile in Chiron
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Download file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: When the multimedia file does not exist
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}/download
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/multimedia_files/{id}/thumbnail:
+    get:
+      tags:
+      - openehr.MultimediaFile
+      summary: Returns a stream of bytes representing the thumbnail with specified scale…
+      operationId: openehr.MultimediaFileAPI.thumbnail
+      parameters:
+      - name: id
+        in: path
+        description: The id of the MultimediaFile in Chiron
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: scale
+        in: query
+        description: The scale of the thumbnail
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.Scale'
+      responses:
+        '200':
+          description: Thumbnail of the multimedia file
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: When the multimedia file does not exist
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}/thumbnail
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/multimedia_files:
+    post:
+      tags:
+      - openehr.MultimediaFile
+      summary: Creates a MultimediaFile and associated meta object
+      description: 'POST body:
+
+
+        POST /uc/openehr/multimedia_files HTTP/1.1
+
+        Accept: application/json
+
+        Accept-Encoding: gzip, deflate
+
+        Connection: keep-alive
+
+        Content-Type: multipart/form-data;boundary=Boundary_1_1610615050_1558687905265
+
+        Content-Length: 554
+
+        --Boundary_1_1610615050_1558687905265
+
+        Content-Disposition: form-data; name="metadata"
+
+        Content-Type: application/json
+
+
+        {"clientId":3,"mediaType":"image/jpeg"}
+
+        --Boundary_1_1610615050_1558687905265
+
+        Content-Disposition: form-data; name="attachment"; filename="dude_icon.jpg"
+
+        Content-Type: image/jpeg
+
+
+        [jpeg data, e.g. output of ''cat dude_icon.jpeg | pbcopy'']
+
+        --Boundary_1_1610615050_1558687905265--
+
+
+        This method is not actually used, but just a decoy to fool openapi2 into
+
+        generating the correct doc for create(Long, MultimediaFile, String, InputStream)'
+      operationId: openehr.MultimediaFileAPI.create
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/openehr.MultimediaFileCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.MultimediaFile'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/multimedia_files
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}:
+    get:
+      tags:
+      - openehr.MultimediaFile
+      summary: Finds a MultimediaFile metadata
+      operationId: openehr.MultimediaFileAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: The id of the MultimediaFile in Chiron
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.MultimediaFile'
+        '404':
+          description: When the multimedia file does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/multimedia_files/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}/download:
+    get:
+      tags:
+      - openehr.MultimediaFile
+      summary: Returns a stream of bytes representing the file related to this MultimediaFile…
+      operationId: openehr.MultimediaFileAPI.download
+      parameters:
+      - name: id
+        in: path
+        description: The id of the MultimediaFile in Chiron
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Download file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: When the multimedia file does not exist
+      x-replacement-for:
+      - /t/openehr/multimedia_files/{id}/download
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}/thumbnail:
+    get:
+      tags:
+      - openehr.MultimediaFile
+      summary: Returns a stream of bytes representing the thumbnail with specified scale…
+      operationId: openehr.MultimediaFileAPI.thumbnail
+      parameters:
+      - name: id
+        in: path
+        description: The id of the MultimediaFile in Chiron
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: scale
+        in: query
+        description: The scale of the thumbnail
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.Scale'
+      responses:
+        '200':
+          description: Thumbnail of the multimedia file
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: When the multimedia file does not exist
+      x-replacement-for:
+      - /t/openehr/multimedia_files/{id}/thumbnail
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    openehr.MultimediaFileCreateRequest:
+      required:
+      - metadata
+      - attachment
+      type: object
+      properties:
+        metadata:
+          allOf:
+          - $ref: '#/components/schemas/openehr.MultimediaFile'
+          description: A JSON object with metadata of the multimedia file
+        attachment:
+          type: string
+          description: The actual file. Supported mediaTypes are application/pdf and image/jpeg
+          format: binary
+      description: MultimediaFileCreateRequest model (no description)
+      example:
+        metadata:
+          updatedAt: '2019-06-17T00:00:00.000+02:00'
+          createdAt: '2019-06-17T00:00:00.000+02:00'
+          createdBy: Henk
+          id: 1
+          ehrId: 2
+          clientId: 3
+          committerEmployeeId: 4
+          mediaType: image/jpeg
+        attachment: ''
+    openehr.MultimediaFile:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        ehrId:
+          type:
+          - integer
+          - 'null'
+          description: Integer containing the ehrId.
+          format: int64
+        clientId:
+          type:
+          - integer
+          - 'null'
+          description: 'Integer containing the clientId. This might be empty, since a multimedia file is primarily linked to an
+
+            EHR. An EHR might not have a link to a Cupido client, for example if a client is not known in Ons Administratie.'
+          format: int64
+        committerEmployeeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Integer containing the employeeId in Ons Administratie of the committer. This can be empty when the committer
+
+            is not known in Ons Administratie. The name of the committer is recorded in the createdBy field.
+
+            Note: The committer is not always the same person as the person who composes the object.'
+          format: int64
+        mediaType:
+          type:
+          - string
+          - 'null'
+          description: The IANA Media Type of the file associated with this MultimediaFile
+      description: A JSON object with metadata of the multimedia file
+      example:
+        updatedAt: '2019-06-17T00:00:00.000+02:00'
+        createdAt: '2019-06-17T00:00:00.000+02:00'
+        createdBy: Henk
+        id: 1
+        ehrId: 2
+        clientId: 3
+        committerEmployeeId: 4
+        mediaType: image/jpeg
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    openehr.Scale:
+      enum:
+      - SMALL
+      - LARGE
+      type: string
+      description: Requested size for example of an image expressed as enum scale
+      example: SMALL
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

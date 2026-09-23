@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Client Planning Filter API
+  version: 0.0.0
+  description: 'Operations tagged moves.ClientPlanningFilter across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.ClientPlanningFilter
+paths:
+  /t/clients/{client_id}/client_planning_filters:
+    get:
+      tags:
+      - moves.ClientPlanningFilter
+      summary: Return the client planning filters of a Client within a specified period
+      operationId: moves.ClientPlanningFilterAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: The {id} of the requested Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: The start date of the requested period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: The end date of the requested period (exclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ClientPlanningFilterList'
+      x-replaced-by: /v0/plannen_roosteren/clients/{client_id}/client_planning_filters
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/clients/{client_id}/client_planning_filters:
+    get:
+      tags:
+      - moves.ClientPlanningFilter
+      summary: Return the client planning filters of a Client within a specified period
+      operationId: moves.ClientPlanningFilterAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: The {id} of the requested Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The start date of the requested period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        description: The end date of the requested period (exclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ClientPlanningFilterList'
+      x-replacement-for:
+      - /t/clients/{client_id}/client_planning_filters
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.list.ClientPlanningFilterList:
+      type: object
+      properties:
+        clientPlanningFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ClientPlanningFilter'
+      description: ClientPlanningFilterList model (no description)
+      example:
+        clientPlanningFilters:
+        - clientId: 7607
+          reason: sick
+          availabilityName: Ziek
+          validFrom: '2013-12-05'
+          validTo: '2013-12-06'
+          teamScope: only
+          teamId: 328
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamType: Intramuraal
+          startTime: '15:00'
+          stopTime: '18:00'
+        - clientId: 7607
+          reason: sick
+          validFrom: '2013-12-02'
+          validTo: '2013-12-04'
+          teamScope: all
+          startTime: '15:00'
+          stopTime: '18:00'
+        - clientId: 7607
+          reason: unavailable
+          validFrom: '2013-12-06'
+          validTo: '2013-12-07'
+          teamScope: except
+          teamId: 301
+          teamName: HV OOST
+          teamCode: '121'
+          teamType: Intramuraal
+          startTime: '15:00'
+          stopTime: '18:00'
+        - clientId: 7607
+          reason: hospitalized
+          comment: 我能吞下玻璃而不傷身體
+          validFrom: '2013-12-06'
+          teamScope: none
+          startTime: '15:00'
+          stopTime: '18:00'
+        - clientId: 7607
+          reason: unavailable
+          comment: Τη γλώσσα μου έδωσαν ελληνική
+          validFrom: '2013-12-03'
+          validTo: '2013-12-04'
+          teamScope: only
+          teamName: Subunit 1A
+          teamCode: UNLINKED
+          teamType: Intramuraal
+          startTime: '15:00'
+          stopTime: '18:00'
+        - clientId: 7607
+          reason: not_yet_in_care
+          validFrom: '1900-01-01'
+          validTo: '2010-02-25'
+          teamScope: all
+          teamType: Intramuraal
+          startTime: '15:00'
+          stopTime: '18:00'
+        - clientId: 7607
+          reason: out_of_care
+          validFrom: '2014-02-01'
+          teamScope: all
+    moves.ClientPlanningFilter:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        reason:
+          type: string
+        availabilityName:
+          type: string
+          description: 'The availabiltity type name: e.g. Sick, Vacation, etc.'
+        comment:
+          type: string
+        validFrom:
+          type: string
+          format: date
+        validTo:
+          type: string
+          format: date
+        teamScope:
+          type: string
+          description: 'To which team(s) is this filter applied. When ''only'' or ''except'', team properties should be filled. Other possible values: ''all'', ''none''.'
+        teamId:
+          type: integer
+          format: int64
+        teamName:
+          type: string
+          description: The name of the team
+        teamType:
+          $ref: '#/components/schemas/moves.UnitType'
+        teamCode:
+          type: string
+          description: The customer's internal identifier for the team
+        startTime:
+          type: string
+        stopTime:
+          type: string
+      description: Relation between an Client and an Employee.
+      example:
+        clientId: 7607
+        reason: sick
+        availabilityName: Ziek
+        comment: comment
+        validFrom: '2013-12-05'
+        validTo: '2013-12-06'
+        teamScope: only
+        teamId: 328
+        teamName: V&V De Terp
+        teamCode: '1410'
+        teamType: Intramuraal
+        startTime: '15:00'
+        stopTime: '18:00'
+    moves.UnitType:
+      enum:
+      - Extramuraal
+      - Intramuraal
+      - WMO
+      type: string
+      description: Type of the unit
+      example: Intramuraal
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

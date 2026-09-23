@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Nedap Evs.Response Message API
+  version: 0.0.0
+  description: 'Operations tagged evs.ResponseMessage across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: evs.ResponseMessage
+paths:
+  /t/evs/response_message:
+    put:
+      tags:
+      - evs.ResponseMessage
+      summary: Send a response of an earlier sent message from FVC back to OA
+      operationId: evs.ResponseMessageAPI.send
+      requestBody:
+        description: Responsemessage to be sent to OA
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/evs.ResponseMessage'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evs.ResponseMessage'
+      x-replaced-by: /v0/administration/evs/response_message
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/evs/response_message:
+    put:
+      tags:
+      - evs.ResponseMessage
+      summary: Send a response of an earlier sent message from FVC back to OA
+      operationId: evs.ResponseMessageAPI.send
+      requestBody:
+        description: Responsemessage to be sent to OA
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/evs.ResponseMessage'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evs.ResponseMessage'
+      x-replacement-for:
+      - /t/evs/response_message
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    evs.ResponseMessage:
+      required:
+      - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID identifying this Evs response across applications
+          x-cupido-id: true
+        originalMessageTag:
+          type: string
+          description: link to the orignal message where this response belongs to
+        status:
+          type: string
+          description: 'possible values:
+
+            ACKED: when the hl7 message was received correctly by the external EVS provider
+
+            NACKED: when the hl7 was denied by the external EVS provider'
+        externalMessage:
+          type: string
+          description: 'The textual message from the external EVS provider.
+
+            In case of status NACKED, this will given an indication of the reason why.'
+      description: ResponseMessage model (no description)
+      example:
+        uuid: Dummy
+        originalMessageTag: OriginalDummy
+        status: ACKED
+        externalMessage: ok
+      xml:
+        name: responseMessage
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,422 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Team API
+  version: 0.0.0
+  description: 'Operations tagged moves.Team across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.Team
+paths:
+  /t/moves/units:
+    get:
+      tags:
+      - moves.Team
+      summary: Return all Teams used for planning and rostering ( also known as a unit ).
+      operationId: moves.TeamAPI.all
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.TeamList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/plannen_roosteren/units
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/units/{unit_id}:
+    get:
+      tags:
+      - moves.Team
+      summary: Return the team used for planning and rostering (also known as a unit) for the…
+      operationId: moves.TeamAPI.byId
+      parameters:
+      - name: unit_id
+        in: path
+        description: The unit identifier of the requested Team
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.Team'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/plannen_roosteren/units/{unit_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/units/{unit_id}/clients:
+    get:
+      tags:
+      - moves.Team
+      summary: Return a list of relevant clients for the team, for given start and end date
+      operationId: moves.TeamAPI.relevantClientsByUnitId
+      parameters:
+      - name: unit_id
+        in: path
+        description: The unit identifier for the requested team.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The from-date for which to check. Defaults to last Monday. The maximum period is 6 weeks.
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: The to-date for which to check. Defaults to next Monday. The maximum period is 6 weeks.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ClientList'
+      x-replaced-by: /v0/plannen_roosteren/units/{unit_id}/clients
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/units:
+    get:
+      tags:
+      - moves.Team
+      summary: Return all Teams used for planning and rostering ( also known as a unit ).
+      operationId: moves.TeamAPI.all
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.TeamList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/units
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/units/{unit_id}:
+    get:
+      tags:
+      - moves.Team
+      summary: Return the team used for planning and rostering (also known as a unit) for the…
+      operationId: moves.TeamAPI.byId
+      parameters:
+      - name: unit_id
+        in: path
+        description: The unit identifier of the requested Team
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.Team'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/units/{unit_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/units/{unit_id}/clients:
+    get:
+      tags:
+      - moves.Team
+      summary: Return a list of relevant clients for the team, for given start and end date
+      operationId: moves.TeamAPI.relevantClientsByUnitId
+      parameters:
+      - name: unit_id
+        in: path
+        description: The unit identifier for the requested team.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The from-date for which to check. Defaults to last Monday. The maximum period is 6 weeks.
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: The to-date for which to check. Defaults to next Monday. The maximum period is 6 weeks.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ClientList'
+      x-replacement-for:
+      - /t/moves/units/{unit_id}/clients
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.FlexSignupVisibility:
+      enum:
+      - hide_signups
+      - show_anonymous
+      - show_names
+      type: string
+      description: How flex request signups of colleagues are shown to employees
+      example: show_names
+    moves.list.TeamList:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Team'
+      description: List of teams ( also named units ) for planning and rostering purposes
+      example:
+        teams:
+        - unitId: 1234
+          name: Nedap VnV
+          parentUnitId: 1233
+          teamId: 4321
+          validFrom: '2019-11-19'
+          validTo: '2038-01-19'
+          coreUnitId: 0
+          flexUnitId: 1
+          isFlexTeam: true
+          isCoreTeam: false
+          active: true
+          teamType: Extramuraal
+          useBlockplanning: false
+          useSelfRostering: true
+          selfRosteringStartDate: '2000-01-01'
+          rosterPublicationDate: '2025-08-30'
+    moves.UnitType:
+      enum:
+      - Extramuraal
+      - Intramuraal
+      - WMO
+      type: string
+      description: Type of the unit
+      example: Intramuraal
+    moves.WhoMakesFlexAssignments:
+      enum:
+      - requesting_unit
+      - primary_flex_unit
+      - requesting_unit_and_primary_flex_unit
+      - all_units
+      type: string
+      description: Which unit assigns employees to flex requests
+      example: primary_flex_unit
+    moves.list.ClientList:
+      type: object
+      properties:
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Client'
+      description: List of Clients
+      example:
+        clients:
+        - id: 5678
+          externalId: 5678
+    moves.Team:
+      type: object
+      properties:
+        unitId:
+          type: integer
+          description: Unique unit identifier for the team
+          format: int64
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the team
+        parentUnitId:
+          type: integer
+          description: Unit identifier of the parent team
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          description: Identifier that links this planning team ( unit ) to an administrative team.
+          format: int64
+        validFrom:
+          type:
+          - string
+          - 'null'
+          description: Date from which the team is valid
+          format: date
+        validTo:
+          type:
+          - string
+          - 'null'
+          description: Date until which the team is valid
+          format: date
+        flexUnitId:
+          type:
+          - integer
+          - 'null'
+          description: Unit identifier for the linked flex team
+          format: int64
+        coreUnitId:
+          type:
+          - integer
+          - 'null'
+          description: Unit identifier for the linked core team
+          format: int64
+        isFlexTeam:
+          type:
+          - boolean
+          - 'null'
+          description: 'Whether this team is a flex team for another team. Deprecated: this is true for a main flex unit as well as for an additional flex unit. Use isPrimaryFlexUnit and isAdditionalFlexUnit to tell those apart.'
+          deprecated: true
+          x-deprecated-since: 24-08-2026
+        isCoreTeam:
+          type:
+          - boolean
+          - 'null'
+          description: 'Whether this team is a core team for another team. Deprecated: in this model a team is the administrative team, while this says something about the unit. Use isCoreUnit instead.'
+          deprecated: true
+          x-deprecated-since: 25-08-2026
+        active:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this team is actively being used
+        teamType:
+          $ref: '#/components/schemas/moves.UnitType'
+        useBlockplanning:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if the team is using blokplanning
+        useSelfRostering:
+          type: boolean
+          description: Indicates if self-rostering is enabled for this team
+        selfRosteringStartDate:
+          type:
+          - string
+          - 'null'
+          description: Date from which self-rostering is available
+          format: date
+        rosterPublicationDate:
+          type: string
+          description: The roster publication date for this team. Shifts and shift assignments made before this publication date are visible to employees.
+          format: date
+        isFlexUnit:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this unit is a flex unit for another unit. Replaces isFlexTeam
+        isCoreUnit:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this unit is a core unit for another unit. Replaces isCoreTeam
+        isPrimaryFlexUnit:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this unit is the main flex unit of another unit, which is the unit that flex requests are sent to first
+        isAdditionalFlexUnit:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this unit is an additional flex unit, which is a unit that a main flex unit can forward its flex requests to
+        isRosterUnit:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this unit has a main flex unit or a core unit configured, so it can send flex requests itself
+        additionalFlexUnitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: Unit identifiers of the additional flex units this unit can forward its flex requests to
+        allowFlexSignup:
+          type:
+          - boolean
+          - 'null'
+          description: Whether employees can sign up for flex requests in this team
+        flexSignupVisibility:
+          $ref: '#/components/schemas/moves.FlexSignupVisibility'
+        whoMakesFlexAssignments:
+          $ref: '#/components/schemas/moves.WhoMakesFlexAssignments'
+      description: 'A team ( or unit ) used for planning and rostering purposes.
+
+        This team links to the administrative team through the teamId.'
+      example:
+        unitId: 1234
+        name: Nedap VnV
+        parentUnitId: 1233
+        teamId: 4321
+        validFrom: '2019-11-19'
+        validTo: '2038-01-19'
+        coreUnitId: 0
+        flexUnitId: 1
+        isFlexTeam: true
+        isCoreTeam: false
+        active: true
+        teamType: Extramuraal
+        useBlockplanning: false
+        useSelfRostering: true
+        selfRosteringStartDate: '2000-01-01'
+        rosterPublicationDate: '2025-08-30'
+        isFlexUnit: true
+        isCoreUnit: false
+        isPrimaryFlexUnit: true
+        isAdditionalFlexUnit: false
+        isRosterUnit: false
+        additionalFlexUnitIds:
+        - 1235
+        allowFlexSignup: true
+        flexSignupVisibility: show_names
+        whoMakesFlexAssignments: primary_flex_unit
+    moves.Client:
+      required:
+      - id
+      - externalId
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The client identifier
+          format: int64
+        externalId:
+          type: integer
+          description: This field will be removed as it has the same contents as the id field
+          format: int64
+          deprecated: true
+          x-deprecated-since: 21-05-2025
+      description: A Client object in Moves
+      example:
+        id: 1234
+        externalId: 5678
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

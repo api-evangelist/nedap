@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: Nedap Status.Application Status API
+  version: 0.0.0
+  description: 'Operations tagged status.ApplicationStatus across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: status.ApplicationStatus
+paths:
+  /t/status/application:
+    get:
+      tags:
+      - status.ApplicationStatus
+      summary: Retrieves the ApplicationStatus
+      operationId: status.ApplicationStatusAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status.ApplicationStatus'
+      x-replaced-by: /v0/administration/status/application
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/status/application:
+    get:
+      tags:
+      - status.ApplicationStatus
+      summary: Retrieves the ApplicationStatus
+      operationId: status.ApplicationStatusAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status.ApplicationStatus'
+      x-replacement-for:
+      - /t/status/application
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    status.ApplicationStatus:
+      type: object
+      properties:
+        anonymizeType:
+          allOf:
+          - $ref: '#/components/schemas/status.AnonymizeType'
+          description: the {@link com.nedap.healthcare.domain.status.AnonymizeType} to this application status
+      description: ApplicationStatus model (no description)
+      example:
+        anonymizeType: fully_anonymized
+      xml:
+        name: applicationStatus
+    status.AnonymizeType:
+      type: string
+      oneOf:
+      - title: NOT_ANONYMIZED
+        enum:
+        - not_anonymized
+      - title: PARTLY_ANONYMIZED
+        enum:
+        - partly_anonymized
+      - title: FULLY_ANONYMIZED
+        enum:
+        - fully_anonymized
+      description: the {@link com.nedap.healthcare.domain.status.AnonymizeType} to this application status
+      example: not_anonymized
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

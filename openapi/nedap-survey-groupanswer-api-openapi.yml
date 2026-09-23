@@ -1,0 +1,128 @@
+openapi: 3.2.0
+info:
+  title: Nedap Survey.Group Answer API
+  version: 0.0.0
+  description: 'Operations tagged survey.GroupAnswer across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: survey.GroupAnswer
+paths:
+  /t/survey/group_answers/{id}:
+    get:
+      tags:
+      - survey.GroupAnswer
+      summary: Return the Survey Group Answer corresponding to the given id
+      operationId: survey.GroupAnswerAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting GroupAnswer
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.GroupAnswer'
+        '404':
+          description: GroupAnswer not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/group_answers/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey/group_answers/{id}:
+    get:
+      tags:
+      - survey.GroupAnswer
+      summary: Return the Survey Group Answer corresponding to the given id
+      operationId: survey.GroupAnswerAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting GroupAnswer
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.GroupAnswer'
+        '404':
+          description: GroupAnswer not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/group_answers/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    survey.GroupAnswer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        groupId:
+          type: integer
+          format: int64
+        surveyResultId:
+          type: integer
+          format: int64
+        score:
+          type: integer
+          format: int32
+        importantForCareplan:
+          type: boolean
+      description: GroupAnswer model (no description)
+      example:
+        id: 1
+        surveyResultId: 1
+        groupId: 1
+        score: 7
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        importantForCareplan: true
+      xml:
+        name: groupAnswer
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,780 @@
+openapi: 3.2.0
+info:
+  title: Nedap Debtor API
+  version: 0.0.0
+  description: 'Operations tagged Debtor across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Debtor
+paths:
+  /t/clients/{client_id}/debtors:
+    get:
+      tags:
+      - Debtor
+      summary: Return the debtors of a Client corresponding to the given id
+      operationId: DebtorAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DebtorList'
+      x-replaced-by: /v0/administration/clients/{client_id}/debtors
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/debtors:
+    get:
+      tags:
+      - Debtor
+      summary: Return a DebtorList containing all Debtors available from the DebtorAPI
+      description: Filtered by Debtor type if one is provided.
+      operationId: DebtorAPI.all
+      parameters:
+      - name: type
+        in: query
+        description: "The type of debtor. Null means no filtering. Possible filtering values:\n <pre>\n ORGANISATIE(0, \"Organisatie\")\n ASIELZOEKERSCENTRUM(1, \"Asielzoekerscentrum\")\n ZORGKANTOOR(2, \"Zorgkantoor\")\n ZORGVERZEKERAAR(3, \"Verzekeraar\")\n GEMEENTE(4, \"Gemeente\")\n ONDERAANNEMER(5, \"Onderaannemer\")\n CLIENT(6, \"Cliënt\")\n CLIENT_EN_ZORGVERZEKERAAR(7, \"Cliënt en verzekeraar\")\n </pre>"
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DebtorList'
+        '400':
+          description: Invalid debtor type
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/debtors
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/debtors/{id}:
+    get:
+      tags:
+      - Debtor
+      summary: Return the Debtor corresponding to the given id
+      operationId: DebtorAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Debtor
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Debtor'
+        '404':
+          description: Debtor not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/debtors/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/debtors/x-stream-connect/data:
+    get:
+      tags:
+      - Debtor
+      summary: Return all Debtor models in a streaming manner
+      operationId: DebtorAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DebtorList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Debtor'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/debtors/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/debtors/x-stream-connect/updates:
+    get:
+      tags:
+      - Debtor
+      summary: Return all Debtor models which where updated since the date given in the request
+      operationId: DebtorAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DebtorList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Debtor'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/debtors/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/debtors:
+    get:
+      tags:
+      - Debtor
+      summary: Return the debtors of a Client corresponding to the given id
+      operationId: DebtorAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DebtorList'
+      x-replacement-for:
+      - /t/clients/{client_id}/debtors
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/debtors:
+    get:
+      tags:
+      - Debtor
+      summary: Return a DebtorList containing all Debtors available from the DebtorAPI
+      description: Filtered by Debtor type if one is provided.
+      operationId: DebtorAPI.all
+      parameters:
+      - name: type
+        in: query
+        description: "The type of debtor. Null means no filtering. Possible filtering values:\n <pre>\n ORGANISATIE(0, \"Organisatie\")\n ASIELZOEKERSCENTRUM(1, \"Asielzoekerscentrum\")\n ZORGKANTOOR(2, \"Zorgkantoor\")\n ZORGVERZEKERAAR(3, \"Verzekeraar\")\n GEMEENTE(4, \"Gemeente\")\n ONDERAANNEMER(5, \"Onderaannemer\")\n CLIENT(6, \"Cliënt\")\n CLIENT_EN_ZORGVERZEKERAAR(7, \"Cliënt en verzekeraar\")\n </pre>"
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DebtorList'
+        '400':
+          description: Invalid debtor type
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/debtors
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/debtors/{id}:
+    get:
+      tags:
+      - Debtor
+      summary: Return the Debtor corresponding to the given id
+      operationId: DebtorAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Debtor
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Debtor'
+        '404':
+          description: Debtor not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/debtors/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/debtors/data:
+    get:
+      tags:
+      - Debtor
+      summary: Return all Debtor models in a streaming manner
+      operationId: DebtorAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DebtorList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Debtor'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/debtors/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/debtors/updates:
+    get:
+      tags:
+      - Debtor
+      summary: Return all Debtor models which where updated since the date given in the request
+      operationId: DebtorAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DebtorList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Debtor'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/debtors/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Insurance:
+      required:
+      - clientObjectId
+      - debtorObjectId
+      - sourceType
+      - insuranceType
+      - comments
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        registrationNumber:
+          type: string
+          description: Registration number, required if sourceType is other than SYSTEM.
+        clientObjectId:
+          type: integer
+          description: Client objectId.
+          format: int64
+        debtorObjectId:
+          type: integer
+          description: Debtor objectId.
+          format: int64
+        insurer:
+          allOf:
+          - $ref: '#/components/schemas/Debtor'
+          description: insurer.
+        sourceType:
+          type: integer
+          description: 'Source type. Possible values:
+
+            <pre>
+
+            0 (System defined)
+
+            1 (Manual)
+
+            2 (Third parties)
+
+            3 (Vecozo)
+
+            4 (XML import)
+
+            </pre>'
+          format: int32
+        insuranceType:
+          allOf:
+          - $ref: '#/components/schemas/InsuranceType'
+          description: 'Insurance type. Possible values:
+
+            <pre>
+
+            BV (Basis Verzekering)
+
+            AV (Aanvullende Verzekering)
+
+            TV (Tand Verzekering)
+
+            HV (Hoofd Verzekering)
+
+            </pre>'
+        packageCode:
+          type: string
+          description: Package code, required if sourceType is VECOZO.
+        packageName:
+          type: string
+          description: Package name, required if sourceType is VECOZO.
+        labelCode:
+          type: string
+          description: Label code, must be a label of debtor. Required if sourceType is VECOZO.
+        labelName:
+          type: string
+          description: Label name, must be a label of debtor. Required if sourceType is VECOZO.
+        requestedDate:
+          type: string
+          description: Requested date, required if sourceType is VECOZO.
+          format: date
+        clientIsDead:
+          type: boolean
+          description: Indicates client is deceased.
+        comments:
+          type: string
+          description: Comments.
+          default: ''
+        beginDate:
+          type: string
+          description: Begin date.
+          format: date-time
+        endDate:
+          type: string
+          description: End date.
+          format: date-time
+        careProviderObjectId:
+          type: integer
+          description: Care provider objectId.
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Insurance entry for a Client.
+      example:
+        id: 1
+        registrationNumber: '1'
+        clientObjectId: 1234
+        debtorObjectId: 4321
+        sourceType: 1
+        insuranceType: AV
+        packageCode: 001T0
+        packageName: Top geen Tandarts
+        labelCode: '001'
+        labelName: Salland Zorgverzekeringen
+        requestedDate: '2012-08-02'
+        clientIsDead: false
+        comments: comments
+        beginDate: '2014-08-02T11:48:46.836+02:00'
+        endDate: '2015-08-02T11:48:46.836+02:00'
+        careProviderObjectId: 5678
+        createdAt: '2012-08-02T11:48:46.836+02:00'
+        updatedAt: '2012-08-02T11:48:46.836+02:00'
+      xml:
+        name: insurance
+    BankAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        number:
+          type: string
+        nameOfOwner:
+          type: string
+        cityOfOwner:
+          type: string
+        iban:
+          type: string
+        bic:
+          type: string
+        creditBankAccount:
+          type: boolean
+        authorizationDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: BankAccount model (no description)
+      example:
+        id: 1
+        number: Dummy
+        nameOfOwner: Dummy
+        cityOfOwner: Dummy
+        iban: Dummy
+        bic: Dummy
+        creditBankAccount: false
+        authorizationDate: '2016-01-01'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccount
+    list.DebtorList:
+      type: object
+      properties:
+        debtors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Debtor'
+          xml:
+            name: debtor
+      description: DebtorList model (no description)
+      example:
+        debtors:
+        - id: 1
+          type: '2'
+          uzoviCode: '3'
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-02T11:48:46.836+02:00'
+          phone1: '4'
+          phone2: '5'
+          phone3: '6'
+          fax: '7'
+          email: '8'
+          gender: '9'
+          debtorNumber: '10'
+          organizationName: '11'
+          firstName: '12'
+          lastName: '13'
+          lastNameOwn: '13'
+          streetName: '14'
+          addressNumber: 15
+          addressNumberExt: '16'
+          zipCode: '17'
+          city: '18'
+          sourceType: '19'
+          clientObjectId: 20
+          bankAccount:
+            id: 21
+            number: NL27TRIO0207182531
+            nameOfOwner: Pietje Puk
+            cityOfOwner: Lutjebroek
+          paymentMethod: '26'
+          closedAt: '2012-08-02T11:48:46.836+02:00'
+          hidden: true
+          invoicePerEmail: false
+      xml:
+        name: debtors
+    InsuranceType:
+      enum:
+      - BV
+      - AV
+      - TV
+      - HV
+      type: string
+      description: 'Insurance type. Possible values:
+
+        <pre>
+
+        BV (Basis Verzekering)
+
+        AV (Aanvullende Verzekering)
+
+        TV (Tand Verzekering)
+
+        HV (Hoofd Verzekering)
+
+        </pre>'
+      example: BV
+    Debtor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        type:
+          type: string
+          description: 'Possible values:
+
+            ORGANISATIE(0, "Organisatie")
+
+            ASIELZOEKERSCENTRUM(1, "Asielzoekerscentrum")
+
+            ZORGKANTOOR(2, "Zorgkantoor")
+
+            ZORGVERZEKERAAR(3, "Verzekeraar")
+
+            GEMEENTE(4, "Gemeente")
+
+            ONDERAANNEMER(5, "Onderaannemer")
+
+            CLIENT(6, "Cliënt")
+
+            CLIENT_EN_ZORGVERZEKERAAR(7, "Cliënt en verzekeraar")'
+        uzoviCode:
+          type: string
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        phone1:
+          type: string
+        phone2:
+          type: string
+        phone3:
+          type: string
+        fax:
+          type: string
+        email:
+          type: string
+        gender:
+          type: string
+        debtorNumber:
+          type: string
+        organizationName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        lastNameOwn:
+          type: string
+        streetName:
+          type: string
+        addressNumber:
+          type: integer
+          format: int32
+        addressNumberExt:
+          type: string
+        poBoxNumber:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        sourceType:
+          type: string
+        clientObjectId:
+          type: integer
+          format: int64
+        bankAccount:
+          $ref: '#/components/schemas/BankAccount'
+        paymentMethod:
+          type: string
+          description: 'Possible values:
+
+            CASH,
+
+            BANK,
+
+            GIRO,
+
+            COLLECT,
+
+            ACCEPTGIRO,
+
+            CHEQUES,
+
+            BACS,
+
+            REMITTANCE,
+
+            BILLOFEXCHANGE,
+
+            BILLOFEXCHANGEBANK'
+        closedAt:
+          type: string
+          format: date-time
+        hidden:
+          type: boolean
+        invoicePerEmail:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        insurances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insurance'
+          xml:
+            wrapped: true
+        gemeentecode:
+          type: string
+        externalCode:
+          type: string
+        manualInvoiceRetourHandling:
+          type: boolean
+        waitForReturnMessage:
+          type: boolean
+        usePreviousInsuranceForMutationDaysAfterClientDied:
+          type: boolean
+        invoiceHeaderExportPeriod:
+          type: string
+        uuid:
+          type: string
+        zvwSplitOnCareOrderStartDate:
+          type: string
+          format: date-time
+        splitReistoeslagGzsp:
+          type: boolean
+        splitIntegralProductsInSeparatePrestaties:
+          type: boolean
+        practitionerAgbTravelGzspStartDate:
+          type: string
+          format: date-time
+        systemDefined:
+          type: boolean
+        creditOnToewijzingnummerChangeStartDate:
+          type: string
+          format: date-time
+      description: Debtor entry returned from Cupido.
+      example:
+        id: 1
+        type: '2'
+        uzoviCode: '3'
+        beginDate: '2012-08-02T11:48:46.836+02:00'
+        endDate: '2012-08-02T11:48:46.836+02:00'
+        phone1: '4'
+        phone2: '5'
+        phone3: '6'
+        fax: '7'
+        email: '8'
+        gender: '9'
+        debtorNumber: '10'
+        organizationName: '11'
+        firstName: '12'
+        lastName: '13'
+        lastNameOwn: '13'
+        streetName: '14'
+        addressNumber: 15
+        addressNumberExt: '16'
+        poBoxNumber: '1234'
+        zipCode: '17'
+        city: '18'
+        sourceType: '19'
+        clientObjectId: 20
+        bankAccount:
+          id: 1
+          number: NL27TRIO0207182531
+          nameOfOwner: Pietje Puk
+          cityOfOwner: Lutjebroek
+        paymentMethod: '26'
+        closedAt: '2012-08-02T11:48:46.836+02:00'
+        hidden: true
+        invoicePerEmail: false
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        insurances:
+        - id: 1
+          registrationNumber: '1'
+          clientObjectId: 1234
+          debtorObjectId: 4321
+          sourceType: 1
+          insuranceType: AV
+          packageCode: 001T0
+          packageName: Top geen Tandarts
+          labelCode: '001'
+          labelName: Salland Zorgverzekeringen
+          requestedDate: '2012-08-02'
+          clientIsDead: false
+          comments: comments
+          beginDate: '2014-08-02T11:48:46.836+02:00'
+          endDate: '2015-08-02T11:48:46.836+02:00'
+          createdAt: '2012-08-02T11:48:46.836+02:00'
+          updatedAt: '2012-08-02T11:48:46.836+02:00'
+        gemeentecode: '0153'
+        externalCode: '1111'
+        manualInvoiceRetourHandling: true
+        waitForReturnMessage: true
+        usePreviousInsuranceForMutationDaysAfterClientDied: true
+        invoiceHeaderExportPeriod: Use the entire exported period.
+        uuid: d9a856df-8f9a-49a7-90f0-0570a2bde4c0
+        zvwSplitOnCareOrderStartDate: '2015-08-02T11:48:46.836+02:00'
+        splitReistoeslagGzsp: true
+        splitIntegralProductsInSeparatePrestaties: true
+        practitionerAgbTravelGzspStartDate: '2015-08-02T11:48:46.836+02:00'
+        systemDefined: true
+        creditOnToewijzingnummerChangeStartDate: '2015-08-02T11:48:46.836+02:00'
+      xml:
+        name: debtor
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

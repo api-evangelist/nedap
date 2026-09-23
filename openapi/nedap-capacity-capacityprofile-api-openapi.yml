@@ -1,0 +1,605 @@
+openapi: 3.2.0
+info:
+  title: Nedap Capacity.Capacity Profile API
+  version: 0.0.0
+  description: 'Operations tagged capacity.CapacityProfile across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: capacity.CapacityProfile
+paths:
+  /t/capacity/capacity_profiles:
+    get:
+      tags:
+      - capacity.CapacityProfile
+      summary: Returns every CapacityProfile available from the CapacityProfileAPI
+      operationId: capacity.CapacityProfileAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/capacity.list.CapacityProfileList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/capacity/capacity_profiles
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/capacity/capacity_profiles/{id}:
+    get:
+      tags:
+      - capacity.CapacityProfile
+      summary: Return the Capacity Profile corresponding to the given id
+      operationId: capacity.CapacityProfileAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CapacityProfile
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/capacity.CapacityProfile'
+        '400':
+          description: No capacity profile ID
+        '404':
+          description: Capacity profile does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/capacity/capacity_profiles/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/capacity/capacity_profiles/all_active:
+    get:
+      tags:
+      - capacity.CapacityProfile
+      summary: Find a list of CapacityProfiles that are active on the given date
+      operationId: capacity.CapacityProfileAPI.allActive
+      parameters:
+      - name: date
+        in: query
+        description: date on which the capacity profiles should be active
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/capacity.list.CapacityProfileList'
+        '400':
+          description: Date is required
+      x-replaced-by: /v0/administration/capacity/capacity_profiles/all_active
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/capacity/capacity_profiles:
+    get:
+      tags:
+      - capacity.CapacityProfile
+      summary: Returns every CapacityProfile available from the CapacityProfileAPI
+      operationId: capacity.CapacityProfileAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/capacity.list.CapacityProfileList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/capacity/capacity_profiles
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/capacity/capacity_profiles/{id}:
+    get:
+      tags:
+      - capacity.CapacityProfile
+      summary: Return the Capacity Profile corresponding to the given id
+      operationId: capacity.CapacityProfileAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CapacityProfile
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/capacity.CapacityProfile'
+        '400':
+          description: No capacity profile ID
+        '404':
+          description: Capacity profile does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/capacity/capacity_profiles/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/capacity/capacity_profiles/all_active:
+    get:
+      tags:
+      - capacity.CapacityProfile
+      summary: Find a list of CapacityProfiles that are active on the given date
+      operationId: capacity.CapacityProfileAPI.allActive
+      parameters:
+      - name: date
+        in: query
+        description: date on which the capacity profiles should be active
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/capacity.list.CapacityProfileList'
+        '400':
+          description: Date is required
+      x-replacement-for:
+      - /t/capacity/capacity_profiles/all_active
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    capacity.CapacityCategory:
+      required:
+      - name
+      - financeType
+      - productObjectId
+      - profileObjectId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        financeType:
+          allOf:
+          - $ref: '#/components/schemas/finance.FinanceType'
+          description: '{@link FinanceType} for which this profile is defined.'
+        productObjectId:
+          type: integer
+          description: The objectId of the {@link com.nedap.healthcare.domain.finance.Product} instance on which this category is based.
+          format: int64
+        capacityExpertiseProfileAssignments:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/capacity.CapacityExpertiseProfileAssignment'
+          description: Set of all {@link CapacityExpertiseProfileAssignment} instances this category contains.
+          xml:
+            wrapped: true
+        capacityExpertiseGroupAssignments:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/capacity.CapacityExpertiseGroupAssignment'
+          description: Set of all {@link CapacityExpertiseGroupAssignment} instances this category contains.
+          xml:
+            wrapped: true
+        profileObjectId:
+          type: integer
+          description: The objectId of the {@link CapacityProfile} that this category belongs to.
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: 'Every CapacityCategory is defined for a single {@link FinanceType}.
+
+        CapacityCategory is a category that can have multiple {@link CapacityExpertiseProfileAssignment} instances and multiple {@link CapacityExpertiseGroupAssignment} instances.
+
+        Each assignment specifies how many minutes the {@link com.nedap.healthcare.domain.ExpertiseProfile} or {@link com.nedap.healthcare.domain.ExpertiseGroup} is required for this category.'
+      example:
+        id: 1
+        name: Capacity category
+        financeType:
+          id: 1
+          externalCode: Dummy
+          description: Dummy
+          userIdentifier: Dummy
+          beginDate: '2015-01-01'
+          endDate: '2019-01-01'
+          systemDefined: true
+          covRequired: true
+          agbSelectionEnabled: true
+          cakDelivery: false
+          useWmoNumbering: false
+          zzpAllowed: false
+          shape: square
+          colorHex: '#FFFFFF'
+          timeRange: true
+          category: 2
+        productObjectId: 1
+        capacityExpertiseProfileAssignments:
+        - id: 1
+          expertiseProfileObjectId: 4
+          categoryObjectId: 3
+          minutes: 30
+          createdAt: '2018-01-01T12:00:00.000+01:00'
+          updatedAt: '2018-01-01T12:00:00.000+01:00'
+        capacityExpertiseGroupAssignments:
+        - id: 1
+          expertiseGroupObjectId: 3
+          categoryObjectId: 3
+          minutes: 60
+          createdAt: '2018-01-01T12:00:00.000+01:00'
+          updatedAt: '2018-01-01T12:00:00.000+01:00'
+        profileObjectId: 1
+        createdAt: '2018-01-01T12:00:00.000+01:00'
+        updatedAt: '2018-01-01T12:00:00.000+01:00'
+      xml:
+        name: capacityCategory
+    capacity.CapacityProfile:
+      required:
+      - name
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        comment:
+          type: string
+          description: Additional optional comments for this profile.
+        financeType:
+          allOf:
+          - $ref: '#/components/schemas/finance.FinanceType'
+          description: '{@link FinanceType} for which this profile is defined.'
+          deprecated: true
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          description: End date of this profile. Can be null for never ending profile.
+          format: date
+        capacityCategories:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/capacity.CapacityCategory'
+          description: Set of all {@link CapacityCategory} instances that this profile contains.
+          xml:
+            wrapped: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: 'CapacityProfile is a profile used for capacity management. Every profile can contain multiple {@link CapacityCategory} instances.
+
+        Every {@link CapacityCategory} can contain multiple {@link CapacityExpertiseProfileAssignment} instances that link a {@link CapacityCategory} to an {@link com.nedap.healthcare.domain.ExpertiseProfile}
+
+        for a given number of minutes. Besides that, every {@link CapacityCategory} can contain multiple
+
+        @link CapacityExpertiseGroupAssignment} instances that link a {@link CapacityCategory} to an {@link com.nedap.healthcare.domain.ExpertiseGroup}
+
+        for a given number of minutes. All those assignments together give an indication of the estimated capacity needed for this profile.'
+      example:
+        id: 1
+        name: Capacity profile
+        comment: Test profile for capacity management
+        financeType:
+          id: 1
+          externalCode: example
+          description: example
+          userIdentifier: example
+          beginDate: '2014-12-29'
+          endDate: '2014-12-29'
+          systemDefined: true
+          covRequired: true
+          agbSelectionEnabled: true
+          cakDelivery: true
+          useWmoNumbering: true
+          zzpAllowed: true
+          shape: square
+          colorHex: example
+          timeRange: true
+          category: 1
+        beginDate: '2018-01-01'
+        endDate: '2018-12-31'
+        capacityCategories:
+        - id: 1
+          name: Capacity category
+          financeType:
+            id: 1
+            externalCode: Dummy
+            description: Dummy
+            userIdentifier: Dummy
+            beginDate: '2015-01-01'
+            endDate: '2019-01-01'
+            systemDefined: true
+            covRequired: true
+            agbSelectionEnabled: true
+            cakDelivery: false
+            useWmoNumbering: false
+            zzpAllowed: false
+          productObjectId: 1
+          profileObjectId: 1
+          createdAt: '2018-01-01T12:00:00.000+01:00'
+          updatedAt: '2018-01-01T12:00:00.000+01:00'
+        createdAt: '2018-01-01T12:00:00.000+01:00'
+        updatedAt: '2018-01-01T12:00:00.000+01:00'
+      xml:
+        name: capacityProfile
+    finance.FinanceType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        externalCode:
+          type: string
+        description:
+          type: string
+        userIdentifier:
+          type: string
+          description: Short description
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        systemDefined:
+          type: boolean
+          description: Indicates if this FinanceType was created by Nedap (=true) or if this was manually created (=false)
+        covRequired:
+          type: boolean
+        agbSelectionEnabled:
+          type: boolean
+          description: Indicates if the agbcode can be manually selected (=true)
+        cakDelivery:
+          type: boolean
+          description: Indicates if this FinanceType is eligible (=true) for the CAK delivery
+          deprecated: true
+        useWmoNumbering:
+          type: boolean
+          description: Indicates if this FinanceType has a beschikkingsnummer/aanvraagnummer/indicatie orgaan
+        zzpAllowed:
+          type: boolean
+          description: Indicates if this FinanceType is allowed to have ZZP products
+        shape:
+          allOf:
+          - $ref: '#/components/schemas/finance.Shape'
+          description: This is the shape of the icon used in Administration
+        colorHex:
+          type: string
+          description: This is color of the shape of the icon used in Administration
+        timeRange:
+          type: boolean
+          description: If this is true this finance type works with klassen otherwise this financetype works with a timerange
+        category:
+          type: integer
+          description: '<pre>
+
+            Possible values:
+
+            0 - Overig
+
+            1 - AWBZ extramuraal
+
+            2 - AWBZ intramuraal
+
+            3 - WMO
+
+            4 - PGB
+
+            5 - Onderaannemer
+
+            7 - Jeugdwet
+
+            9 - Eigen risico
+
+            10 - ZVW
+
+            11 - GGZ
+
+            </pre>'
+          format: int32
+      description: '{@link FinanceType} for which this profile is defined.'
+      example:
+        id: 1
+        externalCode: Dummy
+        description: Dummy
+        userIdentifier: Dummy
+        beginDate: '2015-01-01'
+        endDate: '2019-01-01'
+        systemDefined: true
+        covRequired: true
+        agbSelectionEnabled: true
+        cakDelivery: false
+        useWmoNumbering: false
+        zzpAllowed: false
+        shape: square
+        colorHex: '#FFFFFF'
+        timeRange: true
+        category: 2
+      xml:
+        name: financeType
+    finance.Shape:
+      type: string
+      oneOf:
+      - title: SQUARE
+        enum:
+        - square
+      - title: CIRCLE
+        enum:
+        - circle
+      - title: TRIANGLE
+        enum:
+        - triangle
+      description: This is the shape of the icon used in Administration
+      example: square
+    capacity.CapacityExpertiseProfileAssignment:
+      required:
+      - expertiseProfileObjectId
+      - categoryObjectId
+      - minutes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        expertiseProfileObjectId:
+          type: integer
+          description: The objectId of the {@link ExpertiseProfile} that is part of this assignment.
+          format: int64
+        categoryObjectId:
+          type: integer
+          description: The objectId of the {@link CapacityCategory} that is part of this assignment.
+          format: int64
+        minutes:
+          type: integer
+          description: Number of minutes that the {@link ExpertiseProfile} is configured for the {@link CapacityCategory}.
+          format: int32
+          default: 0
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: CapacityExpertiseProfileAssignment specifies a link between a {@link CapacityCategory} and an {@link ExpertiseProfile}.
+      example:
+        id: 1
+        expertiseProfileObjectId: 4
+        categoryObjectId: 3
+        minutes: 30
+        createdAt: '2018-01-01T12:00:00.000+01:00'
+        updatedAt: '2018-01-01T12:00:00.000+01:00'
+      xml:
+        name: capacityExpertiseProfileAssignment
+    capacity.CapacityExpertiseGroupAssignment:
+      required:
+      - expertiseGroupObjectId
+      - categoryObjectId
+      - minutes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        expertiseGroupObjectId:
+          type: integer
+          description: The objectId of the {@link ExpertiseGroup} that is part of this assignment.
+          format: int64
+        categoryObjectId:
+          type: integer
+          description: The objectId of the {@link CapacityCategory} that is part of this assignment.
+          format: int64
+        minutes:
+          type: integer
+          description: Number of minutes that the {@link ExpertiseGroup} is configured for the {@link CapacityCategory}.
+          format: int32
+          default: 0
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: CapacityExpertiseProfileAssignment specifies a link between a {@link CapacityCategory} and an {@link ExpertiseGroup}.
+      example:
+        id: 1
+        expertiseGroupObjectId: 3
+        categoryObjectId: 3
+        minutes: 60
+        createdAt: '2018-01-01T12:00:00.000+01:00'
+        updatedAt: '2018-01-01T12:00:00.000+01:00'
+      xml:
+        name: capacityExpertiseGroupAssignment
+    capacity.list.CapacityProfileList:
+      type: object
+      properties:
+        capacityProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/capacity.CapacityProfile'
+          xml:
+            name: capacityProfile
+      description: CapacityProfileList model (no description)
+      example:
+        capacityProfiles:
+        - id: 1
+          name: Active profile
+          comment: Some nice comment about this profile
+          beginDate: '2018-01-01'
+          capacityCategories:
+          - id: 1
+            name: Capacity category
+            financeType:
+              id: 1
+              externalCode: Dummy
+              description: Dummy
+              userIdentifier: Dummy
+              beginDate: '2015-01-01'
+              endDate: '2019-01-01'
+              systemDefined: true
+              covRequired: true
+              agbSelectionEnabled: true
+              cakDelivery: false
+              useWmoNumbering: false
+              zzpAllowed: false
+            productObjectId: 1
+            capacityExpertiseProfileAssignments:
+            - id: 1
+              expertiseProfileObjectId: 4
+              categoryObjectId: 3
+              minutes: 30
+              createdAt: '2018-01-01T12:00:00.000+01:00'
+              updatedAt: '2018-01-01T12:00:00.000+01:00'
+            capacityExpertiseGroupAssignments:
+            - id: 1
+              expertiseGroupObjectId: 3
+              categoryObjectId: 3
+              minutes: 60
+              createdAt: '2018-01-01T12:00:00.000+01:00'
+              updatedAt: '2018-01-01T12:00:00.000+01:00'
+            profileObjectId: 1
+            createdAt: '2018-01-01T12:00:00.000+01:00'
+            updatedAt: '2018-01-01T12:00:00.000+01:00'
+          createdAt: '2018-07-18T00:00:00.000+02:00'
+          updatedAt: '2018-07-18T00:00:00.000+02:00'
+        - id: 2
+          name: Future profile
+          beginDate: '2018-02-01'
+          createdAt: '2018-07-18T00:00:00.000+02:00'
+          updatedAt: '2018-07-18T00:00:00.000+02:00'
+      xml:
+        name: capacityProfiles
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

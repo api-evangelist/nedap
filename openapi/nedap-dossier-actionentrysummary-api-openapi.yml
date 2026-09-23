@@ -1,0 +1,184 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Action Entry Summary API
+  version: 0.0.0
+  description: 'Operations tagged dossier.ActionEntrySummary across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.ActionEntrySummary
+paths:
+  /t/dossier/action_entry_summaries/last_by_persistent_ids:
+    get:
+      tags:
+      - dossier.ActionEntrySummary
+      summary: Return the latest ActionEntrySummaries corresponding to the given persistentIds
+      description: Return the latest action entry summaries by the given persistent ids.
+      operationId: dossier.ActionEntrySummaryAPI.lastByPersistentIds
+      parameters:
+      - name: persistent_ids
+        in: query
+        description: List of ids
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionEntrySummaryList'
+        '404':
+          description: No action entry summaries found for persistent ids
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/action_entry_summaries/last_by_persistent_ids
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/action_entry_summaries/last_by_persistent_ids:
+    get:
+      tags:
+      - dossier.ActionEntrySummary
+      summary: Return the latest ActionEntrySummaries corresponding to the given persistentIds
+      description: Return the latest action entry summaries by the given persistent ids.
+      operationId: dossier.ActionEntrySummaryAPI.lastByPersistentIds
+      parameters:
+      - name: persistent_ids[]
+        in: query
+        description: List of ids
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+        x-original-parameter:
+          name: persistent_ids
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ActionEntrySummaryList'
+        '404':
+          description: No action entry summaries found for persistent ids
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replacement-for:
+      - /t/dossier/action_entry_summaries/last_by_persistent_ids
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    dossier.list.ActionEntrySummaryList:
+      type: object
+      properties:
+        actionEntrySummaries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.ActionEntrySummary'
+      description: ActionEntrySummaryList model (no description)
+      example:
+        actionEntrySummaries:
+        - id: 10561
+          comment: Gebruik van hulpmiddelen aanleren; rollator les bij ergo
+        - id: 10562
+          comment: Conditie verbeteren door dagelijks 3 maal 15 minuten oefenen achter rollator
+    dossier.ActionEntrySummary:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        carePlanPersistentActionId:
+          type:
+          - integer
+          - 'null'
+          description: The care plan persistent action id of this action entry
+          format: int64
+        comment:
+          type:
+          - string
+          - 'null'
+        actionName:
+          type:
+          - string
+          - 'null'
+        goalName:
+          type:
+          - string
+          - 'null'
+        demandName:
+          type:
+          - string
+          - 'null'
+        domainName:
+          type:
+          - string
+          - 'null'
+      description: Summary of a Zorgplan "actie" entry
+      example:
+        id: 1
+        carePlanPersistentActionId: 4
+        comment: commentaar
+        actionName: action
+        goalName: goal
+        demandName: demand
+        domainName: domain
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

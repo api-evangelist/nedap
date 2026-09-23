@@ -1,0 +1,273 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Demand Entry API
+  version: 0.0.0
+  description: 'Operations tagged dossier.DemandEntry across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.DemandEntry
+paths:
+  /t/dossier/demand_entries:
+    post:
+      tags:
+      - dossier.DemandEntry
+      summary: Create DemandEntry
+      operationId: dossier.DemandEntryAPI.create
+      requestBody:
+        description: 'Creates a new DemandEntry. Important: This endpoint only creates the DemandEntry. The associated Demand object must be present already and referenced by demandId.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.DemandEntry'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.DemandEntry'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/demand_entries
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/demand_entries/{id}:
+    delete:
+      tags:
+      - dossier.DemandEntry
+      summary: Deletes the DemandEntry with given id
+      operationId: dossier.DemandEntryAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of DemandEntry to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the demand entry
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/demand_entries/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/demand_entries:
+    post:
+      tags:
+      - dossier.DemandEntry
+      summary: Create DemandEntry
+      operationId: dossier.DemandEntryAPI.create
+      requestBody:
+        description: 'Creates a new DemandEntry. Important: This endpoint only creates the DemandEntry. The associated Demand object must be present already and referenced by demandId.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.DemandEntry'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.DemandEntry'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/demand_entries
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/demand_entries/{id}:
+    delete:
+      tags:
+      - dossier.DemandEntry
+      summary: Deletes the DemandEntry with given id
+      operationId: dossier.DemandEntryAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of DemandEntry to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the demand entry
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/demand_entries/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.Demand:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        protocolUrl:
+          type: string
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "aandachtspunt"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        definition: Definitie
+        protocolUrl: http://www.nedap.com/
+        hidden: true
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: demand
+    dossier.Domain:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.DemandEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        carePlanEntryId:
+          type: integer
+          format: int64
+        demand:
+          $ref: '#/components/schemas/dossier.Demand'
+        demandId:
+          type: integer
+          format: int64
+        comment:
+          type: string
+      description: Zorgplan "aandachtspunt" entry
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        carePlanEntryId: 2
+        demand:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          definition: example
+          protocolUrl: example
+          hidden: true
+          classificationId: example
+        demandId: 3
+        comment: Een opmerking
+      xml:
+        name: demandEntry
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

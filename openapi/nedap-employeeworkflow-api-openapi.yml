@@ -1,0 +1,127 @@
+openapi: 3.2.0
+info:
+  title: Nedap Employee Workflow API
+  version: 0.0.0
+  description: 'Operations tagged EmployeeWorkflow across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: EmployeeWorkflow
+paths:
+  /t/employee_workflows/{employee_id}/timesheet_submit_date:
+    put:
+      tags:
+      - EmployeeWorkflow
+      operationId: EmployeeWorkflowAPI.setTimesheetSubmitDate
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: submit_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '204':
+          description: Sumitted
+      x-replaced-by: /v0/administration/employee_workflows/{employee_id}/timesheet_submit_date
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Employee workflow API set timesheet submit date
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /t/employee_workflows/{employee_id}/timesheet_submit_date_authorized:
+    put:
+      tags:
+      - EmployeeWorkflow
+      operationId: EmployeeWorkflowAPI.setTimesheetSubmitDateAuthorized
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: submit_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '204':
+          description: Submitted
+      x-replaced-by: /v0/administration/employee_workflows/{employee_id}/timesheet_submit_date_authorized
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Employee workflow API set timesheet submit date authorized
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employee_workflows/{employee_id}/timesheet_submit_date:
+    put:
+      tags:
+      - EmployeeWorkflow
+      operationId: EmployeeWorkflowAPI.setTimesheetSubmitDate
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: submit_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '204':
+          description: Sumitted
+      x-replacement-for:
+      - /t/employee_workflows/{employee_id}/timesheet_submit_date
+      summary: Employee workflow API set timesheet submit date
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employee_workflows/{employee_id}/timesheet_submit_date_authorized:
+    put:
+      tags:
+      - EmployeeWorkflow
+      operationId: EmployeeWorkflowAPI.setTimesheetSubmitDateAuthorized
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: submit_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '204':
+          description: Submitted
+      x-replacement-for:
+      - /t/employee_workflows/{employee_id}/timesheet_submit_date_authorized
+      summary: Employee workflow API set timesheet submit date authorized
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

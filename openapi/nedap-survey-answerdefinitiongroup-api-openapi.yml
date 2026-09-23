@@ -1,0 +1,555 @@
+openapi: 3.2.0
+info:
+  title: Nedap Survey.Answer Definition Group API
+  version: 0.0.0
+  description: 'Operations tagged survey.AnswerDefinitionGroup across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: survey.AnswerDefinitionGroup
+paths:
+  /t/survey/answer_definition_groups:
+    get:
+      tags:
+      - survey.AnswerDefinitionGroup
+      summary: Returns every AnswerDefinitionGroup available from the AnswerDefinitionGroupAPI
+      operationId: survey.AnswerDefinitionGroupAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.AnswerDefinitionGroupList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/answer_definition_groups
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - survey.AnswerDefinitionGroup
+      summary: Create AnswerDefinitionGroup
+      operationId: survey.AnswerDefinitionGroupAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: AnswerDefinitionGroup to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/answer_definition_groups
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/survey/answer_definition_groups/{id}:
+    get:
+      tags:
+      - survey.AnswerDefinitionGroup
+      operationId: survey.AnswerDefinitionGroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AnswerDefinitionGroup
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/answer_definition_groups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Survey answer definition group API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - survey.AnswerDefinitionGroup
+      summary: Updates the given AnswerDefinitionGroup
+      operationId: survey.AnswerDefinitionGroupAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AnswerDefinitionGroup
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: AnswerDefinitionGroup to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey/answer_definition_groups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey/answer_definition_groups:
+    get:
+      tags:
+      - survey.AnswerDefinitionGroup
+      summary: Returns every AnswerDefinitionGroup available from the AnswerDefinitionGroupAPI
+      operationId: survey.AnswerDefinitionGroupAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.AnswerDefinitionGroupList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/answer_definition_groups
+    post:
+      tags:
+      - survey.AnswerDefinitionGroup
+      summary: Create AnswerDefinitionGroup
+      operationId: survey.AnswerDefinitionGroupAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: AnswerDefinitionGroup to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/answer_definition_groups
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey/answer_definition_groups/{id}:
+    get:
+      tags:
+      - survey.AnswerDefinitionGroup
+      operationId: survey.AnswerDefinitionGroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AnswerDefinitionGroup
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/answer_definition_groups/{id}
+      summary: Survey answer definition group API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - survey.AnswerDefinitionGroup
+      summary: Updates the given AnswerDefinitionGroup
+      operationId: survey.AnswerDefinitionGroupAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AnswerDefinitionGroup
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: AnswerDefinitionGroup to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/answer_definition_groups/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    survey.Question:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        sequenceNumber:
+          type: integer
+          format: int32
+          default: 0
+        answerType:
+          type: integer
+          format: int32
+          default: 0
+        text:
+          type: string
+        additionalInfo:
+          type: string
+        defaultAnswer:
+          type: integer
+          format: int32
+        skipOnYes:
+          type: boolean
+        active:
+          type: boolean
+        required:
+          type: boolean
+        answerMaxLength:
+          type: integer
+          format: int32
+        groupId:
+          type: integer
+          format: int64
+        classificationId:
+          type: string
+        answerDefinitionGroup:
+          $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      description: Question model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        sequenceNumber: 1
+        answerType: 1
+        text: uw leeftijd?
+        additionalInfo: vul leeftijd in
+        defaultAnswer: 1
+        skipOnYes: true
+        active: true
+        required: true
+        answerMaxLength: 3
+        groupId: 1
+        classificationId: classification.problem.health.nutrition.signs
+        answerDefinitionGroup:
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          id: 1
+          description: heel oud
+          readOnly: false
+      xml:
+        name: question
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    survey.AnswerDefinition:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        definition:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        hasInput:
+          type: boolean
+        active:
+          type: boolean
+        score:
+          type: integer
+          format: int32
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+        answerDefinitionGroupId:
+          type: integer
+          format: int32
+      description: AnswerDefinition model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        definition: heel oud
+        sequenceNumber: 1
+        hasInput: false
+        active: false
+        score: 12
+        answers: []
+        classificationId: classification.reach_modifier.individual
+        answerDefinitionGroupId: 1
+      xml:
+        name: answerDefinition
+    survey.list.AnswerDefinitionGroupList:
+      type: object
+      properties:
+        answerDefinitionGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+          xml:
+            name: answerDefinitionGroup
+      description: AnswerDefinitionGroupList model (no description)
+      example:
+        answerDefinitionGroups:
+        - id: 11
+          description: ADG test
+          readOnly: false
+      xml:
+        name: answerDefinitionGroups
+    survey.Answer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyResultObjectId:
+          type: integer
+          format: int64
+        questionObjectId:
+          type: integer
+          format: int64
+        answerDefinitionObjectId:
+          type: integer
+          format: int64
+        text:
+          type: string
+        important:
+          type: boolean
+        booleanAnswer:
+          type: boolean
+      description: Answer model (no description)
+      example:
+        id: 1
+        surveyResultObjectId: 1
+        questionObjectId: 1
+        text: heeeeel oud
+        answerDefinitionObjectId: 1
+        important: false
+        booleanAnswer: false
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+      xml:
+        name: answer
+    survey.AnswerDefinitionGroup:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        readOnly:
+          type: boolean
+        answerDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnswerDefinition'
+          xml:
+            wrapped: true
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Question'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+      description: AnswerDefinitionGroup model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        description: heel oud
+        readOnly: false
+        answerDefinitions: []
+        questions:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: answerDefinitionGroup
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

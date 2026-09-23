@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: Nedap Authorization.provisioning.My Teams API
+  version: 0.0.0
+  description: 'Operations tagged authorization.provisioning.MyTeams across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: authorization.provisioning.MyTeams
+paths:
+  /t/authorization/provisioning/users/{user_uuid}/my_teams:
+    put:
+      tags:
+      - authorization.provisioning.MyTeams
+      summary: This endpoint is meant to set the list of MyTeams of a user
+      description: 'Provide the complete set of all teams that should be assigned to the user.
+
+        As this API is idempotent, the state provided in the last call is the final state. Any teams previously added but not specified in the body will be removed.
+
+        This endpoint together with /my_locations and /scope_settings are replacements for the PUT /users/{user_uuid}/scopes endpoint.'
+      operationId: authorization.provisioning.MyTeamsAPI.set
+      parameters:
+      - name: user_uuid
+        in: path
+        description: Identifier of User to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: the new list of MyTeams
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorization.provisioning.MyTeams'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization.provisioning.MyTeams'
+      x-replaced-by: /v0/authorization/provisioning/users/{user_uuid}/my_teams
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/authorization/provisioning/users/{user_uuid}/my_teams:
+    put:
+      tags:
+      - authorization.provisioning.MyTeams
+      summary: This endpoint is meant to set the list of MyTeams of a user
+      description: 'Provide the complete set of all teams that should be assigned to the user.
+
+        As this API is idempotent, the state provided in the last call is the final state. Any teams previously added but not specified in the body will be removed.
+
+        This endpoint together with /my_locations and /scope_settings are replacements for the PUT /users/{user_uuid}/scopes endpoint.'
+      operationId: authorization.provisioning.MyTeamsAPI.set
+      parameters:
+      - name: user_uuid
+        in: path
+        description: Identifier of User to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: the new list of MyTeams
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorization.provisioning.MyTeams'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization.provisioning.MyTeams'
+      x-replacement-for:
+      - /t/authorization/provisioning/users/{user_uuid}/my_teams
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    authorization.provisioning.MyTeams:
+      type: object
+      properties:
+        teamIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+      description: My teams is a list of teams an employee should have access on a regular basis. This can be used by the role assignment to describe for which employees are accessible. To assign roles with this scoping rule set the `myTeams` flag in `Duty` model.
+      example:
+        teamIds:
+        - 1
+        - 2
+        - 3
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

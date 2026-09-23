@@ -1,0 +1,175 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Employee Hours Report API
+  version: 0.0.0
+  description: 'Operations tagged moves.EmployeeHoursReport across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.EmployeeHoursReport
+paths:
+  /t/employees/{employee_id}/hours_report:
+    get:
+      tags:
+      - moves.EmployeeHoursReport
+      summary: Return a report of the worked and leave hours of an employee in the current…
+      operationId: moves.EmployeeHoursReportAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.EmployeeHoursReport'
+      x-replaced-by: /v0/plannen_roosteren/employees/{employee_id}/hours_report
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/employees/{employee_id}/hours_report:
+    get:
+      tags:
+      - moves.EmployeeHoursReport
+      summary: Return a report of the worked and leave hours of an employee in the current…
+      operationId: moves.EmployeeHoursReportAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.EmployeeHoursReport'
+      x-replacement-for:
+      - /t/employees/{employee_id}/hours_report
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.EmployeeHoursReport:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.EmployeeHoursReportSegment'
+      description: Describes a report of the worked and leave hours of an employee in the current state and the future.
+      example:
+        employeeId: 1
+        segments:
+        - name: current
+          label: Nu
+          categories:
+          - name: worked_hours
+            label: Gewerke uren
+            minutes: 60
+            link: https://example.com
+            description: Aantal gewerkte uren deze week
+          - name: compensation
+            label: Compensatie
+            minutes: 480
+            link: https://example.com
+            description: Compensatiesaldo tot en met afgelopen zondag
+          - name: vacation
+            label: Vakantie
+            minutes: 480
+            link: https://example.com
+            description: Vakantiesaldo tot en met afgelopen zondag
+        - name: future
+          label: Toekomst
+          categories:
+          - name: compensation
+            label: Compensatie
+            minutes: 480
+            link: https://example.com
+            description: Compensatiesaldo tot publicatiedatum
+            subCategory:
+              name: until_publication_date
+              label: Tot aan publicatiedatum (25-3-2024)
+          - name: vacation
+            label: Vakantie
+            minutes: 480
+            link: https://example.com
+            description: Verwacht vakantieuren saldo aan het eind van dit jaar
+            subCategory:
+              name: expected_end_of_year
+              label: Verwacht eind 2024
+    moves.EmployeeHoursReportSegment:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.EmployeeHoursReportCategory'
+      description: Describes a segment of the worked and leave hours of an employee. E.g. 'current' or 'future'
+      example:
+        name: current
+        label: Nu
+        categories:
+        - name: worked_hours
+          label: Gewerke uren
+          minutes: 60
+          link: https://example.com
+          description: Aantal gewerkte uren deze week
+    moves.EmployeeHoursReportCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        minutes:
+          type: integer
+          format: int64
+        link:
+          type: string
+        description:
+          type: string
+        subCategory:
+          $ref: '#/components/schemas/moves.EmployeeHoursReportSubCategory'
+      description: Describes a category of the worked and leave hours of an employee. E.g. 'worked_hours' or 'compensation'
+      example:
+        name: compensation
+        label: Compensatie
+        minutes: 480
+        link: https://example.com
+        description: Compensatiesaldo tot publicatiedatum
+        subCategory:
+          name: until_publication_date
+          label: Tot aan publicatiedatum (25-3-2024)
+    moves.EmployeeHoursReportSubCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+      description: Describes a subcategory to determine sub headings in the widget
+      example:
+        name: until_publication_date
+        label: Tot aan publicatiedatum (25-3-2024)
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

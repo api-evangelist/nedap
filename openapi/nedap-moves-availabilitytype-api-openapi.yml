@@ -1,0 +1,161 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Availability Type API
+  version: 0.0.0
+  description: 'Operations tagged moves.AvailabilityType across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.AvailabilityType
+paths:
+  /t/moves/availability_types/x-stream-connect/data:
+    get:
+      tags:
+      - moves.AvailabilityType
+      summary: Return all AvailabilityType models in a streaming manner
+      operationId: moves.AvailabilityTypeAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.AvailabilityTypeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.AvailabilityType'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/availability_types/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/availability_types/data:
+    get:
+      tags:
+      - moves.AvailabilityType
+      summary: Return all AvailabilityType models in a streaming manner
+      operationId: moves.AvailabilityTypeAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.AvailabilityTypeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.AvailabilityType'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/availability_types/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.list.AvailabilityTypeList:
+      type: object
+      properties:
+        availabilityTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.AvailabilityType'
+          xml:
+            name: availabilityType
+      description: AvailabilityTypeList model (no description)
+      example:
+        availabilityTypes:
+        - id: 1
+          name: Ziek
+          abbreviation: Z
+          key: sick
+          available: false
+          forEmployees: true
+          forClients: true
+          hourTypeId: 198
+          externalHourTypeId: 298
+          movesHourTypeId: 398
+          defaultPayrollingType: SickLeave
+          isPublic: true
+          isSynthetic: false
+      xml:
+        name: availabilityTypes
+    moves.AvailabilityType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        abbreviation:
+          type: string
+        key:
+          type: string
+        available:
+          type: boolean
+          description: '<pre>
+
+            Is person available
+
+            false: unavailable (unavailability)
+
+            true:  available (availability)
+
+            </pre>'
+        forEmployees:
+          type: boolean
+        forClients:
+          type: boolean
+        hourTypeId:
+          type: integer
+          description: Use moves_hour_type_id instead.
+          format: int64
+          deprecated: true
+        externalHourTypeId:
+          type: integer
+          format: int64
+        movesHourTypeId:
+          type: integer
+          format: int64
+        defaultPayrollingType:
+          type: string
+        isPublic:
+          type: boolean
+        isSynthetic:
+          type: boolean
+      description: 'An availability types are for example: Sick, Holiday, Meeting, Training
+
+        AvailabilityTypes are linked to an employee of client via an Availability'
+      example:
+        id: 1
+        name: Ziek
+        abbreviation: Z
+        key: sick
+        available: false
+        forEmployees: true
+        forClients: true
+        hourTypeId: 198
+        externalHourTypeId: 298
+        movesHourTypeId: 398
+        defaultPayrollingType: SickLeave
+        isPublic: true
+        isSynthetic: false
+      xml:
+        name: availabilityType
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

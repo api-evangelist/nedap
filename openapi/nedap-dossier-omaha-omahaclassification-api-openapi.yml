@@ -1,0 +1,1413 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.omaha.Omaha Classification API
+  version: 0.0.0
+  description: 'Operations tagged dossier.omaha.OmahaClassification across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.omaha.OmahaClassification
+paths:
+  /t/dossier/omaha/omaha_classifications/{id}:
+    get:
+      tags:
+      - dossier.omaha.OmahaClassification
+      summary: Get the OmahaClassification corresponding to the given id
+      operationId: dossier.omaha.OmahaClassificationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting OmahaClassification
+        required: true
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+        '400':
+          description: Invalid classification
+        '404':
+          description: No Cupido careplan found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/omaha/classifications/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.omaha.OmahaClassification
+      summary: Updates the given OmahaClassification
+      operationId: dossier.omaha.OmahaClassificationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting OmahaClassification
+        required: true
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: OmahaClassification to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+        '400':
+          description: Invalid classification
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/omaha/classifications/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/omaha/omaha_classifications/by_client/{client_id}/new:
+    post:
+      tags:
+      - dossier.omaha.OmahaClassification
+      summary: Create an OmahaClassification for the Client corresponding to the given id
+      operationId: dossier.omaha.OmahaClassificationAPI.newDraft
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+        '400':
+          description: Invalid classification
+      x-replaced-by: /v0/administration/omaha/classifications/by_client/{client_id}/new
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/omaha/omaha_classifications/by_survey_result/{survey_result_id}:
+    get:
+      tags:
+      - dossier.omaha.OmahaClassification
+      operationId: dossier.omaha.OmahaClassificationAPI.bySurveyResult
+      parameters:
+      - name: survey_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+      x-replaced-by: /v0/administration/omaha/classifications/by_survey_result/{survey_result_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Dossier omaha omaha classification API by survey result
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/omaha/classifications/{id}:
+    get:
+      tags:
+      - dossier.omaha.OmahaClassification
+      summary: Get the OmahaClassification corresponding to the given id
+      operationId: dossier.omaha.OmahaClassificationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting OmahaClassification
+        required: true
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+        '400':
+          description: Invalid classification
+        '404':
+          description: No Cupido careplan found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/omaha/omaha_classifications/{id}
+    put:
+      tags:
+      - dossier.omaha.OmahaClassification
+      summary: Updates the given OmahaClassification
+      operationId: dossier.omaha.OmahaClassificationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting OmahaClassification
+        required: true
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: OmahaClassification to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+        '400':
+          description: Invalid classification
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/omaha/omaha_classifications/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/omaha/classifications/by_client/{client_id}/new:
+    post:
+      tags:
+      - dossier.omaha.OmahaClassification
+      summary: Create an OmahaClassification for the Client corresponding to the given id
+      operationId: dossier.omaha.OmahaClassificationAPI.newDraft
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+        '400':
+          description: Invalid classification
+      x-replacement-for:
+      - /t/dossier/omaha/omaha_classifications/by_client/{client_id}/new
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/omaha/classifications/by_survey_result/{survey_result_id}:
+    get:
+      tags:
+      - dossier.omaha.OmahaClassification
+      operationId: dossier.omaha.OmahaClassificationAPI.bySurveyResult
+      parameters:
+      - name: survey_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.OmahaClassification'
+      x-replacement-for:
+      - /t/dossier/omaha/omaha_classifications/by_survey_result/{survey_result_id}
+      summary: Dossier omaha omaha classification API by survey result
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    survey.Question:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        sequenceNumber:
+          type: integer
+          format: int32
+          default: 0
+        answerType:
+          type: integer
+          format: int32
+          default: 0
+        text:
+          type: string
+        additionalInfo:
+          type: string
+        defaultAnswer:
+          type: integer
+          format: int32
+        skipOnYes:
+          type: boolean
+        active:
+          type: boolean
+        required:
+          type: boolean
+        answerMaxLength:
+          type: integer
+          format: int32
+        groupId:
+          type: integer
+          format: int64
+        classificationId:
+          type: string
+        answerDefinitionGroup:
+          $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      description: Question model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        sequenceNumber: 1
+        answerType: 1
+        text: uw leeftijd?
+        additionalInfo: vul leeftijd in
+        defaultAnswer: 1
+        skipOnYes: true
+        active: true
+        required: true
+        answerMaxLength: 3
+        groupId: 1
+        classificationId: classification.problem.health.nutrition.signs
+        answerDefinitionGroup:
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          id: 1
+          description: heel oud
+          readOnly: false
+      xml:
+        name: question
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.omaha.ClassifiedProblem:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: string
+          x-cupido-id: true
+        omahaClassificationId:
+          type: string
+        clientId:
+          type: integer
+          format: int64
+        ratingKnowledgeStart:
+          type: integer
+          description: (nl) Huidige score kennis
+          format: int32
+        ratingBehaviorStart:
+          type: integer
+          description: (nl) Huidige score gedrag
+          format: int32
+        ratingStatusSignalsStart:
+          type: integer
+          description: (nl) Huidige score status signaal
+          format: int32
+        ratingKnowledgeTarget:
+          type: integer
+          description: (nl) Streef score kennis
+          format: int32
+        ratingBehaviorTarget:
+          type: integer
+          description: (nl) Streef score gedrag
+          format: int32
+        ratingStatusSignalsTarget:
+          type: integer
+          description: (nl) Streef score status signaal
+          format: int32
+        modifierReach:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.ModifierReach'
+          description: (nl) Omaha kenmerken (1/2)
+        modifierProblemLevel:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.ModifierProblemLevel'
+          description: (nl) Omaha kenmerken (2/2)
+        additionalInfo:
+          type: string
+          description: (nl) Toelichting
+        omahaProblem:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.Problem'
+          description: Problem definition
+        omahaClassifiedSignsAndSymptoms:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.omaha.ClassifiedSignOrSymptom'
+          description: (nl) Bijbehorende omaha 'signalen en symptomen'
+          xml:
+            wrapped: true
+        omahaClassifiedInterventions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.omaha.ClassifiedIntervention'
+          description: (nl) Bijbehorende omaha 'acties'
+          xml:
+            wrapped: true
+      description: '(nl) Omaha Gebieden '
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1:some.classification.id
+        omahaClassificationId: care_plan:23
+        clientId: 3
+        ratingKnowledgeStart: 0
+        ratingBehaviorStart: 0
+        ratingStatusSignalsStart: 0
+        ratingKnowledgeTarget: 0
+        ratingBehaviorTarget: 0
+        ratingStatusSignalsTarget: 0
+        modifierReach: Family
+        modifierProblemLevel: Actual
+        additionalInfo: Extra informatie
+        omahaProblem:
+          classificationId: example
+          name: example
+          omahaDomain:
+            classificationId: example
+            name: example
+          omahaSignsAndSymptoms:
+          - classificationId: example
+            name: example
+            problemId: example
+            textAllowed: true
+          - classificationId: example
+            name: example
+            problemId: example
+            textAllowed: true
+        omahaClassifiedSignsAndSymptoms:
+        - text: example
+          omahaSignOrSymptom:
+            classificationId: example
+            name: example
+            problemId: example
+            textAllowed: true
+        - text: example
+          omahaSignOrSymptom:
+            classificationId: example
+            name: example
+            problemId: example
+            textAllowed: true
+        omahaClassifiedInterventions:
+        - id: 1
+          omahaInterventionCategory:
+            classificationId: example
+            name: example
+          omahaInterventionTarget:
+            classificationId: example
+            name: example
+          specification: example
+          carePlanEntryId: 1
+          actionEntryId: 1
+        - id: 1
+          omahaInterventionCategory:
+            classificationId: example
+            name: example
+          omahaInterventionTarget:
+            classificationId: example
+            name: example
+          specification: example
+          carePlanEntryId: 1
+          actionEntryId: 1
+      xml:
+        name: omahaClassifiedProblem
+    dossier.omaha.ClassifiedIntervention:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        omahaInterventionCategory:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.InterventionCategory'
+          description: (nl) Soort actie
+        omahaInterventionTarget:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.InterventionTarget'
+          description: (nl) Actievlak
+        specification:
+          type: string
+          description: (nl) Specificatie
+        carePlanEntryId:
+          type: integer
+          description: Object id of the corresponding carePlanEntry
+          format: int64
+        actionEntryId:
+          type: integer
+          description: Object id of the corresponding actionEntry
+          format: int64
+      description: '(nl) Omaha Acties '
+      example:
+        id: 1
+        omahaInterventionCategory:
+          classificationId: example
+          name: example
+        omahaInterventionTarget:
+          classificationId: example
+          name: example
+        specification: Dummy
+        carePlanEntryId: 13
+        actionEntryId: 14
+      xml:
+        name: omahaClassifiedIntervention
+    survey.AnsweredQuestion:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/survey.Question'
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+      description: AnsweredQuestion model (no description)
+      example:
+        id: 1
+        sequenceNumber: 1
+        answerType: 1
+        text: uw leeftijd?
+        additionalInfo: vul leeftijd in
+        defaultAnswer: 1
+        skipOnYes: true
+        active: true
+        required: true
+        answerMaxLength: 3
+        groupId: 1
+        classificationId: classification.problem.health.nutrition.signs
+        answerDefinitionGroup:
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          createdBy: user
+          id: 1
+          description: heel oud
+          readOnly: false
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        answers:
+        - updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          createdBy: user
+          id: 1
+          surveyResultObjectId: 1
+          questionObjectId: 1
+          answerDefinitionObjectId: 1
+          text: heeeeel oud
+          booleanAnswer: false
+    dossier.omaha.ClassifiedSignOrSymptom:
+      type: object
+      properties:
+        text:
+          type: string
+          description: (nl) Toelichting bij signalen en symptomen
+        omahaSignOrSymptom:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.SignOrSymptom'
+          description: (nl) Definitie van dit signaal/symptoom
+      description: '(nl) Omaha ''Signalen en symptomen'' '
+      example:
+        text: Some text
+        omahaSignOrSymptom:
+          classificationId: example
+          name: example
+          problemId: example
+          textAllowed: true
+      xml:
+        name: omahaClassifiedSignOrSymptom
+    survey.AnswerDefinition:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        definition:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        hasInput:
+          type: boolean
+        active:
+          type: boolean
+        score:
+          type: integer
+          format: int32
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+        answerDefinitionGroupId:
+          type: integer
+          format: int32
+      description: AnswerDefinition model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        definition: heel oud
+        sequenceNumber: 1
+        hasInput: false
+        active: false
+        score: 12
+        answers: []
+        classificationId: classification.reach_modifier.individual
+        answerDefinitionGroupId: 1
+      xml:
+        name: answerDefinition
+    dossier.omaha.ModifierProblemLevel:
+      type: string
+      oneOf:
+      - title: HealthPromotion
+        enum:
+        - HealthPromotion
+      - title: Potential
+        enum:
+        - Potential
+      - title: Actual
+        enum:
+        - Actual
+      description: (nl) Omaha kenmerken (2/2)
+      example: HealthPromotion
+    dossier.omaha.ClassificationStatus:
+      enum:
+      - DRAFT
+      - ACTIVE
+      - OLD
+      type: string
+      description: Status of this omaha classification
+      example: DRAFT
+    dossier.omaha.OmahaClassification:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: string
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: Object id of the related client
+          format: int64
+        status:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.ClassificationStatus'
+          description: Status of this omaha classification
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        careplanId:
+          type: integer
+          description: 'Object id of the related careplan
+
+            (nl) Object id van het gerelateerde zorgplan'
+          format: int64
+        surveyResultId:
+          type: integer
+          description: 'Object id of the related survey
+
+            (nl) Object id van de gerelateerde vragenlijst'
+          format: int64
+        omahaClassifiedProblems:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.omaha.ClassifiedProblem'
+          description: (nl) Gerelateerde Omaha 'gebieden'
+          xml:
+            wrapped: true
+        viewAllowed:
+          type: boolean
+          description: Used for rights
+        editAllowed:
+          type: boolean
+          description: Used for rights
+        copyAllowed:
+          type: boolean
+          description: Used for rights
+        changeStatusAllowed:
+          type: boolean
+          description: Used for rights
+        printAllowed:
+          type: boolean
+          description: Used for rights
+        quantifyAllowed:
+          type: boolean
+          description: Used for rights
+        intakeQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnsweredQuestion'
+          description: (nl) Aanleiding
+          xml:
+            wrapped: true
+      description: represents a full Omaha classification for one client, including both problem and intervention classification
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: care_plan:23
+        clientId: 300
+        status: DRAFT
+        beginDate: '2015-01-01'
+        endDate: '2016-12-31'
+        careplanId: 23
+        surveyResultId: 500
+        omahaClassifiedProblems:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: example
+          omahaClassificationId: example
+          clientId: 1
+          ratingKnowledgeStart: 1
+          ratingBehaviorStart: 1
+          ratingStatusSignalsStart: 1
+          ratingKnowledgeTarget: 1
+          ratingBehaviorTarget: 1
+          ratingStatusSignalsTarget: 1
+          modifierReach: Individual
+          modifierProblemLevel: HealthPromotion
+          additionalInfo: example
+          omahaProblem:
+            classificationId: example
+            name: example
+            omahaDomain:
+              classificationId: example
+              name: example
+            omahaSignsAndSymptoms:
+            - classificationId: example
+              name: example
+              problemId: example
+              textAllowed: true
+            - classificationId: example
+              name: example
+              problemId: example
+              textAllowed: true
+          omahaClassifiedSignsAndSymptoms:
+          - text: example
+            omahaSignOrSymptom:
+              classificationId: example
+              name: example
+              problemId: example
+              textAllowed: true
+          - text: example
+            omahaSignOrSymptom:
+              classificationId: example
+              name: example
+              problemId: example
+              textAllowed: true
+          omahaClassifiedInterventions:
+          - id: 1
+            omahaInterventionCategory:
+              classificationId: example
+              name: example
+            omahaInterventionTarget:
+              classificationId: example
+              name: example
+            specification: example
+            carePlanEntryId: 1
+            actionEntryId: 1
+          - id: 1
+            omahaInterventionCategory:
+              classificationId: example
+              name: example
+            omahaInterventionTarget:
+              classificationId: example
+              name: example
+            specification: example
+            carePlanEntryId: 1
+            actionEntryId: 1
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: example
+          omahaClassificationId: example
+          clientId: 1
+          ratingKnowledgeStart: 1
+          ratingBehaviorStart: 1
+          ratingStatusSignalsStart: 1
+          ratingKnowledgeTarget: 1
+          ratingBehaviorTarget: 1
+          ratingStatusSignalsTarget: 1
+          modifierReach: Individual
+          modifierProblemLevel: HealthPromotion
+          additionalInfo: example
+          omahaProblem:
+            classificationId: example
+            name: example
+            omahaDomain:
+              classificationId: example
+              name: example
+            omahaSignsAndSymptoms:
+            - classificationId: example
+              name: example
+              problemId: example
+              textAllowed: true
+            - classificationId: example
+              name: example
+              problemId: example
+              textAllowed: true
+          omahaClassifiedSignsAndSymptoms:
+          - text: example
+            omahaSignOrSymptom:
+              classificationId: example
+              name: example
+              problemId: example
+              textAllowed: true
+          - text: example
+            omahaSignOrSymptom:
+              classificationId: example
+              name: example
+              problemId: example
+              textAllowed: true
+          omahaClassifiedInterventions:
+          - id: 1
+            omahaInterventionCategory:
+              classificationId: example
+              name: example
+            omahaInterventionTarget:
+              classificationId: example
+              name: example
+            specification: example
+            carePlanEntryId: 1
+            actionEntryId: 1
+          - id: 1
+            omahaInterventionCategory:
+              classificationId: example
+              name: example
+            omahaInterventionTarget:
+              classificationId: example
+              name: example
+            specification: example
+            carePlanEntryId: 1
+            actionEntryId: 1
+        viewAllowed: true
+        editAllowed: false
+        copyAllowed: true
+        changeStatusAllowed: false
+        printAllowed: true
+        quantifyAllowed: true
+        intakeQuestions:
+        - id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+          answerDefinitionGroup:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            description: example
+            readOnly: true
+            answerDefinitions:
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              definition: example
+              sequenceNumber: 1
+              hasInput: true
+              active: true
+              score: 1
+              answers:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              classificationId: example
+              answerDefinitionGroupId: 1
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              definition: example
+              sequenceNumber: 1
+              hasInput: true
+              active: true
+              score: 1
+              answers:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              classificationId: example
+              answerDefinitionGroupId: 1
+            questions:
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              sequenceNumber: 1
+              answerType: 1
+              text: example
+              additionalInfo: example
+              defaultAnswer: 1
+              skipOnYes: true
+              active: true
+              required: true
+              answerMaxLength: 1
+              groupId: 1
+              classificationId: example
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              sequenceNumber: 1
+              answerType: 1
+              text: example
+              additionalInfo: example
+              defaultAnswer: 1
+              skipOnYes: true
+              active: true
+              required: true
+              answerMaxLength: 1
+              groupId: 1
+              classificationId: example
+            classificationId: example
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          answers:
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: example
+            important: true
+            booleanAnswer: true
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: example
+            important: true
+            booleanAnswer: true
+        - id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+          answerDefinitionGroup:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            description: example
+            readOnly: true
+            answerDefinitions:
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              definition: example
+              sequenceNumber: 1
+              hasInput: true
+              active: true
+              score: 1
+              answers:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              classificationId: example
+              answerDefinitionGroupId: 1
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              definition: example
+              sequenceNumber: 1
+              hasInput: true
+              active: true
+              score: 1
+              answers:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              classificationId: example
+              answerDefinitionGroupId: 1
+            questions:
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              sequenceNumber: 1
+              answerType: 1
+              text: example
+              additionalInfo: example
+              defaultAnswer: 1
+              skipOnYes: true
+              active: true
+              required: true
+              answerMaxLength: 1
+              groupId: 1
+              classificationId: example
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              sequenceNumber: 1
+              answerType: 1
+              text: example
+              additionalInfo: example
+              defaultAnswer: 1
+              skipOnYes: true
+              active: true
+              required: true
+              answerMaxLength: 1
+              groupId: 1
+              classificationId: example
+            classificationId: example
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          answers:
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: example
+            important: true
+            booleanAnswer: true
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: example
+            important: true
+            booleanAnswer: true
+      xml:
+        name: omahaClassification
+    dossier.omaha.SignOrSymptom:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit signaal/symptoom
+        problemId:
+          type: string
+          description: Object id of the related problem
+        textAllowed:
+          type: boolean
+          description: 'Indicates the presence of an extra textfield
+
+            (nl) Geeft aan of er een extra tekstveld aanwezig is'
+      description: 'Omaha definitie van ''signalen en symptomen'' '
+      example:
+        classificationId: Dummy
+        name: Dummy
+        problemId: some.classification.id
+        textAllowed: true
+      xml:
+        name: omahaSignOrSymptom
+    survey.Answer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyResultObjectId:
+          type: integer
+          format: int64
+        questionObjectId:
+          type: integer
+          format: int64
+        answerDefinitionObjectId:
+          type: integer
+          format: int64
+        text:
+          type: string
+        important:
+          type: boolean
+        booleanAnswer:
+          type: boolean
+      description: Answer model (no description)
+      example:
+        id: 1
+        surveyResultObjectId: 1
+        questionObjectId: 1
+        text: heeeeel oud
+        answerDefinitionObjectId: 1
+        important: false
+        booleanAnswer: false
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+      xml:
+        name: answer
+    dossier.omaha.Problem:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit gebied
+        omahaDomain:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.Domain'
+          description: (nl) Domein van dit gebied
+        omahaSignsAndSymptoms:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.omaha.SignOrSymptom'
+          description: (nl) Gerelateerde signalen en symptomen
+          xml:
+            wrapped: true
+      description: 'Omaha definitie van ''gebied'' '
+      example:
+        classificationId: Dummy
+        name: Dummy
+        omahaDomain:
+          classificationId: example
+          name: example
+        omahaSignsAndSymptoms:
+        - classificationId: example
+          name: example
+          problemId: example
+          textAllowed: true
+        - classificationId: example
+          name: example
+          problemId: example
+          textAllowed: true
+      xml:
+        name: omahaProblem
+    dossier.omaha.InterventionTarget:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit actievlak
+      description: 'Omaha Actievlak '
+      example:
+        classificationId: Dummy
+        name: Dummy
+      xml:
+        name: omahaInterventionTarget
+    dossier.omaha.InterventionCategory:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van deze actie
+      description: 'Omaha soort actie '
+      example:
+        classificationId: Dummy
+        name: Dummy
+      xml:
+        name: omahaInterventionCategory
+    dossier.omaha.ModifierReach:
+      type: string
+      oneOf:
+      - title: Individual
+        enum:
+        - Individual
+      - title: Family
+        enum:
+        - Family
+      - title: Community
+        enum:
+        - Community
+      description: (nl) Omaha kenmerken (1/2)
+      example: Individual
+    survey.AnswerDefinitionGroup:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        readOnly:
+          type: boolean
+        answerDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnswerDefinition'
+          xml:
+            wrapped: true
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Question'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+      description: AnswerDefinitionGroup model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        description: heel oud
+        readOnly: false
+        answerDefinitions: []
+        questions:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: answerDefinitionGroup
+    dossier.omaha.Domain:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+      description: 'Omaha Domein '
+      example:
+        classificationId: Dummy
+        name: Dummy
+      xml:
+        name: omahaDomain
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

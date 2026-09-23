@@ -1,0 +1,676 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Declaration Rule API
+  version: 0.0.0
+  description: 'Operations tagged finance.DeclarationRule across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.DeclarationRule
+paths:
+  /t/finance/declaration_rules:
+    post:
+      tags:
+      - finance.DeclarationRule
+      summary: Create DeclarationRule
+      operationId: finance.DeclarationRuleAPI.create
+      requestBody:
+        description: DeclarationRule to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.DeclarationRule'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DeclarationRule'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/declaration_rules
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/declaration_rules/{id}:
+    get:
+      tags:
+      - finance.DeclarationRule
+      operationId: finance.DeclarationRuleAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DeclarationRule
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DeclarationRule'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/declaration_rules/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Finance declaration rule API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - finance.DeclarationRule
+      summary: Updates the given DeclarationRule
+      operationId: finance.DeclarationRuleAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DeclarationRule
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: DeclarationRule to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.DeclarationRule'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DeclarationRule'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/declaration_rules/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - finance.DeclarationRule
+      summary: Deletes the DeclarationRule with given id
+      operationId: finance.DeclarationRuleAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DeclarationRule
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DeclarationRule'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/declaration_rules/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/declaration_rules/by_client/{client_id}:
+    get:
+      tags:
+      - finance.DeclarationRule
+      summary: Return the Declaration rules belonging to a certain client
+      operationId: finance.DeclarationRuleAPI.byClient
+      parameters:
+      - name: client_id
+        in: path
+        description: the <b>objectId</b> of the client in question
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: care_order_id
+        in: query
+        description: the <b>objectId</b> of the careorder in question
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.DeclarationRuleList'
+      x-replaced-by: /v0/administration/finance/declaration_rules/by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/declaration_rules/by_client/{client_id}/is_verified:
+    get:
+      tags:
+      - finance.DeclarationRule
+      summary: Returns whether the declaration rules for a given client are (partly) verified…
+      operationId: finance.DeclarationRuleAPI.isVerifiedInPeriod
+      parameters:
+      - name: client_id
+        in: path
+        description: Long identifying the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: LocalDate the start date of the period to check (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: LocalDate the end date of the period to check (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanWithReason'
+      x-replaced-by: /v0/administration/finance/declaration_rules/by_client/{client_id}/is_verified
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/declaration_rules/by_client/{client_id}/verified_until:
+    get:
+      tags:
+      - finance.DeclarationRule
+      operationId: finance.DeclarationRuleAPI.verifiedUntil
+      parameters:
+      - name: client_id
+        in: path
+        description: Long identifying the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DateWrapper'
+      x-replaced-by: /v0/administration/finance/declaration_rules/by_client/{client_id}/verified_until
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Finance declaration rule API verified until
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/declaration_rules:
+    post:
+      tags:
+      - finance.DeclarationRule
+      summary: Create DeclarationRule
+      operationId: finance.DeclarationRuleAPI.create
+      requestBody:
+        description: DeclarationRule to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.DeclarationRule'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DeclarationRule'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/declaration_rules
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/declaration_rules/{id}:
+    get:
+      tags:
+      - finance.DeclarationRule
+      operationId: finance.DeclarationRuleAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DeclarationRule
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DeclarationRule'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/declaration_rules/{id}
+      summary: Finance declaration rule API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - finance.DeclarationRule
+      summary: Updates the given DeclarationRule
+      operationId: finance.DeclarationRuleAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DeclarationRule
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: DeclarationRule to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.DeclarationRule'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DeclarationRule'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/declaration_rules/{id}
+    delete:
+      tags:
+      - finance.DeclarationRule
+      summary: Deletes the DeclarationRule with given id
+      operationId: finance.DeclarationRuleAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DeclarationRule
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DeclarationRule'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/declaration_rules/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/declaration_rules/by_client/{client_id}:
+    get:
+      tags:
+      - finance.DeclarationRule
+      summary: Return the Declaration rules belonging to a certain client
+      operationId: finance.DeclarationRuleAPI.byClient
+      parameters:
+      - name: client_id
+        in: path
+        description: the <b>objectId</b> of the client in question
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: care_order_id
+        in: query
+        description: the <b>objectId</b> of the careorder in question
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.DeclarationRuleList'
+      x-replacement-for:
+      - /t/finance/declaration_rules/by_client/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/declaration_rules/by_client/{client_id}/is_verified:
+    get:
+      tags:
+      - finance.DeclarationRule
+      summary: Returns whether the declaration rules for a given client are (partly) verified…
+      operationId: finance.DeclarationRuleAPI.isVerifiedInPeriod
+      parameters:
+      - name: client_id
+        in: path
+        description: Long identifying the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: LocalDate the start date of the period to check (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: LocalDate the end date of the period to check (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanWithReason'
+      x-replacement-for:
+      - /t/finance/declaration_rules/by_client/{client_id}/is_verified
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/declaration_rules/by_client/{client_id}/verified_until:
+    get:
+      tags:
+      - finance.DeclarationRule
+      operationId: finance.DeclarationRuleAPI.verifiedUntil
+      parameters:
+      - name: client_id
+        in: path
+        description: Long identifying the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DateWrapper'
+      x-replacement-for:
+      - /t/finance/declaration_rules/by_client/{client_id}/verified_until
+      summary: Finance declaration rule API verified until
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          description: Starting time with inclusive boundary
+          format: date
+        end:
+          type: string
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+      example:
+        start: '2018-03-26'
+        end: '2018-04-02'
+    BooleanWithReason:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: Answer to the question
+        reason:
+          type: string
+      description: This class is used to answer a simple true/false question with an optional reason.
+      example:
+        result: true
+        reason: Just Because!
+      xml:
+        name: booleanWithReason
+    DateWrapper:
+      type: object
+      properties:
+        date:
+          type: string
+          description: The wrapped date
+          format: date
+      description: 'DateWrapper can be used to return date''s from API calls. '
+      example:
+        date: '2018-03-26'
+      xml:
+        name: dateWrapper
+    finance.list.DeclarationRuleList:
+      type: object
+      properties:
+        declarationRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.DeclarationRule'
+          xml:
+            name: declarationRule
+      description: DeclarationRuleList model (no description)
+      example:
+        declarationRules:
+        - id: 1
+          clientObjectId: 1
+          beginDate: '2017-06-06'
+          endDate: '2017-06-06'
+          createdAt: '2017-06-06'
+          updatedAt: '2017-06-06'
+          tariff: 1
+          priority: 1
+          employeeObjectId: 1
+          productObjectId: 1
+          indicatieBesluitObjectId: 1
+          source: manual
+          instellingscode: '42420993'
+          zorgkantoorcode: '5521'
+          weekday1: 1
+          weekday2: 1
+          weekday3: 1
+          weekday4: 1
+          weekday5: 1
+          weekday6: 1
+          weekday7: 1
+          declareOnResidence: true
+          zzpType: zzp declaration
+          type: 1
+          careOrderProductObjectId: 1
+          clientScheduleObjectId: 1
+          amount: 1
+          declarablePeriods:
+          - start: '2017-06-06'
+            end: '2017-06-06'
+      xml:
+        name: declarationRules
+    finance.DeclarationRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: the id of this object
+          format: int64
+          x-cupido-id: true
+        clientObjectId:
+          type: integer
+          description: the Id of the Client pertaining to this DeclarationRule
+          format: int64
+        beginDate:
+          type: string
+          description: the begindate of this DeclarationRule; INCLUSIVE
+          format: date
+        endDate:
+          type: string
+          description: the enddate of this DeclarationRule; INCLUSIVE
+          format: date
+        createdAt:
+          type: string
+          description: the date when this Rule was created
+          format: date
+        updatedAt:
+          type: string
+          description: the last time this DeclarationRule was updated
+          format: date
+        tariff:
+          type: integer
+          description: the tariff for this DeclarationRule, in cents
+          format: int32
+        priority:
+          type: integer
+          description: this rule's priority
+          format: int32
+        employeeObjectId:
+          type: integer
+          description: the objectId of the {@link com.nedap.healthcare.domain.Employee} pertaining to this DeclarationRule
+          format: int64
+        productObjectId:
+          type: integer
+          description: the objectId of the {@link Product} pertaining to this DeclarationRule
+          format: int64
+        indicatieBesluitObjectId:
+          type: integer
+          description: the objectId of the {@link CareOrder} pertaining to this DeclarationRule
+          format: int64
+        source:
+          type: string
+          description: this Rule's source ('automatic' or 'manual')
+        instellingscode:
+          type: string
+          description: the agbCode of the instelling
+        zorgkantoorcode:
+          type: string
+          description: the UZOVI code of the zorgkantoor
+        weekday1:
+          type: integer
+          description: amount for weekday 1
+          format: int32
+        weekday2:
+          type: integer
+          description: amount for weekday 2
+          format: int32
+        weekday3:
+          type: integer
+          description: amount for weekday 3
+          format: int32
+        weekday4:
+          type: integer
+          description: amount for weekday 4
+          format: int32
+        weekday5:
+          type: integer
+          description: amount for weekday 5
+          format: int32
+        weekday6:
+          type: integer
+          description: amount for weekday 6
+          format: int32
+        weekday7:
+          type: integer
+          description: amount for weekday 7
+          format: int32
+        declareOnResidence:
+          type: boolean
+          description: 'Declare only when client resides on a location
+
+            when null it will auto set true if the product is a residence-product else false'
+        zzpType:
+          type: string
+          description: zzptype ('zzp declaration') or 'zzp as functions declaration')
+        type:
+          type: integer
+          description: type
+          format: int32
+        careOrderProductObjectId:
+          type: integer
+          description: the objectId of the {@link CareOrderProduct} pertaining to this DeclarationRule
+          format: int64
+        clientScheduleObjectId:
+          type: integer
+          description: the objectId of the ClientSchedule pertaining to this DeclarationRule
+          format: int64
+        amount:
+          type: integer
+          description: the amount of units of this DeclarationRule
+          format: int32
+        costTeamObjectId:
+          type: integer
+          description: the objectId of the Team to be used as the cost center for this DeclarationRule. Only one of costTeamObjectId or costLocationObjectId can be filled.
+          format: int64
+        costLocationObjectId:
+          type: integer
+          description: the objectId of the Location to be used as the cost center for this DeclarationRule. Only one of costTeamObjectId or costLocationObjectId can be filled.
+          format: int64
+        declarablePeriods:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Period'
+            xml:
+              name: period
+          description: 'the periods that are declarable for this DeclarationRule. One DeclarationRule can have multiple periods, because they can be split by absences for example.
+
+            this list is calculated on-the-fly and not persisted in a database. Therefore this is not taken into account when POSTing this a DeclarationRule.'
+          xml:
+            wrapped: true
+      description: Declaration Rule retrieved from OnsAdmin.
+      example:
+        id: 1
+        clientObjectId: 1
+        beginDate: '2017-06-06'
+        endDate: '2017-06-06'
+        createdAt: '2017-06-06'
+        updatedAt: '2017-06-06'
+        tariff: 1
+        priority: 1
+        employeeObjectId: 1
+        productObjectId: 1
+        indicatieBesluitObjectId: 1
+        source: manual
+        instellingscode: '42420993'
+        zorgkantoorcode: '5521'
+        weekday1: 1
+        weekday2: 1
+        weekday3: 1
+        weekday4: 1
+        weekday5: 1
+        weekday6: 1
+        weekday7: 1
+        declareOnResidence: true
+        zzpType: zzp declaration
+        type: 1
+        careOrderProductObjectId: 1
+        clientScheduleObjectId: 1
+        amount: 1
+        costTeamObjectId: 1
+        costLocationObjectId: 1
+        declarablePeriods:
+        - start: '2017-06-06'
+          end: '2017-06-06'
+      xml:
+        name: declarationRule
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

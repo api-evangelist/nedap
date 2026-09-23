@@ -1,0 +1,147 @@
+openapi: 3.2.0
+info:
+  title: Nedap Zpm.Zpm Setting API
+  version: 0.0.0
+  description: 'Operations tagged zpm.ZpmSetting across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: zpm.ZpmSetting
+paths:
+  /t/zpm/settings:
+    get:
+      tags:
+      - zpm.ZpmSetting
+      summary: Returns a list of all ZPM settings
+      operationId: zpm.ZpmSettingAPI.getAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.list.ZpmSettingList'
+      x-replaced-by: /v0/administration/zpm/settings
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/zpm/settings:
+    get:
+      tags:
+      - zpm.ZpmSetting
+      summary: Returns a list of all ZPM settings
+      operationId: zpm.ZpmSettingAPI.getAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.list.ZpmSettingList'
+      x-replacement-for:
+      - /t/zpm/settings
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    zpm.list.ZpmSettingList:
+      type: object
+      properties:
+        zpmSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.ZpmSetting'
+          xml:
+            name: zpmSetting
+      description: ZpmSettingList model (no description)
+      example:
+        zpmSettings:
+        - updatedAt: '2021-08-09T16:17:11.000+02:00'
+          createdAt: '2021-06-28T13:21:32.000+02:00'
+          id: 1
+          code: S01
+          legalBegin: '2021-01-01'
+          activeBegin: '2022-01-01'
+          activeEnd: '2022-12-31'
+          name: Ambulant - kwaliteitsstatuut sectie II
+      xml:
+        name: zpmSettings
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    zpm.ZpmSetting:
+      required:
+      - code
+      - legalBegin
+      - activeBegin
+      - name
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: Setting code.
+        legalBegin:
+          type: string
+          description: Legal begin date.
+          format: date
+        legalEnd:
+          type: string
+          description: Legal end date.
+          format: date
+        activeBegin:
+          type: string
+          description: Date that this setting becomes active for the tenant.
+          format: date
+        activeEnd:
+          type: string
+          description: Date that this setting stops being active for this tenant.
+          format: date
+        name:
+          type: string
+          description: Setting name.
+      description: Setting (context, environment) in which care is being delivered.
+      example:
+        updatedAt: '2021-08-09T16:17:11.000+02:00'
+        createdAt: '2021-06-28T13:21:32.000+02:00'
+        createdBy: user
+        id: 1
+        code: S01
+        legalBegin: '2021-01-01'
+        legalEnd: '2022-12-31'
+        activeBegin: '2022-01-01'
+        activeEnd: '2022-12-31'
+        name: Ambulant - kwaliteitsstatuut sectie II
+      xml:
+        name: zpmSetting
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

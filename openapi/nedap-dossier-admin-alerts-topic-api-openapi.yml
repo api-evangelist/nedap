@@ -1,0 +1,315 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.admin.alerts.Topic API
+  version: 0.0.0
+  description: 'Operations tagged dossier.admin.alerts.Topic across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.admin.alerts.Topic
+paths:
+  /t/dossier/admin/alerts/topics:
+    get:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Get every topic
+      operationId: dossier.admin.alerts.TopicAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.admin.alerts.list.TopicList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/authorized/admin/alerts/topics
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Create an alert topic
+      operationId: dossier.admin.alerts.TopicAPI.create
+      requestBody:
+        description: Topic to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/authorized/admin/alerts/topics
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/admin/alerts/topics/{id}:
+    get:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Get a specific topic
+      operationId: dossier.admin.alerts.TopicAPI.byId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/authorized/admin/alerts/topics/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Update the given Topic
+      operationId: dossier.admin.alerts.TopicAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Topic to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Topic to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/authorized/admin/alerts/topics/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Deletes the Topic with given id
+      operationId: dossier.admin.alerts.TopicAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Topic to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the problem
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/authorized/admin/alerts/topics/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/admin/alerts/topics:
+    get:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Get every topic
+      operationId: dossier.admin.alerts.TopicAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.admin.alerts.list.TopicList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/admin/alerts/topics
+    post:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Create an alert topic
+      operationId: dossier.admin.alerts.TopicAPI.create
+      requestBody:
+        description: Topic to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/admin/alerts/topics
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/admin/alerts/topics/{id}:
+    get:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Get a specific topic
+      operationId: dossier.admin.alerts.TopicAPI.byId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/admin/alerts/topics/{id}
+    put:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Update the given Topic
+      operationId: dossier.admin.alerts.TopicAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Topic to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Topic to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/admin/alerts/topics/{id}
+    delete:
+      tags:
+      - dossier.admin.alerts.Topic
+      summary: Deletes the Topic with given id
+      operationId: dossier.admin.alerts.TopicAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Topic to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the problem
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/admin/alerts/topics/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.admin.alerts.Topic:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Object id of this alert topic
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: The name of the alert topic
+        active:
+          type: boolean
+          description: Whether or not the topic is active
+        protocol:
+          type: string
+          description: The protocol associated with this alert topic
+        showDescription:
+          type: boolean
+          description: 'Whether or not an extra description input should be shown when creating
+
+            an alert with this topic for a client'
+        alertType:
+          type: string
+          description: 'The type of alert. Can be:
+
+            - danger_medical
+
+            - danger_non_medical
+
+            - other'
+        icon:
+          type: string
+          description: The name of the icon associated with this alert
+      description: Topic model (no description)
+      example:
+        id: 1
+        name: Covid-19
+        active: true
+        protocol: http://www.example.org
+        showDescription: true
+        alertType: danger_medical
+        icon: virus
+    dossier.admin.alerts.list.TopicList:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+      description: TopicList model (no description)
+      example:
+        topics:
+        - id: 1
+          name: Covid-19
+          active: true
+          protocol: http://www.example.org
+          showDescription: true
+          alertType: danger_medical
+          icon: virus
+        - id: 2
+          name: Dangerous dog
+          active: true
+          protocol: http://www.example.org
+          showDescription: false
+          alertType: danger_non_medical
+          icon: aggression
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

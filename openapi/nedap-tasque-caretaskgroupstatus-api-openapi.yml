@@ -1,0 +1,90 @@
+openapi: 3.2.0
+info:
+  title: Nedap Tasque.Care Task Group Status API
+  version: 0.0.0
+  description: 'Operations tagged tasque.CareTaskGroupStatus across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: tasque.CareTaskGroupStatus
+paths:
+  /t/tasque/care_task_group_statuses:
+    get:
+      tags:
+      - tasque.CareTaskGroupStatus
+      summary: Returns every CareTaskGroupStatus available from the CareTaskGroupStatusAPI
+      operationId: tasque.CareTaskGroupStatusAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskGroupStatusList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/taken/care_task_group_statuses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_group_statuses:
+    get:
+      tags:
+      - tasque.CareTaskGroupStatus
+      summary: Returns every CareTaskGroupStatus available from the CareTaskGroupStatusAPI
+      operationId: tasque.CareTaskGroupStatusAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskGroupStatusList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/tasque/care_task_group_statuses
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    tasque.list.CareTaskGroupStatusList:
+      type: object
+      properties:
+        careTaskGroupStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/tasque.CareTaskGroupStatus'
+      description: CareTaskGroupStatusList model (no description)
+      example:
+        careTaskGroupStatuses:
+        - name: Care plan
+          overdue: 12
+          upcoming: 20
+    tasque.CareTaskGroupStatus:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the task group
+        filterParam:
+          type: string
+          description: Query parameters for task group when linking to Kwaliteitsmonitor
+        overdue:
+          type: integer
+          description: Count of overdue tasks
+          format: int32
+          default: 0
+        upcoming:
+          type: integer
+          description: Count of upcoming tasks
+          format: int32
+          default: 0
+      description: CareTaskGroupStatus model (no description)
+      example:
+        name: Care plan
+        filterParam: group_ids[]=12
+        overdue: 12
+        upcoming: 20
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  title: Nedap Fvc.Fvc Message API
+  version: 0.0.0
+  description: 'Operations tagged fvc.FvcMessage across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: fvc.FvcMessage
+paths:
+  /t/fvc/message:
+    post:
+      tags:
+      - fvc.FvcMessage
+      summary: Send a message to FVC
+      operationId: fvc.FvcMessageAPI.send
+      requestBody:
+        description: Message to be sent to FVC
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fvc.FvcMessage'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fvc.FvcMessage'
+        '400':
+          description: Message could not be processed
+      x-replaced-by: /v0/farmed_visie/message
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/farmed_visie/message:
+    post:
+      tags:
+      - fvc.FvcMessage
+      summary: Send a message to FVC
+      operationId: fvc.FvcMessageAPI.send
+      requestBody:
+        description: Message to be sent to FVC
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fvc.FvcMessage'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fvc.FvcMessage'
+        '400':
+          description: Message could not be processed
+      x-replacement-for:
+      - /t/fvc/message
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    fvc.FvcMessage:
+      required:
+      - uuid
+      - payload
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID identifying this FVC message across applications
+          example: null
+          x-cupido-id: true
+        payload:
+          type: string
+          description: Payload FVC message (Base64 encoded)
+          example: null
+      description: FvcMessage model (no description)
+      example:
+        uuid: Dummy
+        payload: Dummy
+      xml:
+        name: fvcMessage
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

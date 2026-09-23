@@ -1,0 +1,381 @@
+openapi: 3.2.0
+info:
+  title: Nedap Practitioner Profession API
+  version: 0.0.0
+  description: 'Operations tagged PractitionerProfession across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: PractitionerProfession
+paths:
+  /t/employees/{employee_id}/professions:
+    get:
+      tags:
+      - PractitionerProfession
+      summary: Return the professions assigned to the employee corresponding to the provided id
+      operationId: PractitionerProfessionAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.PractitionerProfessionList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/professions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - PractitionerProfession
+      summary: Creates the provided profession and assigns it to the employee corresponding to…
+      operationId: PractitionerProfessionAPI.createForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerProfession'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerProfession'
+      x-replaced-by: /v0/administration/employees/{employee_id}/professions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/professions/{profession_id}:
+    get:
+      tags:
+      - PractitionerProfession
+      summary: Return the profession with the provided id assigned to the employee…
+      operationId: PractitionerProfessionAPI.byEmployeeIdAndProfessionId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profession_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerProfession'
+      x-replaced-by: /v0/administration/employees/{employee_id}/professions/{profession_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - PractitionerProfession
+      summary: Updates the provided profession assigned to the employee corresponding to the…
+      operationId: PractitionerProfessionAPI.updateForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profession_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerProfession'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerProfession'
+      x-replaced-by: /v0/administration/employees/{employee_id}/professions/{profession_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - PractitionerProfession
+      summary: Deletes the profession with the provided id assigned to the employee…
+      operationId: PractitionerProfessionAPI.deleteForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profession_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No response was specified
+      x-replaced-by: /v0/administration/employees/{employee_id}/professions/{profession_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/professions:
+    get:
+      tags:
+      - PractitionerProfession
+      summary: Return the professions assigned to the employee corresponding to the provided id
+      operationId: PractitionerProfessionAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.PractitionerProfessionList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/professions
+    post:
+      tags:
+      - PractitionerProfession
+      summary: Creates the provided profession and assigns it to the employee corresponding to…
+      operationId: PractitionerProfessionAPI.createForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerProfession'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerProfession'
+      x-replacement-for:
+      - /t/employees/{employee_id}/professions
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/professions/{profession_id}:
+    get:
+      tags:
+      - PractitionerProfession
+      summary: Return the profession with the provided id assigned to the employee…
+      operationId: PractitionerProfessionAPI.byEmployeeIdAndProfessionId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profession_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerProfession'
+      x-replacement-for:
+      - /t/employees/{employee_id}/professions/{profession_id}
+    put:
+      tags:
+      - PractitionerProfession
+      summary: Updates the provided profession assigned to the employee corresponding to the…
+      operationId: PractitionerProfessionAPI.updateForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profession_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerProfession'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerProfession'
+      x-replacement-for:
+      - /t/employees/{employee_id}/professions/{profession_id}
+    delete:
+      tags:
+      - PractitionerProfession
+      summary: Deletes the profession with the provided id assigned to the employee…
+      operationId: PractitionerProfessionAPI.deleteForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profession_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No response was specified
+      x-replacement-for:
+      - /t/employees/{employee_id}/professions/{profession_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    PractitionerProfession:
+      required:
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          description: Id referring to the Employee object
+          format: int64
+        code:
+          type: string
+          description: Profession code from the code list indicated in typeCode.
+        name:
+          type: string
+          description: Abbreviated name for the profession
+        info:
+          type: string
+          description: Full description for the profession
+        type:
+          type: string
+          description: 'Indicates the codelist this profession orginates from
+
+            Please use #professionType instead'
+          deprecated: true
+        professionType:
+          allOf:
+          - $ref: '#/components/schemas/PractitionerProfessionType'
+          description: Indicates the codelist this profession orginates from
+        beginDate:
+          type: string
+          description: The date at which the profession is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the profession is ending. Null means no ending.
+          format: date
+      description: 'Practioner profession returned from Cupido for an Employee.
+
+
+        When PUT-ing or POST-ing PractitionerProfessions, the combination of code and professionType is used to uniquely identify the profession.'
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '9992'
+        name: VK.OB.overig
+        info: Overig
+        type: COD878_GZ_BEROEPZORGVERLENER
+        professionType: 0
+        beginDate: '2018-01-01'
+        endDate: '2018-12-31'
+    list.PractitionerProfessionList:
+      type: object
+      properties:
+        practitionerProfessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerProfession'
+      description: PractitionerProfessionList model (no description)
+      example:
+        practitionerProfessions:
+        - id: 1
+          employeeObjectId: 1
+          code: '9992'
+          name: VK.OB.overig
+          info: Overig
+          type: COD878_GZ_BEROEPZORGVERLENER
+          professionType: 0
+          beginDate: '2018-01-01'
+          endDate: '2018-12-31'
+    PractitionerProfessionType:
+      type: integer
+      oneOf:
+      - title: COD878_GZ_BEROEPZORGVERLENER
+        enum:
+        - 0
+      - title: COD016_PEZ_GRZ_SUBBEROEPSGROEP
+        enum:
+        - 1
+      - title: ZPM_BEROEP
+        enum:
+        - 2
+      description: Indicates the codelist this profession orginates from
+      example: 0
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

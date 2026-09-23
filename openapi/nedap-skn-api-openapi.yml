@@ -1,0 +1,91 @@
+openapi: 3.2.0
+info:
+  title: Nedap Skn API
+  version: 0.0.0
+  description: 'Operations tagged Skn across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Skn
+paths:
+  /t/skns/{id}:
+    get:
+      tags:
+      - Skn
+      summary: Return the Skn corresponding to the given id
+      operationId: SknAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Skn
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skn'
+        '404':
+          description: Skn not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/skns/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/skns/{id}:
+    get:
+      tags:
+      - Skn
+      summary: Return the Skn corresponding to the given id
+      operationId: SknAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Skn
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skn'
+        '404':
+          description: Skn not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/skns/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Skn:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientObjectId:
+          type: integer
+          format: int64
+        skn:
+          type: string
+      description: Skn model (no description)
+      example:
+        id: 1
+        clientObjectId: 12344
+        skn: '123456789012345'
+      xml:
+        name: skn
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

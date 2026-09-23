@@ -1,0 +1,666 @@
+openapi: 3.2.0
+info:
+  title: Nedap Survey.Survey Result API
+  version: 0.0.0
+  description: 'Operations tagged survey.SurveyResult across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: survey.SurveyResult
+paths:
+  /t/survey/survey_results:
+    post:
+      tags:
+      - survey.SurveyResult
+      summary: Create SurveyResult
+      description: It is not allowed to post surveys without answers. Username must be set.
+      operationId: survey.SurveyResultAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: SurveyResult to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.SurveyResult'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.SurveyResult'
+        '400':
+          description: Survey without answers, or other validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey_result
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/survey/survey_results/{id}:
+    get:
+      tags:
+      - survey.SurveyResult
+      operationId: survey.SurveyResultAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting SurveyResult
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.SurveyResult'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey_result/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Survey survey result API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - survey.SurveyResult
+      summary: Updates the given SurveyResult
+      operationId: survey.SurveyResultAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of SurveyResult to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: SurveyResult to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.SurveyResult'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.SurveyResult'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey_result/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - survey.SurveyResult
+      summary: Deletes the SurveyResult with given id
+      operationId: survey.SurveyResultAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of SurveyResult to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 111
+      responses:
+        '204':
+          description: If successfully removed the survey result
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/survey_result/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/survey/survey_results/{survey_result_id}/duplicate:
+    post:
+      tags:
+      - survey.SurveyResult
+      summary: Duplicate a Survey Result
+      description: When used through Ons API, the employee_id for the copied SurveyResult is set to a default user. This employee_id can be changed by using the PUT operation on the newly created SurveyResult.
+      operationId: survey.SurveyResultAPI.duplicate
+      parameters:
+      - name: survey_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.SurveyResult'
+      x-replaced-by: /v0/administration/survey_result/{survey_result_id}/duplicate
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/survey/surveys/{survey_id}/survey_results:
+    get:
+      tags:
+      - survey.SurveyResult
+      summary: Return the SurveyResults of a Survey corresponding to the given id
+      operationId: survey.SurveyResultAPI.bySurveyId
+      parameters:
+      - name: survey_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: updated_since
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.SurveyResultList'
+      x-replaced-by: /v0/administration/survey_result/by_survey/{survey_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/survey_results:
+    get:
+      tags:
+      - survey.SurveyResult
+      summary: Return the survey results of a Client corresponding to the given id
+      operationId: survey.SurveyResultAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.SurveyResultList'
+      x-replaced-by: /v0/administration/survey_result/survey_results_by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey_result:
+    post:
+      tags:
+      - survey.SurveyResult
+      summary: Create SurveyResult
+      description: It is not allowed to post surveys without answers. Username must be set.
+      operationId: survey.SurveyResultAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: SurveyResult to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.SurveyResult'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.SurveyResult'
+        '400':
+          description: Survey without answers, or other validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/survey_results
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey_result/{id}:
+    get:
+      tags:
+      - survey.SurveyResult
+      operationId: survey.SurveyResultAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting SurveyResult
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.SurveyResult'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/survey_results/{id}
+      summary: Survey survey result API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - survey.SurveyResult
+      summary: Updates the given SurveyResult
+      operationId: survey.SurveyResultAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of SurveyResult to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: SurveyResult to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey.SurveyResult'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.SurveyResult'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/survey_results/{id}
+    delete:
+      tags:
+      - survey.SurveyResult
+      summary: Deletes the SurveyResult with given id
+      operationId: survey.SurveyResultAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of SurveyResult to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 111
+      responses:
+        '204':
+          description: If successfully removed the survey result
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/survey/survey_results/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey_result/{survey_result_id}/duplicate:
+    post:
+      tags:
+      - survey.SurveyResult
+      summary: Duplicate a Survey Result
+      description: When used through Ons API, the employee_id for the copied SurveyResult is set to a default user. This employee_id can be changed by using the PUT operation on the newly created SurveyResult.
+      operationId: survey.SurveyResultAPI.duplicate
+      parameters:
+      - name: survey_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.SurveyResult'
+      x-replacement-for:
+      - /t/survey/survey_results/{survey_result_id}/duplicate
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey_result/by_survey/{survey_id}:
+    get:
+      tags:
+      - survey.SurveyResult
+      summary: Return the SurveyResults of a Survey corresponding to the given id
+      operationId: survey.SurveyResultAPI.bySurveyId
+      parameters:
+      - name: survey_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: updatedSince
+        in: query
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: updated_since
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.SurveyResultList'
+      x-replacement-for:
+      - /t/survey/surveys/{survey_id}/survey_results
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/survey_result/survey_results_by_client/{client_id}:
+    get:
+      tags:
+      - survey.SurveyResult
+      summary: Return the survey results of a Client corresponding to the given id
+      operationId: survey.SurveyResultAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey.list.SurveyResultList'
+      x-replacement-for:
+      - /t/clients/{client_id}/survey_results
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    survey.SurveyResultStatus:
+      type: string
+      oneOf:
+      - title: New
+        enum:
+        - New
+      - title: Draft
+        enum:
+        - Draft
+      - title: Review
+        enum:
+        - Review
+      - title: Current
+        enum:
+        - Current
+      - title: Archived
+        enum:
+        - Archived
+      description: SurveyResultStatus model (no description)
+      example: New
+    survey.GroupAnswer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        groupId:
+          type: integer
+          format: int64
+        surveyResultId:
+          type: integer
+          format: int64
+        score:
+          type: integer
+          format: int32
+        importantForCareplan:
+          type: boolean
+      description: GroupAnswer model (no description)
+      example:
+        id: 1
+        surveyResultId: 1
+        groupId: 1
+        score: 7
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        importantForCareplan: true
+      xml:
+        name: groupAnswer
+    survey.list.SurveyResultList:
+      type: object
+      properties:
+        surveyResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.SurveyResult'
+          xml:
+            name: surveyResult
+      description: SurveyResultList model (no description)
+      example:
+        surveyResults:
+        - id: 111
+          surveyObjectId: 555
+          clientObjectId: 333
+          employeeObjectId: 444
+          version: 1
+          completedAt: '2012-08-02T11:48:46.836+02:00'
+          status: New
+          linkedToActiveCarePlan: true
+          isAnyCarePlanUsingThisResult: true
+      xml:
+        name: surveyResults
+    survey.SurveyResult:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyObjectId:
+          type: integer
+          format: int64
+        clientObjectId:
+          type: integer
+          format: int64
+        employeeObjectId:
+          type: integer
+          format: int64
+        status:
+          $ref: '#/components/schemas/survey.SurveyResultStatus'
+        version:
+          type: integer
+          format: int64
+        title:
+          type: string
+        linkedToActiveCarePlan:
+          type: boolean
+        isAnyCarePlanUsingThisResult:
+          type: boolean
+        duplicateSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        editSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        statusBumpSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        viewSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        groupAnswers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.GroupAnswer'
+          xml:
+            wrapped: true
+        completedAt:
+          type: string
+          format: date-time
+      description: SurveyResult model (no description)
+      example:
+        id: 111
+        surveyObjectId: 555
+        clientObjectId: 333
+        employeeObjectId: 444
+        version: 1
+        linkedToActiveCarePlan: true
+        isAnyCarePlanUsingThisResult: true
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        completedAt: '2012-08-02T13:48:46.836+02:00'
+        status: Draft
+        title: test
+        duplicateSurveyResultAbility:
+          enabled: true
+          possible: true
+        editSurveyResultAbility:
+          enabled: true
+          possible: true
+        statusBumpSurveyResultAbility:
+          enabled: true
+          possible: true
+        viewSurveyResultAbility:
+          enabled: true
+          possible: true
+        answers: []
+        groupAnswers: []
+      xml:
+        name: surveyResult
+    Ability:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        possible:
+          type: boolean
+        message:
+          type: string
+      description: Ability model (no description)
+      example:
+        enabled: true
+        possible: false
+        message: message
+    survey.Answer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyResultObjectId:
+          type: integer
+          format: int64
+        questionObjectId:
+          type: integer
+          format: int64
+        answerDefinitionObjectId:
+          type: integer
+          format: int64
+        text:
+          type: string
+        important:
+          type: boolean
+        booleanAnswer:
+          type: boolean
+      description: Answer model (no description)
+      example:
+        id: 1
+        surveyResultObjectId: 1
+        questionObjectId: 1
+        text: heeeeel oud
+        answerDefinitionObjectId: 1
+        important: false
+        booleanAnswer: false
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+      xml:
+        name: answer
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

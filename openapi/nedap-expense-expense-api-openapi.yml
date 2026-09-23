@@ -1,0 +1,804 @@
+openapi: 3.2.0
+info:
+  title: Nedap Expense.Expense API
+  version: 0.0.0
+  description: 'Operations tagged expense.Expense across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: expense.Expense
+paths:
+  /t/expense/expenses:
+    post:
+      tags:
+      - expense.Expense
+      summary: Create Expense
+      operationId: expense.ExpenseAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Expense to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense.Expense'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Validation errors, or expense already exists
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/expenses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expense/expenses/{id}:
+    get:
+      tags:
+      - expense.Expense
+      summary: Return the Expense corresponding to the given id
+      operationId: expense.ExpenseAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Expense
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Missing ID
+        '404':
+          description: Expense not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/expenses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - expense.Expense
+      summary: Updates the given Expense
+      operationId: expense.ExpenseAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Expense
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Expense to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense.Expense'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Missing ID, or validation errors
+        '404':
+          description: Expense not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/expenses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - expense.Expense
+      summary: Deletes the Expense with given id
+      operationId: expense.ExpenseAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Expense
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Missing ID
+        '404':
+          description: Expense not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/expenses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expense/expenses/search_by/employees/{employee_id}:
+    get:
+      tags:
+      - expense.Expense
+      summary: Retrieve all expenses for the employee corresponding to the given employee id
+      description: At least one of the valid_to and valid_from query parameters need to be set. When neither are provided, they will both default to "today". Since valid_to is non-inclusive, this leads to an empty response
+      operationId: expense.ExpenseAPI.searchByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the employee to search expenses for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.list.ExpenseList'
+      x-replaced-by: /v0/administration/expenses/employees/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expense/expenses/expensedistance/{expense_distance_id}:
+    put:
+      tags:
+      - expense.Expense
+      summary: Updates an expense distance position with a new position value
+      operationId: expense.ExpenseAPI.updatePositionForExpenseDistance
+      parameters:
+      - name: expense_distance_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registration.Position'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+      x-replaced-by: /v0/administration/expenses/expensedistance/{expense_distance_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expense/expenses/preview:
+    post:
+      tags:
+      - expense.Expense
+      summary: Used to get created Expense Route Without saving the expense
+      operationId: expense.ExpenseAPI.previewExpense
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense.Expense'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Validation errors, or expense already exists
+      x-replaced-by: /v0/administration/expenses/preview
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expenses:
+    post:
+      tags:
+      - expense.Expense
+      summary: Create Expense
+      operationId: expense.ExpenseAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Expense to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense.Expense'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Validation errors, or expense already exists
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/expense/expenses
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expenses/{id}:
+    get:
+      tags:
+      - expense.Expense
+      summary: Return the Expense corresponding to the given id
+      operationId: expense.ExpenseAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Expense
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Missing ID
+        '404':
+          description: Expense not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/expense/expenses/{id}
+    put:
+      tags:
+      - expense.Expense
+      summary: Updates the given Expense
+      operationId: expense.ExpenseAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Expense
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Expense to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense.Expense'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Missing ID, or validation errors
+        '404':
+          description: Expense not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/expense/expenses/{id}
+    delete:
+      tags:
+      - expense.Expense
+      summary: Deletes the Expense with given id
+      operationId: expense.ExpenseAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Expense
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Missing ID
+        '404':
+          description: Expense not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/expense/expenses/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expenses/employees/{employee_id}:
+    get:
+      tags:
+      - expense.Expense
+      summary: Retrieve all expenses for the employee corresponding to the given employee id
+      description: At least one of the valid_to and valid_from query parameters need to be set. When neither are provided, they will both default to "today". Since valid_to is non-inclusive, this leads to an empty response
+      operationId: expense.ExpenseAPI.searchByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the employee to search expenses for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.list.ExpenseList'
+      x-replacement-for:
+      - /t/expense/expenses/search_by/employees/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expenses/expensedistance/{expense_distance_id}:
+    put:
+      tags:
+      - expense.Expense
+      summary: Updates an expense distance position with a new position value
+      operationId: expense.ExpenseAPI.updatePositionForExpenseDistance
+      parameters:
+      - name: expense_distance_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registration.Position'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+      x-replacement-for:
+      - /t/expense/expenses/expensedistance/{expense_distance_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expenses/preview:
+    post:
+      tags:
+      - expense.Expense
+      summary: Used to get created Expense Route Without saving the expense
+      operationId: expense.ExpenseAPI.previewExpense
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense.Expense'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense.Expense'
+        '400':
+          description: Validation errors, or expense already exists
+      x-replacement-for:
+      - /t/expense/expenses/preview
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    registration.Position:
+      title: Position
+      type: object
+      properties:
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city where this position is part of. Can be <code>null</code>.
+        homeNumber:
+          type:
+          - integer
+          - 'null'
+          description: The home number of the position. Can be <code>null</code>.
+          format: int32
+        homeNumberExtension:
+          type:
+          - string
+          - 'null'
+          description: 'The possible extension the #homeNumber. Can be <code>null</code>.'
+        street:
+          type:
+          - string
+          - 'null'
+          description: The position's street name. Can be <code>null</code>
+        zipCode:
+          type:
+          - string
+          - 'null'
+          description: Zipcode part of the position. Can be <code>null</code>
+        country:
+          type: string
+          description: The two-letter country code. Examples are 'NL' and 'BE'.
+        longitude:
+          type:
+          - number
+          - 'null'
+          description: Longitude part of the position.
+          format: double
+        latitude:
+          type:
+          - number
+          - 'null'
+          description: Latitude part of the position.
+          format: double
+        usedGoogleAddress:
+          type: string
+      description: 'A Position denotes a physical location on a map. This position can either consist of address information, a
+
+        longitude/latitude pair or both. Not all fields are guaranteed to be present.'
+      example:
+        city: Enschede
+        homeNumber: 5
+        homeNumberExtension: ''
+        street: Bomenlaan
+        zipCode: 6521YH
+        country: NL
+        longitude: 52.665171
+        latitude: 5.215021
+        usedGoogleAddress: Bovenlaan 5, 6521YH Enschede, Netherlands
+      xml:
+        name: position
+    expense.Expense:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        expenseDate:
+          type: string
+          description: The date on which the expense was made (or booked)
+          format: date
+        verifyDate:
+          type: string
+          description: The date on which the expense was verified (through an approval process)
+          format: date
+        expenseTypeObjectId:
+          type: integer
+          description: 'Reference to the expense type that underlies the expense. This id is guaranteed not to change within an customer
+
+            environment. There is no API object available.'
+          format: int64
+        employeeObjectId:
+          type: integer
+          description: Id of the employee to which the expense belongs.
+          format: int64
+        amount:
+          type: number
+          description: 'The expense amount. This can kilometers, hours, or money.
+
+            <p>
+
+            Either an abosulte value or the sum of calculated value and deviation.
+
+            </p>'
+          format: double
+        calculatedAmount:
+          type: number
+          description: 'An expense can be calculated automatically from other information. In such cases the calculated amount repesents
+
+            the sum of this information.'
+          format: double
+        deviation:
+          type: number
+          description: Employees are given the option to register a deviation to the calculated amount.
+          format: double
+        description:
+          type: string
+          description: Employees may need to give a description of the expense.
+        expenseDistances:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense.ExpenseDistance'
+          description: 'For expenses that represent a distance, there may be {@link ExpenseDistance}s to further account the expense.
+
+            <p>Distances are ordered based on the underlying work (e.g. client visits)</p>'
+          xml:
+            wrapped: true
+        sourceType:
+          type: integer
+          format: int32
+        departureLocation:
+          allOf:
+          - $ref: '#/components/schemas/DepartureLocation'
+          description: 'Departure location. Possible values:
+
+            <pre>
+
+            HOME
+
+            OFFICE
+
+            </pre>'
+        departureClusterObjectId:
+          type: integer
+          format: int64
+      description: 'An expense is a value of some kind (determined) by its type, that an employee will be compensated for (usually via
+
+        her payroll).
+
+        <p>
+
+        Expenses can either be manual or automatic. Manual expenses will simply consist of an {@link #amount}.
+
+        Automatic expenses are based on the {@link #calculatedAmount} that, combined with a {@link #deviation}, leads to the
+
+        expense {@link #amount}.
+
+        </p>'
+      example:
+        id: 1
+        expenseDate: '2015-09-15'
+        verifyDate: '2015-10-15'
+        expenseTypeObjectId: 1
+        employeeObjectId: 1
+        amount: 11.23
+        calculatedAmount: 1.23
+        deviation: 10.5
+        description: The bridge was open
+        expenseDistances:
+        - id: 1
+          description: Mw. Grootebroek
+          commute: true
+          distance: 8.5
+          position:
+            city: Enschede
+            homeNumber: 5
+            homeNumberExtension: ''
+            street: Bomenlaan
+            zipCode: 6521YH
+            country: NL
+            longitude: 52.665171
+            latitude: 5.215021
+        - id: 2
+          description: Mw. Pia Jansen
+          commute: false
+          distance: 1.23
+          position:
+            city: Hengelo
+            homeNumber: 94
+            homeNumberExtension: bis
+            street: Kastanjelaan
+            zipCode: 6333YH
+            country: DE
+            longitude: 53.665171
+            latitude: 6.215021
+        sourceType: 6
+        departureLocation: HOME
+        departureClusterObjectId: 1
+      xml:
+        name: expense
+    expense.ExpenseDistance:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+          description: Description relevant to this distance, e.g. "Home" or client name
+        commute:
+          type: boolean
+          description: Is this distance part of commute traffic, i.e. was the previous address 'home', or is the next?
+        distance:
+          type: number
+          description: 'The distance traveled to get to this {@link #position}. The unit is kilometers.'
+          format: double
+        originalDistance:
+          type:
+          - number
+          - 'null'
+          description: The original distance traveled in kilometers. In case of commute km, the expense type may set a maximum and this field contains the amount when that maximum is exceeded.
+          format: double
+        position:
+          allOf:
+          - $ref: '#/components/schemas/registration.Position'
+          description: The position of this expense distance. For example a client's home.
+      description: An expense distance is the distance traveled to a location (position).
+      example:
+        id: 1
+        description: Mw. Pia Jansen
+        commute: true
+        distance: 12.5
+        originalDistance: 27.5
+        position:
+          city: Enschede
+          homeNumber: 5
+          homeNumberExtension: ''
+          street: Bomenlaan
+          zipCode: 6521YH
+          country: NL
+          longitude: 52.665171
+          latitude: 5.215021
+      xml:
+        name: expenseDistance
+    expense.list.ExpenseList:
+      type: object
+      properties:
+        expenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense.Expense'
+          xml:
+            name: expense
+      description: ExpenseList model (no description)
+      example:
+        expenses:
+        - id: 1
+          expenseDate: '2015-09-15'
+          verifyDate: '2015-10-15'
+          expenseTypeObjectId: 1
+          employeeObjectId: 1
+          amount: 11.23
+          calculatedAmount: 1.23
+          deviation: 10.5
+          description: The bridge was open
+        - id: 1
+          expenseDate: '2015-09-15'
+          verifyDate: '2015-10-15'
+          expenseTypeObjectId: 1
+          employeeObjectId: 1
+          amount: 11.23
+          calculatedAmount: 1.23
+          deviation: 10.5
+          description: The bridge was open
+      xml:
+        name: expenses
+    DepartureLocation:
+      enum:
+      - HOME
+      - OFFICE
+      type: string
+      description: DepartureLocation which is used to determine which address should be used for the automated travel calculations
+      example: HOME
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,118 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Active Care Plan Metadata API
+  version: 0.0.0
+  description: 'Operations tagged dossier.ActiveCarePlanMetadata across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.ActiveCarePlanMetadata
+paths:
+  /t/active_care_plan_metadata:
+    get:
+      tags:
+      - dossier.ActiveCarePlanMetadata
+      summary: Returns active care plan metadata given the client ids
+      operationId: dossier.ActiveCarePlanMetadataAPI.byClientIds
+      parameters:
+      - name: client_ids
+        in: query
+        description: The ids of the clients (client_ids[]=1&client_ids[]=2...)
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ActiveCarePlanMetadata'
+      x-replaced-by: /v0/dossier/back_channel/authorized/active_care_plan_metadata
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/active_care_plan_metadata:
+    get:
+      tags:
+      - dossier.ActiveCarePlanMetadata
+      summary: Returns active care plan metadata given the client ids
+      operationId: dossier.ActiveCarePlanMetadataAPI.byClientIds
+      parameters:
+      - name: client_ids[]
+        in: query
+        description: The ids of the clients (client_ids[]=1&client_ids[]=2...)
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+        x-original-parameter:
+          name: client_ids
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ActiveCarePlanMetadata'
+      x-replacement-for:
+      - /t/active_care_plan_metadata
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.CarePlanName:
+      enum:
+      - CARE_PLAN
+      - PLAN
+      type: string
+      description: Care plan name set by the customer
+      example: PLAN
+    dossier.ActiveCarePlanMetadata:
+      type: object
+      properties:
+        carePlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.CarePlanMetadata'
+        carePlanName:
+          allOf:
+          - $ref: '#/components/schemas/dossier.CarePlanName'
+          description: Care plan name set by the customer
+      description: ActiveCarePlanMetadata list model (no description)
+      example:
+        carePlans:
+        - clientId: 1
+          beginDate: '2021-01-01'
+          endDate: '2021-02-06'
+        carePlanName: PLAN
+    dossier.CarePlanMetadata:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          description: Begin date of this care plan
+          format: date
+        endDate:
+          type: string
+          description: End date of this care plan
+          format: date
+      description: CarePlanMetadata model (no description)
+      example:
+        clientId: 1
+        beginDate: '2021-01-01'
+        endDate: '2021-02-06'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

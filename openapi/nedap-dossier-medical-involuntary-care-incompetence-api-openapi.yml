@@ -1,0 +1,424 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.medical.involuntary Care.Incompetence API
+  version: 0.0.0
+  description: 'Operations tagged dossier.medical.involuntary_care.Incompetence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.medical.involuntary_care.Incompetence
+paths:
+  /t/dossier/medical/involuntary_care/incompetences:
+    post:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Create Incompetence
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.create
+      requestBody:
+        description: Incompetence to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/incompetences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/medical/involuntary_care/incompetences/{id}:
+    get:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Gets a Incompetence by specified identifier
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Incompetence to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/incompetences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Updates the given Incompetence
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Incompetence to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Incompetence to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/incompetences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Deletes the Incompetence with given id
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Incompetence to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/incompetences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    patch:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Patches Incompetence with given id
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/incompetences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/involuntary_care/incompetences:
+    post:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Create Incompetence
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.create
+      requestBody:
+        description: Incompetence to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/incompetences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/involuntary_care/incompetences/{id}:
+    get:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Gets a Incompetence by specified identifier
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Incompetence to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/incompetences/{id}
+    put:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Updates the given Incompetence
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Incompetence to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Incompetence to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/incompetences/{id}
+    delete:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Deletes the Incompetence with given id
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Incompetence to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/incompetences/{id}
+    patch:
+      tags:
+      - dossier.medical.involuntary_care.Incompetence
+      summary: Patches Incompetence with given id
+      operationId: dossier.medical.involuntary_care.IncompetenceAPI.patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.Incompetence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/incompetences/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
+    dossier.medical.DecisionBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      properties:
+        outcome:
+          type: string
+          description: 'The outcome that should be set on the decision
+
+            Should be a valid outcome code within the system that is set on this builder'
+      description: DecisionBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 61420007 | Tube feeding |
+        name: Sondevoeding
+        outcome: 373067005 | no |
+    dossier.medical.involuntary_care.Incompetence:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        narrative:
+          type: string
+          description: Extra comments relating to this incompetence
+        startDate:
+          type: string
+          description: The start date of the incompetence.
+          format: date
+        endDate:
+          type: string
+          description: The end date of the incompetence. If this is in the past, the incompetence is no longer active
+          format: date
+        snomedExpressionValue:
+          type: string
+          description: The snomed expression of the incompetence decision
+        decisionBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
+          description: The decision builder to build the medical relation
+        decision:
+          type: string
+      description: An incompetence of a client
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        narrative: I can't do this
+        startDate: '2015-09-17'
+        endDate: '2015-09-27'
+        snomedExpressionValue: 285033005 | ability to manage medication |
+        decisionBuilders:
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        decision: Uitvoeren van gastroscopie
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

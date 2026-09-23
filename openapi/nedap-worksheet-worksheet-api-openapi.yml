@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Nedap Worksheet.Worksheet API
+  version: 0.0.0
+  description: 'Operations tagged worksheet.Worksheet across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: worksheet.Worksheet
+paths:
+  /t/worksheets/{employee_id}:
+    get:
+      tags:
+      - worksheet.Worksheet
+      summary: Returns worksheet in pdf format
+      operationId: worksheet.WorksheetAPI.generate
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/worksheet.Worksheet'
+      x-replaced-by: /v0/administration/worksheets/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/worksheets/{employee_id}:
+    get:
+      tags:
+      - worksheet.Worksheet
+      summary: Returns worksheet in pdf format
+      operationId: worksheet.WorksheetAPI.generate
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/worksheet.Worksheet'
+      x-replacement-for:
+      - /t/worksheets/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    worksheet.Worksheet:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: string
+          description: The contents of the generated worksheet in base64 encoded pdf format.
+          format: binary
+      description: Worksheet model (no description)
+      example:
+        content: U2VuZCByZWluZm9yY2VtZW50cw==
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,282 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Finance Log API
+  version: 0.0.0
+  description: 'Operations tagged finance.FinanceLog across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.FinanceLog
+paths:
+  /t/finance/finance_logs/x-stream-connect/data:
+    get:
+      tags:
+      - finance.FinanceLog
+      summary: Return all FinanceLog models in a streaming manner
+      operationId: finance.FinanceLogAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.FinanceLogList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceLog'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/finance_logs/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/finance_logs/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.FinanceLog
+      summary: Return all FinanceLog models which where updated since the date given in the…
+      operationId: finance.FinanceLogAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.FinanceLogList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceLog'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/finance_logs/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/finance_logs/data:
+    get:
+      tags:
+      - finance.FinanceLog
+      summary: Return all FinanceLog models in a streaming manner
+      operationId: finance.FinanceLogAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.FinanceLogList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceLog'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/finance_logs/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/finance_logs/updates:
+    get:
+      tags:
+      - finance.FinanceLog
+      summary: Return all FinanceLog models which where updated since the date given in the…
+      operationId: finance.FinanceLogAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.FinanceLogList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceLog'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/finance_logs/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.FinanceLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        employeeId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
+        careOrderProductId:
+          type: integer
+          format: int64
+        locationId:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date-time
+        productId:
+          type: integer
+          format: int64
+        unit:
+          type: integer
+          format: int32
+        tarief:
+          type: integer
+          format: int32
+        amount:
+          type: integer
+          format: int32
+        issue:
+          type: integer
+          format: int32
+        tariefUnit:
+          type: integer
+          format: int32
+        provider:
+          type: string
+        vat:
+          type: number
+          format: double
+        debtorId:
+          type: integer
+          format: int64
+        source:
+          type: string
+        costCenter:
+          type: string
+        originalProductId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Finance log model.
+      example:
+        id: 1
+        clientId: 1
+        employeeId: 1
+        teamId: 1
+        careOrderProductId: 1
+        locationId: 1
+        date: '2015-01-28T00:00:00.000+01:00'
+        productId: 1
+        unit: 1
+        tarief: 1
+        amount: 1
+        issue: 1
+        tariefUnit: 1
+        provider: Dummy
+        vat: 1.234
+        debtorId: 1
+        source: ExportPresenceLog
+        costCenter: '12345678'
+        originalProductId: 1
+        createdAt: '2015-01-28T00:00:00.000+01:00'
+        updatedAt: '2015-01-28T00:00:00.000+01:00'
+      xml:
+        name: financeLog
+    finance.list.FinanceLogList:
+      type: object
+      properties:
+        financeLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.FinanceLog'
+          xml:
+            name: financeLog
+      description: FinanceLogList model (no description)
+      example:
+        financeLogs:
+        - id: 1
+          clientId: 1
+          employeeId: 1
+          teamId: 1
+          careOrderProductId: 1
+          locationId: 1
+          date: '2015-01-28T00:00:00.000+01:00'
+          productId: 1
+          unit: 1
+          tarief: 1
+          amount: 1
+          issue: 1
+          tariefUnit: 1
+          provider: Dummy
+          vat: 1.234
+          debtorId: 1
+          source: ExportPresenceLog
+          costCenter: '12345678'
+          originalProductId: 1
+        - id: 1
+          clientId: 1
+          employeeId: 1
+          teamId: 1
+          careOrderProductId: 1
+          locationId: 1
+          date: '2015-01-28T00:00:00.000+01:00'
+          productId: 1
+          unit: 1
+          tarief: 1
+          amount: 1
+          issue: 1
+          tariefUnit: 1
+          provider: Dummy
+          vat: 1.234
+          debtorId: 1
+          source: ExportPresenceLog
+          costCenter: '12345678'
+          originalProductId: 1
+      xml:
+        name: financeLogs
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

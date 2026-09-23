@@ -1,0 +1,350 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Shift Assignment API
+  version: 0.0.0
+  description: 'Operations tagged moves.ShiftAssignment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.ShiftAssignment
+paths:
+  /t/moves/employees/{employee_id}/shift_assignments/upcoming:
+    get:
+      tags:
+      - moves.ShiftAssignment
+      summary: Return the first upcoming shift assignment of an Employee specified by id
+      description: The response is a list of shift assignments of length 1
+      operationId: moves.ShiftAssignmentAPI.upcomingForEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: The {id} of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftAssignmentList'
+      x-replaced-by: /v0/plannen_roosteren/employees/{employee_id}/shift_assignments/upcoming
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/shift_assignments/starting_between:
+    get:
+      tags:
+      - moves.ShiftAssignment
+      summary: Return all the shift assignments starting within the specified period
+      description: The requested period must be 1 hour or less
+      operationId: moves.ShiftAssignmentAPI.startingBetween
+      parameters:
+      - name: start_datetime
+        in: query
+        description: The start of the requested period
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      - name: end_datetime
+        in: query
+        description: The end of the requested period (exclusive)
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftAssignmentList'
+        '400':
+          description: Invalid period, or parsing errors
+      x-replaced-by: /v0/plannen_roosteren/shift_assignments/starting_between
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/employees/{employee_id}/shift_assignments/upcoming:
+    get:
+      tags:
+      - moves.ShiftAssignment
+      summary: Return the first upcoming shift assignment of an Employee specified by id
+      description: The response is a list of shift assignments of length 1
+      operationId: moves.ShiftAssignmentAPI.upcomingForEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: The {id} of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftAssignmentList'
+      x-replacement-for:
+      - /t/moves/employees/{employee_id}/shift_assignments/upcoming
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/shift_assignments/starting_between:
+    get:
+      tags:
+      - moves.ShiftAssignment
+      summary: Return all the shift assignments starting within the specified period
+      description: The requested period must be 1 hour or less
+      operationId: moves.ShiftAssignmentAPI.startingBetween
+      parameters:
+      - name: start_datetime
+        in: query
+        description: The start of the requested period
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      - name: end_datetime
+        in: query
+        description: The end of the requested period (exclusive)
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftAssignmentList'
+        '400':
+          description: Invalid period, or parsing errors
+      x-replacement-for:
+      - /t/moves/shift_assignments/starting_between
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.list.ShiftAssignmentList:
+      title: ShiftAssignmentList
+      type: object
+      properties:
+        shiftAssignments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/moves.ShiftAssignment'
+          xml:
+            name: shiftAssignment
+      description: ShiftAssignmentList model (no description)
+      example:
+        shiftAssignments:
+        - id: 1
+          date: '1999-12-31'
+          beginTime: '1999-12-31T22:00:00.000+01:00'
+          endTime: '1999-12-31T23:00:00.000+01:00'
+          externalExpertiseProfileId: 1
+          expertiseProfileName: Verpleegkundige
+          shiftId: 1@2014-03-28
+          employeeId: 1
+          employeeLeadingName: Jan Henk
+          employeeName: Jan Henk Heilersig
+          onCall: true
+          timelineShiftId: 1654
+          unitId: 5
+          breakDuration: 15
+          incidental: true
+          order: 0
+          startBreakTime: '1999-12-31T22:15:00.000+01:00'
+          stopBreakTime: '1999-12-31T23:29:00.000+01:00'
+          discardedAt: '2000-12-31T23:29:00.000+01:00'
+        - id: 2
+          date: '1999-12-31'
+          beginTime: '1999-12-31T22:00:00.000+01:00'
+          endTime: '1999-12-31T23:00:00.000+01:00'
+          externalExpertiseProfileId: 1
+          expertiseProfileName: Verpleegkundige
+          shiftId: 2@2014-03-28
+          employeeId: 2
+          employeeLeadingName: Jan Hendrik
+          employeeName: Jan Hendrik Croockewit
+          onCall: false
+          timelineShiftId: 1754
+          unitId: 6
+          breakDuration: 16
+          incidental: true
+          order: 0
+          startBreakTime: '1999-12-31T22:15:00.000+01:00'
+          stopBreakTime: '1999-12-31T23:29:00.000+01:00'
+          discardedAt: '2000-12-31T23:29:00.000+01:00'
+      xml:
+        name: shiftAssignments
+    moves.ShiftAssignment:
+      title: ShiftAssignment
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        date:
+          type:
+          - string
+          - 'null'
+          format: date
+        beginTime:
+          type:
+          - string
+          - 'null'
+          description: Effective begin time (based on the shift or incidental)
+          format: date-time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: Effective end time (based on the shift or incidental)
+          format: date-time
+        shiftId:
+          type:
+          - string
+          - 'null'
+          description: 'Composed from the timeline_id and date: "413@2019-05-01"'
+        shiftName:
+          type:
+          - string
+          - 'null'
+          description: Name of the shift
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeLeadingName:
+          type:
+          - string
+          - 'null'
+        employeeName:
+          type:
+          - string
+          - 'null'
+        externalExpertiseProfileId:
+          type:
+          - integer
+          - 'null'
+          description: Effective expertise profile (based on the shift or incidentally changed)
+          format: int64
+        expertiseProfileName:
+          type:
+          - string
+          - 'null'
+          description: Name of the effective expertise profile
+        onCall:
+          type:
+          - boolean
+          - 'null'
+          description: Is it an on-call (bereikbaarheidsdienst) shift
+        timelineShiftId:
+          type:
+          - integer
+          - 'null'
+          description: To what shift does it belong
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          description: To what team does it belong
+          format: int64
+        unitId:
+          type:
+          - integer
+          - 'null'
+          description: To what team does it belong
+          format: int64
+          deprecated: true
+          x-deprecated-since: 01-06-2026
+        breakDuration:
+          type:
+          - integer
+          - 'null'
+          description: How long is the break (in minutes)
+          format: int64
+        incidental:
+          type:
+          - boolean
+          - 'null'
+          description: Has one of the following fields been changed in comparison to the original shift (begin/end time, start/stop break time and/or expertise profile).
+        order:
+          type:
+          - integer
+          - 'null'
+          description: Order of ShiftAssignments if there are multiple on the same date and shift.
+          format: int64
+        startBreakTime:
+          type:
+          - string
+          - 'null'
+          description: Effective start break time (based on the shift or incidental)
+          format: date-time
+        stopBreakTime:
+          type:
+          - string
+          - 'null'
+          description: Effective stop break time (based on the shift or incidental)
+          format: date-time
+        discardedAt:
+          type:
+          - string
+          - 'null'
+          description: Shift Assignments are not hard-deleted, but marked as discarded. When the Shift Assignment is discarded, discardedAt shows when this was discarded.
+          format: date-time
+        exportable:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this ShiftAssignnment will be exported. Only available through specific APIs.
+      description: Updated by Jurriën Gosselink on 04-03-19
+      example:
+        id: 1
+        date: '1999-12-31'
+        beginTime: '1999-12-31T22:00:00.000+01:00'
+        endTime: '1999-12-31T23:00:00.000+01:00'
+        shiftId: 1@2014-03-28
+        shiftName: (1) Morning
+        employeeId: 1
+        employeeLeadingName: Jan Henk
+        employeeName: Jan Henk Heilersig
+        externalExpertiseProfileId: 1
+        expertiseProfileName: Verpleegkundige
+        onCall: true
+        timelineShiftId: 1654
+        unitId: 5
+        teamId: 5
+        breakDuration: 15
+        incidental: true
+        order: 0
+        startBreakTime: '1999-12-31T22:15:00.000+01:00'
+        stopBreakTime: '1999-12-31T23:29:00.000+01:00'
+        discardedAt: '2000-12-31T23:29:00.000+01:00'
+        exportable: true
+      xml:
+        name: shiftAssignment
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

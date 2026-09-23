@@ -1,0 +1,103 @@
+openapi: 3.2.0
+info:
+  title: Nedap Openehr.Care Plan Vvt Care Profile Link API
+  version: 0.0.0
+  description: 'Operations tagged openehr.CarePlanVvtCareProfileLink across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: openehr.CarePlanVvtCareProfileLink
+paths:
+  /t/openehr/vvt_care_profiles/care_plan_links:
+    post:
+      tags:
+      - openehr.CarePlanVvtCareProfileLink
+      summary: Returns care plan IDs for given VVT care profile composition IDs
+      operationId: openehr.CarePlanVvtCareProfileLinkAPI.linkIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.CompositionIdList'
+        required: true
+      responses:
+        '200':
+          description: List of care plan IDs for given VVT care profile composition IDs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CarePlanVvtCareProfileLinkList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/vvt_care_profiles/care_plan_links
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/vvt_care_profiles/care_plan_links:
+    post:
+      tags:
+      - openehr.CarePlanVvtCareProfileLink
+      summary: Returns care plan IDs for given VVT care profile composition IDs
+      operationId: openehr.CarePlanVvtCareProfileLinkAPI.linkIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.CompositionIdList'
+        required: true
+      responses:
+        '200':
+          description: List of care plan IDs for given VVT care profile composition IDs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CarePlanVvtCareProfileLinkList'
+      x-replacement-for:
+      - /t/openehr/vvt_care_profiles/care_plan_links
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    openehr.CompositionIdList:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+      description: CompositionIdList model (no description)
+      example:
+        ids:
+        - 101
+        - 102
+        - 103
+    openehr.CarePlanVvtCareProfileLink:
+      type: object
+      properties:
+        carePlanId:
+          type: integer
+          format: int64
+        compositionId:
+          type: integer
+          format: int64
+      description: CarePlanVvtCareProfileLink model (no description)
+      example:
+        carePlanId: 1189
+        compositionId: 2077
+    openehr.list.CarePlanVvtCareProfileLinkList:
+      type: object
+      properties:
+        carePlanVvtCareProfileLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CarePlanVvtCareProfileLink'
+      description: CarePlanVvtCareProfileLinkList model (no description)
+      example:
+        carePlanVvtCareProfileLinks:
+        - carePlanId: 1189
+          compositionId: 2077
+        - carePlanId: 8119
+          compositionId: 7022
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

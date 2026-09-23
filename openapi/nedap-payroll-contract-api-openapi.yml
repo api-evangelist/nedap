@@ -1,0 +1,429 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Contract API
+  version: 0.0.0
+  description: 'Operations tagged payroll.Contract across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.Contract
+paths:
+  /t/payroll/contracts:
+    post:
+      tags:
+      - payroll.Contract
+      summary: Create a new Contract
+      operationId: payroll.ContractAPI.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payroll.Contract'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/contracts
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/contracts/{id}:
+    get:
+      tags:
+      - payroll.Contract
+      summary: Return the Contract corresponding to the given id
+      operationId: payroll.ContractAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Contract
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '404':
+          description: Contract not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/contracts/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - payroll.Contract
+      summary: Update an existing Contract
+      operationId: payroll.ContractAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Contract
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payroll.Contract'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '400':
+          description: Validation errors
+        '404':
+          description: Contract not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/contracts/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/contracts:
+    get:
+      tags:
+      - payroll.Contract
+      summary: Return the contracts of an Employee corresponding to the given id
+      operationId: payroll.ContractAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.ContractList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/contracts
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/contracts/x-stream-connect/data:
+    get:
+      tags:
+      - payroll.Contract
+      summary: Return all Contract models in a streaming manner
+      operationId: payroll.ContractAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.ContractList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/contracts/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/contracts/x-stream-connect/updates:
+    get:
+      tags:
+      - payroll.Contract
+      summary: Return all Contract models which where updated since the date given in the…
+      operationId: payroll.ContractAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.ContractList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/contracts/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/contracts:
+    post:
+      tags:
+      - payroll.Contract
+      summary: Create a new Contract
+      operationId: payroll.ContractAPI.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payroll.Contract'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/contracts
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/contracts/{id}:
+    get:
+      tags:
+      - payroll.Contract
+      summary: Return the Contract corresponding to the given id
+      operationId: payroll.ContractAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Contract
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '404':
+          description: Contract not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/contracts/{id}
+    put:
+      tags:
+      - payroll.Contract
+      summary: Update an existing Contract
+      operationId: payroll.ContractAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Contract
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payroll.Contract'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '400':
+          description: Validation errors
+        '404':
+          description: Contract not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/contracts/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/contracts:
+    get:
+      tags:
+      - payroll.Contract
+      summary: Return the contracts of an Employee corresponding to the given id
+      operationId: payroll.ContractAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.ContractList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/contracts
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/contracts/data:
+    get:
+      tags:
+      - payroll.Contract
+      summary: Return all Contract models in a streaming manner
+      operationId: payroll.ContractAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.ContractList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/contracts/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/contracts/updates:
+    get:
+      tags:
+      - payroll.Contract
+      summary: Return all Contract models which where updated since the date given in the…
+      operationId: payroll.ContractAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.ContractList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.Contract'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/contracts/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.Contract:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeId:
+          type: integer
+          format: int64
+        fixed:
+          type: number
+          format: double
+        var:
+          type: number
+          format: double
+        contractTypeId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+      description: 'Contract model
+
+
+        Created on 22/04/15.'
+      example:
+        id: 1
+        employeeId: 1
+        fixed: 1.234
+        var: 1.234
+        contractTypeId: 1
+        beginDate: '2015-01-01'
+        endDate: '2020-01-01'
+      xml:
+        name: contract
+    payroll.list.ContractList:
+      type: object
+      properties:
+        contracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.Contract'
+          xml:
+            name: contract
+      description: ContractList model (no description)
+      example:
+        contracts:
+        - id: 1
+          employeeId: 1
+          fixed: 1.234
+          var: 1.234
+          contractTypeId: 1
+          beginDate: '2015-01-01'
+          endDate: '2020-01-01'
+      xml:
+        name: contracts
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

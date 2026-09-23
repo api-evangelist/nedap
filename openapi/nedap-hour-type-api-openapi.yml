@@ -1,0 +1,339 @@
+openapi: 3.2.0
+info:
+  title: Nedap Hour Type API
+  version: 0.0.0
+  description: 'Operations tagged HourType across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Hour Type
+paths:
+  /t/expertise_profiles/{expertise_profiles_id}/hour_types:
+    get:
+      tags:
+      - Hour Type
+      summary: Return the hour type of a ExpertiseProfiles corresponding to the given id
+      operationId: HourTypeAPI.byExpertiseProfileId
+      parameters:
+      - name: expertise_profiles_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeList'
+      x-replaced-by: /v0/administration/expertise_profiles/{expertise_profiles_id}/hour_types
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/hour_types:
+    get:
+      tags:
+      - Hour Type
+      summary: Returns every HourType available from the HourTypeAPI
+      operationId: HourTypeAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeList'
+        '404':
+          description: Hour type category not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/hour_types
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/hour_types/{id}:
+    get:
+      tags:
+      - Hour Type
+      summary: Get the Hour Type corresponding to the given id
+      operationId: HourTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting HourType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HourType'
+        '404':
+          description: Hour type not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/hour_types/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/hour_types/multiple:
+    get:
+      tags:
+      - Hour Type
+      summary: Method used for requesting multiple HourType objects using their ids
+      operationId: HourTypeAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/hour_types/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expertise_profiles/{expertise_profiles_id}/hour_types:
+    get:
+      tags:
+      - Hour Type
+      summary: Return the hour type of a ExpertiseProfiles corresponding to the given id
+      operationId: HourTypeAPI.byExpertiseProfileId
+      parameters:
+      - name: expertise_profiles_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeList'
+      x-replacement-for:
+      - /t/expertise_profiles/{expertise_profiles_id}/hour_types
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hour_types:
+    get:
+      tags:
+      - Hour Type
+      summary: Returns every HourType available from the HourTypeAPI
+      operationId: HourTypeAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeList'
+        '404':
+          description: Hour type category not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/hour_types
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hour_types/{id}:
+    get:
+      tags:
+      - Hour Type
+      summary: Get the Hour Type corresponding to the given id
+      operationId: HourTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting HourType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HourType'
+        '404':
+          description: Hour type not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/hour_types/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/hour_types/multiple:
+    get:
+      tags:
+      - Hour Type
+      summary: Method used for requesting multiple HourType objects using their ids
+      operationId: HourTypeAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.HourTypeList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/hour_types/multiple
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    HourType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: An unique ID of this hourtype
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+          description: A description of this hourtype
+        identificationNo:
+          type: string
+        activityGroupObjectId:
+          type: integer
+          format: int64
+        externalCode3:
+          type: string
+        active:
+          type: boolean
+          description: Indicates if the hourtype is active and can be used in presencelogs
+        payrolling:
+          type: boolean
+        direct:
+          type: boolean
+          description: Indicates if the hourtype is for client time a.k.a. direct time
+        systemDefined:
+          type: boolean
+        travelTime:
+          type: boolean
+        activityType:
+          type: string
+        groupCare:
+          type: boolean
+          description: Indicates if the hourtype is meant for group care
+        transport:
+          type: boolean
+        quantityBased:
+          type: boolean
+        directAllowed:
+          type: boolean
+          description: Indicates it is allowed to write direct clienttime on a presence log with this hourtype
+        indirectAllowed:
+          type: boolean
+          description: Indicates it is allowed to write indirect clienttime on a presence log with this hourtype
+        travelAllowed:
+          type: boolean
+          description: Indicates it is allowed to write travel clienttime on a presence log with this hourtype
+        noShow:
+          type: boolean
+          description: Indicates if the hour type is a no show hourtype
+        snomedCode:
+          type: string
+          description: Corresponding snomed code used for data exchange with zibs
+        travelCalculationDisabled:
+          type: boolean
+          description: When set to true, this hourtype will not be used in travel calculations like travel time or distances
+        absenceAllowed:
+          type: boolean
+          description: Indicates if client(s) are allowed to be partially absent during an activity with this hourtype
+        splitHourtype:
+          type: boolean
+          description: When set to true, this hourtype will be divided in Administration
+      description: A.K.A. Activity.
+      example:
+        id: 1
+        description: Activiteiten begeleiding - patiëntgebonden handelen
+        identificationNo: '194822'
+        activityGroupObjectId: 1
+        externalCode3: '3'
+        active: true
+        payrolling: true
+        direct: true
+        systemDefined: false
+        travelTime: false
+        activityType: Payrolling
+        groupCare: false
+        transport: false
+        quantityBased: true
+        directAllowed: true
+        indirectAllowed: true
+        travelAllowed: true
+        noShow: true
+        snomedCode: '1234'
+        travelCalculationDisabled: false
+        absenceAllowed: false
+        splitHourtype: false
+      xml:
+        name: hourType
+    list.HourTypeList:
+      type: object
+      properties:
+        hourTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HourType'
+          xml:
+            name: hourType
+      description: HourTypeList model (no description)
+      example:
+        hourTypes:
+        - id: 1
+          description: Activiteiten begeleiding - patiëntgebonden handelen
+          identificationNo: '194822'
+          activityGroupObjectId: 1
+          externalCode3: '3'
+          active: true
+          payrolling: true
+          direct: true
+          systemDefined: false
+          travelTime: false
+          activityType: Payrolling
+          groupCare: false
+          noShow: true
+          travelCalculationDisabled: false
+          absenceAllowed: false
+      xml:
+        name: hourTypes
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,369 @@
+openapi: 3.2.0
+info:
+  title: Nedap Location Assignment Residence API
+  version: 0.0.0
+  description: 'Operations tagged LocationAssignmentResidence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: LocationAssignmentResidence
+paths:
+  /t/location_assignment_residences:
+    post:
+      tags:
+      - LocationAssignmentResidence
+      summary: Create LocationAssignmentResidence
+      operationId: LocationAssignmentResidenceAPI.create
+      requestBody:
+        description: LocationAssignmentResidence to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignmentResidence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentResidence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignment_residences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/location_assignment_residences/{id}:
+    get:
+      tags:
+      - LocationAssignmentResidence
+      summary: Return the Location Assignment Residence corresponding to the given id
+      operationId: LocationAssignmentResidenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignmentResidence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentResidence'
+        '404':
+          description: Location assignment residence not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignment_residences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - LocationAssignmentResidence
+      summary: Updates the given LocationAssignmentResidence
+      operationId: LocationAssignmentResidenceAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignmentResidence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: LocationAssignmentResidence to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignmentResidence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentResidence'
+        '404':
+          description: Location assignment residence not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignment_residences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/location_assignment_residences/by_careorder/{care_order_object_id}:
+    get:
+      tags:
+      - LocationAssignmentResidence
+      summary: Find a list of locationAssignmentResidences based on the careorderobjectid
+      operationId: LocationAssignmentResidenceAPI.byCareOrder
+      parameters:
+      - name: care_order_object_id
+        in: path
+        description: Techincal identifcation of a careorder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentResidenceList'
+      x-replaced-by: /v0/administration/location_assignment_residences/by_careorder/{care_order_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/location_assignment_residences:
+    post:
+      tags:
+      - LocationAssignmentResidence
+      summary: Create LocationAssignmentResidence
+      operationId: LocationAssignmentResidenceAPI.create
+      requestBody:
+        description: LocationAssignmentResidence to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignmentResidence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentResidence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignment_residences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/location_assignment_residences/{id}:
+    get:
+      tags:
+      - LocationAssignmentResidence
+      summary: Return the Location Assignment Residence corresponding to the given id
+      operationId: LocationAssignmentResidenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignmentResidence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentResidence'
+        '404':
+          description: Location assignment residence not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignment_residences/{id}
+    put:
+      tags:
+      - LocationAssignmentResidence
+      summary: Updates the given LocationAssignmentResidence
+      operationId: LocationAssignmentResidenceAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignmentResidence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: LocationAssignmentResidence to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignmentResidence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentResidence'
+        '404':
+          description: Location assignment residence not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignment_residences/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/location_assignment_residences/by_careorder/{care_order_object_id}:
+    get:
+      tags:
+      - LocationAssignmentResidence
+      summary: Find a list of locationAssignmentResidences based on the careorderobjectid
+      operationId: LocationAssignmentResidenceAPI.byCareOrder
+      parameters:
+      - name: care_order_object_id
+        in: path
+        description: Techincal identifcation of a careorder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentResidenceList'
+      x-replacement-for:
+      - /t/location_assignment_residences/by_careorder/{care_order_object_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    LocationAssignmentResidence:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/LocationAssignment'
+      properties:
+        careOrderObjectId:
+          type: integer
+          description: 'The careorder where this locationassignment belongs to.
+
+            This is needed to be able to create a declaration based on locationassignments'
+          format: int64
+        hourTypeObjectId:
+          type: integer
+          description: 'The kind of care that is given using this locationassignment. Example: GGZ verblijf licht
+
+            This is needed to be able to create a declaration based on locationassignments'
+          format: int64
+        productObjectId:
+          type: integer
+          description: 'Deprecated since: 14-03-2019 - use hourTypeObjectId instead.'
+          format: int64
+          deprecated: true
+      description: LocationAssignmentResidence model (no description)
+      example:
+        id: 1
+        beginDate: '2012-08-02'
+        beginTime: '10:11:00.000'
+        endDate: '2012-08-02'
+        endTime: '12:13:00.000'
+        clientObjectId: 1
+        locationObjectId: 1
+        moveDate: '2012-08-02'
+        locationAssignmentType: MAIN
+        residence: false
+        mainLocation: true
+        medicineLocation: true
+        careOrderObjectId: 1
+        hourTypeObjectId: 1
+        productObjectId: 1
+      xml:
+        name: locationAssignmentResidence
+    list.LocationAssignmentResidenceList:
+      type: object
+      properties:
+        locationAssignmentResidences:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAssignmentResidence'
+      description: LocationAssignmentResidenceList model (no description)
+      example:
+        locationAssignmentResidences:
+        - id: 1
+          beginDate: '2012-08-02'
+          beginTime: '10:11:00.000'
+          endDate: '2012-08-02'
+          endTime: '12:13:00.000'
+          clientObjectId: 2
+          locationObjectId: 3
+          moveDate: '2012-08-02'
+          locationAssignmentType: MAIN
+          residence: false
+          mainLocation: true
+          medicineLocation: false
+    LocationAssignmentType:
+      enum:
+      - STANDARD
+      - MAIN
+      - MEDICINE
+      - GGZ
+      - WAITING_LIST
+      type: string
+      description: LocationAssignmentType enum (no description)
+      example: STANDARD
+    LocationAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date
+        beginTime:
+          type: string
+          format: time
+        endDate:
+          type: string
+          format: date
+        endTime:
+          type: string
+          format: time
+        clientObjectId:
+          type: integer
+          format: int64
+        locationObjectId:
+          type: integer
+          format: int64
+        moveDate:
+          type: string
+          format: date
+        locationAssignmentType:
+          $ref: '#/components/schemas/LocationAssignmentType'
+        residence:
+          type: boolean
+          description: Indicates if the client resides at this location
+        mainLocation:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - use locationAssignmentType instead'
+          deprecated: true
+        medicineLocation:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - use locationAssignmentType instead'
+          deprecated: true
+      description: LocationAssignment model (no description)
+      example:
+        id: 1
+        beginDate: '2012-08-02'
+        beginTime: '10:11:00.000'
+        endDate: '2012-08-02'
+        endTime: '12:13:00.000'
+        clientObjectId: 2
+        locationObjectId: 3
+        moveDate: '2012-08-02'
+        locationAssignmentType: MAIN
+        residence: false
+        mainLocation: true
+        medicineLocation: false
+      xml:
+        name: locationAssignment
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,229 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Debtor Group API
+  version: 0.0.0
+  description: 'Operations tagged finance.DebtorGroup across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.DebtorGroup
+paths:
+  /t/finance/debtor_groups:
+    get:
+      tags:
+      - finance.DebtorGroup
+      summary: Returns every DebtorGroup available from the DebtorGroupAPI
+      operationId: finance.DebtorGroupAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.DebtorGroupList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/finance/debtorGroups
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/debtor_groups/{id}:
+    get:
+      tags:
+      - finance.DebtorGroup
+      summary: Retrieve debtor group by id
+      operationId: finance.DebtorGroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DebtorGroup
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DebtorGroup'
+        '404':
+          description: Not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/finance/debtorGroups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/debtor_groups/by_debtor_id/{debtor_id}:
+    get:
+      tags:
+      - finance.DebtorGroup
+      summary: Return a DebtorGroupsList for which holds that every DebtorGroup contains…
+      operationId: finance.DebtorGroupAPI.byDebtorId
+      parameters:
+      - name: debtor_id
+        in: path
+        description: the debtorId that should fall in the returned debtor groups
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.DebtorGroupList'
+      x-replaced-by: /v0/finance/debtorGroups/byDebtorId/{debtor_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/finance/debtorGroups:
+    get:
+      tags:
+      - finance.DebtorGroup
+      summary: Returns every DebtorGroup available from the DebtorGroupAPI
+      operationId: finance.DebtorGroupAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.DebtorGroupList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/debtor_groups
+    servers:
+    - url: https://api-development.ons.io
+  /v0/finance/debtorGroups/{id}:
+    get:
+      tags:
+      - finance.DebtorGroup
+      summary: Retrieve debtor group by id
+      operationId: finance.DebtorGroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DebtorGroup
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.DebtorGroup'
+        '404':
+          description: Not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/debtor_groups/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/finance/debtorGroups/byDebtorId/{debtor_id}:
+    get:
+      tags:
+      - finance.DebtorGroup
+      summary: Return a DebtorGroupsList for which holds that every DebtorGroup contains…
+      operationId: finance.DebtorGroupAPI.byDebtorId
+      parameters:
+      - name: debtor_id
+        in: path
+        description: the debtorId that should fall in the returned debtor groups
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.DebtorGroupList'
+      x-replacement-for:
+      - /t/finance/debtor_groups/by_debtor_id/{debtor_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.DebtorGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: User provided name
+        description:
+          type: string
+          description: User provided description
+        debtorIds:
+          type: array
+          items:
+            type: integer
+            description: List of configured debtor
+            format: int64
+            xml:
+              name: debtorId
+          description: List of configured debtor
+          xml:
+            wrapped: true
+      description: DebtorGroup model (no description)
+      example:
+        id: 1
+        name: VGZ
+        description: Koepel VGZ
+        debtorIds:
+        - 4
+        - 5
+        - 7
+        - 8
+        - 100
+      xml:
+        name: debtorGroup
+    finance.list.DebtorGroupList:
+      type: object
+      properties:
+        debtorGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.DebtorGroup'
+          xml:
+            name: debtorGroup
+      description: DebtorGroupList model (no description)
+      example:
+        debtorGroups:
+        - id: 1
+          name: VGZ
+          description: Koepel VGZ
+          debtorIds:
+          - 4
+          - 5
+          - 7
+          - 8
+          - 100
+        - id: 2
+          name: Achmea
+          description: Koepel Achmea
+          debtorIds:
+          - 104
+          - 105
+          - 107
+          - 108
+          - 200
+      xml:
+        name: debtorGroups
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,614 @@
+openapi: 3.2.0
+info:
+  title: Nedap Profile Activity Assignment API
+  version: 0.0.0
+  description: 'Operations tagged ProfileActivityAssignment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ProfileActivityAssignment
+paths:
+  /t/employees/{employee_id}/weeksheet_profile/direct_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the direct profile activity assignments of an Employee corresponding to…
+      operationId: ProfileActivityAssignmentAPI.directAssignmentsByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/weeksheet_profile/direct_profile_activity_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/weeksheet_profile/indirect_duration_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect duration profile activity assignments of an Employee…
+      operationId: ProfileActivityAssignmentAPI.indirectDurationAssignmentsByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/weeksheet_profile/indirect_duration_profile_activity_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/weeksheet_profile/indirect_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect profile activity assignments of an Employee corresponding…
+      operationId: ProfileActivityAssignmentAPI.indirectAssignmentsByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/weeksheet_profile/indirect_profile_activity_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/weeksheet_profiles/{weeksheet_profile_id}/direct_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the direct profile activity assignments of an WeeksheetProfile…
+      operationId: ProfileActivityAssignmentAPI.directAssignmentsByWeeksheetProfileId
+      parameters:
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replaced-by: /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/direct_profile_activity_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/weeksheet_profiles/{weeksheet_profile_id}/expense_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect duration profile activity assignments of an…
+      operationId: ProfileActivityAssignmentAPI.expenseAssignmentsByWeeksheetProfileId
+      parameters:
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replaced-by: /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/expense_profile_activity_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/weeksheet_profiles/{weeksheet_profile_id}/indirect_duration_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect duration profile activity assignments of an…
+      operationId: ProfileActivityAssignmentAPI.indirectDurationAssignmentsByWeeksheetProfileId
+      parameters:
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replaced-by: /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/indirect_duration_profile_activity_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/weeksheet_profiles/{weeksheet_profile_id}/indirect_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect profile activity assignments of an WeeksheetProfile…
+      operationId: ProfileActivityAssignmentAPI.indirectAssignmentsByWeeksheetProfileId
+      parameters:
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replaced-by: /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/indirect_profile_activity_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/weeksheet_profile/direct_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the direct profile activity assignments of an Employee corresponding to…
+      operationId: ProfileActivityAssignmentAPI.directAssignmentsByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/weeksheet_profile/direct_profile_activity_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/weeksheet_profile/indirect_duration_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect duration profile activity assignments of an Employee…
+      operationId: ProfileActivityAssignmentAPI.indirectDurationAssignmentsByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/weeksheet_profile/indirect_duration_profile_activity_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/weeksheet_profile/indirect_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect profile activity assignments of an Employee corresponding…
+      operationId: ProfileActivityAssignmentAPI.indirectAssignmentsByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/weeksheet_profile/indirect_profile_activity_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/direct_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the direct profile activity assignments of an WeeksheetProfile…
+      operationId: ProfileActivityAssignmentAPI.directAssignmentsByWeeksheetProfileId
+      parameters:
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replacement-for:
+      - /t/weeksheet_profiles/{weeksheet_profile_id}/direct_profile_activity_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/expense_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect duration profile activity assignments of an…
+      operationId: ProfileActivityAssignmentAPI.expenseAssignmentsByWeeksheetProfileId
+      parameters:
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replacement-for:
+      - /t/weeksheet_profiles/{weeksheet_profile_id}/expense_profile_activity_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/indirect_duration_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect duration profile activity assignments of an…
+      operationId: ProfileActivityAssignmentAPI.indirectDurationAssignmentsByWeeksheetProfileId
+      parameters:
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replacement-for:
+      - /t/weeksheet_profiles/{weeksheet_profile_id}/indirect_duration_profile_activity_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/indirect_profile_activity_assignments:
+    get:
+      tags:
+      - ProfileActivityAssignment
+      summary: Return the indirect profile activity assignments of an WeeksheetProfile…
+      operationId: ProfileActivityAssignmentAPI.indirectAssignmentsByWeeksheetProfileId
+      parameters:
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
+      x-replacement-for:
+      - /t/weeksheet_profiles/{weeksheet_profile_id}/indirect_profile_activity_assignments
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    HourType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: An unique ID of this hourtype
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+          description: A description of this hourtype
+        identificationNo:
+          type: string
+        activityGroupObjectId:
+          type: integer
+          format: int64
+        externalCode3:
+          type: string
+        active:
+          type: boolean
+          description: Indicates if the hourtype is active and can be used in presencelogs
+        payrolling:
+          type: boolean
+        direct:
+          type: boolean
+          description: Indicates if the hourtype is for client time a.k.a. direct time
+        systemDefined:
+          type: boolean
+        travelTime:
+          type: boolean
+        activityType:
+          type: string
+        groupCare:
+          type: boolean
+          description: Indicates if the hourtype is meant for group care
+        transport:
+          type: boolean
+        quantityBased:
+          type: boolean
+        directAllowed:
+          type: boolean
+          description: Indicates it is allowed to write direct clienttime on a presence log with this hourtype
+        indirectAllowed:
+          type: boolean
+          description: Indicates it is allowed to write indirect clienttime on a presence log with this hourtype
+        travelAllowed:
+          type: boolean
+          description: Indicates it is allowed to write travel clienttime on a presence log with this hourtype
+        noShow:
+          type: boolean
+          description: Indicates if the hour type is a no show hourtype
+        snomedCode:
+          type: string
+          description: Corresponding snomed code used for data exchange with zibs
+        travelCalculationDisabled:
+          type: boolean
+          description: When set to true, this hourtype will not be used in travel calculations like travel time or distances
+        absenceAllowed:
+          type: boolean
+          description: Indicates if client(s) are allowed to be partially absent during an activity with this hourtype
+        splitHourtype:
+          type: boolean
+          description: When set to true, this hourtype will be divided in Administration
+      description: A.K.A. Activity.
+      example:
+        id: 1
+        description: Activiteiten begeleiding - patiëntgebonden handelen
+        identificationNo: '194822'
+        activityGroupObjectId: 1
+        externalCode3: '3'
+        active: true
+        payrolling: true
+        direct: true
+        systemDefined: false
+        travelTime: false
+        activityType: Payrolling
+        groupCare: false
+        transport: false
+        quantityBased: true
+        directAllowed: true
+        indirectAllowed: true
+        travelAllowed: true
+        noShow: true
+        snomedCode: '1234'
+        travelCalculationDisabled: false
+        absenceAllowed: false
+        splitHourtype: false
+      xml:
+        name: hourType
+    expense.ExpenseType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: The name of this expenseType
+        unit:
+          type: string
+          description: The unit in which this expensetype is calculated (km or days)
+        inputType:
+          type: string
+          description: 'The type of input used to input expenses made with this unit;
+
+            an input field in case of kilometers or a checkbox in case of days'
+        format:
+          type: string
+          description: 'the format of the value in which an expense is stored in the database:
+
+            0 for decimal, 1 for float'
+        icon:
+          type: string
+          description: The path to the icon used for this expensetype.
+        exportCode:
+          type: string
+          description: The exportcode for this expenseType
+        exportCodeGreaterThanTen:
+          type: string
+          description: The exportcode for this expenseType used in case there are more than 10km a day
+        compensationInCents:
+          type: integer
+          description: 'The compensation per km for this expensetype in Eurocents.
+
+            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
+          format: int64
+        compensationInCentsGreaterThanTen:
+          type: integer
+          description: 'The compensation per km for this expensetype in Eurocents used in case there are more than 10km a day.
+
+            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
+          format: int64
+        commuteCode:
+          type: string
+          description: The exportcode for this expenseType used for commute km
+        commuteCompensationInCents:
+          type: integer
+          description: 'The compensation per km for this expensetype in Eurocents used for commute km.
+
+            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
+          format: int64
+        commuteMaxKm:
+          type: integer
+          description: The maximum number of commute km for this expenseType
+          format: int64
+        removed:
+          type: boolean
+          description: A field denoting whether or not this expenseType has been removed
+        travelCalculationEnabled:
+          type: boolean
+          description: A field denoting whether or not travel distances should be calculated automatically
+        beginDate:
+          type: string
+          description: The begindate for this expenseType
+          format: date-time
+        endDate:
+          type: string
+          description: The enddate for this expenseType
+          format: date-time
+        alternativeToTravelCalc:
+          type: boolean
+      description: 'ExpenseType domain model used by Cupido system.
+
+        An Expensetype is a type of expense for which an employee may be compensated.'
+      example:
+        id: 1
+        name: Kilometers
+        unit: KM
+        inputType: Value
+        format: Float
+        icon: Walk
+        exportCode: KMP
+        exportCodeGreaterThanTen: KMD
+        compensationInCents: 777
+        compensationInCentsGreaterThanTen: 888
+        commuteCode: WW
+        commuteCompensationInCents: 555
+        commuteMaxKm: 30
+        removed: true
+        travelCalculationEnabled: true
+        beginDate: '1973-12-20T17:00:00.000+01:00'
+        endDate: '2015-12-20T17:00:00.000+01:00'
+        alternativeToTravelCalc: true
+      xml:
+        name: expenseType
+    ProfileActivityAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        type:
+          type: integer
+          format: int32
+          default: 0
+        mobile:
+          type: boolean
+          default: false
+        ioMe:
+          type: boolean
+          default: false
+        hourType:
+          $ref: '#/components/schemas/HourType'
+        expenseType:
+          $ref: '#/components/schemas/expense.ExpenseType'
+      description: The difference hourtypes from the employees weekcard profile (direct, indirect (time), indirect (duration))
+      example:
+        id: 1
+        type: 3
+        mobile: false
+        ioMe: true
+        hourType:
+          id: 1
+          description: Activiteiten begeleiding - patiëntgebonden handelen
+          identificationNo: '194822'
+          activityGroupObjectId: 1
+          externalCode3: '3'
+          active: true
+          payrolling: true
+          direct: true
+          systemDefined: false
+          travelTime: false
+          activityType: Payrolling
+          groupCare: false
+          quantityBased: true
+        expenseType:
+          id: 1
+          name: Kilometers
+          unit: KM
+          inputType: Value
+          format: Float
+          icon: Walk
+          exportCode: KMP
+          exportCodeGreaterThanTen: KMD
+          compensationInCents: 19
+          compensationInCentsGreaterThanTen: 27
+          removed: false
+          travelCalculationEnabled: true
+          beginDate: '1973-12-20T17:00:00.000+01:00'
+          endDate: '2015-12-20T17:00:00.000+01:00'
+    list.ProfileActivityAssignmentList:
+      type: object
+      properties:
+        profileActivityAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileActivityAssignment'
+      description: ProfileActivityAssignmentList model (no description)
+      example:
+        profileActivityAssignments:
+        - id: 1
+          type: 3
+          mobile: false
+          ioMe: false
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,77 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Ehr.Setting API
+  version: 0.0.0
+  description: 'Operations tagged ons_ehr.Setting across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_ehr.Setting
+paths:
+  /t/ons_ehr/settings:
+    get:
+      tags:
+      - ons_ehr.Setting
+      summary: Return all settings from OnsEhr
+      operationId: ons_ehr.SettingAPI.getAllSettings
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_ehr.list.SettingList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/settings
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/settings:
+    get:
+      tags:
+      - ons_ehr.Setting
+      summary: Return all settings from OnsEhr
+      operationId: ons_ehr.SettingAPI.getAllSettings
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_ehr.list.SettingList'
+      x-replacement-for:
+      - /t/ons_ehr/settings
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_ehr.list.SettingList:
+      type: object
+      properties:
+        settings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_ehr.Setting'
+      description: SettingList model (no description)
+      example:
+        settings:
+        - name: Setting1
+          value: Abc
+        - name: Setting2
+          value: 'true'
+    ons_ehr.Setting:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the setting
+        value:
+          type: string
+          description: The value of the setting
+      description: A setting from OnsEhr
+      example:
+        name: XPilot
+        value: 'true'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

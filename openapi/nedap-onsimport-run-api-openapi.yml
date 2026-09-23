@@ -1,0 +1,1011 @@
+openapi: 3.2.0
+info:
+  title: Nedap Onsimport.Run API
+  version: 0.0.0
+  description: 'Operations tagged onsimport.Run across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: onsimport.Run
+paths:
+  /t/onsimport/runs:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns a list of all runs
+      operationId: onsimport.RunAPI.getAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.list.RunList'
+      x-replaced-by: /v0/import/run
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - onsimport.Run
+      summary: Creates a new run
+      operationId: onsimport.RunAPI.create
+      requestBody:
+        description: contains information about the new run.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/onsimport.Run'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.Run'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/import/run
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/{run_id}:
+    delete:
+      tags:
+      - onsimport.Run
+      summary: Deletes a run and any corresponding records, lookups, files and validations
+      description: 'A run can only be deleted if no records have been
+
+        successfully imported (status = SUCCESS).'
+      operationId: onsimport.RunAPI.delete
+      parameters:
+      - name: run_id
+        in: path
+        description: the id of the run to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.Run'
+      x-replaced-by: /v0/import/run/{run_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/{run_id}/idlist:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Requests generating an ID list for a run
+      description: As the ID list will be generated asynchronously, this call will return a RunReport containing a reportId. Use the reportId to download the report in a separate call.
+      operationId: onsimport.RunAPI.getIdList
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunReport'
+      x-replaced-by: /v0/import/run/{run_id}/idlist
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/{run_id}/report:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Requests generating a report for a run
+      description: 'As the report will be generated
+
+        asynchronously, this call will return a RunReport containing a reportId.
+
+        Use the reportId to download the report in a separate call.'
+      operationId: onsimport.RunAPI.getReport
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunReport'
+      x-replaced-by: /v0/import/run/{run_id}/report
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/{run_id}/report/{report_id}:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns a report for a run
+      description: 'If the report is ready, it will be returned
+
+        in the RunReport. Otherwise, the report field will be null;
+
+        wait and try again. Reports will be available for a limited time
+
+        (2 hours) after generating.'
+      operationId: onsimport.RunAPI.getGeneratedReport
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      - name: report_id
+        in: path
+        description: a reportId that was obtained earlier.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunReport'
+      x-replaced-by: /v0/import/run/{run_id}/report/{report_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/{run_id}/status:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns status information about a run
+      operationId: onsimport.RunAPI.getStatus
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunStatus'
+      x-replaced-by: /v0/import/run/{run_id}/status
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/{run_id}/status/{upload_id}:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns status information about a run, including any file validation messages…
+      operationId: onsimport.RunAPI.getStatusForUpload
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      - name: upload_id
+        in: path
+        description: "an uploadId that was obtained earlier by uploading xml\n or a binary file."
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunStatus'
+      x-replaced-by: /v0/import/run/{run_id}/status/{upload_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/{run_id}/uploads:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns uploaded files for the specified run
+      operationId: onsimport.RunAPI.getUploads
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.list.UploadInfoList'
+      x-replaced-by: /v0/import/run/{run_id}/uploads
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/{run_id}/validations:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns all validation messages for the specified run
+      operationId: onsimport.RunAPI.getValidations
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.list.ValidationList'
+      x-replaced-by: /v0/import/run/{run_id}/validations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/binary:
+    post:
+      tags:
+      - onsimport.Run
+      summary: Uploads a binary file to be processed by Ons Import
+      description: 'Refer to the
+
+        Ons Import documentation on how to incorporate these files into an
+
+        import. The upload will be processed asynchronously, so an
+
+        uploadId is returned that can be used to poll for the status.'
+      operationId: onsimport.RunAPI.uploadBinaryFile
+      requestBody:
+        description: "a request object containing the run id and\n the binary file to be imported."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/onsimport.BinaryFileRequest'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.UploadResponse'
+        '404':
+          description: Run not found
+      x-replaced-by: /v0/import/run/binary
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/onsimport/runs/xml:
+    post:
+      tags:
+      - onsimport.Run
+      summary: Uploads xml content to be processed by Ons Import
+      description: 'Documentation for
+
+        the xml format as well as an XSD can be obtained in the Ons Import
+
+        application. The upload will be processed asynchronously, so an
+
+        uploadId is returned that can be used to poll for the status.'
+      operationId: onsimport.RunAPI.uploadXml
+      requestBody:
+        description: "a request object containing the run id and\n the xml to be imported."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/onsimport.RecordsXmlRequest'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.UploadResponse'
+        '404':
+          description: Run not found
+      x-replaced-by: /v0/import/run/xml
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns a list of all runs
+      operationId: onsimport.RunAPI.getAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.list.RunList'
+      x-replacement-for:
+      - /t/onsimport/runs
+    post:
+      tags:
+      - onsimport.Run
+      summary: Creates a new run
+      operationId: onsimport.RunAPI.create
+      requestBody:
+        description: contains information about the new run.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/onsimport.Run'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.Run'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/onsimport/runs
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/{run_id}:
+    delete:
+      tags:
+      - onsimport.Run
+      summary: Deletes a run and any corresponding records, lookups, files and validations
+      description: 'A run can only be deleted if no records have been
+
+        successfully imported (status = SUCCESS).'
+      operationId: onsimport.RunAPI.delete
+      parameters:
+      - name: run_id
+        in: path
+        description: the id of the run to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.Run'
+      x-replacement-for:
+      - /t/onsimport/runs/{run_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/{run_id}/idlist:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Requests generating an ID list for a run
+      description: As the ID list will be generated asynchronously, this call will return a RunReport containing a reportId. Use the reportId to download the report in a separate call.
+      operationId: onsimport.RunAPI.getIdList
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunReport'
+      x-replacement-for:
+      - /t/onsimport/runs/{run_id}/idlist
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/{run_id}/report:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Requests generating a report for a run
+      description: 'As the report will be generated
+
+        asynchronously, this call will return a RunReport containing a reportId.
+
+        Use the reportId to download the report in a separate call.'
+      operationId: onsimport.RunAPI.getReport
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunReport'
+      x-replacement-for:
+      - /t/onsimport/runs/{run_id}/report
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/{run_id}/report/{report_id}:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns a report for a run
+      description: 'If the report is ready, it will be returned
+
+        in the RunReport. Otherwise, the report field will be null;
+
+        wait and try again. Reports will be available for a limited time
+
+        (2 hours) after generating.'
+      operationId: onsimport.RunAPI.getGeneratedReport
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      - name: report_id
+        in: path
+        description: a reportId that was obtained earlier.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunReport'
+      x-replacement-for:
+      - /t/onsimport/runs/{run_id}/report/{report_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/{run_id}/status:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns status information about a run
+      operationId: onsimport.RunAPI.getStatus
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunStatus'
+      x-replacement-for:
+      - /t/onsimport/runs/{run_id}/status
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/{run_id}/status/{upload_id}:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns status information about a run, including any file validation messages…
+      operationId: onsimport.RunAPI.getStatusForUpload
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      - name: upload_id
+        in: path
+        description: "an uploadId that was obtained earlier by uploading xml\n or a binary file."
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.RunStatus'
+      x-replacement-for:
+      - /t/onsimport/runs/{run_id}/status/{upload_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/{run_id}/uploads:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns uploaded files for the specified run
+      operationId: onsimport.RunAPI.getUploads
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.list.UploadInfoList'
+      x-replacement-for:
+      - /t/onsimport/runs/{run_id}/uploads
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/{run_id}/validations:
+    get:
+      tags:
+      - onsimport.Run
+      summary: Returns all validation messages for the specified run
+      operationId: onsimport.RunAPI.getValidations
+      parameters:
+      - name: run_id
+        in: path
+        description: a run id.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.list.ValidationList'
+      x-replacement-for:
+      - /t/onsimport/runs/{run_id}/validations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/binary:
+    post:
+      tags:
+      - onsimport.Run
+      summary: Uploads a binary file to be processed by Ons Import
+      description: 'Refer to the
+
+        Ons Import documentation on how to incorporate these files into an
+
+        import. The upload will be processed asynchronously, so an
+
+        uploadId is returned that can be used to poll for the status.'
+      operationId: onsimport.RunAPI.uploadBinaryFile
+      requestBody:
+        description: "a request object containing the run id and\n the binary file to be imported."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/onsimport.BinaryFileRequest'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.UploadResponse'
+        '404':
+          description: Run not found
+      x-replacement-for:
+      - /t/onsimport/runs/binary
+    servers:
+    - url: https://api-development.ons.io
+  /v0/import/run/xml:
+    post:
+      tags:
+      - onsimport.Run
+      summary: Uploads xml content to be processed by Ons Import
+      description: 'Documentation for
+
+        the xml format as well as an XSD can be obtained in the Ons Import
+
+        application. The upload will be processed asynchronously, so an
+
+        uploadId is returned that can be used to poll for the status.'
+      operationId: onsimport.RunAPI.uploadXml
+      requestBody:
+        description: "a request object containing the run id and\n the xml to be imported."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/onsimport.RecordsXmlRequest'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/onsimport.UploadResponse'
+        '404':
+          description: Run not found
+      x-replacement-for:
+      - /t/onsimport/runs/xml
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    onsimport.UploadResponse:
+      type: object
+      properties:
+        uploadId:
+          type: string
+          description: Unique id for requesting status info about the upload.
+      description: 'Contains a unique id by which information about an
+
+        upload can be retrieved.'
+      example:
+        uploadId: uploadid
+      xml:
+        name: uploadResponse
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    onsimport.RunStatus:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        processing:
+          type: boolean
+          description: Indicates records are still being processed.
+        statuses:
+          type: object
+          description: 'Map of record status to number of records having that status.
+
+            Also contains an entry ALL with the total number of records.'
+        fileValidations:
+          type: array
+          items:
+            type: string
+          description: 'List of validation messages resulting from uploading XML.
+
+            These typically concern invalid XML or XSD violations.'
+      description: Contains status information about a run in Ons Import.
+      example:
+        runId: runwithme
+        processing: false
+        statuses:
+          all: '1'
+          success: '1'
+        fileValidations:
+        - failtorun
+    onsimport.BinaryFileRequest:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        fileName:
+          type: string
+          description: File name of the binary file, optionally including a path.
+        content:
+          type: string
+          description: Content of the binary file.
+          format: binary
+      description: Contains a binary file to be added to a run in Ons Import.
+      example:
+        runId: runwithme
+        fileName: runwithme.pdf
+        content: JVBERi1jb250ZW50JSVFT0Y=
+      xml:
+        name: binaryFileRequest
+    onsimport.list.ValidationList:
+      type: object
+      properties:
+        validations:
+          type: array
+          items:
+            $ref: '#/components/schemas/onsimport.Validation'
+      description: ValidationList model (no description)
+      example:
+        validations:
+        - updatedAt: '2020-05-07T00:00:00.000+02:00'
+          createdAt: '2020-05-07T00:00:00.000+02:00'
+          createdBy: tanneberger
+          id: 1
+          field: name
+          value: Running A Wrong Way
+          message: WrongNameException
+          recordId: 991
+          recordStatus: INVALID
+          domain: Run
+          importId: '001'
+        - updatedAt: '2020-05-07T00:00:00.000+02:00'
+          createdAt: '2020-05-07T00:00:00.000+02:00'
+          createdBy: tanneberger
+          id: 2
+          field: name
+          value: Running A Wrong Way
+          message: BadSongException
+          recordId: 991
+          recordStatus: INVALID
+          domain: Run
+          importId: '001'
+    onsimport.list.RunList:
+      type: object
+      properties:
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/onsimport.Run'
+          xml:
+            name: run
+      description: RunList model (no description)
+      example:
+        runs:
+        - updatedAt: '2020-03-25T00:00:00.000+01:00'
+          createdAt: '2020-03-25T00:00:00.000+01:00'
+          createdBy: htaylor
+          id: runwithme
+          name: Run With Me
+          autoProcess: true
+          quickMatch: true
+      xml:
+        name: runs
+    onsimport.list.UploadInfoList:
+      type: object
+      properties:
+        uploads:
+          type: array
+          items:
+            $ref: '#/components/schemas/onsimport.UploadInfo'
+      description: Contains uploaded files for a run in Ons Import.
+      example:
+        uploads:
+        - runId: runwithme
+          runName: Run With Me
+          uploadId: uploadid
+          fileName: records.xml
+          createdAt: '2026-04-07T10:57:00.000+02:00'
+    onsimport.RunReport:
+      type: object
+      properties:
+        reportId:
+          type: string
+          description: Unique id for requesting the generated report.
+        report:
+          type: string
+          description: An Excel report for the run.
+          format: binary
+      description: Contains an Excel report for a run.
+      example:
+        reportId: reportid
+        report: QWxsIGhvcGUgaXMgbG9zdA==
+    onsimport.RecordsXmlRequest:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        xml:
+          type: string
+          description: 'XML as specified by the Ons Import XSD, optionally
+
+            Base64 encoded.'
+      description: 'Contains records to be added to a run in Ons Import,
+
+        formatted as XML as specified by the Ons Import XSD.'
+      example:
+        runId: runwithme
+        xml: <import></import>
+      xml:
+        name: recordsXmlRequest
+    onsimport.UploadInfo:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        runName:
+          type:
+          - string
+          - 'null'
+          description: Display name of the run. Empty when the run has been deleted.
+        uploadId:
+          type: string
+          description: Unique id for requesting status information about the upload.
+        fileName:
+          type: string
+          description: Original file name of the uploaded file.
+        createdAt:
+          type: string
+          description: Timestamp at which the file was uploaded.
+          format: date-time
+      description: Metadata about an uploaded file in Ons Import.
+      example:
+        runId: runwithme
+        runName: Run With Me
+        uploadId: uploadid
+        fileName: records.xml
+        createdAt: '2026-04-07T10:57:00.000+02:00'
+    onsimport.Validation:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Technical ID of the validation.
+          format: int64
+          x-cupido-id: true
+        field:
+          type: string
+          description: Name of the field this validation concerns.
+        value:
+          type: string
+          description: Value of the field (String representation) this validation concerns.
+        message:
+          type: string
+          description: The validation message.
+        recordId:
+          type: integer
+          description: Technical ID of the imported record this validation belongs to.
+          format: int64
+        recordStatus:
+          type: string
+          description: 'Import status of the record this validation belongs to.
+
+            Possible values: INITIAL, INVALID, MATCHED, SUCCESS, SYNC_FAILED.'
+        domain:
+          type: string
+          description: Domain of the record this validation belongs to.
+        importId:
+          type: string
+          description: ImportId of the record this validation belongs to.
+      description: 'A validation message describing an error that occurred while
+
+        importing a record in Ons Import.'
+      example:
+        updatedAt: '2020-05-07T00:00:00.000+02:00'
+        createdAt: '2020-05-07T00:00:00.000+02:00'
+        createdBy: tanneberger
+        id: 1
+        field: name
+        value: Running A Wrong Way
+        message: WrongNameException
+        recordId: 991
+        recordStatus: INVALID
+        domain: Run
+        importId: '001'
+    onsimport.Run:
+      required:
+      - name
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+          x-cupido-id: true
+        name:
+          type: string
+          description: Name of the run.
+        autoProcess:
+          type: boolean
+          description: 'Indicates that records added to the run will be automatically
+
+            matched and synchronized.'
+          default: true
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        quickMatch:
+          type: boolean
+          description: 'Indicates that matching will be skipped for reference fields
+
+            already containing database IDs.'
+          default: false
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+      description: 'A collection of records to be imported via Ons Import.
+
+        Records can be added by uploading XML or binary files
+
+        via RunAPI.'
+      example:
+        updatedAt: '2020-03-25T00:00:00.000+01:00'
+        createdAt: '2020-03-25T00:00:00.000+01:00'
+        createdBy: htaylor
+        id: runwithme
+        name: Run With Me
+        autoProcess: true
+        quickMatch: true
+      xml:
+        name: run
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

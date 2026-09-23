@@ -1,0 +1,3341 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Report API
+  version: 0.0.0
+  description: 'Operations tagged dossier.Report across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.Report
+paths:
+  /t/dossier/reports:
+    post:
+      tags:
+      - dossier.Report
+      summary: Create Report
+      operationId: dossier.ReportAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Report to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/reports
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/{id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return the Report corresponding to the given id
+      operationId: dossier.ReportAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Report
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '404':
+          description: Report not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/reports/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.Report
+      summary: Updates the given Report
+      operationId: dossier.ReportAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Report
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Report to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/reports/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.Report
+      summary: Deletes the Report with given id
+      operationId: dossier.ReportAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Report
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '204':
+          description: Success
+        '404':
+          description: Report does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/reports/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/{report_id}/children:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all the reactions for a given report
+      operationId: dossier.ReportAPI.childrenByReportId
+      parameters:
+      - name: report_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/administration/dossier/reports/{report_id}/children
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_care_plan_entry_unescaped/{care_plan_entry_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by care plan entry without applying HTML esaping
+      operationId: dossier.ReportAPI.findByCarePlanEntryUnescaped
+      parameters:
+      - name: care_plan_entry_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/administration/dossier/reports/by_care_plan_entry_unescaped/{care_plan_entry_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_care_plan_entry/{care_plan_entry_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by care plan entry with HTML escaping applied to…
+      operationId: dossier.ReportAPI.findByCarePlanEntry
+      parameters:
+      - name: care_plan_entry_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/administration/dossier/reports/by_care_plan_entry/{care_plan_entry_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_date:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by date
+      description: valid_from and valid_to are required query parameters
+      operationId: dossier.ReportAPI.findByDate
+      parameters:
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: starting time
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/administration/dossier/reports/by_date/{valid_from}...{valid_to}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_demand/{demand_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by demand id
+      operationId: dossier.ReportAPI.findByDemand
+      parameters:
+      - name: demand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/administration/dossier/reports/by_demand/{demand_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_episode/{episode_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by episode id
+      operationId: dossier.ReportAPI.findByEpisode
+      parameters:
+      - name: episode_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/administration/dossier/reports/by_episode/{episode_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_report_link/{report_link_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by report link id
+      operationId: dossier.ReportAPI.findByReportLink
+      parameters:
+      - name: report_link_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_link_type
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/dossier.ReportLinkType'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+      x-replaced-by: /v0/administration/dossier/reports/by_report_link/{report_link_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_restrictive_measure/{restrictive_measure_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by restrictive measures id
+      operationId: dossier.ReportAPI.findByRestrictiveMeasure
+      parameters:
+      - name: restrictive_measure_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/administration/dossier/reports/by_restrictive_measure/{restrictive_measure_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_uuid/{uuid}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return the Report corresponding to the given uuid
+      operationId: dossier.ReportAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '404':
+          description: Report not found
+      x-replaced-by: /v0/administration/dossier/reports/by_uuid/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/last_report_authorizations:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return the child Reports of a Report corresponding to the given id
+      operationId: dossier.ReportAPI.lastReportAuthorizationsByClientIdAndEmployeeId
+      parameters:
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportAuthorizationList'
+        '400':
+          description: Client and employee are required
+      x-replaced-by: /v0/administration/dossier/reports/last_report_authorizations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/search_by_client:
+    get:
+      tags:
+      - dossier.Report
+      summary: Searches for Reports for the Client (corresponding to the given id)
+      operationId: dossier.ReportAPI.searchByClient
+      parameters:
+      - name: client_id
+        in: query
+        description: which we want to search reports for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: keyword
+        in: query
+        description: a text search term
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: the type of information to filter on
+        schema:
+          $ref: '#/components/schemas/dossier.ReportFilter'
+      - name: education_id
+        in: query
+        description: filters on reports of which the author has a specific employee
+        schema:
+          type: integer
+          format: int64
+      - name: show_hidden
+        in: query
+        description: shows hidden reports only has effect for the author or application managers
+        schema:
+          type: boolean
+      - name: report_type
+        in: query
+        description: list of types to filter on
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        description: start search date
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end search date
+        schema:
+          type: string
+          format: date
+      - name: demand_id
+        in: query
+        description: filters on reports to include only those related to a specific demand
+        schema:
+          type: integer
+          format: int64
+      - name: entry_id
+        in: query
+        description: filters on reports to include only those related to a specific care plan entry
+        schema:
+          type: integer
+          format: int64
+      - name: episode_id
+        in: query
+        description: filters on reports to include only those related to a specific episode
+        schema:
+          type: integer
+          format: int64
+      - name: restrictive_measure_id
+        in: query
+        description: filters on reports to include only those related to a specific restrictictive measure
+        schema:
+          type: integer
+          format: int64
+      - name: report_types_with_comments
+        in: query
+        description: filters on reports that have comments
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: only_own_reports
+        in: query
+        description: filters on reports written by the user
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: If-Modified-Since
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+        '304':
+          description: The reports have not been modified since the value of the If-Modified-Since header
+        '400':
+          description: No client ID
+      x-replaced-by: /v0/administration/dossier/reports/search_by_client
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/soap/report:
+    post:
+      tags:
+      - dossier.Report
+      summary: Create a SOAP report where each soap-part (optionally) has it's own…
+      description: To make use of the per-soap-part authorization model make sure to fill each of the S-O-A-P parts of a SOAP report and put them in the SoapReportEntries nested in the Report.
+      operationId: dossier.ReportAPI.createSoapReport
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: the report to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Validation errors
+      x-replaced-by: /v0/administration/dossier/reports/soap/report
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/soap/report/{id}:
+    put:
+      tags:
+      - dossier.Report
+      summary: Updates a SOAP report where each soap-part (optionally) has it's own…
+      description: To make use of the per-soap-part authorization model make sure to fill each of the S-O-A-P parts of a SOAP report and put them in the SoapReportEntries nested in the Report.
+      operationId: dossier.ReportAPI.updateSoapReport
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: the report to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Validation errors
+      x-replaced-by: /v0/administration/dossier/reports/soap/report/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/authorized/clients/{client_id}/reports:
+    post:
+      tags:
+      - dossier.Report
+      summary: Create Report. Authorization is done in dossier controller this points to
+      operationId: dossier.ReportAPI.authorizedCreate
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+      x-replaced-by: /v0/dossier/back_channel/authorized/clients/{client_id}/reports
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/authorized/clients/{client_id}/reports/{report_id}:
+    put:
+      tags:
+      - dossier.Report
+      summary: Update Report. Authorization is done in dossier controller this points to
+      operationId: dossier.ReportAPI.authorizedUpdate
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+      x-replaced-by: /v0/dossier/back_channel/authorized/clients/{client_id}/reports/{report_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/authorized/clients/{client_id}/reports/search_by_client:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return Reports, filtered by params Authorization is done in dossier controller…
+      operationId: dossier.ReportAPI.authorizedSearchByClient
+      parameters:
+      - name: client_id
+        in: path
+        description: which we want to search reports for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: keyword
+        in: query
+        description: a text search term
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: the type of information to filter on
+        schema:
+          $ref: '#/components/schemas/dossier.ReportFilter'
+      - name: education_id
+        in: query
+        description: filters on reports of which the author has a specific employee
+        schema:
+          type: integer
+          format: int64
+      - name: show_hidden
+        in: query
+        description: shows hidden reports only has effect for the author or application managers
+        schema:
+          type: boolean
+      - name: report_type
+        in: query
+        description: list of types to filter on
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        description: start search date
+        schema:
+          type: string
+      - name: valid_to
+        in: query
+        description: end search date
+        schema:
+          type: string
+      - name: demand_id
+        in: query
+        description: filters on reports to include only those related to a specific demand
+        schema:
+          type: integer
+          format: int64
+      - name: entry_id
+        in: query
+        description: filters on reports to include only those related to a specific care plan entry
+        schema:
+          type: integer
+          format: int64
+      - name: episode_id
+        in: query
+        description: filters on reports to include only those related to a specific episode
+        schema:
+          type: integer
+          format: int64
+      - name: restrictive_measure_id
+        in: query
+        description: filters on reports to include only those related to a specific restrictictive measure
+        schema:
+          type: integer
+          format: int64
+      - name: report_types_with_comments
+        in: query
+        description: filters on reports that have comments
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: only_own_reports
+        in: query
+        description: filters on reports written by the user
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/dossier/back_channel/authorized/clients/{client_id}/reports/search_by_client
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/authorized/clients/{client_id}/reports/search_by_client_with_updated_since:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return Reports with updated since option, filtered by params Authorization is…
+      operationId: dossier.ReportAPI.authorizedSearchByClientWithUpdatedSince
+      parameters:
+      - name: client_id
+        in: path
+        description: which we want to search reports for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: keyword
+        in: query
+        description: a text search term
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: the type of information to filter on
+        schema:
+          $ref: '#/components/schemas/dossier.ReportFilter'
+      - name: education_id
+        in: query
+        description: filters on reports of which the author has a specific employee
+        schema:
+          type: integer
+          format: int64
+      - name: show_hidden
+        in: query
+        description: shows hidden reports only has effect for the author or application managers
+        schema:
+          type: boolean
+      - name: report_type
+        in: query
+        description: list of types to filter on
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        description: start search date
+        schema:
+          type: string
+      - name: valid_to
+        in: query
+        description: end search date
+        schema:
+          type: string
+      - name: updated_since
+        in: query
+        description: filters reports by updatedat
+        schema:
+          type: string
+      - name: demand_id
+        in: query
+        description: filters on reports to include only those related to a specific demand
+        schema:
+          type: integer
+          format: int64
+      - name: entry_id
+        in: query
+        description: filters on reports to include only those related to a specific care plan entry
+        schema:
+          type: integer
+          format: int64
+      - name: episode_id
+        in: query
+        description: filters on reports to include only those related to a specific episode
+        schema:
+          type: integer
+          format: int64
+      - name: restrictive_measure_id
+        in: query
+        description: filters on reports to include only those related to a specific restrictictive measure
+        schema:
+          type: integer
+          format: int64
+      - name: report_types_with_comments
+        in: query
+        description: filters on reports that have comments
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: only_own_reports
+        in: query
+        description: filters on reports written by the user
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/dossier/back_channel/authorized/clients/{client_id}/reports/search_by_client_with_updated_since
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/clients/{client_id}/reports/vital_signs_reports:
+    get:
+      tags:
+      - dossier.Report
+      summary: Lists vital signs from reports
+      description: Lists systolic, diastolic, pulse, saturation and temperature values from reports and It requires `DossierReportsModify` rights for the given client.
+      operationId: dossier.ReportAPI.vitalSignsReports
+      parameters:
+      - name: client_id
+        in: path
+        description: Client identifier
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: '25'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ReportVitalSignList'
+      x-replaced-by: /v0/dossier/back_channel/authorized/clients/{client_id}/reports/vital_signs_reports
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/authorized/reports/with_actions:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return reports that have actions created by user or for user's expertise
+      operationId: dossier.ReportAPI.withActions
+      parameters:
+      - name: my_actions
+        in: query
+        description: true for my created reports, false for actions for my expertise
+        required: true
+        schema:
+          type: boolean
+      - name: location_id
+        in: query
+        description: optional filter by location
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: location_ids
+        in: query
+        description: optional filter by multiple locations
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: with_sub_locations
+        in: query
+        description: 'If true, includes the sub locations of the given locations. If false, does not include the sub locations. If nil: includes sublocations if location_id is given, excludes sublocations if location_ids are given (for backwards compatibility purposes)'
+        required: false
+        schema:
+          type:
+          - boolean
+          - 'null'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/dossier/back_channel/authorized/reports/with_actions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/authorized/reports/with_actions_summary:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return a count of reports that have actions created by user or for user's…
+      operationId: dossier.ReportAPI.withActionsSummary
+      parameters:
+      - name: location_id
+        in: query
+        description: optional filter by location
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: location_ids
+        in: query
+        description: optional filter by multiple locations
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: with_sub_locations
+        in: query
+        description: 'If true, includes the sub locations of the given locations. If false, does not include the sub locations. If nil: includes sublocations if location_id is given, excludes sublocations if location_ids are given (for backwards compatibility purposes)'
+        required: false
+        schema:
+          type:
+          - boolean
+          - 'null'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ReportsWithActionsSummary'
+      x-replaced-by: /v0/dossier/back_channel/authorized/reports/with_actions_summary
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/authorized/clients/{client_id}/reports/unfiltered_search_by_client:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return Reports Unfiltered, filtered by params Authorization is done in dossier…
+      operationId: dossier.ReportAPI.authorizedUnfilteredSearchByClient
+      parameters:
+      - name: client_id
+        in: path
+        description: which we want to search reports for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: keyword
+        in: query
+        description: a text search term
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: the type of information to filter on
+        schema:
+          $ref: '#/components/schemas/dossier.ReportFilter'
+      - name: education_id
+        in: query
+        description: filters on reports of which the author has a specific employee
+        schema:
+          type: integer
+          format: int64
+      - name: show_hidden
+        in: query
+        description: shows hidden reports only has effect for the author or application managers
+        schema:
+          type: boolean
+      - name: report_type
+        in: query
+        description: list of types to filter on
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        description: start search date
+        schema:
+          type: string
+      - name: valid_to
+        in: query
+        description: end search date
+        schema:
+          type: string
+      - name: demand_id
+        in: query
+        description: filters on reports to include only those related to a specific demand
+        schema:
+          type: integer
+          format: int64
+      - name: entry_id
+        in: query
+        description: filters on reports to include only those related to a specific care plan entry
+        schema:
+          type: integer
+          format: int64
+      - name: episode_id
+        in: query
+        description: filters on reports to include only those related to a specific episode
+        schema:
+          type: integer
+          format: int64
+      - name: restrictive_measure_id
+        in: query
+        description: filters on reports to include only those related to a specific restrictictive measure
+        schema:
+          type: integer
+          format: int64
+      - name: report_types_with_comments
+        in: query
+        description: filters on reports that have comments
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: only_own_reports
+        in: query
+        description: filters on reports written by the user
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/clients/{client_id}/reports/unfiltered_search_by_client
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/by_next_dossier_report_link/{report_link_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns report by next dossier report link
+      operationId: dossier.ReportAPI.findByNextDossierReportLink
+      parameters:
+      - name: report_link_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/reports/by_next_dossier_report_link/{report_link_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/x-stream-connect/data:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return all Report models in a streaming manner
+      operationId: dossier.ReportAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/reports/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/reports/x-stream-connect/updates:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return all Report models which were updated since the date given in the request
+      operationId: dossier.ReportAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/reports/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports:
+    post:
+      tags:
+      - dossier.Report
+      summary: Create Report
+      operationId: dossier.ReportAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Report to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/reports
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/{id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return the Report corresponding to the given id
+      operationId: dossier.ReportAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Report
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '404':
+          description: Report not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/reports/{id}
+    put:
+      tags:
+      - dossier.Report
+      summary: Updates the given Report
+      operationId: dossier.ReportAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Report
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Report to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/reports/{id}
+    delete:
+      tags:
+      - dossier.Report
+      summary: Deletes the Report with given id
+      operationId: dossier.ReportAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Report
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '204':
+          description: Success
+        '404':
+          description: Report does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/reports/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/{report_id}/children:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all the reactions for a given report
+      operationId: dossier.ReportAPI.childrenByReportId
+      parameters:
+      - name: report_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/reports/{report_id}/children
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/by_care_plan_entry_unescaped/{care_plan_entry_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by care plan entry without applying HTML esaping
+      operationId: dossier.ReportAPI.findByCarePlanEntryUnescaped
+      parameters:
+      - name: care_plan_entry_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/reports/by_care_plan_entry_unescaped/{care_plan_entry_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/by_care_plan_entry/{care_plan_entry_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by care plan entry with HTML escaping applied to…
+      operationId: dossier.ReportAPI.findByCarePlanEntry
+      parameters:
+      - name: care_plan_entry_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/reports/by_care_plan_entry/{care_plan_entry_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/by_date/{valid_from}...{valid_to}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by date
+      description: valid_from and valid_to are required query parameters
+      operationId: dossier.ReportAPI.findByDate
+      parameters:
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: path
+        description: starting time
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          in: query
+      - name: valid_to
+        in: path
+        description: end time
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          in: query
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/reports/by_date
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/by_demand/{demand_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by demand id
+      operationId: dossier.ReportAPI.findByDemand
+      parameters:
+      - name: demand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/reports/by_demand/{demand_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/by_episode/{episode_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by episode id
+      operationId: dossier.ReportAPI.findByEpisode
+      parameters:
+      - name: episode_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/reports/by_episode/{episode_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/by_report_link/{report_link_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by report link id
+      operationId: dossier.ReportAPI.findByReportLink
+      parameters:
+      - name: report_link_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_link_type
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/dossier.ReportLinkType'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+      x-replacement-for:
+      - /t/dossier/reports/by_report_link/{report_link_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/by_restrictive_measure/{restrictive_measure_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns all reports filtered by restrictive measures id
+      operationId: dossier.ReportAPI.findByRestrictiveMeasure
+      parameters:
+      - name: restrictive_measure_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_type
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/reports/by_restrictive_measure/{restrictive_measure_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/by_uuid/{uuid}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return the Report corresponding to the given uuid
+      operationId: dossier.ReportAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '404':
+          description: Report not found
+      x-replacement-for:
+      - /t/dossier/reports/by_uuid/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/last_report_authorizations:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return the child Reports of a Report corresponding to the given id
+      operationId: dossier.ReportAPI.lastReportAuthorizationsByClientIdAndEmployeeId
+      parameters:
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportAuthorizationList'
+        '400':
+          description: Client and employee are required
+      x-replacement-for:
+      - /t/dossier/reports/last_report_authorizations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/search_by_client:
+    get:
+      tags:
+      - dossier.Report
+      summary: Searches for Reports for the Client (corresponding to the given id)
+      operationId: dossier.ReportAPI.searchByClient
+      parameters:
+      - name: client_id
+        in: query
+        description: which we want to search reports for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: keyword
+        in: query
+        description: a text search term
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: the type of information to filter on
+        schema:
+          $ref: '#/components/schemas/dossier.ReportFilter'
+      - name: education_id
+        in: query
+        description: filters on reports of which the author has a specific employee
+        schema:
+          type: integer
+          format: int64
+      - name: show_hidden
+        in: query
+        description: shows hidden reports only has effect for the author or application managers
+        schema:
+          type: boolean
+      - name: report_type
+        in: query
+        description: list of types to filter on
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        description: start search date
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end search date
+        schema:
+          type: string
+          format: date
+      - name: demand_id
+        in: query
+        description: filters on reports to include only those related to a specific demand
+        schema:
+          type: integer
+          format: int64
+      - name: entry_id
+        in: query
+        description: filters on reports to include only those related to a specific care plan entry
+        schema:
+          type: integer
+          format: int64
+      - name: episode_id
+        in: query
+        description: filters on reports to include only those related to a specific episode
+        schema:
+          type: integer
+          format: int64
+      - name: restrictive_measure_id
+        in: query
+        description: filters on reports to include only those related to a specific restrictictive measure
+        schema:
+          type: integer
+          format: int64
+      - name: report_types_with_comments
+        in: query
+        description: filters on reports that have comments
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: only_own_reports
+        in: query
+        description: filters on reports written by the user
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: If-Modified-Since
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+        '304':
+          description: The reports have not been modified since the value of the If-Modified-Since header
+        '400':
+          description: No client ID
+      x-replacement-for:
+      - /t/dossier/reports/search_by_client
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/soap/report:
+    post:
+      tags:
+      - dossier.Report
+      summary: Create a SOAP report where each soap-part (optionally) has it's own…
+      description: To make use of the per-soap-part authorization model make sure to fill each of the S-O-A-P parts of a SOAP report and put them in the SoapReportEntries nested in the Report.
+      operationId: dossier.ReportAPI.createSoapReport
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: the report to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Validation errors
+      x-replacement-for:
+      - /t/dossier/reports/soap/report
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/reports/soap/report/{id}:
+    put:
+      tags:
+      - dossier.Report
+      summary: Updates a SOAP report where each soap-part (optionally) has it's own…
+      description: To make use of the per-soap-part authorization model make sure to fill each of the S-O-A-P parts of a SOAP report and put them in the SoapReportEntries nested in the Report.
+      operationId: dossier.ReportAPI.updateSoapReport
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: the report to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Validation errors
+      x-replacement-for:
+      - /t/dossier/reports/soap/report/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/clients/{client_id}/reports:
+    post:
+      tags:
+      - dossier.Report
+      summary: Create Report. Authorization is done in dossier controller this points to
+      operationId: dossier.ReportAPI.authorizedCreate
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+      x-replacement-for:
+      - /t/dossier/authorized/clients/{client_id}/reports
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/clients/{client_id}/reports/{report_id}:
+    put:
+      tags:
+      - dossier.Report
+      summary: Update Report. Authorization is done in dossier controller this points to
+      operationId: dossier.ReportAPI.authorizedUpdate
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: report_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Report'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+      x-replacement-for:
+      - /t/dossier/authorized/clients/{client_id}/reports/{report_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/clients/{client_id}/reports/search_by_client:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return Reports, filtered by params Authorization is done in dossier controller…
+      operationId: dossier.ReportAPI.authorizedSearchByClient
+      parameters:
+      - name: client_id
+        in: path
+        description: which we want to search reports for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: keyword
+        in: query
+        description: a text search term
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: the type of information to filter on
+        schema:
+          $ref: '#/components/schemas/dossier.ReportFilter'
+      - name: education_id
+        in: query
+        description: filters on reports of which the author has a specific employee
+        schema:
+          type: integer
+          format: int64
+      - name: show_hidden
+        in: query
+        description: shows hidden reports only has effect for the author or application managers
+        schema:
+          type: boolean
+      - name: report_type
+        in: query
+        description: list of types to filter on
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        description: start search date
+        schema:
+          type: string
+      - name: valid_to
+        in: query
+        description: end search date
+        schema:
+          type: string
+      - name: demand_id
+        in: query
+        description: filters on reports to include only those related to a specific demand
+        schema:
+          type: integer
+          format: int64
+      - name: entry_id
+        in: query
+        description: filters on reports to include only those related to a specific care plan entry
+        schema:
+          type: integer
+          format: int64
+      - name: episode_id
+        in: query
+        description: filters on reports to include only those related to a specific episode
+        schema:
+          type: integer
+          format: int64
+      - name: restrictive_measure_id
+        in: query
+        description: filters on reports to include only those related to a specific restrictictive measure
+        schema:
+          type: integer
+          format: int64
+      - name: report_types_with_comments
+        in: query
+        description: filters on reports that have comments
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: only_own_reports
+        in: query
+        description: filters on reports written by the user
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/authorized/clients/{client_id}/reports/search_by_client
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/clients/{client_id}/reports/search_by_client_with_updated_since:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return Reports with updated since option, filtered by params Authorization is…
+      operationId: dossier.ReportAPI.authorizedSearchByClientWithUpdatedSince
+      parameters:
+      - name: client_id
+        in: path
+        description: which we want to search reports for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: keyword
+        in: query
+        description: a text search term
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: the type of information to filter on
+        schema:
+          $ref: '#/components/schemas/dossier.ReportFilter'
+      - name: education_id
+        in: query
+        description: filters on reports of which the author has a specific employee
+        schema:
+          type: integer
+          format: int64
+      - name: show_hidden
+        in: query
+        description: shows hidden reports only has effect for the author or application managers
+        schema:
+          type: boolean
+      - name: report_type
+        in: query
+        description: list of types to filter on
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        description: start search date
+        schema:
+          type: string
+      - name: valid_to
+        in: query
+        description: end search date
+        schema:
+          type: string
+      - name: updated_since
+        in: query
+        description: filters reports by updatedat
+        schema:
+          type: string
+      - name: demand_id
+        in: query
+        description: filters on reports to include only those related to a specific demand
+        schema:
+          type: integer
+          format: int64
+      - name: entry_id
+        in: query
+        description: filters on reports to include only those related to a specific care plan entry
+        schema:
+          type: integer
+          format: int64
+      - name: episode_id
+        in: query
+        description: filters on reports to include only those related to a specific episode
+        schema:
+          type: integer
+          format: int64
+      - name: restrictive_measure_id
+        in: query
+        description: filters on reports to include only those related to a specific restrictictive measure
+        schema:
+          type: integer
+          format: int64
+      - name: report_types_with_comments
+        in: query
+        description: filters on reports that have comments
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: only_own_reports
+        in: query
+        description: filters on reports written by the user
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/authorized/clients/{client_id}/reports/search_by_client_with_updated_since
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/clients/{client_id}/reports/vital_signs_reports:
+    get:
+      tags:
+      - dossier.Report
+      summary: Lists vital signs from reports
+      description: Lists systolic, diastolic, pulse, saturation and temperature values from reports and It requires `DossierReportsModify` rights for the given client.
+      operationId: dossier.ReportAPI.vitalSignsReports
+      parameters:
+      - name: client_id
+        in: path
+        description: Client identifier
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: '25'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ReportVitalSignList'
+      x-replacement-for:
+      - /t/dossier/clients/{client_id}/reports/vital_signs_reports
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/reports/with_actions:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return reports that have actions created by user or for user's expertise
+      operationId: dossier.ReportAPI.withActions
+      parameters:
+      - name: my_actions
+        in: query
+        description: true for my created reports, false for actions for my expertise
+        required: true
+        schema:
+          type: boolean
+      - name: location_id
+        in: query
+        description: optional filter by location
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: location_ids[]
+        in: query
+        description: optional filter by multiple locations
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+        x-original-parameter:
+          name: location_ids
+      - name: with_sub_locations
+        in: query
+        description: 'If true, includes the sub locations of the given locations. If false, does not include the sub locations. If nil: includes sublocations if location_id is given, excludes sublocations if location_ids are given (for backwards compatibility purposes)'
+        required: false
+        schema:
+          type:
+          - boolean
+          - 'null'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/authorized/reports/with_actions
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/reports/with_actions_summary:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return a count of reports that have actions created by user or for user's…
+      operationId: dossier.ReportAPI.withActionsSummary
+      parameters:
+      - name: location_id
+        in: query
+        description: optional filter by location
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: location_ids[]
+        in: query
+        description: optional filter by multiple locations
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+        x-original-parameter:
+          name: location_ids
+      - name: with_sub_locations
+        in: query
+        description: 'If true, includes the sub locations of the given locations. If false, does not include the sub locations. If nil: includes sublocations if location_id is given, excludes sublocations if location_ids are given (for backwards compatibility purposes)'
+        required: false
+        schema:
+          type:
+          - boolean
+          - 'null'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ReportsWithActionsSummary'
+      x-replacement-for:
+      - /t/dossier/authorized/reports/with_actions_summary
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/clients/{client_id}/reports/unfiltered_search_by_client:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return Reports Unfiltered, filtered by params Authorization is done in dossier…
+      operationId: dossier.ReportAPI.authorizedUnfilteredSearchByClient
+      parameters:
+      - name: client_id
+        in: path
+        description: which we want to search reports for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: keyword
+        in: query
+        description: a text search term
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: the type of information to filter on
+        schema:
+          $ref: '#/components/schemas/dossier.ReportFilter'
+      - name: education_id
+        in: query
+        description: filters on reports of which the author has a specific employee
+        schema:
+          type: integer
+          format: int64
+      - name: show_hidden
+        in: query
+        description: shows hidden reports only has effect for the author or application managers
+        schema:
+          type: boolean
+      - name: report_type
+        in: query
+        description: list of types to filter on
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        description: start search date
+        schema:
+          type: string
+      - name: valid_to
+        in: query
+        description: end search date
+        schema:
+          type: string
+      - name: demand_id
+        in: query
+        description: filters on reports to include only those related to a specific demand
+        schema:
+          type: integer
+          format: int64
+      - name: entry_id
+        in: query
+        description: filters on reports to include only those related to a specific care plan entry
+        schema:
+          type: integer
+          format: int64
+      - name: episode_id
+        in: query
+        description: filters on reports to include only those related to a specific episode
+        schema:
+          type: integer
+          format: int64
+      - name: restrictive_measure_id
+        in: query
+        description: filters on reports to include only those related to a specific restrictictive measure
+        schema:
+          type: integer
+          format: int64
+      - name: report_types_with_comments
+        in: query
+        description: filters on reports that have comments
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: only_own_reports
+        in: query
+        description: filters on reports written by the user
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+      x-replacement-for:
+      - /t/dossier/authorized/clients/{client_id}/reports/unfiltered_search_by_client
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/reports/by_next_dossier_report_link/{report_link_id}:
+    get:
+      tags:
+      - dossier.Report
+      summary: Returns report by next dossier report link
+      operationId: dossier.ReportAPI.findByNextDossierReportLink
+      parameters:
+      - name: report_link_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+      x-replacement-for:
+      - /t/dossier/reports/by_next_dossier_report_link/{report_link_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/reports/data:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return all Report models in a streaming manner
+      operationId: dossier.ReportAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/reports/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/reports/updates:
+    get:
+      tags:
+      - dossier.Report
+      summary: Return all Report models which were updated since the date given in the request
+      operationId: dossier.ReportAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/dossier.Report'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/reports/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.ReportLinkType:
+      enum:
+      - NEXT_DOSSIER
+      type: string
+      description: ReportLinkType enum (no description)
+      example: NEXT_DOSSIER
+    dossier.ReportAuthorization:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        carePlanId:
+          type: integer
+          description: 'Deprecated since: 14-03-2019'
+          format: int64
+          deprecated: true
+        expertiseProfileId:
+          type: integer
+          format: int64
+        expertiseGroupObjectId:
+          type: integer
+          format: int64
+      description: "Only present when dossier.Report.confidential == true, then:\n- In the case of SOEP-reports (reportType 315), contains all disciplines that can see any of the \nSOEP-report's reportEntries. Which discipline can see which entry is defined on the reportEntries themselves.\n- For other reports, contains which discipline can see the report."
+      example:
+        id: 1
+        carePlanId: 1
+        expertiseProfileId: 1
+        expertiseGroupObjectId: 1
+      xml:
+        name: reportAuthorization
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.list.ReportAuthorizationList:
+      type: object
+      properties:
+        reportAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorization'
+          xml:
+            name: reportAuthorization
+      description: ReportAuthorizationList model (no description)
+      example:
+        reportAuthorizations:
+        - id: 1
+          expertiseProfileId: 1
+          expertiseGroupObjectId: 2
+        - id: 2
+          expertiseProfileId: 2
+          expertiseGroupObjectId: 1
+      xml:
+        name: reportAuthorizations
+    dossier.ReportEntry:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Explicitly supported values for well-known report types are:
+
+            - decimalValue
+
+            - systolicPressure
+
+            - diastolicPressure
+
+            - heartRate
+
+            - weight
+
+            - size
+
+            - bmi
+
+            - subjective
+
+            - objective
+
+            - assessment
+
+            - plan'
+        value:
+          type: string
+        format:
+          type: string
+        unit:
+          type: string
+        displayName:
+          type: string
+      description: ReportEntry model (no description)
+      example:
+        name: systolicPressure
+        value: '120'
+        format: '%.1f'
+        unit: mm[Hg]
+        displayName: Systolic pressure
+      xml:
+        name: reportEntry
+    dossier.ReportAction:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.ReportAuthorization'
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        dateFinished:
+          type: string
+          format: date-time
+      description: ReportAction model (no description)
+      example:
+        id: 1
+        carePlanId: 1
+        expertiseProfileId: 1
+        expertiseGroupObjectId: 2
+        employeeId: 1
+        dateFinished: '2014-07-24T02:00:00.000+02:00'
+      xml:
+        name: reportAction
+    dossier.ReportVitalSign:
+      title: ReportVitalSign
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: generic name of vital sign
+        measuredAt:
+          type:
+          - string
+          - 'null'
+          description: Time when vital sign was measured.
+          format: date-time
+        unit:
+          type:
+          - string
+          - 'null'
+          description: unit of measurement
+        type:
+          type:
+          - string
+          - 'null'
+          description: Vital sign name
+        value:
+          type:
+          - string
+          - 'null'
+          description: value of vital sign
+      description: Vital sign from a report
+      example:
+        id: systolic_blood_pressure
+        measuredAt: '2014-07-24T02:00:00.000+02:00'
+        unit: mm[Hg]
+        type: Systolisch
+        value: '55'
+    dossier.ReportsWithActionsSummary:
+      type: object
+      properties:
+        actionsForUser:
+          type: integer
+          format: int64
+        actionsByUser:
+          type: integer
+          format: int64
+      description: ReportsWithActionsSummary model (no description)
+      example:
+        actionsForUser: 42
+        actionsByUser: 87
+    dossier.ReportFilter:
+      type: string
+      oneOf:
+      - title: ALL
+        enum:
+        - all
+      - title: MARKED
+        enum:
+        - marked
+      - title: WITH_ACTIONS
+        enum:
+        - with_actions
+      - title: WITH_CREATED_ACTIONS
+        enum:
+        - with_created_actions
+      description: ReportFilter model (no description)
+      example: all
+    dossier.Report:
+      required:
+      - reportTypeId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type: string
+        reportingDate:
+          type: string
+          format: date-time
+        comment:
+          type: string
+        flagged:
+          type: boolean
+        confidential:
+          type: boolean
+          description: 'Signals whether a report is only visible to certain disciplines (listed in reportAuthorizations)
+
+            In the case of SOEP-reports (reportType 315), this flag is only true when ALL reportEntries are
+
+            confidential.'
+        hidden:
+          type: boolean
+        hidingReason:
+          type: string
+        parentId:
+          type: integer
+          format: int64
+        parentType:
+          type: string
+        carenId:
+          type: integer
+          format: int64
+        carenName:
+          type: string
+        carenRole:
+          type: string
+        status:
+          type: integer
+          format: int32
+        clientId:
+          type: integer
+          format: int64
+        employeeId:
+          type: integer
+          format: int64
+        reportTypeId:
+          type: integer
+          description: 'The report type, the objectId of {@link com.nedap.healthcare.domain.dossier.ReportType}
+
+            Which should be one of the following values:
+
+            <pre>
+
+            101 Rapportage
+
+            102 Gewicht
+
+            103 Bloeddruk
+
+            104 Temperatuur
+
+            105 Bloedsuiker
+
+            106 Vocht inname
+
+            107 Vocht uitscheiding
+
+            108 Defecatie
+
+            109 Medisch
+
+            110 Voortgang
+
+            111 Familie communicatie
+
+            112 Keten communicatie
+
+            309 Stemming
+
+            310 Omaha
+
+            311 Saturatie
+
+            314 Pijnscore
+
+            315 SOEP
+
+            316 Bristol-stoelgangschaal
+
+            317 Klinimetrie
+
+            </pre>'
+          format: int64
+        carePlanEntryId:
+          type: integer
+          format: int64
+        reportEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportEntry'
+          xml:
+            wrapped: true
+        expertiseProfile:
+          $ref: '#/components/schemas/ExpertiseProfile'
+        reportActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAction'
+          xml:
+            wrapped: true
+        reportAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorization'
+          xml:
+            wrapped: true
+        soapReportEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.SoapReportEntry'
+          xml:
+            wrapped: true
+        episodeId:
+          type: integer
+          description: 'Deprecated since: 14-03-2019 -- use episodeIds'
+          format: int64
+          deprecated: true
+        episodeIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: episodeId
+          xml:
+            wrapped: true
+        restrictiveMeasureId:
+          type: integer
+          format: int64
+        reportLinkId:
+          type: integer
+          format: int64
+        reportLinkType:
+          $ref: '#/components/schemas/dossier.ReportLinkType'
+      description: The report for which this report right applies
+      example:
+        updatedAt: '2011-09-05T08:28:25.000+02:00'
+        createdAt: '2011-09-05T08:28:25.000+02:00'
+        createdBy: user
+        id: 1
+        uuid: '12345234900234'
+        reportingDate: '2011-09-05T08:28:25.000+02:00'
+        comment: Mevrouw rook vanmiddag naar alocohol, blijkbaar weet ze toch aan drank te komen. Kamer nalopen op verborgen drank.
+        flagged: false
+        confidential: false
+        hidden: false
+        hidingReason: unknown
+        parentId: 1
+        parentType: careplanreport
+        carenId: 1
+        carenName: zusje
+        carenRole: nurse
+        status: 1
+        clientId: 212
+        employeeId: 1402
+        reportTypeId: 101
+        carePlanEntryId: 8351
+        reportEntries:
+        - name: systolicPressure
+          value: '120'
+          format: '%.1f'
+          unit: mm[Hg]
+          displayName: Systolic pressure
+        expertiseProfile:
+          id: 11889
+          description: Specialist ouderen
+          visible: true
+        reportActions:
+        - expertiseProfileId: 3
+          expertiseGroupObjectId: 2
+          employeeId: 4085
+          dateFinished: '2011-09-05T08:52:48.000+02:00'
+        reportAuthorizations:
+        - id: 1
+          carePlanId: 1
+          expertiseProfileId: 1
+          expertiseGroupObjectId: 1
+        - id: 1
+          carePlanId: 1
+          expertiseProfileId: 1
+          expertiseGroupObjectId: 1
+        soapReportEntries:
+        - soapPart: Subjective
+          confidential: true
+          content: Text about the subjective experiences of the client
+          expertiseProfileIds:
+          - 1
+          - 2
+          - 3
+          expertiseGroupIds:
+          - 4
+          - 5
+          - 6
+        - soapPart: Objective
+          confidential: false
+          content: Text about the objective experiences of the client
+        episodeId: 22
+        episodeIds:
+        - 22
+        - 23
+        restrictiveMeasureId: 24
+        reportLinkId: 123
+        reportLinkType: NEXT_DOSSIER
+      xml:
+        name: report
+    dossier.list.ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Report'
+          xml:
+            name: report
+      description: ReportList model (no description)
+      example:
+        reports:
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 1
+          reportingDate: '2014-04-01T17:00:00.000+02:00'
+          comment: Goed geplast
+          flagged: true
+          confidential: false
+          hidden: false
+          parentType: careplanreport
+          carenId: 10
+          carenName: Foeken
+          carenRole: Mantelzorger
+          status: 1
+          reportTypeId: 101
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 2
+          reportingDate: '2014-04-01T17:00:00.000+02:00'
+          comment: Goed geplast
+          flagged: true
+          confidential: false
+          hidden: false
+          parentType: careplanreport
+          carenId: 10
+          carenName: Foeken
+          carenRole: Mantelzorger
+          status: 1
+          reportTypeId: 101
+      xml:
+        name: reports
+    dossier.SoapReportEntry:
+      type: object
+      properties:
+        soapPart:
+          type: string
+        confidential:
+          type: boolean
+          description: When this is true this SOAP entry is shown regardless of the attached rights
+          default: false
+        content:
+          type: string
+        expertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseProfileId
+          xml:
+            wrapped: true
+        expertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseGroupId
+          xml:
+            wrapped: true
+      description: SoapReportEntry model (no description)
+      example:
+        soapPart: Subjective
+        confidential: true
+        content: Text about the subjective experiences of the client
+        expertiseProfileIds:
+        - 1
+        - 2
+        - 3
+        expertiseGroupIds:
+        - 4
+        - 5
+        - 6
+      xml:
+        name: soapReportEntry
+    dossier.ReportVitalSignList:
+      title: VitalSignsReports
+      type: object
+      properties:
+        systolic:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        diastolic:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        pulse:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        temperature:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        saturation:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+      description: List of vital signs
+      example:
+        systolic:
+          id: systolic_blood_pressure
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: mm[Hg]
+          type: Systolisch
+          value: '55'
+        diastolic:
+          id: diastolic_blood_pressure
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: mm[Hg]
+          type: Diastolisch
+          value: '55'
+        pulse:
+          id: pulse
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: /min
+          type: Frequentie
+          value: '55'
+        temperature:
+          id: body_temperature
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: Cek
+          type: Temperatuur
+          value: '55'
+        saturation:
+          id: body_saturation
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: '%'
+          type: Saturatie
+          value: '55'
+    ExpertiseProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        visible:
+          type: boolean
+        beginDate:
+          type: string
+          description: 'Deprecated since: 2024-05-14, unused, always empty'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 14-05-2024
+        endDate:
+          type: string
+          description: 'Deprecated since: 2024-05-14, unused, always empty'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 14-05-2024
+        allowDossierActions:
+          type: boolean
+        allowDossierConfidential:
+          type: boolean
+        hourTypeIds:
+          type: array
+          items:
+            type: integer
+            description: List of Ids of {@link HourType}s assigned to this expertise profile
+            format: int64
+            xml:
+              name: hourTypeId
+          description: List of Ids of {@link HourType}s assigned to this expertise profile
+          xml:
+            wrapped: true
+      description: Model is used to check to see if a person can be connected to a certain {@link HourType}.
+      example:
+        id: 5
+        description: Helpenden
+        visible: true
+        beginDate: '2015-01-01T12:00:00.000+01:00'
+        endDate: '2020-01-01T12:00:00.000+01:00'
+        allowDossierActions: true
+        allowDossierConfidential: false
+        hourTypeIds:
+        - 1
+        - 2
+        - 3
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

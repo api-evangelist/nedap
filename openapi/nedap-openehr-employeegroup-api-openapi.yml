@@ -1,0 +1,378 @@
+openapi: 3.2.0
+info:
+  title: Nedap Openehr.Employee Group API
+  version: 0.0.0
+  description: 'Operations tagged openehr.EmployeeGroup across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: openehr.EmployeeGroup
+paths:
+  /t/openehr/employee_groups/{id}:
+    get:
+      tags:
+      - openehr.EmployeeGroup
+      summary: Returns the employee group corresponding to the given id, including direct…
+      operationId: openehr.EmployeeGroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: The id of the employee group
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Employee group corresponding to the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.EmployeeGroup'
+        '404':
+          description: Employee group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_db/unauthorized/cupido/employee_groups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/employee_groups:
+    get:
+      tags:
+      - openehr.EmployeeGroup
+      summary: Returns every EmployeeGroup available from the EmployeeGroupAPI
+      operationId: openehr.EmployeeGroupAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.EmployeeGroupList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/employee_groups
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/employee_groups/by_employee/{employee_id}:
+    get:
+      tags:
+      - openehr.EmployeeGroup
+      summary: Returns employee groups that an employee is or was a member of
+      operationId: openehr.EmployeeGroupAPI.byEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: only_active
+        in: query
+        description: When true, only return employee groups that an employee currently is a member of
+        required: false
+        schema:
+          type: boolean
+      - name: with_ancestors
+        in: query
+        description: When true, also return ancestors of the direct assignments
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Employee groups that an employee is or was a member of
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.EmployeeGroupList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/employee_groups/by_employee/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_db/unauthorized/cupido/employee_groups/{id}:
+    get:
+      tags:
+      - openehr.EmployeeGroup
+      summary: Returns the employee group corresponding to the given id, including direct…
+      operationId: openehr.EmployeeGroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: The id of the employee group
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Employee group corresponding to the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.EmployeeGroup'
+        '404':
+          description: Employee group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/employee_groups/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/employee_groups:
+    get:
+      tags:
+      - openehr.EmployeeGroup
+      summary: Returns every EmployeeGroup available from the EmployeeGroupAPI
+      operationId: openehr.EmployeeGroupAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.EmployeeGroupList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/employee_groups
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/employee_groups/by_employee/{employee_id}:
+    get:
+      tags:
+      - openehr.EmployeeGroup
+      summary: Returns employee groups that an employee is or was a member of
+      operationId: openehr.EmployeeGroupAPI.byEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: only_active
+        in: query
+        description: When true, only return employee groups that an employee currently is a member of
+        required: false
+        schema:
+          type: boolean
+      - name: with_ancestors
+        in: query
+        description: When true, also return ancestors of the direct assignments
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Employee groups that an employee is or was a member of
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.EmployeeGroupList'
+      x-replacement-for:
+      - /t/openehr/employee_groups/by_employee/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    openehr.list.EmployeeGroupList:
+      type: object
+      properties:
+        employeeGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+      description: EmployeeGroupList model (no description)
+      example:
+        employeeGroups:
+        - id: 132
+          employeeGroupType: EXPERTISE_GROUP
+          originatingSystemId: Administratie
+          originatingSystemItemId: '11'
+          parentGroups:
+          - id: 57
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          childGroups:
+          - id: 134
+            employeeGroupType: EXPERTISE_PROFILE
+            name: Profile1
+            deleted: false
+          name: Group1
+          beginDate: '2020-05-11'
+          endDate: '2020-05-25'
+          deleted: false
+        - id: 133
+          employeeGroupType: EXPERTISE_GROUP
+          name: Group2
+          deleted: false
+        - id: 134
+          employeeGroupType: EXPERTISE_PROFILE
+          originatingSystemId: Administratie
+          originatingSystemItemId: '13'
+          name: Profile1
+          parentGroups:
+          - id: 132
+            employeeGroupType: EXPERTISE_GROUP
+            originatingSystemId: Administratie
+            originatingSystemItemId: '11'
+            name: Group1
+            beginDate: '2020-05-11'
+            endDate: '2020-05-25'
+            deleted: false
+          beginDate: '2020-05-17'
+          deleted: false
+        - id: 135
+          employeeGroupType: EXPERTISE_PROFILE
+          name: Profile2
+          endDate: '2020-05-19'
+          deleted: true
+    openehr.EmployeeGroup:
+      title: EmployeeGroup
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        employeeGroupType:
+          type:
+          - string
+          - 'null'
+          description: Type of employee group, e.g. EXPERTISE_PROFILE or EXPERTISE_GROUP.
+        originatingSystemId:
+          type:
+          - string
+          - 'null'
+          description: Originating system of the employee group, e.g. Administratie.
+        originatingSystemItemId:
+          type: string
+          description: Id of the employee group in the originating system.
+        parentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct parents of the employee group.
+        childGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct children of the employee group.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the employee group.
+        beginDate:
+          type:
+          - string
+          - 'null'
+          description: Begin date of the employee group.
+          format: date
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: End date of the employee group.
+          format: date
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is deleted.
+        visible:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is visible.
+        allowDossierActions:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create reports with actions. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+        allowDossierConfidential:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create confidential reports. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+      description: 'Employee group used for authorizations in {@link ArchetypeWrapper} and
+
+        {@link CompositionWrapper}.
+
+
+        Employee groups can be based on {@link com.nedap.healthcare.domain.ExpertiseProfile}
+
+        and {@link com.nedap.healthcare.domain.ExpertiseGroup}.'
+      example:
+        id: 132
+        employeeGroupType: EXPERTISE_GROUP
+        originatingSystemId: Administratie
+        originatingSystemItemId: '11'
+        parentGroups:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        childGroups:
+        - id: 134
+          employeeGroupType: EXPERTISE_PROFILE
+          name: Profile1
+          deleted: false
+          allowDossierActions: true
+          allowDossierConfidential: false
+        name: Group1
+        beginDate: '2020-05-11'
+        endDate: '2020-05-25'
+        deleted: false
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

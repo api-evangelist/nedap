@@ -1,0 +1,251 @@
+openapi: 3.2.0
+info:
+  title: Nedap Tasque.Care Task Group API
+  version: 0.0.0
+  description: 'Operations tagged tasque.CareTaskGroup across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: tasque.CareTaskGroup
+paths:
+  /t/tasque/care_task_groups:
+    post:
+      tags:
+      - tasque.CareTaskGroup
+      summary: Create CareTaskGroup
+      operationId: tasque.CareTaskGroupAPI.create
+      requestBody:
+        description: CareTaskGroup to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskGroup'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskGroup'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/taken/care_task_groups
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_groups/{id}:
+    get:
+      tags:
+      - tasque.CareTaskGroup
+      summary: Gets task group
+      operationId: tasque.CareTaskGroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskGroup
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskGroup'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/taken/care_task_groups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - tasque.CareTaskGroup
+      summary: Updates the given CareTaskGroup
+      operationId: tasque.CareTaskGroupAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskGroup
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: CareTaskGroup to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskGroup'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskGroup'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/taken/care_task_groups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - tasque.CareTaskGroup
+      summary: Deletes the CareTaskGroup with given id
+      operationId: tasque.CareTaskGroupAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskGroup
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the care task group
+          content: {}
+      x-cupido-common-method: true
+      x-replaced-by: /v0/taken/care_task_groups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_groups:
+    post:
+      tags:
+      - tasque.CareTaskGroup
+      summary: Create CareTaskGroup
+      operationId: tasque.CareTaskGroupAPI.create
+      requestBody:
+        description: CareTaskGroup to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskGroup'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskGroup'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/tasque/care_task_groups
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_groups/{id}:
+    get:
+      tags:
+      - tasque.CareTaskGroup
+      summary: Gets task group
+      operationId: tasque.CareTaskGroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskGroup
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskGroup'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/tasque/care_task_groups/{id}
+    put:
+      tags:
+      - tasque.CareTaskGroup
+      summary: Updates the given CareTaskGroup
+      operationId: tasque.CareTaskGroupAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskGroup
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: CareTaskGroup to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskGroup'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskGroup'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/tasque/care_task_groups/{id}
+    delete:
+      tags:
+      - tasque.CareTaskGroup
+      summary: Deletes the CareTaskGroup with given id
+      operationId: tasque.CareTaskGroupAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskGroup
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the care task group
+          content: {}
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/tasque/care_task_groups/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    tasque.CareTaskGroup:
+      required:
+      - namedPath
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: ID of task group provided by source
+          readOnly: true
+          x-cupido-id: true
+        namedPath:
+          type: string
+          description: Name of the task group including hierarchy when nesting via '/'
+        active:
+          type:
+          - boolean
+          - 'null'
+          description: True if task group is active globally
+        qualityTask:
+          type: boolean
+          description: True if task group is active and tasks are visible in Kwaliteitsmonitor
+        rights:
+          type: array
+          items:
+            type: string
+          description: A list of rights
+      description: Group of tasks with the same subtype
+      example:
+        id: care_plan_renew
+        namedPath: Dossier/Care plan/renewal
+        active: true
+        qualityTask: true
+        rights:
+        - client_overview
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

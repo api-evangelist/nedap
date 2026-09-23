@@ -1,0 +1,456 @@
+openapi: 3.2.0
+info:
+  title: Nedap Groupcare.Group API
+  version: 0.0.0
+  description: 'Operations tagged groupcare.Group across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: groupcare.Group
+paths:
+  /t/groupcare/groups:
+    get:
+      tags:
+      - groupcare.Group
+      summary: Retrieves all groups that are not expired on the given date
+      description: 'When the date query parameter is missing it returns
+
+        the groups that are active today.'
+      operationId: groupcare.GroupAPI.all
+      parameters:
+      - name: date
+        in: query
+        description: date for which we want to query active groups
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.list.GroupList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/groupcare/groups
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - groupcare.Group
+      summary: Create Groupcare Group
+      operationId: groupcare.GroupAPI.create
+      requestBody:
+        description: to create in Groupcare
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupcare.Group'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.Group'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/groupcare/groups
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/groupcare/groups/{id}:
+    get:
+      tags:
+      - groupcare.Group
+      summary: Get GroupCare group by its identifier
+      operationId: groupcare.GroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: identifier of GroupCare Group to be found.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.Group'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/groupcare/groups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - groupcare.Group
+      summary: Updates the given Groupcare Group
+      operationId: groupcare.GroupAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Groupcare Group to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: to update in Groupcare
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupcare.Group'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.Group'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/groupcare/groups/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/groupcare/groups/x-stream-connect/data:
+    get:
+      tags:
+      - groupcare.Group
+      summary: Returns Groups models in a streaming manner
+      operationId: groupcare.GroupAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.list.GroupList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/groupcare.Group'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/groups/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/groupcare/groups:
+    get:
+      tags:
+      - groupcare.Group
+      summary: Retrieves all groups that are not expired on the given date
+      description: 'When the date query parameter is missing it returns
+
+        the groups that are active today.'
+      operationId: groupcare.GroupAPI.all
+      parameters:
+      - name: date
+        in: query
+        description: date for which we want to query active groups
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.list.GroupList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/groupcare/groups
+    post:
+      tags:
+      - groupcare.Group
+      summary: Create Groupcare Group
+      operationId: groupcare.GroupAPI.create
+      requestBody:
+        description: to create in Groupcare
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupcare.Group'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.Group'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/groupcare/groups
+    servers:
+    - url: https://api-development.ons.io
+  /v0/groupcare/groups/{id}:
+    get:
+      tags:
+      - groupcare.Group
+      summary: Get GroupCare group by its identifier
+      operationId: groupcare.GroupAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: identifier of GroupCare Group to be found.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.Group'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/groupcare/groups/{id}
+    put:
+      tags:
+      - groupcare.Group
+      summary: Updates the given Groupcare Group
+      operationId: groupcare.GroupAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Groupcare Group to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: to update in Groupcare
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupcare.Group'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.Group'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/groupcare/groups/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/groups/data:
+    get:
+      tags:
+      - groupcare.Group
+      summary: Returns Groups models in a streaming manner
+      operationId: groupcare.GroupAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.list.GroupList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/groupcare.Group'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/groupcare/groups/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    groupcare.list.GroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/groupcare.Group'
+          xml:
+            name: group
+      description: GroupList model (no description)
+      example:
+        groups:
+        - id: 1
+          name: Testgroup
+          startTime: '08:00:00.000'
+          endTime: '16:00:00.000'
+          minimumCapacity: 0
+          maximumCapacity: 25
+          expiresAfter: '2040-01-01T00:00:00.000+01:00'
+          archived: false
+          useLocationAuthorisation: false
+          useAgendaAppointments: false
+          locationId: 10
+          teamId: 8
+          employeeIds:
+          - 10
+          activityIds:
+          - 1
+          uuid: 2d8b914f-33e3-4f15-b737-89bb1a58f122
+          monday: false
+          tuesday: false
+          wednesday: false
+          thursday: false
+          friday: false
+          saturday: true
+          sunday: true
+          cycleInterval: 1
+          recurrenceType: single
+      xml:
+        name: groups
+    groupcare.Group:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        startTime:
+          type:
+          - string
+          - 'null'
+          format: time
+        endTime:
+          type:
+          - string
+          - 'null'
+          format: time
+        minimumCapacity:
+          type:
+          - integer
+          - 'null'
+          description: Minimum capacity of a group (only notifies user in the browser about this in Groupcare)
+          format: int32
+        maximumCapacity:
+          type:
+          - integer
+          - 'null'
+          description: Maximum capacity of a group, can go up to 99 (only notifies user in the browser about this in Groupcare)
+          format: int32
+        expiresAfter:
+          type:
+          - string
+          - 'null'
+          description: After this date the Group is not visible anymore in Groupcare (together with archived)
+          format: date-time
+        archived:
+          type: boolean
+        useLocationAuthorisation:
+          type: boolean
+          description: Use location based authorisation for this group, instead of adding employees manually (with employee_ids)
+        useAgendaAppointments:
+          type: boolean
+          description: Store appointments of this group in Agenda, where it also should be registered (not normal Groupcare flow, see Groupregistration project)
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: employeeId
+          xml:
+            wrapped: true
+        activityIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: activityId
+          xml:
+            wrapped: true
+        uuid:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        monday:
+          type: boolean
+          description: Needed to recreate agenda appointments for the Groupregistration project
+        tuesday:
+          type: boolean
+        wednesday:
+          type: boolean
+        thursday:
+          type: boolean
+        friday:
+          type: boolean
+        saturday:
+          type: boolean
+        sunday:
+          type: boolean
+        cycleInterval:
+          type: integer
+          format: int32
+        recurrenceType:
+          type: string
+      description: Group model (no description)
+      example:
+        id: 1
+        name: Testgroup
+        startTime: '08:00:00.000'
+        endTime: '16:00:00.000'
+        minimumCapacity: 0
+        maximumCapacity: 25
+        expiresAfter: '2040-01-01T00:00:00.000+01:00'
+        archived: false
+        useLocationAuthorisation: false
+        useAgendaAppointments: false
+        locationId: 10
+        teamId: 8
+        employeeIds:
+        - 10
+        activityIds:
+        - 1
+        uuid: 2d8b914f-33e3-4f15-b737-89bb1a58f122
+        monday: false
+        tuesday: false
+        wednesday: false
+        thursday: false
+        friday: false
+        saturday: true
+        sunday: true
+        cycleInterval: 1
+        recurrenceType: single
+      xml:
+        name: group
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

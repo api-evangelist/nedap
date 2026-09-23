@@ -1,0 +1,344 @@
+openapi: 3.2.0
+info:
+  title: Nedap Vehicle Assignment Model API
+  version: 0.0.0
+  description: 'Operations tagged VehicleAssignmentModel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: VehicleAssignmentModel
+paths:
+  /t/employees/{employee_id}/vehicle:
+    get:
+      tags:
+      - VehicleAssignmentModel
+      summary: Returns the vehicleAssignments corresponding of the given employee_id
+      operationId: VehicleAssignmentModelAPI.byEmployeeId
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        description: The objectid of an employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.VehicleAssignmentModelList'
+        '403':
+          description: Insufficient rights
+      x-replaced-by: /v0/administration/authorized/employees/{employee_id}/vehicle
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - VehicleAssignmentModel
+      summary: Updates a specific vehicleAssignment for the given employee_id
+      operationId: VehicleAssignmentModelAPI.createOrUpdateVehicleAssignments
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleAssignmentModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleAssignmentModel'
+        '400':
+          description: Validation errors
+        '403':
+          description: Insufficient rights
+      x-replaced-by: /v0/administration/authorized/employees/{employee_id}/vehicle
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/vehicle/{vehicle_assignment_id}:
+    delete:
+      tags:
+      - VehicleAssignmentModel
+      summary: deletes a specific vehicleAssignment for the given employee_id
+      operationId: VehicleAssignmentModelAPI.removeVehicleAssignment
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: vehicle_assignment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '403':
+          description: Insufficient rights
+        '404':
+          description: Vehicle assignment not found
+      x-replaced-by: /v0/administration/authorized/employees/{employee_id}/vehicle/{vehicle_assignment_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/authorized/employees/{employee_id}/vehicle:
+    get:
+      tags:
+      - VehicleAssignmentModel
+      summary: Returns the vehicleAssignments corresponding of the given employee_id
+      operationId: VehicleAssignmentModelAPI.byEmployeeId
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        description: The objectid of an employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.VehicleAssignmentModelList'
+        '403':
+          description: Insufficient rights
+      x-replacement-for:
+      - /t/employees/{employee_id}/vehicle
+    put:
+      tags:
+      - VehicleAssignmentModel
+      summary: Updates a specific vehicleAssignment for the given employee_id
+      operationId: VehicleAssignmentModelAPI.createOrUpdateVehicleAssignments
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleAssignmentModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleAssignmentModel'
+        '400':
+          description: Validation errors
+        '403':
+          description: Insufficient rights
+      x-replacement-for:
+      - /t/employees/{employee_id}/vehicle
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/authorized/employees/{employee_id}/vehicle/{vehicle_assignment_id}:
+    delete:
+      tags:
+      - VehicleAssignmentModel
+      summary: deletes a specific vehicleAssignment for the given employee_id
+      operationId: VehicleAssignmentModelAPI.removeVehicleAssignment
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: vehicle_assignment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '403':
+          description: Insufficient rights
+        '404':
+          description: Vehicle assignment not found
+      x-replacement-for:
+      - /t/employees/{employee_id}/vehicle/{vehicle_assignment_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    WpmVehicle:
+      enum:
+      - CAR_GASOLINE
+      - CAR_DIESEL
+      - CAR_PHEV
+      - CAR_EV
+      - CAR_OTHER
+      - MOTORCYCLE_GASOLINE
+      - MOTORCYCLE_EV
+      - SCOOTER_GASOLINE
+      - SCOOTER_EV
+      - BIKE_WALK
+      - PUBLIC_TRANSPORT
+      type: string
+      description: The vehicle used for travel by the employee stated in the WPM legislation
+      example: CAR_EV
+    VehicleAssignmentModel:
+      type: object
+      properties:
+        beginDate:
+          type: string
+          description: Begindate of vehicle assignment
+          format: date
+        endDate:
+          type: string
+          description: Enddate of vehicle assignment
+          format: date
+        id:
+          type: integer
+          description: Id of this object
+          format: int64
+          x-cupido-id: true
+        isCompanyVehicle:
+          type: boolean
+          description: True if the assigned vehicle is a company vehicle
+        employeeObjectid:
+          type: integer
+          format: int64
+        vehicle:
+          allOf:
+          - $ref: '#/components/schemas/WpmVehicle'
+          description: 'Assigned vehicle. Possible values:
+
+            <pre>
+
+            CAR_GASOLINE
+
+            CAR_DIESEL
+
+            CAR_PHEV
+
+            CAR_EV
+
+            CAR_OTHER
+
+            MOTORCYCLE_GASOLINE
+
+            MOTORCYCLE_EV
+
+            SCOOTER_GASOLINE
+
+            SCOOTER_EV
+
+            BIKE_WALK
+
+            </pre>'
+      description: Vehicle assignment for a given employee during a given period
+      example:
+        id: 1
+        beginDate: '2010-12-02'
+        endDate: '2011-01-02'
+        isCompanyVehicle: false
+        employeeObjectid: 123456
+        vehicle: CAR_EV
+      xml:
+        name: vehicleAssignmentModel
+    list.VehicleAssignmentModelList:
+      type: object
+      properties:
+        vehicleAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleAssignmentModel'
+      description: VehicleAssignmentModel list
+      example:
+        vehicleAssignments:
+        - id: 1
+          beginDate: '2010-12-02'
+          endDate: '2011-01-02'
+          isCompanyVehicle: false
+          employeeObjectid: 123456
+          vehicle: CAR_GASOLINE
+        - id: 2
+          beginDate: '2011-01-03'
+          endDate: '2011-03-14'
+          isCompanyVehicle: false
+          employeeObjectid: 123456
+          vehicle: CAR_EV
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

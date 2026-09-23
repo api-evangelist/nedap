@@ -1,0 +1,103 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.omaha.Intervention Target API
+  version: 0.0.0
+  description: 'Operations tagged dossier.omaha.InterventionTarget across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.omaha.InterventionTarget
+paths:
+  /t/dossier/omaha/intervention_targets:
+    get:
+      tags:
+      - dossier.omaha.InterventionTarget
+      summary: Returns every InterventionTarget available from the InterventionTargetAPI
+      operationId: dossier.omaha.InterventionTargetAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.list.InterventionTargetList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/omaha/intervention_targets
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/omaha/intervention_targets:
+    get:
+      tags:
+      - dossier.omaha.InterventionTarget
+      summary: Returns every InterventionTarget available from the InterventionTargetAPI
+      operationId: dossier.omaha.InterventionTargetAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.omaha.list.InterventionTargetList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/omaha/intervention_targets
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.omaha.InterventionTarget:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit actievlak
+      description: 'Omaha Actievlak '
+      example:
+        classificationId: Dummy
+        name: Dummy
+      xml:
+        name: omahaInterventionTarget
+    dossier.omaha.list.InterventionTargetList:
+      type: object
+      properties:
+        omahaInterventionTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.omaha.InterventionTarget'
+          xml:
+            name: omahaInterventionTarget
+      description: InterventionTargetList model (no description)
+      example:
+        omahaInterventionTargets:
+        - classificationId: intervention.target.respiratory_therapy_care
+          name: Ademhalingstherapie
+        - classificationId: intervention.target.anatomy_physiology
+          name: Anatomie/fysiologie
+      xml:
+        name: omahaInterventionTargets
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

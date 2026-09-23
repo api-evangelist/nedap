@@ -1,0 +1,447 @@
+openapi: 3.2.0
+info:
+  title: Nedap Team Address API
+  version: 0.0.0
+  description: 'Operations tagged TeamAddress across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: TeamAddress
+paths:
+  /t/team_addresses:
+    post:
+      tags:
+      - TeamAddress
+      summary: Create TeamAddress
+      operationId: TeamAddressAPI.create
+      requestBody:
+        description: TeamAddress to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAddress'
+        required: true
+      responses:
+        '200':
+          description: Successfully created TeamAddress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAddress'
+        '400':
+          description: TeamAddress must have a team
+        '404':
+          description: Team not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/team_addresses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/team_addresses/{id}:
+    get:
+      tags:
+      - TeamAddress
+      summary: Return the Team Address corresponding to the given id
+      operationId: TeamAddressAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: Selecting TeamAddress
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Successfully retrieved TeamAddress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAddress'
+        '404':
+          description: Address or TeamAddress not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/team_addresses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - TeamAddress
+      summary: Updates the given TeamAddress
+      operationId: TeamAddressAPI.updateById
+      parameters:
+      - name: id
+        in: path
+        description: Selecting TeamAddress to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: TeamAddress to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAddress'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAddress'
+        '400':
+          description: Missing id or validation errors
+        '404':
+          description: TeamAddress not found
+      x-replaced-by: /v0/administration/team_addresses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - TeamAddress
+      summary: Used to delete TeamAddress by a given id
+      operationId: TeamAddressAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Selecting TeamAddress to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Successfully deleted
+        '404':
+          description: TeamAddress or team to delete not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/team_addresses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/team_addresses:
+    post:
+      tags:
+      - TeamAddress
+      summary: Create TeamAddress
+      operationId: TeamAddressAPI.create
+      requestBody:
+        description: TeamAddress to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAddress'
+        required: true
+      responses:
+        '200':
+          description: Successfully created TeamAddress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAddress'
+        '400':
+          description: TeamAddress must have a team
+        '404':
+          description: Team not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/team_addresses
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/team_addresses/{id}:
+    get:
+      tags:
+      - TeamAddress
+      summary: Return the Team Address corresponding to the given id
+      operationId: TeamAddressAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: Selecting TeamAddress
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Successfully retrieved TeamAddress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAddress'
+        '404':
+          description: Address or TeamAddress not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/team_addresses/{id}
+    put:
+      tags:
+      - TeamAddress
+      summary: Updates the given TeamAddress
+      operationId: TeamAddressAPI.updateById
+      parameters:
+      - name: id
+        in: path
+        description: Selecting TeamAddress to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: TeamAddress to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAddress'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAddress'
+        '400':
+          description: Missing id or validation errors
+        '404':
+          description: TeamAddress not found
+      x-replacement-for:
+      - /t/team_addresses/{id}
+    delete:
+      tags:
+      - TeamAddress
+      summary: Used to delete TeamAddress by a given id
+      operationId: TeamAddressAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Selecting TeamAddress to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Successfully deleted
+        '404':
+          description: TeamAddress or team to delete not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/team_addresses/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    TeamAddress:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Address'
+      properties:
+        teamId:
+          type: integer
+          format: int64
+      description: The address of a team
+      example:
+        id: 1
+        beginDate: '2010-02-16'
+        endDate: '2010-02-17'
+        homeNumber: 4
+        homeNumberExtension: a
+        poBoxNumber: 123a
+        street: Parallelweg
+        city: Enschede
+        zipcode: 7513KC
+        municipality: Enschede
+        country: Netherlands
+        telephoneNumber: 053-1234567
+        telephoneCountryCode: '+31'
+        telephoneNumber2: 053-1234567
+        telephoneCountryCode2: '+31'
+        faxNumber: 053-1234567
+        email: mike.wazowski@nedap.com
+        type: '98'
+        typeString: Other address
+        residentType: '0'
+        personType: '6'
+        personTypeString: cluster
+        roomNumber: '1'
+        locationDescription: Afdeling noord
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        latitude: 52.1
+        longitude: 6.9
+        teamId: 2
+        situationDescription: Test
+        residenceAccessInfo: Test
+      xml:
+        name: teamAddress
+    Address:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        homeNumber:
+          type: integer
+          format: int32
+        homeNumberExtension:
+          type: string
+        poBoxNumber:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        zipcode:
+          type: string
+        municipality:
+          type: string
+        country:
+          type: string
+        telephoneNumber:
+          type: string
+        telephoneCountryCode:
+          type: string
+        telephoneNumber2:
+          type: string
+        telephoneCountryCode2:
+          type: string
+        faxNumber:
+          type: string
+        email:
+          type: string
+        type:
+          type: string
+          description: '0: Unknown
+
+            1: Living
+
+            2: Postal
+
+            3: Residence
+
+            4: Temporary
+
+            50: Sleuteladres
+
+            98: Other
+
+            100: Factuuradres'
+        typeString:
+          type: string
+        residentType:
+          type: string
+          description: '0: Unknown
+
+            1: One-family house
+
+            2: Upstairs apartment
+
+            3: Ground floor apartment
+
+            4: Apartment or flat
+
+            5: Apartment or flat, with elevator between floors
+
+            6: Houseboat
+
+            7: Trailer
+
+            8: WLZ organisation (with stay facilities)
+
+            9: Homeless
+
+            11: Assisted living
+
+            12: WLZ organisation
+
+            13: ZVW organisation
+
+            14: WMO organisation
+
+            21: asylum seekers center
+
+            31: Correctional Institution
+
+            99: Other'
+        personType:
+          type: string
+          description: '1: Client
+
+            2: Employee
+
+            3: Relation
+
+            4: Careprovider
+
+            5: Unit'
+        personTypeString:
+          type: string
+        roomNumber:
+          type: string
+        locationDescription:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        situationDescription:
+          type: string
+          description: Toelichting woonsituatie
+        residenceAccessInfo:
+          type: string
+          description: Informatie over toegang tot de woning
+      description: Address model.
+      example:
+        id: 1
+        beginDate: '2010-02-16'
+        endDate: '2010-02-17'
+        homeNumber: 4
+        homeNumberExtension: b
+        poBoxNumber: 123a
+        street: Parallelweg
+        city: Groenlo
+        zipcode: 7513KC
+        municipality: Enschede
+        country: Netherlands
+        telephoneNumber: 053-1234567
+        telephoneCountryCode: '+31'
+        telephoneNumber2: 053-1234567
+        telephoneCountryCode2: '+31'
+        faxNumber: 053-1234567
+        email: mike.wazowski@nedap.com
+        type: '3'
+        typeString: residence address
+        residentType: '?'
+        personType: '1'
+        personTypeString: client
+        roomNumber: '1'
+        locationDescription: Afdeling noord
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        latitude: 52.1
+        longitude: 6.9
+        situationDescription: Woont bij ex
+        residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

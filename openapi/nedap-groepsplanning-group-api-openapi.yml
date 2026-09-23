@@ -1,0 +1,134 @@
+openapi: 3.2.0
+info:
+  title: Nedap Groepsplanning.Group API
+  version: 0.0.0
+  description: 'Operations tagged groepsplanning.Group across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: groepsplanning.Group
+paths:
+  /t/groups/x-stream-connect/data:
+    get:
+      tags:
+      - groepsplanning.Group
+      summary: Return all Group models from groepsplanning in a streaming manner
+      operationId: groepsplanning.GroupAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groepsplanning.list.GroupList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/groepsplanning.Group'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/groepsplanning_groups/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/groepsplanning_groups/data:
+    get:
+      tags:
+      - groepsplanning.Group
+      summary: Return all Group models from groepsplanning in a streaming manner
+      operationId: groepsplanning.GroupAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groepsplanning.list.GroupList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/groepsplanning.Group'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/groups/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    groepsplanning.list.GroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/groepsplanning.Group'
+      description: List of groups
+      example:
+        groups:
+        - id: 1
+          name: alcoholics anonymous
+          description: A group to help alcoholics recover.
+          createdAt: '2024-03-27T08:00:00.000+01:00'
+          updatedAt: '2024-03-27T08:00:00.000+01:00'
+        - id: 2
+          name: boulimia
+          description: eating disorder group.
+          createdAt: '2024-03-27T08:00:00.000+01:00'
+          updatedAt: '2024-03-27T08:00:00.000+01:00'
+    groepsplanning.Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The identifier of the group
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: The name of the group
+        description:
+          type: string
+          description: The description of the group
+        startMoment:
+          type: string
+          description: Moment on which group is expected to start. Underlying data model is a date, but only the first of the month is accepted as a valid date. Should be presented to the user as a year-month select.
+          format: date
+        locationId:
+          type: integer
+          description: The identifier of the location assigned to this group
+          format: int64
+        createdAt:
+          type: string
+          description: The date and time when the group was created
+          format: date-time
+        updatedAt:
+          type: string
+          description: The date and time when the group was last altered
+          format: date-time
+        archivedAt:
+          type: string
+          description: The date and time when the group was archived
+          format: date-time
+      description: A group represents a (recurring) meeting where multiple clients can participate
+      example:
+        id: 1
+        name: alcoholics anonymous
+        description: A group to help alcoholics recover.
+        startMoment: '2024-02-01'
+        locationId: 1
+        createdAt: '2024-03-27T08:00:00.000+01:00'
+        updatedAt: '2024-03-27T08:00:00.000+01:00'
+        archivedAt: '2025-03-27T08:00:00.000+01:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

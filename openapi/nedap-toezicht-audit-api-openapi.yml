@@ -1,0 +1,289 @@
+openapi: 3.2.0
+info:
+  title: Nedap Toezicht.Audit API
+  version: 0.0.0
+  description: 'Operations tagged toezicht.Audit across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: toezicht.Audit
+paths:
+  /t/auditing/export:
+    get:
+      tags:
+      - toezicht.Audit
+      summary: Export audits for a given time period
+      description: Exports audits for a given time period. Returns JSON data.
+      operationId: toezicht.AuditAPI.streamExport
+      parameters:
+      - name: date_from
+        in: query
+        description: Start date of exported audits (included)
+        required: true
+        schema:
+          type: string
+      - name: date_to
+        in: query
+        description: End date of exported audits (included)
+        required: true
+        schema:
+          type: string
+      - name: titles
+        in: query
+        description: 'Patterns used to filter audits by title, format: titles=title1&titles=title2&titles=title3'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: user_uuids
+        in: query
+        description: 'Filter audits by user UUID, format: user_uuids=uuid1&user_uuids=uuid2'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: client_ids
+        in: query
+        description: 'Filter audits by referenced client id, format: client_ids=1&client_ids=2'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: names
+        in: query
+        description: 'Filter audits by exact name, format: names=name1&names=name2'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: applications
+        in: query
+        description: 'Filter audits by originating application, format: applications=app1&applications=app2'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: system
+        in: query
+        description: Filter on system (background) audits. true = only system, false = exclude system
+        schema:
+          type: boolean
+      - name: failed
+        in: query
+        description: Filter on failed audits. true = only failed, false = only successful
+        schema:
+          type: boolean
+      - name: with_nonempty_references
+        in: query
+        description: When true, only return audits referencing a client or employee. Only true is accepted
+        schema:
+          enum:
+          - true
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/toezicht.list.AuditList'
+      x-replaced-by: /v0/auditing/export
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/auditing/export:
+    get:
+      tags:
+      - toezicht.Audit
+      summary: Export audits for a given time period
+      description: Exports audits for a given time period. Returns JSON data.
+      operationId: toezicht.AuditAPI.streamExport
+      parameters:
+      - name: date_from
+        in: query
+        description: Start date of exported audits (included)
+        required: true
+        schema:
+          type: string
+      - name: date_to
+        in: query
+        description: End date of exported audits (included)
+        required: true
+        schema:
+          type: string
+      - name: titles[]
+        in: query
+        description: 'Patterns used to filter audits by title, format: titles=title1&titles=title2&titles=title3'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        x-original-parameter:
+          name: titles
+      - name: user_uuids[]
+        in: query
+        description: 'Filter audits by user UUID, format: user_uuids=uuid1&user_uuids=uuid2'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        x-original-parameter:
+          name: user_uuids
+      - name: client_ids[]
+        in: query
+        description: 'Filter audits by referenced client id, format: client_ids=1&client_ids=2'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+        x-original-parameter:
+          name: client_ids
+      - name: names[]
+        in: query
+        description: 'Filter audits by exact name, format: names=name1&names=name2'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        x-original-parameter:
+          name: names
+      - name: applications[]
+        in: query
+        description: 'Filter audits by originating application, format: applications=app1&applications=app2'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        x-original-parameter:
+          name: applications
+      - name: system
+        in: query
+        description: Filter on system (background) audits. true = only system, false = exclude system
+        schema:
+          type: boolean
+      - name: failed
+        in: query
+        description: Filter on failed audits. true = only failed, false = only successful
+        schema:
+          type: boolean
+      - name: with_nonempty_references
+        in: query
+        description: When true, only return audits referencing a client or employee. Only true is accepted
+        schema:
+          enum:
+          - true
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/toezicht.list.AuditList'
+      x-replacement-for:
+      - /t/auditing/export
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    toezicht.AuditReferences:
+      type: object
+      properties:
+        clients:
+          type: array
+          items:
+            type: integer
+      description: References linked to an exported Audit
+      example:
+        clients:
+        - 10
+        - 12
+    toezicht.list.AuditList:
+      required:
+      - audits
+      type: object
+      properties:
+        audits:
+          type: array
+          items:
+            $ref: '#/components/schemas/toezicht.Audit'
+      description: List of exported audits.
+      example:
+        audits:
+        - activeIdentity:
+            employeeId: 10
+            userName: administrator
+          createdAt: '2024-01-01T01:35:19.498+01:00'
+          deploymentType: PlanningDeployment
+          description: Sync Notes.
+          failed: false
+          name: SyncClient::NotesSyncJob
+          references:
+            clients:
+            - 10
+            - 12
+          title: Overnemen cliëntnotities uit Ons Dossier
+    toezicht.AuditIdentity:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          description: Some audits store the employee_id captured when the audit event was created. For audits without a stored employee_id, this value is resolved from other ONS data sources at the moment of export. It may not be available in all cases. If the user is removed from Administration, the employee_id may no longer be available for audits of some types.
+        userName:
+          type: string
+      description: Identity linked to an exported Audit
+      example:
+        employeeId: 10
+        userName: administrator
+    toezicht.Audit:
+      required:
+      - createdAt
+      type: object
+      properties:
+        activeIdentity:
+          $ref: '#/components/schemas/toezicht.AuditIdentity'
+        createdAt:
+          type: string
+        deploymentType:
+          type: string
+        description:
+          type: string
+        failed:
+          type: boolean
+        name:
+          type: string
+        references:
+          $ref: '#/components/schemas/toezicht.AuditReferences'
+        title:
+          type: string
+      description: A single exported audit
+      example:
+        activeIdentity:
+          employeeId: 10
+          userName: administrator
+        createdAt: '2024-01-01T01:35:19.498+01:00'
+        deploymentType: PlanningDeployment
+        description: Sync Notes.
+        failed: false
+        name: SyncClient::NotesSyncJob
+        references:
+          clients:
+          - 10
+          - 12
+        title: Overnemen cliëntnotities uit Ons Dossier
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

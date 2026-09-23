@@ -1,0 +1,923 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Report With Actions API
+  version: 0.0.0
+  description: 'Operations tagged dossier.ReportWithActions across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.ReportWithActions
+paths:
+  /t/dossier/authorized/clients/{client_id}/reports_with_actions:
+    get:
+      tags:
+      - dossier.ReportWithActions
+      summary: Returns ReportsWithActions that have actions created by user or for user's…
+      operationId: dossier.ReportWithActionsAPI.reportsWithActions
+      parameters:
+      - name: client_id
+        in: path
+        description: The client id for which to get the registrations
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: created_by_user
+        in: query
+        description: True for the user's created reports, false for actions for my expertise
+        required: true
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: Limit
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offset
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportWithActionsList'
+      x-replaced-by: /v0/dossier/back_channel/authorized/clients/{client_id}/reports_with_actions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/clients/{client_id}/reports_with_actions:
+    get:
+      tags:
+      - dossier.ReportWithActions
+      summary: Returns ReportsWithActions that have actions created by user or for user's…
+      operationId: dossier.ReportWithActionsAPI.reportsWithActions
+      parameters:
+      - name: client_id
+        in: path
+        description: The client id for which to get the registrations
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: created_by_user
+        in: query
+        description: True for the user's created reports, false for actions for my expertise
+        required: true
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: Limit
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offset
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ReportWithActionsList'
+      x-replacement-for:
+      - /t/dossier/authorized/clients/{client_id}/reports_with_actions
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.ReportAuthorizationsViewModel:
+      title: ReportAuthorizationsViewModel
+      required:
+      - profileAuthorizations
+      - groupAuthorizations
+      type: object
+      properties:
+        profileAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorizationViewModel'
+          description: List of expertise profile authorizations.
+        groupAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorizationViewModel'
+          description: List of expertise group authorizations.
+      description: 'Expertise profiles and groups that are allowed to view the report. Expertises are applied only if the report is
+
+        marked as `confidential`, otherwise the list of expertises is ignored.
+
+        '
+      example:
+        profileAuthorizations:
+        - expertiseId: 77
+          expertiseName: Arts
+        groupAuthorizations:
+        - expertiseId: 77
+          expertiseName: Arts
+    dossier.CombinedReportActionReceiverType:
+      enum:
+      - ExpertiseProfile
+      - ExpertiseGroup
+      type: string
+      description: The type of the receiver; expertise profile or group
+      example: ExpertiseProfile
+    dossier.ReportPhotoViewModel:
+      title: ReportPhotosViewModel
+      required:
+      - mimeType
+      - chironPhotoId
+      - defaultBlurred
+      type: object
+      properties:
+        mimeType:
+          type: string
+          description: MIME type of the photo file
+        chironPhotoId:
+          type: integer
+          description: ID of the photo file stored in Chiron. Can be used to produce the file address.
+          format: int64
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Comment describing the photo
+        defaultBlurred:
+          type: boolean
+          description: Whether the photo should be blurred by default in a report timeline
+      description: Report photo view models
+      example:
+        mimeType: image/jpeg
+        chironPhotoId: 1023
+        comment: palm
+        defaultBlurred: false
+    dossier.SoapViewModel:
+      title: SoapViewModel
+      required:
+      - subjective
+      - objective
+      - assessment
+      - plan
+      type:
+      - object
+      - 'null'
+      properties:
+        subjective:
+          $ref: '#/components/schemas/dossier.SoapPartViewModel'
+        objective:
+          $ref: '#/components/schemas/dossier.SoapPartViewModel'
+        assessment:
+          $ref: '#/components/schemas/dossier.SoapPartViewModel'
+        plan:
+          $ref: '#/components/schemas/dossier.SoapPartViewModel'
+      description: 'Values for SOAP (SOEP) report. Comments on individual parts are present only in case when the current
+
+        employee is allowed to see them.
+
+        '
+      example:
+        subjective:
+          label: subjective
+          confidential: true
+          visible: true
+        objective:
+          label: objective
+          confidential: true
+          visible: true
+        assessment:
+          label: assessment
+          confidential: true
+          visible: true
+        plan:
+          label: plan
+          confidential: true
+          visible: true
+    dossier.SoapPartViewModel:
+      title: SoapPartViewModel
+      required:
+      - label
+      - confidential
+      - visible
+      type: object
+      properties:
+        label:
+          type: string
+          description: Dutch or English language dependent name of the SOAP part
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Text of the SOAP part. It is present only if the current employee is allowed to see this SOAP part.
+        visible:
+          type: boolean
+          description: 'Set to `true` if the employee is allowed to see this SOAP part.
+
+
+            If set to `false` then the `comment` attribute is empty but list of `authorizations` is still visible.
+
+
+            It means that an employee cannot see the comment but they still can see list of expertise profiles and groups who are
+
+            allowed to see the comment.
+
+            '
+        confidential:
+          type: boolean
+          description: 'When set to `true` then this report is not public and can only be seen by employees with proper level
+
+            of authorization (see the `authorizations` property in this model)
+
+            '
+        authorizations:
+          $ref: '#/components/schemas/dossier.ReportAuthorizationsViewModel'
+      description: Individual part of the SOAP report (subjective/objective/assessment/plan)
+      example:
+        label: subjectief
+        confidential: true
+        visible: true
+    dossier.CombinedReportActionReceiverViewModel:
+      title: CombinedReportActionReceiverViewModel
+      required:
+      - id
+      - name
+      - type
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The identifier of the expertise profile or group
+        name:
+          type: string
+          description: The name of the expertise profile or group
+        type:
+          $ref: '#/components/schemas/dossier.CombinedReportActionReceiverType'
+      description: Report action receiver view model
+      example:
+        id: 1
+        name: Arts
+        type: ExpertiseProfile
+    dossier.MeasurementViewModel:
+      title: MeasurementViewModel
+      required:
+      - name
+      - label
+      - value
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/dossier.MeasurementViewModelName'
+        label:
+          type: string
+          description: Name of the field to display (in Dutch or English, it depends on language settings)
+        value:
+          type: number
+          description: Value of the measurement (e.g. temperature, weight, etc.)
+          format: double
+        format:
+          type:
+          - string
+          - 'null'
+          description: "Format to use for rendering the value. For example '%.2f' stands for two positions after the decimal\tpoint, more details at https://alvinalexander.com/programming/printf-format-cheat-sheet/"
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit of the value
+      description: 'Reported value with unit and display format.
+
+        Some reports have multiple measurements (report entries) - for example BMI report can have up to three values (weight, height, BMI)
+
+        '
+      example:
+        name: decimal
+        label: Temperatuur
+        value: 38.4
+        unit: °C
+        format: '%.1f'
+    dossier.ReportAuthorizationViewModel:
+      title: ReportAuthorizationViewModel
+      required:
+      - expertiseId
+      - expertiseName
+      type: object
+      properties:
+        expertiseId:
+          type: integer
+          description: ID of the expertise group or expertise profile.
+          format: int64
+        expertiseName:
+          type: string
+          description: Name of the expertise profile or group.
+      description: 'Authorization is referencing either expertise group or expertise profile. The type of the expertise is given by the context
+
+        of the owning object.
+
+        '
+      example:
+        expertiseId: 77
+        expertiseName: Arts
+    dossier.MeasurementViewModelName:
+      type: string
+      oneOf:
+      - title: BMI
+        enum:
+        - bmi
+      - title: WEIGHT
+        enum:
+        - weight
+      - title: HEIGHT
+        enum:
+        - height
+      - title: SYSTOLIC
+        enum:
+        - systolic
+      - title: DIASTOLIC
+        enum:
+        - diastolic
+      - title: HEART_RATE
+        enum:
+        - heart-rate
+      - title: DECIMAL
+        enum:
+        - decimal
+      description: 'Technical name of the field, always in English. This can be used if an API consumer needs to know what kind of value they
+
+        are looking at.
+
+        '
+      example: bmi
+    dossier.ReportActionsStatus:
+      type: string
+      oneOf:
+      - title: NONE
+        enum:
+        - none
+      - title: FOR_ME
+        enum:
+        - for-me
+      - title: ALL_COMPLETE
+        enum:
+        - all-complete
+      - title: FOR_OTHERS
+        enum:
+        - for-others
+      description: 'Status of the report actions. It indicates if there are incomplete actions for my expertise profile or groups.
+
+        - none : there are no actions for this report
+
+        - for-me : there are incomplete actions for my expertise profile / expertise groups
+
+        - all-complete : all actions for this report are complete
+
+        - for-others : actions for my expertise are complete but there are some incomplete actions for expertise profiles / groups that are not complete
+
+        '
+      example: none
+    dossier.ReportWithActions:
+      title: ReportWithActions
+      required:
+      - id
+      - reportedAt
+      - flagged
+      - hidden
+      - createdAt
+      - updatedAt
+      - status
+      - clientId
+      - reportTypeId
+      - reportTypeName
+      - reportTypeIconName
+      - authorName
+      - authorType
+      - confidential
+      - measurements
+      - photos
+      - reactions
+      - authorizations
+      - actions
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the report
+          format: int64
+        uuid:
+          type:
+          - string
+          - 'null'
+          description: UUID of the report
+          format: uuid
+        reportedAt:
+          type: string
+          description: 'Timestamp of the report. It is usually time when the report was created but it can be set when report is created.
+
+            '
+          format: date-time
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Text comment on the report
+        flagged:
+          type: boolean
+          description: 'When set to `true` then report is marked as important/flagged. Flagged reports are displayed on the client overview page.
+
+            '
+        hidden:
+          type: boolean
+          description: 'When set to `true` the report is hidden. Only users with `ApplicationManager` right or authors of the report can see
+
+            this report.
+
+            '
+        hidingReason:
+          type:
+          - string
+          - 'null'
+          description: 'The reason why this report is hidden (see `hidden` property). When report is hidden then this field is always filled because
+
+            hiding reason is mandatory for hidden reports.
+
+            '
+        createdAt:
+          type: string
+          description: Timestamp of the time when report was created (unlike reportedAt, this one cannot be changed).
+          format: date-time
+        updatedAt:
+          type: string
+          description: Timestamp of the time when report was updated
+          format: date-time
+        status:
+          $ref: '#/components/schemas/dossier.ReportStatus'
+        clientId:
+          type: integer
+          description: ID of the client this report belongs to
+          format: int64
+        reportTypeId:
+          type: integer
+          description: 'Type of the report provided as a number. Following values are standard report types:
+
+            - 101 Text report
+
+            - 102 BMI (weight and height) report
+
+            - 103 Blood pressure report
+
+            - 104 Temperature report
+
+            - 105 Blood sugar (Glucose) report
+
+            - 106 Fluid-in report
+
+            - 107 Fluid-out report
+
+            - 108 Defecation report
+
+            - 109 Medical report
+
+            - 110 Progress report
+
+            - 111 Family report
+
+            - 112 Chain (Ketencommunicatie) report
+
+            - 309 Mood report
+
+            - 310 Omaha report
+
+            - 311 Saturation report
+
+            - 314 Pain report
+
+            - 315 SOAP report
+
+            - 316 Bristol report
+
+            - 317 Clinimetrics (Next Dossier) report
+
+            - 318 Photo report
+
+            '
+        reportTypeName:
+          type: string
+          description: Name (in Dutch) of the report type.
+        reportTypeIconName:
+          type: string
+          description: 'Name of the icon for the report type of this report. It''s not the icon itself, and it is up to the consumer to translate name of the icon
+
+            to the actual icon that can be displayed.
+
+            '
+        authorName:
+          type: string
+          description: Name of the author of the report. Can be a name of the employee who created the report or a name of Caren user.
+        authorType:
+          $ref: '#/components/schemas/dossier.ReportAuthorType'
+        authorId:
+          type:
+          - integer
+          - 'null'
+          description: 'ID of the report author, can be an ID of an employee or ID of a user in Caren. It can also be empty in
+
+            case of external authors
+
+            '
+          format: int64
+        authorRole:
+          type:
+          - string
+          - 'null'
+          description: Role of the report author. This field is used only for caren reports
+        authorExpertiseProfileId:
+          type:
+          - integer
+          - 'null'
+          description: 'ID of author''s expertise (education) profile at the time of report creation.
+
+
+            This field is empty for caren reports or when employee did not have any expertise profile assigned.
+
+            '
+          format: int64
+        authorExpertiseProfileName:
+          type:
+          - string
+          - 'null'
+          description: 'Name of author''s expertise (education) profile at the time of report creation.
+
+
+            This field is empty for caren reports or when employee did not have any expertise profile assigned.
+
+            '
+        registrationCouplingUuid:
+          type: string
+          description: UUID of the registration coupling that is related to this report.
+          format: uuid
+        episodeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: List of episode IDs that this report is linked to
+        restrictiveMeasureId:
+          type:
+          - integer
+          - 'null'
+          description: ID of the restrictive measure this report is linked to. `null` when there is no link.
+          format: int64
+        carePlanEntryId:
+          type:
+          - integer
+          - 'null'
+          description: ID of the care plan entry this report is linked to. `null` when there is no link.
+          format: int64
+        reportLinkId:
+          type:
+          - integer
+          - 'null'
+          description: ID of the report in external system. Type of the external system is defined in `reportLinkType` property.
+          format: int64
+        reportLinkType:
+          $ref: '#/components/schemas/dossier.ReportLinkType'
+        actions:
+          $ref: '#/components/schemas/dossier.CombinedReportActionsViewModel'
+        confidential:
+          type: boolean
+          description: 'When set to `true` then this report is not public and can only be seen by employees with proper level
+
+            of authorization (see the `authorizations` property in this model)
+
+            '
+        authorizations:
+          $ref: '#/components/schemas/dossier.ReportAuthorizationsViewModel'
+        measurements:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.MeasurementViewModel'
+          description: List of measurements (previously listed as report entries) to display when report is rendered
+        photos:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportPhotoViewModel'
+          description: List of photos attached to the report
+        goals:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportGoalViewModel'
+          description: List of plan goals linked to the report
+        soap:
+          $ref: '#/components/schemas/dossier.SoapViewModel'
+        reactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportReactionViewModel'
+          description: List of reactions to this report
+      description: 'Report model extended with information from other sources (like employee name, client name, etc.)
+
+        '
+      example:
+        id: 1
+        reportedAt: '2014-11-14T00:00:00.000+01:00'
+        flagged: true
+        hidden: true
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        status: 1
+        clientId: 1
+        reportTypeId: 1
+        reportTypeName: mbi
+        reportTypeIconName: dossier
+        authorName: Henk
+        authorType: employee
+        confidential: true
+        registrationCouplingUuid: abcd1234-ef56-7890-gh12-ijkl3456mnop
+        measurements:
+        - name: decimal
+          label: Temperatuur
+          value: 38.4
+          unit: °C
+          format: '%.1f'
+        authorizations:
+          profileAuthorizations: []
+          groupAuthorizations: []
+        actions:
+          status: none
+          reportActions: []
+        photos: []
+        reactions: []
+    dossier.CombinedReportActionsViewModel:
+      title: CombinedReportActionsViewModel
+      required:
+      - status
+      - reportActions
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/dossier.ReportActionsStatus'
+        reportActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.CombinedReportActionViewModel'
+          description: List of report actions
+      description: List of report action view models
+      example:
+        status: none
+        reportActions:
+        - receivers:
+          - id: 77
+            name: Arts
+            type: ExpertiseProfile
+          completable: false
+          completed: true
+          completedAt: '2014-04-01T17:00:00.000+02:00'
+          completedByEmployeeId: 1
+    dossier.CombinedReportActionViewModel:
+      title: CombinedReportActionViewModel
+      required:
+      - receivers
+      - completable
+      - completed
+      type: object
+      properties:
+        receivers:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.CombinedReportActionReceiverViewModel'
+          description: List of receivers of the report action, which the report action is assigned to.
+        completable:
+          type: boolean
+          description: Set to true if the current user is a able to complete the action (matches the receiver, not completed yet and has the rights to complete the action)
+        completed:
+          type: boolean
+          description: Set to true if the action is completed
+        completedAt:
+          type:
+          - string
+          - 'null'
+          description: Time when the action was completed. Empty if it has not been completed yet.
+          format: date-time
+        completedByEmployeeId:
+          type:
+          - integer
+          - 'null'
+          description: ID of the employee who completed this action. Empty if it has not been completed yet.
+          format: int64
+      description: 'Report action is referencing either expertise group or expertise profile. The type of the expertise is given by the context
+
+        of the owning object.
+
+        '
+      example:
+        receivers:
+        - id: 77
+          name: Arts
+          type: ExpertiseProfile
+        completable: false
+        completed: true
+        completedAt: '2014-04-01T17:00:00.000+02:00'
+        completedByEmployeeId: 1
+    dossier.list.ReportWithActionsList:
+      type: object
+      properties:
+        reportsWithActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportWithActions'
+      description: List of ReportWithActions
+      example:
+        reportsWithActions:
+        - id: 1
+          reportedAt: '2014-11-14T00:00:00.000+01:00'
+          flagged: true
+          hidden: true
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          status: 1
+          clientId: 1
+          reportTypeId: 1
+          reportTypeName: mbi
+          reportTypeIconName: dossier
+          authorName: Henk
+          authorType: employee
+          confidential: true
+          registrationCouplingUuid: abcd1234-ef56-7890-gh12-ijkl3456mnop
+          measurements:
+          - name: decimal
+            label: Temperatuur
+            value: 38.4
+            unit: °C
+            format: '%.1f'
+          authorizations:
+            profileAuthorizations: []
+            groupAuthorizations: []
+          photos: []
+          reactions: []
+          actions:
+            status: none
+            reportActions: []
+    dossier.ReportLinkType:
+      enum:
+      - NEXT_DOSSIER
+      type: string
+      description: ReportLinkType enum (no description)
+      example: NEXT_DOSSIER
+    dossier.ReportStatus:
+      type: integer
+      oneOf:
+      - title: OPENED
+        enum:
+        - 0
+      - title: CLOSED
+        enum:
+        - 1
+      description: 'Status of the report, typically used in family communication reports with reactions, where the parent status is updated by the status of the reaction.
+
+        - 0: opened
+
+        - 1: closed
+
+        '
+      example: 0
+    dossier.ReportAuthorType:
+      enum:
+      - employee
+      - caren
+      - external
+      type: string
+      description: '- `employee` - author is an employee
+
+        - `caren` - author is a Caren user
+
+        - `external` - author is neither employee nor Caren user
+
+        '
+      example: employee
+    dossier.ReportGoalViewModel:
+      title: ReportGoalViewModel
+      required:
+      - planElementCompositionId
+      - goalUid
+      - classificationName
+      - problemDescription
+      - goalDescription
+      type: object
+      properties:
+        planElementCompositionId:
+          type: integer
+          description: ID of the Chiron plan element composition where this goal was originally recorded
+          format: int64
+        goalUid:
+          type: string
+          description: Persistent UID of the goal
+          format: uuid
+        classificationName:
+          type: string
+          description: Classification of the problem of this goal at the moment the report was created
+        problemDescription:
+          type: string
+          description: Description of the problem of this goal at the moment the report was created
+        goalDescription:
+          type: string
+          description: Description of the goal
+      description: Goal linked to this report
+      example:
+        planElementCompositionId: 20
+        goalUid: e45cc577-bd8d-42d0-b5ea-aa2eb0de5721
+        classificationName: S
+        problemDescription: Hungry
+        goalDescription: Eat
+    dossier.ReportReactionViewModel:
+      title: ReportReactionViewModel
+      required:
+      - id
+      - reportedAt
+      - status
+      - authorName
+      - authorType
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the reaction
+          format: int64
+        reportedAt:
+          type: string
+          description: 'Timestamp of the reaction. It is usually time when the reaction was created but it can be set when reaction is created.
+
+            '
+          format: date-time
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Text comment on the report
+        status:
+          $ref: '#/components/schemas/dossier.ReportStatus'
+        authorName:
+          type: string
+          description: Name of the author of the reaction. Can be a name of the employee who created the reaction or a name of Caren user.
+        authorType:
+          $ref: '#/components/schemas/dossier.ReportAuthorType'
+        authorId:
+          type:
+          - integer
+          - 'null'
+          description: 'ID of the report author, can be an ID of an employee or ID of a user in Caren. It can also be empty in
+
+            case of external authors
+
+            '
+          format: int64
+        authorRole:
+          type:
+          - string
+          - 'null'
+          description: Role of the report author. This field is used only for caren reports
+        authorExpertiseProfileId:
+          type:
+          - integer
+          - 'null'
+          description: 'ID of author''s expertise (education) profile at the time of report creation.
+
+
+            This field is empty for caren reports or when employee did not have any expertise profile assigned.
+
+            '
+          format: int64
+        authorExpertiseProfileName:
+          type:
+          - string
+          - 'null'
+          description: 'Name of author''s expertise (education) profile at the time of report creation.
+
+
+            This field is empty for caren reports or when employee did not have any expertise profile assigned.
+
+            '
+      description: Describes a single reaction to the report
+      example:
+        id: 1
+        reportedAt: '2014-04-01T17:00:00.000+02:00'
+        status: 1
+        authorName: John
+        authorType: employee
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

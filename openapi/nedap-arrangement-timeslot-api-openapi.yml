@@ -1,0 +1,490 @@
+openapi: 3.2.0
+info:
+  title: Nedap Arrangement.Time Slot API
+  version: 0.0.0
+  description: 'Operations tagged arrangement.TimeSlot across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: arrangement.TimeSlot
+paths:
+  /t/arrangement/time_slots:
+    post:
+      tags:
+      - arrangement.TimeSlot
+      summary: Create TimeSlot
+      operationId: arrangement.TimeSlotAPI.create
+      requestBody:
+        description: TimeSlot to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.TimeSlot'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.TimeSlot'
+        '400':
+          description: No time slot specified
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/arrangement/time_slots
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/time_slots/{uuid}:
+    get:
+      tags:
+      - arrangement.TimeSlot
+      summary: Gets a time slot by UUID
+      operationId: arrangement.TimeSlotAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the time slot
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.TimeSlot'
+        '404':
+          description: No time slot specified
+      x-replaced-by: /v0/administration/arrangement/time_slots/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - arrangement.TimeSlot
+      summary: Updates the given TimeSlot
+      operationId: arrangement.TimeSlotAPI.update
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the time slot
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: TimeSlot to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.TimeSlot'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.TimeSlot'
+        '400':
+          description: No time slot specified or time slot does not match UUID
+        '403':
+          description: Time slot can't be updated, because it used by an intent created by the OA-CONVERTER
+        '404':
+          description: Time slot not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/arrangement/time_slots/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - arrangement.TimeSlot
+      summary: Deletes the TimeSlot with given uuid
+      operationId: arrangement.TimeSlotAPI.delete
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the time slot
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.TimeSlot'
+        '403':
+          description: Time slot can't be updated, because it used by an intent created by the OA-CONVERTER
+        '404':
+          description: Time slot not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/arrangement/time_slots/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/time_slots/all_for_client/{client_uuid}:
+    get:
+      tags:
+      - arrangement.TimeSlot
+      summary: Gets the time slots that have been specified for a client
+      operationId: arrangement.TimeSlotAPI.allForClient
+      parameters:
+      - name: client_uuid
+        in: path
+        description: the UUID of the client
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.TimeSlotList'
+        '404':
+          description: Client not found
+      x-replaced-by: /v0/administration/arrangement/time_slots/all_for_client/{client_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/time_slots/all_for_intent/{intent_uuid}:
+    get:
+      tags:
+      - arrangement.TimeSlot
+      summary: Gets the time slots for an intent, i.e
+      description: the slots that are connected via IntentPreference records.
+      operationId: arrangement.TimeSlotAPI.allForIntent
+      parameters:
+      - name: intent_uuid
+        in: path
+        description: the UUID of the intent
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.TimeSlotList'
+        '404':
+          description: Intent not found
+      x-replaced-by: /v0/administration/arrangement/time_slots/all_for_intent/{intent_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/time_slots/generic_for_client/{client_uuid}:
+    get:
+      tags:
+      - arrangement.TimeSlot
+      summary: Gets all time slots that are generic to a client (have no connection to Intents…
+      operationId: arrangement.TimeSlotAPI.genericForClient
+      parameters:
+      - name: client_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.TimeSlotList'
+        '404':
+          description: Client not found
+      x-replaced-by: /v0/administration/arrangement/time_slots/generic_for_client/{client_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/time_slots:
+    post:
+      tags:
+      - arrangement.TimeSlot
+      summary: Create TimeSlot
+      operationId: arrangement.TimeSlotAPI.create
+      requestBody:
+        description: TimeSlot to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.TimeSlot'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.TimeSlot'
+        '400':
+          description: No time slot specified
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/arrangement/time_slots
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/time_slots/{uuid}:
+    get:
+      tags:
+      - arrangement.TimeSlot
+      summary: Gets a time slot by UUID
+      operationId: arrangement.TimeSlotAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the time slot
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.TimeSlot'
+        '404':
+          description: No time slot specified
+      x-replacement-for:
+      - /t/arrangement/time_slots/{uuid}
+    put:
+      tags:
+      - arrangement.TimeSlot
+      summary: Updates the given TimeSlot
+      operationId: arrangement.TimeSlotAPI.update
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the time slot
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: TimeSlot to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.TimeSlot'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.TimeSlot'
+        '400':
+          description: No time slot specified or time slot does not match UUID
+        '403':
+          description: Time slot can't be updated, because it used by an intent created by the OA-CONVERTER
+        '404':
+          description: Time slot not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/arrangement/time_slots/{uuid}
+    delete:
+      tags:
+      - arrangement.TimeSlot
+      summary: Deletes the TimeSlot with given uuid
+      operationId: arrangement.TimeSlotAPI.delete
+      parameters:
+      - name: uuid
+        in: path
+        description: the uuid of the time slot
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.TimeSlot'
+        '403':
+          description: Time slot can't be updated, because it used by an intent created by the OA-CONVERTER
+        '404':
+          description: Time slot not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/arrangement/time_slots/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/time_slots/all_for_client/{client_uuid}:
+    get:
+      tags:
+      - arrangement.TimeSlot
+      summary: Gets the time slots that have been specified for a client
+      operationId: arrangement.TimeSlotAPI.allForClient
+      parameters:
+      - name: client_uuid
+        in: path
+        description: the UUID of the client
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.TimeSlotList'
+        '404':
+          description: Client not found
+      x-replacement-for:
+      - /t/arrangement/time_slots/all_for_client/{client_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/time_slots/all_for_intent/{intent_uuid}:
+    get:
+      tags:
+      - arrangement.TimeSlot
+      summary: Gets the time slots for an intent, i.e
+      description: the slots that are connected via IntentPreference records.
+      operationId: arrangement.TimeSlotAPI.allForIntent
+      parameters:
+      - name: intent_uuid
+        in: path
+        description: the UUID of the intent
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.TimeSlotList'
+        '404':
+          description: Intent not found
+      x-replacement-for:
+      - /t/arrangement/time_slots/all_for_intent/{intent_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/time_slots/generic_for_client/{client_uuid}:
+    get:
+      tags:
+      - arrangement.TimeSlot
+      summary: Gets all time slots that are generic to a client (have no connection to Intents…
+      operationId: arrangement.TimeSlotAPI.genericForClient
+      parameters:
+      - name: client_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.TimeSlotList'
+        '404':
+          description: Client not found
+      x-replacement-for:
+      - /t/arrangement/time_slots/generic_for_client/{client_uuid}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    arrangement.list.TimeSlotList:
+      type: object
+      properties:
+        timeSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.TimeSlot'
+          xml:
+            name: timeSlot
+      description: TimeSlotList model (no description)
+      example:
+        timeSlots:
+        - uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 1
+          beginAfter: '12:00:00.000'
+          endBefore: '14:00:00.000'
+        - uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 2
+          beginAfter: '12:00:00.000'
+          endBefore: '14:00:00.000'
+      xml:
+        name: timeSlots
+    arrangement.TimeSlot:
+      required:
+      - uuid
+      - clientId
+      - clientUuid
+      - dayOfWeek
+      - beginAfter
+      - endBefore
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID identifying this time slot
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: Client of this time slot
+          format: int64
+        clientUuid:
+          type: string
+          description: Client UUID of this time slot
+        dayOfWeek:
+          type: integer
+          description: 'Day number of the week of this time slot
+
+            Monday = 1 ... Sunday = 7'
+          format: int32
+          default: 0
+        beginAfter:
+          type: string
+          description: Start time of this time slot
+          format: time
+        endBefore:
+          type: string
+          description: End time of this time slot
+          format: time
+      description: TimeSlot of the preference
+      example:
+        uuid: TIME_SLOT_UUID
+        clientId: 1
+        clientUuid: CLIENT_UUID
+        dayOfWeek: 1
+        beginAfter: '00:00:00.000'
+        endBefore: '00:00:00.000'
+      xml:
+        name: timeSlot
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

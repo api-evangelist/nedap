@@ -1,0 +1,303 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Invoice Row API
+  version: 0.0.0
+  description: 'Operations tagged finance.InvoiceRow across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.InvoiceRow
+paths:
+  /t/finance/invoice_rows/x-stream-connect/data:
+    get:
+      tags:
+      - finance.InvoiceRow
+      summary: Return all InvoiceRow models in a streaming manner
+      operationId: finance.InvoiceRowAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceRowList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.InvoiceRow'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/invoice_rows/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/invoice_rows/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.InvoiceRow
+      summary: Return all InvoiceRow models which where updated since the date given in the…
+      operationId: finance.InvoiceRowAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceRowList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.InvoiceRow'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/invoice_rows/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/invoice_rows/data:
+    get:
+      tags:
+      - finance.InvoiceRow
+      summary: Return all InvoiceRow models in a streaming manner
+      operationId: finance.InvoiceRowAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceRowList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.InvoiceRow'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/invoice_rows/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/invoice_rows/updates:
+    get:
+      tags:
+      - finance.InvoiceRow
+      summary: Return all InvoiceRow models which where updated since the date given in the…
+      operationId: finance.InvoiceRowAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceRowList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.InvoiceRow'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/invoice_rows/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.InvoiceRow:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        invoiceId:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        previousInvoiceRowId:
+          type: integer
+          format: int64
+        productId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        careOrderProductType:
+          type: integer
+          format: int32
+        careOrderProductId:
+          type: integer
+          format: int64
+        amount:
+          type: integer
+          format: int32
+        rate:
+          type: integer
+          format: int32
+        unit:
+          type: integer
+          format: int32
+        provider:
+          type: string
+        debtorId:
+          type: integer
+          format: int64
+        vat:
+          type: number
+          format: double
+        vatAmount:
+          type: integer
+          format: int32
+        rateUnit:
+          type: integer
+          format: int32
+        accepted:
+          type: boolean
+          default: false
+        acceptedAmount:
+          type: integer
+          format: int32
+        calculatedAmount:
+          type: integer
+          format: int32
+        reasonRejected:
+          type: string
+        totalCostAmount:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: InvoiceRow model (no description)
+      example:
+        id: 1
+        invoiceId: 1
+        clientId: 1
+        previousInvoiceRowId: -1
+        productId: 1
+        beginDate: '2016-01-28T00:00:00.000+01:00'
+        endDate: '2016-01-29T00:00:00.000+01:00'
+        careOrderProductType: 0
+        careOrderProductId: 4
+        amount: 1
+        rate: 3204
+        unit: 12
+        provider: '12345678'
+        debtorId: 44
+        vat: 6.5
+        vatAmount: 192
+        rateUnit: 12
+        accepted: true
+        acceptedAmount: 3396
+        calculatedAmount: 3396
+        reasonRejected: ''
+        totalCostAmount: 3396
+        createdAt: '2016-02-01T00:00:00.000+01:00'
+        updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: invoiceRow
+    finance.list.InvoiceRowList:
+      type: object
+      properties:
+        invoiceRows:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.InvoiceRow'
+          xml:
+            name: invoiceRow
+      description: InvoiceRowList model (no description)
+      example:
+        invoiceRows:
+        - id: 1
+          invoiceId: 1
+          clientId: 1
+          previousInvoiceRowId: -1
+          productId: 1
+          beginDate: '2016-01-28T00:00:00.000+01:00'
+          endDate: '2016-01-29T00:00:00.000+01:00'
+          careOrderProductType: 0
+          careOrderProductId: 4
+          amount: 1
+          rate: 3204
+          unit: 12
+          provider: '12345678'
+          debtorId: 44
+          vat: 6.5
+          vatAmount: 192
+          rateUnit: 12
+          accepted: true
+          acceptedAmount: 3396
+          calculatedAmount: 3396
+          totalCostAmount: 3396
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+        - id: 2
+          invoiceId: 1
+          clientId: 1
+          previousInvoiceRowId: -1
+          productId: 1
+          beginDate: '2016-01-30T00:00:00.000+01:00'
+          endDate: '2016-01-31T00:00:00.000+01:00'
+          careOrderProductType: 0
+          careOrderProductId: 4
+          amount: 1
+          rate: 3204
+          unit: 12
+          provider: '12345678'
+          debtorId: 44
+          vat: 6.5
+          vatAmount: 192
+          rateUnit: 12
+          accepted: true
+          acceptedAmount: 3396
+          calculatedAmount: 3396
+          totalCostAmount: 3396
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: invoiceRows
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

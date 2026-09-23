@@ -1,0 +1,1338 @@
+openapi: 3.2.0
+info:
+  title: Nedap Employee API
+  version: 0.0.0
+  description: 'Operations tagged Employee across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Employee
+paths:
+  /t/clients/{client_id}/finance_types/{finance_type_id}/coordinating_practitioner:
+    get:
+      tags:
+      - Employee
+      summary: Find the coordinating practitioner by client, finance type and date
+      operationId: EmployeeAPI.coordinatingPractitionerByClientFinanceTypeDate
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: finance_type_id
+        in: path
+        description: 'The finance type of the care order in which the coordinating practitioner is defined.
+
+          Finance types:
+
+          * 14 - GGZ ZPM
+
+          * 15 - FZ ZPM'
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: date
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Date is required, a valid finance_type_id is required, a valid client_id is required
+        '404':
+          description: No careorder found or no employee found for given parameters
+        '409':
+          description: Two or more coordinating practitioners were found
+      x-replaced-by: /v0/administration/clients/{client_id}/finance_types/{finance_type_id}/coordinating_practitioner
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees:
+    post:
+      tags:
+      - Employee
+      summary: Create Employee
+      operationId: EmployeeAPI.create
+      requestBody:
+        description: Employee to create.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Validation errors, or missing identification number when automatic numbering is not enabled
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/employees
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}:
+    get:
+      tags:
+      - Employee
+      summary: Find employee by employee object id
+      operationId: EmployeeAPI.byId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The employee object id of the employee to find.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/employees/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - Employee
+      summary: Updates an employee
+      operationId: EmployeeAPI.update
+      parameters:
+      - name: employee_id
+        in: path
+        description: id of the employee to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/employees/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/bank_account:
+    get:
+      tags:
+      - Employee
+      summary: Return the bank account assigned to the Employee corresponding to the given id
+      operationId: EmployeeAPI.bankAccount
+      parameters:
+      - name: employee_id
+        in: path
+        description: the id of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+      x-replaced-by: /v0/administration/employees/{employee_id}/bank_account
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/by_email:
+    get:
+      tags:
+      - Employee
+      summary: Return the employees with the given emailaddress
+      description: Note that passing an empty email query parameter is technically possible, but will result in finding all employees that have no email address assigned
+      operationId: EmployeeAPI.byEmail
+      parameters:
+      - name: email
+        in: query
+        description: emailaddress
+        schema:
+          type: string
+      - name: include_home_email
+        in: query
+        description: if `true` also Employees with the given home emailaddress are included in the result. When omitted, the value is set to `false`
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-replaced-by: /v0/administration/employees/by_email
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/by_identification_no/{identification_no}:
+    get:
+      tags:
+      - Employee
+      summary: Return the Employee corresponding to the given identification number
+      operationId: EmployeeAPI.byIdentificationNo
+      parameters:
+      - name: identification_no
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+      x-replaced-by: /v0/administration/employees/by_identification_no/{identification_no}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/by_uuid/{uuid}:
+    get:
+      tags:
+      - Employee
+      summary: Return the Employee corresponding to the given uuid
+      operationId: EmployeeAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee not found
+      x-replaced-by: /v0/administration/employees/by_uuid/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/search:
+    get:
+      tags:
+      - Employee
+      summary: Search for employees
+      operationId: EmployeeAPI.search
+      parameters:
+      - name: query
+        in: query
+        description: query
+        schema:
+          type: string
+      - name: employee
+        in: query
+        description: the employee for which the search action is done
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: limit the amount of results by
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        description: start at the given offset
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: out_of_duty
+        in: query
+        description: including employees out of duty
+        schema:
+          type: boolean
+      - name: exclude_first_name
+        in: query
+        description: exclude first name in the search
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-replaced-by: /v0/administration/employees/find
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/multiple:
+    get:
+      tags:
+      - Employee
+      summary: Method used for requesting multiple Employee objects using their ids
+      description: 'Method used for requesting multiple Employee objects using
+
+        their ids.'
+      operationId: EmployeeAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/employees/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/search_by/teams/{id}:
+    get:
+      tags:
+      - Employee
+      summary: Return the Employees who are a member of team corresponding to the given id
+      operationId: EmployeeAPI.searchByTeamId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: valid_from
+        in: query
+        description: starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-replaced-by: /v0/administration/employees/search_by_team
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/last_visited_employees:
+    get:
+      tags:
+      - Employee
+      summary: Return the last visited Employees of a User corresponding to the given id
+      operationId: EmployeeAPI.lastVisitedByUserId
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-replaced-by: /v0/administration/users/{user_id}/last_visited_employees
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/x-stream-connect/data:
+    get:
+      tags:
+      - Employee
+      summary: Return all Employee models in a streaming manner
+      operationId: EmployeeAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/employees/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/x-stream-connect/deletes:
+    get:
+      tags:
+      - Employee
+      summary: Return all Employee models which where deleted since the date given in the…
+      description: If no date is given it will return all deleted Employee models
+      operationId: EmployeeAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/employees/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/x-stream-connect/updates:
+    get:
+      tags:
+      - Employee
+      summary: Return all Employee models which where updated since the date given in the…
+      operationId: EmployeeAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/employees/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/finance_types/{finance_type_id}/coordinating_practitioner:
+    get:
+      tags:
+      - Employee
+      summary: Find the coordinating practitioner by client, finance type and date
+      operationId: EmployeeAPI.coordinatingPractitionerByClientFinanceTypeDate
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: finance_type_id
+        in: path
+        description: 'The finance type of the care order in which the coordinating practitioner is defined.
+
+          Finance types:
+
+          * 14 - GGZ ZPM
+
+          * 15 - FZ ZPM'
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: date
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Date is required, a valid finance_type_id is required, a valid client_id is required
+        '404':
+          description: No careorder found or no employee found for given parameters
+        '409':
+          description: Two or more coordinating practitioners were found
+      x-replacement-for:
+      - /t/clients/{client_id}/finance_types/{finance_type_id}/coordinating_practitioner
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees:
+    post:
+      tags:
+      - Employee
+      summary: Create Employee
+      operationId: EmployeeAPI.create
+      requestBody:
+        description: Employee to create.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Validation errors, or missing identification number when automatic numbering is not enabled
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/employees
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}:
+    get:
+      tags:
+      - Employee
+      summary: Find employee by employee object id
+      operationId: EmployeeAPI.byId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The employee object id of the employee to find.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/employees/{employee_id}
+    put:
+      tags:
+      - Employee
+      summary: Updates an employee
+      operationId: EmployeeAPI.update
+      parameters:
+      - name: employee_id
+        in: path
+        description: id of the employee to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/employees/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/bank_account:
+    get:
+      tags:
+      - Employee
+      summary: Return the bank account assigned to the Employee corresponding to the given id
+      operationId: EmployeeAPI.bankAccount
+      parameters:
+      - name: employee_id
+        in: path
+        description: the id of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+      x-replacement-for:
+      - /t/employees/{employee_id}/bank_account
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/by_email:
+    get:
+      tags:
+      - Employee
+      summary: Return the employees with the given emailaddress
+      description: Note that passing an empty email query parameter is technically possible, but will result in finding all employees that have no email address assigned
+      operationId: EmployeeAPI.byEmail
+      parameters:
+      - name: email
+        in: query
+        description: emailaddress
+        schema:
+          type: string
+      - name: include_home_email
+        in: query
+        description: if `true` also Employees with the given home emailaddress are included in the result. When omitted, the value is set to `false`
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-replacement-for:
+      - /t/employees/by_email
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/by_identification_no/{identification_no}:
+    get:
+      tags:
+      - Employee
+      summary: Return the Employee corresponding to the given identification number
+      operationId: EmployeeAPI.byIdentificationNo
+      parameters:
+      - name: identification_no
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+      x-replacement-for:
+      - /t/employees/by_identification_no/{identification_no}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/by_uuid/{uuid}:
+    get:
+      tags:
+      - Employee
+      summary: Return the Employee corresponding to the given uuid
+      operationId: EmployeeAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee not found
+      x-replacement-for:
+      - /t/employees/by_uuid/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/find:
+    get:
+      tags:
+      - Employee
+      summary: Search for employees
+      operationId: EmployeeAPI.search
+      parameters:
+      - name: query
+        in: query
+        description: query
+        schema:
+          type: string
+      - name: employee
+        in: query
+        description: the employee for which the search action is done
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: limit the amount of results by
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        description: start at the given offset
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: out_of_duty
+        in: query
+        description: including employees out of duty
+        schema:
+          type: boolean
+      - name: exclude_first_name
+        in: query
+        description: exclude first name in the search
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-replacement-for:
+      - /t/employees/search
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/multiple:
+    get:
+      tags:
+      - Employee
+      summary: Method used for requesting multiple Employee objects using their ids
+      description: 'Method used for requesting multiple Employee objects using
+
+        their ids.'
+      operationId: EmployeeAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/employees/multiple
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/search_by_team:
+    get:
+      tags:
+      - Employee
+      summary: Return the Employees who are a member of team corresponding to the given id
+      operationId: EmployeeAPI.searchByTeamId
+      parameters:
+      - name: team_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          name: id
+          in: path
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: valid_from
+        in: query
+        description: starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-replacement-for:
+      - /t/employees/search_by/teams/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/last_visited_employees:
+    get:
+      tags:
+      - Employee
+      summary: Return the last visited Employees of a User corresponding to the given id
+      operationId: EmployeeAPI.lastVisitedByUserId
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+      x-replacement-for:
+      - /t/users/{user_id}/last_visited_employees
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/employees/data:
+    get:
+      tags:
+      - Employee
+      summary: Return all Employee models in a streaming manner
+      operationId: EmployeeAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/employees/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/employees/deletes:
+    get:
+      tags:
+      - Employee
+      summary: Return all Employee models which where deleted since the date given in the…
+      description: If no date is given it will return all deleted Employee models
+      operationId: EmployeeAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/employees/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/employees/updates:
+    get:
+      tags:
+      - Employee
+      summary: Return all Employee models which where updated since the date given in the…
+      operationId: EmployeeAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.EmployeeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/employees/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    BankAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        number:
+          type: string
+        nameOfOwner:
+          type: string
+        cityOfOwner:
+          type: string
+        iban:
+          type: string
+        bic:
+          type: string
+        creditBankAccount:
+          type: boolean
+        authorizationDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: BankAccount model (no description)
+      example:
+        id: 1
+        number: Dummy
+        nameOfOwner: Dummy
+        cityOfOwner: Dummy
+        iban: Dummy
+        bic: Dummy
+        creditBankAccount: false
+        authorizationDate: '2016-01-01'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccount
+    list.EmployeeList:
+      type: object
+      properties:
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee'
+          xml:
+            name: employee
+      description: EmployeeList model (no description)
+      example:
+        employees:
+        - id: 1
+          firstName: Mike
+          dateOfBirth: '2012-08-02'
+          birthName: Wazowski
+      xml:
+        name: employees
+    Employee:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Person'
+      properties:
+        contractId:
+          type: string
+          description: Deprecated, this field is never set, use Contract APIs.
+          deprecated: true
+        mobilePhoneNumber:
+          type: string
+          description: Deprecated, this field is never set.
+          deprecated: true
+        authenticationMobilePhone:
+          type: string
+          description: The mobile phone number used for two-factor authentication messages.
+        workMobilePhone:
+          type: string
+          description: The work mobile phone number of the employee.
+        privateMobilePhone:
+          type: string
+          description: The private mobile phone number of the employee.
+        homePhone:
+          type: string
+          description: The home phone number of the employee.
+        homeEmailAddress:
+          type: string
+          description: The private email address of the employee.
+        fixedHoursPerWeek:
+          type: number
+          description: Deprecated, this field is never set, use Contract APIs.
+          format: double
+          deprecated: true
+        varHoursPerWeek:
+          type: number
+          description: Deprecated, this field is never set, use Contract APIs.
+          format: double
+          deprecated: true
+        unknownEmployee:
+          type: boolean
+          description: Indicates if this employee is the unknown employee.
+        verifiedUntilDate:
+          type: string
+          description: Date up to which the presence logs of this employee are verfied.
+          format: date
+        limitedEmployee:
+          type: boolean
+          description: Deprecated, this field is never set.
+          deprecated: true
+        uuid:
+          type: string
+          description: Type 4 Universally Unique Identifier of the employee.
+        employeePrivacySettings:
+          $ref: '#/components/schemas/EmployeePrivacySettings'
+        type:
+          type: integer
+          description: 'Type of the employee. Allowed values:
+
+            0: Regular
+
+            1: External'
+          format: int32
+        teamName:
+          type: string
+          description: Name of the team the employee belongs to.
+      description: Employee model (no description)
+      example:
+        id: 1
+        firstName: Mike
+        birthName: Wazowski
+        name: Dhr Mike Wazowski
+        identificationNo: wazo
+        dateOfBirth: '1982-01-01'
+        preferredNameType: '0'
+        lastName: Wazowski
+        partnerName: none
+        initials: W
+        prefix: ir
+        birthNamePrefix: ir
+        partnerNamePrefix: none
+        gender: M
+        emailAddress: mike.wazowski@nedap.com
+        contractId: '1'
+        mobilePhone: 0612345678
+        mobilePhoneNumber: 0612345678
+        authenticationMobilePhone: 0612345678
+        workMobilePhone: 0612345678
+        privateMobilePhone: 0612345678
+        homePhone: 0612345678
+        homeEmailAddress: john.doe@home.com
+        fixedHoursPerWeek: 39.5
+        varHoursPerWeek: 0.5
+        unknownEmployee: false
+        verifiedUntilDate: '2012-01-01'
+        limitedEmployee: false
+        uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+        freeField1: Free field 1 description
+        freeField2: Free field 2 description
+        freeField3: Free field 3 description
+        freeField4: Free field 4 description
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        type: 0
+        teamName: Best Team Ever
+        employeePrivacySettings:
+          employeeObjectId: 1
+          shareBirthDay: true
+          sharePrivateEmailAddress: true
+          sharePrivateTelephoneNumber: true
+          shareResidence: true
+      xml:
+        name: employee
+    EmployeePrivacySettings:
+      type: object
+      properties:
+        employeeObjectId:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        shareBirthDay:
+          type: boolean
+        sharePrivateEmailAddress:
+          type: boolean
+        sharePrivateTelephoneNumber:
+          type: boolean
+        shareResidence:
+          type: boolean
+      description: EmployeePrivacySettings model (no description)
+      example:
+        employeeObjectId: 1
+        shareBirthDay: true
+        sharePrivateEmailAddress: true
+        sharePrivateTelephoneNumber: true
+        shareResidence: true
+      xml:
+        name: employeePrivacySettings
+    Person:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        firstName:
+          type: string
+          description: The first name(s) of the person.
+        name:
+          type: string
+          description: 'The client’s full official name.
+
+            Showing the initials or client first name is a setting that care organisations can select.'
+        identificationNo:
+          type: string
+          description: Human-readable identification number of the person (clientnummer or medewerkernummer).
+        dateOfBirth:
+          type: string
+          description: The date of birth of the person.
+          format: date
+        preferredNameType:
+          type: string
+          description: 'Preferred way of writing the name of the person. Possible values:
+
+            0 (birth name)
+
+            1 (partner name)
+
+            2 (birth name - partner name)
+
+            3 (partner name - birth name)'
+        lastName:
+          type: string
+          description: The last name of the person, taking into account the preferredNameType setting.
+        birthName:
+          type: string
+          description: The birth name of the person, without prefix.
+        partnerName:
+          type: string
+          description: The last name of the partner of the person, without prefix.
+        initials:
+          type: string
+          description: The initials of the person.
+        prefix:
+          type: string
+          description: The prefix(es) of the last name(s) of the person, taking into account the preferredNameType setting.
+        birthNamePrefix:
+          type: string
+          description: The birth name prefix of the person.
+        partnerNamePrefix:
+          type: string
+          description: The partner name prefix of the person.
+        gender:
+          type: string
+          description: The gender of the person.
+        emailAddress:
+          type: string
+          description: The email address of the person, as registered on the personalia screen.
+        mobilePhone:
+          type: string
+          description: The phone number of the person, as registered on the personalia screen.
+        freeField1:
+          type: string
+          description: Contents of free field 1.
+        freeField2:
+          type: string
+          description: Contents of free field 2.
+        freeField3:
+          type: string
+          description: Contents of free field 3.
+        freeField4:
+          type: string
+          description: Contents of free field 4.
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      description: Common attributes for Client and Employee.
+      example:
+        id: 1
+        firstName: Mike
+        name: Dhr Mike Wazowski
+        identificationNo: wazo
+        dateOfBirth: '1982-01-01'
+        preferredNameType: '0'
+        lastName: Wazowski
+        birthName: Wazowski
+        partnerName: none
+        initials: W
+        prefix: ir
+        birthNamePrefix: ir
+        partnerNamePrefix: none
+        gender: M
+        emailAddress: mike.wazowski@nedap.com
+        mobilePhone: 0612345678
+        freeField1: Free field 1 description
+        freeField2: Free field 2 description
+        freeField3: Free field 3 description
+        freeField4: Free field 4 description
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,167 @@
+openapi: 3.2.0
+info:
+  title: Nedap Groupcare.Occurrence API
+  version: 0.0.0
+  description: 'Operations tagged groupcare.Occurrence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: groupcare.Occurrence
+paths:
+  /t/clients/{client_id}/groupcare_agenda_occurrences:
+    get:
+      tags:
+      - groupcare.Occurrence
+      summary: Return the groupcare agenda occurrences of a Client corresponding to the given…
+      operationId: groupcare.OccurrenceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: start_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.list.OccurrenceList'
+      x-replaced-by: /v0/groupcare/clients/{client_id}/occurrences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/groupcare/clients/{client_id}/occurrences:
+    get:
+      tags:
+      - groupcare.Occurrence
+      summary: Return the groupcare agenda occurrences of a Client corresponding to the given…
+      operationId: groupcare.OccurrenceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: start_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupcare.list.OccurrenceList'
+      x-replacement-for:
+      - /t/clients/{client_id}/groupcare_agenda_occurrences
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    groupcare.Occurrence:
+      type: object
+      properties:
+        id:
+          type: string
+          x-cupido-id: true
+        date:
+          type: string
+          format: date
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        groupId:
+          type: integer
+          format: int64
+        groupName:
+          type: string
+        locationName:
+          type: string
+        locationId:
+          type: integer
+          format: int64
+        registration:
+          type: string
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        recurrenceType:
+          type: string
+        recurrenceInterval:
+          type: integer
+          format: int32
+      description: Occurrence model (no description)
+      example:
+        id: 1@2016-02-01
+        date: '2016-02-01'
+        startTime: '2016-02-01T00:01:00.000+01:00'
+        endTime: '2016-02-01T00:02:00.000+01:00'
+        groupId: 1
+        groupName: Name of group
+        locationName: Name of location
+        locationId: 10
+        registration: present
+        employeeIds:
+        - 1
+        - 2
+        recurrenceType: single
+        recurrenceInterval: 1
+    groupcare.list.OccurrenceList:
+      type: object
+      properties:
+        occurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/groupcare.Occurrence'
+      description: OccurrenceList model (no description)
+      example:
+        occurrences:
+        - id: 1@2016-02-01
+          date: '2016-02-01'
+          startTime: '2016-02-01T00:01:00.000+01:00'
+          endTime: '2016-02-01T00:02:00.000+01:00'
+          groupId: 1
+          groupName: Name of group
+          locationName: Name of location
+          locationId: 10
+          registration: present
+          employeeIds:
+          - 1
+          - 2
+          recurrenceType: single
+          recurrenceInterval: 1
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

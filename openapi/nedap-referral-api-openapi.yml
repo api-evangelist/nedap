@@ -1,0 +1,428 @@
+openapi: 3.2.0
+info:
+  title: Nedap Referral API
+  version: 0.0.0
+  description: 'Operations tagged Referral across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Referral
+paths:
+  /t/referrals:
+    post:
+      tags:
+      - Referral
+      summary: Create Referral
+      operationId: ReferralAPI.create
+      requestBody:
+        description: Referral to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Referral'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Referral'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/referrals
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/referrals/{id}:
+    get:
+      tags:
+      - Referral
+      summary: Return the Referral corresponding to the given id
+      operationId: ReferralAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Referral
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Referral'
+        '404':
+          description: Referral not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/referrals/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/referrals/by_client/{client_id}:
+    get:
+      tags:
+      - Referral
+      summary: Returns the referrals of the client corresponding to the given client id
+      operationId: ReferralAPI.byClient
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ReferralList'
+      x-replaced-by: /v0/administration/referrals/by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/referrals/categories:
+    get:
+      tags:
+      - Referral
+      summary: Fetch all available ReferrerCategories accompanied by their available referrer…
+      operationId: ReferralAPI.getAllReferrerCategories
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ReferrerCategoryList'
+      x-replaced-by: /v0/administration/referrals/categories
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/referrals:
+    post:
+      tags:
+      - Referral
+      summary: Create Referral
+      operationId: ReferralAPI.create
+      requestBody:
+        description: Referral to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Referral'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Referral'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/referrals
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/referrals/{id}:
+    get:
+      tags:
+      - Referral
+      summary: Return the Referral corresponding to the given id
+      operationId: ReferralAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Referral
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Referral'
+        '404':
+          description: Referral not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/referrals/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/referrals/by_client/{client_id}:
+    get:
+      tags:
+      - Referral
+      summary: Returns the referrals of the client corresponding to the given client id
+      operationId: ReferralAPI.byClient
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ReferralList'
+      x-replacement-for:
+      - /t/referrals/by_client/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/referrals/categories:
+    get:
+      tags:
+      - Referral
+      summary: Fetch all available ReferrerCategories accompanied by their available referrer…
+      operationId: ReferralAPI.getAllReferrerCategories
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ReferrerCategoryList'
+      x-replacement-for:
+      - /t/referrals/categories
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Referral:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        documentId:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        referrerType:
+          type: string
+        referrerCategory:
+          type: string
+        agbCode:
+          type: string
+        referrer:
+          type: string
+        specialism:
+          type: string
+        institution:
+          type: integer
+          description: 'Institution type for the referral. Can be
+
+            <ul>
+
+            <li>0 - institution</li>
+
+            <li>1 - practice</li>
+
+            <li>2 - care giver</li>
+
+            <li>or null</li>
+
+            </ul>'
+          format: int32
+      description: Referral model (no description)
+      example:
+        id: 1
+        clientId: 2
+        documentId: 1
+        date: '2017-01-01'
+        referrerType: '01'
+        referrerCategory: '02'
+        agbCode: '12345678'
+        referrer: naam
+        specialism: '0100'
+        institution: 2
+      xml:
+        name: referral
+    ReferrerType:
+      type: object
+      properties:
+        code:
+          type: string
+          x-cupido-id: true
+        description:
+          type: string
+      description: ReferrerType model (no description)
+      example:
+        code: '01'
+        description: Verwezen patiënt vanuit de eerste lijn
+      xml:
+        name: referrerType
+    list.ReferrerCategoryList:
+      type: object
+      properties:
+        referrerCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReferrerCategory'
+          xml:
+            name: referrerCategory
+      description: ReferrerCategoryList model (no description)
+      example:
+        referrerCategories:
+        - code: '01'
+          description: GGZ
+          requiresDocument: true
+          referrerTypes:
+          - code: '01'
+            description: Verwezen patiënt vanuit de eerste lijn
+          - code: '02'
+            description: Verwezen patiënt vanuit een (andere) GGZ-instelling, instelling MSZ of GGZ-praktijk
+          - code: '03'
+            description: Verwezen patiënt vanuit de crisiszorg of spoedeisende hulp
+          - code: '04'
+            description: Eigen patiënt
+          - code: '05'
+            description: Verwezen patiënt, maar verwijzer heeft geen AGB-code
+          - code: '06'
+            description: Zelfverwijzer
+          - code: '07'
+            description: Bemoeizorg
+          - code: 08
+            description: Verwijzing langdurige GGZ
+        - code: '02'
+          description: Jeugd-GGZ
+          requiresDocument: true
+          referrerTypes:
+          - code: '01'
+            description: Gemeente
+          - code: '02'
+            description: Huisarts
+          - code: '03'
+            description: Jeugdarts
+          - code: '04'
+            description: Gecertificeerde instelling
+          - code: '05'
+            description: Medisch specialist
+          - code: '06'
+            description: Zelfverwijzer / geen verwijzer
+          - code: '07'
+            description: Onbekend
+          - code: 08
+            description: Rechter, Raad voor de Kinderbescherming of Officier van Justitie
+        - code: '03'
+          description: DBC-OZP
+          requiresDocument: true
+          referrerTypes:
+          - code: '01'
+            description: Zelfverwijzer SEH
+          - code: '02'
+            description: Zelfverwijzer niet-SEH
+          - code: '03'
+            description: Verwezen patiënt SEH
+          - code: '04'
+            description: Verwezen patiënt niet-SEH vanuit eerstelijn
+          - code: '05'
+            description: Verwezen patiënt niet-SEH vanuit ander specialisme binnen dezelfde instelling
+          - code: '06'
+            description: Verwezen patiënt niet-SEH vanuit andere instelling
+          - code: '07'
+            description: Eigen patiënt
+          - code: 08
+            description: Verwezen patiënt niet-SEH vanuit eerstelijn, maar verwijzer heeft geen AGB-code
+          - code: 09
+            description: Patiënt welke gebruik maakt van directe toegang tot paramedische hulp
+        - code: '04'
+          description: ZVW-GZSP
+          requiresDocument: false
+          referrerTypes: []
+        - code: '05'
+          description: ELV
+          requiresDocument: false
+          referrerTypes: []
+        - code: '06'
+          description: GGZ-Eigen-Patient
+          requiresDocument: false
+          referrerTypes:
+          - code: '04'
+            description: Eigen patiënt
+      xml:
+        name: referrerCategories
+    ReferrerCategory:
+      type: object
+      properties:
+        code:
+          type: string
+          x-cupido-id: true
+        description:
+          type: string
+        requiresDocument:
+          type: boolean
+          default: false
+        referrerTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReferrerType'
+          xml:
+            wrapped: true
+      description: ReferrerCategory model (no description)
+      example:
+        code: '01'
+        description: GGZ
+        requiresDocument: true
+        referrerTypes:
+        - code: '01'
+          description: Verwezen patiënt vanuit de eerste lijn
+        - code: '02'
+          description: Verwezen patiënt vanuit een (andere) GGZ-instelling, instelling MSZ of GGZ-praktijk
+        - code: '03'
+          description: Verwezen patiënt vanuit de crisiszorg of spoedeisende hulp
+        - code: '04'
+          description: Eigen patiënt
+        - code: '05'
+          description: Verwezen patiënt, maar verwijzer heeft geen AGB-code
+        - code: '06'
+          description: Zelfverwijzer
+        - code: '07'
+          description: Bemoeizorg
+        - code: 08
+          description: Verwijzing langdurige GGZ
+      xml:
+        name: referrerCategory
+    list.ReferralList:
+      type: object
+      properties:
+        referrals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Referral'
+      description: ReferralList model (no description)
+      example:
+        referrals:
+        - id: 1
+          clientId: 2
+          documentId: 1
+          date: '2017-01-01'
+          referrerType: '01'
+          referrerCategory: '02'
+          agbCode: '12345678'
+          referrer: naam
+          specialism: '0100'
+          institution: 2
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

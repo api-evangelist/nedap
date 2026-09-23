@@ -1,0 +1,919 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.medical.dsm.Classification Series API
+  version: 0.0.0
+  description: 'Operations tagged dossier.medical.dsm.ClassificationSeries across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.medical.dsm.ClassificationSeries
+paths:
+  /t/dossier/medical/dsm/classification_series:
+    get:
+      tags:
+      - dossier.medical.dsm.ClassificationSeries
+      summary: Gets the DSM classification series for the given client, optionally filtered by…
+      operationId: dossier.medical.dsm.ClassificationSeriesAPI.byClientAndCareOrder
+      parameters:
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: care_order_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: only_current
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.list.ClassificationSeriesList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/clients/{client_id}/medical/dsm/classification_series
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - dossier.medical.dsm.ClassificationSeries
+      summary: Create ClassificationSeries
+      operationId: dossier.medical.dsm.ClassificationSeriesAPI.create
+      requestBody:
+        description: ClassificationSeries to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.dsm.ClassificationSeries'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.ClassificationSeries'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/dsm/classification_series
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/medical/dsm/classification_series/{classification_series_id}/diagnosis_assignments:
+    get:
+      tags:
+      - dossier.medical.dsm.ClassificationSeries
+      summary: Gets all the diagnosis assignments for the specified DSM classification series…
+      operationId: dossier.medical.dsm.ClassificationSeriesAPI.diagnosisAssignments
+      parameters:
+      - name: classification_series_id
+        in: path
+        description: The ID of the DSM classification series to get diagnosis assignments for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.list.DiagnoseToekenningList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/dsm/classification_series/{classification_series_id}/diagnosis_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/medical/dsm/classification_series/{id}:
+    get:
+      tags:
+      - dossier.medical.dsm.ClassificationSeries
+      summary: Gets the DSM classification series for the specified ID
+      operationId: dossier.medical.dsm.ClassificationSeriesAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClassificationSeries
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.ClassificationSeries'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/dsm/classification_series/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/clients/{client_id}/medical/dsm/classification_series:
+    get:
+      tags:
+      - dossier.medical.dsm.ClassificationSeries
+      summary: Gets the DSM classification series for the given client, optionally filtered by…
+      operationId: dossier.medical.dsm.ClassificationSeriesAPI.byClientAndCareOrder
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: query
+      - name: care_order_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: only_current
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.list.ClassificationSeriesList'
+      x-replacement-for:
+      - /t/dossier/medical/dsm/classification_series
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/dsm/classification_series:
+    post:
+      tags:
+      - dossier.medical.dsm.ClassificationSeries
+      summary: Create ClassificationSeries
+      operationId: dossier.medical.dsm.ClassificationSeriesAPI.create
+      requestBody:
+        description: ClassificationSeries to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.dsm.ClassificationSeries'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.ClassificationSeries'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/dsm/classification_series
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/dsm/classification_series/{classification_series_id}/diagnosis_assignments:
+    get:
+      tags:
+      - dossier.medical.dsm.ClassificationSeries
+      summary: Gets all the diagnosis assignments for the specified DSM classification series…
+      operationId: dossier.medical.dsm.ClassificationSeriesAPI.diagnosisAssignments
+      parameters:
+      - name: classification_series_id
+        in: path
+        description: The ID of the DSM classification series to get diagnosis assignments for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.ggz.list.DiagnoseToekenningList'
+      x-replacement-for:
+      - /t/dossier/medical/dsm/classification_series/{classification_series_id}/diagnosis_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/dsm/classification_series/{id}:
+    get:
+      tags:
+      - dossier.medical.dsm.ClassificationSeries
+      summary: Gets the DSM classification series for the specified ID
+      operationId: dossier.medical.dsm.ClassificationSeriesAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClassificationSeries
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.ClassificationSeries'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/dsm/classification_series/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.medical.dsm.Classification:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        findings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.dsm.Finding'
+          description: The findings belonging to this classification
+        evaluations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.dsm.Evaluation'
+          description: The evaluations belonging to this classification
+        beginDate:
+          type: string
+          description: The begin date of the classification phase
+          format: date
+        endDate:
+          type: string
+          description: The end date of the classification phase
+          format: date
+        classificationDate:
+          type: string
+          description: The date the classification was determined
+          format: date
+        status:
+          type: string
+          description: The status of the classification phase
+        diagnosisDescription:
+          type: string
+          description: The descriptive diagnosis
+        parentId:
+          type: integer
+          description: The classification phase this classification was derived from
+          format: int32
+        childId:
+          type: integer
+          description: The classification phase that was derived from this classification
+          format: int32
+        immutable:
+          type: boolean
+          description: Whether or not the classification is immutable
+        axis3weight:
+          type: integer
+          description: The weight of the axis 3 findings
+          format: int32
+        gafStart:
+          type: integer
+          description: The start GAF score
+          format: int32
+        gafCurrent:
+          type: integer
+          description: The current GAF score
+          format: int32
+        gafMax:
+          type: integer
+          description: The maximum GAF score
+          format: int32
+        gafEnd:
+          type: integer
+          description: The end GAF score
+          format: int32
+        classificationSeriesId:
+          type: integer
+          description: The series this classification is a part of
+          format: int64
+      description: Classification model (no description)
+      example:
+        id: 5
+        uuid: 9ee1eb44-a89f-4fb6-bb29-ff39bfeef98e
+        clientId: 8
+        createdById: 1
+        updatedById: 1
+        createdAt: '2016-10-26T19:39:33.000+02:00'
+        updatedAt: '2016-10-26T19:39:33.000+02:00'
+        findings:
+        - id: 9
+          uuid: dbff59ee-4ec0-40bf-bdab-8ee8f29a83f4
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-26T19:39:33.000+02:00'
+          updatedAt: '2016-10-26T19:39:33.000+02:00'
+          axis: 1
+          signsOf: false
+          mainDiagnosis: true
+          compoundCode: 2016-01-01|as1_10.02|0
+          icd9cmCode: '300.13'
+          icd10Code: F44.1
+          dsmType: DSM-IV
+          description: Dissociatieve fugue
+        - id: 10
+          uuid: 99db4e0f-0d7a-4c68-9f01-a38a7c30d11b
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-26T19:39:33.000+02:00'
+          updatedAt: '2016-10-26T19:39:33.000+02:00'
+          axis: 2
+          signsOf: true
+          mainDiagnosis: false
+          compoundCode: 2016-01-01|as2_17.01|0
+          icd9cmCode: V62.89
+          icd10Code: F44.1
+          dsmType: DSM-IV
+          description: Zwakbegaafdheid
+        evaluations:
+        - id: 1
+          uuid: 46b414fb-576c-4a5b-890e-0e7e058b4a72
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-26T19:39:42.000+02:00'
+          updatedAt: '2016-10-26T19:39:42.000+02:00'
+          evaluationText: Dit is een evaluatie
+          newDraft: false
+        beginDate: '2016-10-26'
+        endDate: '2016-10-26'
+        classificationDate: '2016-10-26'
+        status: treatment_active
+        diagnosisDescription: This is the descriptive diagnosis
+        parentId: 2
+        childId: 3
+        immutable: true
+        axis3weight: 1
+        gafStart: 51
+        gafCurrent: 61
+        gafMax: 71
+        gafEnd: 81
+        classificationSeriesId: 1
+    dossier.medical.dsm.Evaluation:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        evaluationText:
+          type: string
+          description: The evaluation text
+        newDraft:
+          type: boolean
+          description: Whether or not this evaluation led to a new draft classification
+      description: Evaluation model (no description)
+      example:
+        id: 1
+        uuid: 46b414fb-576c-4a5b-890e-0e7e058b4a72
+        clientId: 8
+        createdById: 1
+        updatedById: 1
+        createdAt: '2016-10-26T19:39:42.000+02:00'
+        updatedAt: '2016-10-26T19:39:42.000+02:00'
+        evaluationText: Dit is een evaluatie
+        newDraft: false
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.medical.dsm.ClassificationSeries:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        classifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.dsm.Classification'
+          description: The classifications belonging to this series
+        dsmType:
+          type: string
+          description: The type of DSM classifications in this series (DSM-IV or DSM-5)
+        financeId:
+          type: integer
+          description: The ID of the financial entity linked to this classification series
+          format: int32
+        financeType:
+          type: string
+          description: The type of financial entity linked to this classification series
+        psychiatricCareType:
+          type: string
+          description: 'The type of psychiatric care for this classification series
+
+            Can be ''basic'' or ''specialistic'''
+        status:
+          type: string
+          description: The status of the classification series (based on the status of the last Classification)
+      description: ClassificationSeries model (no description)
+      example:
+        id: 1
+        uuid: a72ec22c-faca-43c6-86ec-28ff0e1ddba4
+        clientId: 8
+        createdById: 1
+        updatedById: 1
+        createdAt: '2016-10-24T18:55:45.000+02:00'
+        updatedAt: '2016-10-24T18:55:45.000+02:00'
+        classifications:
+        - id: 1
+          uuid: d69c298d-89b6-409a-ac5a-450857c40d44
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-24T18:55:45.000+02:00'
+          updatedAt: '2016-10-24T18:56:23.000+02:00'
+          beginDate: '2016-10-24'
+          endDate: '2016-10-24'
+          classificationDate: '2016-10-24'
+          status: registration
+          diagnosisDescription: This is the descriptive diagnosis
+          childId: 2
+          immutable: true
+          axis3weight: 1
+          gafStart: 51
+          classificationSeriesId: 1
+        - id: 2
+          uuid: 5d4a08d0-d853-4882-8a7f-f414cd7e9f42
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-24T18:56:23.000+02:00'
+          updatedAt: '2016-10-26T19:39:33.000+02:00'
+          findings:
+          - id: 9
+            uuid: dbff59ee-4ec0-40bf-bdab-8ee8f29a83f4
+            clientId: 8
+            createdById: 1
+            updatedById: 1
+            createdAt: '2016-10-26T19:39:33.000+02:00'
+            updatedAt: '2016-10-26T19:39:33.000+02:00'
+            axis: 1
+            mainDiagnosis: false
+            compoundCode: 2016-01-01|as1_10.02|0
+            icd9cmCode: '300.13'
+            icd10Code: F44.1
+            dsmType: DSM-IV
+            description: Dissociatieve fugue
+          beginDate: '2016-10-24'
+          endDate: '2016-10-26'
+          classificationDate: '2016-10-26'
+          status: intake
+          diagnosisDescription: This is another descriptive diagnosis
+          parentId: 1
+          childId: 5
+          immutable: true
+          axis3weight: 1
+          gafStart: 51
+          classificationSeriesId: 1
+        - id: 5
+          uuid: 9ee1eb44-a89f-4fb6-bb29-ff39bfeef98e
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-26T19:39:33.000+02:00'
+          updatedAt: '2016-10-26T19:39:33.000+02:00'
+          findings:
+          - id: 10
+            uuid: 99db4e0f-0d7a-4c68-9f01-a38a7c30d11b
+            clientId: 8
+            createdById: 1
+            updatedById: 1
+            createdAt: '2016-10-26T19:39:33.000+02:00'
+            updatedAt: '2016-10-26T19:39:33.000+02:00'
+            axis: 2
+            signsOf: true
+            mainDiagnosis: false
+            compoundCode: 2016-01-01|as2_17.01|0
+            icd9cmCode: V62.89
+            icd10Code: F44.1
+            dsmType: DSM-IV
+            description: Zwakbegaafdheid
+          evaluations:
+          - id: 1
+            uuid: 46b414fb-576c-4a5b-890e-0e7e058b4a72
+            clientId: 8
+            createdById: 1
+            updatedById: 1
+            createdAt: '2016-10-26T19:39:42.000+02:00'
+            updatedAt: '2016-10-26T19:39:42.000+02:00'
+            evaluationText: Dit is een evaluatie
+            newDraft: false
+          beginDate: '2016-10-26'
+          status: treatment_active
+          diagnosisDescription: This is the last descriptive diagnosis
+          parentId: 2
+          axis3weight: 1
+          gafStart: 51
+          classificationSeriesId: 1
+        dsmType: DSM-IV
+        financeId: 655
+        financeType: Cupido::Finance::CareOrder
+        psychiatricCareType: basic
+        status: treatment_active
+    dossier.medical.dsm.list.ClassificationSeriesList:
+      type: object
+      properties:
+        classificationSeriesList:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dossier.medical.dsm.ClassificationSeries'
+            xml:
+              name: classificationSeries
+      description: ClassificationSeriesList model (no description)
+      example:
+        classificationSeriesList:
+        - id: 1
+          uuid: a72ec22c-faca-43c6-86ec-28ff0e1ddba4
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-24T18:55:45.000+02:00'
+          updatedAt: '2016-10-24T18:55:45.000+02:00'
+          dsmType: DSM-IV
+          financeId: 655
+          financeType: Cupido::Finance::CareOrder
+          psychiatricCareType: basic
+        - id: 2
+          uuid: a72ec22c-faca-43c6-86ec-28ff0e1ddba4
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-24T18:55:45.000+02:00'
+          updatedAt: '2016-10-24T18:55:45.000+02:00'
+          dsmType: DSM-V
+          financeId: 455
+          financeType: Cupido::Dbc::Ggz::Zorgtraject
+          psychiatricCareType: specialistic
+      xml:
+        name: classificationSeriesList
+    dossier.medical.dsm.Finding:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        axis:
+          type: integer
+          description: The axis of the finding
+          format: int32
+        signsOf:
+          type: boolean
+          description: Whether or not there are signs of the diagnosis
+        mainDiagnosis:
+          type: boolean
+          description: Whether or it is the primary diagnosis
+        compoundCode:
+          type: string
+          description: 'The compound code that uniquely identifies the diagnosis
+
+
+            For DSM-IV this is:
+
+            CL_DIAGNOSE_BEGINDATUM|CL_DIAGNOSE_CODE|CL_DIAGNOSE_BRANCHE_INDICATIE
+
+
+            For DSM-5 this is:
+
+            CL_DIAGNOSE_BEGINDATUM|CL_D5_DIAGNOSE_CODE'
+        icd9cmCode:
+          type: string
+          description: The ICD-9-CM code of the diagnosis
+        icd10Code:
+          type: string
+          description: The ICD-10 code of the diagnosis
+        dsmType:
+          type: string
+          description: Whether it is a DSM-IV or a DSM-V finding
+        convertedCompoundCodeDsm4:
+          type: string
+          description: If it is a DSM-5 finding, this is the converted DSM-IV compound code
+        description:
+          type: string
+          description: The description of the diagnosis
+        diagnosisClaimType:
+          type: integer
+          description: The claim type of a diagnosis.
+          format: int32
+      description: Finding model (no description)
+      example:
+        id: 10
+        uuid: 99db4e0f-0d7a-4c68-9f01-a38a7c30d11b
+        clientId: 8
+        createdById: 1
+        updatedById: 1
+        createdAt: '2016-10-26T19:39:33.000+02:00'
+        updatedAt: '2016-10-26T19:39:33.000+02:00'
+        axis: 2
+        signsOf: true
+        mainDiagnosis: false
+        compoundCode: 2016-01-01|as2_17.01|0
+        icd9cmCode: V62.89
+        icd10Code: F44.1
+        dsmType: DSM-IV
+        convertedCompoundCodeDsm4: 2000-01-01|as1_5.04|0
+        description: Waanstoornis
+        diagnosisClaimType: 2
+    dbc.ggz.DiagnoseToekenning:
+      required:
+      - primair
+      - datum
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        externalId:
+          type: integer
+          description: Link a diagnosetoekenning to the original dsm classification series in ons-dossier.
+          format: int64
+        primair:
+          type: boolean
+          description: 'Indicate that this object is the primary part of a set.
+
+            One DSM classification can contain a list of DiagnoseToekenningen. Only one of them can be primary'
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        trekkenVan:
+          type: boolean
+          description: 'To indicate that the client has ''signs of'' a diagnosis.
+
+            This is used when the user is not sure of the diagnosis.'
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        datum:
+          type: string
+          description: The date at which the diagnosis took place
+          format: date
+        diagnoseAs:
+          type: integer
+          description: 'Possible values:
+
+            1,2,3,4,5
+
+            <p>
+
+            A DSM 4 classification consists of 5 axis.
+
+            The speficication says:
+
+            <p>
+
+            1 Klinische stoornis (bijv. depressie)
+
+            2 Persoonlijkheidsstoornissen (bijv. afhankelijke persoonlijkheidsstoornis)
+
+            3 Lichamelijke aandoeningen (relevant voor het begrijpen of behandelen van een psychische stoornis) (bijv. migraine)
+
+            4 Psychosociale en omgevingsfactoren (bijv. scheiding, werkeloosheid )
+
+            5 Algehele beoordeling van het functioneren (Global Assement of Functioning Scale, GAF) uitgedrukt op een schaal van 0 tot 100'
+          format: int32
+        diagnoseCode:
+          allOf:
+          - $ref: '#/components/schemas/dbc.ggz.Diagnose'
+          description: NZA Stamdata code for this diagnosis
+        zorgtrajectId:
+          type: integer
+          description: Object identifier for the corresponding Zorgtraject
+          format: int64
+      description: A diagnosis which has been assigned to a client.
+      example:
+        id: 1
+        externalId: 123
+        primair: true
+        trekkenVan: false
+        datum: '2016-08-18'
+        diagnoseAs: 1
+        diagnoseCode:
+          id: 1
+          code: '000'
+          begindatum: '2016-08-16'
+          einddatum: '2016-08-16'
+          omschrijving: Traject
+          icd10: UUU
+        zorgtrajectId: 1
+    dbc.ggz.Diagnose:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dbc.StamData'
+      properties:
+        groepcode:
+          type: string
+          description: Group for this diagnosis
+        element:
+          type: string
+          description: Element in group
+        zvzSubscore:
+          type: integer
+          format: int32
+        aanspraakType:
+          type: string
+          description: 'Possible values:
+
+            NIET_VERZEKERD(0),
+
+            VERZEKERD(1);'
+        hierarchieniveau:
+          type: integer
+          description: The nesting level
+          format: int32
+        selecteerbaar:
+          type: string
+          description: 'Whether the user may select this diagnosis
+
+
+            NIET_SELECTEERBAAR(0)
+
+            SELECTEERBAAR_DIEPSTE_NIVEAU(1)
+
+            SELECTEERBAAR_DIEPER_NIVEAU_MOGELIJK(2)'
+        sorteervolgorde:
+          type: integer
+          description: Sorting order
+          format: int32
+        diagnoseAs:
+          type: integer
+          description: 'Possible values:
+
+            1,2,3,4,5'
+          format: int32
+        icd9cm:
+          type: string
+        icd10:
+          type: string
+        prestatieniveau:
+          type: string
+        prestatiecodeNaamgevingGGZ:
+          type: string
+        prestatiecodeNaamgevingFZ:
+          type: string
+        prestatiecodedeelGGZ:
+          type: string
+        prestatiecodedeelFZ:
+          type: string
+        parallelliteitscodeGGZ:
+          type: string
+        parallelliteitscodeFZ:
+          type: string
+        brancheIndicatie:
+          type: string
+          description: 'Possible values:
+
+            BEIDE(0)
+
+            GGZ(1)
+
+            FZ(2)'
+      description: NZA code list values for Diagnosis
+      example:
+        id: 1
+        code: act_2.6
+        begindatum: '2016-01-01'
+        einddatum: '9999-12-31'
+        omschrijving: Leesstoornis
+        groepcode: as1_1.01
+        element: Leesstoornis
+        zvzSubscore: 2
+        aanspraakType: '2'
+        hierarchieniveau: 3
+        selecteerbaar: '1'
+        sorteervolgorde: 1000050
+        diagnoseAs: 1
+        icd9cm: '315.00'
+        icd10: F81.0
+        prestatieniveau: fictief_a
+        prestatiecodeNaamgevingGGZ: Overige stoornissen in de kindertijd
+        prestatiecodeNaamgevingFZ: Stoornissen in de kindertijd
+        prestatiecodedeelGGZ: '17'
+        prestatiecodedeelFZ: '1'
+        parallelliteitscodeGGZ: '28'
+        parallelliteitscodeFZ: '1'
+        brancheIndicatie: '0'
+    dbc.ggz.list.DiagnoseToekenningList:
+      type: object
+      properties:
+        diagnoseToekenningen:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.DiagnoseToekenning'
+            xml:
+              name: diagnoseToekenning
+      description: DiagnoseToekenningList model (no description)
+      example:
+        diagnoseToekenningen:
+        - id: 1
+          externalId: 1
+          primair: true
+          trekkenVan: false
+          datum: '2016-08-19'
+          diagnoseCode:
+            id: 1
+            code: '000'
+            begindatum: '2016-08-16'
+            einddatum: '2016-08-16'
+            omschrijving: Traject
+            icd10: UUU
+          zorgtrajectId: 1
+      xml:
+        name: diagnoseToekenningen
+    dbc.StamData:
+      required:
+      - code
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: The code taken from NZA code lists.
+        begindatum:
+          type: string
+          description: The first date this value is valid at.
+          format: date
+        einddatum:
+          type: string
+          description: 'The last date this value is valid at.
+
+
+            May be 9999-12-31 to signify ''valid forever'''
+          format: date
+        omschrijving:
+          type: string
+          description: A humanly readable description for the value, in Dutch
+      description: 'Base class for a code list of the NZA.
+
+        See documentation at https://puc.overheid.nl/nza/zorgsectoren/pagina/NZA003b/-/gdlv/1/p/1/'
+      example:
+        id: 1
+        code: example
+        begindatum: '2014-12-29'
+        einddatum: '2014-12-29'
+        omschrijving: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

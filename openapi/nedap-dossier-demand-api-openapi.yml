@@ -1,0 +1,539 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Demand API
+  version: 0.0.0
+  description: 'Operations tagged dossier.Demand across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.Demand
+paths:
+  /t/dossier/demands:
+    post:
+      tags:
+      - dossier.Demand
+      summary: Create Demand
+      operationId: dossier.DemandAPI.create
+      requestBody:
+        description: Demand to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Demand'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Demand'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/demands
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/demands/{id}:
+    get:
+      tags:
+      - dossier.Demand
+      summary: Get a resource by its ID
+      operationId: dossier.DemandAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Demand
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Demand'
+        '404':
+          description: Demand not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/demands/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.Demand
+      summary: Updates the given Demand
+      operationId: dossier.DemandAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Demand
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Demand to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Demand'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Demand'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/demands/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.Demand
+      summary: Deletes the Demand with given id
+      operationId: dossier.DemandAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Demand
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the demand
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/demands/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/demands/multiple:
+    get:
+      tags:
+      - dossier.Demand
+      summary: Method used for requesting multiple Demand objects using their ids
+      operationId: dossier.DemandAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.DemandList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/demands/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/domains/{domain_id}/demands:
+    get:
+      tags:
+      - dossier.Demand
+      summary: Return the Demands of a Domain corresponding to the given id
+      operationId: dossier.DemandAPI.byDomainId
+      parameters:
+      - name: domain_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.DemandList'
+      x-replaced-by: /v0/administration/dossier/domains/{domain_id}/demands
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/demands:
+    post:
+      tags:
+      - dossier.Demand
+      summary: Create Demand
+      operationId: dossier.DemandAPI.create
+      requestBody:
+        description: Demand to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Demand'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Demand'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/demands
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/demands/{id}:
+    get:
+      tags:
+      - dossier.Demand
+      summary: Get a resource by its ID
+      operationId: dossier.DemandAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Demand
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Demand'
+        '404':
+          description: Demand not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/demands/{id}
+    put:
+      tags:
+      - dossier.Demand
+      summary: Updates the given Demand
+      operationId: dossier.DemandAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Demand
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Demand to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Demand'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Demand'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/demands/{id}
+    delete:
+      tags:
+      - dossier.Demand
+      summary: Deletes the Demand with given id
+      operationId: dossier.DemandAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Demand
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the demand
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/demands/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/demands/multiple:
+    get:
+      tags:
+      - dossier.Demand
+      summary: Method used for requesting multiple Demand objects using their ids
+      operationId: dossier.DemandAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.DemandList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/demands/multiple
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/domains/{domain_id}/demands:
+    get:
+      tags:
+      - dossier.Demand
+      summary: Return the Demands of a Domain corresponding to the given id
+      operationId: dossier.DemandAPI.byDomainId
+      parameters:
+      - name: domain_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.DemandList'
+      x-replacement-for:
+      - /t/dossier/domains/{domain_id}/demands
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.list.DemandList:
+      type: object
+      properties:
+        demands:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Demand'
+          xml:
+            name: demand
+      description: DemandList model (no description)
+      example:
+        demands:
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2131
+          domainId: 2052
+          definition: 'Woonruimte en zich thuis voelen: Opgeruimd en schoon'
+          hidden: false
+        - updatedAt: '2012-03-14T14:08:08.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2132
+          domainId: 2052
+          definition: 'Bewegingsmogelijkheden, mobiliteit: U heeft aanpassingen en speciale hulpmiddelen nodig om zelfstandig te kunnen lopen'
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2133
+          domainId: 2052
+          definition: 'Woonruimte en zich thuis voelen: De woning en woonomgeving'
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 2930
+          domainId: 2052
+          definition: 'Woonruimte en zich thuis voelen: Levenssfeer en privacy'
+          hidden: false
+        - updatedAt: '2012-08-13T10:14:41.000+02:00'
+          createdAt: '2012-08-13T10:14:41.000+02:00'
+          id: 25500
+          domainId: 2052
+          definition: Woonomgeving status
+          hidden: false
+      xml:
+        name: demands
+    dossier.Demand:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        protocolUrl:
+          type: string
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "aandachtspunt"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        definition: Definitie
+        protocolUrl: http://www.nedap.com/
+        hidden: true
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: demand
+    dossier.Domain:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,604 @@
+openapi: 3.2.0
+info:
+  title: Nedap Medication.Medication Administration API
+  version: 0.0.0
+  description: 'Operations tagged medication.MedicationAdministration across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: medication.MedicationAdministration
+paths:
+  /t/medication/medication_administrations:
+    get:
+      tags:
+      - medication.MedicationAdministration
+      summary: Fetch medication administrations for a client
+      description: 'Returns an array of medication administration records shaped somewhat according to the Medicatietoediening ZIB.
+
+
+        If no `status` parameter is provided, only medication administrations with a recorded status are included. Except if the medication administration was exempt or scheduled during client absence, in which case it is included regardless of its status.
+
+
+        Medication administrations can only be fetched for today or past dates.'
+      operationId: medication.MedicationAdministrationAPI.getMedicationAdministrations
+      parameters:
+      - name: client_id
+        in: query
+        description: The technical id (IoServer objectId) of the client.
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 940690340
+      - name: status[]
+        in: query
+        description: Filters the results to only include medication administrations that have the provided status. Supports providing multiple options.
+        required: false
+        style: form
+        explode: true
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/medication.MedicationAdministrationStatus'
+        example:
+        - administered
+        - handed
+      - name: date
+        in: query
+        description: Filters the results to only include medication administrations that are on the medication chart of the provided date.
+        required: true
+        schema:
+          type: string
+          format: date
+          example: '2026-05-21'
+      responses:
+        '200':
+          description: A list of medication administrations matching the given parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.list.MedicationAdministrationList'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unspecified internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replaced-by: /v0/medicatie_legacy/medication_administrations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/medication/medication_administrations/{id}:
+    get:
+      tags:
+      - medication.MedicationAdministration
+      summary: Fetch a medication administration
+      description: 'Returns a single medication administration.
+
+
+        Only medication administrations on the medication chart for today or past dates can be fetched.
+
+
+        An administration scheduled for a future date results in a `404 Not Found` response, even if the administration exists.
+
+
+        A medication administration might be ''superseded''. This happens when a newer medication chart for the client on the day of the medication administration was received. If this is the case it is advised to use the `getMedicationAdministrations` operation to fetch a client’s actual medication administrations on a certain date.'
+      operationId: medication.MedicationAdministrationAPI.getMedicationAdministration
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the medication administration.
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 2837
+      responses:
+        '200':
+          description: A medication administration matching the given ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.MedicationAdministration'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unspecified internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replaced-by: /v0/medicatie_legacy/medication_administrations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/medicatie_legacy/medication_administrations:
+    get:
+      tags:
+      - medication.MedicationAdministration
+      summary: Fetch medication administrations for a client
+      description: 'Returns an array of medication administration records shaped somewhat according to the Medicatietoediening ZIB.
+
+
+        If no `status` parameter is provided, only medication administrations with a recorded status are included. Except if the medication administration was exempt or scheduled during client absence, in which case it is included regardless of its status.
+
+
+        Medication administrations can only be fetched for today or past dates.'
+      operationId: medication.MedicationAdministrationAPI.getMedicationAdministrations
+      parameters:
+      - name: client_id
+        in: query
+        description: The technical id (IoServer objectId) of the client.
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 940690340
+      - name: status[]
+        in: query
+        description: Filters the results to only include medication administrations that have the provided status. Supports providing multiple options.
+        required: false
+        style: form
+        explode: true
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/medication.MedicationAdministrationStatus'
+        example:
+        - administered
+        - handed
+      - name: date
+        in: query
+        description: Filters the results to only include medication administrations that are on the medication chart of the provided date.
+        required: true
+        schema:
+          type: string
+          format: date
+          example: '2026-05-21'
+      responses:
+        '200':
+          description: A list of medication administrations matching the given parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.list.MedicationAdministrationList'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unspecified internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replacement-for:
+      - /t/medication/medication_administrations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/medicatie_legacy/medication_administrations/{id}:
+    get:
+      tags:
+      - medication.MedicationAdministration
+      summary: Fetch a medication administration
+      description: 'Returns a single medication administration.
+
+
+        Only medication administrations on the medication chart for today or past dates can be fetched.
+
+
+        An administration scheduled for a future date results in a `404 Not Found` response, even if the administration exists.
+
+
+        A medication administration might be ''superseded''. This happens when a newer medication chart for the client on the day of the medication administration was received. If this is the case it is advised to use the `getMedicationAdministrations` operation to fetch a client’s actual medication administrations on a certain date.'
+      operationId: medication.MedicationAdministrationAPI.getMedicationAdministration
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the medication administration.
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 2837
+      responses:
+        '200':
+          description: A medication administration matching the given ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.MedicationAdministration'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unspecified internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replacement-for:
+      - /t/medication/medication_administrations/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    medication.list.MedicationAdministrationList:
+      type: object
+      properties:
+        medicationAdministrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/medication.MedicationAdministration'
+      description: MedicationAdministrationList model (no description)
+      example:
+        medicationAdministrations:
+        - id: 92332
+          superseded: false
+          clientId: 23976
+          employeeId: 3972
+          exempt: false
+          scheduledDuringClientAbsence: false
+          status: administered
+          medication:
+            text: FENTANYL MAT AUR 100MCG/UUR
+            codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.8
+              code: '16746422'
+          dosage:
+            dose:
+              value: '1.0'
+              unit: pleister
+            route:
+              text: TRANSDERMAAL
+              codings:
+              - system: urn:oid:2.16.840.1.113883.2.4.4.9
+                code: '58'
+                display: TRANSDERMAAL
+          agreedDateTime: '2026-05-12T08:00:00.000+02:00'
+          effectiveDateTime: '2026-05-12T08:00:00.000+02:00'
+          registrationDateTime: '2026-05-12T08:05:00.000+02:00'
+          reasonForDeviation:
+            text: Overig
+            codings:
+            - system: http://terminology.hl7.org/CodeSystem/v3-NullFlavor
+              code: OTH
+              display: Overig
+          injectionPatchSite:
+            site:
+              text: structuur van onderste gedeelte van lumbale regio van wand van abdomen
+              codings:
+              - system: http://snomed.info/sct
+                code: '160481000146106'
+                display: structuur van onderste gedeelte van lumbale regio van wand van abdomen
+            laterality:
+              text: links
+              codings:
+              - system: http://snomed.info/sct
+                code: '7771000'
+                display: links
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    medication.InjectionPatchSite:
+      title: InjectionPatchSite
+      required:
+      - site
+      type: object
+      properties:
+        site:
+          allOf:
+          - $ref: '#/components/schemas/CodeableConcept'
+          description: 'The anatomical site of the patient’s body where an injection has been administered or where adhesive medical dressing has been applied.
+
+            Codings use the “PrikPlakLocatieCodeLijst”, a subset of SNOMED CT. The text is the display name of the site.'
+        laterality:
+          allOf:
+          - $ref: '#/components/schemas/CodeableConcept'
+          description: 'Complements the anatomical site with the laterality. Present when the anatomical site is laterality-neutral.
+
+            Codings are SNOMED CT qualifiers from the “LateraliteitCodelijst”. The text is a human-readable representation of the laterality.'
+      description: 'Site of the patient’s body where an injection has been administered or where adhesive medical dressing has been applied. Note that the anatomical site may be laterality-neutral, in which case the laterality property will also be present.
+
+        While the structure allows for multiple coding systems, the coding system that is used for the anatomical site is the “PrikPlakLocatieCodeLijst”, which is a subset of the SNOMED CT system. The laterality is a SNOMED CT qualifier from the “LateraliteitCodelijst”.'
+      example:
+        site:
+          text: structuur van onderste gedeelte van lumbale regio van wand van abdomen
+          codings:
+          - system: http://snomed.info/sct
+            code: '160481000146106'
+            display: structuur van onderste gedeelte van lumbale regio van wand van abdomen
+        laterality:
+          text: links
+          codings:
+          - system: http://snomed.info/sct
+            code: '7771000'
+            display: links
+    medication.MedicationAdministration:
+      title: MedicationAdministration
+      required:
+      - id
+      - superseded
+      - clientId
+      - exempt
+      - scheduledDuringClientAbsence
+      - medication
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 'The internal ID of the medication administration. Do not assume this ID is stable across new versions of medication charts of a client. When a new medication chart is received for a client, existing medication administrations may be copied over to a newer version of the medication chart which results in the same medication administration information under a different ID. If that happens, the `superseded` property will be true. This indicates that the medication administration record does not hold the most recent information anymore.
+
+            The best approach then is to use the `getMedicationAdministrations` operation in order to retrieve the actual medication administration records.'
+          format: int64
+          example: 28721
+          x-cupido-id: true
+        superseded:
+          type: boolean
+          description: Indicates if this medication administration record has been superseded by a newer version due to a new medication chart being received for the client. Use the `getMedicationAdministrations` operation to retrieve the actual medication administrations.
+          example: false
+        clientId:
+          type: integer
+          description: The technical id (IoServer objectId) of the client.
+          format: int64
+          example: 23976
+        employeeId:
+          type: integer
+          description: The ID of the employee that last updated the status of the administration. Not included when no employee has recorded a status yet, and a registration is still to be made.
+          format: int64
+          example: 3972
+        exempt:
+          type: boolean
+          description: Indicates if the medication administration is or was exempt due to the moment being self-managed.
+          example: false
+        scheduledDuringClientAbsence:
+          type: boolean
+          description: Indicates if the medication administration is or was scheduled during a client absence.
+          example: false
+        status:
+          allOf:
+          - $ref: '#/components/schemas/medication.MedicationAdministrationStatus'
+          description: Last recorded status of a medication administration by a care worker (i.e. the `employeeId`). Not included if no status has been registered yet.
+        medication:
+          allOf:
+          - $ref: '#/components/schemas/CodeableConcept'
+          description: 'Information about the medication that was or is to be administered.
+
+            Codings may use G-Standaard Artikel Code (informally referred to as “Z-Index Nummer” or “Zi Code”), G-Standaard HPK (handelsproductcodes), G-Standaard GPK (generieke productcode), or other systems, and may describe the product, article, or active ingredient. The text is the display name for the product or article.'
+        dosage:
+          allOf:
+          - $ref: '#/components/schemas/medication.Dosage'
+          description: Information about the dosage of the medication.
+        agreedDateTime:
+          type: string
+          description: The time at which the medication is or was scheduled to be administered. Not included for as-needed medication.
+          format: date-time
+          example: '2026-05-12T08:00:00.000+02:00'
+        effectiveDateTime:
+          type: string
+          description: The time at which the medication was actually administered.
+          format: date-time
+          example: '2026-05-12T08:05:00.000+02:00'
+        registrationDateTime:
+          type: string
+          description: The time at which the registration about the medication being administered was made.
+          format: date-time
+          example: '2026-05-12T08:05:00.000+02:00'
+        reasonForDeviation:
+          allOf:
+          - $ref: '#/components/schemas/CodeableConcept'
+          description: 'Why the medication was not taken or administered or was taken or administered differently.
+
+            While Ons Medicatie does register when medication was not taken or administered or differently, it does not keep track of a structured reason for deviation. That means we cannot include a value from the “MedicatietoedieningRedenVanAfwijkenCodelijst” (a subset of SNOMED CT) as described for the MP9 Medicatietoediening ZIB, but instead always include “Other” (code `OTH` of the HL7 NullFlavor system) when deviating. The text is the display name of that reason.
+
+            The `note` of the medication administration may hold the actual reason why the medication was not or differently administered, but this is not guaranteed as it is free text left by a care worker.
+
+            Medication was considered to be deviated from if the administration was not performed, or when the administered quantity was different from the planned quantity.'
+        injectionPatchSite:
+          $ref: '#/components/schemas/medication.InjectionPatchSite'
+        note:
+          type: string
+          description: A note left by the care worker when registering the status of the administration. This can be a reason why medication was not taken or administered.
+          example: Cliënt sliep en kon niet gewekt worden
+      description: Describes a medication administration record. Includes internal attributes, but is also shaped somewhat to the MP9 Medicatietoediening ZIB.
+      example:
+        id: 92332
+        superseded: false
+        clientId: 23976
+        employeeId: 3972
+        exempt: false
+        scheduledDuringClientAbsence: false
+        status: administered
+        medication:
+          text: FENTANYL MAT AUR 100MCG/UUR
+          codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.8
+            code: '16746422'
+        dosage:
+          dose:
+            value: '1.0'
+            unit: pleister
+          route:
+            text: TRANSDERMAAL
+            codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.9
+              code: '58'
+              display: TRANSDERMAAL
+        agreedDateTime: '2026-05-12T08:00:00.000+02:00'
+        effectiveDateTime: '2026-05-12T08:00:00.000+02:00'
+        registrationDateTime: '2026-05-12T08:05:00.000+02:00'
+        reasonForDeviation:
+          text: Overig
+          codings:
+          - system: http://terminology.hl7.org/CodeSystem/v3-NullFlavor
+            code: OTH
+            display: Overig
+        injectionPatchSite:
+          site:
+            text: structuur van onderste gedeelte van lumbale regio van wand van abdomen
+            codings:
+            - system: http://snomed.info/sct
+              code: '160481000146106'
+              display: structuur van onderste gedeelte van lumbale regio van wand van abdomen
+          laterality:
+            text: links
+            codings:
+            - system: http://snomed.info/sct
+              code: '7771000'
+              display: links
+        note: Cliënt sliep en kon niet gewekt worden
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+          description: Identity of the terminology system (URI)
+        code:
+          type: string
+          description: Symbol in syntax defined by the system
+        display:
+          type: string
+          description: Representation defined by the system
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#Coding
+      example:
+        system: http://snomed.info/sct
+        code: '25064002'
+        display: Headache
+    medication.MedicationAdministrationStatus:
+      title: MedicationAdministrationStatus
+      enum:
+      - administered
+      - handed
+      - prepared
+      - failed
+      - none_scheduled
+      - self_managed
+      type: string
+      description: A recorded status of a medication administration by a care worker.
+      example: administered
+    medication.Dosage:
+      type: object
+      properties:
+        dose:
+          allOf:
+          - $ref: '#/components/schemas/Quantity'
+          description: 'Amount of the administered product.
+
+            Be very careful with interpreting the value because it''s often directly extracted from an apothecary''s information system. There are no guarantees about the precision or format.'
+        route:
+          allOf:
+          - $ref: '#/components/schemas/CodeableConcept'
+          description: 'The route of administration.
+
+            Codings use G-Standaard Toedieningswegen (tabel 7). The text is a human-readable description of the route.'
+      description: Information about the dosage of the medication that was or is to be administered.
+      example:
+        dose:
+          value: '1.0'
+          unit: pleister
+        route:
+          text: TRANSDERMAAL
+          codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.9
+            code: '58'
+            display: TRANSDERMAAL
+    CodeableConcept:
+      type: object
+      properties:
+        codings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+          description: List of Codings defined by a terminology system
+        text:
+          type: string
+          description: Plain text representation of the concept
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#codeableconcept
+      example:
+        codings:
+        - system: http://hl7.org/fhir/sid/icd-10
+          code: R51
+        - system: http://snomed.info/sct
+          code: '25064002'
+          display: Headache
+        text: general headache
+    Quantity:
+      type: object
+      properties:
+        value:
+          type: string
+          description: 'Numerical value (with implicit precision)
+
+            The precision is implied from the value, so ''0.10'' is different from ''0.1''
+
+            ''.'' is used as the expected decimal separator'
+        unit:
+          type: string
+          description: Unit representation (e.g. 'capsules' or 'mg/L')
+        system:
+          type: string
+          description: System that defines coded unit form (e.g. 'http://unitsofmeasure.org')
+        code:
+          type: string
+          description: Coded form of the unit (e.g. 'ug' or 's')
+      description: 'A measured or measurable amount
+
+        Based on http://hl7.org/fhir/STU3/datatypes-examples.html#Quantity'
+      example:
+        value: '1.00'
+        unit: capsules
+        system: http://snomed.info/sct
+        code: '385049006'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

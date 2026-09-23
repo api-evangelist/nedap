@@ -1,0 +1,741 @@
+openapi: 3.2.0
+info:
+  title: Nedap Zpm.Care Order Zpm Details API
+  version: 0.0.0
+  description: 'Operations tagged zpm.CareOrderZpmDetails across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: zpm.CareOrderZpmDetails
+paths:
+  /t/zpm/care_orders:
+    post:
+      tags:
+      - zpm.CareOrderZpmDetails
+      summary: Create ZPM detail records for a given care order
+      operationId: zpm.CareOrderZpmDetailsAPI.create
+      requestBody:
+        description: "an object containing all detail records that\n should be created."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/zpm.CareOrderZpmDetails'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.CareOrderZpmDetails'
+        '400':
+          description: Validation or persistence problems
+        '404':
+          description: CareOrder not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/zpm/care_orders
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/zpm/care_orders/{care_order_id}:
+    get:
+      tags:
+      - zpm.CareOrderZpmDetails
+      summary: Fetches ZPM detail records for a given care order
+      operationId: zpm.CareOrderZpmDetailsAPI.byCareOrderId
+      parameters:
+      - name: care_order_id
+        in: path
+        description: care order object ID.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.CareOrderZpmDetails'
+      x-replaced-by: /v0/administration/zpm/care_orders/{care_order_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/zpm/care_orders:
+    post:
+      tags:
+      - zpm.CareOrderZpmDetails
+      summary: Create ZPM detail records for a given care order
+      operationId: zpm.CareOrderZpmDetailsAPI.create
+      requestBody:
+        description: "an object containing all detail records that\n should be created."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/zpm.CareOrderZpmDetails'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.CareOrderZpmDetails'
+        '400':
+          description: Validation or persistence problems
+        '404':
+          description: CareOrder not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/zpm/care_orders
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/zpm/care_orders/{care_order_id}:
+    get:
+      tags:
+      - zpm.CareOrderZpmDetails
+      summary: Fetches ZPM detail records for a given care order
+      operationId: zpm.CareOrderZpmDetailsAPI.byCareOrderId
+      parameters:
+      - name: care_order_id
+        in: path
+        description: care order object ID.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.CareOrderZpmDetails'
+      x-replacement-for:
+      - /t/zpm/care_orders/{care_order_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    zpm.CareOrderZpmRegiebehandelaar:
+      required:
+      - beginDate
+      - employeeObjectId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        employeeObjectId:
+          type: integer
+          description: Regiebehandelaar (employee) object id.
+          format: int64
+      description: 'Describes which {@link com.nedap.healthcare.domain.Employee ZPM regiebehandelaar} is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 6
+        beginDate: '2022-01-01'
+        endDate: '2022-01-31'
+        careOrderObjectId: 345
+        employeeObjectId: 56
+    zpm.CareOrderZpmTreatmentLocation:
+      required:
+      - beginDate
+      - treatmentLocationObjectId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        treatmentLocationObjectId:
+          type: integer
+          description: Behandel locatie id.
+          format: int64
+      description: 'Describes which ZPM treatment location is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 9
+        beginDate: '2022-07-01'
+        endDate: '2022-12-31'
+        careOrderObjectId: 345
+        treatmentLocationObjectId: 124
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    zpm.CareOrderZpmForensischeZorgtitel:
+      required:
+      - beginDate
+      - forensischeZorgtitel
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        forensischeZorgtitel:
+          type: string
+          description: 'Forensische zorgtitel, see
+
+            https://www.vektis.nl/streams/standaardisatie/codelijsten/COD706-MVJ'
+      description: 'Describes which ZPM forensische zorgtitel is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 9
+        beginDate: '2022-07-01'
+        endDate: '2022-12-31'
+        careOrderObjectId: 345
+        forensischeZorgtitel: '123'
+    zpm.CareOrderZpmDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        careOrderObjectId:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        zorgtrajectStartDate:
+          type: string
+          description: Zorgtraject(nummer) startdate.
+          format: date
+        zpmSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmSetting'
+          xml:
+            wrapped: true
+        zpmZorglabels:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmZorglabel'
+          xml:
+            wrapped: true
+        zpmGbggzProfielen:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/zpm.CareOrderZpmGbggzProfiel'
+            xml:
+              name: zpmGbggzProfiel
+          xml:
+            wrapped: true
+        zpmReferrals:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmReferral'
+          xml:
+            wrapped: true
+        zpmRegiebehandelaars:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmRegiebehandelaar'
+          xml:
+            wrapped: true
+        zpmTariefniveaus:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmTariefniveau'
+          xml:
+            wrapped: true
+        zpmForensischeZorgtitels:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmForensischeZorgtitel'
+          xml:
+            wrapped: true
+        zpmPlaatsingsbesluitnummers:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmPlaatsingsbesluitnummer'
+          xml:
+            wrapped: true
+        zpmTreatmentLocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmTreatmentLocation'
+          xml:
+            wrapped: true
+        zpmMachtigingsnummers:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.CareOrderZpmMachtigingsnummer'
+          xml:
+            wrapped: true
+      description: Contains ZPM specific details belonging to a {@link com.nedap.healthcare.domain.finance.CareOrder}.
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        careOrderObjectId: 345
+        zorgtrajectStartDate: '2021-09-21'
+        zpmSettings:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 13
+          beginDate: '2022-10-01'
+          endDate: '2022-12-31'
+          careOrderObjectId: 345
+          zpmSettingObjectId: 5
+        zpmZorglabels:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 23
+          beginDate: '2022-01-01'
+          value: Talentolk
+          careOrderObjectId: 345
+          zpmZorglabelObjectId: 4
+        zpmGbggzProfielen:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 23
+          beginDate: '2022-03-01'
+          endDate: '2022-12-31'
+          careOrderObjectId: 345
+          zpmGbggzProfielObjectId: 4
+        zpmReferrals:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 6
+          beginDate: '2022-01-01'
+          endDate: '2022-01-31'
+          careOrderObjectId: 345
+          referralObjectId: 21
+        zpmRegiebehandelaars:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 6
+          beginDate: '2022-01-01'
+          endDate: '2022-01-31'
+          careOrderObjectId: 345
+          employeeObjectId: 56
+        zpmTariefniveaus:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 9
+          beginDate: '2022-07-01'
+          careOrderObjectId: 345
+          zpmTariefniveau: Laag
+        zpmForensischeZorgtitels:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 9
+          beginDate: '2022-07-01'
+          endDate: '2022-12-31'
+          careOrderObjectId: 345
+          forensischeZorgtitel: '123'
+        zpmPlaatsingsbesluitnummers:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 9
+          beginDate: '2022-07-01'
+          endDate: '2022-12-31'
+          careOrderObjectId: 345
+          plaatsingsbesluitnummer: 012345678
+        zpmTreatmentLocations:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 9
+          beginDate: '2022-07-01'
+          endDate: '2022-12-31'
+          careOrderObjectId: 345
+          treatmentLocationObjectId: 124
+        zpmMachtigingsnummers:
+        - updatedAt: '2021-09-21T13:52:09.000+02:00'
+          createdAt: '2021-09-21T13:52:09.000+02:00'
+          createdBy: user
+          id: 9
+          beginDate: '2022-07-01'
+          endDate: '2022-12-31'
+          careOrderObjectId: 345
+          machtigingsnummer: 0123987654
+      xml:
+        name: careOrderZpmDetails
+    zpm.CareOrderZpmPlaatsingsbesluitnummer:
+      required:
+      - beginDate
+      - plaatsingsbesluitnummer
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        plaatsingsbesluitnummer:
+          type: string
+          description: Plaatsingsbesluitnummer, a 9 digit number.
+        fpt:
+          type: boolean
+          description: Indicates a plaatsingsbesluitnummer for Forensisch psychiatrisch toezicht (fpt).
+      description: 'Describes which ZPM plaatsingsbesluitnummer is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 9
+        beginDate: '2022-07-01'
+        endDate: '2022-12-31'
+        careOrderObjectId: 345
+        plaatsingsbesluitnummer: 012345678
+        fpt: false
+    zpm.CareOrderZpmMachtigingsnummer:
+      required:
+      - beginDate
+      - machtigingsnummer
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        machtigingsnummer:
+          type: string
+          description: Machtigings nummer.
+      description: 'Describes which ZPM machtigingsnummer is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 9
+        beginDate: '2022-07-01'
+        endDate: '2022-12-31'
+        careOrderObjectId: 345
+        machtigingsnummer: 0123987654
+    zpm.CareOrderZpmSetting:
+      required:
+      - beginDate
+      - zpmSettingObjectId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        zpmSettingObjectId:
+          type: integer
+          description: ZPM setting object id.
+          format: int64
+      description: 'Describes which {@link ZpmSetting} is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 13
+        beginDate: '2022-10-01'
+        endDate: '2022-12-31'
+        careOrderObjectId: 345
+        zpmSettingObjectId: 5
+    zpm.CareOrderZpmTariefniveau:
+      required:
+      - beginDate
+      - zpmTariefniveau
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        zpmTariefniveau:
+          type: string
+          description: Tariefniveau, can be Laag or Hoog.
+      description: 'Describes which ZPM tariefniveau is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 9
+        beginDate: '2022-07-01'
+        endDate: '2022-12-31'
+        careOrderObjectId: 345
+        zpmTariefniveau: Laag
+    zpm.CareOrderZpmReferral:
+      required:
+      - beginDate
+      - referralObjectId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        referralObjectId:
+          type: integer
+          description: Referral object id.
+          format: int64
+      description: 'Describes which {@link com.nedap.healthcare.domain.Referral} is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 6
+        beginDate: '2022-01-01'
+        endDate: '2022-01-31'
+        careOrderObjectId: 345
+        referralObjectId: 21
+    zpm.CareOrderZpmGbggzProfiel:
+      required:
+      - beginDate
+      - zpmGbggzProfielObjectId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        zpmGbggzProfielObjectId:
+          type: integer
+          description: ZPM GB-ggz profiel object id.
+          format: int64
+      description: 'Describes which {@link ZpmGbggzProfiel} is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 23
+        beginDate: '2022-03-01'
+        endDate: '2022-12-31'
+        careOrderObjectId: 345
+        zpmGbggzProfielObjectId: 4
+      xml:
+        name: careOrderZpmGbggzProfiel
+    zpm.CareOrderZpmZorglabel:
+      required:
+      - beginDate
+      - zpmZorglabelObjectId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+        value:
+          type: string
+          description: Specific value for the zorglabel assignment.
+        careOrderObjectId:
+          type: integer
+          description: Care order object id.
+          format: int64
+        zpmZorglabelObjectId:
+          type: integer
+          description: ZPM zorglabel object id.
+          format: int64
+      description: 'Describes which {@link ZpmZorglabel} is applicable to a {@link com.nedap.healthcare.domain.finance.CareOrder}
+
+        over a period of time.'
+      example:
+        updatedAt: '2021-09-21T13:52:09.000+02:00'
+        createdAt: '2021-09-21T13:52:09.000+02:00'
+        createdBy: user
+        id: 23
+        beginDate: '2022-01-01'
+        endDate: '2022-12-31'
+        value: Talentolk
+        careOrderObjectId: 345
+        zpmZorglabelObjectId: 4
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

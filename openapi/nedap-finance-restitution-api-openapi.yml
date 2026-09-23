@@ -1,0 +1,223 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Restitution API
+  version: 0.0.0
+  description: 'Operations tagged finance.Restitution across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.Restitution
+paths:
+  /t/finance/restitutions/x-stream-connect/data:
+    get:
+      tags:
+      - finance.Restitution
+      summary: Return all Restitution models in a streaming manner
+      operationId: finance.RestitutionAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.RestitutionList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Restitution'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/restitutions/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/restitutions/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.Restitution
+      summary: Return all Restitution models which where updated since the date given in the…
+      operationId: finance.RestitutionAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.RestitutionList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Restitution'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/restitutions/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/restitutions/data:
+    get:
+      tags:
+      - finance.Restitution
+      summary: Return all Restitution models in a streaming manner
+      operationId: finance.RestitutionAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.RestitutionList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Restitution'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/restitutions/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/restitutions/updates:
+    get:
+      tags:
+      - finance.Restitution
+      summary: Return all Restitution models which where updated since the date given in the…
+      operationId: finance.RestitutionAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.RestitutionList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Restitution'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/restitutions/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.list.RestitutionList:
+      type: object
+      properties:
+        restitutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.Restitution'
+          xml:
+            name: restitution
+      description: RestitutionList model (no description)
+      example:
+        restitutions:
+        - id: 1
+          financeLogId: 123
+          invoiceRowId: 124
+          originalAmount: 1
+          originalAmountUnit: 2
+          originalRate: 1
+          originalRateUnit: 2
+          restitutionAmount: 4
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+        - id: 2
+          financeLogId: 128
+          invoiceRowId: 129
+          originalAmount: 2
+          originalAmountUnit: 4
+          originalRate: 2
+          originalRateUnit: 4
+          restitutionAmount: 8
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: restitutions
+    finance.Restitution:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        financeLogId:
+          type: integer
+          format: int64
+        invoiceRowId:
+          type: integer
+          format: int64
+        originalAmount:
+          type: integer
+          format: int64
+        originalAmountUnit:
+          type: integer
+          format: int32
+        originalRate:
+          type: integer
+          format: int64
+        originalRateUnit:
+          type: integer
+          format: int32
+        restitutionAmount:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Restitution model (no description)
+      example:
+        id: 1
+        financeLogId: 123
+        invoiceRowId: 124
+        originalAmount: 1
+        originalAmountUnit: 2
+        originalRate: 1
+        originalRateUnit: 2
+        restitutionAmount: 4
+        createdAt: '2016-02-01T00:00:00.000+01:00'
+        updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: restitution
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

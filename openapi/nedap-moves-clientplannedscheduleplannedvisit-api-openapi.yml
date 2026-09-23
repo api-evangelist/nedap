@@ -1,0 +1,135 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Client Planned Schedule Planned Visit API
+  version: 0.0.0
+  description: 'Operations tagged moves.ClientPlannedSchedulePlannedVisit across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.ClientPlannedSchedulePlannedVisit
+paths:
+  /t/clients/{client_id}/planned_schedule:
+    get:
+      tags:
+      - moves.ClientPlannedSchedulePlannedVisit
+      summary: Return the client planning filters of a Client within a specified period
+      operationId: moves.ClientPlannedSchedulePlannedVisitAPI.plannedSchedule
+      parameters:
+      - name: client_id
+        in: path
+        description: The id of the requested Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: The date for which to check
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ClientPlannedSchedulePlannedVisitList'
+      x-replaced-by: /v0/plannen_roosteren/clients/{client_id}/planned_schedule
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/clients/{client_id}/planned_schedule:
+    get:
+      tags:
+      - moves.ClientPlannedSchedulePlannedVisit
+      summary: Return the client planning filters of a Client within a specified period
+      operationId: moves.ClientPlannedSchedulePlannedVisitAPI.plannedSchedule
+      parameters:
+      - name: client_id
+        in: path
+        description: The id of the requested Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: The date for which to check
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ClientPlannedSchedulePlannedVisitList'
+      x-replacement-for:
+      - /t/clients/{client_id}/planned_schedule
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.list.ClientPlannedSchedulePlannedVisitList:
+      type: object
+      properties:
+        plannedVisits:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ClientPlannedSchedulePlannedVisit'
+      description: The planned schedule for a client
+      example:
+        plannedVisits:
+        - description: Verzorging niveau 4
+          duration: 2700
+          time: '2021-07-21T20:26:00.000+02:00'
+          employees: []
+        - description: Verzorging niveau 5
+          duration: 2700
+          time: '2021-07-21T21:11:00.000+02:00'
+          employees:
+          - externalId: 123
+            name: Dhr. Bakker
+    moves.ClientPlannedSchedulePlannedVisitEmployee:
+      type: object
+      properties:
+        externalId:
+          type: integer
+          format: int64
+        name:
+          type: string
+      description: An employee during a single visit in the planned schedule of a client
+      example:
+        externalId: 123
+        name: Dhr. Bakker
+    moves.ClientPlannedSchedulePlannedVisit:
+      type: object
+      properties:
+        description:
+          type: string
+        duration:
+          type: integer
+          format: int64
+        time:
+          type: string
+          format: date-time
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ClientPlannedSchedulePlannedVisitEmployee'
+      description: A single visit in the planned schedule of a client
+      example:
+        description: Verzorging niveau 5
+        duration: 2700
+        time: '2021-07-21T21:11:00.000+02:00'
+        employees:
+        - externalId: 123
+          name: Dhr. Bakker
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

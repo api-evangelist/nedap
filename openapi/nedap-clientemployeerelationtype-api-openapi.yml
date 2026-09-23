@@ -1,0 +1,294 @@
+openapi: 3.2.0
+info:
+  title: Nedap Client Employee Relation Type API
+  version: 0.0.0
+  description: 'Operations tagged ClientEmployeeRelationType across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ClientEmployeeRelationType
+paths:
+  /t/administration/client_employee_relation_types:
+    get:
+      tags:
+      - ClientEmployeeRelationType
+      summary: Returns every ClientEmployeeRelationType available from the…
+      operationId: ClientEmployeeRelationTypeAPI.all
+      parameters:
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientEmployeeRelationTypeList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_employee_relation_types
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/administration/client_employee_relation_types/{id}:
+    get:
+      tags:
+      - ClientEmployeeRelationType
+      summary: Returns the ClientEmployeeRelationType corresponding to the given id
+      operationId: ClientEmployeeRelationTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientEmployeeRelationType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEmployeeRelationType'
+        '404':
+          description: Client Employee Relation Type not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_employee_relation_types/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_employee_relation_types:
+    get:
+      tags:
+      - ClientEmployeeRelationType
+      summary: Returns every ClientEmployeeRelationType available from the…
+      operationId: ClientEmployeeRelationTypeAPI.all
+      parameters:
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientEmployeeRelationTypeList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/administration/client_employee_relation_types
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_employee_relation_types/{id}:
+    get:
+      tags:
+      - ClientEmployeeRelationType
+      summary: Returns the ClientEmployeeRelationType corresponding to the given id
+      operationId: ClientEmployeeRelationTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientEmployeeRelationType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEmployeeRelationType'
+        '404':
+          description: Client Employee Relation Type not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/administration/client_employee_relation_types/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    list.ClientEmployeeRelationTypeList:
+      type: object
+      properties:
+        clientEmployeeRelationTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientEmployeeRelationType'
+      description: ClientEmployeeRelationTypeList model (no description)
+      example:
+        clientEmployeeRelationTypes:
+        - id: 6
+          name: Coach
+          primary: true
+          exclusive: true
+          negative: false
+          active: true
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+            id: 7
+            name: Standard
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    RelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        tag:
+          type: string
+        primary:
+          type: boolean
+        exclusive:
+          type: boolean
+        relevant:
+          type: boolean
+        negative:
+          type: boolean
+        active:
+          type: boolean
+        legal:
+          type: boolean
+        vbmResponsible:
+          type: boolean
+        vektisCode:
+          type: integer
+          description: See https://www.vektis.nl/standaardisatie/codelijsten/COD821-VEKT
+          format: int64
+        reference:
+          type: integer
+          description: Only available during transitional period.
+          format: int64
+          deprecated: true
+          x-deprecated-since: 03-10-2014
+        relationCategory:
+          $ref: '#/components/schemas/RelationCategory'
+      description: RelationType model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 6
+        name: Coach
+        tag: coach
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+    ClientEmployeeRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/RelationType'
+      description: ClientEmployeeRelationType model (no description)
+      example:
+        id: 6
+        name: Coach
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

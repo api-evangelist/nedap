@@ -1,0 +1,93 @@
+openapi: 3.2.0
+info:
+  title: Nedap Treatment Location API
+  version: 0.0.0
+  description: 'Operations tagged TreatmentLocation across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: TreatmentLocation
+paths:
+  /t/treatment_locations/{id}:
+    get:
+      tags:
+      - TreatmentLocation
+      summary: Return the treatment location by id
+      operationId: TreatmentLocationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TreatmentLocation'
+        '404':
+          description: Treatment Location not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/treatment_locations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/treatment_locations/{id}:
+    get:
+      tags:
+      - TreatmentLocation
+      summary: Return the treatment location by id
+      operationId: TreatmentLocationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TreatmentLocation'
+        '404':
+          description: Treatment Location not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/treatment_locations/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    TreatmentLocation:
+      required:
+      - id
+      - isInstitution
+      - locationObjectId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        isInstitution:
+          type: boolean
+        locationObjectId:
+          type: integer
+          format: int64
+      description: TreatmentLocation model (no description)
+      example:
+        id: 1
+        isInstitution: true
+        locationObjectId: 1
+      xml:
+        name: treatmentLocation
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

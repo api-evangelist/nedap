@@ -1,0 +1,376 @@
+openapi: 3.2.0
+info:
+  title: Nedap Agenda.Client Absence Occurrence API
+  version: 0.0.0
+  description: 'Operations tagged agenda.ClientAbsenceOccurrence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: agenda.ClientAbsenceOccurrence
+paths:
+  /t/agenda/client_absence_occurrences/{id}:
+    get:
+      tags:
+      - agenda.ClientAbsenceOccurrence
+      summary: Used for selecting a ClientAbsenceOccurrence
+      operationId: agenda.ClientAbsenceOccurrenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsenceOccurrence
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.ClientAbsenceOccurrence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/agenda/client_absence_occurrences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agenda/client_absence_occurrences/by_client_in_period:
+    get:
+      tags:
+      - agenda.ClientAbsenceOccurrence
+      summary: Used for selecting ClientAbsenceOccurrences from a client and moment in time
+      description: Used for selecting ClientAbsenceOccurrences from a client and moment in time.
+      operationId: agenda.ClientAbsenceOccurrenceAPI.byClientInPeriod
+      parameters:
+      - name: client_id
+        in: query
+        description: The ID of the client to get the ClientAbsenceOccurrences from
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The start date of the ClientAbsenceOccurrences to retrieve
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: The end date of the ClientAbsenceOccurrences to retrieve
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.ClientAbsenceOccurrenceList'
+      x-replaced-by: /v0/agenda/client_absence_occurrences/by_client_in_period
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/client_absence_occurrences/{id}:
+    get:
+      tags:
+      - agenda.ClientAbsenceOccurrence
+      summary: Used for selecting a ClientAbsenceOccurrence
+      operationId: agenda.ClientAbsenceOccurrenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsenceOccurrence
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.ClientAbsenceOccurrence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/agenda/client_absence_occurrences/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/client_absence_occurrences/by_client_in_period:
+    get:
+      tags:
+      - agenda.ClientAbsenceOccurrence
+      summary: Used for selecting ClientAbsenceOccurrences from a client and moment in time
+      description: Used for selecting ClientAbsenceOccurrences from a client and moment in time.
+      operationId: agenda.ClientAbsenceOccurrenceAPI.byClientInPeriod
+      parameters:
+      - name: client_id
+        in: query
+        description: The ID of the client to get the ClientAbsenceOccurrences from
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The start date of the ClientAbsenceOccurrences to retrieve
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: The end date of the ClientAbsenceOccurrences to retrieve
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.ClientAbsenceOccurrenceList'
+      x-replacement-for:
+      - /t/agenda/client_absence_occurrences/by_client_in_period
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    agenda.ClientAbsenceStatus:
+      enum:
+      - CREATED
+      - UPDATED
+      - DELETED
+      type:
+      - string
+      - 'null'
+      description: A status about the absence; can be created/updated/deleted.
+      example: CREATED
+    agenda.ClientAbsenceOccurrence:
+      title: ClientAbsenceOccurrence
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: The id of this object
+          x-cupido-id: true
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: The start date of this occurrence
+          format: date
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: The end date of this occurrence
+          format: date
+        startTime:
+          type:
+          - string
+          - 'null'
+          description: The start time of this occurrence
+          format: time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: The end date of this occurrence
+          format: time
+        recurrenceType:
+          allOf:
+          - $ref: '#/components/schemas/RecurrenceType'
+          description: 'The recurrence type of this occurrence; can be "single", "daily", "weekly", "monthly_on_day", "monthly_on_week"
+
+            or "yearly"'
+        cycleInterval:
+          type:
+          - integer
+          - 'null'
+          description: The interval of the recurrences
+          format: int32
+        validFrom:
+          type:
+          - string
+          - 'null'
+          description: The date on which the series this occurrence belongs to starts
+          format: date
+        validTo:
+          type:
+          - string
+          - 'null'
+          description: The date on which the series this occurrence belongs to ends
+          format: date
+        timelineId:
+          type:
+          - integer
+          - 'null'
+          description: The id of the timeline this series belongs to
+          format: int32
+        note:
+          type:
+          - string
+          - 'null'
+          description: A note about the absence; can be any string of text put in by the employee.
+        status:
+          allOf:
+          - $ref: '#/components/schemas/agenda.ClientAbsenceStatus'
+          description: A status about the absence; can be created/updated/deleted.
+        monday:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean that defines whether the absence recurs on Mondays
+        tuesday:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean that defines whether the absence recurs on Tuesdays
+        wednesday:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean that defines whether the absence recurs on Wednesdays
+        thursday:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean that defines whether the absence recurs on Thursdays
+        friday:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean that defines whether the absence recurs on Fridays
+        saturday:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean that defines whether the absence recurs on Saturdays
+        sunday:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean that defines whether the absence recurs on Sundays
+        clientAbsenceReasonId:
+          type:
+          - integer
+          - 'null'
+          description: The id of the reason of absence
+          format: int32
+        clientId:
+          type:
+          - integer
+          - 'null'
+          description: The id of the client
+          format: int32
+      description: Client absence occurrence domain in Agenda.
+      example:
+        id: 07e4618393
+        startDate: '2020-06-24'
+        endDate: '2020-07-24'
+        startTime: '08:10:00.000'
+        endTime: '08:20:00.000'
+        recurrenceType: single
+        cycleInterval: 1
+        validFrom: '2020-06-24'
+        validTo: '2020-12-24'
+        timelineId: 42
+        note: Omdat het kan
+        status: CREATED
+        monday: true
+        tuesday: false
+        wednesday: true
+        thursday: true
+        friday: false
+        saturday: true
+        sunday: false
+        clientAbsenceReasonId: 1
+        clientId: 142
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    agenda.list.ClientAbsenceOccurrenceList:
+      title: ClientAbsenceOccurrenceList
+      type: object
+      properties:
+        clientAbsenceOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.ClientAbsenceOccurrence'
+      description: ClientAbsenceOccurrenceList model (no description)
+      example:
+        clientAbsenceOccurrences:
+        - id: 07e4618393
+          startDate: '2020-06-24'
+          endDate: '2020-07-24'
+          startTime: '08:10:00.000'
+          endTime: '08:20:00.000'
+          recurrenceType: single
+          cycleInterval: 1
+          validFrom: '2020-06-24'
+          validTo: '2020-12-24'
+          timelineId: 42
+          note: Omdat het kan
+          status: CREATED
+          monday: true
+          tuesday: false
+          wednesday: true
+          thursday: true
+          friday: false
+          saturday: true
+          sunday: false
+          clientAbsenceReasonId: 1
+          clientId: 142
+        - id: 07e4618394
+          startDate: '2020-06-25'
+          endDate: '2020-07-25'
+          startTime: '08:10:00.000'
+          endTime: '08:20:00.000'
+          recurrenceType: single
+          cycleInterval: 1
+          validFrom: '2020-06-25'
+          validTo: '2020-12-25'
+          timelineId: 42
+          note: Omdat het kan 2
+          status: CREATED
+          monday: true
+          tuesday: false
+          wednesday: true
+          thursday: true
+          friday: false
+          saturday: true
+          sunday: false
+          clientAbsenceReasonId: 1
+          clientId: 142
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

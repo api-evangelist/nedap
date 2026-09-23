@@ -1,0 +1,575 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Payable Hours Average API
+  version: 0.0.0
+  description: 'Operations tagged payroll.PayableHoursAverage across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.PayableHoursAverage
+paths:
+  /t/payroll/payable_hours_averages/on_day_of_week_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.PayableHoursAverage
+      summary: Get the average payable hours for a given day of the week, for the specified…
+      description: 'use {@link #onDaysOfWeekInPeriod(Long, LocalDate, LocalDate, List, List)} instead The default period is last thirteen weeks.
+
+        Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
+
+        We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
+      operationId: payroll.PayableHoursAverageAPI.onDayOfWeekInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: day_of_week
+        in: query
+        description: ISO8601 day of week number, where Monday (1) is the first day of the week, and Sunday (7) is the last. {@see java.time.DayOfWeek}
+        schema:
+          type: integer
+          format: int32
+      - name: hour_type_id
+        in: query
+        description: 'array style id''s: hour_type_id=1&hour_type_id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.PayableHoursAverage'
+        '400':
+          description: Employee is required and must be under contract in the requested period
+      deprecated: true
+      x-replaced-by: /v0/administration/payable_hours_averages/on_day_of_week_in_period/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/payable_hours_averages/on_days_of_week_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.PayableHoursAverage
+      summary: Get the average payable hours for the given days of the week, for the specified…
+      description: 'The default period is last thirteen weeks.
+
+        Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
+
+        We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
+      operationId: payroll.PayableHoursAverageAPI.onDaysOfWeekInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: day_of_week
+        in: query
+        description: ISO8601 day of week number, where Monday (1) is the first day of the week, and Sunday (7) is the last. {@see java.time.DayOfWeek}
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int32
+      - name: hour_type_id
+        in: query
+        description: 'array style id''s: hour_type_id=1&hour_type_id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.PayableHoursAverageList'
+        '400':
+          description: Employee is required and must be under contract in the requested period
+      x-replaced-by: /v0/administration/payable_hours_averages/on_days_of_week_in_period/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/payable_hours_averages/per_day_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.PayableHoursAverage
+      summary: Get the average payable hours per day, for the specified employee and the…
+      description: 'The default period is the last thirteen weeks.
+
+        Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
+
+        We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
+      operationId: payroll.PayableHoursAverageAPI.perDayInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: hour_type_id
+        in: query
+        description: 'array style id''s: hour_type_id=1&hour_type_id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.PayableHoursAverage'
+        '400':
+          description: Employee is required and must be under contract in the requested period
+      x-replaced-by: /v0/administration/payable_hours_averages/per_day_in_period/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/payable_hours_averages/per_week_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.PayableHoursAverage
+      summary: Get the average payable hours per week, for the specified employee and the…
+      description: 'The default period is last thirteen weeks.
+
+        Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
+
+        We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
+      operationId: payroll.PayableHoursAverageAPI.perWeekInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: hour_type_id
+        in: query
+        description: 'array style id''s: hour_type_id=1&hour_type_id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.PayableHoursAverage'
+        '400':
+          description: Employee is required and must be under contract in the requested period
+      x-replaced-by: /v0/administration/payable_hours_averages/per_week_in_period/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/payable_hours_averages/on_day_of_week_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.PayableHoursAverage
+      summary: Get the average payable hours for a given day of the week, for the specified…
+      description: 'use {@link #onDaysOfWeekInPeriod(Long, LocalDate, LocalDate, List, List)} instead The default period is last thirteen weeks.
+
+        Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
+
+        We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
+      operationId: payroll.PayableHoursAverageAPI.onDayOfWeekInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: day_of_week
+        in: query
+        description: ISO8601 day of week number, where Monday (1) is the first day of the week, and Sunday (7) is the last. {@see java.time.DayOfWeek}
+        schema:
+          type: integer
+          format: int32
+      - name: hour_type_id
+        in: query
+        description: 'array style id''s: hour_type_id=1&hour_type_id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.PayableHoursAverage'
+        '400':
+          description: Employee is required and must be under contract in the requested period
+      deprecated: true
+      x-replacement-for:
+      - /t/payroll/payable_hours_averages/on_day_of_week_in_period/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/payable_hours_averages/on_days_of_week_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.PayableHoursAverage
+      summary: Get the average payable hours for the given days of the week, for the specified…
+      description: 'The default period is last thirteen weeks.
+
+        Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
+
+        We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
+      operationId: payroll.PayableHoursAverageAPI.onDaysOfWeekInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: day_of_week
+        in: query
+        description: ISO8601 day of week number, where Monday (1) is the first day of the week, and Sunday (7) is the last. {@see java.time.DayOfWeek}
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int32
+      - name: hour_type_id
+        in: query
+        description: 'array style id''s: hour_type_id=1&hour_type_id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.PayableHoursAverageList'
+        '400':
+          description: Employee is required and must be under contract in the requested period
+      x-replacement-for:
+      - /t/payroll/payable_hours_averages/on_days_of_week_in_period/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/payable_hours_averages/per_day_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.PayableHoursAverage
+      summary: Get the average payable hours per day, for the specified employee and the…
+      description: 'The default period is the last thirteen weeks.
+
+        Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
+
+        We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
+      operationId: payroll.PayableHoursAverageAPI.perDayInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: hour_type_id
+        in: query
+        description: 'array style id''s: hour_type_id=1&hour_type_id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.PayableHoursAverage'
+        '400':
+          description: Employee is required and must be under contract in the requested period
+      x-replacement-for:
+      - /t/payroll/payable_hours_averages/per_day_in_period/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/payable_hours_averages/per_week_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.PayableHoursAverage
+      summary: Get the average payable hours per week, for the specified employee and the…
+      description: 'The default period is last thirteen weeks.
+
+        Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
+
+        We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
+      operationId: payroll.PayableHoursAverageAPI.perWeekInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: hour_type_id
+        in: query
+        description: 'array style id''s: hour_type_id=1&hour_type_id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.PayableHoursAverage'
+        '400':
+          description: Employee is required and must be under contract in the requested period
+      x-replacement-for:
+      - /t/payroll/payable_hours_averages/per_week_in_period/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.PayableHoursAverage:
+      required:
+      - value
+      - perDay
+      - employeeId
+      type: object
+      properties:
+        value:
+          type: number
+          description: The average number of payable hours for the requested period for the specified employee.
+          format: float
+        perDay:
+          type: boolean
+          description: Indicating that the value is per day, or otherwise per week.
+        dayOfWeek:
+          type: integer
+          description: 'ISO8601 day of week number, where Monday (1) is the first day of the week, and Sunday (7) is the last, idnicating which day of the week this {@code PayableHoursAverage} represents.
+
+            Only set when {@code perDay} is {@code true}'
+          format: int32
+        employeeId:
+          type: integer
+          format: int64
+        validFrom:
+          type: string
+          format: date
+        validTo:
+          type: string
+          description: the last date for which this average is valid, inclusive
+          format: date
+      description: PayableHoursAverage model (no description)
+      example:
+        value: 123.45
+        perDay: false
+        dayOfWeek: 4
+        employeeId: 1
+        validFrom: '2021-12-16'
+        validTo: '2021-12-16'
+      xml:
+        name: payableHoursAverage
+    payroll.list.PayableHoursAverageList:
+      type: object
+      properties:
+        payableHoursAverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.PayableHoursAverage'
+      description: PayableHoursAverageList model (no description)
+      example:
+        payableHoursAverages:
+        - value: 123.45
+          perDay: true
+          dayOfWeek: 4
+          employeeId: 1
+          validFrom: '2021-12-16'
+          validTo: '2021-12-16'
+        - value: 456.78
+          perDay: true
+          dayOfWeek: 5
+          employeeId: 1
+          validFrom: '2021-12-17'
+          validTo: '2021-12-17'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

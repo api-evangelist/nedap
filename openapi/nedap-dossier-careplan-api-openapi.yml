@@ -1,0 +1,2878 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Care Plan API
+  version: 0.0.0
+  description: 'Operations tagged dossier.CarePlan across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.CarePlan
+paths:
+  /t/dossier/care_plans:
+    post:
+      tags:
+      - dossier.CarePlan
+      summary: Create CarePlan
+      operationId: dossier.CarePlanAPI.create
+      requestBody:
+        description: 'Creates a new CarePlan. Important: This endpoint only creates the CarePlan object. Any nested elements such as CarePlanEntries, DemandEntries, GoalEntries, and ActionEntries must be created separately using their respective endpoints.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.CarePlan'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/care_plans
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/care_plans/{id}:
+    get:
+      tags:
+      - dossier.CarePlan
+      summary: Get the CarePlan corresponding to the given id
+      operationId: dossier.CarePlanAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlan
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+        '404':
+          description: Care plan does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/care_plans/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.CarePlan
+      summary: Updates the given CarePlan
+      operationId: dossier.CarePlanAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlan
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: CarePlan to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.CarePlan'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+        '400':
+          description: Cannot update a carepan between statuses
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/care_plans/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.CarePlan
+      summary: Deletes the CarePlan with given id
+      operationId: dossier.CarePlanAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlan
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the care plan
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/care_plans/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/care_plans/{id}/activate:
+    post:
+      tags:
+      - dossier.CarePlan
+      summary: Activate care plan
+      operationId: dossier.CarePlanAPI.activate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-replaced-by: /v0/administration/dossier/care_plans/{id}/activate
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/care_plans/{id}/archive:
+    post:
+      tags:
+      - dossier.CarePlan
+      summary: Archive care plan
+      operationId: dossier.CarePlanAPI.archive
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-replaced-by: /v0/administration/dossier/care_plans/{id}/archive
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/care_plans:
+    get:
+      tags:
+      - dossier.CarePlan
+      summary: Return the care plans of a Client corresponding to the given id
+      operationId: dossier.CarePlanAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.CarePlanList'
+      x-replaced-by: /v0/administration/dossier/care_plans/by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/active_care_plan:
+    get:
+      tags:
+      - dossier.CarePlan
+      summary: Return the active care plan of a client corresponding to the given client id
+      operationId: dossier.CarePlanAPI.activeCarePlanByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-replaced-by: /v0/administration/dossier/care_plans/by_client/{client_id}/active
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/draft_care_plan:
+    get:
+      tags:
+      - dossier.CarePlan
+      summary: Return the draft care plan of a client corresponding to the given client id
+      operationId: dossier.CarePlanAPI.draftCarePlanByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-replaced-by: /v0/administration/dossier/care_plans/by_client/{client_id}/draft
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/care_plans/by_client/{client_id}/new:
+    post:
+      tags:
+      - dossier.CarePlan
+      summary: Draft new care plan for client
+      operationId: dossier.CarePlanAPI.newDraft
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+        '404':
+          description: Client not found or user not found
+      x-replaced-by: /v0/administration/dossier/care_plans/by_client/{client_id}/new
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/care_plans:
+    post:
+      tags:
+      - dossier.CarePlan
+      summary: Create CarePlan
+      operationId: dossier.CarePlanAPI.create
+      requestBody:
+        description: 'Creates a new CarePlan. Important: This endpoint only creates the CarePlan object. Any nested elements such as CarePlanEntries, DemandEntries, GoalEntries, and ActionEntries must be created separately using their respective endpoints.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.CarePlan'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/care_plans
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/care_plans/{id}:
+    get:
+      tags:
+      - dossier.CarePlan
+      summary: Get the CarePlan corresponding to the given id
+      operationId: dossier.CarePlanAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlan
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+        '404':
+          description: Care plan does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/care_plans/{id}
+    put:
+      tags:
+      - dossier.CarePlan
+      summary: Updates the given CarePlan
+      operationId: dossier.CarePlanAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlan
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: CarePlan to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.CarePlan'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+        '400':
+          description: Cannot update a carepan between statuses
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/care_plans/{id}
+    delete:
+      tags:
+      - dossier.CarePlan
+      summary: Deletes the CarePlan with given id
+      operationId: dossier.CarePlanAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlan
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the care plan
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/care_plans/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/care_plans/{id}/activate:
+    post:
+      tags:
+      - dossier.CarePlan
+      summary: Activate care plan
+      operationId: dossier.CarePlanAPI.activate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-replacement-for:
+      - /t/dossier/care_plans/{id}/activate
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/care_plans/{id}/archive:
+    post:
+      tags:
+      - dossier.CarePlan
+      summary: Archive care plan
+      operationId: dossier.CarePlanAPI.archive
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-replacement-for:
+      - /t/dossier/care_plans/{id}/archive
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/care_plans/by_client/{client_id}:
+    get:
+      tags:
+      - dossier.CarePlan
+      summary: Return the care plans of a Client corresponding to the given id
+      operationId: dossier.CarePlanAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.CarePlanList'
+      x-replacement-for:
+      - /t/clients/{client_id}/care_plans
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/care_plans/by_client/{client_id}/active:
+    get:
+      tags:
+      - dossier.CarePlan
+      summary: Return the active care plan of a client corresponding to the given client id
+      operationId: dossier.CarePlanAPI.activeCarePlanByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-replacement-for:
+      - /t/clients/{client_id}/active_care_plan
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/care_plans/by_client/{client_id}/draft:
+    get:
+      tags:
+      - dossier.CarePlan
+      summary: Return the draft care plan of a client corresponding to the given client id
+      operationId: dossier.CarePlanAPI.draftCarePlanByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+      x-replacement-for:
+      - /t/clients/{client_id}/draft_care_plan
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/care_plans/by_client/{client_id}/new:
+    post:
+      tags:
+      - dossier.CarePlan
+      summary: Draft new care plan for client
+      operationId: dossier.CarePlanAPI.newDraft
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlan'
+        '404':
+          description: Client not found or user not found
+      x-replacement-for:
+      - /t/dossier/care_plans/by_client/{client_id}/new
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.Demand:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        protocolUrl:
+          type: string
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "aandachtspunt"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        definition: Definitie
+        protocolUrl: http://www.nedap.com/
+        hidden: true
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: demand
+    survey.ImportantForCarePlanGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        groupAnswerId:
+          type: integer
+          format: int64
+        surveyTitle:
+          type: string
+        description:
+          type: string
+        answeredQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnsweredQuestion'
+          xml:
+            wrapped: true
+      description: ImportantForCarePlanGroup model (no description)
+      example:
+        id: 1
+        groupAnswerId: 5
+        surveyTitle: Mooie vragenlijst
+        description: Leeftijd vragen
+        answeredQuestions:
+        - id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: uw leeftijd?
+          additionalInfo: vul leeftijd in
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 3
+          groupId: 1
+          answerDefinitionGroup:
+            updatedAt: '2012-08-02T13:48:46.836+02:00'
+            createdAt: '2012-08-02T13:48:46.836+02:00'
+            id: 1
+            description: heel oud
+            readOnly: false
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          answers:
+          - updatedAt: '2012-08-02T13:48:46.836+02:00'
+            createdAt: '2012-08-02T13:48:46.836+02:00'
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: heeeeel oud
+            booleanAnswer: false
+      xml:
+        name: importantForCarePlanGroup
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.CarePlan:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        employeeId:
+          type: integer
+          format: int64
+        carePlanEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.CarePlanEntry'
+          xml:
+            wrapped: true
+        status:
+          $ref: '#/components/schemas/dossier.CarePlanStatus'
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      description: '"Zorgplan"'
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        clientId: 1
+        employeeId: 1
+        carePlanEntries:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          carePlanId: 1
+          demandEntry:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            carePlanEntryId: 1
+            demand:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              definition: example
+              protocolUrl: example
+              hidden: true
+              classificationId: example
+            demandId: 1
+            comment: example
+          demandEntryId: 1
+          goalEntry:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            comment: example
+            title: example
+            carePlanEntryId: 1
+            goal:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              demandId: 1
+              definition: example
+              allowTitleOverride: true
+              allowComment: true
+              reportProgress: true
+              hidden: true
+              classificationId: example
+            goalId: 1
+            targetDate: '2014-12-29T00:00:00.000+01:00'
+          goalEntryId: 1
+          actionEntries:
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            carePlanEntryId: 1
+            action:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              goal:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                domain:
+                  updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  name: example
+                  hidden: true
+                  classificationId: example
+                domainId: 1
+                demandId: 1
+                definition: example
+                allowTitleOverride: true
+                allowComment: true
+                reportProgress: true
+                hidden: true
+                classificationId: example
+              goalId: 1
+              definition: example
+              instructionUrl: example
+              allowTitleOverride: true
+              allowComment: true
+              hidden: true
+              classificationId: example
+            actionId: 1
+            carePlanPersistentActionId: 1
+            comment: example
+            title: example
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            carePlanEntryId: 1
+            action:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              goal:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                domain:
+                  updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  name: example
+                  hidden: true
+                  classificationId: example
+                domainId: 1
+                demandId: 1
+                definition: example
+                allowTitleOverride: true
+                allowComment: true
+                reportProgress: true
+                hidden: true
+                classificationId: example
+              goalId: 1
+              definition: example
+              instructionUrl: example
+              allowTitleOverride: true
+              allowComment: true
+              hidden: true
+              classificationId: example
+            actionId: 1
+            carePlanPersistentActionId: 1
+            comment: example
+            title: example
+          percentageRealized: 1
+          percentageTarget: 1
+          importantForCarePlanGroupId: 1
+          importantForCarePlanGroup:
+            id: 1
+            groupAnswerId: 1
+            surveyTitle: example
+            description: example
+            answeredQuestions:
+            - id: 1
+              sequenceNumber: 1
+              answerType: 1
+              text: example
+              additionalInfo: example
+              defaultAnswer: 1
+              skipOnYes: true
+              active: true
+              required: true
+              answerMaxLength: 1
+              groupId: 1
+              classificationId: example
+              answerDefinitionGroup:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                description: example
+                readOnly: true
+                answerDefinitions:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  definition: example
+                  sequenceNumber: 1
+                  hasInput: true
+                  active: true
+                  score: 1
+                  answers:
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  classificationId: example
+                  answerDefinitionGroupId: 1
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  definition: example
+                  sequenceNumber: 1
+                  hasInput: true
+                  active: true
+                  score: 1
+                  answers:
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  classificationId: example
+                  answerDefinitionGroupId: 1
+                questions:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  sequenceNumber: 1
+                  answerType: 1
+                  text: example
+                  additionalInfo: example
+                  defaultAnswer: 1
+                  skipOnYes: true
+                  active: true
+                  required: true
+                  answerMaxLength: 1
+                  groupId: 1
+                  classificationId: example
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  sequenceNumber: 1
+                  answerType: 1
+                  text: example
+                  additionalInfo: example
+                  defaultAnswer: 1
+                  skipOnYes: true
+                  active: true
+                  required: true
+                  answerMaxLength: 1
+                  groupId: 1
+                  classificationId: example
+                classificationId: example
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              answers:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+            - id: 1
+              sequenceNumber: 1
+              answerType: 1
+              text: example
+              additionalInfo: example
+              defaultAnswer: 1
+              skipOnYes: true
+              active: true
+              required: true
+              answerMaxLength: 1
+              groupId: 1
+              classificationId: example
+              answerDefinitionGroup:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                description: example
+                readOnly: true
+                answerDefinitions:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  definition: example
+                  sequenceNumber: 1
+                  hasInput: true
+                  active: true
+                  score: 1
+                  answers:
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  classificationId: example
+                  answerDefinitionGroupId: 1
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  definition: example
+                  sequenceNumber: 1
+                  hasInput: true
+                  active: true
+                  score: 1
+                  answers:
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  classificationId: example
+                  answerDefinitionGroupId: 1
+                questions:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  sequenceNumber: 1
+                  answerType: 1
+                  text: example
+                  additionalInfo: example
+                  defaultAnswer: 1
+                  skipOnYes: true
+                  active: true
+                  required: true
+                  answerMaxLength: 1
+                  groupId: 1
+                  classificationId: example
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  sequenceNumber: 1
+                  answerType: 1
+                  text: example
+                  additionalInfo: example
+                  defaultAnswer: 1
+                  skipOnYes: true
+                  active: true
+                  required: true
+                  answerMaxLength: 1
+                  groupId: 1
+                  classificationId: example
+                classificationId: example
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              answers:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          carePlanId: 1
+          demandEntry:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            carePlanEntryId: 1
+            demand:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              definition: example
+              protocolUrl: example
+              hidden: true
+              classificationId: example
+            demandId: 1
+            comment: example
+          demandEntryId: 1
+          goalEntry:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            comment: example
+            title: example
+            carePlanEntryId: 1
+            goal:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              demandId: 1
+              definition: example
+              allowTitleOverride: true
+              allowComment: true
+              reportProgress: true
+              hidden: true
+              classificationId: example
+            goalId: 1
+            targetDate: '2014-12-29T00:00:00.000+01:00'
+          goalEntryId: 1
+          actionEntries:
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            carePlanEntryId: 1
+            action:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              goal:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                domain:
+                  updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  name: example
+                  hidden: true
+                  classificationId: example
+                domainId: 1
+                demandId: 1
+                definition: example
+                allowTitleOverride: true
+                allowComment: true
+                reportProgress: true
+                hidden: true
+                classificationId: example
+              goalId: 1
+              definition: example
+              instructionUrl: example
+              allowTitleOverride: true
+              allowComment: true
+              hidden: true
+              classificationId: example
+            actionId: 1
+            carePlanPersistentActionId: 1
+            comment: example
+            title: example
+          - updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            carePlanEntryId: 1
+            action:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              goal:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                domain:
+                  updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  name: example
+                  hidden: true
+                  classificationId: example
+                domainId: 1
+                demandId: 1
+                definition: example
+                allowTitleOverride: true
+                allowComment: true
+                reportProgress: true
+                hidden: true
+                classificationId: example
+              goalId: 1
+              definition: example
+              instructionUrl: example
+              allowTitleOverride: true
+              allowComment: true
+              hidden: true
+              classificationId: example
+            actionId: 1
+            carePlanPersistentActionId: 1
+            comment: example
+            title: example
+          percentageRealized: 1
+          percentageTarget: 1
+          importantForCarePlanGroupId: 1
+          importantForCarePlanGroup:
+            id: 1
+            groupAnswerId: 1
+            surveyTitle: example
+            description: example
+            answeredQuestions:
+            - id: 1
+              sequenceNumber: 1
+              answerType: 1
+              text: example
+              additionalInfo: example
+              defaultAnswer: 1
+              skipOnYes: true
+              active: true
+              required: true
+              answerMaxLength: 1
+              groupId: 1
+              classificationId: example
+              answerDefinitionGroup:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                description: example
+                readOnly: true
+                answerDefinitions:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  definition: example
+                  sequenceNumber: 1
+                  hasInput: true
+                  active: true
+                  score: 1
+                  answers:
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  classificationId: example
+                  answerDefinitionGroupId: 1
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  definition: example
+                  sequenceNumber: 1
+                  hasInput: true
+                  active: true
+                  score: 1
+                  answers:
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  classificationId: example
+                  answerDefinitionGroupId: 1
+                questions:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  sequenceNumber: 1
+                  answerType: 1
+                  text: example
+                  additionalInfo: example
+                  defaultAnswer: 1
+                  skipOnYes: true
+                  active: true
+                  required: true
+                  answerMaxLength: 1
+                  groupId: 1
+                  classificationId: example
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  sequenceNumber: 1
+                  answerType: 1
+                  text: example
+                  additionalInfo: example
+                  defaultAnswer: 1
+                  skipOnYes: true
+                  active: true
+                  required: true
+                  answerMaxLength: 1
+                  groupId: 1
+                  classificationId: example
+                classificationId: example
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              answers:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+            - id: 1
+              sequenceNumber: 1
+              answerType: 1
+              text: example
+              additionalInfo: example
+              defaultAnswer: 1
+              skipOnYes: true
+              active: true
+              required: true
+              answerMaxLength: 1
+              groupId: 1
+              classificationId: example
+              answerDefinitionGroup:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                description: example
+                readOnly: true
+                answerDefinitions:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  definition: example
+                  sequenceNumber: 1
+                  hasInput: true
+                  active: true
+                  score: 1
+                  answers:
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  classificationId: example
+                  answerDefinitionGroupId: 1
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  definition: example
+                  sequenceNumber: 1
+                  hasInput: true
+                  active: true
+                  score: 1
+                  answers:
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                    createdAt: '2014-12-29T00:00:00.000+01:00'
+                    createdBy: example
+                    id: 1
+                    surveyResultObjectId: 1
+                    questionObjectId: 1
+                    answerDefinitionObjectId: 1
+                    text: example
+                    important: true
+                    booleanAnswer: true
+                  classificationId: example
+                  answerDefinitionGroupId: 1
+                questions:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  sequenceNumber: 1
+                  answerType: 1
+                  text: example
+                  additionalInfo: example
+                  defaultAnswer: 1
+                  skipOnYes: true
+                  active: true
+                  required: true
+                  answerMaxLength: 1
+                  groupId: 1
+                  classificationId: example
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  sequenceNumber: 1
+                  answerType: 1
+                  text: example
+                  additionalInfo: example
+                  defaultAnswer: 1
+                  skipOnYes: true
+                  active: true
+                  required: true
+                  answerMaxLength: 1
+                  groupId: 1
+                  classificationId: example
+                classificationId: example
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              answers:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                surveyResultObjectId: 1
+                questionObjectId: 1
+                answerDefinitionObjectId: 1
+                text: example
+                important: true
+                booleanAnswer: true
+        status: OLD
+        beginDate: '2014-01-01T08:00:00.000+01:00'
+        endDate: '2014-05-01T17:00:00.000+02:00'
+      xml:
+        name: carePlan
+    survey.Question:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        sequenceNumber:
+          type: integer
+          format: int32
+          default: 0
+        answerType:
+          type: integer
+          format: int32
+          default: 0
+        text:
+          type: string
+        additionalInfo:
+          type: string
+        defaultAnswer:
+          type: integer
+          format: int32
+        skipOnYes:
+          type: boolean
+        active:
+          type: boolean
+        required:
+          type: boolean
+        answerMaxLength:
+          type: integer
+          format: int32
+        groupId:
+          type: integer
+          format: int64
+        classificationId:
+          type: string
+        answerDefinitionGroup:
+          $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      description: Question model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        sequenceNumber: 1
+        answerType: 1
+        text: uw leeftijd?
+        additionalInfo: vul leeftijd in
+        defaultAnswer: 1
+        skipOnYes: true
+        active: true
+        required: true
+        answerMaxLength: 3
+        groupId: 1
+        classificationId: classification.problem.health.nutrition.signs
+        answerDefinitionGroup:
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          id: 1
+          description: heel oud
+          readOnly: false
+      xml:
+        name: question
+    dossier.Action:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        goal:
+          $ref: '#/components/schemas/dossier.Goal'
+        goalId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        instructionUrl:
+          type: string
+        allowTitleOverride:
+          type: boolean
+          default: false
+        allowComment:
+          type: boolean
+          default: false
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "actie"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        goal:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          demandId: 1
+          definition: example
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: true
+          hidden: true
+          classificationId: example
+        goalId: 3
+        definition: Een definitie
+        instructionUrl: http://www.nedap.com/
+        allowTitleOverride: true
+        allowComment: true
+        hidden: false
+        classificationId: intervention.target.bowel_care
+      xml:
+        name: action
+    dossier.list.CarePlanList:
+      type: object
+      properties:
+        carePlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.CarePlan'
+      description: CarePlanList model (no description)
+      example:
+        carePlans:
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 1
+          clientId: 1
+          employeeId: 1
+          status: ACTIVE
+          beginDate: '2014-01-01T08:00:00.000+01:00'
+          endDate: '2014-05-01T17:00:00.000+02:00'
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 10
+          clientId: 10
+          employeeId: 10
+          status: DRAFT
+          beginDate: '2014-01-01T08:00:00.000+01:00'
+          endDate: '2014-05-01T17:00:00.000+02:00'
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 11
+          clientId: 11
+          employeeId: 11
+          status: OLD
+          beginDate: '2014-01-01T08:00:00.000+01:00'
+          endDate: '2014-05-01T17:00:00.000+02:00'
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 12
+          clientId: 12
+          employeeId: 12
+          status: OLD
+          beginDate: '2014-01-01T08:00:00.000+01:00'
+          endDate: '2014-05-01T17:00:00.000+02:00'
+    survey.AnsweredQuestion:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/survey.Question'
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+      description: AnsweredQuestion model (no description)
+      example:
+        id: 1
+        sequenceNumber: 1
+        answerType: 1
+        text: uw leeftijd?
+        additionalInfo: vul leeftijd in
+        defaultAnswer: 1
+        skipOnYes: true
+        active: true
+        required: true
+        answerMaxLength: 3
+        groupId: 1
+        classificationId: classification.problem.health.nutrition.signs
+        answerDefinitionGroup:
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          createdBy: user
+          id: 1
+          description: heel oud
+          readOnly: false
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        answers:
+        - updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          createdBy: user
+          id: 1
+          surveyResultObjectId: 1
+          questionObjectId: 1
+          answerDefinitionObjectId: 1
+          text: heeeeel oud
+          booleanAnswer: false
+    dossier.Goal:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        demandId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        allowTitleOverride:
+          type: boolean
+          default: false
+        allowComment:
+          type: boolean
+          default: false
+        reportProgress:
+          type: boolean
+          default: false
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "doel"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        demandId: 3
+        definition: Target definition
+        allowTitleOverride: true
+        allowComment: true
+        reportProgress: false
+        hidden: false
+        classificationId: intervention.category.case_management
+      xml:
+        name: goal
+    dossier.Domain:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
+    survey.AnswerDefinition:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        definition:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        hasInput:
+          type: boolean
+        active:
+          type: boolean
+        score:
+          type: integer
+          format: int32
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+        answerDefinitionGroupId:
+          type: integer
+          format: int32
+      description: AnswerDefinition model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        definition: heel oud
+        sequenceNumber: 1
+        hasInput: false
+        active: false
+        score: 12
+        answers: []
+        classificationId: classification.reach_modifier.individual
+        answerDefinitionGroupId: 1
+      xml:
+        name: answerDefinition
+    survey.Answer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyResultObjectId:
+          type: integer
+          format: int64
+        questionObjectId:
+          type: integer
+          format: int64
+        answerDefinitionObjectId:
+          type: integer
+          format: int64
+        text:
+          type: string
+        important:
+          type: boolean
+        booleanAnswer:
+          type: boolean
+      description: Answer model (no description)
+      example:
+        id: 1
+        surveyResultObjectId: 1
+        questionObjectId: 1
+        text: heeeeel oud
+        answerDefinitionObjectId: 1
+        important: false
+        booleanAnswer: false
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+      xml:
+        name: answer
+    dossier.ActionEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        carePlanEntryId:
+          type: integer
+          format: int64
+        action:
+          $ref: '#/components/schemas/dossier.Action'
+        actionId:
+          type: integer
+          format: int64
+        carePlanPersistentActionId:
+          type: integer
+          description: The care plan persistent action id of this action entry
+          format: int64
+        comment:
+          type: string
+        title:
+          type: string
+      description: Zorgplan "actie" entry
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        carePlanEntryId: 2
+        action:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          goal:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            domain:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              name: example
+              hidden: true
+              classificationId: example
+            domainId: 1
+            demandId: 1
+            definition: example
+            allowTitleOverride: true
+            allowComment: true
+            reportProgress: true
+            hidden: true
+            classificationId: example
+          goalId: 1
+          definition: example
+          instructionUrl: example
+          allowTitleOverride: true
+          allowComment: true
+          hidden: true
+          classificationId: example
+        actionId: 3
+        carePlanPersistentActionId: 4
+        comment: commentaar
+        title: Een titel
+      xml:
+        name: actionEntry
+    dossier.DemandEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        carePlanEntryId:
+          type: integer
+          format: int64
+        demand:
+          $ref: '#/components/schemas/dossier.Demand'
+        demandId:
+          type: integer
+          format: int64
+        comment:
+          type: string
+      description: Zorgplan "aandachtspunt" entry
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        carePlanEntryId: 2
+        demand:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          definition: example
+          protocolUrl: example
+          hidden: true
+          classificationId: example
+        demandId: 3
+        comment: Een opmerking
+      xml:
+        name: demandEntry
+    dossier.CarePlanStatus:
+      enum:
+      - DRAFT
+      - ACTIVE
+      - OLD
+      type: string
+      description: CarePlanStatus enum (no description)
+      example: DRAFT
+    dossier.CarePlanEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        carePlanId:
+          type: integer
+          format: int64
+        demandEntry:
+          $ref: '#/components/schemas/dossier.DemandEntry'
+        demandEntryId:
+          type: integer
+          format: int64
+        goalEntry:
+          $ref: '#/components/schemas/dossier.GoalEntry'
+        goalEntryId:
+          type: integer
+          format: int64
+        actionEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ActionEntry'
+          xml:
+            wrapped: true
+        percentageRealized:
+          type: integer
+          format: int32
+          default: 0
+        percentageTarget:
+          type: integer
+          format: int32
+          default: 0
+        importantForCarePlanGroupId:
+          type: integer
+          format: int64
+        importantForCarePlanGroup:
+          $ref: '#/components/schemas/survey.ImportantForCarePlanGroup'
+      description: '"Zorgplan" entry.'
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        carePlanId: 6
+        demandEntry:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          carePlanEntryId: 1
+          demand:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            domain:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              name: example
+              hidden: true
+              classificationId: example
+            domainId: 1
+            definition: example
+            protocolUrl: example
+            hidden: true
+            classificationId: example
+          demandId: 1
+          comment: example
+        demandEntryId: 3
+        goalEntry:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          comment: example
+          title: example
+          carePlanEntryId: 1
+          goal:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            domain:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              name: example
+              hidden: true
+              classificationId: example
+            domainId: 1
+            demandId: 1
+            definition: example
+            allowTitleOverride: true
+            allowComment: true
+            reportProgress: true
+            hidden: true
+            classificationId: example
+          goalId: 1
+          targetDate: '2014-12-29T00:00:00.000+01:00'
+        goalEntryId: 4
+        actionEntries:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          carePlanEntryId: 1
+          action:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            domain:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              name: example
+              hidden: true
+              classificationId: example
+            domainId: 1
+            goal:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              demandId: 1
+              definition: example
+              allowTitleOverride: true
+              allowComment: true
+              reportProgress: true
+              hidden: true
+              classificationId: example
+            goalId: 1
+            definition: example
+            instructionUrl: example
+            allowTitleOverride: true
+            allowComment: true
+            hidden: true
+            classificationId: example
+          actionId: 1
+          carePlanPersistentActionId: 1
+          comment: example
+          title: example
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          carePlanEntryId: 1
+          action:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            domain:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              name: example
+              hidden: true
+              classificationId: example
+            domainId: 1
+            goal:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              domain:
+                updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                name: example
+                hidden: true
+                classificationId: example
+              domainId: 1
+              demandId: 1
+              definition: example
+              allowTitleOverride: true
+              allowComment: true
+              reportProgress: true
+              hidden: true
+              classificationId: example
+            goalId: 1
+            definition: example
+            instructionUrl: example
+            allowTitleOverride: true
+            allowComment: true
+            hidden: true
+            classificationId: example
+          actionId: 1
+          carePlanPersistentActionId: 1
+          comment: example
+          title: example
+        percentageRealized: 20
+        percentageTarget: 40
+        importantForCarePlanGroupId: 5
+        importantForCarePlanGroup:
+          id: 1
+          groupAnswerId: 1
+          surveyTitle: example
+          description: example
+          answeredQuestions:
+          - id: 1
+            sequenceNumber: 1
+            answerType: 1
+            text: example
+            additionalInfo: example
+            defaultAnswer: 1
+            skipOnYes: true
+            active: true
+            required: true
+            answerMaxLength: 1
+            groupId: 1
+            classificationId: example
+            answerDefinitionGroup:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              description: example
+              readOnly: true
+              answerDefinitions:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                definition: example
+                sequenceNumber: 1
+                hasInput: true
+                active: true
+                score: 1
+                answers:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  surveyResultObjectId: 1
+                  questionObjectId: 1
+                  answerDefinitionObjectId: 1
+                  text: example
+                  important: true
+                  booleanAnswer: true
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  surveyResultObjectId: 1
+                  questionObjectId: 1
+                  answerDefinitionObjectId: 1
+                  text: example
+                  important: true
+                  booleanAnswer: true
+                classificationId: example
+                answerDefinitionGroupId: 1
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                definition: example
+                sequenceNumber: 1
+                hasInput: true
+                active: true
+                score: 1
+                answers:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  surveyResultObjectId: 1
+                  questionObjectId: 1
+                  answerDefinitionObjectId: 1
+                  text: example
+                  important: true
+                  booleanAnswer: true
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  surveyResultObjectId: 1
+                  questionObjectId: 1
+                  answerDefinitionObjectId: 1
+                  text: example
+                  important: true
+                  booleanAnswer: true
+                classificationId: example
+                answerDefinitionGroupId: 1
+              questions:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                sequenceNumber: 1
+                answerType: 1
+                text: example
+                additionalInfo: example
+                defaultAnswer: 1
+                skipOnYes: true
+                active: true
+                required: true
+                answerMaxLength: 1
+                groupId: 1
+                classificationId: example
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                sequenceNumber: 1
+                answerType: 1
+                text: example
+                additionalInfo: example
+                defaultAnswer: 1
+                skipOnYes: true
+                active: true
+                required: true
+                answerMaxLength: 1
+                groupId: 1
+                classificationId: example
+              classificationId: example
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            answers:
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              surveyResultObjectId: 1
+              questionObjectId: 1
+              answerDefinitionObjectId: 1
+              text: example
+              important: true
+              booleanAnswer: true
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              surveyResultObjectId: 1
+              questionObjectId: 1
+              answerDefinitionObjectId: 1
+              text: example
+              important: true
+              booleanAnswer: true
+          - id: 1
+            sequenceNumber: 1
+            answerType: 1
+            text: example
+            additionalInfo: example
+            defaultAnswer: 1
+            skipOnYes: true
+            active: true
+            required: true
+            answerMaxLength: 1
+            groupId: 1
+            classificationId: example
+            answerDefinitionGroup:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              description: example
+              readOnly: true
+              answerDefinitions:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                definition: example
+                sequenceNumber: 1
+                hasInput: true
+                active: true
+                score: 1
+                answers:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  surveyResultObjectId: 1
+                  questionObjectId: 1
+                  answerDefinitionObjectId: 1
+                  text: example
+                  important: true
+                  booleanAnswer: true
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  surveyResultObjectId: 1
+                  questionObjectId: 1
+                  answerDefinitionObjectId: 1
+                  text: example
+                  important: true
+                  booleanAnswer: true
+                classificationId: example
+                answerDefinitionGroupId: 1
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                definition: example
+                sequenceNumber: 1
+                hasInput: true
+                active: true
+                score: 1
+                answers:
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  surveyResultObjectId: 1
+                  questionObjectId: 1
+                  answerDefinitionObjectId: 1
+                  text: example
+                  important: true
+                  booleanAnswer: true
+                - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                  createdAt: '2014-12-29T00:00:00.000+01:00'
+                  createdBy: example
+                  id: 1
+                  surveyResultObjectId: 1
+                  questionObjectId: 1
+                  answerDefinitionObjectId: 1
+                  text: example
+                  important: true
+                  booleanAnswer: true
+                classificationId: example
+                answerDefinitionGroupId: 1
+              questions:
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                sequenceNumber: 1
+                answerType: 1
+                text: example
+                additionalInfo: example
+                defaultAnswer: 1
+                skipOnYes: true
+                active: true
+                required: true
+                answerMaxLength: 1
+                groupId: 1
+                classificationId: example
+              - updatedAt: '2014-12-29T00:00:00.000+01:00'
+                createdAt: '2014-12-29T00:00:00.000+01:00'
+                createdBy: example
+                id: 1
+                sequenceNumber: 1
+                answerType: 1
+                text: example
+                additionalInfo: example
+                defaultAnswer: 1
+                skipOnYes: true
+                active: true
+                required: true
+                answerMaxLength: 1
+                groupId: 1
+                classificationId: example
+              classificationId: example
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            answers:
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              surveyResultObjectId: 1
+              questionObjectId: 1
+              answerDefinitionObjectId: 1
+              text: example
+              important: true
+              booleanAnswer: true
+            - updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              surveyResultObjectId: 1
+              questionObjectId: 1
+              answerDefinitionObjectId: 1
+              text: example
+              important: true
+              booleanAnswer: true
+      xml:
+        name: carePlanEntry
+    survey.AnswerDefinitionGroup:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        readOnly:
+          type: boolean
+        answerDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnswerDefinition'
+          xml:
+            wrapped: true
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Question'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+      description: AnswerDefinitionGroup model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        description: heel oud
+        readOnly: false
+        answerDefinitions: []
+        questions:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: answerDefinitionGroup
+    dossier.GoalEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        comment:
+          type: string
+        title:
+          type: string
+        carePlanEntryId:
+          type: integer
+          format: int64
+        goal:
+          $ref: '#/components/schemas/dossier.Goal'
+        goalId:
+          type: integer
+          format: int64
+        targetDate:
+          type: string
+          format: date-time
+      description: Zorgplan "doel" entry.
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        comment: Een opmerking
+        title: Een titlel
+        carePlanEntryId: 2
+        goal:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          demandId: 1
+          definition: example
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: true
+          hidden: true
+          classificationId: example
+        goalId: 3
+        targetDate: '2014-04-01T17:00:00.000+02:00'
+      xml:
+        name: goalEntry
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

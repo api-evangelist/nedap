@@ -1,0 +1,115 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Navigation Availability API
+  version: 0.0.0
+  description: 'Operations tagged moves.NavigationAvailability across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.NavigationAvailability
+paths:
+  /t/employees/{employee_id}/navigation_availabilities:
+    get:
+      tags:
+      - moves.NavigationAvailability
+      summary: Return the navigation availabilities of an employee specified by id
+      operationId: moves.NavigationAvailabilityAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The {id} of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.NavigationAvailabilityList'
+      x-replaced-by: /v0/plannen_roosteren/employees/{employee_id}/navigation_availabilities
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/employees/{employee_id}/navigation_availabilities:
+    get:
+      tags:
+      - moves.NavigationAvailability
+      summary: Return the navigation availabilities of an employee specified by id
+      operationId: moves.NavigationAvailabilityAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The {id} of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.NavigationAvailabilityList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/navigation_availabilities
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.list.NavigationAvailabilityList:
+      type: object
+      properties:
+        navigationAvailabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.NavigationAvailability'
+      description: List of navigation items with their availability
+      example:
+        navigationAvailabilities:
+        - key: PLANNING
+          state: AVAILABLE
+        - key: ROSTER
+          state: DISABLED
+        - key: SHIFT_TRANSFERS
+          state: UNAVAILABLE
+    moves.NavigationAvailabilityKey:
+      enum:
+      - PLANNING
+      - ROSTER
+      - SHIFT_TRANSFERS
+      - FLEX_REQUESTS
+      - VACATION_OVERVIEW
+      - LEAVE_REQUESTS
+      type: string
+      description: item for navigation availability request
+      example: PLANNING
+    moves.NavigationAvailability:
+      required:
+      - key
+      - state
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/moves.NavigationAvailabilityKey'
+        state:
+          $ref: '#/components/schemas/moves.NavigationAvailabilityState'
+      description: A navigation item with its availability
+      example:
+        key: ROSTER
+        state: AVAILABLE
+    moves.NavigationAvailabilityState:
+      enum:
+      - AVAILABLE
+      - DISABLED
+      - UNAVAILABLE
+      type: string
+      description: State of the navigation availability
+      example: AVAILABLE
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

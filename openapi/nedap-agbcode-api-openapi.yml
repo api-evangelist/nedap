@@ -1,0 +1,217 @@
+openapi: 3.2.0
+info:
+  title: Nedap Agbcode API
+  version: 0.0.0
+  description: 'Operations tagged Agbcode across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Agbcode
+paths:
+  /t/agbcodes:
+    get:
+      tags:
+      - Agbcode
+      summary: Returns every Agbcode available from the AgbcodeAPI
+      operationId: AgbcodeAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AgbcodeList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/agbcodes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agbcodes/{id}:
+    get:
+      tags:
+      - Agbcode
+      summary: Return the Agbcode corresponding to the given id
+      operationId: AgbcodeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Agbcode
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agbcode'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/agbcodes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agbcodes/by_client_id/{id}/sorted:
+    get:
+      tags:
+      - Agbcode
+      summary: Return a list of sorted agbcodes, using the tree depth of the location of given…
+      description: if the agbcode of the location fails, return agbcode from the parent unit
+      operationId: AgbcodeAPI.sortedByClientId
+      parameters:
+      - name: id
+        in: path
+        description: of the client's object from who we want the associated agbcode
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: active_only
+        in: query
+        description: Determines if only the active or all agb codes of the active locations of given person are returned.
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AgbcodeList'
+        '400':
+          description: Client ID is required
+      x-replaced-by: /v0/administration/agbcodes/by_client_id/{id}/sorted
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/agbcodes:
+    get:
+      tags:
+      - Agbcode
+      summary: Returns every Agbcode available from the AgbcodeAPI
+      operationId: AgbcodeAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AgbcodeList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/agbcodes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/agbcodes/{id}:
+    get:
+      tags:
+      - Agbcode
+      summary: Return the Agbcode corresponding to the given id
+      operationId: AgbcodeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Agbcode
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agbcode'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/agbcodes/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/agbcodes/by_client_id/{id}/sorted:
+    get:
+      tags:
+      - Agbcode
+      summary: Return a list of sorted agbcodes, using the tree depth of the location of given…
+      description: if the agbcode of the location fails, return agbcode from the parent unit
+      operationId: AgbcodeAPI.sortedByClientId
+      parameters:
+      - name: id
+        in: path
+        description: of the client's object from who we want the associated agbcode
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: active_only
+        in: query
+        description: Determines if only the active or all agb codes of the active locations of given person are returned.
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.AgbcodeList'
+        '400':
+          description: Client ID is required
+      x-replacement-for:
+      - /t/agbcodes/by_client_id/{id}/sorted
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Agbcode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        code:
+          type: string
+        vatNumber:
+          type: string
+      description: Agbcode model (no description)
+      example:
+        id: 1
+        name: Organization name
+        code: '75750535'
+        vatNumber: NL123456789B01
+      xml:
+        name: agbcode
+    list.AgbcodeList:
+      type: object
+      properties:
+        agbcodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agbcode'
+          xml:
+            name: agbcode
+      description: AgbcodeList model (no description)
+      example:
+        agbcodes:
+        - id: 1
+          name: Organization name 1
+          code: '75750535'
+          vatNumber: NL123456789B01
+        - id: 2
+          name: Organization name 2
+          code: '75750537'
+          vatNumber: NL123456789B02
+      xml:
+        name: agbcodes
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

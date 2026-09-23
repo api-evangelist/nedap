@@ -1,0 +1,195 @@
+openapi: 3.2.0
+info:
+  title: Nedap Free Field Assignment API
+  version: 0.0.0
+  description: 'Operations tagged FreeFieldAssignment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: FreeFieldAssignment
+paths:
+  /t/free_field_assignments/x-stream-connect/data:
+    get:
+      tags:
+      - FreeFieldAssignment
+      summary: Retrieve all entries for free_field_assignments
+      operationId: FreeFieldAssignmentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.FreeFieldAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/FreeFieldAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/free_field_assignments/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/free_field_assignments/x-stream-connect/updates:
+    get:
+      tags:
+      - FreeFieldAssignment
+      summary: Retrieve all updates for free_field_assignments since date
+      operationId: FreeFieldAssignmentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.FreeFieldAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/FreeFieldAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/free_field_assignments/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/free_field_assignments/data:
+    get:
+      tags:
+      - FreeFieldAssignment
+      summary: Retrieve all entries for free_field_assignments
+      operationId: FreeFieldAssignmentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.FreeFieldAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/FreeFieldAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/free_field_assignments/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/free_field_assignments/updates:
+    get:
+      tags:
+      - FreeFieldAssignment
+      summary: Retrieve all updates for free_field_assignments since date
+      operationId: FreeFieldAssignmentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.FreeFieldAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/FreeFieldAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/free_field_assignments/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    FreeFieldAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        carrierObjectId:
+          type: integer
+          description: ObjectID of the table linked to the value of this free field (e.g. employee or client).
+          format: int64
+        freeFieldDefinitionObjectId:
+          type: integer
+          description: ObjectID of the FreeFieldDefinition
+          format: int64
+        value:
+          type: string
+          description: Value entered in the free field
+        createdAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      description: Table containing the values of linked free fields for clients or employees
+      example:
+        id: 1
+        carrierObjectId: 2
+        freeFieldDefinitionObjectId: 3
+        value: Geen opmerkingen
+        createdAt: '2014-04-17'
+        updatedAt: '2014-04-17'
+      xml:
+        name: freeFieldAssignment
+    list.FreeFieldAssignmentList:
+      type: object
+      properties:
+        freeFieldAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/FreeFieldAssignment'
+          xml:
+            name: freeFieldAssignment
+      description: FreeFieldAssignmentList model (no description)
+      example:
+        freeFieldAssignments:
+        - id: 1
+          carrierObjectId: 2
+          freeFieldDefinitionObjectId: 3
+          value: Geen opmerkingen
+          createdAt: '2014-04-17'
+          updatedAt: '2014-04-17'
+      xml:
+        name: freeFieldAssignments
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

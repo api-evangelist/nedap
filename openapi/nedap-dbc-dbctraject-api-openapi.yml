@@ -1,0 +1,262 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dbc.DBC Traject API
+  version: 0.0.0
+  description: 'Operations tagged dbc.DBCTraject across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dbc.DBCTraject
+paths:
+  /t/dbc/dbc_trajects/{id}:
+    get:
+      tags:
+      - dbc.DBCTraject
+      summary: Return the specific dbctraject as specified by the id
+      operationId: dbc.DBCTrajectAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DBCTraject
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.DBCTraject'
+        '404':
+          description: DBCSubtraject not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dbc/dbc_trajects/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/dbc_trajects:
+    get:
+      tags:
+      - dbc.DBCTraject
+      summary: Return the dbc trajects of a Client corresponding to the given id
+      operationId: dbc.DBCTrajectAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.list.DBCTrajectList'
+      x-replaced-by: /v0/administration/dbc/dbc_trajects/by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dbc/dbc_trajects/{id}:
+    get:
+      tags:
+      - dbc.DBCTraject
+      summary: Return the specific dbctraject as specified by the id
+      operationId: dbc.DBCTrajectAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DBCTraject
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.DBCTraject'
+        '404':
+          description: DBCSubtraject not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dbc/dbc_trajects/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dbc/dbc_trajects/by_client/{client_id}:
+    get:
+      tags:
+      - dbc.DBCTraject
+      summary: Return the dbc trajects of a Client corresponding to the given id
+      operationId: dbc.DBCTrajectAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.list.DBCTrajectList'
+      x-replacement-for:
+      - /t/clients/{client_id}/dbc_trajects
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dbc.DBCTraject:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        dbcIdentifier:
+          type: string
+        clientIdentifier:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        koppelNummer:
+          type: string
+        parentDBCTraject:
+          type: string
+        referringDBCTraject:
+          type: string
+        verwijzendSpecialismeCode:
+          type: string
+        verwijzendZorgtrajectnummer:
+          type: string
+        hospitalName:
+          type: string
+        hospitalAgbCode:
+          type: string
+        specialistName:
+          type: string
+        specialistAgbCode:
+          type: string
+      description: DBC traject, a.k.a. DBCCarePlan in Administration.
+      example:
+        updatedAt: '2014-09-17T00:00:00.000+02:00'
+        createdAt: '2014-09-17T00:00:00.000+02:00'
+        createdBy: user
+        id: 1
+        clientId: 1
+        dbcIdentifier: Dummy
+        clientIdentifier: Dummy
+        startDate: '2014-09-17T00:00:00.000+02:00'
+        endDate: '2014-09-17T00:00:00.000+02:00'
+        koppelNummer: Dummy
+        parentDBCTraject: Dummy
+        referringDBCTraject: Dummy
+        verwijzendSpecialismeCode: Dummy
+        verwijzendZorgtrajectnummer: Dummy
+        hospitalName: Dummy
+        hospitalAgbCode: Dummy
+        specialistName: Dummy
+        specialistAgbCode: Dummy
+      xml:
+        name: dbcTraject
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dbc.list.DBCTrajectList:
+      type: object
+      properties:
+        dbcTrajects:
+          type: array
+          items:
+            $ref: '#/components/schemas/dbc.DBCTraject'
+      description: DBCTrajectList model (no description)
+      example:
+        dbcTrajects:
+        - id: 1
+          clientId: 1
+          dbcIdentifier: Dummy
+          clientIdentifier: Dummy
+          startDate: '2014-09-17T00:00:00.000+02:00'
+          endDate: '2014-09-17T00:00:00.000+02:00'
+          koppelNummer: Dummy
+          parentDBCTraject: Dummy
+          referringDBCTraject: Dummy
+          verwijzendSpecialismeCode: Dummy
+          verwijzendZorgtrajectnummer: Dummy
+          hospitalName: Dummy
+          hospitalAgbCode: Dummy
+          specialistName: Dummy
+          specialistAgbCode: Dummy
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

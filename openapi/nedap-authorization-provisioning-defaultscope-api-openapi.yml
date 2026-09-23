@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  title: Nedap Authorization.provisioning.Default Scope API
+  version: 0.0.0
+  description: 'Operations tagged authorization.provisioning.DefaultScope across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: authorization.provisioning.DefaultScope
+paths:
+  /t/authorization/provisioning/users/{user_uuid}/scopes:
+    put:
+      tags:
+      - authorization.provisioning.DefaultScope
+      summary: This endpoint is meant to set the default scope of a user
+      description: 'Provide the complete set of all the groups that should be assigned (e.g. teams, locations, etc) to the user.
+
+        As this API is idempotent, the state provided in the last call is the final state. Any groups previously added but not specified in the body will be removed.'
+      operationId: authorization.provisioning.DefaultScopeAPI.update
+      parameters:
+      - name: user_uuid
+        in: path
+        description: Identifier of User to update.
+        required: true
+        schema:
+          type: string
+      - name: override_all
+        in: query
+        description: "By default only scopes set by the current integrator are replaced.\n  For migration purposes this flag allows to replace all scopes when set to 'true', including scopes which are owned by others.\n"
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: the new DefaultScope
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorization.provisioning.DefaultScope'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization.provisioning.DefaultScope'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 11-11-2025
+      x-replaced-by: /v0/authorization/provisioning/users/{user_uuid}/scopes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/authorization/provisioning/users/{user_uuid}/scopes:
+    put:
+      tags:
+      - authorization.provisioning.DefaultScope
+      summary: This endpoint is meant to set the default scope of a user
+      description: 'Provide the complete set of all the groups that should be assigned (e.g. teams, locations, etc) to the user.
+
+        As this API is idempotent, the state provided in the last call is the final state. Any groups previously added but not specified in the body will be removed.'
+      operationId: authorization.provisioning.DefaultScopeAPI.update
+      parameters:
+      - name: user_uuid
+        in: path
+        description: Identifier of User to update.
+        required: true
+        schema:
+          type: string
+      - name: override_all
+        in: query
+        description: "By default only scopes set by the current integrator are replaced.\n  For migration purposes this flag allows to replace all scopes when set to 'true', including scopes which are owned by others.\n"
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: the new DefaultScope
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorization.provisioning.DefaultScope'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization.provisioning.DefaultScope'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 11-11-2025
+      x-replacement-for:
+      - /t/authorization/provisioning/users/{user_uuid}/scopes
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    authorization.provisioning.DefaultScope:
+      type: object
+      properties:
+        userUuid:
+          type: string
+          x-cupido-id: true
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        teamIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        myself:
+          type: boolean
+        allEmployees:
+          type: boolean
+        allClients:
+          type: boolean
+      description: 'The default scope is a set of groups which can be used by role assignments to describe for which clients or employees are accessible.
+
+        To assign roles with the default scope through provisioning set the `defaultScopedDuties` in the `User` model.'
+      example:
+        userUuid: 1b9243a9-83b5-4edf-ab93-507f88fdcb01
+        locationIds:
+        - 1
+        - 2
+        - 3
+        teamIds:
+        - 4
+        - 5
+        - 6
+        myself: true
+        allEmployees: true
+        allClients: false
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

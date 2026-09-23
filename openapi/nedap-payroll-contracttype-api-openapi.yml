@@ -1,0 +1,173 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Contract Type API
+  version: 0.0.0
+  description: 'Operations tagged payroll.ContractType across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.ContractType
+paths:
+  /t/payroll/contract_types/{id}:
+    get:
+      tags:
+      - payroll.ContractType
+      summary: Return the Contract Type corresponding to the given id
+      operationId: payroll.ContractTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ContractType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.ContractType'
+        '404':
+          description: Contract type not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/contract_types/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/contract_types/x-stream-connect/data:
+    get:
+      tags:
+      - payroll.ContractType
+      summary: Return all ContractType models in a streaming manner
+      operationId: payroll.ContractTypeAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.ContractTypeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.ContractType'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/contract_types/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/contract_types/{id}:
+    get:
+      tags:
+      - payroll.ContractType
+      summary: Return the Contract Type corresponding to the given id
+      operationId: payroll.ContractTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ContractType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.ContractType'
+        '404':
+          description: Contract type not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/contract_types/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/contract_types/data:
+    get:
+      tags:
+      - payroll.ContractType
+      summary: Return all ContractType models in a streaming manner
+      operationId: payroll.ContractTypeAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.ContractTypeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/payroll.ContractType'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/contract_types/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.list.ContractTypeList:
+      type: object
+      properties:
+        contractTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.ContractType'
+          xml:
+            name: contractType
+      description: ContractTypeList model (no description)
+      example:
+        contractTypes:
+        - id: 1
+          name: Dummy
+          importCode: Dummy
+          payHoursDirectly: true
+          removed: true
+      xml:
+        name: contractTypes
+    payroll.ContractType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        importCode:
+          type: string
+        payHoursDirectly:
+          type: boolean
+        removed:
+          type: boolean
+      description: 'ContractType model
+
+
+        Created on 22/04/15.'
+      example:
+        id: 1
+        name: Dummy
+        importCode: Dummy
+        payHoursDirectly: true
+        removed: true
+      xml:
+        name: contractType
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,682 @@
+openapi: 3.2.0
+info:
+  title: Nedap Caretech.Return Request API
+  version: 0.0.0
+  description: 'Operations tagged caretech.ReturnRequest across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: caretech.ReturnRequest
+paths:
+  /t/caretech/server/return_requests:
+    get:
+      tags:
+      - caretech.ReturnRequest
+      summary: Get all care technology return requests matching the provided parameters
+      operationId: caretech.ReturnRequestAPI.getReturnRequests
+      parameters:
+      - name: product_codes
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - N-0001
+        - N-0002
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/caretech.ReturnRequestStatus'
+        example:
+        - OPEN
+        - DECLINED
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caretech.list.ReturnRequestList'
+        '400':
+          description: Validation errors
+        '403':
+          description: Connector not authorized
+      x-replaced-by: /v0/caretech/server/return_requests
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/caretech/server/return_requests/{return_request_id}:
+    get:
+      tags:
+      - caretech.ReturnRequest
+      summary: Get a care technology return request
+      operationId: caretech.ReturnRequestAPI.getReturnRequest
+      parameters:
+      - name: return_request_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caretech.ReturnRequest'
+        '404':
+          description: Return request not found
+      x-replaced-by: /v0/caretech/server/return_requests/{return_request_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/caretech/server/return_requests/{return_request_id}/status:
+    patch:
+      tags:
+      - caretech.ReturnRequest
+      summary: Update the status of a return request
+      operationId: caretech.ReturnRequestAPI.updateReturnRequest
+      parameters:
+      - name: return_request_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/caretech.ReturnRequestUpdate'
+        required: true
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '404':
+          description: Return request not found
+      x-replaced-by: /v0/caretech/server/return_requests/{return_request_id}/status
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/caretech/server/return_requests:
+    get:
+      tags:
+      - caretech.ReturnRequest
+      summary: Get all care technology return requests matching the provided parameters
+      operationId: caretech.ReturnRequestAPI.getReturnRequests
+      parameters:
+      - name: product_codes
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - N-0001
+        - N-0002
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/caretech.ReturnRequestStatus'
+        example:
+        - OPEN
+        - DECLINED
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caretech.list.ReturnRequestList'
+        '400':
+          description: Validation errors
+        '403':
+          description: Connector not authorized
+      x-replacement-for:
+      - /t/caretech/server/return_requests
+    servers:
+    - url: https://api-development.ons.io
+  /v0/caretech/server/return_requests/{return_request_id}:
+    get:
+      tags:
+      - caretech.ReturnRequest
+      summary: Get a care technology return request
+      operationId: caretech.ReturnRequestAPI.getReturnRequest
+      parameters:
+      - name: return_request_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caretech.ReturnRequest'
+        '404':
+          description: Return request not found
+      x-replacement-for:
+      - /t/caretech/server/return_requests/{return_request_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/caretech/server/return_requests/{return_request_id}/status:
+    patch:
+      tags:
+      - caretech.ReturnRequest
+      summary: Update the status of a return request
+      operationId: caretech.ReturnRequestAPI.updateReturnRequest
+      parameters:
+      - name: return_request_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/caretech.ReturnRequestUpdate'
+        required: true
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '404':
+          description: Return request not found
+      x-replacement-for:
+      - /t/caretech/server/return_requests/{return_request_id}/status
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    caretech.list.ReturnRequestList:
+      required:
+      - returnRequests
+      type: object
+      properties:
+        returnRequests:
+          type: array
+          items:
+            $ref: '#/components/schemas/caretech.ReturnRequest'
+      description: ReturnRequestList model (no description)
+      example:
+        returnRequests:
+        - acceptedAt: '2024-03-15T10:00:00.000+01:00'
+          clientIdentificationNo: '123456789'
+          completedAt: '2024-03-20T14:30:00.000+01:00'
+          createdAt: '2024-03-10T09:00:00.000+01:00'
+          declinedAt: '2024-03-12T11:15:00.000+01:00'
+          id: 42
+          pickupAddress:
+            city: Groenlo
+            country: NL
+            homeNumber: 12
+            homeNumberExtension: A
+            note: Ring the bell twice
+            roomNumber: '3'
+            street: Parallelweg
+            type: CLIENT_HOME
+            zipcode: 7141DC
+          preferredPickupDays: mon,tue,wed
+          productAllocation:
+            clientId: 1
+            createdAt: '2017-10-02T21:10:43.000+02:00'
+            employeeUuid: 042f53df-37e5-4ad7-af77-16a212763bba
+            id: 4
+            productInstance:
+              createdAt: '2017-10-02T21:10:43.000+02:00'
+              externalId: serial-12345678
+              id: 56
+              product:
+                createdAt: '2017-10-02T21:10:43.000+02:00'
+                id: 1
+                manufacturer: Nedap
+                name: Nedap Luna
+                updatedAt: '2017-10-02T21:10:43.000+02:00'
+                uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+              updatedAt: '2017-10-02T21:10:43.000+02:00'
+              uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+            requestDate: '2024-03-10'
+            startDate: '2024-03-11'
+            stopDate: '2024-03-12'
+            status: INACTIVE
+            updatedAt: '2017-10-02T21:10:43.000+02:00'
+            uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+          requester:
+            emailAddress: teamoost@groenlozorg.nl
+            employeeObjectId: 1
+            name: M. Edewerker
+            phoneNumber: 0612345678
+            teamName: Groenlo Oost
+            teamObjectId: 1
+          returnMethod: PICKUP
+          returnNumber: '1234'
+          status: OPEN
+          supplierNote: Device is incomplete
+          trackingUrl: https://post.nl?trackingNumber=6318638
+          updatedAt: '2024-03-18T16:45:00.000+01:00'
+          uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+    caretech.ProductInstanceDto:
+      required:
+      - product
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        externalId:
+          pattern: ^([A-Za-z0-9_., -]{1,50})$
+          type: string
+        id:
+          type: integer
+          format: int64
+        product:
+          $ref: '#/components/schemas/caretech.ProductDto'
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+          format: uuid
+      description: Reference to a caretech product instance
+      example:
+        createdAt: '2017-10-02T21:10:43.000+02:00'
+        externalId: serial-12345678
+        id: 56
+        product:
+          createdAt: '2017-10-02T21:10:43.000+02:00'
+          id: 1
+          manufacturer: Nedap
+          name: Nedap Luna
+          updatedAt: '2017-10-02T21:10:43.000+02:00'
+          uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        updatedAt: '2017-10-02T21:10:43.000+02:00'
+        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+      xml:
+        name: productInstanceDto
+    caretech.ReturnRequest:
+      required:
+      - clientIdentificationNo
+      - productAllocation
+      - requester
+      - returnMethod
+      - status
+      type: object
+      properties:
+        acceptedAt:
+          type: string
+          format: date-time
+        clientIdentificationNo:
+          type: string
+        completedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        declinedAt:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        pickupAddress:
+          $ref: '#/components/schemas/caretech.PickupAddress'
+        preferredPickupDays:
+          type: string
+          description: Distinct comma-separated abbreviated weekdays (mon,tue,wed,thu,fri,sat,sun)
+          example: mon,tue,wed
+        productAllocation:
+          $ref: '#/components/schemas/caretech.ProductAllocation'
+        requester:
+          $ref: '#/components/schemas/caretech.Requester'
+        returnMethod:
+          $ref: '#/components/schemas/caretech.ReturnMethod'
+        returnNumber:
+          type: string
+        status:
+          $ref: '#/components/schemas/caretech.ReturnRequestStatus'
+        supplierNote:
+          type: string
+        trackingUrl:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+          format: uuid
+      description: ReturnRequest model (no description)
+      example:
+        acceptedAt: '2024-03-15T10:00:00.000+01:00'
+        clientIdentificationNo: '123456789'
+        completedAt: '2024-03-20T14:30:00.000+01:00'
+        createdAt: '2024-03-10T09:00:00.000+01:00'
+        declinedAt: '2024-03-12T11:15:00.000+01:00'
+        id: 42
+        pickupAddress:
+          city: Groenlo
+          country: NL
+          homeNumber: 12
+          homeNumberExtension: A
+          note: Ring the bell twice
+          roomNumber: '3'
+          street: Parallelweg
+          type: CLIENT_HOME
+          zipcode: 7141DC
+        preferredPickupDays: mon,tue,wed
+        productAllocation:
+          clientId: 1
+          createdAt: '2017-10-02T21:10:43.000+02:00'
+          employeeUuid: 042f53df-37e5-4ad7-af77-16a212763bba
+          id: 4
+          productInstance:
+            createdAt: '2017-10-02T21:10:43.000+02:00'
+            externalId: serial-12345678
+            id: 56
+            product:
+              createdAt: '2017-10-02T21:10:43.000+02:00'
+              id: 1
+              manufacturer: Nedap
+              name: Nedap Luna
+              updatedAt: '2017-10-02T21:10:43.000+02:00'
+              uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+            updatedAt: '2017-10-02T21:10:43.000+02:00'
+            uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+          requestDate: '2024-03-10'
+          startDate: '2024-03-11'
+          stopDate: '2024-03-12'
+          status: INACTIVE
+          updatedAt: '2017-10-02T21:10:43.000+02:00'
+          uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        requester:
+          emailAddress: teamoost@groenlozorg.nl
+          employeeObjectId: 1
+          name: M. Edewerker
+          phoneNumber: 0612345678
+          teamName: Groenlo Oost
+          teamObjectId: 1
+        returnMethod: PICKUP
+        returnNumber: '1234'
+        status: OPEN
+        supplierNote: Device is incomplete
+        trackingUrl: https://post.nl?trackingNumber=6318638
+        updatedAt: '2024-03-18T16:45:00.000+01:00'
+        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+    caretech.PickupAddress:
+      required:
+      - city
+      - country
+      - homeNumber
+      - street
+      - type
+      - zipcode
+      type: object
+      properties:
+        city:
+          minLength: 1
+          type: string
+        country:
+          pattern: ^[A-Z]{2}$
+          type: string
+        homeNumber:
+          type: integer
+          format: int32
+        homeNumberExtension:
+          type: string
+        note:
+          type: string
+          deprecated: true
+          x-deprecated-since: 22-07-2026
+        roomNumber:
+          type: string
+        street:
+          minLength: 1
+          type: string
+        type:
+          $ref: '#/components/schemas/caretech.AddressType'
+        zipcode:
+          minLength: 1
+          type: string
+      description: PickupAddress model (no description)
+      example:
+        city: Groenlo
+        country: NL
+        homeNumber: 12
+        homeNumberExtension: A
+        note: Ring the bell twice
+        roomNumber: '3'
+        street: Parallelweg
+        type: CLIENT_HOME
+        zipcode: 7141DC
+    caretech.ReturnRequestStatusUpdate:
+      enum:
+      - DECLINED
+      - ACCEPTED
+      - COMPLETED
+      type: string
+      description: The status update of a return request, can be DECLINED, ACCEPTED or COMPLETED
+      example: ACCEPTED
+    caretech.Status:
+      enum:
+      - REQUEST
+      - ACTIVE
+      - INACTIVE
+      - UNKNOWN
+      type: string
+      description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
+      example: ACTIVE
+    caretech.AddressType:
+      enum:
+      - CLIENT_HOME
+      - CLIENT_CARE_ALLOCATION
+      - MANUAL
+      type: string
+      description: The delivery address type, can be CLIENT_HOME, CLIENT_CARE_ALLOCATION, MANUAL
+      example: CLIENT_HOME
+    caretech.ReturnRequestUpdate:
+      required:
+      - requestStatusUpdate
+      type: object
+      properties:
+        requestStatusUpdate:
+          $ref: '#/components/schemas/caretech.ReturnRequestStatusUpdate'
+        returnNumber:
+          maxLength: 100
+          minLength: 0
+          type: string
+        supplierNote:
+          maxLength: 140
+          minLength: 0
+          type: string
+        trackingUrl:
+          maxLength: 1024
+          minLength: 0
+          type: string
+      description: ReturnRequestUpdate model (no description)
+      example:
+        requestStatusUpdate: DECLINED
+        returnNumber: '1234'
+        supplierNote: Device is incomplete
+        trackingUrl: https://post.nl?trackingNumber=6318638
+    caretech.Requester:
+      required:
+      - emailAddress
+      - employeeObjectId
+      - name
+      - phoneNumber
+      - teamName
+      - teamObjectId
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        employeeObjectId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        phoneNumber:
+          type: string
+        teamName:
+          type: string
+        teamObjectId:
+          type: integer
+          format: int64
+      description: The person who creates the care technology order
+      example:
+        emailAddress: teamoost@groenlozorg.nl
+        employeeObjectId: 1
+        name: M. Edewerker
+        phoneNumber: 0612345678
+        teamName: Groenlo Oost
+        teamObjectId: 1
+    caretech.ProductAllocation:
+      required:
+      - clientId
+      - productInstance
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        employeeUuid:
+          type: string
+          format: uuid
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        productInstance:
+          $ref: '#/components/schemas/caretech.ProductInstanceDto'
+        requestDate:
+          type: string
+          format: date
+        startDate:
+          type: string
+          format: date
+        stopDate:
+          type: string
+          format: date
+        status:
+          allOf:
+          - $ref: '#/components/schemas/caretech.Status'
+          description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+          format: uuid
+      description: Caretech product which is allocated by a client
+      example:
+        clientId: 1
+        createdAt: '2017-10-02T21:10:43.000+02:00'
+        employeeUuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        id: 4
+        productInstance:
+          createdAt: '2017-10-02T21:10:43.000+02:00'
+          externalId: serial-12345678
+          id: 56
+          product:
+            createdAt: '2017-10-02T21:10:43.000+02:00'
+            id: 1
+            manufacturer: Nedap
+            name: Nedap Luna
+            updatedAt: '2017-10-02T21:10:43.000+02:00'
+            uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+          updatedAt: '2017-10-02T21:10:43.000+02:00'
+          uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        requestDate: '2024-03-10'
+        startDate: '2024-03-11'
+        stopDate: '2024-03-12'
+        status: INACTIVE
+        updatedAt: '2017-10-02T21:10:43.000+02:00'
+        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+      xml:
+        name: productAllocation
+    caretech.ReturnMethod:
+      enum:
+      - PICKUP
+      - DROP_OFF
+      type: string
+      description: The method type of returning the caretechnology device
+      example: PICKUP
+    caretech.ProductDto:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        manufacturer:
+          type: string
+        name:
+          type: string
+        orderable:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+          format: uuid
+        startDate:
+          type: string
+          format: date
+        stopDate:
+          type: string
+          format: date
+      description: Caretech product
+      example:
+        createdAt: '2017-10-02T21:10:43.000+02:00'
+        id: 1
+        manufacturer: Nedap
+        name: Nedap Luna
+        orderable: false
+        updatedAt: '2017-10-02T21:10:43.000+02:00'
+        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        startDate: '2024-01-02'
+        stopDate: '2024-04-17'
+      xml:
+        name: productDto
+    caretech.ReturnRequestStatus:
+      enum:
+      - OPEN
+      - DECLINED
+      - ACCEPTED
+      - COMPLETED
+      type: string
+      description: The status of a return request, can be OPEN, DECLINED, ACCEPTED or COMPLETED
+      example: OPEN
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

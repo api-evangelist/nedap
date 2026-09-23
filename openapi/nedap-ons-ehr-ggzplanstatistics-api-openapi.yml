@@ -1,0 +1,95 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Ehr.Ggz Plan Statistics API
+  version: 0.0.0
+  description: 'Operations tagged ons_ehr.GgzPlanStatistics across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_ehr.GgzPlanStatistics
+paths:
+  /t/ons_ehr/plan_statistics/ggz:
+    get:
+      tags:
+      - ons_ehr.GgzPlanStatistics
+      summary: Retrieves plan statistics for the mental healthcare plan
+      operationId: ons_ehr.GgzPlanStatisticsAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_ehr.GgzPlanStatistics'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/plan_statistics/ggz
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/plan_statistics/ggz:
+    get:
+      tags:
+      - ons_ehr.GgzPlanStatistics
+      summary: Retrieves plan statistics for the mental healthcare plan
+      operationId: ons_ehr.GgzPlanStatisticsAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_ehr.GgzPlanStatistics'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/ons_ehr/plan_statistics/ggz
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_ehr.GgzPlanStatistic:
+      type: object
+      properties:
+        planId:
+          type: integer
+          description: The plan composition id
+          format: int64
+        clientId:
+          type: string
+          description: The client id
+        createdAt:
+          type: string
+          description: When the plan was created
+          format: date-time
+        employeeId:
+          type: string
+          description: The employee id
+      description: GgzPlanStatistic model
+      example:
+        planId: 1
+        clientId: '2'
+        createdAt: '2023-10-12T10:00:00.000+02:00'
+        employeeId: '3'
+    ons_ehr.GgzPlanStatistics:
+      type: object
+      properties:
+        customerCode:
+          type: string
+        pilotEnabled:
+          type: boolean
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_ehr.GgzPlanStatistic'
+      description: GgzPlanStatistics model
+      example:
+        customerCode: NE0001
+        pilotEnabled: true
+        plans:
+        - planId: 1
+          clientId: '2'
+          createdAt: '2023-10-12T10:00:00.000+02:00'
+          employeeId: '3'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

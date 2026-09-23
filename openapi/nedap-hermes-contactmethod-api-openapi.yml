@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  title: Nedap Hermes.Contact Method API
+  version: 0.0.0
+  description: 'Operations tagged hermes.ContactMethod across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: hermes.ContactMethod
+paths:
+  /t/clients/{client_id}/contact_method:
+    get:
+      tags:
+      - hermes.ContactMethod
+      summary: Return the hermes contact method of a Client corresponding to the given id
+      operationId: hermes.ContactMethodAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.ContactMethod'
+      x-replaced-by: /v0/notification/clients/{client_id}/contact_method
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/contact_methods/set_primary_type:
+    post:
+      tags:
+      - hermes.ContactMethod
+      summary: Set primary contact method for client by given contact method type and…
+      operationId: hermes.ContactMethodAPI.setPrimaryType
+      parameters:
+      - name: client_id
+        in: path
+        description: client id.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: object to set the client's notification settings.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hermes.ContactMethodConfig'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.ContactMethod'
+      x-replaced-by: /v0/notification/clients/{client_id}/contact_methods/set_primary_type
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/notification/clients/{client_id}/contact_method:
+    get:
+      tags:
+      - hermes.ContactMethod
+      summary: Return the hermes contact method of a Client corresponding to the given id
+      operationId: hermes.ContactMethodAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.ContactMethod'
+      x-replacement-for:
+      - /t/clients/{client_id}/contact_method
+    servers:
+    - url: https://api-development.ons.io
+  /v0/notification/clients/{client_id}/contact_methods/set_primary_type:
+    post:
+      tags:
+      - hermes.ContactMethod
+      summary: Set primary contact method for client by given contact method type and…
+      operationId: hermes.ContactMethodAPI.setPrimaryType
+      parameters:
+      - name: client_id
+        in: path
+        description: client id.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: object to set the client's notification settings.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hermes.ContactMethodConfig'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.ContactMethod'
+      x-replacement-for:
+      - /t/clients/{client_id}/contact_methods/set_primary_type
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    hermes.CareProviderSettings:
+      type: object
+      properties:
+        enabled:
+          type:
+          - boolean
+          - 'null'
+        defaultTemplateSet:
+          type:
+          - string
+          - 'null'
+        defaultContactMethod:
+          type:
+          - string
+          - 'null'
+      description: CareProviderSettings model (no description)
+      example:
+        enabled: true
+        defaultTemplateSet: junior
+        defaultContactMethod: Email
+    hermes.ContactMethod:
+      type: object
+      properties:
+        recipient:
+          allOf:
+          - $ref: '#/components/schemas/hermes.Recipient'
+          description: The  method belongs to a recipient
+        careProviderSettings:
+          $ref: '#/components/schemas/hermes.CareProviderSettings'
+        enabled:
+          type: boolean
+        subscribed:
+          type: boolean
+        type:
+          type: string
+        value:
+          type: string
+        status:
+          type: string
+        templateSet:
+          type: string
+      description: ContactMethod model (no description)
+      example:
+        recipient:
+          clientId: 1
+          clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
+          employeeId: 1
+        careProviderSettings:
+          enabled: true
+          defaultTemplateSet: junior
+          defaultContactMethod: Email
+        enabled: true
+        subscribed: false
+        type: SMS
+        value: '0600123456'
+        status: validated
+        templateSet: adult
+    hermes.Recipient:
+      type:
+      - object
+      - 'null'
+      properties:
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        clientUuid:
+          type:
+          - string
+          - 'null'
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      description: The  method belongs to a recipient
+      example:
+        clientId: 1
+        clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
+        employeeId: 1
+    hermes.ContactMethodConfig:
+      required:
+      - type
+      - allowNotifications
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Type of contact method, e.g. email or sms
+
+
+            <pre>
+
+            Possible values:
+
+            SMS
+
+            Email
+
+            </pre>'
+        allowNotifications:
+          type: boolean
+          description: Allows Ons Notificaties to send notifications for this type of contact method
+      description: This class is used to update notification settings for Clients.
+      example:
+        type: SMS
+        allowNotifications: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

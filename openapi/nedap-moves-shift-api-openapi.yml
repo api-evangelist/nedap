@@ -1,0 +1,569 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Shift API
+  version: 0.0.0
+  description: 'Operations tagged moves.Shift across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.Shift
+paths:
+  /t/moves/shifts/{id}:
+    get:
+      tags:
+      - moves.Shift
+      summary: Get a shift by its ID
+      operationId: moves.ShiftAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Shift
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.Shift'
+        '404':
+          description: Could not find Shift
+      x-cupido-common-method: true
+      x-replaced-by: /v0/plannen_roosteren/shifts/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/shifts/x-stream-connect/data:
+    get:
+      tags:
+      - moves.Shift
+      summary: Return all Shift models in a streaming manner
+      operationId: moves.ShiftAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Shift'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/shifts/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/shifts/x-stream-connect/deletes:
+    get:
+      tags:
+      - moves.Shift
+      summary: Return all Shift models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Shift models'
+      operationId: moves.ShiftAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Shift'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/shifts/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/shifts/x-stream-connect/updates:
+    get:
+      tags:
+      - moves.Shift
+      summary: Return all Shift models which where updated since the date given in the request
+      operationId: moves.ShiftAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Shift'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/shifts/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/shifts/{id}:
+    get:
+      tags:
+      - moves.Shift
+      summary: Get a shift by its ID
+      operationId: moves.ShiftAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Shift
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.Shift'
+        '404':
+          description: Could not find Shift
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/shifts/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/shifts/data:
+    get:
+      tags:
+      - moves.Shift
+      summary: Return all Shift models in a streaming manner
+      operationId: moves.ShiftAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Shift'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/shifts/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/shifts/deletes:
+    get:
+      tags:
+      - moves.Shift
+      summary: Return all Shift models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Shift models'
+      operationId: moves.ShiftAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Shift'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/shifts/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/shifts/updates:
+    get:
+      tags:
+      - moves.Shift
+      summary: Return all Shift models which where updated since the date given in the request
+      operationId: moves.ShiftAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ShiftList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Shift'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/shifts/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.Shift:
+      title: Shift
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Composite id with id and date
+          x-cupido-id: true
+        code:
+          type:
+          - string
+          - 'null'
+          description: Shift code
+        description:
+          type:
+          - string
+          - 'null'
+          description: Shift description
+        expertiseProfileId:
+          type:
+          - integer
+          - 'null'
+          description: Which expertise profile is needed for this shift
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          description: To which team does this shift belong
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          description: 'Deprecated since 01-04-2021 (no-joke): Its an internal property'
+          format: int64
+          deprecated: true
+          x-deprecated-since: 01-04-2021
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          description: 'Deprecated since 01-04-2021 (no-joke): Its an internal property'
+          format: int64
+          deprecated: true
+        deletedById:
+          type:
+          - integer
+          - 'null'
+          description: 'Deprecated since 01-04-2021 (no-joke): Its an internal property'
+          format: int64
+          deprecated: true
+          x-deprecated-since: 01-04-2021
+        validFrom:
+          type:
+          - string
+          - 'null'
+          description: When is the shift valid
+          format: date
+        validTo:
+          type:
+          - string
+          - 'null'
+          format: date
+        transportationMethodId:
+          type:
+          - integer
+          - 'null'
+          description: 'Which transportation method is used for the shift?
+
+            Deprecated since 01-04-2021 (no-joke): Its an internal property'
+          format: int64
+          deprecated: true
+          x-deprecated-since: 01-04-2021
+        monday:
+          type:
+          - boolean
+          - 'null'
+          description: Is the shift 'active' on monday?
+        tuesday:
+          type:
+          - boolean
+          - 'null'
+          description: Is the shift 'active' on tuesday?
+        wednesday:
+          type:
+          - boolean
+          - 'null'
+          description: Is the shift 'active' on wednesday?
+        thursday:
+          type:
+          - boolean
+          - 'null'
+          description: Is the shift 'active' on thursday?
+        friday:
+          type:
+          - boolean
+          - 'null'
+          description: Is the shift 'active' on friday?
+        saturday:
+          type:
+          - boolean
+          - 'null'
+          description: Is the shift 'active' on saturday?
+        sunday:
+          type:
+          - boolean
+          - 'null'
+          description: Is the shift 'active' on sunday?
+        startTimes:
+          type:
+          - string
+          - 'null'
+          description: Array of all the start times of the shift
+        stopTimes:
+          type:
+          - string
+          - 'null'
+          description: Array of all the stop times of the shift
+        breakType:
+          type:
+          - integer
+          - 'null'
+          description: '<pre>
+
+            breakType: Possible values:
+
+            0: no break
+
+            1: use breakLength
+
+            2: use startBreakTimes and stopBreakTimes
+
+            </pre>'
+          format: int64
+        breakLength:
+          type:
+          - integer
+          - 'null'
+          description: Break length in minutes
+          format: int64
+        startBreakTimes:
+          type:
+          - string
+          - 'null'
+          description: Array of all the break start times
+        stopBreakTimes:
+          type:
+          - string
+          - 'null'
+          description: Array of all the break stop times
+        dayPart:
+          type:
+          - integer
+          - 'null'
+          description: In which day part is this shift operating in
+          format: int64
+        number:
+          type:
+          - integer
+          - 'null'
+          description: 'Is used by guess_description_number
+
+            Deprecated since 01-04-2021 (no-joke): Its an internal property'
+          format: int64
+          deprecated: true
+          x-deprecated-since: 01-04-2021
+        timelineId:
+          type:
+          - integer
+          - 'null'
+          description: Is used by the ActsAsPlacedOnTimeline plugin
+          format: int64
+        exportAssignments:
+          type:
+          - boolean
+          - 'null'
+          description: Export shiftassignments as indirect time
+        exportHourTypeId:
+          type:
+          - integer
+          - 'null'
+          description: Which hourtype needs to be exported
+          format: int64
+        exportGroupCare:
+          type:
+          - boolean
+          - 'null'
+          description: Do we need to export the hours as GroupCare hours?
+      description: Updated by Jurriën Gosselink on 09-07-18.
+      example:
+        id: 200@2014-04-11
+        code: O1
+        description: Ochtend 1
+        expertiseProfileId: 1
+        teamId: 1
+        createdById: 1
+        updatedById: 1
+        deletedById: 1
+        validFrom: '2014-01-01'
+        validTo: '2014-12-31'
+        transportationMethodId: 1
+        monday: true
+        tuesday: true
+        wednesday: false
+        thursday: true
+        friday: true
+        saturday: false
+        sunday: false
+        startTimes: '--- - 2000-01-01 08:00:00.000000000 +01:00 - 2000-01-01 08:00:00.000000000 +01:00 - 2000-01-01 08:00:00.000000000 +01:00 - 2000-01-01 08:00:00.000000000 +01:00 - 2000-01-01 08:00:00.000000000 +01:00 - 2000-01-01 08:00:00.000000000 +01:00 - 2000-01-01 08:00:00.000000000 +01:00'
+        stopTimes: '--- - 2000-01-01 12:00:00.000000000 +01:00 - 2000-01-01 12:00:00.000000000 +01:00 - 2000-01-01 12:00:00.000000000 +01:00 - 2000-01-01 12:00:00.000000000 +01:00 - 2000-01-01 12:00:00.000000000 +01:00 - 2000-01-01 12:00:00.000000000 +01:00 - 2000-01-01 12:00:00.000000000 +01:00'
+        breakType: 0
+        breakLength: 15
+        startBreakTimes: '[null,null,null,null,null,null,null]'
+        stopBreakTimes: '[null,null,null,null,null,null,null]'
+        dayPart: 1
+        number: 2
+        timelineId: 1
+        exportAssignments: false
+        exportHourTypeId: 1
+        exportGroupCare: false
+      xml:
+        name: shift
+    moves.list.ShiftList:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Shift'
+          xml:
+            name: shift
+      description: ShiftList model (no description)
+      example:
+        shifts:
+        - id: 200@2014-04-11
+          code: O1
+          description: Ochtend 1
+          expertiseProfileId: 1
+          teamId: 1
+          createdById: 1
+          updatedById: 1
+          deletedById: 1
+          validFrom: '2014-01-01'
+          validTo: '2014-01-01'
+          transportationMethodId: 1
+          monday: true
+          tuesday: true
+          wednesday: false
+          thursday: true
+          friday: true
+          saturday: false
+          sunday: false
+          startTimes: '---
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00'
+          stopTimes: '---
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00'
+          breakType: 0
+          startBreakTimes: '[null,null,null,null,null,null,null]'
+          stopBreakTimes: '[null,null,null,null,null,null,null]'
+          dayPart: 1
+          number: 2
+          timelineId: 1
+          exportAssignments: false
+          exportHourTypeId: 1
+          exportGroupCare: false
+      xml:
+        name: shifts
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

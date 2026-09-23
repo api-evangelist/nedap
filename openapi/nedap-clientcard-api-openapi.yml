@@ -1,0 +1,162 @@
+openapi: 3.2.0
+info:
+  title: Nedap Client Card API
+  version: 0.0.0
+  description: 'Operations tagged ClientCard across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ClientCard
+paths:
+  /t/clients/{client_id}/client_cards:
+    get:
+      tags:
+      - ClientCard
+      summary: Return the client cards of a Client corresponding to the given id
+      operationId: ClientCardAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientCardList'
+      x-replaced-by: /v0/administration/clients/{client_id}/clipped_cards
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/clipped_cards:
+    get:
+      tags:
+      - ClientCard
+      summary: Return the client cards of a Client corresponding to the given id
+      operationId: ClientCardAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientCardList'
+      x-replacement-for:
+      - /t/clients/{client_id}/client_cards
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ClientCard:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        lastRead:
+          type: string
+          format: date-time
+        number:
+          type: string
+        status:
+          $ref: '#/components/schemas/TokenStatus'
+        statusFromDate:
+          type: string
+          format: date-time
+      description: Card model.
+      example:
+        id: 3
+        beginDate: '2012-08-02T13:48:46.836+02:00'
+        endDate: '2012-08-05T13:48:46.836+02:00'
+        lastRead: '2012-09-04T13:48:46.836+02:00'
+        number: '12345'
+        status: free
+        statusFromDate: '2012-02-01T12:48:46.836+01:00'
+    TokenStatus:
+      type: string
+      oneOf:
+      - title: UNKNOWN
+        enum:
+        - unknown
+      - title: FREE
+        enum:
+        - free
+      - title: IN_USE
+        enum:
+        - used
+      - title: BLOCKED
+        enum:
+        - blocked
+      - title: DEFECT
+        enum:
+        - defect
+      - title: LOST
+        enum:
+        - lost
+      description: TokenStatus model (no description)
+      example: unknown
+    list.ClientCardList:
+      type: object
+      properties:
+        clientCards:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientCard'
+      description: ClientCardList model (no description)
+      example:
+        clientCards:
+        - id: 3
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-05T11:48:46.836+02:00'
+          lastRead: '2012-09-04T11:48:46.836+02:00'
+          number: '12345'
+          status: free
+          statusFromDate: '2012-02-01T11:48:46.836+01:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

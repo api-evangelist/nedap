@@ -1,0 +1,83 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dashboard Profile API
+  version: 0.0.0
+  description: 'Operations tagged DashboardProfile across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: DashboardProfile
+paths:
+  /t/dashboard_profiles:
+    get:
+      tags:
+      - DashboardProfile
+      summary: Return all dashboard profiles
+      operationId: DashboardProfileAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DashboardProfileList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dashboard_profiles
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dashboard_profiles:
+    get:
+      tags:
+      - DashboardProfile
+      summary: Return all dashboard profiles
+      operationId: DashboardProfileAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DashboardProfileList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dashboard_profiles
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    DashboardProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The objectId of this dashboard profile
+          format: int64
+          x-cupido-key: true
+        name:
+          type: string
+          description: The name of this dashboard profile
+      description: Dashboard profile in Ons Administratie
+      example:
+        id: 1
+        name: Intramuraal
+      xml:
+        name: dashboardProfile
+    list.DashboardProfileList:
+      type: object
+      properties:
+        dashboardProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardProfile'
+      description: List of dashboard profiles
+      example:
+        dashboardProfiles:
+        - id: 1
+          name: Intramuraal
+      xml:
+        name: dashboardProfiles
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

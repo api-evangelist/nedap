@@ -1,0 +1,608 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Medical Note API
+  version: 0.0.0
+  description: 'Operations tagged dossier.MedicalNote across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.MedicalNote
+paths:
+  /t/dossier/medical_notes:
+    get:
+      tags:
+      - dossier.MedicalNote
+      summary: Returns every MedicalNote available from the MedicalNoteAPI
+      operationId: dossier.MedicalNoteAPI.all
+      parameters:
+      - name: updated_since
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.MedicalNoteList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/medical_notes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - dossier.MedicalNote
+      summary: Create MedicalNote
+      operationId: dossier.MedicalNoteAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: MedicalNote to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.MedicalNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.MedicalNote'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/medical_notes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/medical_notes/{id}:
+    get:
+      tags:
+      - dossier.MedicalNote
+      operationId: dossier.MedicalNoteAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting MedicalNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.MedicalNote'
+        '404':
+          description: MedicalNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/medical_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Dossier medical note API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - dossier.MedicalNote
+      summary: Updates the given MedicalNote
+      operationId: dossier.MedicalNoteAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting MedicalNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: MedicalNote to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.MedicalNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.MedicalNote'
+        '400':
+          description: Validation errors
+        '404':
+          description: MedicalNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/medical_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.MedicalNote
+      summary: Deletes the MedicalNote with given id
+      operationId: dossier.MedicalNoteAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting MedicalNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.MedicalNote'
+        '404':
+          description: MedicalNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/medical_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/medical_notes:
+    get:
+      tags:
+      - dossier.MedicalNote
+      summary: Return the active medical notes of a Client corresponding to the given id
+      operationId: dossier.MedicalNoteAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.MedicalNoteList'
+      x-replaced-by: /v0/administration/dossier/medical_notes/by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/unfiltered_medical_notes:
+    get:
+      tags:
+      - dossier.MedicalNote
+      summary: Return all the medical notes (including archived) of a Client corresponding to…
+      operationId: dossier.MedicalNoteAPI.unfilteredByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.MedicalNoteList'
+      x-replaced-by: /v0/administration/dossier/medical_notes/unfiltered_by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/medical_notes:
+    get:
+      tags:
+      - dossier.MedicalNote
+      summary: Returns every MedicalNote available from the MedicalNoteAPI
+      operationId: dossier.MedicalNoteAPI.all
+      parameters:
+      - name: updatedSince
+        in: query
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: updated_since
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.MedicalNoteList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical_notes
+    post:
+      tags:
+      - dossier.MedicalNote
+      summary: Create MedicalNote
+      operationId: dossier.MedicalNoteAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: MedicalNote to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.MedicalNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.MedicalNote'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical_notes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/medical_notes/{id}:
+    get:
+      tags:
+      - dossier.MedicalNote
+      operationId: dossier.MedicalNoteAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting MedicalNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.MedicalNote'
+        '404':
+          description: MedicalNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical_notes/{id}
+      summary: Dossier medical note API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - dossier.MedicalNote
+      summary: Updates the given MedicalNote
+      operationId: dossier.MedicalNoteAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting MedicalNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: MedicalNote to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.MedicalNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.MedicalNote'
+        '400':
+          description: Validation errors
+        '404':
+          description: MedicalNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical_notes/{id}
+    delete:
+      tags:
+      - dossier.MedicalNote
+      summary: Deletes the MedicalNote with given id
+      operationId: dossier.MedicalNoteAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting MedicalNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.MedicalNote'
+        '404':
+          description: MedicalNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical_notes/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/medical_notes/by_client/{client_id}:
+    get:
+      tags:
+      - dossier.MedicalNote
+      summary: Return the active medical notes of a Client corresponding to the given id
+      operationId: dossier.MedicalNoteAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.MedicalNoteList'
+      x-replacement-for:
+      - /t/clients/{client_id}/medical_notes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/medical_notes/unfiltered_by_client/{client_id}:
+    get:
+      tags:
+      - dossier.MedicalNote
+      summary: Return all the medical notes (including archived) of a Client corresponding to…
+      operationId: dossier.MedicalNoteAPI.unfilteredByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.MedicalNoteList'
+      x-replacement-for:
+      - /t/clients/{client_id}/unfiltered_medical_notes
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.MedicalNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.BaseNote'
+      properties:
+        clientId:
+          type: integer
+          format: int64
+      description: MedicalNote model (no description)
+      example:
+        id: 1
+        content: Dummy
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-06-16'
+        endDate: '2014-06-16'
+        updatedByAuthorId: 1
+        authorId: 1
+        updatedAt: '2014-06-16T02:00:00.000+02:00'
+        createdAt: '2014-06-16T02:00:00.000+02:00'
+        createdBy: Dummy
+        clientId: 1
+      xml:
+        name: medicalNote
+    dossier.BaseNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        content:
+          type: string
+        visibleOnWorksheet:
+          type: boolean
+        deleted:
+          type: boolean
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        updatedByAuthorId:
+          type: integer
+          format: int64
+        authorId:
+          type: integer
+          format: int64
+      description: BaseNote model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+        id: 1
+        content: example
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-12-29'
+        endDate: '2014-12-29'
+        updatedByAuthorId: 1
+        authorId: 1
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.list.MedicalNoteList:
+      type: object
+      properties:
+        medicalNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.MedicalNote'
+      description: MedicalNoteList model (no description)
+      example:
+        medicalNotes:
+        - id: 1
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 1
+          authorId: 1
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+          clientId: 1
+        - id: 1
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 1
+          authorId: 2
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+          clientId: 2
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

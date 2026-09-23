@@ -1,0 +1,373 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.episodes.Sub Goal API
+  version: 0.0.0
+  description: 'Operations tagged dossier.episodes.SubGoal across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.episodes.SubGoal
+paths:
+  /t/dossier/episodes/sub_goals:
+    post:
+      tags:
+      - dossier.episodes.SubGoal
+      summary: Create SubGoal
+      operationId: dossier.episodes.SubGoalAPI.create
+      requestBody:
+        description: SubGoal to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.episodes.SubGoal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/episodes/sub_goals
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/episodes/sub_goals/{id}:
+    put:
+      tags:
+      - dossier.episodes.SubGoal
+      summary: Updates the given SubGoal
+      operationId: dossier.episodes.SubGoalAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of SubGoal to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: SubGoal to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.episodes.SubGoal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/episodes/sub_goals/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    patch:
+      tags:
+      - dossier.episodes.SubGoal
+      summary: Patches SubGoal with given id
+      operationId: dossier.episodes.SubGoalAPI.patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.episodes.SubGoal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/episodes/sub_goals/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/episodes/sub_goals/by_episode_id/{episode_id}:
+    get:
+      tags:
+      - dossier.episodes.SubGoal
+      summary: Gets all the sub goals for the specified episode ID
+      operationId: dossier.episodes.SubGoalAPI.byEpisodeId
+      parameters:
+      - name: episode_id
+        in: path
+        description: The ID of the episode for which to fetch SubGoals
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.episodes.list.SubGoalList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/episodes/sub_goals/by_episode_id/{episode_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/episodes/sub_goals:
+    post:
+      tags:
+      - dossier.episodes.SubGoal
+      summary: Create SubGoal
+      operationId: dossier.episodes.SubGoalAPI.create
+      requestBody:
+        description: SubGoal to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.episodes.SubGoal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/episodes/sub_goals
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/episodes/sub_goals/{id}:
+    put:
+      tags:
+      - dossier.episodes.SubGoal
+      summary: Updates the given SubGoal
+      operationId: dossier.episodes.SubGoalAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of SubGoal to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: SubGoal to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.episodes.SubGoal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/episodes/sub_goals/{id}
+    patch:
+      tags:
+      - dossier.episodes.SubGoal
+      summary: Patches SubGoal with given id
+      operationId: dossier.episodes.SubGoalAPI.patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.episodes.SubGoal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/episodes/sub_goals/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/episodes/sub_goals/by_episode_id/{episode_id}:
+    get:
+      tags:
+      - dossier.episodes.SubGoal
+      summary: Gets all the sub goals for the specified episode ID
+      operationId: dossier.episodes.SubGoalAPI.byEpisodeId
+      parameters:
+      - name: episode_id
+        in: path
+        description: The ID of the episode for which to fetch SubGoals
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.episodes.list.SubGoalList'
+      x-replacement-for:
+      - /t/dossier/episodes/sub_goals/by_episode_id/{episode_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.episodes.list.SubGoalList:
+      type: object
+      properties:
+        subGoals:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      description: SubGoalList model (no description)
+      example:
+        subGoals:
+        - updatedAt: '2017-11-27T00:00:00.000+01:00'
+          createdAt: '2017-11-27T00:00:00.000+01:00'
+          createdBy: Dummy
+          id: 2
+          title: Some sub goal
+          episodeId: 1
+          archived: false
+        - updatedAt: '2017-11-27T00:00:00.000+01:00'
+          createdAt: '2017-11-27T00:00:00.000+01:00'
+          createdBy: Dummy
+          id: 5
+          title: Some archived sub goal
+          episodeId: 22
+          archived: true
+    dossier.episodes.Action:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object id of this episode action
+          format: int64
+          x-cupido-id: true
+        title:
+          type: string
+          description: Title of this episode action
+        subGoalId:
+          type: integer
+          description: Object id of the parent episode sub goal
+          format: int64
+        showInCarePlan:
+          type: boolean
+          description: Show this action in the care plan
+        archived:
+          type: boolean
+          description: Archive status of this action
+      description: Action model (no description)
+      example:
+        updatedAt: '2017-11-27T00:00:00.000+01:00'
+        createdAt: '2017-11-27T00:00:00.000+01:00'
+        createdBy: Dummy
+        id: 3
+        title: Some action
+        subGoalId: 2
+        showInCarePlan: true
+        archived: false
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.episodes.SubGoal:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object id of this sub goal
+          format: int64
+          x-cupido-id: true
+        title:
+          type: string
+          description: Title of this sub goal
+        episodeId:
+          type: integer
+          description: Object id of the parent episode of this sub goal
+          format: int64
+        archived:
+          type: boolean
+          description: Archived status of this sub goal
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.episodes.Action'
+          description: Actions on this sub goal
+      description: SubGoal model (no description)
+      example:
+        updatedAt: '2017-11-27T00:00:00.000+01:00'
+        createdAt: '2017-11-27T00:00:00.000+01:00'
+        createdBy: Dummy
+        id: 2
+        title: Some sub goal
+        episodeId: 1
+        archived: false
+        actions:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          title: example
+          subGoalId: 1
+          showInCarePlan: true
+          archived: true
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          title: example
+          subGoalId: 1
+          showInCarePlan: true
+          archived: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

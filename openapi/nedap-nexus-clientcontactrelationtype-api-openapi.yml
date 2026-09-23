@@ -1,0 +1,297 @@
+openapi: 3.2.0
+info:
+  title: Nedap Nexus.Client Contact Relation Type API
+  version: 0.0.0
+  description: 'Operations tagged nexus.ClientContactRelationType across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: nexus.ClientContactRelationType
+paths:
+  /t/nexus/client_contact_relation_types:
+    get:
+      tags:
+      - nexus.ClientContactRelationType
+      summary: Deprecated. Please use `/administration/client_contact_relation_types` instead
+      operationId: nexus.ClientContactRelationTypeAPI.all
+      parameters:
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nexus.list.ClientContactRelationTypeList'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 12-05-2026
+      x-replaced-by: /v0/ons_nexus/client_contact_relation_types
+    servers:
+    - url: https://api-development.ons.io
+  /t/nexus/client_contact_relation_types/{id}:
+    get:
+      tags:
+      - nexus.ClientContactRelationType
+      summary: Deprecated.
+      operationId: nexus.ClientContactRelationTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientContactRelationType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nexus.ClientContactRelationType'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 12-05-2026
+      x-replaced-by: /v0/ons_nexus/client_contact_relation_types/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/ons_nexus/client_contact_relation_types:
+    get:
+      tags:
+      - nexus.ClientContactRelationType
+      summary: Deprecated. Please use `/administration/client_contact_relation_types` instead
+      operationId: nexus.ClientContactRelationTypeAPI.all
+      parameters:
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nexus.list.ClientContactRelationTypeList'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 12-05-2026
+      x-replacement-for:
+      - /t/nexus/client_contact_relation_types
+    servers:
+    - url: https://api-development.ons.io
+  /v0/ons_nexus/client_contact_relation_types/{id}:
+    get:
+      tags:
+      - nexus.ClientContactRelationType
+      summary: Deprecated.
+      operationId: nexus.ClientContactRelationTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientContactRelationType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nexus.ClientContactRelationType'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 12-05-2026
+      x-replacement-for:
+      - /t/nexus/client_contact_relation_types/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    nexus.ClientContactRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/nexus.RelationType'
+      description: Vektiscode
+      example:
+        id: 6
+        name: Curator
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    nexus.list.ClientContactRelationTypeList:
+      type: object
+      properties:
+        clientContactRelationTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/nexus.ClientContactRelationType'
+      description: ClientContactRelationTypeList model (no description)
+      example:
+        clientContactRelationTypes:
+        - id: 6
+          name: Curator
+          primary: true
+          exclusive: true
+          negative: false
+          active: true
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+            id: 7
+            name: Standard
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+    nexus.RelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        tag:
+          type: string
+        primary:
+          type: boolean
+        exclusive:
+          type: boolean
+        relevant:
+          type: boolean
+        negative:
+          type: boolean
+        active:
+          type: boolean
+        legal:
+          type: boolean
+        vbmResponsible:
+          type: boolean
+        vektisCode:
+          type: integer
+          description: See https://www.vektis.nl/standaardisatie/codelijsten/COD821-VEKT
+          format: int64
+        reference:
+          type: integer
+          description: Only available during transitional period.
+          format: int64
+          deprecated: true
+        relationCategory:
+          $ref: '#/components/schemas/nexus.RelationCategory'
+      description: RelationType model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 6
+        name: Coach
+        tag: coach
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+      deprecated: true
+      x-deprecated-since: 03-10-2014
+    nexus.RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+      xml:
+        name: relationCategory
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

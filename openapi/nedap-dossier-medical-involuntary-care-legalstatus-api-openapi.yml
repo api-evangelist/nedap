@@ -1,0 +1,814 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.medical.involuntary Care.Legal Status API
+  version: 0.0.0
+  description: 'Operations tagged dossier.medical.involuntary_care.LegalStatus across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.medical.involuntary_care.LegalStatus
+paths:
+  /t/clients/{client_id}/medical/involuntary_care/legal_statuses:
+    get:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Return the legal statuses of a Client corresponding to the given id
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.list.LegalStatusList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/clients/{client_id}/medical/involuntary_care/legal_statuses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/medical/involuntary_care/legal_statuses:
+    post:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Create LegalStatus
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.create
+      requestBody:
+        description: LegalStatus to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/legal_statuses
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/medical/involuntary_care/legal_statuses/{id}:
+    get:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Gets the legal status for the specified ID
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: the id of the legal status
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/legal_statuses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Updates the given LegalStatus
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of LegalStatus to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: LegalStatus to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/legal_statuses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Deletes the legal status by ID
+      description: 'Deletes the legal status for the given ID.
+
+
+        NOTE: This operation permanently removes the legal status and all associated data including grounds, suspensions and documents.
+
+        This data is part of the export for the IGJ inspection. Deleting legal statuses before they have been properly exported may result in incomplete inspection data and potential compliance issues. Ensure all required exports have been completed before proceeding with deletion.
+
+        Use with caution as this action cannot be undone.'
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of LegalStatus to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Successfully removed the legal status
+        '404':
+          description: Legal status not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/legal_statuses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    patch:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Patches LegalStatus with given id
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/involuntary_care/legal_statuses/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/clients/{client_id}/medical/involuntary_care/legal_statuses:
+    get:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Return the legal statuses of a Client corresponding to the given id
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.list.LegalStatusList'
+      x-replacement-for:
+      - /t/clients/{client_id}/medical/involuntary_care/legal_statuses
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/involuntary_care/legal_statuses:
+    post:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Create LegalStatus
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.create
+      requestBody:
+        description: LegalStatus to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/legal_statuses
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/involuntary_care/legal_statuses/{id}:
+    get:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Gets the legal status for the specified ID
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: the id of the legal status
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/legal_statuses/{id}
+    put:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Updates the given LegalStatus
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of LegalStatus to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: LegalStatus to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/legal_statuses/{id}
+    delete:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Deletes the legal status by ID
+      description: 'Deletes the legal status for the given ID.
+
+
+        NOTE: This operation permanently removes the legal status and all associated data including grounds, suspensions and documents.
+
+        This data is part of the export for the IGJ inspection. Deleting legal statuses before they have been properly exported may result in incomplete inspection data and potential compliance issues. Ensure all required exports have been completed before proceeding with deletion.
+
+        Use with caution as this action cannot be undone.'
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of LegalStatus to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Successfully removed the legal status
+        '404':
+          description: Legal status not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/legal_statuses/{id}
+    patch:
+      tags:
+      - dossier.medical.involuntary_care.LegalStatus
+      summary: Patches LegalStatus with given id
+      operationId: dossier.medical.involuntary_care.LegalStatusAPI.patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/involuntary_care/legal_statuses/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.medical.involuntary_care.LegalStatusTypeCode:
+      enum:
+      - voluntary_admission
+      - sapc
+      - court_authorization
+      - custody_claim
+      - placed_under_supervision
+      - care_authorization
+      - crisis_measure
+      - continued_crisis_measure
+      - tbs
+      - not_voluntary_no_resistance
+      - self_binding
+      - pij
+      - wfz23
+      - vmm
+      - vots
+      - muhp
+      - gbm
+      - guardianship
+      - temporary_guardianship
+      - vovo
+      - juvenile_probation
+      - mgj
+      - vmgj
+      - conditional_pij_77x_2
+      - unconditional_pij_77s
+      - extension_unconditional_pij_77t
+      - conditional_termination_pij_77s
+      - extension_conditional_termination_pij_77z
+      - behavior_influencing_measure_77w
+      - conditional_conviction_77x
+      - juvenile_detention_77i
+      - emgj_6_1_3
+      type: string
+      description: Unique code that identifies the legal status type
+      example: sapc
+    dossier.medical.involuntary_care.LegalStatusSuspension:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: The start date of the suspension
+          format: date
+        endDate:
+          type: string
+          description: The end date of the suspension
+          format: date
+        comments:
+          type: string
+          description: Extra comments relating to this legal status
+        type:
+          type: string
+          description: 'The type of suspension
+
+            Can consist of:
+
+            - withdraw_involuntary_care (Onttrekken Verplichte Zorg)
+
+            - transfer_involuntary_care (Overplaatsing met Verplichte Zorg)
+
+            - temporary_suspension_involuntary_care (Tijdelijke onderbreking Verplichte Zorg)
+
+            - termination_involuntary_care_with_conditions (Beëindiging Verplichte Zorg met voorwaarden)'
+        createdById:
+          type: integer
+          description: The identifier of the employee that created the suspension
+          format: int64
+        updatedById:
+          type: integer
+          description: The identifier of the employee that last updated the suspension
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+      description: LegalStatusSuspension model (no description)
+      example:
+        id: 1
+        beginDate: '2021-09-01'
+        endDate: '2021-09-02'
+        comments: What the judge told
+        type: withdraw_involuntary_care
+        createdById: 1
+        updatedById: 1
+        createdAt: '2020-11-14T00:00:00.000+01:00'
+        updatedAt: '2020-11-14T00:00:00.000+01:00'
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
+    dossier.medical.involuntary_care.LegalStatus:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        status:
+          type: string
+          description: "The type of legal status. Currently supported types in Dossier are:\n- Vrijwillige opname\n- Artikel 60 Bopz-indicatie\n- Rechterlijke machtiging (RM)\n- Inbewaringstelling (IBS)\n\nIn 2020 Wzd and Wvggz take effect and dossier supports the following additional legal status types:\n- Ondertoezichtstelling (OTS)\n- Zorgmachtiging (ZM)\n- Crisismaatregel (CM)\n- Voortgezette crisismaatregel (VCM)\n- Terbeschikkingstelling (TBS)\n- Plaatsing Inrichting Jeugdigen (PIJ)\n- Artikel 21 Wzd-indicatie\n- Zelfbindingsverklaring\n- Wfz 2.3 Schakel-artikel\n- Voorwaardelijke machtiging voor jongvolwassenen met een verstandelijke beperking (VMM)\nIn 2022, dossier supports Jeugd law and the following additional legal status types:\n- Voorlopige onder toezichtstelling (VOTS)\n- Machtiging uithuisplaatsing (MUHP)\n- Gezagsbeëindigende maatregel\n- Voogdijmaatregel\n- Tijdelijke voogdij\n- Voorlopige voogdij (VoVo)\n- Jeugdreclassering\n- Machtiging gesloten jeugdhulp (MGJ) \n- Voorwaardelijke machtiging gesloten jeugdhulp (VMGJ) \n- Voorwaardelijke PIJ (Art. 77x lid 2) \n- Onvoorwaardelijke PIJ (Art. 77s) \n- Verlenging onvoorwaardelijke PIJ (Art. 77t) \n- Voorwaardelijke (beëindiging) PIJ, met algemene voorwaarden (Art. 77s) \n- Verlenging voorwaardelijke beëindiging PIJ (Art. 77z) \n- Gedragsbeïnvloedende maatregel (Art. 77w) \n- Voorwaardelijke veroordeling (Art. 77x) \n- Jeugddetentie (Art. 77i) \n- Spoedmachtiging gesloten jeugdhulp (Art. 6.1.3 Jw)"
+        code:
+          allOf:
+          - $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusTypeCode'
+          description: Unique code that identifies the legal status type
+        beginDate:
+          type: string
+          description: The start date of the legal status. May be empty if the client is in voluntary care (Vrijwillige opname)
+          format: date
+        endDate:
+          type: string
+          description: The end date of the legal status. If this is in the past, the described legal status is no longer valid
+          format: date
+        expirationDate:
+          type: string
+          description: The expiration date of the legal status
+          format: date
+        comments:
+          type: string
+          description: Extra comments relating to this legal status
+        endingReason:
+          type: string
+          description: The reason to end the legal status
+        documentId:
+          type: integer
+          description: The ID of the document linked to this legal status
+          format: int32
+          deprecated: true
+        documentName:
+          type: string
+          description: The name of the document linked to this legal status
+          deprecated: true
+        archived:
+          type: boolean
+          description: The archived status
+        request:
+          type: boolean
+          description: The request status
+        legalStatusDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusDocument'
+          description: A list of documents
+        legalStatusSuspensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusSuspension'
+          description: A list of suspensions
+        legalGrounds:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalGround'
+          description: A list of legal grounds
+      description: The legal status of a client.
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        status: Artikel 60 Bopz-indicatie
+        code: sapc
+        beginDate: '2015-09-17'
+        endDate: '2015-09-27'
+        expirationDate: '2015-09-28'
+        comments: 5 weeks until renewal
+        endingReason: Client is better again
+        documentId: 1
+        documentName: artikel60.pdf
+        archived: false
+        request: false
+        legalStatusDocuments:
+        - documentId: 1
+          documentName: artikel60.pdf
+        legalStatusSuspensions:
+        - id: 1
+          beginDate: '2021-09-01'
+          endDate: '2021-09-02'
+          comments: What the judge told
+          type: withdraw_involuntary_care
+          createdById: 1
+          updatedById: 1
+          createdAt: '2020-11-14T00:00:00.000+01:00'
+          updatedAt: '2020-11-14T00:00:00.000+01:00'
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
+        legalGrounds:
+        - beginDate: '2015-09-25'
+          endDate: '2015-09-26'
+          comments: Important side node
+          categoryCode: wvggz_inclosure_other
+    dossier.medical.involuntary_care.list.LegalStatusList:
+      type: object
+      properties:
+        legalStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatus'
+      description: LegalStatusList model (no description)
+      example:
+        legalStatuses:
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 2
+          createdById: 1
+          updatedById: 1
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          status: Artikel 60 Bopz-indicatie
+          code: sapc
+          beginDate: '2015-09-17'
+          endDate: '2015-09-27'
+          expirationDate: '2015-09-28'
+          comments: 5 weeks until renewal
+          endingReason: Client is better again
+          documentId: 1
+          documentName: artikel60.pdf
+          archived: false
+          request: false
+          legalStatusDocuments:
+          - documentId: 1
+            documentName: artikel60.pdf
+          legalStatusSuspensions:
+          - id: 1
+            beginDate: '2021-09-01'
+            endDate: '2021-09-02'
+            comments: What the judge told
+            type: withdraw_involuntary_care
+            createdById: 1
+            updatedById: 1
+            createdAt: '2020-11-14T00:00:00.000+01:00'
+            updatedAt: '2020-11-14T00:00:00.000+01:00'
+            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
+          legalGrounds:
+          - beginDate: '2015-09-25'
+            endDate: '2015-09-26'
+            comments: Important side node
+            categoryCode: wvggz_inclosure_other
+    dossier.medical.involuntary_care.LegalGround:
+      type: object
+      properties:
+        beginDate:
+          type: string
+          description: The begin date of the legal ground.
+          format: date
+        endDate:
+          type: string
+          description: The end date of the legal ground.
+          format: date
+        comments:
+          type: string
+          description: Extra comments relating to this legal ground
+        categoryCode:
+          type: string
+          description: 'The category code of the legal ground.
+
+            The following codes are available:
+
+            - wvggz_administer_nutrition
+
+            - wvggz_check_clothing_or_body
+
+            - wvggz_check_drugs
+
+            - wvggz_check_home_drugs_danger
+
+            - wvggz_fixation_category
+
+            - wvggz_inclosure_category
+
+            - wvggz_inclosure_other
+
+            - wvggz_inclosure_own_living_space
+
+            - wvggz_inclosure_seclusion_room
+
+            - wvggz_inclosure_secure_room
+
+            - wvggz_inclosure_separation_room
+
+            - wvggz_limit_means_of_communication
+
+            - wvggz_limit_organize_life_category
+
+            - wvggz_limit_organize_life_other
+
+            - wvggz_limit_receive_visitors
+
+            - wvggz_mechanical_fixation
+
+            - wvggz_medical_checks_ect
+
+            - wvggz_medical_checks_other
+
+            - wvggz_medication_category
+
+            - wvggz_medication_checks_category
+
+            - wvggz_medication_intramuscularly
+
+            - wvggz_medication_intravenously
+
+            - wvggz_medication_oral
+
+            - wvggz_medication_other
+
+            - wvggz_movement_restriction_category
+
+            - wvggz_movement_restriction_closed_department
+
+            - wvggz_movement_restriction_other
+
+            - wvggz_nutrition_medication_category
+
+            - wvggz_physical_fixation
+
+            - wvggz_receive_accommodation
+
+            - wvggz_supervision_camera
+
+            - wvggz_supervision_category
+
+            - wvggz_supervision_other_electronic_devices
+
+            - wvggz_transfer_temporary_accommodation'
+        createdById:
+          type: integer
+          description: The identifier of the employee that created the LegalGround
+          format: int64
+        updatedById:
+          type: integer
+          description: The identifier of the employee that last updated the LegalGround
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+      description: LegalGround model (no description)
+      example:
+        beginDate: '2015-09-18'
+        endDate: '2015-09-25'
+        comments: 5 weeks until renewal
+        categoryCode: wvggz_inclosure_other
+        createdById: 1
+        updatedById: 1
+        createdAt: '2020-11-14T00:00:00.000+01:00'
+        updatedAt: '2020-11-14T00:00:00.000+01:00'
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51c
+    dossier.medical.involuntary_care.LegalStatusDocument:
+      type: object
+      properties:
+        documentId:
+          type: integer
+          format: int32
+        documentName:
+          type: string
+          deprecated: true
+          x-deprecated-since: 01-04-2026
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: LegalStatusDocument model (no description)
+      example:
+        documentId: 1
+        documentName: Important.pdf
+        createdAt: '2020-11-15T00:00:00.000+01:00'
+        updatedAt: '2020-11-15T00:00:00.000+01:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

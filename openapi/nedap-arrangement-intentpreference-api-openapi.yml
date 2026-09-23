@@ -1,0 +1,667 @@
+openapi: 3.2.0
+info:
+  title: Nedap Arrangement.Intent Preference API
+  version: 0.0.0
+  description: 'Operations tagged arrangement.IntentPreference across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: arrangement.IntentPreference
+paths:
+  /t/arrangement/intent_preferences/add_intent_to_time_slot/{intent_uuid}:
+    post:
+      tags:
+      - arrangement.IntentPreference
+      summary: Adds an extra or first Intent to the TimeSlot
+      operationId: arrangement.IntentPreferenceAPI.addIntentToTimeSlot
+      parameters:
+      - name: intent_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: time_slot_uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: No time slot UUID specified
+        '403':
+          description: Intent can't be set to time slots, because it is created by the OA-CONVERTER
+        '404':
+          description: Intent or time slot not found
+      x-replaced-by: /v0/administration/arrangement/intent_preferences/add_intent_to_time_slot/{intent_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/intent_preferences/for_client_in_period/{client_uuid}:
+    get:
+      tags:
+      - arrangement.IntentPreference
+      summary: Gets a list of IntentPreferences for the client in a period
+      description: 'Only Intents that are within the period or partially overlap with it, will be included in the result
+
+        IntentPreferenceList.'
+      operationId: arrangement.IntentPreferenceAPI.forClientInPeriod
+      parameters:
+      - name: client_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: period_begin
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: period_end
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.IntentPreferenceList'
+        '400':
+          description: Invalid period
+        '404':
+          description: Client was not found
+      x-replaced-by: /v0/administration/arrangement/intent_preferences/for_client_in_period/{client_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/intent_preferences/remove_intent_from_time_slot/{intent_uuid}:
+    delete:
+      tags:
+      - arrangement.IntentPreference
+      summary: Removes an Intent from the TimeSlot
+      operationId: arrangement.IntentPreferenceAPI.removeIntentFromTimeSlot
+      parameters:
+      - name: intent_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: time_slot_uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: No time slot UUID specified
+        '403':
+          description: Intent can't be set to time slots, because it is created by the OA-CONVERTER
+        '404':
+          description: Intent or time slot not found
+      x-replaced-by: /v0/administration/arrangement/intent_preferences/remove_intent_from_time_slot/{intent_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/intent_preferences/set_intent_to_time_slots/{intent_uuid}:
+    post:
+      tags:
+      - arrangement.IntentPreference
+      summary: Ties an Intent to a list of TimeSlots, replacing all previous connections
+      operationId: arrangement.IntentPreferenceAPI.setIntentToTimeSlots
+      parameters:
+      - name: intent_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.UuidList'
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: No time slot UUID's specified, or Intent not found
+        '403':
+          description: Intent can't be set to time slots, because it is created by the OA-CONVERTER
+        '404':
+          description: Intent cannot be found
+      x-replaced-by: /v0/administration/arrangement/intent_preferences/set_intent_to_time_slots/{intent_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/intent_preferences/set_time_slot_to_intents/{time_slot_uuid}:
+    post:
+      tags:
+      - arrangement.IntentPreference
+      summary: Connects a TimeSlot to a list of Intents, replacing all, if any, previous…
+      operationId: arrangement.IntentPreferenceAPI.setTimeSlotToIntents
+      parameters:
+      - name: time_slot_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.UuidList'
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: No time slot UUID specified
+        '403':
+          description: Intent can't be set to time slots, because it is created by the OA-CONVERTER
+        '404':
+          description: Time slot not found
+      x-replaced-by: /v0/administration/arrangement/intent_preferences/set_time_slot_to_intents/{time_slot_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intent_preferences/add_intent_to_time_slot/{intent_uuid}:
+    post:
+      tags:
+      - arrangement.IntentPreference
+      summary: Adds an extra or first Intent to the TimeSlot
+      operationId: arrangement.IntentPreferenceAPI.addIntentToTimeSlot
+      parameters:
+      - name: intent_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: time_slot_uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: No time slot UUID specified
+        '403':
+          description: Intent can't be set to time slots, because it is created by the OA-CONVERTER
+        '404':
+          description: Intent or time slot not found
+      x-replacement-for:
+      - /t/arrangement/intent_preferences/add_intent_to_time_slot/{intent_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intent_preferences/for_client_in_period/{client_uuid}:
+    get:
+      tags:
+      - arrangement.IntentPreference
+      summary: Gets a list of IntentPreferences for the client in a period
+      description: 'Only Intents that are within the period or partially overlap with it, will be included in the result
+
+        IntentPreferenceList.'
+      operationId: arrangement.IntentPreferenceAPI.forClientInPeriod
+      parameters:
+      - name: client_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: period_begin
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: period_end
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.IntentPreferenceList'
+        '400':
+          description: Invalid period
+        '404':
+          description: Client was not found
+      x-replacement-for:
+      - /t/arrangement/intent_preferences/for_client_in_period/{client_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intent_preferences/remove_intent_from_time_slot/{intent_uuid}:
+    delete:
+      tags:
+      - arrangement.IntentPreference
+      summary: Removes an Intent from the TimeSlot
+      operationId: arrangement.IntentPreferenceAPI.removeIntentFromTimeSlot
+      parameters:
+      - name: intent_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: time_slot_uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: No time slot UUID specified
+        '403':
+          description: Intent can't be set to time slots, because it is created by the OA-CONVERTER
+        '404':
+          description: Intent or time slot not found
+      x-replacement-for:
+      - /t/arrangement/intent_preferences/remove_intent_from_time_slot/{intent_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intent_preferences/set_intent_to_time_slots/{intent_uuid}:
+    post:
+      tags:
+      - arrangement.IntentPreference
+      summary: Ties an Intent to a list of TimeSlots, replacing all previous connections
+      operationId: arrangement.IntentPreferenceAPI.setIntentToTimeSlots
+      parameters:
+      - name: intent_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.UuidList'
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: No time slot UUID's specified, or Intent not found
+        '403':
+          description: Intent can't be set to time slots, because it is created by the OA-CONVERTER
+        '404':
+          description: Intent cannot be found
+      x-replacement-for:
+      - /t/arrangement/intent_preferences/set_intent_to_time_slots/{intent_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intent_preferences/set_time_slot_to_intents/{time_slot_uuid}:
+    post:
+      tags:
+      - arrangement.IntentPreference
+      summary: Connects a TimeSlot to a list of Intents, replacing all, if any, previous…
+      operationId: arrangement.IntentPreferenceAPI.setTimeSlotToIntents
+      parameters:
+      - name: time_slot_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.UuidList'
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: No time slot UUID specified
+        '403':
+          description: Intent can't be set to time slots, because it is created by the OA-CONVERTER
+        '404':
+          description: Time slot not found
+      x-replacement-for:
+      - /t/arrangement/intent_preferences/set_time_slot_to_intents/{time_slot_uuid}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    arrangement.IntentPreference:
+      required:
+      - intent
+      - timeSlot
+      type: object
+      properties:
+        intent:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.Intent'
+          description: Intent of the preference
+        timeSlot:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.TimeSlot'
+          description: TimeSlot of the preference
+      description: IntentPreference model (no description)
+      example:
+        intent:
+          uuid: '12345'
+          timelineUuid: '12344'
+          clientUuid: CLIENT_UUID
+          clientId: 24
+          beginDate: '2018-06-14'
+          endDate: '2018-05-20'
+          hourTypeId: 12
+          frequency: 3
+          quantityAmount: 1
+          quantityUnit: DAY_PART
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
+          sourceReference: planning/123
+          sourceDescription: for someone
+          splittable: true
+        timeSlot:
+          uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 1
+          beginAfter: '00:00:00.000'
+          endBefore: '00:00:00.000'
+      xml:
+        name: intentPreference
+    arrangement.list.IntentPreferenceList:
+      type: object
+      properties:
+        intentPreferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.IntentPreference'
+          xml:
+            name: intentPreference
+      description: IntentPreferenceList model (no description)
+      example:
+        intentPreferences:
+        - intent:
+            uuid: '12345'
+            timelineUuid: '12344'
+            clientUuid: CLIENT_UUID
+            clientId: 24
+            beginDate: '2018-06-14'
+            endDate: '2018-05-20'
+            hourTypeId: 12
+            frequency: 3
+            quantityAmount: 1
+            quantityUnit: DAY_PART
+            recurrenceInterval: 1
+            recurrenceType: WEEK
+            sourceApp: PLANNING
+            sourceReference: planning/123
+            sourceDescription: for someone
+            splittable: true
+          timeSlot:
+            uuid: TIME_SLOT_UUID
+            clientId: 1
+            clientUuid: CLIENT_UUID
+            dayOfWeek: 1
+            beginAfter: '00:00:00.000'
+            endBefore: '00:00:00.000'
+        - intent:
+            uuid: '12345'
+            timelineUuid: '12344'
+            clientUuid: CLIENT_UUID
+            clientId: 24
+            beginDate: '2018-06-14'
+            endDate: '2018-05-20'
+            hourTypeId: 12
+            frequency: 3
+            quantityAmount: 1
+            quantityUnit: DAY_PART
+            recurrenceInterval: 1
+            recurrenceType: WEEK
+            sourceApp: PLANNING
+            sourceReference: planning/123
+            sourceDescription: for someone
+            splittable: true
+          timeSlot:
+            uuid: TIME_SLOT_UUID
+            clientId: 1
+            clientUuid: CLIENT_UUID
+            dayOfWeek: 1
+            beginAfter: '00:00:00.000'
+            endBefore: '00:00:00.000'
+      xml:
+        name: intentPreferences
+    arrangement.QuantityUnit:
+      enum:
+      - MINUTE
+      - HOUR
+      - DAY_PART
+      - DAY
+      - PIECE
+      type: string
+      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+        quantity of th the care that is intended. For example:
+
+        - 2, HOUR means ''2 hours''
+
+        - 120, MINUTE means ''120 minutes'''
+      example: MINUTE
+    arrangement.TimeSlot:
+      required:
+      - uuid
+      - clientId
+      - clientUuid
+      - dayOfWeek
+      - beginAfter
+      - endBefore
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID identifying this time slot
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: Client of this time slot
+          format: int64
+        clientUuid:
+          type: string
+          description: Client UUID of this time slot
+        dayOfWeek:
+          type: integer
+          description: 'Day number of the week of this time slot
+
+            Monday = 1 ... Sunday = 7'
+          format: int32
+          default: 0
+        beginAfter:
+          type: string
+          description: Start time of this time slot
+          format: time
+        endBefore:
+          type: string
+          description: End time of this time slot
+          format: time
+      description: TimeSlot of the preference
+      example:
+        uuid: TIME_SLOT_UUID
+        clientId: 1
+        clientUuid: CLIENT_UUID
+        dayOfWeek: 1
+        beginAfter: '00:00:00.000'
+        endBefore: '00:00:00.000'
+      xml:
+        name: timeSlot
+    arrangement.Intent:
+      required:
+      - uuid
+      - timelineUuid
+      - clientUuid
+      - clientId
+      - beginDate
+      - hourTypeId
+      - frequency
+      - quantityAmount
+      - quantityUnit
+      - recurrenceInterval
+      - recurrenceType
+      - sourceApp
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID identifying this Intent across applications
+          x-cupido-id: true
+        timelineUuid:
+          type: string
+          description: UUID for the timeline that groups this Intent with other Intents
+        clientUuid:
+          type: string
+          description: The client UUID of the client for which this Intent is intended
+        clientId:
+          type: integer
+          description: The client ID of the client for which this Intent is intended
+          format: int64
+        beginDate:
+          type: string
+          description: The date at which this Intent is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the Intent ends, or <code>null</code> if it does not end
+          format: date
+        hourTypeId:
+          type: integer
+          description: The HourType of the Intent
+          format: int64
+        frequency:
+          type: integer
+          description: 'The number of times this intent is present within the recurrence interval. It can be seen as the multiplier of the
+
+            quantity. For example in ''3 times 4 hours every week'', 3 is the frequency.'
+          format: int32
+        quantityAmount:
+          type: integer
+          description: The amount matching the quantity
+          format: int32
+        quantityUnit:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.QuantityUnit'
+          description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+            quantity of th the care that is intended. For example:
+
+            - 2, HOUR means ''2 hours''
+
+            - 120, MINUTE means ''120 minutes'''
+        recurrenceInterval:
+          type: integer
+          description: The recurrence interval
+          format: int32
+        recurrenceType:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.RecurrenceType'
+          description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
+
+            Examples:
+
+            - 1, WEEK corresponds to ''every week''
+
+            - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
+        sourceApp:
+          type: string
+          description: The app that created this intent. Apps should use upper case names to identify themselves and never change this.
+        sourceReference:
+          type: string
+          description: The reference to this intent. The exact meaning is application specific.
+        sourceDescription:
+          type: string
+          description: Free text description.
+        splittable:
+          type: boolean
+          description: Whether this intent may be split across multiple agenda entries when planning it.
+        title:
+          type: string
+          description: The title of this intent.
+        description:
+          type: string
+          description: The description of this intent.
+        plannable:
+          type: boolean
+          description: Whether this intent plannable;
+      description: Intent of the preference
+      example:
+        uuid: '12345'
+        timelineUuid: '12344'
+        clientUuid: ABCD
+        clientId: 24
+        beginDate: '2018-06-14'
+        endDate: '2018-05-20'
+        hourTypeId: 12
+        frequency: 3
+        quantityAmount: 1
+        quantityUnit: DAY_PART
+        recurrenceInterval: 1
+        recurrenceType: WEEK
+        sourceApp: PLANNING
+        sourceReference: planning/123
+        sourceDescription: for someone
+        splittable: true
+        title: title
+        description: description
+        plannable: true
+      xml:
+        name: intent
+    arrangement.UuidList:
+      type: object
+      properties:
+        uuids:
+          type: array
+          items:
+            type: string
+            xml:
+              name: uuid
+          xml:
+            wrapped: true
+      description: UuidList model (no description)
+      example:
+        uuids:
+        - UUID
+        - UUID
+      xml:
+        name: uuidList
+    arrangement.RecurrenceType:
+      enum:
+      - HOUR
+      - DAY
+      - WEEK
+      - PERIOD
+      type: string
+      description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
+
+        Examples:
+
+        - 1, WEEK corresponds to ''every week''
+
+        - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
+      example: HOUR
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

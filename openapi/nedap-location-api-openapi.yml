@@ -1,0 +1,699 @@
+openapi: 3.2.0
+info:
+  title: Nedap Location API
+  version: 0.0.0
+  description: 'Operations tagged Location across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Location
+paths:
+  /t/clients/{client_id}/locations:
+    get:
+      tags:
+      - Location
+      summary: Return the locations of a Client corresponding to the given id
+      operationId: LocationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      x-replaced-by: /v0/administration/clients/{client_id}/clipped_locations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/main_location:
+    get:
+      tags:
+      - Location
+      description: Returns the main location of the client
+      operationId: LocationAPI.mainLocationByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: Sample date for selecting the main location. If omitted, the current date is used
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-replaced-by: /v0/administration/clients/{client_id}/main_location
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Location API main location by client id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /t/locations:
+    get:
+      tags:
+      - Location
+      summary: Returns every Location available from the LocationAPI
+      operationId: LocationAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/locations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - Location
+      summary: Create Location
+      description: Creating a root location is not allowed
+      operationId: LocationAPI.create
+      requestBody:
+        description: Location to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Parent object ID is required. Validation errors.
+        '404':
+          description: AGB code could not be found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/locations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/locations/{id}:
+    get:
+      tags:
+      - Location
+      summary: Return the Location corresponding to the given id
+      operationId: LocationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Location
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '404':
+          description: Location not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/locations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - Location
+      summary: Update Location
+      operationId: LocationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Location
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Location data to update.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Validation errors
+        '404':
+          description: Location could not be found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/locations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/locations/multiple:
+    get:
+      tags:
+      - Location
+      summary: Method used for requesting multiple Location objects using their ids
+      operationId: LocationAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/locations/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/locations/x-stream-connect/data:
+    get:
+      tags:
+      - Location
+      summary: Return all Location models in a streaming manner
+      operationId: LocationAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/locations/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/locations/x-stream-connect/updates:
+    get:
+      tags:
+      - Location
+      summary: Return all Location models which where updated since the date given in the…
+      operationId: LocationAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/locations/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/clipped_locations:
+    get:
+      tags:
+      - Location
+      summary: Return the locations of a Client corresponding to the given id
+      operationId: LocationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      x-replacement-for:
+      - /t/clients/{client_id}/locations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/main_location:
+    get:
+      tags:
+      - Location
+      description: Returns the main location of the client
+      operationId: LocationAPI.mainLocationByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: Sample date for selecting the main location. If omitted, the current date is used
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-replacement-for:
+      - /t/clients/{client_id}/main_location
+      summary: Location API main location by client id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/locations:
+    get:
+      tags:
+      - Location
+      summary: Returns every Location available from the LocationAPI
+      operationId: LocationAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/locations
+    post:
+      tags:
+      - Location
+      summary: Create Location
+      description: Creating a root location is not allowed
+      operationId: LocationAPI.create
+      requestBody:
+        description: Location to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Parent object ID is required. Validation errors.
+        '404':
+          description: AGB code could not be found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/locations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/locations/{id}:
+    get:
+      tags:
+      - Location
+      summary: Return the Location corresponding to the given id
+      operationId: LocationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Location
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '404':
+          description: Location not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/locations/{id}
+    put:
+      tags:
+      - Location
+      summary: Update Location
+      operationId: LocationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Location
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Location data to update.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Validation errors
+        '404':
+          description: Location could not be found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/locations/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/locations/multiple:
+    get:
+      tags:
+      - Location
+      summary: Method used for requesting multiple Location objects using their ids
+      operationId: LocationAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/locations/multiple
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/locations/data:
+    get:
+      tags:
+      - Location
+      summary: Return all Location models in a streaming manner
+      operationId: LocationAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/locations/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/locations/updates:
+    get:
+      tags:
+      - Location
+      summary: Return all Location models which where updated since the date given in the…
+      operationId: LocationAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/locations/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        identificationNo:
+          type: string
+        name:
+          type: string
+        agbCode:
+          type: string
+          description: 'Deprecated since: 14-03-2019 - nationally issued unique identifying code for organisations and persons that have a registration in the agb register'
+          deprecated: true
+        agbcodeId:
+          type: integer
+          format: int64
+        materializedPath:
+          type: string
+          description: automatically calculated field
+        wzaCode:
+          type: string
+          description: unique identifying code. Used by municipalities
+        intramuralLocation:
+          type: boolean
+        locationType:
+          type: string
+        capacity:
+          type: integer
+          format: int32
+          default: 0
+        costCenter:
+          type: string
+        roomType:
+          type: string
+        parentObjectId:
+          type: integer
+          description: location objectid of the parent where this location belongs to
+          format: int64
+        icon:
+          type: integer
+          format: int32
+          default: 0
+        medicineAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a medication location
+        ggzAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a mental healthcare residence location
+        waitingListAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a waiting list
+        registeredLocationNumber:
+          type: string
+          description: The location as registered for Wzd / Wvggz purposes
+        correspondenceName:
+          type: string
+          description: Correspondence name for use in mail correspondence when location name is not fit for mail correspondence (e.g. 'K PS fys 03'). Default correspondence name is the location name, unless set otherwise
+        hideCorrespondenceName:
+          type: boolean
+          description: Whether the correspondence name should be hidden
+        addressObjectId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Location model (no description)
+      example:
+        id: 1
+        beginDate: '2012-08-02T11:48:46.836+02:00'
+        endDate: '2012-08-02T11:48:46.836+02:00'
+        identificationNo: '1'
+        name: Nedap Demo
+        agbCode: '75750535'
+        agbcodeId: 1
+        materializedPath: '1.2'
+        wzaCode: '690535'
+        intramuralLocation: false
+        locationType: Locatie
+        capacity: 0
+        costCenter: costCenter
+        roomType: '1'
+        parentObjectId: 0
+        medicineAllowed: true
+        ggzAllowed: true
+        waitingListAllowed: true
+        addressObjectId: 1
+        registeredLocationNumber: '123456789012'
+        updatedAt: '2012-08-02T11:48:46.836+02:00'
+        createdAt: '2012-08-02T11:48:46.836+02:00'
+        icon: 1
+        correspondenceName: Pretty correspondence name
+        hideCorrespondenceName: false
+      xml:
+        name: location
+    list.LocationList:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+          xml:
+            name: location
+      description: LocationList model (no description)
+      example:
+        locations:
+        - id: 1
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-02T11:48:46.836+02:00'
+          identificationNo: '1'
+          name: Nedap Demo
+          agbCode: '75750535'
+          agbcodeId: 1
+          materializedPath: '1.2'
+          wzaCode: '690535'
+          intramuralLocation: false
+          locationType: Locatie
+          capacity: 0
+          costCenter: costCenter
+          roomType: '1'
+          parentObjectId: 0
+          icon: 0
+          registeredLocationNumber: '123456789012'
+          correspondenceName: Pretty correspondence name
+          hideCorrespondenceName: false
+      xml:
+        name: locations
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,241 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Involuntary Care Export Entry API
+  version: 0.0.0
+  description: 'Operations tagged dossier.InvoluntaryCareExportEntry across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.InvoluntaryCareExportEntry
+paths:
+  /t/dossier/involuntary_care_export/entries:
+    get:
+      tags:
+      - dossier.InvoluntaryCareExportEntry
+      summary: Get the involuntary care export entries for given parameters
+      operationId: dossier.InvoluntaryCareExportEntryAPI.entries
+      parameters:
+      - name: law
+        in: query
+        description: 'the law for which to get the involuntary care entries: 1 (Wzd), 2 (Wvggz) or 3 (Jz plus)'
+        schema:
+          type: integer
+          format: int32
+      - name: start
+        in: query
+        description: the start date of the export
+        schema:
+          type: string
+          format: date
+      - name: end
+        in: query
+        description: the end date of the export
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.InvoluntaryCareExportEntryList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/involuntary_care_export/entries
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/involuntary_care_export/entries:
+    get:
+      tags:
+      - dossier.InvoluntaryCareExportEntry
+      summary: Get the involuntary care export entries for given parameters
+      operationId: dossier.InvoluntaryCareExportEntryAPI.entries
+      parameters:
+      - name: law
+        in: query
+        description: 'the law for which to get the involuntary care entries: 1 (Wzd), 2 (Wvggz) or 3 (Jz plus)'
+        schema:
+          type: integer
+          format: int32
+      - name: start
+        in: query
+        description: the start date of the export
+        schema:
+          type: string
+          format: date
+      - name: end
+        in: query
+        description: the end date of the export
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.InvoluntaryCareExportEntryList'
+      x-replacement-for:
+      - /t/dossier/involuntary_care_export/entries
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.InvoluntaryCareExportEntry:
+      type: object
+      properties:
+        sourceId:
+          type: integer
+          description: The id of the source object for this export entry. It is not unique, because a single source can generate multiple export entries
+          format: int64
+        sourceType:
+          type: string
+          description: 'The type of source this export entry was generated from, possible values:
+
+            - registration
+
+            - care_plan_entry'
+        clientExternalId:
+          type: integer
+          description: The id of the client this export entry is linked to
+          format: int64
+        locationId:
+          type: integer
+          description: The location this measure was applied
+          format: int64
+        locationNumber:
+          type: string
+          description: The KvK vestigingsnummer for the location this export entry was linked to
+        careType:
+          type: integer
+          description: 'Optional in case of Wzd and JzPlus, the type of care:
+
+            - 1 structural and plannable
+
+            - 2 structural not plannable
+
+            - 3 unforseen'
+          format: int32
+        interventionType:
+          type: string
+          description: 'The type of involuntary care that was applied, possible values depend on the law and can be found in the ZIB that defines it:
+
+            For Wzd Measures https://zibs.nl/wiki/VrijheidsbeperkendeInterventie-v1.0(2020NL)#SoortInterventieWzdCodelijst
+
+            For Wvggz Measures https://zibs.nl/wiki/VrijheidsbeperkendeInterventie-v1.0(2020NL)#SoortInterventieWvggzCodelijst'
+        legalSituation:
+          type: string
+          description: 'The legal situation of the client, possible values from the ZIB: https://zibs.nl/wiki/JuridischeSituatie-v2.0(2020NL)'
+        beginSelfBinding:
+          type: string
+          description: Optional, only for Wvggz, the begin date of a self binding declaration
+          format: date
+        endSelfBinding:
+          type: string
+          description: Optional, only for Wvggz, the end date of a self binding declaration
+          format: date
+        beginDate:
+          type: string
+          description: The begin date of the registration
+          format: date-time
+        endDate:
+          type: string
+          description: Optional, the end date of the registration
+          format: date-time
+        durationAmount:
+          type: integer
+          description: 'Deprecated, use durationMinutesAmount which contains the same data but more granular.
+
+            Optional, the average and/or rounded duration of the application of the care'
+          format: int32
+          deprecated: true
+          x-deprecated-since: 01-07-2026
+        durationMinutesAmount:
+          type: integer
+          description: Optional, duration of the application of care in minutes.
+          format: int32
+        frequencyAmount:
+          type: integer
+          description: Optional, the amount of times this measures was applied, goes with frequencyUnit
+          format: int32
+        frequencyUnit:
+          type: integer
+          description: 'Optional, goes with frequencyAmount, possible values;
+
+            - 1 daily
+
+            - 2 weekly
+
+            - 3 monthly
+
+            - 4 yearly'
+          format: int32
+        ambulatory:
+          type: boolean
+          description: Whether or not the client was in the ambulatory setting when this measure was applied.
+      description: InvoluntaryCareExportEntry model (no description)
+      example:
+        sourceId: 1
+        sourceType: registration
+        clientExternalId: 2
+        locationId: 3
+        locationNumber: '03030303'
+        careType: 1
+        interventionType: '010101'
+        legalSituation: RM
+        beginSelfBinding: '2021-01-01'
+        endSelfBinding: '2021-12-31'
+        beginDate: '2021-02-01T01:01:00.000+01:00'
+        endDate: '2021-03-01T02:02:00.000+01:00'
+        durationAmount: 4
+        durationMinutesAmount: 240
+        frequencyAmount: 5
+        frequencyUnit: 1
+        ambulatory: false
+    dossier.list.InvoluntaryCareExportEntryList:
+      type: object
+      properties:
+        involuntaryCareExportEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.InvoluntaryCareExportEntry'
+      description: InvoluntaryCareExportEntryList model (no description)
+      example:
+        involuntaryCareExportEntries:
+        - sourceId: 1
+          sourceType: registration
+          clientExternalId: 2
+          locationId: 3
+          locationNumber: '03030303'
+          careType: 1
+          interventionType: '010101'
+          legalSituation: RM
+          beginSelfBinding: '2021-01-01'
+          endSelfBinding: '2021-12-31'
+          beginDate: '2021-02-01T01:01:00.000+01:00'
+          endDate: '2021-03-01T02:02:00.000+01:00'
+          durationAmount: 4
+          frequencyAmount: 5
+          frequencyUnit: 1
+          ambulatory: false
+        - sourceId: 1
+          sourceType: registration
+          clientExternalId: 2
+          locationId: 3
+          locationNumber: '03030303'
+          careType: 1
+          interventionType: '010101'
+          legalSituation: RM
+          beginSelfBinding: '2021-01-01'
+          endSelfBinding: '2021-12-31'
+          beginDate: '2021-02-01T01:01:00.000+01:00'
+          endDate: '2021-03-01T02:02:00.000+01:00'
+          durationAmount: 4
+          frequencyAmount: 5
+          frequencyUnit: 1
+          ambulatory: false
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Administration.Employee Workdays Overview Model…
+  version: 0.0.0
+  description: 'Operations tagged ons_administration.EmployeeWorkdaysOverviewModel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_administration.EmployeeWorkdaysOverviewModel
+paths:
+  /t/employees/workday_norms/workdays:
+    get:
+      tags:
+      - ons_administration.EmployeeWorkdaysOverviewModel
+      summary: Returns the workdays for the given employees according to the workday norm…
+      operationId: ons_administration.EmployeeWorkdaysOverviewModelAPI.getWorkdaysForEmployees
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.EmployeeWorkdaysOverviewModelList'
+        '400':
+          description: Validation errors
+        '404':
+          description: One or more employees not found
+      x-replaced-by: /v0/administration/employees/workday_norms/workdays
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/workday_norms/workdays:
+    get:
+      tags:
+      - ons_administration.EmployeeWorkdaysOverviewModel
+      summary: Returns the workdays for the given employees according to the workday norm…
+      operationId: ons_administration.EmployeeWorkdaysOverviewModelAPI.getWorkdaysForEmployees
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: valid_from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.EmployeeWorkdaysOverviewModelList'
+        '400':
+          description: Validation errors
+        '404':
+          description: One or more employees not found
+      x-replacement-for:
+      - /t/employees/workday_norms/workdays
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_administration.EmployeeWorkdaysOverviewModel:
+      type: object
+      properties:
+        employeeObjectId:
+          type: integer
+          description: The object id of the employee
+          format: int64
+          readOnly: true
+        endDate:
+          type: string
+          description: The end date of the overview period
+          format: date
+          readOnly: true
+        startDate:
+          type: string
+          description: The start date of the overview period
+          format: date
+          readOnly: true
+        workdays:
+          type: array
+          items:
+            type: string
+            description: The list of dates the employee has registered work in the overview period
+            format: date
+            readOnly: true
+          description: The list of dates the employee has registered work in the overview period
+          readOnly: true
+      description: 'Model for the workday overview for the workday norm clause. Note that this can deviate from workday counts
+
+        produced bij salary exports or reports, since these counts can be filtered by the export profiles.
+
+        '
+      readOnly: true
+      example:
+        employeeObjectId: 42
+        startDate: '2025-12-29'
+        endDate: '2026-01-04'
+        workdays:
+        - '2026-12-30'
+        - '2026-01-02'
+        - '2026-01-03'
+    ons_administration.list.EmployeeWorkdaysOverviewModelList:
+      type: object
+      properties:
+        employeeWorkdaysOverviewModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.EmployeeWorkdaysOverviewModel'
+      description: List of EmployeeWorkdaysOverviewModel
+      example:
+        employeeWorkdaysOverviewModels:
+        - employeeObjectId: 42
+          startDate: '2025-12-29'
+          endDate: '2026-01-04'
+          workdays:
+          - '2026-12-30'
+          - '2026-01-02'
+          - '2026-01-03'
+        - employeeObjectId: 43
+          startDate: '2025-12-29'
+          endDate: '2026-01-04'
+          workdays:
+          - '2026-12-29'
+          - '2026-01-30'
+          - '2026-01-03'
+          - '2026-01-04'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

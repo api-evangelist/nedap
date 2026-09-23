@@ -1,0 +1,341 @@
+openapi: 3.2.0
+info:
+  title: Nedap Practitioner Agb Code API
+  version: 0.0.0
+  description: 'Operations tagged PractitionerAgbCode across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: PractitionerAgbCode
+paths:
+  /t/employees/{employee_id}/agb_codes:
+    get:
+      tags:
+      - PractitionerAgbCode
+      summary: Return the AGB codes assigned to the employee corresponding to the provided id
+      operationId: PractitionerAgbCodeAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.PractitionerAgbCodeList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/agb_codes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - PractitionerAgbCode
+      summary: Creates the provided AGB code and assigns it to the employee corresponding to…
+      operationId: PractitionerAgbCodeAPI.createForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerAgbCode'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerAgbCode'
+      x-replaced-by: /v0/administration/employees/{employee_id}/agb_codes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/agb_codes/{agb_code_id}:
+    get:
+      tags:
+      - PractitionerAgbCode
+      summary: Return the AGB code with the provided id assigned to the employee corresponding…
+      operationId: PractitionerAgbCodeAPI.byEmployeeIdAndAgbId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: agb_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerAgbCode'
+      x-replaced-by: /v0/administration/employees/{employee_id}/agb_codes/{agb_code_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - PractitionerAgbCode
+      summary: Updates the provided AGB code assigned to the employee corresponding to the…
+      operationId: PractitionerAgbCodeAPI.updateForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: agb_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerAgbCode'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerAgbCode'
+      x-replaced-by: /v0/administration/employees/{employee_id}/agb_codes/{agb_code_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - PractitionerAgbCode
+      summary: Deletes the AGB code with the provided id assigned to the employee…
+      operationId: PractitionerAgbCodeAPI.deleteForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: agb_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No response was specified
+      x-replaced-by: /v0/administration/employees/{employee_id}/agb_codes/{agb_code_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/agb_codes:
+    get:
+      tags:
+      - PractitionerAgbCode
+      summary: Return the AGB codes assigned to the employee corresponding to the provided id
+      operationId: PractitionerAgbCodeAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.PractitionerAgbCodeList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/agb_codes
+    post:
+      tags:
+      - PractitionerAgbCode
+      summary: Creates the provided AGB code and assigns it to the employee corresponding to…
+      operationId: PractitionerAgbCodeAPI.createForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerAgbCode'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerAgbCode'
+      x-replacement-for:
+      - /t/employees/{employee_id}/agb_codes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/agb_codes/{agb_code_id}:
+    get:
+      tags:
+      - PractitionerAgbCode
+      summary: Return the AGB code with the provided id assigned to the employee corresponding…
+      operationId: PractitionerAgbCodeAPI.byEmployeeIdAndAgbId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: agb_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerAgbCode'
+      x-replacement-for:
+      - /t/employees/{employee_id}/agb_codes/{agb_code_id}
+    put:
+      tags:
+      - PractitionerAgbCode
+      summary: Updates the provided AGB code assigned to the employee corresponding to the…
+      operationId: PractitionerAgbCodeAPI.updateForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: agb_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerAgbCode'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerAgbCode'
+      x-replacement-for:
+      - /t/employees/{employee_id}/agb_codes/{agb_code_id}
+    delete:
+      tags:
+      - PractitionerAgbCode
+      summary: Deletes the AGB code with the provided id assigned to the employee…
+      operationId: PractitionerAgbCodeAPI.deleteForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: agb_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No response was specified
+      x-replacement-for:
+      - /t/employees/{employee_id}/agb_codes/{agb_code_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    PractitionerAgbCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+        beginDate:
+          type: string
+          description: The date at which the agbcode is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the agbcode is ending. Null means no ending.
+          format: date
+        primary:
+          type: boolean
+          description: Indicates if this is the primary agbcode for the employee
+      description: PractitionerAgbCode model (no description)
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+        beginDate: '2022-01-01'
+        endDate: '2022-12-31'
+        primary: true
+    list.PractitionerAgbCodeList:
+      type: object
+      properties:
+        practitionerAgbCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerAgbCode'
+      description: PractitionerAgbCodeList model (no description)
+      example:
+        practitionerAgbCodes:
+        - id: 1
+          employeeObjectId: 1
+          code: '12345678'
+          beginDate: '2022-01-01'
+          endDate: '2022-12-31'
+          primary: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,155 @@
+openapi: 3.2.0
+info:
+  title: Nedap Free Field Definition API
+  version: 0.0.0
+  description: 'Operations tagged FreeFieldDefinition across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: FreeFieldDefinition
+paths:
+  /t/free_field_definitions/x-stream-connect/data:
+    get:
+      tags:
+      - FreeFieldDefinition
+      summary: Retrieve all entries for free_field_definitions
+      operationId: FreeFieldDefinitionAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.FreeFieldDefinitionList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/FreeFieldDefinition'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/free_field_definitions/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/free_field_definitions/data:
+    get:
+      tags:
+      - FreeFieldDefinition
+      summary: Retrieve all entries for free_field_definitions
+      operationId: FreeFieldDefinitionAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.FreeFieldDefinitionList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/FreeFieldDefinition'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/free_field_definitions/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    FreeFieldType:
+      type: integer
+      oneOf:
+      - title: STRING
+        enum:
+        - 0
+      - title: NUMBER
+        enum:
+        - 1
+      - title: BOOLEAN
+        enum:
+        - 2
+      - title: DATE
+        enum:
+        - 3
+      - title: TIME
+        enum:
+        - 4
+      - title: DATETIME
+        enum:
+        - 5
+      description: 'Specifies the type of the free field. Possible values: 0 = STRING, 1 = NUMBER, 2 = BOOLEAN, 3 = DATE, 4 = TIME, 5 = DATETIME.'
+      example: 0
+    FreeFieldDefinition:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        categoryObjectId:
+          type: integer
+          description: ObjectID of the FreeFieldCategory
+          format: int64
+        freeFieldType:
+          $ref: '#/components/schemas/FreeFieldType'
+        length:
+          type: integer
+          description: Length of the field value
+          format: int32
+        name:
+          type: string
+          description: Name of the free field, e.g. Vrij veld 1
+        readOnly:
+          type: boolean
+        required:
+          type: boolean
+        sequenceNumber:
+          type: integer
+          description: Order in which the fields are displayed
+          format: int32
+      description: Table of the possible free fields per category (clients, employees).
+      example:
+        id: 1
+        categoryObjectId: 1
+        freeFieldType: 0
+        length: 40
+        name: Vrij veld 1
+        readOnly: true
+        required: true
+        sequenceNumber: 1
+      xml:
+        name: FreeFieldDefinition
+    list.FreeFieldDefinitionList:
+      type: object
+      properties:
+        freeFieldDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FreeFieldDefinition'
+          xml:
+            name: FreeFieldDefinition
+      description: FreeFieldDefinitionList model (no description)
+      example:
+        freeFieldDefinitions:
+        - id: 1
+          categoryObjectId: 1
+          freeFieldType: 0
+          length: 40
+          name: Vrij veld 1
+          readOnly: true
+          required: true
+          sequenceNumber: 1
+      xml:
+        name: freeFieldDefinitions
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

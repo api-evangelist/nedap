@@ -1,0 +1,676 @@
+openapi: 3.2.0
+info:
+  title: Nedap Client Employee Relation API
+  version: 0.0.0
+  description: 'Operations tagged ClientEmployeeRelation across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ClientEmployeeRelation
+paths:
+  /t/administration/client_employee_relations:
+    post:
+      tags:
+      - ClientEmployeeRelation
+      summary: Creates a ClientEmployeeRelation
+      operationId: ClientEmployeeRelationAPI.create
+      requestBody:
+        description: ClientEmployeeRelation to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientEmployeeRelation'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEmployeeRelation'
+        '400':
+          description: Client ID is required
+        '404':
+          description: Client not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_employee_relations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/administration/client_employee_relations/{id}:
+    get:
+      tags:
+      - ClientEmployeeRelation
+      summary: Returns the ClientEmployeeRelation corresponding to the given id
+      operationId: ClientEmployeeRelationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientEmployeeRelation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEmployeeRelation'
+        '404':
+          description: Client network employee not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_employee_relations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - ClientEmployeeRelation
+      summary: Updates the ClientEmployeeRelation corresponding to the given id
+      operationId: ClientEmployeeRelationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of ClientEmployeeRelation to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: ClientEmployeeRelation to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientEmployeeRelation'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEmployeeRelation'
+        '404':
+          description: Client network employee not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_employee_relations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - ClientEmployeeRelation
+      summary: Deletes the ClientEmployeeRelation corresponding to the given id
+      operationId: ClientEmployeeRelationAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of ClientEmployeeRelation to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the client employee relation
+        '404':
+          description: Client network employee not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_employee_relations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/administration/clients/{client_id}/client_employee_relations:
+    get:
+      tags:
+      - ClientEmployeeRelation
+      summary: Return the ClientEmployeeRelations corresponding to the given client id
+      operationId: ClientEmployeeRelationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id of the Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: Lower bound (inclusive) on the relation's validity period
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: Upper bound (exclusive) on the relation's validity period
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+          default: 2147483647
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientEmployeeRelationList'
+      x-replaced-by: /v0/administration/clients/{client_id}/client_employee_relations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/administration/employees/{employee_id}/client_employee_relations:
+    get:
+      tags:
+      - ClientEmployeeRelation
+      summary: Return the ClientEmployeeRelations corresponding to the given employee id
+      operationId: ClientEmployeeRelationAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id of the Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: Lower bound (inclusive) on the relation's validity period
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: Upper bound (exclusive) on the relation's validity period
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+          default: 2147483647
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientEmployeeRelationList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/client_employee_relations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_employee_relations:
+    post:
+      tags:
+      - ClientEmployeeRelation
+      summary: Creates a ClientEmployeeRelation
+      operationId: ClientEmployeeRelationAPI.create
+      requestBody:
+        description: ClientEmployeeRelation to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientEmployeeRelation'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEmployeeRelation'
+        '400':
+          description: Client ID is required
+        '404':
+          description: Client not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/administration/client_employee_relations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_employee_relations/{id}:
+    get:
+      tags:
+      - ClientEmployeeRelation
+      summary: Returns the ClientEmployeeRelation corresponding to the given id
+      operationId: ClientEmployeeRelationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientEmployeeRelation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEmployeeRelation'
+        '404':
+          description: Client network employee not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/administration/client_employee_relations/{id}
+    put:
+      tags:
+      - ClientEmployeeRelation
+      summary: Updates the ClientEmployeeRelation corresponding to the given id
+      operationId: ClientEmployeeRelationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of ClientEmployeeRelation to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: ClientEmployeeRelation to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientEmployeeRelation'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientEmployeeRelation'
+        '404':
+          description: Client network employee not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/administration/client_employee_relations/{id}
+    delete:
+      tags:
+      - ClientEmployeeRelation
+      summary: Deletes the ClientEmployeeRelation corresponding to the given id
+      operationId: ClientEmployeeRelationAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of ClientEmployeeRelation to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the client employee relation
+        '404':
+          description: Client network employee not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/administration/client_employee_relations/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/client_employee_relations:
+    get:
+      tags:
+      - ClientEmployeeRelation
+      summary: Return the ClientEmployeeRelations corresponding to the given client id
+      operationId: ClientEmployeeRelationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id of the Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: Lower bound (inclusive) on the relation's validity period
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: Upper bound (exclusive) on the relation's validity period
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+          default: 2147483647
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientEmployeeRelationList'
+      x-replacement-for:
+      - /t/administration/clients/{client_id}/client_employee_relations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/client_employee_relations:
+    get:
+      tags:
+      - ClientEmployeeRelation
+      summary: Return the ClientEmployeeRelations corresponding to the given employee id
+      operationId: ClientEmployeeRelationAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id of the Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: Lower bound (inclusive) on the relation's validity period
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: Upper bound (exclusive) on the relation's validity period
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+          default: 2147483647
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientEmployeeRelationList'
+      x-replacement-for:
+      - /t/administration/employees/{employee_id}/client_employee_relations
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    list.ClientEmployeeRelationList:
+      type: object
+      properties:
+        clientEmployeeRelations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientEmployeeRelation'
+      description: ClientEmployeeRelationList model (no description)
+      example:
+        clientEmployeeRelations:
+        - updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          id: 17
+          relationName: Cach
+          validFrom: '2013-11-28T11:49:58.000+01:00'
+          validTo: '2013-11-30T11:49:58.000+01:00'
+          relationType:
+            id: 6
+            name: Cach
+            primary: true
+            exclusive: true
+            negative: false
+            active: true
+            vektisCode: 1
+            reference: 1
+            relationCategory:
+              updatedAt: '2013-09-24T11:49:58.000+02:00'
+              createdAt: '2013-09-24T11:49:58.000+02:00'
+              id: 7
+              name: Standard
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+          relationTypeId: 6
+          clientId: 3
+          employeeId: 12
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    RelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        tag:
+          type: string
+        primary:
+          type: boolean
+        exclusive:
+          type: boolean
+        relevant:
+          type: boolean
+        negative:
+          type: boolean
+        active:
+          type: boolean
+        legal:
+          type: boolean
+        vbmResponsible:
+          type: boolean
+        vektisCode:
+          type: integer
+          description: See https://www.vektis.nl/standaardisatie/codelijsten/COD821-VEKT
+          format: int64
+        reference:
+          type: integer
+          description: Only available during transitional period.
+          format: int64
+          deprecated: true
+          x-deprecated-since: 03-10-2014
+        relationCategory:
+          $ref: '#/components/schemas/RelationCategory'
+      description: RelationType model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 6
+        name: Coach
+        tag: coach
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+    ClientEmployeeRelation:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        relationName:
+          type: string
+          description: The name of the relation type, equal to relationType.name.
+        validFrom:
+          type: string
+          format: date-time
+        validTo:
+          type: string
+          format: date-time
+        relationType:
+          $ref: '#/components/schemas/ClientEmployeeRelationType'
+        relationTypeId:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        employeeId:
+          type: integer
+          format: int64
+      description: ClientEmployeeRelation model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 5
+        relationName: Cach
+        validFrom: '2013-11-28T00:00:00.000+01:00'
+        validTo: '2013-11-30T00:00:00.000+01:00'
+        relationType:
+          id: 6
+          name: Cach
+          primary: true
+          exclusive: true
+          relevant: true
+          negative: false
+          active: true
+          legal: false
+          vbmResponsible: false
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+            createdBy: user
+            id: 7
+            name: Standard
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+        relationTypeId: 6
+        clientId: 3
+        employeeId: 12
+    ClientEmployeeRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/RelationType'
+      description: ClientEmployeeRelationType model (no description)
+      example:
+        id: 6
+        name: Coach
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

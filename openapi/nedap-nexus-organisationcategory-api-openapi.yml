@@ -1,0 +1,207 @@
+openapi: 3.2.0
+info:
+  title: Nedap Nexus.Organisation Category API
+  version: 0.0.0
+  description: 'Operations tagged nexus.OrganisationCategory across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: nexus.OrganisationCategory
+paths:
+  /t/nexus/organisation_categories:
+    get:
+      tags:
+      - nexus.OrganisationCategory
+      summary: Returns every OrganisationCategory available from the OrganisationCategoryAPI
+      operationId: nexus.OrganisationCategoryAPI.all
+      parameters:
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nexus.list.OrganisationCategoryList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/ons_nexus/organisation_categories
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/nexus/organisation_categories/{id}:
+    get:
+      tags:
+      - nexus.OrganisationCategory
+      operationId: nexus.OrganisationCategoryAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting OrganisationCategory
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nexus.OrganisationCategory'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/ons_nexus/organisation_categories/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Nexus organisation category API by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/ons_nexus/organisation_categories:
+    get:
+      tags:
+      - nexus.OrganisationCategory
+      summary: Returns every OrganisationCategory available from the OrganisationCategoryAPI
+      operationId: nexus.OrganisationCategoryAPI.all
+      parameters:
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nexus.list.OrganisationCategoryList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/nexus/organisation_categories
+    servers:
+    - url: https://api-development.ons.io
+  /v0/ons_nexus/organisation_categories/{id}:
+    get:
+      tags:
+      - nexus.OrganisationCategory
+      operationId: nexus.OrganisationCategoryAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting OrganisationCategory
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nexus.OrganisationCategory'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/nexus/organisation_categories/{id}
+      summary: Nexus organisation category API by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    nexus.OrganisationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        azr:
+          type: boolean
+        active:
+          type: boolean
+        vektisCode:
+          type: integer
+          format: int64
+        reference:
+          type: integer
+          description: Only available during transitional period.
+          format: int64
+          deprecated: true
+      description: OrganisationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Dentists
+        azr: false
+        active: false
+        vektisCode: 2
+        reference: 1
+    nexus.list.OrganisationCategoryList:
+      type: object
+      properties:
+        organisationCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/nexus.OrganisationCategory'
+      description: OrganisationCategoryList model (no description)
+      example:
+        organisationCategories:
+        - updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          id: 7
+          name: Dentists
+          azr: false
+          reference: 1
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

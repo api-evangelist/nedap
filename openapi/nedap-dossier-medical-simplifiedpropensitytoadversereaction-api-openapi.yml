@@ -1,0 +1,231 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.medical.Simplified Propensity To Adverse…
+  version: 0.0.0
+  description: 'Operations tagged dossier.medical.SimplifiedPropensityToAdverseReaction across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.medical.SimplifiedPropensityToAdverseReaction
+paths:
+  /t/dossier/medical/simplified_propensity_to_adverse_reaction:
+    put:
+      tags:
+      - dossier.medical.SimplifiedPropensityToAdverseReaction
+      summary: Updates the given SimplifiedPropensityToAdverseReaction
+      operationId: dossier.medical.SimplifiedPropensityToAdverseReactionAPI.update
+      requestBody:
+        description: SimplifiedPropensityToAdverseReaction to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.SimplifiedPropensityToAdverseReaction'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.SimplifiedPropensityToAdverseReaction'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/simplified/propensities_to_adverse_reaction
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - dossier.medical.SimplifiedPropensityToAdverseReaction
+      summary: Create SimplifiedPropensityToAdverseReaction
+      operationId: dossier.medical.SimplifiedPropensityToAdverseReactionAPI.create
+      requestBody:
+        description: SimplifiedPropensityToAdverseReaction to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.SimplifiedPropensityToAdverseReaction'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.SimplifiedPropensityToAdverseReaction'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/simplified/propensities_to_adverse_reaction
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/simplified/propensities_to_adverse_reaction:
+    put:
+      tags:
+      - dossier.medical.SimplifiedPropensityToAdverseReaction
+      summary: Updates the given SimplifiedPropensityToAdverseReaction
+      operationId: dossier.medical.SimplifiedPropensityToAdverseReactionAPI.update
+      requestBody:
+        description: SimplifiedPropensityToAdverseReaction to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.SimplifiedPropensityToAdverseReaction'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.SimplifiedPropensityToAdverseReaction'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/simplified_propensity_to_adverse_reaction
+    post:
+      tags:
+      - dossier.medical.SimplifiedPropensityToAdverseReaction
+      summary: Create SimplifiedPropensityToAdverseReaction
+      operationId: dossier.medical.SimplifiedPropensityToAdverseReactionAPI.create
+      requestBody:
+        description: SimplifiedPropensityToAdverseReaction to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.medical.SimplifiedPropensityToAdverseReaction'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.SimplifiedPropensityToAdverseReaction'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/simplified_propensity_to_adverse_reaction
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.medical.CauseBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      description: CauseBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 256259004 | pollen |
+        name: Pollen
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
+    dossier.medical.SimplifiedPropensityToAdverseReaction:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        causeBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.CauseBuilder'
+        causes:
+          type: array
+          items:
+            type: string
+        immutable:
+          type: boolean
+          description: Whether or not the propensity to adverse reaction is immutable
+      description: SimplifiedPropensityToAdverseReaction model (no description)
+      example:
+        id: 5
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 4
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T12:00:00.000+01:00'
+        updatedAt: '2014-11-10T12:00:00.000+01:00'
+        causeBuilders:
+        - system: CUSTOM
+          query: Stofmijt
+        - system: SNOMED
+          query: 256259004 | pollen |
+          name: Pollen
+        causes:
+        - Diarree
+        - Misselijkheid
+        - Duizeligheid
+        immutable: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

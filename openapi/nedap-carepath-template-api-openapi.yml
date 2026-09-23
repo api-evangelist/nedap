@@ -1,0 +1,396 @@
+openapi: 3.2.0
+info:
+  title: Nedap Carepath.Template API
+  version: 0.0.0
+  description: 'Operations tagged carepath.Template across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: carepath.Template
+paths:
+  /t/carepath/template/v2:
+    post:
+      tags:
+      - carepath.Template
+      summary: Create Template
+      operationId: carepath.TemplateAPI.create
+      requestBody:
+        description: Template to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/carepath.Template'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carepath.Template'
+        '400':
+          description: Invalid template
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/zorgpaden/template/v2
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/carepath/template/v2/{uuid}:
+    get:
+      tags:
+      - carepath.Template
+      summary: Fetch a care path template
+      operationId: carepath.TemplateAPI.byId
+      parameters:
+      - name: uuid
+        in: path
+        description: used for selecting Template
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carepath.Template'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+        '404':
+          description: Template not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/zorgpaden/template/v2/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/zorgpaden/template/v2:
+    post:
+      tags:
+      - carepath.Template
+      summary: Create Template
+      operationId: carepath.TemplateAPI.create
+      requestBody:
+        description: Template to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/carepath.Template'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carepath.Template'
+        '400':
+          description: Invalid template
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/carepath/template/v2
+    servers:
+    - url: https://api-development.ons.io
+  /v0/zorgpaden/template/v2/{uuid}:
+    get:
+      tags:
+      - carepath.Template
+      summary: Fetch a care path template
+      operationId: carepath.TemplateAPI.byId
+      parameters:
+      - name: uuid
+        in: path
+        description: used for selecting Template
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carepath.Template'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+        '404':
+          description: Template not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/carepath/template/v2/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    carepath.Template:
+      required:
+      - uuid
+      - name
+      - modules
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: The UUID of this template
+          x-cupido-id: true
+        name:
+          type: string
+          description: The name of this template
+        description:
+          type: string
+          description: A description of this template
+        modules:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/carepath.ModuleTemplate'
+            xml:
+              name: moduleTemplate
+          description: The modules in this template
+          xml:
+            wrapped: true
+      description: A template which may be used for creating care paths for clients using the web interface
+      example:
+        uuid: 46ff9856-a645-4764-be01-9c64668bf93b
+        name: Dummy
+        description: Dummy description
+        modules:
+        - uuid: Dummy
+          name: Dummy
+          duration: 0
+          precededBy: Dummy2
+          offset: 0
+          intents:
+          - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+            timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+            duration: 7
+            offset: 0
+            hourTypeId: 1
+            frequency: 3
+            quantityAmount: 4
+            quantityUnit: HOUR
+            recurrenceInterval: 1
+            recurrenceType: WEEK
+          templateRoot: true
+      xml:
+        name: template
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    carepath.ModuleTemplate:
+      required:
+      - uuid
+      - name
+      - duration
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: 'The UUID of this module. May be used to reference an existing module if this module template
+
+            is already part of another care path template'
+          x-cupido-id: true
+        name:
+          type: string
+          description: The name of the module
+        duration:
+          type: integer
+          description: Duration in days
+          format: int64
+        precededBy:
+          type: string
+          description: UUID of care path module which precedes this module.
+        offset:
+          type: integer
+          description: The offset in days
+          format: int64
+        intents:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/carepath.IntentTemplate'
+            xml:
+              name: intentTemplate
+          description: The templates of intents contained in this module template
+          xml:
+            wrapped: true
+        templateRoot:
+          type: boolean
+          description: 'This signifies that this module template may also be used without being embedded
+
+            in a care path template.'
+          default: false
+          deprecated: true
+          x-deprecated-since: 23-09-2022
+      description: ModuleTemplate model (no description)
+      example:
+        uuid: Dummy
+        name: Dummy
+        duration: 0
+        precededBy: Dummy2
+        offset: 0
+        intents:
+        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+          duration: 7
+          offset: 0
+          hourTypeId: 1
+          frequency: 3
+          quantityAmount: 4
+          quantityUnit: HOUR
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+        templateRoot: true
+      xml:
+        name: moduleTemplate
+    carepath.IntentTemplate:
+      required:
+      - timelineUuid
+      - duration
+      - offset
+      - hourTypeId
+      - frequency
+      - quantityAmount
+      - quantityUnit
+      - recurrenceInterval
+      - recurrenceType
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Object identifier
+          x-cupido-id: true
+        timelineUuid:
+          type: string
+          description: UUID for the timeline that groups this Intent with other Intents.
+        duration:
+          type: integer
+          description: Duration in days
+          format: int64
+        offset:
+          type: integer
+          description: Offset in days
+          format: int64
+        hourTypeId:
+          type: integer
+          description: The HourType of the Intent
+          format: int64
+        frequency:
+          type: integer
+          description: 'The number of times this intent is present within the recurrence interval. It can be seen as the multiplier of the
+
+            quantity. For example in ''3 times 4 hours every week'', 3 is the frequency.'
+          format: int32
+        quantityAmount:
+          type: integer
+          description: The amount matching the quantity
+          format: int32
+        quantityUnit:
+          type: string
+          description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+            quantity of th the care that is intended. For example:
+
+            - 2, HOUR means ''2 hours''
+
+            - 120, MINUTE means ''120 minutes'''
+        recurrenceInterval:
+          type: integer
+          description: The recurrence interval
+          format: int32
+        recurrenceType:
+          type: string
+          description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
+
+            Examples:
+
+            - 1, WEEK corresponds to ''every week''
+
+            - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
+        sourceDescription:
+          type: string
+          description: Free text description.
+      description: 'Mostly copied from Intent, but without client information and using relative offsets.
+
+
+        @see com.nedap.healthcare.domain.arrangement.Intent'
+      example:
+        uuid: '12345'
+        timelineUuid: '12344'
+        duration: 0
+        offset: 0
+        hourTypeId: 12
+        frequency: 3
+        quantityAmount: 1
+        quantityUnit: DAY_PART
+        recurrenceInterval: 1
+        recurrenceType: WEEK
+        sourceDescription: for someone
+      xml:
+        name: intentTemplate
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

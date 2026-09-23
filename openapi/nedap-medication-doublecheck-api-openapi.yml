@@ -1,0 +1,563 @@
+openapi: 3.2.0
+info:
+  title: Nedap Medication.Double Check API
+  version: 0.0.0
+  description: 'Operations tagged medication.DoubleCheck across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: medication.DoubleCheck
+paths:
+  /t/medication/double_checks/{uuid}:
+    get:
+      tags:
+      - medication.DoubleCheck
+      operationId: medication.DoubleCheckAPI.byId
+      parameters:
+      - name: uuid
+        in: path
+        description: used for selecting DoubleCheck
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.DoubleCheck'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/medicatie_legacy/double_checks/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Medication double check API by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/medicatie_legacy/double_checks/{uuid}:
+    get:
+      tags:
+      - medication.DoubleCheck
+      operationId: medication.DoubleCheckAPI.byId
+      parameters:
+      - name: uuid
+        in: path
+        description: used for selecting DoubleCheck
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.DoubleCheck'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/medication/double_checks/{uuid}
+      summary: Medication double check API by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          description: Starting time with inclusive boundary
+          format: date
+        end:
+          type: string
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+      example:
+        start: '2018-03-26'
+        end: '2018-04-02'
+    medication.DoubleCheck:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique ID for the double check.
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: Client who will receive the medication.
+          format: int64
+        medicationChartDate:
+          type: string
+          description: 'Calendar day on which the medication should be taken formatted as YYYY-MM-DD.
+
+            This date is assumed to be in the time zone of the client.'
+          format: date
+        administrationMoment:
+          type: string
+          description: 'The moment at which the medication was planned (e.g. ''08:00''). Note that
+
+            this specifically does not model a time object because the time is
+
+            considered to be relative to the client''s current timezone. In general
+
+            it should be presented without interpretation.'
+        quantityToAdminister:
+          type: string
+          description: 'In some cases, a user administering medication may want to include the
+
+            quantity they are proposing to administer.
+
+
+            Numerical value (with implicit precision)
+
+            The precision is implied from the value, so ''0.10'' is different from ''0.1''
+
+            ''.'' is used as the expected decimal separator
+
+
+            Optional.'
+        administrationAgreement:
+          allOf:
+          - $ref: '#/components/schemas/drugstore.AdministrationAgreement'
+          description: 'Nictic Medicatieproces
+
+            Based on https://simplifier.net/nictizstu3-zib2017/zib-administrationagreement'
+        createdAt:
+          type: string
+          description: Describes when the request for this DoubleCheck was started
+          format: date-time
+        decision:
+          type: string
+          description: 'Most recent decision made by a checker about this double check. Valid
+
+            values are:
+
+
+            - pending: Same as blank, double check is still being performed.
+
+            - cancelled: Sender cancelled the double check
+
+            - rejected: Checker rejected the double check because there is not
+
+            enough information (see decisionReason for details).
+
+            - stopped: Checker stopped administration because the double check
+
+            is prepared incorrectly.
+
+            - timeout: Service failed to find checker in a timely manner.
+
+            - verified: Checker verified that the medication was correctly
+
+            prepared.
+
+
+            Note that this value may change over time when new changes come in.'
+        decisionAt:
+          type: string
+          description: Time at which the decision was last changed; this may change over time.
+          format: date-time
+      description: 'A DoubleCheck holds all data surrounding a double check which was created
+
+        for a specific client and medication administration moment.'
+      example:
+        uuid: 3373cf0b-4a06-4f3d-96fa-ea680e1f9baa
+        clientId: 1
+        medicationChartDate: '2018-09-27'
+        administrationMoment: 08:00
+        quantityToAdminister: '2'
+        administrationAgreement:
+          medication:
+            text: Carbasalaatcalcium Sandoz 600 30 sac
+            requiresDoubleCheck: true
+          dosage:
+            text: '3 x PER DAG 1 CAPSULE
+
+              Felle zon en UVlamp op de huid vermijden
+
+              Kuur afmaken
+
+              Zittend of staand innemen met veel water
+
+              1 uur voor of 2 uur na het eten innemen
+
+              Niet met zuivel innemen, zie bijsluiter'
+            doseAndRate: 3 x PER DAG 1 CAPSULE
+            additionalInstructions:
+            - codings:
+              - system: urn:oid:2.16.840.1.113883.2.4.4.5
+                code: '7'
+                display: Felle zon en UVlamp op de huid vermijden
+              text: Felle zon en UVlamp op de huid vermijden
+            - codings:
+              - system: urn:oid:2.16.840.1.113883.2.4.4.5
+                code: '12'
+                display: Kuur afmaken
+              text: Kuur afmaken
+            - codings:
+              - system: urn:oid:2.16.840.1.113883.2.4.4.5
+                code: '17'
+                display: Zittend of staand innemen met veel water
+              text: Zittend of staand innemen met veel water
+            patientInstructions:
+            - 1 uur voor of 2 uur na het eten innemen
+            - Niet met zuivel innemen, zie bijsluiter
+            route:
+              codings:
+              - system: urn:oid:2.16.840.1.113883.2.4.4.9
+                code: '2'
+                display: IM
+              text: INTRAMUSCULAIR
+            asNeeded: false
+            moments:
+            - 08:00
+            - '12:00'
+            - '18:15'
+            scheduledAdministrations:
+            - time: 08:00:00
+              quantity:
+                value: '1.00'
+                unit: capsules
+            - time: '12:00:00'
+              quantity:
+                value: '1.00'
+                unit: capsules
+            - time: '18:15:00'
+              quantity:
+                value: '1.00'
+                unit: capsules
+          periodOfUse:
+            start: '2018-03-26'
+            end: '2018-04-02'
+          distributedAsUnitDose: false
+          updatedAt: '2018-03-25T01:59:59.000+01:00'
+          entityTag: 634d9ac28f1b949e73f50e67321619d97f506ba612d449f8a9a331de647314b5
+        createdAt: '2018-09-27T00:00:00.000+02:00'
+        decision: verified
+        decisionAt: '2018-09-27T00:00:00.000+02:00'
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+          description: Identity of the terminology system (URI)
+        code:
+          type: string
+          description: Symbol in syntax defined by the system
+        display:
+          type: string
+          description: Representation defined by the system
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#Coding
+      example:
+        system: http://snomed.info/sct
+        code: '25064002'
+        display: Headache
+    drugstore.Dosage:
+      type: object
+      properties:
+        text:
+          type: string
+          description: 'Textual description of the complete dosage instructions.
+
+            This includes the doseAndRate, and all additionalInstructions and patientInstructions.'
+        doseAndRate:
+          type: string
+          description: Textual description of the amount and frequency of administration.
+        additionalInstructions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodeableConcept'
+          description: Coded instructions and warnings about how to take the medication.
+        patientInstructions:
+          type: array
+          items:
+            type: string
+          description: Free-text supplemental instructions and warnings about how to take the medication.
+        route:
+          allOf:
+          - $ref: '#/components/schemas/CodeableConcept'
+          description: The route through which the medication is administered (oral, nasal, intravenous, etc.)
+        asNeeded:
+          type: boolean
+          description: 'As needed means that the dose is only to be administered under certain conditions.
+
+            The condition for administering medication can be:
+
+            - a physiological measurement value (plasma glucose concentration, body temperature, blood pressure);
+
+            - a symptom or other circumstance (in the event of a headache, or itch).'
+        moments:
+          type: array
+          items:
+            type: string
+          description: Please use 'scheduled_administrations' instead.
+          deprecated: true
+        scheduledAdministrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/drugstore.ScheduledAdministration'
+          description: A list of ScheduledAdministrations
+      description: 'Nictic Medicatieproces
+
+        Based on https://simplifier.net/NictizSTU3-Zib2017/ZIB-InstructionsForUse'
+      example:
+        text: '3 x PER DAG 1 CAPSULE
+
+          Felle zon en UVlamp op de huid vermijden
+
+          Kuur afmaken
+
+          Zittend of staand innemen met veel water
+
+          1 uur voor of 2 uur na het eten innemen
+
+          Niet met zuivel innemen, zie bijsluiter'
+        doseAndRate: 3 x PER DAG 1 CAPSULE
+        additionalInstructions:
+        - codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.5
+            code: '7'
+            display: Felle zon en UVlamp op de huid vermijden
+          text: Felle zon en UVlamp op de huid vermijden
+        - codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.5
+            code: '12'
+            display: Kuur afmaken
+          text: Kuur afmaken
+        - codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.5
+            code: '17'
+            display: Zittend of staand innemen met veel water
+          text: Zittend of staand innemen met veel water
+        patientInstructions:
+        - 1 uur voor of 2 uur na het eten innemen
+        - Niet met zuivel innemen, zie bijsluiter
+        route:
+          codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.9
+            code: '2'
+            display: IM
+          text: INTRAMUSCULAIR
+        asNeeded: false
+        moments:
+        - 08:00
+        - '12:00'
+        - '18:15'
+        scheduledAdministrations:
+        - time: 08:00:00
+          quantity:
+            value: '1.00'
+            unit: capsules
+        - time: '12:00:00'
+          quantity:
+            value: '1.00'
+            unit: capsules
+        - time: '18:15:00'
+          quantity:
+            value: '1.00'
+            unit: capsules
+    drugstore.AdministrationAgreement:
+      type: object
+      properties:
+        medication:
+          allOf:
+          - $ref: '#/components/schemas/drugstore.Medication'
+          description: 'A medicinal product as defined by the Dutch Medication v9 project.
+
+            https://simplifier.net/NictizSTU3-Zib2017/ZIB-Product'
+        dosage:
+          allOf:
+          - $ref: '#/components/schemas/drugstore.Dosage'
+          description: 'Instructions for the use of the medication, e.g. dose and route of administration.
+
+            https://simplifier.net/NictizSTU3-Zib2017/ZIB-InstructionsForUse'
+        periodOfUse:
+          allOf:
+          - $ref: '#/components/schemas/Period'
+          description: Period in which the medication is/was taken.
+        distributedAsUnitDose:
+          type: boolean
+          description: Indicates if medication is distributed as a unit dose.
+        updatedAt:
+          type: string
+          description: The date and time of the last change made to this administration agreement.
+          format: date-time
+        entityTag:
+          type: string
+          description: 'Changes when the contents of the agreement changes, similar to a weak
+
+            entity tag in HTTP.'
+      description: 'Nictic Medicatieproces
+
+        Based on https://simplifier.net/nictizstu3-zib2017/zibadministrationagreement'
+      example:
+        medication:
+          text: Carbasalaatcalcium Sandoz 600 30 sac
+          requiresDoubleCheck: true
+        dosage:
+          text: '3 x PER DAG 1 CAPSULE
+
+            Felle zon en UVlamp op de huid vermijden
+
+            Kuur afmaken
+
+            Zittend of staand innemen met veel water
+
+            1 uur voor of 2 uur na het eten innemen
+
+            Niet met zuivel innemen, zie bijsluiter'
+          doseAndRate: 3 x PER DAG 1 CAPSULE
+          additionalInstructions:
+          - codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.5
+              code: '7'
+              display: Felle zon en UVlamp op de huid vermijden
+            text: Felle zon en UVlamp op de huid vermijden
+          - codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.5
+              code: '12'
+              display: Kuur afmaken
+            text: Kuur afmaken
+          - codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.5
+              code: '17'
+              display: Zittend of staand innemen met veel water
+            text: Zittend of staand innemen met veel water
+          patientInstructions:
+          - 1 uur voor of 2 uur na het eten innemen
+          - Niet met zuivel innemen, zie bijsluiter
+          route:
+            codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.9
+              code: '2'
+              display: IM
+            text: INTRAMUSCULAIR
+          asNeeded: false
+          moments:
+          - 08:00
+          - '12:00'
+          - '18:15'
+          scheduledAdministrations:
+          - time: 08:00:00
+            quantity:
+              value: '1.00'
+              unit: capsules
+          - time: '12:00:00'
+            quantity:
+              value: '1.00'
+              unit: capsules
+          - time: '18:15:00'
+            quantity:
+              value: '1.00'
+              unit: capsules
+        periodOfUse:
+          start: '2018-03-26'
+          end: '2018-04-02'
+        distributedAsUnitDose: false
+        updatedAt: '2018-03-25T01:59:59.000+01:00'
+        entityTag: 634d9ac28f1b949e73f50e67321619d97f506ba612d449f8a9a331de647314b5
+    drugstore.Medication:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CodeableConcept'
+      properties:
+        requiresDoubleCheck:
+          type: boolean
+          description: 'Set to true if medication is present on the KNMP list to double check.
+
+            https://www.knmp.nl/downloads/dubbel-te-controleren-lijst.pdf
+
+            Not part of FHIR profile.'
+      description: 'Nictiz Medicatieproces
+
+        Based on https://simplifier.net/NictizSTU3-Zib2017/ZIB-Product'
+      example:
+        codings:
+        - system: urn:oid:2.16.840.1.113883.2.4.4.8
+          code: '14292998'
+          display: Carbasalaatcalcium Sandoz 600 30 sac
+        text: Carbasalaatcalcium Sandoz 600 30 sac
+        requiresDoubleCheck: true
+    CodeableConcept:
+      type: object
+      properties:
+        codings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+          description: List of Codings defined by a terminology system
+        text:
+          type: string
+          description: Plain text representation of the concept
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#codeableconcept
+      example:
+        codings:
+        - system: http://hl7.org/fhir/sid/icd-10
+          code: R51
+        - system: http://snomed.info/sct
+          code: '25064002'
+          display: Headache
+        text: general headache
+    drugstore.ScheduledAdministration:
+      type: object
+      properties:
+        time:
+          type: string
+          description: 'Describes the planned time for this ScheduledAdministration
+
+            A time during the day, with no date specified.
+
+            Seconds MAY be provided due to schema type constraints
+
+            but may be zero-filled and may be ignored. The same holds
+
+            for milliseceonds.
+
+            In regex this reads:
+
+            ([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]+)?)?'
+        quantity:
+          allOf:
+          - $ref: '#/components/schemas/Quantity'
+          description: The quantity for this AdministrationMoment
+      description: ScheduledAdministration model (no description)
+      example:
+        time: 08:00:00
+        quantity:
+          value: '1.00'
+          unit: capsules
+          system: http://snomed.info/sct
+          code: '385049006'
+    Quantity:
+      type: object
+      properties:
+        value:
+          type: string
+          description: 'Numerical value (with implicit precision)
+
+            The precision is implied from the value, so ''0.10'' is different from ''0.1''
+
+            ''.'' is used as the expected decimal separator'
+        unit:
+          type: string
+          description: Unit representation (e.g. 'capsules' or 'mg/L')
+        system:
+          type: string
+          description: System that defines coded unit form (e.g. 'http://unitsofmeasure.org')
+        code:
+          type: string
+          description: Coded form of the unit (e.g. 'ug' or 's')
+      description: 'A measured or measurable amount
+
+        Based on http://hl7.org/fhir/STU3/datatypes-examples.html#Quantity'
+      example:
+        value: '1.00'
+        unit: capsules
+        system: http://snomed.info/sct
+        code: '385049006'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,339 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Product API
+  version: 0.0.0
+  description: 'Operations tagged finance.Product across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.Product
+paths:
+  /t/finance/finance_types/{finance_type_id}/products:
+    get:
+      tags:
+      - finance.Product
+      summary: Return the Products of a FinanceType corresponding to the given id
+      operationId: finance.ProductAPI.byFinanceTypeId
+      parameters:
+      - name: finance_type_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ProductList'
+      x-replaced-by: /v0/administration/finance/finance_types/{finance_type_id}/products
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/products/{id}:
+    get:
+      tags:
+      - finance.Product
+      summary: Return the Product corresponding to the given id
+      operationId: finance.ProductAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Product
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.Product'
+        '404':
+          description: Product not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/products/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/products/x-stream-connect/data:
+    get:
+      tags:
+      - finance.Product
+      summary: Return all Product models in a streaming manner
+      operationId: finance.ProductAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ProductList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Product'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/products/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/products/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.Product
+      summary: Return all Product models which where updated since the date given in the…
+      operationId: finance.ProductAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ProductList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Product'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/products/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/finance_types/{finance_type_id}/products:
+    get:
+      tags:
+      - finance.Product
+      summary: Return the Products of a FinanceType corresponding to the given id
+      operationId: finance.ProductAPI.byFinanceTypeId
+      parameters:
+      - name: finance_type_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ProductList'
+      x-replacement-for:
+      - /t/finance/finance_types/{finance_type_id}/products
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/products/{id}:
+    get:
+      tags:
+      - finance.Product
+      summary: Return the Product corresponding to the given id
+      operationId: finance.ProductAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Product
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.Product'
+        '404':
+          description: Product not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/products/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/products/data:
+    get:
+      tags:
+      - finance.Product
+      summary: Return all Product models in a streaming manner
+      operationId: finance.ProductAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ProductList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Product'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/products/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/products/updates:
+    get:
+      tags:
+      - finance.Product
+      summary: Return all Product models which where updated since the date given in the…
+      operationId: finance.ProductAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ProductList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.Product'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/products/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        productCode:
+          type: string
+          description: 'Product code as defined by standards, i.e., as filled in for declarations and invoices.
+
+            Not set for self-defined (non declaration standard) products (i.e., custom invoicing), or grouped products (municipality product groups).
+
+            Primary care products are an exception here in that they use the code field for this.'
+        code:
+          type: string
+          description: 'Product code, when defined it can be used for importing (xml).
+
+            Primary care products use this field for the declaration standard.'
+        userIdentifier:
+          type: string
+        type:
+          type: integer
+          description: 'Indicates a type of product;
+
+            0, 5             = self defined
+
+            1, 2, 3, 4       = WLZ
+
+            6                = DBC
+
+            7                = primary care
+
+            8                = municipality
+
+            9                = product category (for JW/WMO)
+
+            10, 11           = forensic care
+
+            12, 13, 14, 15   = *GGZ'
+          format: int32
+        description:
+          type: string
+        financeTypeId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        declarable:
+          type: boolean
+      description: Product model (no description)
+      example:
+        id: 1
+        productCode: Dummy
+        code: Dummy
+        userIdentifier: Dummy
+        type: 1
+        description: Dummy
+        financeTypeId: 1
+        beginDate: '2016-01-28'
+        endDate: '2016-01-29'
+        declarable: true
+      xml:
+        name: product
+    finance.list.ProductList:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.Product'
+          xml:
+            name: product
+      description: ProductList model (no description)
+      example:
+        products:
+        - id: 1
+          productCode: Dummy
+          code: Dummy
+          userIdentifier: Dummy
+          type: 1
+          description: Dummy
+          financeTypeId: 1
+          beginDate: '2016-01-28'
+          endDate: '2016-01-29'
+          declarable: true
+      xml:
+        name: products
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

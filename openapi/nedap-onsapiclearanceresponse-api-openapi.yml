@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: OnsApi Scopes and Clearances OpenAPI Specification Ons API…
+  version: v0
+tags:
+- name: OnsApiClearanceResponse
+paths:
+  /v0/authorization/clearance_for_user:
+    get:
+      tags:
+      - OnsApiClearanceResponse
+      summary: Retrieve clearance for a user in the context of a client and an Ons Autorisatie…
+      operationId: clearanceForUser
+      parameters:
+      - name: user_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: right
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnsApiClearanceResponse'
+  /v0/authorization/clearance_for_employee:
+    get:
+      tags:
+      - OnsApiClearanceResponse
+      summary: Retrieve clearance for an employee in the context of a client and an Ons…
+      operationId: clearanceForEmployee
+      parameters:
+      - name: employee_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: right
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnsApiClearanceResponse'
+components:
+  schemas:
+    OnsApiClearanceResponse:
+      type: object
+      properties:
+        active:
+          type: boolean

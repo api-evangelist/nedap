@@ -1,0 +1,234 @@
+openapi: 3.2.0
+info:
+  title: Nedap Carepath.Care Path API
+  version: 0.0.0
+  description: 'Operations tagged carepath.CarePath across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: carepath.CarePath
+paths:
+  /t/carepath/{uuid}:
+    get:
+      tags:
+      - carepath.CarePath
+      summary: Fetch a care path
+      operationId: carepath.CarePathAPI.byId
+      parameters:
+      - name: uuid
+        in: path
+        description: used for selecting CarePath
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carepath.CarePath'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+        '404':
+          description: Care path not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/zorgpaden/carepath/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/carepath/active/{client_id}:
+    get:
+      tags:
+      - carepath.CarePath
+      summary: Return the active care path for a client
+      operationId: carepath.CarePathAPI.getActiveByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: The client ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carepath.CarePath'
+      x-replaced-by: /v0/zorgpaden/carepath/active/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/zorgpaden/carepath/{uuid}:
+    get:
+      tags:
+      - carepath.CarePath
+      summary: Fetch a care path
+      operationId: carepath.CarePathAPI.byId
+      parameters:
+      - name: uuid
+        in: path
+        description: used for selecting CarePath
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carepath.CarePath'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+        '404':
+          description: Care path not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/carepath/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/zorgpaden/carepath/active/{client_id}:
+    get:
+      tags:
+      - carepath.CarePath
+      summary: Return the active care path for a client
+      operationId: carepath.CarePathAPI.getActiveByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: The client ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carepath.CarePath'
+      x-replacement-for:
+      - /t/carepath/active/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    carepath.CarePath:
+      required:
+      - uuid
+      - clientId
+      - name
+      - startDate
+      - endDate
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: The UUID of this template
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: The client object identifier
+          format: int64
+        name:
+          type: string
+          description: The name of the first template used for creating this care path
+        startDate:
+          type: string
+          description: The start date of this care path
+          format: date
+        endDate:
+          type: string
+          description: The end date of this care path
+          format: date
+        templates:
+          type: array
+          items:
+            type: string
+            description: The templates that have been used to create this care path
+            xml:
+              name: template
+          description: The templates that have been used to create this care path
+          xml:
+            wrapped: true
+        activeModules:
+          type: array
+          items:
+            type: string
+            description: Modules that are active in this care path
+            xml:
+              name: activeModule
+          description: Modules that are active in this care path
+          xml:
+            wrapped: true
+      description: A 'Zorgpad' of a client
+      example:
+        uuid: a96d1820-bf15-4797-961b-735407ee7230
+        clientId: 123
+        name: Dummy
+        startDate: '2010-10-10'
+        endDate: '2011-01-01'
+        templates:
+        - Template
+        activeModules:
+        - Module
+      xml:
+        name: carePath
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

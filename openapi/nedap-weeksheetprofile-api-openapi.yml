@@ -1,0 +1,390 @@
+openapi: 3.2.0
+info:
+  title: Nedap Weeksheet Profile API
+  version: 0.0.0
+  description: 'Operations tagged WeeksheetProfile across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: WeeksheetProfile
+paths:
+  /t/employees/{employee_id}/weeksheet_profile:
+    get:
+      tags:
+      - WeeksheetProfile
+      summary: Return the weeksheet profile of a employee corresponding to the given employee…
+      operationId: WeeksheetProfileAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeksheetProfile'
+      x-replaced-by: /v0/administration/employees/{employee_id}/weeksheet_profile
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - WeeksheetProfile
+      summary: Delete the weeksheet profile of a employee corresponding to the given employee…
+      operationId: WeeksheetProfileAPI.deleteByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: Employee not found
+      x-replaced-by: /v0/administration/employees/{employee_id}/weeksheet_profile
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/weeksheet_profile/{weeksheet_profile_id}:
+    put:
+      tags:
+      - WeeksheetProfile
+      summary: Update the weeksheet profile of an employee corresponding to the given employee…
+      operationId: WeeksheetProfileAPI.updateByEmployeeIdAndWeeksheetProfileId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeksheetProfile'
+        '404':
+          description: Employee or weeksheet profile not found
+      x-replaced-by: /v0/administration/employees/{employee_id}/weeksheet_profile/{weeksheet_profile_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/weeksheet_profiles:
+    get:
+      tags:
+      - WeeksheetProfile
+      summary: Return all weeksheet profiles
+      operationId: WeeksheetProfileAPI.getAllWeeksheetProfiles
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.WeeksheetProfileList'
+      x-replaced-by: /v0/administration/weeksheet_profiles
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/weeksheet_profile:
+    get:
+      tags:
+      - WeeksheetProfile
+      summary: Return the weeksheet profile of a employee corresponding to the given employee…
+      operationId: WeeksheetProfileAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeksheetProfile'
+      x-replacement-for:
+      - /t/employees/{employee_id}/weeksheet_profile
+    delete:
+      tags:
+      - WeeksheetProfile
+      summary: Delete the weeksheet profile of a employee corresponding to the given employee…
+      operationId: WeeksheetProfileAPI.deleteByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: Employee not found
+      x-replacement-for:
+      - /t/employees/{employee_id}/weeksheet_profile
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/weeksheet_profile/{weeksheet_profile_id}:
+    put:
+      tags:
+      - WeeksheetProfile
+      summary: Update the weeksheet profile of an employee corresponding to the given employee…
+      operationId: WeeksheetProfileAPI.updateByEmployeeIdAndWeeksheetProfileId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: weeksheet_profile_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeksheetProfile'
+        '404':
+          description: Employee or weeksheet profile not found
+      x-replacement-for:
+      - /t/employees/{employee_id}/weeksheet_profile/{weeksheet_profile_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/weeksheet_profiles:
+    get:
+      tags:
+      - WeeksheetProfile
+      summary: Return all weeksheet profiles
+      operationId: WeeksheetProfileAPI.getAllWeeksheetProfiles
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.WeeksheetProfileList'
+      x-replacement-for:
+      - /t/weeksheet_profiles
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    WeeksheetProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        registrationActivities:
+          type: boolean
+        registrationWithDossierReport:
+          type: boolean
+        registrationIndirectActivitiesInFutureAllowed:
+          type: boolean
+        allowCreateBeforeVerifyDate:
+          type: boolean
+        directProfilePolicy:
+          $ref: '#/components/schemas/ProfilePolicy'
+        indirectProfilePolicy:
+          $ref: '#/components/schemas/ProfilePolicy'
+        timeWindowDate:
+          type: string
+          format: date-time
+        allowEditCostCenterOnsAgenda:
+          type: boolean
+        allowEditCostCenterIome:
+          type: boolean
+        allowEditTravelSettingsIoMe:
+          type: boolean
+        allowDistributeClientTime:
+          type: boolean
+        allowCreateVisitOnsVandaag:
+          type: boolean
+        allowEditVisitPlanning:
+          type: boolean
+        allowDeleteVisitPlanning:
+          type: boolean
+      description: The weeksheet profile. It contains information about registration deadlines and permissions.
+      example:
+        id: 10
+        description: Klinisch Verpleegkundige
+        registrationActivities: true
+        registrationWithDossierReport: true
+        registrationIndirectActivitiesInFutureAllowed: true
+        allowCreateBeforeVerifyDate: false
+        directProfilePolicy:
+          id: 1
+          type: 1
+          createPerm: true
+          createDossier: true
+          hideDefaultBookingDossier: true
+          createBetween: true
+          createBetweenTimegab: 1
+          updateIoserver: true
+          updateIome: true
+          updateIodevice: true
+          updateMoves: true
+          updateOnsAgenda: true
+          updateOnsVandaag: true
+          deleteIoserver: true
+          deleteIome: true
+          deleteIodevice: true
+          deleteMoves: true
+          deleteOnsAgenda: true
+          deleteOnsVandaag: true
+        indirectProfilePolicy:
+          id: 1
+          type: 1
+          createPerm: true
+          createDossier: true
+          hideDefaultBookingDossier: true
+          createBetween: true
+          createBetweenTimegab: 1
+          updateIoserver: true
+          updateIome: true
+          updateIodevice: true
+          updateMoves: true
+          updateOnsAgenda: true
+          updateOnsVandaag: true
+          deleteIoserver: true
+          deleteIome: true
+          deleteIodevice: true
+          deleteMoves: true
+          deleteOnsAgenda: true
+          deleteOnsVandaag: true
+        timeWindowDate: '2012-08-02T13:48:46.836+02:00'
+        allowEditCostCenterOnsAgenda: true
+        allowEditCostCenterIome: false
+        allowEditTravelSettingsIoMe: true
+        allowDistributeClientTime: true
+        allowCreateVisitOnsVandaag: true
+        allowEditVisitPlanning: true
+        allowDeleteVisitPlanning: true
+      xml:
+        name: weeksheetProfile
+    ProfilePolicy:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: not part of the shared model
+          format: int64
+          deprecated: true
+          x-cupido-id: true
+        type:
+          type: integer
+          format: int32
+        createPerm:
+          type: boolean
+        createDossier:
+          type: boolean
+        hideDefaultBookingDossier:
+          type: boolean
+        createBetween:
+          type: boolean
+        createBetweenTimegab:
+          type: integer
+          format: int32
+        updateIoserver:
+          type: boolean
+        updateIome:
+          type: boolean
+        updateIodevice:
+          type: boolean
+        updateMoves:
+          type: boolean
+        updateOnsAgenda:
+          type: boolean
+        updateOnsVandaag:
+          type: boolean
+        deleteIoserver:
+          type: boolean
+        deleteIome:
+          type: boolean
+        deleteIodevice:
+          type: boolean
+        deleteMoves:
+          type: boolean
+        deleteOnsAgenda:
+          type: boolean
+        deleteOnsVandaag:
+          type: boolean
+      description: Contains the weeksheet profile policy
+      example:
+        id: 1
+        type: 1
+        createPerm: true
+        createDossier: true
+        hideDefaultBookingDossier: true
+        createBetween: true
+        createBetweenTimegab: 1
+        updateIoserver: true
+        updateIome: true
+        updateIodevice: true
+        updateMoves: true
+        updateOnsAgenda: true
+        updateOnsVandaag: true
+        deleteIoserver: true
+        deleteIome: true
+        deleteIodevice: true
+        deleteMoves: true
+        deleteOnsAgenda: true
+        deleteOnsVandaag: true
+    list.WeeksheetProfileList:
+      type: object
+      properties:
+        weeksheetProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/WeeksheetProfile'
+      description: WeeksheetprofileList model (no description)
+      example:
+        weeksheetProfiles:
+        - id: 10
+          description: Klinisch Verpleegkundige
+          registrationActivities: true
+          registrationWithDossierReport: true
+          registrationIndirectActivitiesInFutureAllowed: true
+          allowCreateBeforeVerifyDate: false
+          timeWindowDate: '2012-08-02T13:48:46.836+02:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

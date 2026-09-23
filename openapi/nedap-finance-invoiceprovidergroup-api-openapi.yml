@@ -1,0 +1,180 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Invoice Provider Group API
+  version: 0.0.0
+  description: 'Operations tagged finance.InvoiceProviderGroup across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.InvoiceProviderGroup
+paths:
+  /t/finance/invoice_provider_groups:
+    get:
+      tags:
+      - finance.InvoiceProviderGroup
+      summary: Returns every InvoiceProviderGroup available from the InvoiceProviderGroupAPI
+      operationId: finance.InvoiceProviderGroupAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceProviderGroupList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/invoiceProviderGroups
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/invoiceProviderGroups:
+    get:
+      tags:
+      - finance.InvoiceProviderGroup
+      summary: Returns every InvoiceProviderGroup available from the InvoiceProviderGroupAPI
+      operationId: finance.InvoiceProviderGroupAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.InvoiceProviderGroupList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/invoice_provider_groups
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.list.InvoiceProviderGroupList:
+      type: object
+      properties:
+        invoiceProviderGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.InvoiceProviderGroup'
+          xml:
+            name: invoiceProviderGroup
+      description: InvoiceProviderGroupList model (no description)
+      example:
+        invoiceProviderGroups:
+        - id: 1
+          beginDate: '2018-01-28T00:00:00.000+01:00'
+          active: true
+          updatedAt: '2018-02-07T00:00:00.000+01:00'
+          koepelCode: '12345678'
+          debtorIds:
+          - 1
+          - 2
+          - 3
+          - 4
+          providers:
+          - '11111111'
+          - '22222222'
+        - id: 2
+          beginDate: '2018-01-28T00:00:00.000+01:00'
+          active: false
+          updatedAt: '2018-02-07T00:00:00.000+01:00'
+          koepelCode: '87654321'
+          debtorIds:
+          - 5
+          providers:
+          - '33333333'
+          - '44444444'
+      xml:
+        name: invoiceProviderGroups
+    finance.InvoiceProviderGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Reference to export profile (where this model is based on).
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: Begin date from which this 'koepel' has been active.
+          format: date-time
+        active:
+          type: boolean
+          description: 'Whether the invoice provider group is currently active.
+
+            In case it is not active it has been inactive since ''updatedAt''.'
+          default: false
+        updatedAt:
+          type: string
+          description: When the last change has been made.
+          format: date-time
+        koepelCode:
+          type: string
+          description: Code that will be used as 'koepel' to group a set of providers.
+        debtorIds:
+          type: array
+          items:
+            type: integer
+            description: 'When empty no filter should be applied, otherwise a filter for which
+
+              this ''koepel'' is applicable.'
+            format: int64
+            xml:
+              name: debtorId
+          description: 'When empty no filter should be applied, otherwise a filter for which
+
+            this ''koepel'' is applicable.'
+          xml:
+            wrapped: true
+        providers:
+          type: array
+          items:
+            type: string
+            description: 'When empty, all providers are part of the ''koepel'' otherwise a set of
+
+              providers that are part of the ''koepel''.'
+            xml:
+              name: provider
+          description: 'When empty, all providers are part of the ''koepel'' otherwise a set of
+
+            providers that are part of the ''koepel''.'
+          xml:
+            wrapped: true
+      description: 'An ''InvoiceProviderGroup'' models a specific type of ''ExportProfile'', i.e.,
+
+        export profiles for which it holds that they have a property set for ''koepel'' and have an export category of invoice.'
+      example:
+        id: 1
+        beginDate: '2018-01-28T00:00:00.000+01:00'
+        active: true
+        updatedAt: '2018-02-07T00:00:00.000+01:00'
+        koepelCode: '12345678'
+        debtorIds:
+        - 1
+        - 2
+        - 3
+        - 4
+        providers:
+        - '11111111'
+        - '22222222'
+      xml:
+        name: invoiceProviderGroup
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

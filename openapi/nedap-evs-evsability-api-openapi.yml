@@ -1,0 +1,114 @@
+openapi: 3.2.0
+info:
+  title: Nedap Evs.Evs Ability API
+  version: 0.0.0
+  description: 'Operations tagged evs.EvsAbility across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: evs.EvsAbility
+paths:
+  /t/evs/evs_abilities/{action}:
+    get:
+      tags:
+      - evs.EvsAbility
+      operationId: evs.EvsAbilityAPI.ableTo
+      parameters:
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: client_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evs.EvsAbility'
+      x-replaced-by: /v0/administration/evsabilities/{action}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Evs evs ability API able to
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/evsabilities/{action}:
+    get:
+      tags:
+      - evs.EvsAbility
+      operationId: evs.EvsAbilityAPI.ableTo
+      parameters:
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: client_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evs.EvsAbility'
+      x-replacement-for:
+      - /t/evs/evs_abilities/{action}
+      summary: Evs evs ability API able to
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    evs.EvsAbility:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Ability'
+      properties:
+        label:
+          type: string
+        redirectUrl:
+          type: string
+      description: EvsAbility model (no description)
+      example:
+        enabled: true
+        possible: false
+        message: This client is not yet in the Evs. If you continue the client will be synchronized.
+        label: Prescribe
+        redirectUrl: /view/client/42/prescribe
+    Ability:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        possible:
+          type: boolean
+        message:
+          type: string
+      description: Ability model (no description)
+      example:
+        enabled: true
+        possible: false
+        message: message
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Care Plan Agreement API
+  version: 0.0.0
+  description: 'Operations tagged dossier.CarePlanAgreement across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.CarePlanAgreement
+paths:
+  /t/dossier/care_plan_agreements/{id}:
+    get:
+      tags:
+      - dossier.CarePlanAgreement
+      summary: Find care plan agreement by id
+      operationId: dossier.CarePlanAgreementAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlanAgreement
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlanAgreement'
+        '404':
+          description: Care plan agreement not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/{id}/agreement
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/care_plan/{id}/agreement:
+    get:
+      tags:
+      - dossier.CarePlanAgreement
+      summary: Find care plan agreement by id
+      operationId: dossier.CarePlanAgreementAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlanAgreement
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlanAgreement'
+        '404':
+          description: Care plan agreement not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/care_plan_agreements/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    dossier.CarePlanAgreement:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        carePlanId:
+          type:
+          - integer
+          - 'null'
+          description: The care plan this agreement belongs to
+          format: int64
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          description: The employee that created the agreement
+          format: int64
+        clientId:
+          type:
+          - integer
+          - 'null'
+          description: The client the care plan belongs to
+          format: int64
+      description: CarePlanAgreement model (no description)
+      example:
+        updatedAt: '2016-09-05T12:59:26.000+02:00'
+        createdAt: '2016-09-05T12:59:26.000+02:00'
+        createdBy: administrator
+        id: 3
+        carePlanId: 12
+        employeeId: 13
+        clientId: 14
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

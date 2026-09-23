@@ -1,0 +1,1137 @@
+openapi: 3.2.0
+info:
+  title: Nedap Agenda.Agenda Occurrence API
+  version: 0.0.0
+  description: 'Operations tagged agenda.AgendaOccurrence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: agenda.AgendaOccurrence
+paths:
+  /t/agenda_occurrences/{id}:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Get event occurrence
+      operationId: agenda.AgendaOccurrenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AgendaOccurrence
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/agenda/agenda_occurrences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agenda_occurrences/{id}/destroy_following:
+    delete:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Removes the given agenda occurrence item and all of the following occurrences…
+      description: Removes the given appointment occurrence and all of the following occurrences of that appointment
+      operationId: agenda.AgendaOccurrenceAPI.destroyFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of AgendaOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaOccurrence'
+        required: true
+      responses:
+        '204':
+          description: If successfully removed the agenda occurrence
+          content: {}
+      x-replaced-by: /v0/agenda/agenda_occurrences/{id}/destroy_following
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agenda_occurrences/{id}/destroy_incidentally:
+    delete:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Removes only the given agenda occurrence item
+      description: Removes the given appointment occurrence
+      operationId: agenda.AgendaOccurrenceAPI.destroyIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of AgendaOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaOccurrence'
+        required: true
+      responses:
+        '204':
+          description: If successfully removed the agenda occurrence
+      x-replaced-by: /v0/agenda/agenda_occurrences/{id}/destroy_incidentally
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agenda_occurrences/{id}/update_following:
+    put:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Updates the given AgendaOccurrence item and all of the following occurrences of…
+      description: 'NB:
+
+
+        current: When creating of updating an AgendaOccurrence the start_time and end_time fields are used by Ons Agenda.
+
+        The starts_at and ends_at fields will be ignored.
+
+
+        future: When creating of updating an AgendaOccurrence the starts_at and ends_at fields are used by Ons Agenda.
+
+        The start_time and end_time fields will be ignored and eventually be removed.
+
+
+        When you change any property of the Occurrence when updating "following",
+
+        this will break the Series in two. The pre-existing Series is ended (`validTo`)
+
+        at the last occurrence before this one. Then from this occurrence a new
+
+        Series is created with the updated properties.
+
+
+        There is one exception to this rule:
+
+        - When updating the first occurrence in a Series, the Series is updated in place.'
+      operationId: agenda.AgendaOccurrenceAPI.updateFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of AgendaOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      x-replaced-by: /v0/agenda/agenda_occurrences/{id}/update_following
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agenda_occurrences/{id}/update_incidentally:
+    put:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Updates only the given AgendaOccurrence
+      description: 'NB:
+
+
+        current: When creating of updating an AgendaOccurrence the start_time and end_time fields are used by Ons Agenda.
+
+        The starts_at and ends_at fields will be ignored.
+
+
+        future: When creating of updating an AgendaOccurrence the starts_at and ends_at fields are used by Ons Agenda.
+
+        The start_time and end_time fields will be ignored and eventually be removed.'
+      operationId: agenda.AgendaOccurrenceAPI.updateIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of AgendaOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      x-replaced-by: /v0/agenda/agenda_occurrences/{id}/update_incidentally
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/agenda_occurrences:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Return the agenda occurrences of a Client corresponding to the given id
+      description: List event occurrences for client
+      operationId: agenda.AgendaOccurrenceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: require_client_present
+        in: query
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.AgendaOccurrenceList'
+        '404':
+          description: Not found
+      x-replaced-by: /v0/agenda/clients/{client_id}/agenda_occurrences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/agenda_occurrences:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Return the agenda occurrences of a Employee corresponding to the given id
+      description: List event occurrences for employee
+      operationId: agenda.AgendaOccurrenceAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.AgendaOccurrenceList'
+      x-replaced-by: /v0/agenda/employees/{employee_id}/agenda_occurrences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agenda_occurrences/by_group/{group_uuid}:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Return the agenda occurrences of a group corresponding to the given uuid
+      description: 'Return the agenda occurrences of a group corresponding to the given uuid. Deprected: use Groepsplanning instead'
+      operationId: agenda.AgendaOccurrenceAPI.byGroupUuid
+      parameters:
+      - name: group_uuid
+        in: path
+        description: uuid
+        required: true
+        schema:
+          type: string
+      - name: valid_from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.AgendaOccurrenceList'
+      deprecated: true
+      x-deprecated-since: 20-11-2025
+      x-replaced-by: /v0/agenda/groups/{group_uuid}/agenda_occurrences
+    servers:
+    - url: https://api-development.ons.io
+  /t/locations/{location_id}/agenda_occurrences:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Return the agenda occurrences of a Location corresponding to the given id
+      description: List event occurrences for location
+      operationId: agenda.AgendaOccurrenceAPI.byLocationId
+      parameters:
+      - name: location_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.AgendaOccurrenceList'
+      x-replaced-by: /v0/agenda/locations/{location_id}/agenda_occurrences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_occurrences/{id}:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Get event occurrence
+      operationId: agenda.AgendaOccurrenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AgendaOccurrence
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/agenda_occurrences/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_occurrences/{id}/destroy_following:
+    delete:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Removes the given agenda occurrence item and all of the following occurrences…
+      description: Removes the given appointment occurrence and all of the following occurrences of that appointment
+      operationId: agenda.AgendaOccurrenceAPI.destroyFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of AgendaOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaOccurrence'
+        required: true
+      responses:
+        '204':
+          description: If successfully removed the agenda occurrence
+          content: {}
+      x-replacement-for:
+      - /t/agenda_occurrences/{id}/destroy_following
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_occurrences/{id}/destroy_incidentally:
+    delete:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Removes only the given agenda occurrence item
+      description: Removes the given appointment occurrence
+      operationId: agenda.AgendaOccurrenceAPI.destroyIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of AgendaOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaOccurrence'
+        required: true
+      responses:
+        '204':
+          description: If successfully removed the agenda occurrence
+      x-replacement-for:
+      - /t/agenda_occurrences/{id}/destroy_incidentally
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_occurrences/{id}/update_following:
+    put:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Updates the given AgendaOccurrence item and all of the following occurrences of…
+      description: 'NB:
+
+
+        current: When creating of updating an AgendaOccurrence the start_time and end_time fields are used by Ons Agenda.
+
+        The starts_at and ends_at fields will be ignored.
+
+
+        future: When creating of updating an AgendaOccurrence the starts_at and ends_at fields are used by Ons Agenda.
+
+        The start_time and end_time fields will be ignored and eventually be removed.
+
+
+        When you change any property of the Occurrence when updating "following",
+
+        this will break the Series in two. The pre-existing Series is ended (`validTo`)
+
+        at the last occurrence before this one. Then from this occurrence a new
+
+        Series is created with the updated properties.
+
+
+        There is one exception to this rule:
+
+        - When updating the first occurrence in a Series, the Series is updated in place.'
+      operationId: agenda.AgendaOccurrenceAPI.updateFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of AgendaOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      x-replacement-for:
+      - /t/agenda_occurrences/{id}/update_following
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_occurrences/{id}/update_incidentally:
+    put:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Updates only the given AgendaOccurrence
+      description: 'NB:
+
+
+        current: When creating of updating an AgendaOccurrence the start_time and end_time fields are used by Ons Agenda.
+
+        The starts_at and ends_at fields will be ignored.
+
+
+        future: When creating of updating an AgendaOccurrence the starts_at and ends_at fields are used by Ons Agenda.
+
+        The start_time and end_time fields will be ignored and eventually be removed.'
+      operationId: agenda.AgendaOccurrenceAPI.updateIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of AgendaOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      x-replacement-for:
+      - /t/agenda_occurrences/{id}/update_incidentally
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/clients/{client_id}/agenda_occurrences:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Return the agenda occurrences of a Client corresponding to the given id
+      description: List event occurrences for client
+      operationId: agenda.AgendaOccurrenceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      - name: require_client_present
+        in: query
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.AgendaOccurrenceList'
+        '404':
+          description: Not found
+      x-replacement-for:
+      - /t/clients/{client_id}/agenda_occurrences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/employees/{employee_id}/agenda_occurrences:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Return the agenda occurrences of a Employee corresponding to the given id
+      description: List event occurrences for employee
+      operationId: agenda.AgendaOccurrenceAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.AgendaOccurrenceList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/agenda_occurrences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/groups/{group_uuid}/agenda_occurrences:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Return the agenda occurrences of a group corresponding to the given uuid
+      description: 'Return the agenda occurrences of a group corresponding to the given uuid. Deprected: use Groepsplanning instead'
+      operationId: agenda.AgendaOccurrenceAPI.byGroupUuid
+      parameters:
+      - name: group_uuid
+        in: path
+        description: uuid
+        required: true
+        schema:
+          type: string
+      - name: from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.AgendaOccurrenceList'
+      deprecated: true
+      x-deprecated-since: 20-11-2025
+      x-replacement-for:
+      - /t/agenda_occurrences/by_group/{group_uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/locations/{location_id}/agenda_occurrences:
+    get:
+      tags:
+      - agenda.AgendaOccurrence
+      summary: Return the agenda occurrences of a Location corresponding to the given id
+      description: List event occurrences for location
+      operationId: agenda.AgendaOccurrenceAPI.byLocationId
+      parameters:
+      - name: location_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: Start date (inclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        description: End date (exclusive) of selection period
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.list.AgendaOccurrenceList'
+      x-replacement-for:
+      - /t/locations/{location_id}/agenda_occurrences
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    agenda.AgendaOccurrence:
+      title: EventOccurrence
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of this occurrence
+          x-cupido-id: true
+        occurrenceDate:
+          type:
+          - string
+          - 'null'
+          description: Date on which this occurrence occurs based on the recurrence rule
+          format: date
+        uuid:
+          type:
+          - string
+          - 'null'
+          description: 'External reference for `AgendaSeries` to which this occurrence belongs
+
+            External parties can use this for their own bookkeeping.
+
+            Is generated if not provided. If provided, it must be unique, will result in 422 otherwise. Every change at one point in a appointment series, results in a new `AgendaSeries` for which the `uuid` must be unique.'
+          format: uuid
+        groupUuid:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Short summary of the event, like a subject or title
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Longer description of the event, like notes
+          example: ''
+        timelineId:
+          type:
+          - integer
+          - 'null'
+          description: 'Identifier of the `AgendaSeries`
+
+
+            Exceptions to the series have the same `timelineId` as the series.'
+          format: int32
+        validFrom:
+          type:
+          - string
+          - 'null'
+          description: Start date of the appointment series
+          format: date
+        validTo:
+          type:
+          - string
+          - 'null'
+          description: 'Recurrence end date
+
+
+            If recurring, the event is recurring up to this date (exclusive)'
+          format: date
+        startTime:
+          type:
+          - string
+          - 'null'
+          description: Start time of this occurrence
+          format: time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: End time of this occurrence
+          format: time
+        startsAt:
+          type: string
+          description: 'Start datetime of this occurrence.
+
+            It is currently readonly, but it''s recommended to include the field;
+
+            current: When creating or updating an AgendaOccurrence the start_time and end_time fields are used by Ons Agenda.
+
+            The starts_at and ends_at fields will be deprecated.
+
+            future: When creating or updating an AgendaOccurrence the starts_at and ends_at fields are used by Ons Agenda.
+
+            The start_time and end_time fields will be ignored and eventually be removed.'
+          format: date-time
+        endsAt:
+          type: string
+          description: 'End datetime of this occurrence.
+
+            It is currently readonly, but it''s recommended to include the field;
+
+            current: When creating or updating an AgendaOccurrence the start_time and end_time fields are used by Ons Agenda.
+
+            The starts_at and ends_at fields will be deprecated.
+
+            future: When creating or updating an AgendaOccurrence the starts_at and ends_at fields are used by Ons Agenda.
+
+            The start_time and end_time fields will be ignored and eventually be removed.'
+          format: date-time
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration in seconds. Read-only.
+          format: int32
+          default: 0
+        recurrenceType:
+          allOf:
+          - $ref: '#/components/schemas/RecurrenceType'
+          description: Frequency of the recurrence
+        cycleInterval:
+          type:
+          - integer
+          - 'null'
+          description: 'Interval length of the series
+
+
+            For a recurrenceType of `monthly`, an interval of `2` means this event happens every 2 months.'
+          format: int32
+          default: 0
+          example: 1
+        customLocation:
+          type:
+          - string
+          - 'null'
+        registered:
+          type:
+          - boolean
+          - 'null'
+          description: Indication if any employee has registered the appointment
+        registrationComplete:
+          type:
+          - boolean
+          - 'null'
+          description: Indication that all employees have registered the appointment
+        creatorObjectId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        monday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on monday
+        tuesday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on tuesday
+        wednesday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on wednesday
+        thursday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on thursday
+        friday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on friday
+        saturday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on saturday
+        sunday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on sunday
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Identifier of HourType
+
+
+            When using the per-client product selection (part of _uitgebreide workflow_), use the `hourTypeId` field in the client invitations instead'
+          format: int64
+        clientPresent:
+          type: boolean
+          description: Whether the client is expected in this event
+        private:
+          type: boolean
+          description: Whether this event is private
+        agendaInvitations:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.AgendaInvitation'
+          description: 'Clients, locations, teams or employees invited to this occurrence
+
+
+            Does not support clients when using per-client product selection (part of _uitgebreide workflow_). When per-client product selection is enabled, use `agendaClientInvitations` instead to invite clients.'
+        agendaClientInvitations:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.AgendaClientInvitation'
+          description: 'Clients invited to this appointment
+
+
+            When _not_ using per-client product selection (part of _uitgebreide workflow_) use `agendaInvitations` instead to invite clients.'
+        labels:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/agenda.Label'
+      description: Agenda series domain model used by Cupido system.
+      example:
+        id: 2@2012-08-02
+        occurrenceDate: '2012-08-02'
+        uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+        groupUuid: bbca58ed-0138-4aec-87c6-5d391e98161c
+        name: fysio
+        comment: no comment
+        timelineId: 12
+        validFrom: '2012-08-02'
+        validTo: '2015-08-02'
+        startTime: '08:10:00.000'
+        endTime: '08:20:00.000'
+        startsAt: '2022-08-02T08:10:00.000+02:00'
+        endsAt: '2022-08-02T08:20:00.000+02:00'
+        duration: 1600
+        recurrenceType: single
+        cycleInterval: 1
+        customLocation: Gemeentehuis
+        registered: false
+        registrationComplete: false
+        creatorObjectId: 42
+        monday: true
+        tuesday: false
+        wednesday: true
+        thursday: true
+        friday: false
+        saturday: true
+        sunday: false
+        agendaInvitations:
+        - employeeId: 4
+          accepted: true
+        - employeeId: 5
+          accepted: true
+        - teamId: 42
+          accepted: true
+        - locationId: 12
+          accepted: true
+        - groupId: 12
+        agendaClientInvitations:
+        - clientId: 1
+          accepted: true
+          hourTypeId: 52
+          careOrderId: 2
+        hourTypeId: 42
+        clientPresent: true
+        private: false
+        labels: []
+    agenda.list.AgendaOccurrenceList:
+      title: EventOccurrenceList
+      type: object
+      properties:
+        agendaOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      description: AgendaOccurrenceList model (no description)
+      example:
+        agendaOccurrences:
+        - id: 2@2012-08-02
+          occurrenceDate: '2012-08-02'
+          uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+          name: fysio
+          comment: no comment
+          validFrom: '2012-08-02'
+          validTo: '2012-08-03'
+          startTime: '08:10:00.000'
+          endTime: '08:20:00.000'
+          startsAt: '2022-08-02T08:10:00.000+02:00'
+          endsAt: '2022-08-02T08:20:00.000+02:00'
+          duration: 0
+          recurrenceType: single
+          cycleInterval: 1
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    agenda.AgendaClientInvitation:
+      title: ClientInvitation
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/agenda.AgendaInvitation'
+      properties:
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Identifier of Hour Type
+
+
+            When _not_ using the per-client product selection (part of _uitgebreide workflow_), use the `hourTypeId` field  in the appointment instead'
+          format: int64
+        careOrderId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        surchargeIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+      description: Agenda client invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
+        hourTypeId: 52
+        careOrderId: 2
+        surchargeIds:
+        - 9
+        - 10
+    agenda.AgendaInvitation:
+      title: Invitation
+      type: object
+      properties:
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        accepted:
+          type:
+          - boolean
+          - 'null'
+        groupId:
+          type: integer
+          format: int64
+      description: Agenda invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
+    agenda.Label:
+      title: Label
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+      description: Domain model for Labels for AgendaOccurrences/AgendaSeries
+      example:
+        id: 1
+        name: Telefonisch
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

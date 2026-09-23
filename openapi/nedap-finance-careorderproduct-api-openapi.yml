@@ -1,0 +1,539 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Care Order Product API
+  version: 0.0.0
+  description: 'Operations tagged finance.CareOrderProduct across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.CareOrderProduct
+paths:
+  /t/finance/care_order_products:
+    post:
+      tags:
+      - finance.CareOrderProduct
+      summary: Create CareOrderProduct
+      operationId: finance.CareOrderProductAPI.create
+      requestBody:
+        description: CareOrderProduct to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.CareOrderProduct'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/care_order_products
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_order_products/{id}:
+    get:
+      tags:
+      - finance.CareOrderProduct
+      summary: Return the CareOrderProduct corresponding to the given id
+      operationId: finance.CareOrderProductAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrderProduct
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+        '404':
+          description: CareOrderProduct does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/care_order_products/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - finance.CareOrderProduct
+      summary: Updates the given CareOrderProduct
+      operationId: finance.CareOrderProductAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrderProduct
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: CareOrderProduct to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.CareOrderProduct'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+        '404':
+          description: CareOrderProduct does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/care_order_products/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - finance.CareOrderProduct
+      summary: Deletes the CareOrderProduct with given id
+      operationId: finance.CareOrderProductAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrderProduct
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the care order product
+        '400':
+          description: ID not specified, or the care product has finance logs
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/care_order_products/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_orders/{care_order_id}/care_order_products:
+    get:
+      tags:
+      - finance.CareOrderProduct
+      summary: Return the CareOrderProducts of a CareOrder corresponding to the given id
+      operationId: finance.CareOrderProductAPI.byCareOrderId
+      parameters:
+      - name: care_order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderProductList'
+      x-replaced-by: /v0/administration/finance/care_orders/{care_order_id}/care_order_products
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_order_products/x-stream-connect/data:
+    get:
+      tags:
+      - finance.CareOrderProduct
+      summary: Return all CareOrderProduct models in a streaming manner
+      operationId: finance.CareOrderProductAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderProductList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/care_order_products/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_order_products/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.CareOrderProduct
+      summary: Return all CareOrderProduct models which where updated since the date given in…
+      operationId: finance.CareOrderProductAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderProductList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/care_order_products/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/care_order_products:
+    post:
+      tags:
+      - finance.CareOrderProduct
+      summary: Create CareOrderProduct
+      operationId: finance.CareOrderProductAPI.create
+      requestBody:
+        description: CareOrderProduct to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.CareOrderProduct'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_order_products
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/care_order_products/{id}:
+    get:
+      tags:
+      - finance.CareOrderProduct
+      summary: Return the CareOrderProduct corresponding to the given id
+      operationId: finance.CareOrderProductAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrderProduct
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+        '404':
+          description: CareOrderProduct does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_order_products/{id}
+    put:
+      tags:
+      - finance.CareOrderProduct
+      summary: Updates the given CareOrderProduct
+      operationId: finance.CareOrderProductAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrderProduct
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: CareOrderProduct to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.CareOrderProduct'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+        '404':
+          description: CareOrderProduct does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_order_products/{id}
+    delete:
+      tags:
+      - finance.CareOrderProduct
+      summary: Deletes the CareOrderProduct with given id
+      operationId: finance.CareOrderProductAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrderProduct
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the care order product
+        '400':
+          description: ID not specified, or the care product has finance logs
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_order_products/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/care_orders/{care_order_id}/care_order_products:
+    get:
+      tags:
+      - finance.CareOrderProduct
+      summary: Return the CareOrderProducts of a CareOrder corresponding to the given id
+      operationId: finance.CareOrderProductAPI.byCareOrderId
+      parameters:
+      - name: care_order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderProductList'
+      x-replacement-for:
+      - /t/finance/care_orders/{care_order_id}/care_order_products
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/care_order_products/data:
+    get:
+      tags:
+      - finance.CareOrderProduct
+      summary: Return all CareOrderProduct models in a streaming manner
+      operationId: finance.CareOrderProductAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderProductList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_order_products/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/care_order_products/updates:
+    get:
+      tags:
+      - finance.CareOrderProduct
+      summary: Return all CareOrderProduct models which where updated since the date given in…
+      operationId: finance.CareOrderProductAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderProductList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrderProduct'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_order_products/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.CareOrderProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        careOrderId:
+          type: integer
+          description: ID of the care order this care order product belongs to.
+          format: int64
+        userIdentifier:
+          type: string
+        quantity:
+          type: integer
+          description: 'Deprecated since: 14-03-2019'
+          format: int32
+          deprecated: true
+        quantityUnit:
+          type: string
+          description: 'Deprecated since: 14-03-2019'
+          deprecated: true
+        magnitudeQuantityValue:
+          type: integer
+          description: 'Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].
+
+            For example 30 * 1 minute per week. This value represents the quantityValue part and is mandatory.'
+          format: int32
+        magnitudeUnitQuantity:
+          type: integer
+          description: 'Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].
+
+            For example 30 * 1 minute per week. This value represents the unitQuantity part and it can be omitted.
+
+            In most cases this is 1.'
+          format: int32
+        magnitudeUnitType:
+          type: string
+          description: "Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].\nFor example 30 * 1 minute per week. This value represents the unitType part and it can be omitted.\nThe following values are supported:\n  - EURO_CENT\n  - PIECE\n  - MINUTE\n  - HOUR"
+        magnitudeFrequency:
+          type: string
+          description: "Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].\nFor example 30 * 1 minute per week. This value represents the frequency part and it can be omitted.\nThe following values are supported:\n  - PER_DAG\n  - PER_WEEK\n  - PER_VIER_WEKEN\n  - PER_MAAND\n  - PER_JAAR\n  - PER_TRAJECT"
+        comments:
+          type: string
+          description: Comments, generally only used by old pre-2015 AWBZ care order products.
+        productId:
+          type: integer
+          description: ID of the product that this care order product is for
+          format: int64
+        financeTypeId:
+          type: integer
+          description: ID of the finance type this care order product belongs to.
+          format: int64
+        instellingsCode:
+          type: string
+          description: AGB code of the care provider responsible for handling this care order product
+        functietype:
+          type: string
+          description: 'Deprecated: field was never set.'
+          deprecated: true
+          x-deprecated-since: 14-10-2021
+        debtorId:
+          type: integer
+          description: ID of the debtor that this care order product belongs to.
+          format: int64
+        beginDate:
+          type: string
+          description: Original begin date of the care order product, the time component is ignored, and considered to be 00:00:00.
+          format: date-time
+        endDate:
+          type: string
+          description: Original end date of the care order product, the time component is ignored, and considered to be 23:59:59.
+          format: date-time
+        clippedBeginDate:
+          type: string
+          description: Begin date of the care order product after clipping (vegen), the time component is ignored, and considered to be 00:00:00.
+          format: date-time
+        clippedEndDate:
+          type: string
+          description: End date of the care order product after clipping (vegen), the time component is ignored, and considered to be 23:59:59.
+          format: date-time
+      description: CareOrderProduct model (no description)
+      example:
+        id: 1
+        careOrderId: 1
+        userIdentifier: '1'
+        quantity: 1
+        quantityUnit: MinutesPerWeek
+        magnitudeQuantityValue: 1
+        magnitudeUnitQuantity: 1
+        magnitudeUnitType: MINUTE
+        magnitudeFrequency: PER_WEEK
+        comments: comments
+        productId: 1
+        financeTypeId: 1
+        instellingsCode: ABCD
+        functietype: ZZP
+        debtorId: 1
+        beginDate: '2014-12-29T00:00:00.000+01:00'
+        endDate: '2014-12-29T00:00:00.000+01:00'
+        clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+        clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+      xml:
+        name: careOrderProduct
+    finance.list.CareOrderProductList:
+      type: object
+      properties:
+        careOrderProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.CareOrderProduct'
+          xml:
+            name: careOrderProduct
+      description: CareOrderProductList model (no description)
+      example:
+        careOrderProducts:
+        - id: 1
+          careOrderId: 1
+          userIdentifier: Dummy
+          quantity: 1
+          quantityUnit: Dummy
+          comments: Dummy
+          productId: 1
+          financeTypeId: 1
+          instellingsCode: Dummy
+          functietype: Dummy
+          debtorId: 1
+          beginDate: '2014-12-29T00:00:00.000+01:00'
+          endDate: '2014-12-29T00:00:00.000+01:00'
+          clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+          clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+      xml:
+        name: careOrderProducts
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

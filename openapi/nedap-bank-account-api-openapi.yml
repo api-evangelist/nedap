@@ -1,0 +1,266 @@
+openapi: 3.2.0
+info:
+  title: Nedap Bank Account API
+  version: 0.0.0
+  description: 'Operations tagged BankAccount across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Bank Account
+paths:
+  /t/clients/{client_id}/bank_account:
+    get:
+      tags:
+      - Bank Account
+      summary: Return the BankAccount of a client based on the clientId
+      operationId: BankAccountAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+      x-replaced-by: /v0/administration/clients/{client_id}/bank_account
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/bank_accounts/x-stream-connect/data:
+    get:
+      tags:
+      - Bank Account
+      summary: Return all BankAccount models in a streaming manner
+      operationId: BankAccountAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.BankAccountList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/bank_accounts/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/bank_accounts/x-stream-connect/updates:
+    get:
+      tags:
+      - Bank Account
+      summary: Return all BankAccount models which where updated since the date given in the…
+      operationId: BankAccountAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.BankAccountList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/bank_accounts/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/bank_account:
+    get:
+      tags:
+      - Bank Account
+      summary: Return the BankAccount of a client based on the clientId
+      operationId: BankAccountAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+      x-replacement-for:
+      - /t/clients/{client_id}/bank_account
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/bank_accounts/data:
+    get:
+      tags:
+      - Bank Account
+      summary: Return all BankAccount models in a streaming manner
+      operationId: BankAccountAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.BankAccountList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/bank_accounts/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/bank_accounts/updates:
+    get:
+      tags:
+      - Bank Account
+      summary: Return all BankAccount models which where updated since the date given in the…
+      operationId: BankAccountAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.BankAccountList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/bank_accounts/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    BankAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        number:
+          type: string
+        nameOfOwner:
+          type: string
+        cityOfOwner:
+          type: string
+        iban:
+          type: string
+        bic:
+          type: string
+        creditBankAccount:
+          type: boolean
+        authorizationDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: BankAccount model (no description)
+      example:
+        id: 1
+        number: Dummy
+        nameOfOwner: Dummy
+        cityOfOwner: Dummy
+        iban: Dummy
+        bic: Dummy
+        creditBankAccount: false
+        authorizationDate: '2016-01-01'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccount
+    list.BankAccountList:
+      type: object
+      properties:
+        bankAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankAccount'
+          xml:
+            name: bankAccount
+      description: BankAccountList model (no description)
+      example:
+        bankAccounts:
+        - id: 1
+          number: NL27TRIO0207182531
+          nameOfOwner: Pietje puk
+          cityOfOwner: Lutjebroek
+          iban: Dummy
+          bic: Dummy
+          creditBankAccount: false
+          authorizationDate: '2016-01-01'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+        - id: 2
+          number: NL27TRIO0207182532
+          nameOfOwner: Pietje pok
+          cityOfOwner: Lutjebroek
+          iban: Dummy
+          bic: Dummy
+          creditBankAccount: false
+          authorizationDate: '2016-01-01'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccounts
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

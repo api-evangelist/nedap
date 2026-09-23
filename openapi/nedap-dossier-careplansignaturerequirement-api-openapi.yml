@@ -1,0 +1,200 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Care Plan Signature Requirement API
+  version: 0.0.0
+  description: 'Operations tagged dossier.CarePlanSignatureRequirement across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.CarePlanSignatureRequirement
+paths:
+  /t/dossier/care_plan_signature_requirements/{id}:
+    get:
+      tags:
+      - dossier.CarePlanSignatureRequirement
+      summary: Find signature requirement by id
+      description: Find care plan signature requirement by id
+      operationId: dossier.CarePlanSignatureRequirementAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlanSignatureRequirement
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlanSignatureRequirement'
+        '404':
+          description: Care plan signature requirement not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/{id}/signature_requirement
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/care_plan/{id}/signature_requirement:
+    get:
+      tags:
+      - dossier.CarePlanSignatureRequirement
+      summary: Find signature requirement by id
+      description: Find care plan signature requirement by id
+      operationId: dossier.CarePlanSignatureRequirementAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CarePlanSignatureRequirement
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.CarePlanSignatureRequirement'
+        '404':
+          description: Care plan signature requirement not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/care_plan_signature_requirements/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.CarePlanSignatureRequirementDiscussionType:
+      enum:
+      - discussed
+      - discussed_later
+      - no_discussion
+      - no_agreement
+      type:
+      - string
+      - 'null'
+      description: 'The type of discussion with the client/representative. This field should be null when a signature is required (required: true). When required is false, this indicates the discussion status. Values:
+
+        - discussed: has been discussed with the client/representative and they agree
+
+        - discussed_later: will be discussed with the client/representative later
+
+        - no_discussion: will not be discussed with the client/representative
+
+        - no_agreement: has not been agreed upon by client/representative
+
+        '
+      example: discussed
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.CarePlanSignatureRequirement:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        carePlanId:
+          type:
+          - integer
+          - 'null'
+          description: The care plan this signature requirement belongs to
+          format: int64
+        comment:
+          type:
+          - string
+          - 'null'
+          description: The comment for this signature requirement. When discussionType is 'no_discussion' or 'no_agreement', this field should explain why no discussion took place or why no agreement was reached.
+        discussionType:
+          $ref: '#/components/schemas/dossier.CarePlanSignatureRequirementDiscussionType'
+        required:
+          type:
+          - boolean
+          - 'null'
+          description: Whether or not a signature is required for the care plan
+      description: CarePlanSignatureRequirement model (no description)
+      example:
+        updatedAt: '2016-09-05T12:59:26.000+02:00'
+        createdAt: '2016-09-05T12:59:26.000+02:00'
+        createdBy: '10'
+        id: 171
+        carePlanId: 150
+        comment: Signature requirement comment
+        discussionType: discussed
+        required: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,325 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Unit API
+  version: 0.0.0
+  description: 'Operations tagged moves.Unit across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.Unit
+paths:
+  /t/moves/units/x-stream-connect/data:
+    get:
+      tags:
+      - moves.Unit
+      summary: Return all Unit models in a streaming manner
+      operationId: moves.UnitAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.UnitList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Unit'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/units/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/units/x-stream-connect/deletes:
+    get:
+      tags:
+      - moves.Unit
+      summary: Return all Unit models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Unit models'
+      operationId: moves.UnitAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.UnitList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Unit'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/units/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/moves/units/x-stream-connect/updates:
+    get:
+      tags:
+      - moves.Unit
+      summary: Return all Unit models which where updated since the date given in the request
+      operationId: moves.UnitAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.UnitList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Unit'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/units/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/units/data:
+    get:
+      tags:
+      - moves.Unit
+      summary: Return all Unit models in a streaming manner
+      operationId: moves.UnitAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.UnitList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Unit'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/units/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/units/deletes:
+    get:
+      tags:
+      - moves.Unit
+      summary: Return all Unit models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Unit models'
+      operationId: moves.UnitAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.UnitList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Unit'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/units/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/units/updates:
+    get:
+      tags:
+      - moves.Unit
+      summary: Return all Unit models which where updated since the date given in the request
+      operationId: moves.UnitAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.UnitList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/moves.Unit'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/moves/units/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.Unit:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+        name:
+          type: string
+        unitId:
+          type: integer
+          description: use :parent_unit_id instead
+          format: int64
+          deprecated: true
+        parentUnitId:
+          type: integer
+          format: int64
+        externalId:
+          type: integer
+          format: int64
+        validFrom:
+          type: string
+          format: date
+        validTo:
+          type: string
+          format: date
+        block:
+          type: boolean
+        flexUnitId:
+          type: integer
+          format: int64
+        nexusGroupUuid:
+          type: string
+        cachedUsed:
+          type: boolean
+        showCumulativeLedgersForecast:
+          type: boolean
+        unitType:
+          type: integer
+          description: '<pre>
+
+            unitType: Possible values:
+
+            0: EXTRAMURAL
+
+            1: INTRAMURAL
+
+            2: WMO
+
+            </pre>'
+          format: int64
+        allowSelfRostering:
+          type: boolean
+        selfRosteringStartDate:
+          type: string
+          format: date
+      description: "Every unit (mostly) corresponds to a team in Ons Administration \n(however, it is possible to have a unit that is not coupled to a team)."
+      example:
+        id: 1
+        code: ZTN
+        name: Zorg Team Nedap
+        unitId: 2
+        parentUnitId: 2
+        externalId: 123
+        validFrom: '1999-12-27'
+        validTo: '2015-12-27'
+        block: false
+        flexUnitId: 1
+        nexusGroupUuid: ''
+        cachedUsed: true
+        showCumulativeLedgersForecast: true
+        unitType: 2
+        allowSelfRostering: true
+        selfRosteringStartDate: '2015-07-13'
+      xml:
+        name: unit
+    moves.list.UnitList:
+      type: object
+      properties:
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Unit'
+          xml:
+            name: unit
+      description: UnitList model (no description)
+      example:
+        units:
+        - id: 1
+          code: ZTN
+          name: Zorg Team Nedap
+          unitId: 1
+          externalId: 123
+          validFrom: '1999-12-27'
+          validTo: '2015-12-27'
+          block: false
+          flexUnitId: 1
+          nexusGroupUuid: ''
+          cachedUsed: true
+          showCumulativeLedgersForecast: true
+          unitType: 2
+          allowSelfRostering: true
+          selfRosteringStartDate: '2015-07-13'
+      xml:
+        name: units
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

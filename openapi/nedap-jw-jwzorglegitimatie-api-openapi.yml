@@ -1,0 +1,227 @@
+openapi: 3.2.0
+info:
+  title: Nedap Jw.Jw Zorglegitimatie API
+  version: 0.0.0
+  description: 'Operations tagged jw.JwZorglegitimatie across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: jw.JwZorglegitimatie
+paths:
+  /t/jw/zorglegitimaties:
+    post:
+      tags:
+      - jw.JwZorglegitimatie
+      summary: Create JwZorglegitimatie
+      operationId: jw.JwZorglegitimatieAPI.create
+      requestBody:
+        description: JwZorglegitimatie to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/jw.JwZorglegitimatie'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jw.JwZorglegitimatie'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/jw/zorglegitimaties
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/jw/zorglegitimaties/{id}:
+    get:
+      tags:
+      - jw.JwZorglegitimatie
+      summary: Return the JwZorglegitimatie corresponding to the given id
+      operationId: jw.JwZorglegitimatieAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used to find the JwZorglegitimatie
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jw.JwZorglegitimatie'
+        '404':
+          description: Beschikking not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/jw/zorglegitimaties/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - jw.JwZorglegitimatie
+      summary: Delete a JwZorglegitimatie
+      operationId: jw.JwZorglegitimatieAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used to find the JwZorglegitimatie
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jw.JwZorglegitimatie'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/jw/zorglegitimaties/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/jw/zorglegitimaties:
+    post:
+      tags:
+      - jw.JwZorglegitimatie
+      summary: Create JwZorglegitimatie
+      operationId: jw.JwZorglegitimatieAPI.create
+      requestBody:
+        description: JwZorglegitimatie to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/jw.JwZorglegitimatie'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jw.JwZorglegitimatie'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/jw/zorglegitimaties
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/jw/zorglegitimaties/{id}:
+    get:
+      tags:
+      - jw.JwZorglegitimatie
+      summary: Return the JwZorglegitimatie corresponding to the given id
+      operationId: jw.JwZorglegitimatieAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used to find the JwZorglegitimatie
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jw.JwZorglegitimatie'
+        '404':
+          description: Beschikking not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/jw/zorglegitimaties/{id}
+    delete:
+      tags:
+      - jw.JwZorglegitimatie
+      summary: Delete a JwZorglegitimatie
+      operationId: jw.JwZorglegitimatieAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used to find the JwZorglegitimatie
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jw.JwZorglegitimatie'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/jw/zorglegitimaties/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    lz.Bericht:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: string
+          description: 'The content of the messages, surrounded with CDATA tags.
+
+            The content needs to be a valid AW33 / AW35 or AW39 message.'
+      description: Bericht model (no description)
+      example:
+        content: Dummy
+      xml:
+        name: bericht
+    jw.JwZorglegitimatie:
+      required:
+      - id
+      - client
+      - berichten
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The id for the import
+          format: int64
+          x-cupido-id: true
+        client:
+          type: integer
+          description: The client
+          format: int64
+        berichten:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/lz.Bericht'
+            xml:
+              name: bericht
+          description: A list with messages
+          xml:
+            wrapped: true
+      description: JwZorglegitimatie model (no description)
+      example:
+        id: 1
+        client: 1
+        berichten:
+        - content: test
+      xml:
+        name: jwZorglegitimatie
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

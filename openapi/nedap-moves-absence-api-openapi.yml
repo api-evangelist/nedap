@@ -1,0 +1,390 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Absence API
+  version: 0.0.0
+  description: 'Operations tagged moves.Absence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.Absence
+paths:
+  /t/employees/absences:
+    post:
+      tags:
+      - moves.Absence
+      summary: 'EXPERIMENTAL: Create or update an absence'
+      description: 'Creates a new absence or updates an existing one based on the remote ID.
+
+
+        Absences created through this API do not have any effect on workflows within Ons and are not visible in the Suite yet. For testing purposes only you can use the following URL in Ons Plannen & Roosteren /units/:id/dashboard/absence_cases?json=true&from=2026-01-01&to=2026-12-31.'
+      operationId: moves.AbsenceAPI.upsert
+      requestBody:
+        description: The absence details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.AbsenceUpsert'
+        required: true
+      responses:
+        '200':
+          description: Absence created or updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.Absence'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemResponse'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemResponse'
+      x-replaced-by: /v0/plannen_roosteren/employees/absences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/absences/{remote_absence_id}:
+    get:
+      tags:
+      - moves.Absence
+      summary: Retrieve an absence by remote ID
+      operationId: moves.AbsenceAPI.byRemoteId
+      parameters:
+      - name: remote_absence_id
+        in: path
+        description: The remote ID of the absence
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.Absence'
+        '404':
+          description: Absence not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemResponse'
+      x-replaced-by: /v0/plannen_roosteren/employees/absences/{remote_absence_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - moves.Absence
+      summary: 'EXPERIMENTAL: Delete an absence by remote ID'
+      operationId: moves.AbsenceAPI.deleteByRemoteId
+      parameters:
+      - name: remote_absence_id
+        in: path
+        description: The remote ID of the absence
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Absence not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemResponse'
+      x-replaced-by: /v0/plannen_roosteren/employees/absences/{remote_absence_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/employees/absences:
+    post:
+      tags:
+      - moves.Absence
+      summary: 'EXPERIMENTAL: Create or update an absence'
+      description: 'Creates a new absence or updates an existing one based on the remote ID.
+
+
+        Absences created through this API do not have any effect on workflows within Ons and are not visible in the Suite yet. For testing purposes only you can use the following URL in Ons Plannen & Roosteren /units/:id/dashboard/absence_cases?json=true&from=2026-01-01&to=2026-12-31.'
+      operationId: moves.AbsenceAPI.upsert
+      requestBody:
+        description: The absence details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.AbsenceUpsert'
+        required: true
+      responses:
+        '200':
+          description: Absence created or updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.Absence'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemResponse'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemResponse'
+      x-replacement-for:
+      - /t/employees/absences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/employees/absences/{remote_absence_id}:
+    get:
+      tags:
+      - moves.Absence
+      summary: Retrieve an absence by remote ID
+      operationId: moves.AbsenceAPI.byRemoteId
+      parameters:
+      - name: remote_absence_id
+        in: path
+        description: The remote ID of the absence
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.Absence'
+        '404':
+          description: Absence not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemResponse'
+      x-replacement-for:
+      - /t/employees/absences/{remote_absence_id}
+    delete:
+      tags:
+      - moves.Absence
+      summary: 'EXPERIMENTAL: Delete an absence by remote ID'
+      operationId: moves.AbsenceAPI.deleteByRemoteId
+      parameters:
+      - name: remote_absence_id
+        in: path
+        description: The remote ID of the absence
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Absence not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemResponse'
+      x-replacement-for:
+      - /t/employees/absences/{remote_absence_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.AbsenceUpsert:
+      title: AbsenceUpsert
+      required:
+      - remoteId
+      type: object
+      properties:
+        remoteId:
+          type: string
+          description: The unique identifier of the absence in the remote system
+        employeeNumber:
+          type: string
+          description: The employee number of the employee this absence belongs to
+        employmentNumber:
+          type:
+          - integer
+          - 'null'
+          description: The employment number, used when an employee has multiple employments
+          format: int64
+        beginDateTime:
+          type: string
+          description: The date and time the absence started
+          format: date-time
+        expectedEndDateTime:
+          type:
+          - string
+          - 'null'
+          description: The expected date and time the absence will end
+          format: date-time
+        actualEndDateTime:
+          type:
+          - string
+          - 'null'
+          description: The actual date and time the absence ended
+          format: date-time
+        absenceType:
+          $ref: '#/components/schemas/moves.AbsenceType'
+      description: Experimental API. An absence to be processed as a signal from a remote system. Absences created through this API are not shown in the UI yet.
+      example:
+        remoteId: '12345'
+        employeeNumber: EMP001
+        employmentNumber: 1
+        beginDateTime: '2024-01-15T08:00:00.000+01:00'
+        expectedEndDateTime: '2024-01-22T08:00:00.000+01:00'
+        actualEndDateTime: '2024-01-22T08:00:00.000+01:00'
+        absenceType: Z
+    ProblemResponseReason:
+      required:
+      - code
+      - pointer
+      type: object
+      properties:
+        code:
+          type: string
+          description: 'Code identifying the error. ValidationType.java in ioserver defines the following, it is suggested to try and reuse these when possible: DUPLICATE_KEY, MISSING_FIELD, INVALID_FORMAT, INVALID_STATE, NOT_FOUND, TIME_CONFLICT'
+        detail:
+          type: string
+          description: A human-readable explanation specific to this reason.
+        pointer:
+          type: string
+          description: A JSON pointer to locate the problem within the request's content using a JSON Pointer
+          example: '#/profile/color'
+      description: Reasons for a problem response, lists attributes of the main or nested object sent
+      example:
+        code: MISSING_FIELD
+        detail: Name can't be blank
+        pointer: '#/name'
+    moves.AbsenceType:
+      enum:
+      - A
+      - B
+      - D
+      - O
+      - P
+      - Z
+      - ZB
+      - ZOD
+      - ZW
+      - ZZW
+      type: string
+      description: 'The type of absence. Possible values:
+
+        - `A`: adoptie
+
+        - `B`: bedrijfsongeval
+
+        - `D`: arbeidsongeschikt_door_derde
+
+        - `O`: overig_ongeval
+
+        - `P`: pleegzorg
+
+        - `Z`: ziek
+
+        - `ZB`: ziek_als_gevolg_van_bevalling
+
+        - `ZOD`: ziek_als_gevolg_van_orgaandonatie
+
+        - `ZW`: zwangerschap_bevalling
+
+        - `ZZW`: ziek_als_gevolg_van_zwangerschap
+
+        '
+      example: Z
+    moves.Absence:
+      title: Absence
+      required:
+      - remoteId
+      - employeeNumber
+      - beginDateTime
+      - absenceType
+      type: object
+      properties:
+        remoteId:
+          type: string
+          description: The unique identifier of the absence in the remote system
+        employeeNumber:
+          type: string
+          description: The employee number of the employee this absence belongs to
+        employmentNumber:
+          type:
+          - integer
+          - 'null'
+          description: The employment number, used when an employee has multiple employments
+          format: int64
+        beginDateTime:
+          type: string
+          description: The date and time the absence started
+          format: date-time
+        expectedEndDateTime:
+          type:
+          - string
+          - 'null'
+          description: The expected date and time the absence will end
+          format: date-time
+        actualEndDateTime:
+          type:
+          - string
+          - 'null'
+          description: The actual date and time the absence ended
+          format: date-time
+        absenceType:
+          $ref: '#/components/schemas/moves.AbsenceType'
+      description: An absence to be processed as a signal from a remote system
+      example:
+        remoteId: '12345'
+        employeeNumber: EMP001
+        employmentNumber: 1
+        beginDateTime: '2024-01-15T08:00:00.000+01:00'
+        expectedEndDateTime: '2024-01-22T08:00:00.000+01:00'
+        actualEndDateTime: '2024-01-22T08:00:00.000+01:00'
+        absenceType: Z
+    ProblemResponse:
+      required:
+      - type
+      - title
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URI reference [RFC3986] that identifies the problem type. The specification encourages that, when dereferenced, it provide human-readable documentation for the problem type (e.g., using HTML). We require type to be present, but consider relative URIs that do not return human-readable documentation acceptable.
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization (e.g., using proactive content negotiation; see RFC7231, Section 3.4)
+        status:
+          type: integer
+          description: The HTTP status code (RFC7231, Section 6) generated by the origin server for this occurrence of the problem
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+        instance:
+          type: string
+          description: A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced.
+        provider:
+          type: string
+          description: A string that identifies the application that provided the error message
+        reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProblemResponseReason'
+          description: List of individual error reasons found, with details and a pointer to the location of each.
+      description: Problem JSON response format, mostly following RFC 9457, but slightly adapted to Nedap's needs.
+      example:
+        type: /validation-error
+        title: Your request is not valid.
+        status: 422
+        provider: Nedap Planning
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

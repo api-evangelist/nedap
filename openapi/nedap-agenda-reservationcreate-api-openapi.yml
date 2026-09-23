@@ -1,0 +1,178 @@
+openapi: 3.2.0
+info:
+  title: Nedap Agenda.Reservation Create API
+  version: 0.0.0
+  description: 'Operations tagged agenda.ReservationCreate across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: agenda.ReservationCreate
+paths:
+  /t/agenda/entries/reservations:
+    post:
+      tags:
+      - agenda.ReservationCreate
+      summary: Creates a reservation for the specified employee
+      description: Creates a reservation for an employee. When a recurrenceRule is supplied a recurring reservation is created, otherwise a single reservation is created.
+      operationId: agenda.ReservationCreateAPI.createReservation
+      requestBody:
+        description: Reservation to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.ReservationCreate'
+        required: true
+      responses:
+        '204':
+          description: Reservation created
+        '403':
+          description: Insufficient rights
+        '404':
+          description: Employee or label not found
+        '422':
+          description: Request parameters did not validate
+      x-replaced-by: /v0/agenda/entries/reservations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/entries/reservations:
+    post:
+      tags:
+      - agenda.ReservationCreate
+      summary: Creates a reservation for the specified employee
+      description: Creates a reservation for an employee. When a recurrenceRule is supplied a recurring reservation is created, otherwise a single reservation is created.
+      operationId: agenda.ReservationCreateAPI.createReservation
+      requestBody:
+        description: Reservation to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.ReservationCreate'
+        required: true
+      responses:
+        '204':
+          description: Reservation created
+        '403':
+          description: Insufficient rights
+        '404':
+          description: Employee or label not found
+        '422':
+          description: Request parameters did not validate
+      x-replacement-for:
+      - /t/agenda/entries/reservations
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    agenda.RecurrenceRule:
+      title: AgendaRecurrenceRule
+      required:
+      - recurrenceType
+      type:
+      - object
+      - 'null'
+      properties:
+        recurrenceType:
+          $ref: '#/components/schemas/agenda.RecurrenceType'
+        interval:
+          minimum: 1
+          type: integer
+          description: 'Must be >= 1. The interval used in calculating the occurrences. The recurrence rule specifies when an
+
+            occurrence might occur. Then the ''interval'' is used to determine which of these occurrences actually occurs.
+
+            A value of 1 means that every occurrence occurs, a value of 2 means that every other occurrence occurs, etc.'
+          format: int64
+          default: 1
+        weekdays:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: "An array containing all days of the week the occurrence should occur. Is only used when the recurrence rule\n'weekly' is selected. Defaults to the `startDate` day integer of the parent event when omitted or null.\nDays of the week are represented as follows:\n  * 1: Monday\n  * 2: Tuesday\n  * 3: Wednesday\n  * 4: Thursday\n  * 5: Friday\n  * 6: Saturday\n  * 7: Sunday"
+        repeatUntil:
+          type: string
+          description: Last day on which an occurrence may start (inclusive). When omitted or null, recurs indefinitely.
+          format: date
+      description: Object describing the recurrence. This object may be omitted, in that case a single occurrence is created
+      example:
+        recurrenceType: weekly
+        interval: 1
+        weekdays:
+        - 1
+        - 3
+        repeatUntil: '2015-08-02'
+    agenda.RecurrenceType:
+      enum:
+      - single
+      - daily
+      - weekly
+      - monthly_on_day
+      - monthly_on_week
+      - yearly
+      type: string
+      description: 'When no value is supplied, it defaults to single. Specifies the recurrence rule:
+
+
+        * single: The entry only occurs a single time, no recurrence is used.
+
+        * daily: The entry occurs every day.
+
+        * weekly: The entry occurs every week on the days supplied in the ''weekdays'' field.
+
+        * monthly_on_day: The entry occurs every month on the given date. I.e. on the 10th every month.
+
+        * monthly_on_week: The entry occurs every month on the same day of the month. I.e. on the
+
+        first Tuesday every month.
+
+        * yearly: The entry occurs every year on the given date.'
+      default: single
+      example: single
+    agenda.ReservationCreate:
+      title: ReservationCreate
+      required:
+      - employeeId
+      - startsAt
+      - endsAt
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          description: Id of the employee for which the reservation is created.
+          format: int64
+        startsAt:
+          type: string
+          description: Start moment of the reservation. Must be on the same day as endsAt and supplied in the Europe/Amsterdam time zone.
+          format: date-time
+        endsAt:
+          type: string
+          description: End moment (exclusive) of the reservation. Must be after startsAt, on the same day, and supplied in the Europe/Amsterdam time zone.
+          format: date-time
+        labelIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Ids of the labels to assign to this reservation.
+        recurrenceRule:
+          $ref: '#/components/schemas/agenda.RecurrenceRule'
+      description: Request body used to create a reservation. When a recurrenceRule is supplied, startsAt must be on or before its repeatUntil.
+      example:
+        employeeId: 1
+        startsAt: '2025-06-05T08:10:00.000+02:00'
+        endsAt: '2025-06-05T08:20:00.000+02:00'
+        labelIds:
+        - 1
+        recurrenceRule:
+          recurrenceType: weekly
+          interval: 1
+          weekdays:
+          - 1
+          - 3
+          repeatUntil: '2025-08-02'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

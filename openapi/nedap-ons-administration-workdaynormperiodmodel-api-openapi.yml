@@ -1,0 +1,156 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Administration.Workday Norm Period Model API
+  version: 0.0.0
+  description: 'Operations tagged ons_administration.WorkdayNormPeriodModel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_administration.WorkdayNormPeriodModel
+paths:
+  /t/employees/workday_norms/current:
+    get:
+      tags:
+      - ons_administration.WorkdayNormPeriodModel
+      summary: Returns the workday norm periods for the given employees.
+      operationId: ons_administration.WorkdayNormPeriodModelAPI.getCurrentPeriodsByEmployee
+      parameters:
+      - name: id
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayNormPeriodModelList'
+        '400':
+          description: Validation errors
+      x-replaced-by: /v0/administration/employees/workday_norms/current
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/workday_norms/current:
+    get:
+      tags:
+      - ons_administration.WorkdayNormPeriodModel
+      summary: Returns the workday norm periods for the given employees.
+      operationId: ons_administration.WorkdayNormPeriodModelAPI.getCurrentPeriodsByEmployee
+      parameters:
+      - name: id
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayNormPeriodModelList'
+        '400':
+          description: Validation errors
+      x-replacement-for:
+      - /t/employees/workday_norms/current
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_administration.WorkdayNormPeriodModel:
+      type: object
+      properties:
+        employeeObjectId:
+          type: integer
+          description: The object id of the employee
+          format: int64
+          readOnly: true
+        endDate:
+          type: string
+          description: The end date of the current period
+          format: date
+          readOnly: true
+        normPeriod:
+          type: integer
+          description: The measurement period in weeks of the current period
+          format: int32
+          readOnly: true
+        optOut:
+          type: boolean
+          description: If true, the employee is opted out of the workday norm
+          readOnly: true
+        startDate:
+          type: string
+          description: The start date of the current period
+          format: date
+          readOnly: true
+        workdayNorm:
+          type: integer
+          description: The total number of workdays the employee has to work in the current period
+          format: int32
+          readOnly: true
+        workdays:
+          type: array
+          items:
+            type: string
+            description: The list of dates the employee has registered work in the current period
+            format: date
+            readOnly: true
+          description: The list of dates the employee has registered work in the current period
+          readOnly: true
+      description: 'Model for a workday norm period. This model contains the current state of the workday norm for a given
+
+        employee. This model contains norm, length and already registered workdays for the given employee.
+
+        '
+      readOnly: true
+      example:
+        employeeObjectId: 7
+        startDate: '2025-12-01'
+        endDate: '2025-12-28'
+        normPeriod: 4
+        optOut: false
+        workdayNorm: 4
+        workdays:
+        - '2025-12-03'
+        - '2025-12-04'
+    ons_administration.list.WorkdayNormPeriodModelList:
+      type: object
+      properties:
+        workdayNormPeriodModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.WorkdayNormPeriodModel'
+      description: List of WorkdayNormPeriodModels
+      example:
+        workdayNormPeriodModels:
+        - employeeObjectId: 7
+          startDate: '2025-12-01'
+          endDate: '2025-12-28'
+          normPeriod: 4
+          optOut: false
+          workdayNorm: 4
+          workdays:
+          - '2025-12-03'
+          - '2025-12-04'
+        - employeeObjectId: 9
+          startDate: '2025-12-01'
+          endDate: '2025-12-07'
+          normPeriod: 1
+          optOut: true
+          workdayNorm: 1
+          workdays:
+          - '2025-12-03'
+          - '2025-12-04'
+          - '2025-12-05'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,130 @@
+openapi: 3.2.0
+info:
+  title: Nedap Admin.Timesheet Config API
+  version: 0.0.0
+  description: 'Operations tagged admin.TimesheetConfig across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: admin.TimesheetConfig
+paths:
+  /t/timesheet_config:
+    get:
+      tags:
+      - admin.TimesheetConfig
+      summary: Retrieves the TimesheetConfig
+      operationId: admin.TimesheetConfigAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.TimesheetConfig'
+      x-replaced-by: /v0/administration/admin/timesheetconfig
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - admin.TimesheetConfig
+      summary: Updates the given TimesheetConfig
+      operationId: admin.TimesheetConfigAPI.update
+      requestBody:
+        description: TimesheetConfig to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/admin.TimesheetConfig'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.TimesheetConfig'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/admin/timesheetconfig
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/admin/timesheetconfig:
+    get:
+      tags:
+      - admin.TimesheetConfig
+      summary: Retrieves the TimesheetConfig
+      operationId: admin.TimesheetConfigAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.TimesheetConfig'
+      x-replacement-for:
+      - /t/timesheet_config
+    put:
+      tags:
+      - admin.TimesheetConfig
+      summary: Updates the given TimesheetConfig
+      operationId: admin.TimesheetConfigAPI.update
+      requestBody:
+        description: TimesheetConfig to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/admin.TimesheetConfig'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.TimesheetConfig'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/timesheet_config
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    admin.TimesheetConfig:
+      type: object
+      properties:
+        workedHoursTableEnabled:
+          type: boolean
+          default: true
+        indirectHoursTableEnabled:
+          type: boolean
+          default: false
+        agreeTableEnabled:
+          type: boolean
+          default: true
+        periodOverviewTableEnabled:
+          type: boolean
+          default: false
+        indirectHoursList:
+          type: string
+          default: ''
+        detailEnabled:
+          type: boolean
+          default: false
+        planningText:
+          type: string
+          default: ''
+      description: TimesheetConfig model (no description)
+      example:
+        workedHoursTableEnabled: false
+        indirectHoursTableEnabled: true
+        agreeTableEnabled: true
+        periodOverviewTableEnabled: false
+        indirectHoursList: 1,2,3
+        detailEnabled: true
+        planningText: 'ps: harder werken'
+      xml:
+        name: timesheetConfig
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

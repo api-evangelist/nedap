@@ -1,0 +1,531 @@
+openapi: 3.2.0
+info:
+  title: Nedap Milo.Device API
+  version: 0.0.0
+  description: 'Operations tagged milo.Device across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: milo.Device
+paths:
+  /t/milo/devices/by_device_code/{device_code}:
+    get:
+      tags:
+      - milo.Device
+      summary: Return the device based on device_code
+      operationId: milo.DeviceAPI.byDeviceCode
+      parameters:
+      - name: device_code
+        in: path
+        description: The device code of the device
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/milo.Device'
+        '404':
+          description: Care provider or device not found
+      x-replaced-by: /v0/mobile_backend/devices/by_device_code/{device_code}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/devices:
+    get:
+      tags:
+      - milo.Device
+      summary: Return the devices of an Employee corresponding to the given id
+      operationId: milo.DeviceAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/milo.list.DeviceList'
+      x-replaced-by: /v0/mobile_backend/devices/by_employee/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/milo/totp/by_employee/{employee_id}/request_totp:
+    get:
+      tags:
+      - milo.Device
+      summary: Request a one time password by employee
+      description: Request will be send to totp app(s) owned by employee to inform mobile to fetch a totp code.
+      operationId: milo.DeviceAPI.requestOneTimePasswordByEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No content on GET method
+        '400':
+          description: Care provider not active, employee does not have a valid contract or no totp app.
+        '404':
+          description: Employee not found
+      x-replaced-by: /v0/mobile_backend/totp/by_employee/{employee_id}/request_totp
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/milo/totp/by_employee/{employee_id}/verify_totp:
+    post:
+      tags:
+      - milo.Device
+      summary: Verify if one time password is valid by employee
+      description: Verifies if one time password entered by employee is the last unused one created for one of employees devices.
+      operationId: milo.DeviceAPI.verifyOneTimePasswordByEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: id of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: code
+        in: query
+        description: the Time-based One Time Password
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/milo.PasswordVerification'
+        '400':
+          description: Care provider not active, employee does not have a valid contract or no totp app.
+        '404':
+          description: Employee not found
+      x-replaced-by: /v0/mobile_backend/totp/by_employee/{employee_id}/verify_totp
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/milo/totp/request_totp:
+    get:
+      tags:
+      - milo.Device
+      summary: Request a one time password for the device which correspond with the device id
+      operationId: milo.DeviceAPI.requestOneTimePassword
+      parameters:
+      - name: device_id
+        in: query
+        description: id of the device
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No content on GET method
+        '400':
+          description: Employee does not have a valid totp app.
+      deprecated: true
+      x-deprecated-since: 20-11-2023
+      x-replaced-by: /v0/mobile_backend/totp/request_totp
+    servers:
+    - url: https://api-development.ons.io
+  /t/milo/totp/verify_totp:
+    post:
+      tags:
+      - milo.Device
+      summary: Verify if one time password is valid by device
+      operationId: milo.DeviceAPI.verifyOneTimePassword
+      parameters:
+      - name: device_id
+        in: query
+        description: id of the device
+        schema:
+          type: integer
+          format: int64
+      - name: code
+        in: query
+        description: the Time-based One Time Password
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/milo.PasswordVerification'
+      deprecated: true
+      x-deprecated-since: 20-11-2023
+      x-replaced-by: /v0/mobile_backend/totp/verify_totp
+    servers:
+    - url: https://api-development.ons.io
+  /v0/mobile_backend/devices/by_device_code/{device_code}:
+    get:
+      tags:
+      - milo.Device
+      summary: Return the device based on device_code
+      operationId: milo.DeviceAPI.byDeviceCode
+      parameters:
+      - name: device_code
+        in: path
+        description: The device code of the device
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/milo.Device'
+        '404':
+          description: Care provider or device not found
+      x-replacement-for:
+      - /t/milo/devices/by_device_code/{device_code}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/mobile_backend/devices/by_employee/{employee_id}:
+    get:
+      tags:
+      - milo.Device
+      summary: Return the devices of an Employee corresponding to the given id
+      operationId: milo.DeviceAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/milo.list.DeviceList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/devices
+    servers:
+    - url: https://api-development.ons.io
+  /v0/mobile_backend/totp/by_employee/{employee_id}/request_totp:
+    get:
+      tags:
+      - milo.Device
+      summary: Request a one time password by employee
+      description: Request will be send to totp app(s) owned by employee to inform mobile to fetch a totp code.
+      operationId: milo.DeviceAPI.requestOneTimePasswordByEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No content on GET method
+        '400':
+          description: Care provider not active, employee does not have a valid contract or no totp app.
+        '404':
+          description: Employee not found
+      x-replacement-for:
+      - /t/milo/totp/by_employee/{employee_id}/request_totp
+    servers:
+    - url: https://api-development.ons.io
+  /v0/mobile_backend/totp/by_employee/{employee_id}/verify_totp:
+    post:
+      tags:
+      - milo.Device
+      summary: Verify if one time password is valid by employee
+      description: Verifies if one time password entered by employee is the last unused one created for one of employees devices.
+      operationId: milo.DeviceAPI.verifyOneTimePasswordByEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: id of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: code
+        in: query
+        description: the Time-based One Time Password
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/milo.PasswordVerification'
+        '400':
+          description: Care provider not active, employee does not have a valid contract or no totp app.
+        '404':
+          description: Employee not found
+      x-replacement-for:
+      - /t/milo/totp/by_employee/{employee_id}/verify_totp
+    servers:
+    - url: https://api-development.ons.io
+  /v0/mobile_backend/totp/request_totp:
+    get:
+      tags:
+      - milo.Device
+      summary: Request a one time password for the device which correspond with the device id
+      operationId: milo.DeviceAPI.requestOneTimePassword
+      parameters:
+      - name: device_id
+        in: query
+        description: id of the device
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No content on GET method
+        '400':
+          description: Employee does not have a valid totp app.
+      deprecated: true
+      x-deprecated-since: 20-11-2023
+      x-replacement-for:
+      - /t/milo/totp/request_totp
+    servers:
+    - url: https://api-development.ons.io
+  /v0/mobile_backend/totp/verify_totp:
+    post:
+      tags:
+      - milo.Device
+      summary: Verify if one time password is valid by device
+      operationId: milo.DeviceAPI.verifyOneTimePassword
+      parameters:
+      - name: device_id
+        in: query
+        description: id of the device
+        schema:
+          type: integer
+          format: int64
+      - name: code
+        in: query
+        description: the Time-based One Time Password
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/milo.PasswordVerification'
+      deprecated: true
+      x-deprecated-since: 20-11-2023
+      x-replacement-for:
+      - /t/milo/totp/verify_totp
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    milo.Device:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: Id of the Device
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type:
+          - integer
+          - 'null'
+          description: Id of the employee this device belongs to
+          format: int64
+        deviceCode:
+          type:
+          - string
+          - 'null'
+          description: Device code (uuid)
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description with the name of the device
+        accessedAt:
+          type:
+          - string
+          - 'null'
+          description: Datetime
+          format: date-time
+        userAgent:
+          type:
+          - string
+          - 'null'
+          description: 'Deprecated since: 14-03-2019 - use the userAgent field of Cupido::Milo::App'
+          deprecated: true
+          x-deprecated-since: 14-03-2019
+        supportsOneTimePassword:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean if this devices supports one time password
+        apps:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/milo.App'
+          description: A list of apps linked to the device
+          xml:
+            wrapped: true
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          description: The time when the device was deleted. Null otherwise.
+          format: date-time
+      description: Device model (no description)
+      example:
+        id: 129
+        employeeObjectId: 123456
+        deviceCode: 123e4567-e89b-12d3-a456-426655440000
+        description: Galaxy Nexus
+        accessedAt: '2014-06-02T17:12:00.000+02:00'
+        userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
+        supportsOneTimePassword: true
+        apps:
+        - id: 1
+          employeeObjectId: 123456
+          name: Ons Toegangscode
+          userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
+          deviceId: 129
+          accessedAt: '2018-03-29T00:00:00.000+02:00'
+          deletedAt: '2018-08-20T01:00:00.000+02:00'
+        deletedAt: '2018-08-20T01:00:00.000+02:00'
+      xml:
+        name: device
+    milo.App:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: Id of the App
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type:
+          - integer
+          - 'null'
+          description: Id of the employee this app belongs to
+          format: int64
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        name:
+          type:
+          - string
+          - 'null'
+          description: Description of the app (mostly the name)
+        userAgent:
+          type:
+          - string
+          - 'null'
+          description: String with version of user_agent on this device
+        deviceId:
+          type:
+          - integer
+          - 'null'
+          description: Id of the device this app belongs to
+          format: int64
+        accessedAt:
+          type:
+          - string
+          - 'null'
+          description: Datetime
+          format: date-time
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          description: The time when the app was deleted. Null otherwise.
+          format: date-time
+      description: App model (no description)
+      example:
+        id: 1
+        employeeObjectId: 123456
+        name: Ons Toegangscode
+        userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
+        deviceId: 129
+        accessedAt: '2018-03-29T00:00:00.000+02:00'
+        deletedAt: '2018-08-20T01:00:00.000+02:00'
+      xml:
+        name: app
+    milo.list.DeviceList:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/milo.Device'
+          xml:
+            name: device
+      description: DeviceList model (no description)
+      example:
+        devices:
+        - id: 129
+          employeeObjectId: 123456
+          description: Galaxy Nexus
+          accessedAt: '2014-06-02T17:12:00.000+02:00'
+          userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
+          supportsOneTimePassword: true
+          apps:
+          - id: 1
+            employeeObjectId: 123456
+            name: Ons Toegangscode
+            userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
+            deviceId: 129
+            accessedAt: '2018-03-29T00:00:00.000+02:00'
+            deletedAt: '2018-08-20T01:00:00.000+02:00'
+          deletedAt: '2018-08-20T01:00:00.000+02:00'
+      xml:
+        name: devices
+    milo.PasswordVerification:
+      type: object
+      properties:
+        valid:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean if passwordVerification is valid
+      description: PasswordVerification model (no description)
+      example:
+        valid: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

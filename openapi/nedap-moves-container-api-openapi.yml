@@ -1,0 +1,308 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Container API
+  version: 0.0.0
+  description: 'Operations tagged moves.Container across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.Container
+paths:
+  /t/containers/search:
+    post:
+      tags:
+      - moves.Container
+      summary: Return the active containers searched for within a specified period
+      operationId: moves.ContainerAPI.search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.ContainerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ContainerList'
+        '400':
+          description: Parsing errors or user errors.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: It is forbidden for the user to look through these containers.
+        '429':
+          description: Rate limit reached for this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.MovesRatelimitError'
+      x-replaced-by: /v0/plannen_roosteren/containers/search
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/containers/search:
+    post:
+      tags:
+      - moves.Container
+      summary: Return the active containers searched for within a specified period
+      operationId: moves.ContainerAPI.search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.ContainerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.ContainerList'
+        '400':
+          description: Parsing errors or user errors.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: It is forbidden for the user to look through these containers.
+        '429':
+          description: Rate limit reached for this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.MovesRatelimitError'
+      x-replacement-for:
+      - /t/containers/search
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.ContainerTimeBlock:
+      title: ContainerTimeBlock
+      required:
+      - startDateTime
+      - endDateTime
+      - type
+      - plannable
+      type: object
+      properties:
+        startDateTime:
+          type: string
+          description: The starting time of the (un)availability for this container.
+          format: date-time
+        endDateTime:
+          type: string
+          description: The ending time of the (un)availability for this container.
+          format: date-time
+        type:
+          $ref: '#/components/schemas/moves.ContainerTimeBlockType'
+        plannable:
+          type: boolean
+          description: Describes if we can plan inside of this time block
+      description: A block of time in which plan cards are (not) allowed to be planned in.
+      example:
+        startDateTime: '2025-05-25T09:30:00.000+02:00'
+        endDateTime: '2025-05-25T12:30:00.000+02:00'
+        type: AVAILABLE
+        plannable: true
+    moves.ContainerTimeBlockType:
+      enum:
+      - AVAILABLE
+      - UNAVAILABLE
+      type: string
+      description: Whether this availability marks an unavailability in which work cannot be planned, or an availability in which work can be planned.
+      example: AVAILABLE
+    moves.ContainerSearchRequest:
+      title: ContainerSearchRequest
+      required:
+      - from
+      - to
+      type: object
+      properties:
+        from:
+          type: string
+          description: The date from which all the results need to be found
+          format: date
+        to:
+          type: string
+          description: The exclusive date until all the results need to be found
+          format: date
+        unitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The identifiers of the units that need to be attached to the result
+        shiftTimelineIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The timeline ids of the shifts that need to be attached to the result
+        employeeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The identifiers of the employees that need to be attached to the result
+      description: The request body used to search for containers
+      example:
+        from: '2025-05-20'
+        to: '2025-05-30'
+        unitIds:
+        - 1
+        - 2
+        shiftTimelineIds: []
+        employeeIds: []
+    moves.list.ContainerList:
+      title: ContainerList
+      required:
+      - containers
+      type: object
+      properties:
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Container'
+      description: A response body that contains a list of containers.
+      example:
+        containers:
+        - containerId: '|EMPLOYEE:1|UNIT:1|DAY:MONDAY|'
+          containerType: EMPLOYEE
+          containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+          unitId: 1
+          date: '2025-05-25'
+          startDateTime: '2025-05-25T09:30:00.000+02:00'
+          endDateTime: '2025-05-25T12:30:00.000+02:00'
+          timeBlocks:
+          - startDateTime: '2025-05-25T09:30:00.000+02:00'
+            endDateTime: '2025-05-25T12:30:00.000+02:00'
+            type: AVAILABLE
+            plannable: true
+    moves.Container:
+      title: Container
+      required:
+      - containerId
+      - containerType
+      - containerChecksum
+      - unitId
+      - date
+      - startDateTime
+      - endDateTime
+      - timeBlocks
+      type: object
+      properties:
+        containerId:
+          type: string
+          description: The unique identifier that links to this specific Shift or Employee. Only used for referring to assignments.
+        containerType:
+          $ref: '#/components/schemas/moves.ContainerType'
+        containerChecksum:
+          type: string
+          description: The url-encoded checksum used to check if planning changes to this container are made with the correct updated data.
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          description: The employee identifier linked to this container
+          format: int64
+        shiftTimelineId:
+          type:
+          - integer
+          - 'null'
+          description: The timeline of the shift linked to this container
+          format: int64
+        unitId:
+          type:
+          - integer
+          - 'null'
+          description: The identifier of the unit that is attached to this container.
+          format: int64
+        rosterSlotId:
+          type:
+          - string
+          - 'null'
+          description: The shift occurrence id of this container (only for shifts).
+        expertiseProfileIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: A list of expertise profiles of this container (only for shifts).
+        date:
+          type: string
+          description: Date on which this container occurs.
+          format: date
+        startDateTime:
+          type: string
+          description: The date and time on which this container is supposed to start. Includes timezone information to account for DST changes.
+          format: date-time
+        endDateTime:
+          type: string
+          description: The date and time on which this container is supposed to end. Includes timezone information to account for DST changes.
+          format: date-time
+        timeBlocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ContainerTimeBlock'
+          description: Blocks of time in which plan cards are (not) allowed to be planned in.
+      description: A slot of time that can be used to plan care into, like a shift or directly to employee
+      example:
+        containerId: '|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|'
+        containerType: EMPLOYEE
+        containerChecksum: 1:3AoLHR75RHPxdC78zVAZeUI.eaQkNLTQFko76niqvP5otuCzN2rxFpK
+        employeeId: 1
+        unitId: 1
+        shiftTimelineId: 2
+        rosterSlotId: 2@2025-05-23
+        expertiseProfileIds:
+        - 2
+        date: '2025-05-23'
+        startDateTime: '2025-05-25T09:00:00.000+02:00'
+        endDateTime: '2025-05-25T12:00:00.000+02:00'
+        timeBlocks:
+        - startDateTime: '2025-05-25T09:30:00.000+02:00'
+          endDateTime: '2025-05-25T12:30:00.000+02:00'
+          plannable: true
+          type: AVAILABLE
+    moves.ContainerType:
+      enum:
+      - SHIFT
+      - EMPLOYEE
+      type: string
+      description: The type of container, either a Shift or an Employee.
+      example: SHIFT
+    moves.MovesRatelimitError:
+      title: MovesRatelimitError
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of error raised
+        title:
+          type: string
+          description: The human readable title of the rate limit error
+        status:
+          type: integer
+          description: The HTTP status code being given
+          format: int64
+      description: An error describing a specific rate limit has been reached and that the client should wait to retry the response
+      example:
+        type: ratelimit-error
+        title: Rate-limit reached
+        status: 429
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

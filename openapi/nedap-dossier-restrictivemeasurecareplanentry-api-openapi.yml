@@ -1,0 +1,1450 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Restrictive Measure Care Plan Entry API
+  version: 0.0.0
+  description: 'Operations tagged dossier.RestrictiveMeasureCarePlanEntry across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.RestrictiveMeasureCarePlanEntry
+paths:
+  /t/dossier/restrictive_measure_care_plan_entries:
+    post:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Create RestrictiveMeasureCarePlanEntry
+      description: Creates restrictive measure care plan entry. Client external id cannot be blank. Returns 500 for invalid date with xml and sets invalid date to nil for json.
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.create
+      requestBody:
+        description: RestrictiveMeasureCarePlanEntry to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        required: true
+      responses:
+        '201':
+          description: Returns created restrictive measure care plan entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        '400':
+          description: Client external id cannot be blank
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measures
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/restrictive_measure_care_plan_entries/{id}:
+    get:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Find restrictive measure care plan entry
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting RestrictiveMeasureCarePlanEntry
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        '404':
+          description: Restrictive measure care plan entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measures/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Updates the given RestrictiveMeasureCarePlanEntry
+      description: Update restrictive measure care plan entry
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting RestrictiveMeasureCarePlanEntry
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: RestrictiveMeasureCarePlanEntry to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        '404':
+          description: Restrictive measure care plan entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measures/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Deletes restrictive measure care plan entry by ID
+      description: 'Deletes the restrictive measure care plan entry for the given ID.
+
+
+        NOTE: This operation permanently removes the restrictive measure care plan entry and all associated data including registrations, entries, evaluations and expertise documents.
+
+        This data is part of the export for the IGJ inspection. Deleting restrictive measure care plan entries before they have been properly exported may result in incomplete inspection data and potential compliance issues. Ensure all required exports have been completed before proceeding with deletion.
+
+        Use with caution as this action cannot be undone.'
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of RestrictiveMeasureCarePlanEntry to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Successfully removed the restrictive measure care plan entry
+        '404':
+          description: Restrictive measure care plan entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measures/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    patch:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Patches RestrictiveMeasureCarePlanEntry with given id
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measures/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/clients/{client_id}/care_plan/restrictive_measure_care_plan_entries:
+    get:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Return the restrictive measure care plan entries of a Client corresponding to…
+      description: Finds the restrictive measure care plan entries of a client by the client id. Returns an empty array when client is not found.
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: Client id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.RestrictiveMeasureCarePlanEntryList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/clients/{client_id}/care_plan/restrictive_measures
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measures:
+    post:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Create RestrictiveMeasureCarePlanEntry
+      description: Creates restrictive measure care plan entry. Client external id cannot be blank. Returns 500 for invalid date with xml and sets invalid date to nil for json.
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.create
+      requestBody:
+        description: RestrictiveMeasureCarePlanEntry to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        required: true
+      responses:
+        '201':
+          description: Returns created restrictive measure care plan entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        '400':
+          description: Client external id cannot be blank
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/restrictive_measure_care_plan_entries
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measures/{id}:
+    get:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Find restrictive measure care plan entry
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting RestrictiveMeasureCarePlanEntry
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        '404':
+          description: Restrictive measure care plan entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/restrictive_measure_care_plan_entries/{id}
+    put:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Updates the given RestrictiveMeasureCarePlanEntry
+      description: Update restrictive measure care plan entry
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting RestrictiveMeasureCarePlanEntry
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: RestrictiveMeasureCarePlanEntry to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        '404':
+          description: Restrictive measure care plan entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/restrictive_measure_care_plan_entries/{id}
+    delete:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Deletes restrictive measure care plan entry by ID
+      description: 'Deletes the restrictive measure care plan entry for the given ID.
+
+
+        NOTE: This operation permanently removes the restrictive measure care plan entry and all associated data including registrations, entries, evaluations and expertise documents.
+
+        This data is part of the export for the IGJ inspection. Deleting restrictive measure care plan entries before they have been properly exported may result in incomplete inspection data and potential compliance issues. Ensure all required exports have been completed before proceeding with deletion.
+
+        Use with caution as this action cannot be undone.'
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of RestrictiveMeasureCarePlanEntry to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Successfully removed the restrictive measure care plan entry
+        '404':
+          description: Restrictive measure care plan entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/restrictive_measure_care_plan_entries/{id}
+    patch:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Patches RestrictiveMeasureCarePlanEntry with given id
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/restrictive_measure_care_plan_entries/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/clients/{client_id}/care_plan/restrictive_measures:
+    get:
+      tags:
+      - dossier.RestrictiveMeasureCarePlanEntry
+      summary: Return the restrictive measure care plan entries of a Client corresponding to…
+      description: Finds the restrictive measure care plan entries of a client by the client id. Returns an empty array when client is not found.
+      operationId: dossier.RestrictiveMeasureCarePlanEntryAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: Client id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.RestrictiveMeasureCarePlanEntryList'
+      x-replacement-for:
+      - /t/dossier/clients/{client_id}/care_plan/restrictive_measure_care_plan_entries
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.RestrictiveMeasureCarePlanEntryProblemNarrative:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The problem narrative's ID.
+          format: int64
+          x-cupido-id: true
+        tag:
+          type:
+          - string
+          - 'null'
+          description: 'The problem narrative description. Possible values and their Dutch translations:
+
+
+            WZD-labels:
+
+            <ul>
+
+            <li>mortal_danger_self_others: levensgevaar voor de cliënt of iemand anders</li>
+
+            <li>bodily_harm: ernstig lichamelijk letsel voor de cliënt of iemand anders</li>
+
+            <li>damage_self_others: ernstige psychische, materiële, immateriële of financiële schade voor de cliënt of iemand anders</li>
+
+            <li>severe_neglect: ernstige verwaarlozing of maatschappelijke teloorgang van de cliënt of iemand anders</li>
+
+            <li>disturbed_development: ernstig verstoorde ontwikkeling van de cliënt of iemand anders</li>
+
+            <li>safety_client: bedreiging van de veiligheid van de cliënt al dan niet doordat hij onder invloed van een ander raakt</li>
+
+            <li>aggression_others: de situatie dat de cliënt met hinderlijk gedrag agressie van anderen oproept</li>
+
+            <li>general_safety: de situatie dat de algemene veiligheid van personen of goederen in gevaar is</li>
+
+            </ul>
+
+
+            WZD-FZ-labels:
+
+            <ul>
+
+            <li>danger_order_safety: gevaar voor de orde en veiligheid afwenden</li>
+
+            <li>risk_for_felony: het risico op een ernstig strafbaar feit afwenden</li>
+
+            <li>health_client: ernstige nadelige gevolgen voor de gezondheidstoestand van de cliënt afwenden</li>
+
+            </ul>'
+      description: A problem narrative for a {@link RestrictiveMeasureCarePlanEntry}.
+      example:
+        id: 1
+        tag: general_safety
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    dossier.RestrictiveMeasureCarePlanEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        restrictiveMeasureEntries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureEntry'
+          description: The restrictive measure entries belonging to this care plan entry
+        restrictiveMeasureEvaluations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureEvaluation'
+          description: Optional evaluations for this care plan entry
+        situation:
+          type:
+          - string
+          - 'null'
+          description: 'Optional situation in which this measure is/was applied
+
+            <pre>
+
+            Possible values:
+
+            unexpected
+
+            careplan
+
+            </pre>'
+        typeCompetent:
+          type:
+          - boolean
+          - 'null'
+          description: Optional whether the client is competent regarding the measures
+        competentNarrative:
+          type: string
+          description: '[WVGGZ] Optional whether the client is NOT competent, to explain why not'
+        typeAgreement:
+          type:
+          - boolean
+          - 'null'
+          description: 'Deprecated since: 01-01-2020 - use restrictiveMeasureEntries.typeAgreement instead, this is now recorded on a per-measure basis there.'
+          deprecated: true
+          x-deprecated-since: 01-01-2020
+        typeResistant:
+          type:
+          - boolean
+          - 'null'
+          description: 'Deprecated since: 01-01-2020 - use restrictiveMeasureEntries.typeResistant instead, this is now recorded on a per-measure basis there.'
+          deprecated: true
+          x-deprecated-since: 01-01-2020
+        decisionNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional explanation on the type and situation decisions
+        inspectionReportDate:
+          type:
+          - string
+          - 'null'
+          description: Optional date the Bopz-measures were reported to the inspection, does not apply after 01-01-2020
+          format: date
+        status:
+          type:
+          - string
+          - 'null'
+          description: 'The status of the entry
+
+            <pre>
+
+            Possible values:
+
+            - draft
+
+            - active
+
+            - archived
+
+            </pre>'
+        problemNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional problem why this measure is needed or serious detriment that is being prevented
+        goalNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional goal to achieve with these measures, no longer applies after 01-01-2020
+        beginDate:
+          type:
+          - string
+          - 'null'
+          description: Optional start date of the measures
+          format: date
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: Optional end date of the measures (the date the entry is archived)
+          format: date
+        nextEvaluationDate:
+          type:
+          - string
+          - 'null'
+          description: Optional date on which the measures need to be evaluated
+          format: date
+        risksNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional risks of applying the measures or any adverse effects applying these measures might have
+        guaranteeNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional guarantee for behavioural approach
+        reductionNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional description of the plan to reduce application of measures
+        proportionality:
+          type:
+          - string
+          - 'null'
+          description: Optional proportionality of applying the measures
+        subsidiarity:
+          type:
+          - string
+          - 'null'
+          description: Optional subsidiarity of applying the measures
+        effectiveness:
+          type:
+          - string
+          - 'null'
+          description: Optional effectiveness of applying the measures
+        secondOpinion:
+          type:
+          - string
+          - 'null'
+          description: Optional second opinion for the measures
+        causeNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional direct / indirect cause for the clients behaviour that cases serious detriment
+        oversightNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional way the caregiver will keep oversight of the measures
+        law:
+          type:
+          - integer
+          - 'null'
+          description: 'Optional law that applies to these measures
+
+            <pre>
+
+            Possible values:
+
+            - 0 (bopz)
+
+            - 1 (wzd)
+
+            - 2 (wvggz)
+
+            - 3 (wzd_fz)
+
+            </pre>'
+          format: int32
+        step:
+          type:
+          - integer
+          - 'null'
+          description: Optional if these measures follow the Wzd roadmap, the definitive step they are in.
+          format: int32
+        manualStep:
+          type:
+          - integer
+          - 'null'
+          description: Optional if these measures follow the Wzd roadmap, the override step put in by the user.
+          format: int32
+        immutable:
+          type:
+          - boolean
+          - 'null'
+          description: Optional if these measures are immutable, usually because they are inserted via APIs.
+        nature:
+          type:
+          - string
+          - 'null'
+          description: 'Optional the nature of these measures whether they are
+
+            <pre>
+
+            - agreement_client
+
+            - agreement_representative
+
+            - emergency (also includes temporary measures)
+
+            - involuntary
+
+            - mixed_plan (it contains different types of measures)
+
+            - unknown (not all the fields are filled in so it cannot be calculated)
+
+            - voluntary_plan (voluntary according to plan: measures that follow Wzd road map)
+
+            </pre>'
+        reasonNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional description of the reason.
+        researchDate:
+          type:
+          - string
+          - 'null'
+          description: Optional date of research.
+          format: date
+        safety:
+          type:
+          - string
+          - 'null'
+          description: Optional safety measures.
+        reasons:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntryReason'
+          description: Optional list of reasons.
+        problemNarratives:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntryProblemNarrative'
+          description: List of problem narratives.
+        gdConferDate:
+          type:
+          - string
+          - 'null'
+          description: 'Optionally the date on which care personnel conferred with the Geneesheer-Directeur
+
+            on the measures.'
+          format: date
+        combinedConditions:
+          type:
+          - string
+          - 'null'
+          description: 'Optionally the field in which care personnel explain how the legal conditions for
+
+            these measures are met: proportionality, subsidiarity, effectiveness, safety.'
+        evaluationNote:
+          type: string
+          description: Optional note to an evaluation.
+        consultedWithClient:
+          type: boolean
+          description: '[WVGGZ] (Required when "in careplan", not when "unforeseen") To indicate if the client was consulted'
+        followPreferences:
+          type: boolean
+          description: '[WVGGZ] Optional whether the client''s preferences with regard to mandatory care can be followed'
+        followPreferencesNarrative:
+          type: string
+          description: '[WVGGZ] Optional whether the client''s preferences with regard to mandatory care can NOT be followed,
+
+            to explain why not: describe the major risks and dangers.'
+        ambulatory:
+          type: boolean
+          description: (Optional for model, may be required by law) If the client is ambulatory
+        clientRepresentativeNarrative:
+          type: string
+          description: Opinion of the client representative
+        responsibleCaregiverNarrative:
+          type: string
+          description: Opinion of the responsible caregiver
+        alternateExpertiseNarrative:
+          type: string
+          description: Opinion of the alternate expertise
+        physicianNarrative:
+          type: string
+          description: Opinion of the physician
+        uninvolvedExpertiseNarrative:
+          type: string
+          description: Opinion of the uninvolved expertise
+        externalExpertiseNarrative:
+          type: string
+          description: Opinion of the external expertise
+        diligenceRequirements:
+          type: string
+          description: In this field user explain what requirements need to be taken related to diligence
+        judgementStatus:
+          type: integer
+          description: 'Deprecated since: 26-02-2026, Use the judgements-field instead.
+
+            Status of a judgement. 0 if rejected and 1 if approved.'
+          deprecated: true
+          x-deprecated-since: 26-02-2026
+        judgementText:
+          type: string
+          description: 'Deprecated since: 26-02-2026, Use the judgements-field instead.
+
+            Explanation of judgement'
+          deprecated: true
+          x-deprecated-since: 26-02-2026
+        judgeUserId:
+          type: integer
+          description: 'Deprecated since: 26-02-2026, Use the judgements-field instead.
+
+            User-id of employee who added a judgement'
+          format: int64
+          deprecated: true
+          x-deprecated-since: 26-02-2026
+        judgementTime:
+          type: string
+          description: 'Deprecated since: 26-02-2026, Use the judgements-field instead.
+
+            Moment of when judgement is added.'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 26-02-2026
+        clientRepresentativeName:
+          type: string
+          description: Name of the client's representative
+        responsibleCaregiverName:
+          type: string
+          description: Name of the responsible caregiver
+        alternateExpertiseName:
+          type: string
+          description: Name of the alternate expertise
+        physicianName:
+          type: string
+          description: Name of the physician
+        uninvolvedExpertiseName:
+          type: string
+          description: Name of the uninvolved expertise
+        externalExpertiseName:
+          type: string
+          description: Name of the external expertise
+        judgements:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntryJudgement'
+          description: Optional list of judgements.
+      description: RestrictiveMeasureCarePlanEntry model (no description)
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        restrictiveMeasureEntries:
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 2
+          createdById: 1
+          updatedById: 1
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          expertiseProfile: 3
+          frequency: continual
+          frequencyNarrative: All the time
+          frequencyUnit: 1
+          frequencyAmount: 2
+          durationAmount: 3
+          narrative: RM entry narrative
+          snomedExpressionValue: 37953008 | bedrails |
+          typeAgreement: true
+          typeResistant: false
+          ordinal: 1
+          ambulatoryCaregivers: 4
+          fixedBeginTime: '20:50:00.000'
+          fixedEndTime: '07:45:00.000'
+          categoryCode: wzd_medication
+          duration: duration
+          instruction: instruction
+        restrictiveMeasureEvaluations:
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 2
+          createdById: 1
+          updatedById: 1
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          evaluationText: Evaluation text
+          evaluationDate: '2014-11-14'
+        situation: in careplan
+        typeCompetent: true
+        competentNarrative: Competent narrative
+        typeAgreement: true
+        typeResistant: true
+        decisionNarrative: Decision narrative
+        inspectionReportDate: '2015-09-17'
+        status: active
+        problemNarrative: Problem narrative
+        goalNarrative: Goal narrative
+        beginDate: '2015-09-17'
+        endDate: '2015-09-17'
+        nextEvaluationDate: '2015-09-17'
+        risksNarrative: Risks narrative
+        guaranteeNarrative: Guarantee narrative
+        reductionNarrative: Reduction narrative
+        proportionality: Proportionality
+        subsidiarity: Subsidiarity
+        effectiveness: Effectiveness
+        secondOpinion: Second opinion
+        causeNarrative: Cause narrative
+        oversightNarrative: Oversight narrative
+        law: 2
+        step: 4
+        manualStep: 4
+        immutable: false
+        nature: emergency
+        reasonNarrative: Reason narrative
+        researchDate: '2015-10-17'
+        safety: Safety
+        reasons:
+        - id: 1
+          tag: prevent_crisis
+        problemNarratives:
+        - id: 1
+          tag: general_safety
+        gdConferDate: '2015-10-16'
+        combinedConditions: Combined conditions
+        evaluationNote: Evaluation note
+        consultedWithClient: true
+        followPreferences: true
+        followPreferencesNarrative: Follow preferences narrative
+        ambulatory: true
+        clientRepresentativeNarrative: Client representative narrative
+        responsibleCaregiverNarrative: Responsible caregiver narrative
+        alternateExpertiseNarrative: Alternate expertise narrative
+        physicianNarrative: Physician narrative
+        uninvolvedExpertiseNarrative: Uninvolved expertise narrative
+        externalExpertiseNarrative: External expertise narrative
+        diligenceRequirements: Diligence requirements
+        judgementStatus: 1
+        judgementText: This is fine
+        judgeUserId: 11
+        judgementTime: '2014-11-14T00:00:00.000+01:00'
+        clientRepresentativeName: Client representative name
+        responsibleCaregiverName: Responsible caregiver name
+        alternateExpertiseName: Alternate expertise name
+        physicianName: Physician name
+        uninvolvedExpertiseName: Uninvolved expertise name
+        externalExpertiseName: External expertise name
+        judgements:
+        - id: 1
+          restrictiveMeasureCarePlanEntryId: 1
+          status: 1
+          text: text
+          clientExternalId: 3
+          reviewerUserId: 4
+          reviewedAt: '2021-01-01T00:00:00.000+01:00'
+          createdById: 5
+          updatedById: 6
+          createdAt: '2021-01-01T00:00:00.000+01:00'
+          updatedAt: '2021-01-01T00:00:00.000+01:00'
+    dossier.RestrictiveMeasureCarePlanEntryJudgement:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The id of this judgement
+          format: int64
+          x-cupido-id: true
+        restrictiveMeasureCarePlanEntryId:
+          type: integer
+          description: The id of the restrictive measure care plan entry this judgement is linked to
+          format: int64
+        status:
+          type: integer
+          description: 'The status of the status
+
+            - 0 draft
+
+            - 1 rejected
+
+            - 2 approved'
+          format: int32
+        text:
+          type:
+          - string
+          - 'null'
+          description: The text of the judgement
+        clientExternalId:
+          type: integer
+          description: The id of the client this judgement is linked to
+          format: int64
+        reviewerUserId:
+          type:
+          - integer
+          - 'null'
+          description: The id of the user who reviewed this judgement
+          format: int64
+        reviewedAt:
+          type:
+          - string
+          - 'null'
+          description: The date and time when this judgement was reviewed
+          format: date-time
+        createdById:
+          type: integer
+          description: The id of the user who created this judgement
+          format: int64
+        updatedById:
+          type: integer
+          description: The id of the user who last updated this judgement
+          format: int64
+        createdAt:
+          type: string
+          description: The date and time when this judgement was created
+          format: date-time
+        updatedAt:
+          type: string
+          description: The date and time when this judgement was last updated
+          format: date-time
+      description: RestrictiveMeasureCarePlanEntryJudgement model (no description)
+      example:
+        id: 1
+        restrictiveMeasureCarePlanEntryId: 2
+        status: 1
+        text: text
+        clientExternalId: 3
+        reviewerUserId: 4
+        reviewedAt: '2021-01-01T00:00:00.000+01:00'
+        createdById: 5
+        updatedById: 6
+        createdAt: '2021-01-01T00:00:00.000+01:00'
+        updatedAt: '2021-01-01T00:00:00.000+01:00'
+    dossier.RestrictiveMeasureEvaluation:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        evaluationText:
+          type:
+          - string
+          - 'null'
+          description: The text of the evaluation
+        evaluationDate:
+          type:
+          - string
+          - 'null'
+          description: The date of the evaluation
+          format: date
+      description: RestrictiveMeasureEvaluation model (no description)
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        evaluationText: Evaluation text
+        evaluationDate: '2014-11-14'
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.medical.Device:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The unique ID of the device
+          format: int64
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the device
+      description: Optional device that was used as a restrictive measure
+      example:
+        id: 1
+        name: Bedrails
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
+    dossier.RestrictiveMeasureEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        expertiseProfile:
+          type:
+          - integer
+          - 'null'
+          description: Optional expertise profile that can apply the measure
+          format: int64
+        frequency:
+          type:
+          - string
+          - 'null'
+          description: Optional frequency the restrictive measure should be applied
+        frequencyNarrative:
+          type:
+          - string
+          - 'null'
+          description: Optional explanation of the frequency
+        frequencyUnit:
+          type: integer
+          description: 'Optional the unit of the frequency with this structural measure is applied.
+
+            <pre>
+
+            Possible values:
+
+            - 0 daily
+
+            - 1 weekly
+
+            - 2 monthly
+
+            - 3 yearly
+
+            </pre>'
+          format: int32
+        frequencyAmount:
+          type: integer
+          description: Optional the frequency with which this structural measure is applied.
+          format: int32
+        durationAmount:
+          type: integer
+          description: The duration of the application of the structural measure application.
+          format: int32
+        narrative:
+          type:
+          - string
+          - 'null'
+          description: Optional additional explanation for this restrictive measure
+        snomedExpressionValue:
+          type:
+          - string
+          - 'null'
+          description: Optional snomed expression of the restrictive measure
+        deviceBuilders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.medical.DeviceBuilder'
+          description: Optional device builder to build the restrictive measure relation
+        device:
+          allOf:
+          - $ref: '#/components/schemas/dossier.medical.Device'
+          description: Optional device that was used as a restrictive measure
+        typeAgreement:
+          type:
+          - boolean
+          - 'null'
+          description: Optional whether a client or representative agrees with this measure
+        typeResistant:
+          type:
+          - boolean
+          - 'null'
+          description: Optional whether a client resists this measure
+        ordinal:
+          type:
+          - integer
+          - 'null'
+          description: Optional the ordinal number of this measure in a restrictive measure care plan entry
+          format: int32
+          default: 0
+        ambulatoryCaregivers:
+          type:
+          - integer
+          - 'null'
+          description: 'Optional if this measure is applied in an ambulatory situation: the minimum amount of caregivers that are required to apply this measure'
+          format: int32
+        fixedBeginTime:
+          type:
+          - string
+          - 'null'
+          description: 'Optional if this measure is applied at fixed times: when the application of this measure should begin'
+          format: time
+        fixedEndTime:
+          type:
+          - string
+          - 'null'
+          description: 'Optional if this measure is applied at fixed times: when the application of this measure should end'
+          format: time
+        categoryCode:
+          type:
+          - string
+          - 'null'
+          description: The code of the category the measure belongs to
+        duration:
+          type:
+          - string
+          - 'null'
+          description: Optional duration
+        instruction:
+          type:
+          - string
+          - 'null'
+          description: 'Optional instruction (original usage)
+
+            Repurposed to be a combined "toelichting" field
+
+            (includes "Proportionality", "Subsidiarity", "Effectiveness", and possibly "Safety")'
+        applicable:
+          type:
+          - boolean
+          - 'null'
+          description: Optional whether the measure is applicable
+      description: RestrictiveMeasureEntry model (no description)
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        expertiseProfile: 3
+        frequency: continual
+        frequencyNarrative: All the time
+        frequencyUnit: 1
+        frequencyAmount: 2
+        durationAmount: 3
+        narrative: RM entry narrative
+        snomedExpressionValue: 37953008 | bedrails |
+        deviceBuilders:
+        - system: example
+          query: example
+          name: example
+        - system: example
+          query: example
+          name: example
+        device:
+          id: 1
+          name: Bedrails
+        typeAgreement: true
+        typeResistant: false
+        ordinal: 1
+        ambulatoryCaregivers: 4
+        fixedBeginTime: '20:50:00.000'
+        fixedEndTime: '07:45:00.000'
+        categoryCode: wzd_medication
+        duration: duration
+        instruction: instruction
+        applicable: true
+    dossier.RestrictiveMeasureCarePlanEntryReason:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The reason's ID.
+          format: int64
+          x-cupido-id: true
+        tag:
+          type:
+          - string
+          - 'null'
+          description: 'The reason description and their Dutch translation.
+
+            New values since the March 2022-release:
+
+            <ul>
+
+            <li>irresponsible_postpone: het niet langer verantwoord is voor u of uw omgeving om verplichte zorg uit te stellen</li>
+
+            <li>location_safety_client_others: zonder deze zorg de plek waar u nu verblijft niet meer veilig is voor u of voor anderen</li>
+
+            <li>rights_freedoms_others: zonder deze zorg andere mensen hun rechten en vrijheden kwijtraken</li>
+
+            <li>possible_offenses: zonder deze zorg u mogelijk strafbare feiten zult plegen</li>
+
+            </ul>
+
+
+            Older values:
+
+            <ul>
+
+            <li>prevent_crisis: een crisissituatie voorkomen</li>
+
+            <li>prevent_detriment: een ernstig nadeel voorkomen</li>
+
+            <li>stabilize_general: de geestelijke gezondheid stabiliseren</li>
+
+            <li>stabilize_decision_making: de geestelijke gezondheid zo te herstellen dat de client weer (zoveel mogelijk) zelf kan bepalen wat te doen</li>
+
+            <li>stabilize_physical_health: het stabiliseren of verbeteren van de lichamelijke gezondheid (indien het gedrag als gevolg van de psychische stoornis leidt tot ernstig nadeel)</li>
+
+            </ul>'
+      description: A reason for a {@link RestrictiveMeasureCarePlanEntry}.
+      example:
+        id: 1
+        tag: prevent_crisis
+    dossier.medical.DeviceBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      description: DeviceBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 37953008 | bedrails |
+        name: Bedrails
+    dossier.list.RestrictiveMeasureCarePlanEntryList:
+      type: object
+      properties:
+        restrictiveMeasureCarePlanEntries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+      description: RestrictiveMeasureCarePlanEntryList model (no description)
+      example:
+        restrictiveMeasureCarePlanEntries:
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 1
+          createdById: 1
+          updatedById: 1
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          situation: in careplan
+          typeCompetent: true
+          typeAgreement: true
+          typeResistant: true
+          decisionNarrative: Decision narrative
+          inspectionReportDate: '2015-09-17'
+          status: active
+          problemNarrative: Problem narrative
+          goalNarrative: Problem narrative
+          beginDate: '2015-09-17'
+          endDate: '2015-09-17'
+          nextEvaluationDate: '2015-09-17'
+          risksNarrative: Risks narrative
+          guaranteeNarrative: Guarantee narrative
+          reductionNarrative: Reduction narrative
+          proportionality: Proportionality
+          subsidiarity: Subsidiarity
+          effectiveness: Effectiveness
+          secondOpinion: Second opinion
+          reasonNarrative: Reason narrative
+          researchDate: '2015-10-17'
+          safety: Safety
+          gdConferDate: '2015-10-16'
+          combinedConditions: Combined conditions
+          evaluationNote: Evaluation note
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 1
+          createdById: 1
+          updatedById: 1
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          situation: in careplan
+          typeCompetent: true
+          typeAgreement: true
+          typeResistant: true
+          decisionNarrative: Decision narrative
+          inspectionReportDate: '2015-09-17'
+          status: active
+          problemNarrative: Problem narrative
+          goalNarrative: Problem narrative
+          beginDate: '2015-09-17'
+          endDate: '2015-09-17'
+          nextEvaluationDate: '2015-09-17'
+          risksNarrative: Risks narrative
+          guaranteeNarrative: Guarantee narrative
+          reductionNarrative: Reduction narrative
+          proportionality: Proportionality
+          subsidiarity: Subsidiarity
+          effectiveness: Effectiveness
+          secondOpinion: Second opinion
+          reasonNarrative: Reason narrative
+          researchDate: '2015-10-17'
+          safety: Safety
+          gdConferDate: '2015-10-16'
+          combinedConditions: Combined conditions
+          evaluationNote: Evaluation note
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

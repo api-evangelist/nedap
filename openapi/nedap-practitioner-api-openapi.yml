@@ -1,0 +1,581 @@
+openapi: 3.2.0
+info:
+  title: Nedap Practitioner API
+  version: 0.0.0
+  description: 'Operations tagged Practitioner across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Practitioner
+paths:
+  /t/practitioners/by_agb/{agbcode}:
+    get:
+      tags:
+      - Practitioner
+      summary: Return the practitioner based on the given agbcode
+      operationId: PractitionerAPI.byAgb
+      parameters:
+      - name: agbcode
+        in: path
+        description: the (primary) agbcode of an employee
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Practitioner'
+      x-replaced-by: /v0/administration/practitioners/by_agb/{agbcode}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/practitioners/by_employee/{employee_id}:
+    get:
+      tags:
+      - Practitioner
+      summary: Return the practitioner based on the given id of an employee
+      operationId: PractitionerAPI.byEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: The objectid of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Practitioner'
+      x-replaced-by: /v0/administration/practitioners/by_employee/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/practitioners/search:
+    get:
+      tags:
+      - Practitioner
+      summary: Return the practitioners based on the given search query
+      operationId: PractitionerAPI.search
+      parameters:
+      - name: query
+        in: query
+        description: 'the searchquery. for instance: the last name of a employee'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: set the max size of the returned list
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: set position in the result list to start from
+        schema:
+          type: integer
+          format: int32
+      - name: date
+        in: query
+        description: the date on which the practitioner should have a contract
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.PractitionerList'
+      x-replaced-by: /v0/administration/practitioners/search
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/practitioners/by_agb/{agbcode}:
+    get:
+      tags:
+      - Practitioner
+      summary: Return the practitioner based on the given agbcode
+      operationId: PractitionerAPI.byAgb
+      parameters:
+      - name: agbcode
+        in: path
+        description: the (primary) agbcode of an employee
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Practitioner'
+      x-replacement-for:
+      - /t/practitioners/by_agb/{agbcode}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/practitioners/by_employee/{employee_id}:
+    get:
+      tags:
+      - Practitioner
+      summary: Return the practitioner based on the given id of an employee
+      operationId: PractitionerAPI.byEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: The objectid of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Practitioner'
+      x-replacement-for:
+      - /t/practitioners/by_employee/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/practitioners/search:
+    get:
+      tags:
+      - Practitioner
+      summary: Return the practitioners based on the given search query
+      operationId: PractitionerAPI.search
+      parameters:
+      - name: query
+        in: query
+        description: 'the searchquery. for instance: the last name of a employee'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: set the max size of the returned list
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: set position in the result list to start from
+        schema:
+          type: integer
+          format: int32
+      - name: date
+        in: query
+        description: the date on which the practitioner should have a contract
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.PractitionerList'
+      x-replacement-for:
+      - /t/practitioners/search
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    Practitioner:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Person'
+      properties:
+        agbCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerAgbCode'
+          description: The personal AGB registration(s) for an employee
+          xml:
+            wrapped: true
+        bigCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerBigCode'
+          description: The personal BIG registration(s) for an employee
+          xml:
+            wrapped: true
+        skjCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerSkjCode'
+          description: The personal SKJ registration(s) for an employee
+        professions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerProfession'
+          description: 'The profession(s) for an employee.
+
+            The available professions to ''choose'' from is a predefined list'
+          xml:
+            wrapped: true
+      description: 'A practitioner is an employee with some extra attributes
+
+        Those attributes are used to give extra meaning to an employee in a certain context.
+
+
+        For instance: In the mental healthcare domain,
+
+        some employees need and agbcode and/or a BIG registration to perform treatments on clients.'
+      example:
+        id: 1
+        firstName: Henny
+        name: Bosbes
+        identificationNo: '12345'
+        dateOfBirth: '1982-03-28'
+        preferredNameType: '0'
+        lastName: Bosbes
+        birthName: Bosbes
+        partnerName: Knaak
+        initials: H
+        prefix: ir
+        birthNamePrefix: de
+        partnerNamePrefix: de
+        gender: M
+        emailAddress: hennybosbes@example.com
+        mobilePhone: 06123456789
+        freeField1: Free field 1 description
+        freeField2: Free field 2 description
+        freeField3: Free field 3 description
+        freeField4: Free field 4 description
+        updatedAt: '2017-05-09T00:00:00.000+02:00'
+        createdAt: '2017-05-09T00:00:00.000+02:00'
+        agbCodes:
+        - employeeObjectId: 1
+          code: '12345678'
+        bigCodes:
+        - employeeObjectId: 1
+          code: '12345678'
+        skjCodes: []
+        professions:
+        - employeeObjectId: 1
+          code: '9992'
+          name: VK.OB.overig
+          info: Overig
+          type: COD878_GZ_BEROEPZORGVERLENER
+          beginDate: '2022-01-01'
+      xml:
+        name: practitioner
+    PractitionerAgbCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+        beginDate:
+          type: string
+          description: The date at which the agbcode is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the agbcode is ending. Null means no ending.
+          format: date
+        primary:
+          type: boolean
+          description: Indicates if this is the primary agbcode for the employee
+      description: PractitionerAgbCode model (no description)
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+        beginDate: '2022-01-01'
+        endDate: '2022-12-31'
+        primary: true
+    list.PractitionerList:
+      type: object
+      properties:
+        practitioners:
+          type: array
+          items:
+            $ref: '#/components/schemas/Practitioner'
+          xml:
+            name: practitioner
+      description: PractitionerList model (no description)
+      example:
+        practitioners:
+        - id: 1
+          firstName: Henny
+          name: Bosbes
+          identificationNo: '12345'
+          dateOfBirth: '1982-03-28'
+          preferredNameType: '0'
+          lastName: Bosbes
+          birthName: Bosbes
+          partnerName: Knaak
+          initials: H
+          prefix: ir
+          birthNamePrefix: de
+          partnerNamePrefix: de
+          gender: M
+          emailAddress: hennybosbes@example.com
+          mobilePhone: 06123456789
+          updatedAt: '2017-05-09T00:00:00.000+02:00'
+          createdAt: '2017-05-09T00:00:00.000+02:00'
+          agbCodes:
+          - employeeObjectId: 1
+            code: '12345678'
+          bigCodes:
+          - employeeObjectId: 1
+            code: '12345678'
+          professions:
+          - employeeObjectId: 1
+            code: '9992'
+            name: VK.OB.overig
+            info: Overig
+            type: COD878_GZ_BEROEPZORGVERLENER
+            beginDate: '2022-01-01'
+      xml:
+        name: practitioners
+    PractitionerProfessionType:
+      type: integer
+      oneOf:
+      - title: COD878_GZ_BEROEPZORGVERLENER
+        enum:
+        - 0
+      - title: COD016_PEZ_GRZ_SUBBEROEPSGROEP
+        enum:
+        - 1
+      - title: ZPM_BEROEP
+        enum:
+        - 2
+      description: Indicates the codelist this profession orginates from
+      example: 0
+    PractitionerSkjCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+          description: This is a unique code, registred at skjeugd.nl
+        firstRegistrationDate:
+          type: string
+          description: The date at which the skj code is first registered
+          format: date
+        beginDate:
+          type: string
+          description: The date at which the skj code is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the skj code is ending. Null means no ending.
+          format: date
+      description: An SKJ registration is a registration at Kwaliteitsregister Jeugd
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+        firstRegistrationDate: '2024-01-01'
+        beginDate: '2024-01-01'
+        endDate: '2024-12-31'
+    PractitionerProfession:
+      required:
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          description: Id referring to the Employee object
+          format: int64
+        code:
+          type: string
+          description: Profession code from the code list indicated in typeCode.
+        name:
+          type: string
+          description: Abbreviated name for the profession
+        info:
+          type: string
+          description: Full description for the profession
+        type:
+          type: string
+          description: 'Indicates the codelist this profession orginates from
+
+            Please use #professionType instead'
+          deprecated: true
+        professionType:
+          allOf:
+          - $ref: '#/components/schemas/PractitionerProfessionType'
+          description: Indicates the codelist this profession orginates from
+        beginDate:
+          type: string
+          description: The date at which the profession is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the profession is ending. Null means no ending.
+          format: date
+      description: 'Practioner profession returned from Cupido for an Employee.
+
+
+        When PUT-ing or POST-ing PractitionerProfessions, the combination of code and professionType is used to uniquely identify the profession.'
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '9992'
+        name: VK.OB.overig
+        info: Overig
+        type: COD878_GZ_BEROEPZORGVERLENER
+        professionType: 0
+        beginDate: '2018-01-01'
+        endDate: '2018-12-31'
+    PractitionerBigCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+      description: PractitionerBigCode model (no description)
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+    Person:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        firstName:
+          type: string
+          description: The first name(s) of the person.
+        name:
+          type: string
+          description: 'The client’s full official name.
+
+            Showing the initials or client first name is a setting that care organisations can select.'
+        identificationNo:
+          type: string
+          description: Human-readable identification number of the person (clientnummer or medewerkernummer).
+        dateOfBirth:
+          type: string
+          description: The date of birth of the person.
+          format: date
+        preferredNameType:
+          type: string
+          description: 'Preferred way of writing the name of the person. Possible values:
+
+            0 (birth name)
+
+            1 (partner name)
+
+            2 (birth name - partner name)
+
+            3 (partner name - birth name)'
+        lastName:
+          type: string
+          description: The last name of the person, taking into account the preferredNameType setting.
+        birthName:
+          type: string
+          description: The birth name of the person, without prefix.
+        partnerName:
+          type: string
+          description: The last name of the partner of the person, without prefix.
+        initials:
+          type: string
+          description: The initials of the person.
+        prefix:
+          type: string
+          description: The prefix(es) of the last name(s) of the person, taking into account the preferredNameType setting.
+        birthNamePrefix:
+          type: string
+          description: The birth name prefix of the person.
+        partnerNamePrefix:
+          type: string
+          description: The partner name prefix of the person.
+        gender:
+          type: string
+          description: The gender of the person.
+        emailAddress:
+          type: string
+          description: The email address of the person, as registered on the personalia screen.
+        mobilePhone:
+          type: string
+          description: The phone number of the person, as registered on the personalia screen.
+        freeField1:
+          type: string
+          description: Contents of free field 1.
+        freeField2:
+          type: string
+          description: Contents of free field 2.
+        freeField3:
+          type: string
+          description: Contents of free field 3.
+        freeField4:
+          type: string
+          description: Contents of free field 4.
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      description: Common attributes for Client and Employee.
+      example:
+        id: 1
+        firstName: Mike
+        name: Dhr Mike Wazowski
+        identificationNo: wazo
+        dateOfBirth: '1982-01-01'
+        preferredNameType: '0'
+        lastName: Wazowski
+        birthName: Wazowski
+        partnerName: none
+        initials: W
+        prefix: ir
+        birthNamePrefix: ir
+        partnerNamePrefix: none
+        gender: M
+        emailAddress: mike.wazowski@nedap.com
+        mobilePhone: 0612345678
+        freeField1: Free field 1 description
+        freeField2: Free field 2 description
+        freeField3: Free field 3 description
+        freeField4: Free field 4 description
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

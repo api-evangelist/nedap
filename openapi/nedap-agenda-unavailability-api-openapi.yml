@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  title: Nedap Agenda.Unavailability API
+  version: 0.0.0
+  description: 'Operations tagged agenda.Unavailability across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: agenda.Unavailability
+paths:
+  /t/agenda/unavailabilities:
+    post:
+      tags:
+      - agenda.Unavailability
+      summary: Creates an Agenda Unavailability for the specified employee
+      description: Used to create new unavailabilities
+      operationId: agenda.UnavailabilityAPI.create
+      requestBody:
+        description: Unavailibality to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.Unavailability'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.Unavailability'
+        '204':
+          description: No Content
+        '400':
+          description: Bad request
+      x-cupido-common-method: true
+      x-replaced-by: /v0/agenda/unavailabilities
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/unavailabilities:
+    post:
+      tags:
+      - agenda.Unavailability
+      summary: Creates an Agenda Unavailability for the specified employee
+      description: Used to create new unavailabilities
+      operationId: agenda.UnavailabilityAPI.create
+      requestBody:
+        description: Unavailibality to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.Unavailability'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.Unavailability'
+        '204':
+          description: No Content
+        '400':
+          description: Bad request
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/agenda/unavailabilities
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    agenda.RecurrenceRule:
+      title: AgendaRecurrenceRule
+      required:
+      - recurrenceType
+      type:
+      - object
+      - 'null'
+      properties:
+        recurrenceType:
+          $ref: '#/components/schemas/agenda.RecurrenceType'
+        interval:
+          minimum: 1
+          type: integer
+          description: 'Must be >= 1. The interval used in calculating the occurrences. The recurrence rule specifies when an
+
+            occurrence might occur. Then the ''interval'' is used to determine which of these occurrences actually occurs.
+
+            A value of 1 means that every occurrence occurs, a value of 2 means that every other occurrence occurs, etc.'
+          format: int64
+          default: 1
+        weekdays:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: "An array containing all days of the week the occurrence should occur. Is only used when the recurrence rule\n'weekly' is selected. Defaults to the `startDate` day integer of the parent event when omitted or null.\nDays of the week are represented as follows:\n  * 1: Monday\n  * 2: Tuesday\n  * 3: Wednesday\n  * 4: Thursday\n  * 5: Friday\n  * 6: Saturday\n  * 7: Sunday"
+        repeatUntil:
+          type: string
+          description: Last day on which an occurrence may start (inclusive). When omitted or null, recurs indefinitely.
+          format: date
+      description: Object describing the recurrence. This object may be omitted, in that case a single occurrence is created
+      example:
+        recurrenceType: weekly
+        interval: 1
+        weekdays:
+        - 1
+        - 3
+        repeatUntil: '2015-08-02'
+    agenda.Unavailability:
+      title: Unavailability
+      required:
+      - title
+      - employeeId
+      - startDate
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identifier of this `Unavailability`. Only used when updating an existing model.
+          format: int64
+          x-cupido-id: true
+        title:
+          type: string
+          description: Title of the unavailability. Max 140 characters allowed.
+        employeeId:
+          type: integer
+          description: Id of the employee for which the unavailability is created
+          format: int64
+        startDate:
+          type: string
+          description: 'The day on which the unavailability occurs. If a recurrence rule is supplied, then the date represents the
+
+            day of the first occurrence. In combination with the time fields, this is used as base for calculating the
+
+            other occurrences. May only be allowed to be created X weeks in the future depending on ''Fixed Weeks'' setting of Agenda'
+          format: date
+        startTime:
+          type:
+          - string
+          - 'null'
+          description: 'The time the unavailability starts. When both startTime and endTime are omitted or null, an unavailability
+
+            spanning the entire day will be created. Rounded down to the nearest whole minute.'
+          format: time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: 'The time the unavailability ends. When both startTime and endTime are omitted or null, an unavailability
+
+            spanning the entire day will be created. Rounded down to the nearest whole minute.'
+          format: time
+        recurrenceRule:
+          $ref: '#/components/schemas/agenda.RecurrenceRule'
+      description: Domain model for the Agenda Unavailabilities
+      example:
+        id: 1
+        title: Away
+        employeeId: 1
+        startDate: '2022-01-01'
+        startTime: '08:00:00.000'
+        endTime: '18:00:00.000'
+        recurrenceRule:
+          recurrenceType: single
+          interval: 1
+          weekdays: []
+          repeatUntil: '2022-01-01'
+    agenda.RecurrenceType:
+      enum:
+      - single
+      - daily
+      - weekly
+      - monthly_on_day
+      - monthly_on_week
+      - yearly
+      type: string
+      description: 'When no value is supplied, it defaults to single. Specifies the recurrence rule:
+
+
+        * single: The entry only occurs a single time, no recurrence is used.
+
+        * daily: The entry occurs every day.
+
+        * weekly: The entry occurs every week on the days supplied in the ''weekdays'' field.
+
+        * monthly_on_day: The entry occurs every month on the given date. I.e. on the 10th every month.
+
+        * monthly_on_week: The entry occurs every month on the same day of the month. I.e. on the
+
+        first Tuesday every month.
+
+        * yearly: The entry occurs every year on the given date.'
+      default: single
+      example: single
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

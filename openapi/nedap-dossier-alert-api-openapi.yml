@@ -1,0 +1,545 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Alert API
+  version: 0.0.0
+  description: 'Operations tagged dossier.Alert across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.Alert
+paths:
+  /t/dossier/alerts:
+    post:
+      tags:
+      - dossier.Alert
+      summary: Create an alert
+      operationId: dossier.AlertAPI.create
+      requestBody:
+        description: Alert to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Alert'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Alert'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/authorized/alerts
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/alerts/{id}:
+    get:
+      tags:
+      - dossier.Alert
+      summary: Get a specific Alert
+      operationId: dossier.AlertAPI.byId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Alert'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/authorized/alerts/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.Alert
+      summary: Update the given Alert
+      operationId: dossier.AlertAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Alert to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Alert to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Alert'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Alert'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/authorized/alerts/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/unauthorized/alerts/{id}:
+    get:
+      tags:
+      - dossier.Alert
+      summary: Get a specific Alert
+      operationId: dossier.AlertAPI.unauthorizedById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Alert'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/alerts/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/unauthorized/alerts/by_client_ids:
+    get:
+      tags:
+      - dossier.Alert
+      summary: Get a specific Alert
+      operationId: dossier.AlertAPI.unauthorizedByClientIds
+      parameters:
+      - name: ids
+        in: query
+        description: The ids of the clients (ids[]=1&ids[]=2&ids[]=3...)
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.AlertList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/alerts/by_client_ids
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/alerts:
+    post:
+      tags:
+      - dossier.Alert
+      summary: Create an alert
+      operationId: dossier.AlertAPI.create
+      requestBody:
+        description: Alert to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Alert'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Alert'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/alerts
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/authorized/alerts/{id}:
+    get:
+      tags:
+      - dossier.Alert
+      summary: Get a specific Alert
+      operationId: dossier.AlertAPI.byId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Alert'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/alerts/{id}
+    put:
+      tags:
+      - dossier.Alert
+      summary: Update the given Alert
+      operationId: dossier.AlertAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of Alert to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Alert to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Alert'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Alert'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/alerts/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/alerts/{id}:
+    get:
+      tags:
+      - dossier.Alert
+      summary: Get a specific Alert
+      operationId: dossier.AlertAPI.unauthorizedById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Alert'
+      x-replacement-for:
+      - /t/dossier/unauthorized/alerts/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/alerts/by_client_ids:
+    get:
+      tags:
+      - dossier.Alert
+      summary: Get a specific Alert
+      operationId: dossier.AlertAPI.unauthorizedByClientIds
+      parameters:
+      - name: ids[]
+        in: query
+        description: The ids of the clients (ids[]=1&ids[]=2&ids[]=3...)
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+        x-original-parameter:
+          name: ids
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.AlertList'
+      x-replacement-for:
+      - /t/dossier/unauthorized/alerts/by_client_ids
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.FeederAuditTransferType:
+      enum:
+      - eoverdracht_nursing
+      - anw
+      - other
+      type: string
+      description: Type of the transfer containing this content (a.k.a. the use case)
+      example: eoverdracht_nursing
+    dossier.Encoding:
+      type: object
+      properties:
+        code:
+          type: string
+        codeSystem:
+          type: string
+        displayName:
+          type: string
+          description: The display name (or title) corresponding to the code in its code system
+      description: Encoding
+      example:
+        code: E10
+        codeSystem: ICD-10
+        displayName: Type 1-diabetes
+    dossier.list.AlertList:
+      type: object
+      properties:
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Alert'
+      description: List of Alerts
+      example:
+        alerts:
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 4
+          createdById: 1
+          updatedById: 1
+          createdAt: '2020-11-10T12:00:00.000+01:00'
+          updatedAt: '2020-11-10T12:00:00.000+01:00'
+          name: MRSA
+          type: Agressie
+          icon: virus
+          iconUrl: http://www.example.com
+          iconPngUrl: http://www.example.com
+          protocol: http://www.example.com
+          description: Some additional text
+          beginDate: '2021-01-01'
+          endDate: '2021-02-06'
+          active: true
+          topicId: 1
+          authorizedExpertiseProfileIds:
+          - 1
+          - 2
+          authorizedExpertiseGroupIds:
+          - 3
+          - 4
+          encodings:
+          - code: '61372001'
+            codeSystem: SNOMED CT
+            displayName: aggression
+          feederAuditContentStore: ons_ketenverkeer
+          feederAuditContentId: abz123
+          feederAuditSenderName: Some care organisation
+          feederAuditTransferType: eoverdracht_nursing
+        - id: 2
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 4
+          createdById: 1
+          updatedById: 1
+          createdAt: '2020-11-10T12:00:00.000+01:00'
+          updatedAt: '2020-11-10T12:00:00.000+01:00'
+          name: MRSA
+          type: Agressie
+          icon: virus
+          iconUrl: http://www.example.com
+          iconPngUrl: http://www.example.com
+          protocol: http://www.example.com
+          description: Some additional text
+          beginDate: '2021-01-01'
+          endDate: '2021-02-06'
+          active: true
+          topicId: 1
+          authorizedExpertiseProfileIds:
+          - 1
+          - 2
+          authorizedExpertiseGroupIds:
+          - 3
+          - 4
+          encodings:
+          - code: '61372001'
+            codeSystem: SNOMED CT
+            displayName: aggression
+          feederAuditContentStore: ons_ketenverkeer
+          feederAuditContentId: abz123
+          feederAuditSenderName: Some care organisation
+          feederAuditTransferType: eoverdracht_nursing
+    dossier.Alert:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        name:
+          type: string
+          description: Name of this alert
+        type:
+          type: string
+          description: The type of alert
+        icon:
+          type: string
+          description: Name of Ivy icon to show for this alert
+        iconUrl:
+          type: string
+          description: The URL for the icon for this alert
+        iconPngUrl:
+          type: string
+          description: The PNG URL for the icon for this alert
+        protocol:
+          type: string
+          description: Protocol for this alert
+        description:
+          type: string
+          description: Description of this alert
+        beginDate:
+          type: string
+          description: Begin date of this alert
+          format: date
+        endDate:
+          type: string
+          description: End date of this alert
+          format: date
+        active:
+          type: boolean
+          description: 'Whether or not the alert is currently active
+
+            An alert is active when the day of retrieval falls between the begin and end dates'
+        topicId:
+          type: integer
+          description: The ID of the topic this alert is linked to
+          format: int64
+        authorizedExpertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Only users with these expertise profiles are allowed to access this alert
+        authorizedExpertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Only users with these expertise groups are allowed to access this alert
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Encoding'
+          description: The encodings of this alert
+        feederAuditContentStore:
+          allOf:
+          - $ref: '#/components/schemas/dossier.FeederAuditContentStoreType'
+          description: Identifier of the content store that is providing this content
+        feederAuditContentId:
+          type: string
+          description: Identifier referencing the original content in the feederAuditContentStore
+        feederAuditSenderName:
+          type: string
+          description: Name of the sender of the original content
+        feederAuditTransferType:
+          allOf:
+          - $ref: '#/components/schemas/dossier.FeederAuditTransferType'
+          description: Type of the transfer containing this content (a.k.a. the use case)
+      description: Alert model (no description)
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 4
+        createdById: 1
+        updatedById: 1
+        createdAt: '2020-11-10T12:00:00.000+01:00'
+        updatedAt: '2020-11-10T12:00:00.000+01:00'
+        name: MRSA
+        type: Agressie
+        icon: virus
+        iconUrl: http://www.example.com
+        iconPngUrl: http://www.example.com
+        protocol: http://www.example.com
+        description: Some additional text
+        beginDate: '2021-01-01'
+        endDate: '2021-02-06'
+        active: true
+        topicId: 1
+        authorizedExpertiseProfileIds:
+        - 1
+        - 2
+        authorizedExpertiseGroupIds:
+        - 3
+        - 4
+        encodings:
+        - code: '61372001'
+          codeSystem: SNOMED CT
+          displayName: aggression
+        feederAuditContentStore: ons_ketenverkeer
+        feederAuditContentId: abz123
+        feederAuditSenderName: Some care organisation
+        feederAuditTransferType: eoverdracht_nursing
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.FeederAuditContentStoreType:
+      enum:
+      - ons_ketenverkeer
+      - other
+      type: string
+      description: Identifier of the content store that is providing this content
+      example: ons_ketenverkeer
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

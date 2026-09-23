@@ -1,0 +1,425 @@
+openapi: 3.2.0
+info:
+  title: Nedap Hermes.Notification API
+  version: 0.0.0
+  description: 'Operations tagged hermes.Notification across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: hermes.Notification
+paths:
+  /t/employees/{employee_id}/notifications:
+    get:
+      tags:
+      - hermes.Notification
+      summary: Return the hermes notifications of an Employee corresponding to the given id
+      operationId: hermes.NotificationAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.list.NotificationList'
+      x-replaced-by: /v0/notification/employees/{employee_id}/notifications
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/hermes/notifications:
+    post:
+      tags:
+      - hermes.Notification
+      summary: Send a notification to an employee or user
+      description: 'There are 2 notification systems available, but /portal/notifications is deprecated since 28-10-2019, so you should not implement that one.
+
+        When hermes (ons-notificaties) is activated notifications are received by this api.'
+      operationId: hermes.NotificationAPI.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hermes.Notification'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.Notification'
+        '204':
+          description: Duplicate notification UUID
+        '422':
+          description: Invalid UUID
+      x-cupido-common-method: true
+      x-replaced-by: /v0/notification/notifications
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/hermes/notifications/{id}:
+    get:
+      tags:
+      - hermes.Notification
+      operationId: hermes.NotificationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Notification
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.Notification'
+        '404':
+          description: Notification does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/notification/notifications/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Hermes notification API by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /t/hermes/notifications/by_uuid/{uuid}:
+    get:
+      tags:
+      - hermes.Notification
+      operationId: hermes.NotificationAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.Notification'
+        '404':
+          description: Notification does not exist
+      x-replaced-by: /v0/notification/notifications/by_uuid/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Hermes notification API by uuid
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/notification/employees/{employee_id}/notifications:
+    get:
+      tags:
+      - hermes.Notification
+      summary: Return the hermes notifications of an Employee corresponding to the given id
+      operationId: hermes.NotificationAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.list.NotificationList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/notifications
+    servers:
+    - url: https://api-development.ons.io
+  /v0/notification/notifications:
+    post:
+      tags:
+      - hermes.Notification
+      summary: Send a notification to an employee or user
+      description: 'There are 2 notification systems available, but /portal/notifications is deprecated since 28-10-2019, so you should not implement that one.
+
+        When hermes (ons-notificaties) is activated notifications are received by this api.'
+      operationId: hermes.NotificationAPI.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hermes.Notification'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.Notification'
+        '204':
+          description: Duplicate notification UUID
+        '422':
+          description: Invalid UUID
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/hermes/notifications
+    servers:
+    - url: https://api-development.ons.io
+  /v0/notification/notifications/{id}:
+    get:
+      tags:
+      - hermes.Notification
+      operationId: hermes.NotificationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Notification
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.Notification'
+        '404':
+          description: Notification does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/hermes/notifications/{id}
+      summary: Hermes notification API by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/notification/notifications/by_uuid/{uuid}:
+    get:
+      tags:
+      - hermes.Notification
+      operationId: hermes.NotificationAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.Notification'
+        '404':
+          description: Notification does not exist
+      x-replacement-for:
+      - /t/hermes/notifications/by_uuid/{uuid}
+      summary: Hermes notification API by uuid
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    hermes.list.NotificationList:
+      type: object
+      properties:
+        hermesNotifications:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/hermes.Notification'
+            xml:
+              name: hermesNotification
+      description: NotificationList model (no description)
+      example:
+        hermesNotifications:
+        - id: 1
+          title: spam
+          message: You have new spam
+          path: /spam
+          deploymentType: PortalDeployment
+          collapseKey: blik
+          collapseMethod: replace
+          collapseTitle: '%{count} spam'
+          collapseMessage: You have %{count} new spam
+          createdAt: '2015-01-01T12:00:00.000+01:00'
+          updatedAt: '2015-01-01T12:00:00.000+01:00'
+          iconId: default
+          silent: false
+          recipient:
+            clientId: 1
+            clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
+            employeeId: 1
+          read: true
+      xml:
+        name: hermesNotifications
+    hermes.Notification:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+          description: 'The universal unique id for this notification
+
+            This can be filled by the sending application, if not Hermes will generate one'
+        title:
+          type:
+          - string
+          - 'null'
+          description: The title displayed of this notification
+        message:
+          type:
+          - string
+          - 'null'
+          description: The contents of the notification
+        path:
+          type:
+          - string
+          - 'null'
+          description: The path for a given deployment where to go to when this notification is clicked
+        deploymentType:
+          type:
+          - string
+          - 'null'
+          description: The deployment type where this notification refers to
+        collapseKey:
+          type:
+          - string
+          - 'null'
+          description: The key used to merge notification for the same recipient and they have not been read yet
+        collapseMethod:
+          type:
+          - string
+          - 'null'
+          description: 'The method of collapsing the notification, currently supported: collapse, replace and everything else defaults to collapse'
+        collapseTitle:
+          type:
+          - string
+          - 'null'
+          description: 'The title given to notification when more then one message with given collapse key is found
+
+            %{count} : can be used in the String to indicate the number of messages'
+        collapseMessage:
+          type:
+          - string
+          - 'null'
+          description: 'The message given to notification when more then one message with given collapse key is found
+
+            %{count} : can be used in the String to indicate the number of messages'
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        iconId:
+          type:
+          - string
+          - 'null'
+          description: 'The icon that should be showed with the notification, currently supported: "facebook, agenda, mailbounce, password, dossier, default"'
+        validTo:
+          type:
+          - string
+          - 'null'
+          description: Date and time until which the notification should be shown
+          format: date-time
+        priority:
+          type:
+          - integer
+          - 'null'
+          description: 'Deprecated since: 8-11-2019 - please use silent instead'
+          format: int32
+          deprecated: true
+          x-deprecated-since: 08-11-2019
+        silent:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the notifications should be shown in the web-interface
+        recipient:
+          allOf:
+          - $ref: '#/components/schemas/hermes.Recipient'
+          description: The entity (client, employee) where this notification is for
+        read:
+          type:
+          - boolean
+          - 'null'
+      description: Notification model (no description)
+      example:
+        id: 1
+        uuid: DuMMy
+        title: spam
+        message: You have new spam
+        path: /spam
+        deploymentType: PortalDeployment
+        collapseKey: blik
+        collapseMethod: replace
+        collapseTitle: '%{count} spam'
+        collapseMessage: You have %{count} new spam
+        createdAt: '2015-01-01T12:00:00.000+01:00'
+        updatedAt: '2015-01-01T12:00:00.000+01:00'
+        iconId: default
+        validTo: '2016-01-01T12:00:00.000+01:00'
+        priority: 0
+        silent: false
+        recipient:
+          clientId: 1
+          clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
+          employeeId: 1
+        read: true
+      xml:
+        name: hermesNotification
+    hermes.Recipient:
+      type:
+      - object
+      - 'null'
+      properties:
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        clientUuid:
+          type:
+          - string
+          - 'null'
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      description: The  method belongs to a recipient
+      example:
+        clientId: 1
+        clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
+        employeeId: 1
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

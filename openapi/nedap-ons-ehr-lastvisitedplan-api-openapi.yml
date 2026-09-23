@@ -1,0 +1,90 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Ehr.Last Visited Plan API
+  version: 0.0.0
+  description: 'Operations tagged ons_ehr.LastVisitedPlan across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_ehr.LastVisitedPlan
+paths:
+  /t/ons_ehr/employees/{employee_id}/last_visited_plan:
+    get:
+      tags:
+      - ons_ehr.LastVisitedPlan
+      summary: Finds the last visited plan of the given employee
+      operationId: ons_ehr.LastVisitedPlanAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Last visited plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_ehr.LastVisitedPlan'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/employees/{employee_id}/last_visited_plan
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/employees/{employee_id}/last_visited_plan:
+    get:
+      tags:
+      - ons_ehr.LastVisitedPlan
+      summary: Finds the last visited plan of the given employee
+      operationId: ons_ehr.LastVisitedPlanAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Last visited plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_ehr.LastVisitedPlan'
+      x-replacement-for:
+      - /t/ons_ehr/employees/{employee_id}/last_visited_plan
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_ehr.LastVisitedPlan:
+      type: object
+      properties:
+        planType:
+          allOf:
+          - $ref: '#/components/schemas/ons_ehr.LastVisitedPlanType'
+          description: The type of plan last visited
+        employeeId:
+          type: integer
+          description: The employee id
+          format: int64
+          x-cupido-id: true
+      description: Last visited plan
+      example:
+        planType: care_plan
+        employeeId: 123
+    ons_ehr.LastVisitedPlanType:
+      enum:
+      - ggz_plan
+      - sfmpc_plan
+      - care_plan
+      type: string
+      description: Unique code that identifies the visited plan type
+      example: sfmpc_plan
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

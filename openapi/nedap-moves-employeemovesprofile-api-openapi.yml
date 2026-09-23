@@ -1,0 +1,113 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Employee Moves Profile API
+  version: 0.0.0
+  description: 'Operations tagged moves.EmployeeMovesProfile across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.EmployeeMovesProfile
+paths:
+  /t/employees/{employee_id}/employee_moves_profile:
+    get:
+      tags:
+      - moves.EmployeeMovesProfile
+      summary: Return the moves profile of an employee specified by id
+      operationId: moves.EmployeeMovesProfileAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The {id} of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.EmployeeMovesProfile'
+      x-replaced-by: /v0/plannen_roosteren/employees/{employee_id}/employee_moves_profile
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/employees/{employee_id}/employee_moves_profile:
+    get:
+      tags:
+      - moves.EmployeeMovesProfile
+      summary: Return the moves profile of an employee specified by id
+      operationId: moves.EmployeeMovesProfileAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The {id} of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.EmployeeMovesProfile'
+      x-replacement-for:
+      - /t/employees/{employee_id}/employee_moves_profile
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.EmployeeMovesProfile:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        memberOfFlexRosterTeam:
+          type: boolean
+        memberOfSelfRosterTeam:
+          type: boolean
+        memberOfSelfAvailabilityTeam:
+          type: boolean
+        memberOfIntramuralTeam:
+          type: boolean
+        useOnsDraaiboekRoster:
+          type: boolean
+          description: Feature flag for the roster in OnsDraaiboek.
+        useOnsDraaiboekPlanning:
+          type: boolean
+          description: Feature flag for the planning in OnsDraaiboek.
+        useOnsDraaiboekVacationOverview:
+          type: boolean
+          description: 'Timepilot/feature flag indicating which version of the VacationOverview to use.
+
+            The new Vacation Overview that is part of OnsDraaiboek, or the old one that is part of the EmployeePortal.'
+        vacationOverviewEnabled:
+          type: boolean
+          description: Feature flag indicating if the VacationOverview is enabled at all.
+        useSelfAvailabilityViaMoves:
+          type: boolean
+          description: Timepilot flag for when we want to repatriate SelfAvailability from the EmployeePortal to Moves in the future.
+      description: 'EmployeeMovesProfile describes dynamic properties
+
+        of an Employee, based on the Memberships of that Employees
+
+        as known in Moves and on team settings configured in Moves.'
+      example:
+        employeeId: 2002
+        memberOfFlexRosterTeam: false
+        memberOfSelfRosterTeam: true
+        memberOfSelfAvailabilityTeam: false
+        memberOfIntramuralTeam: true
+        useOnsDraaiboekRoster: true
+        useOnsDraaiboekPlanning: true
+        useOnsDraaiboekVacationOverview: true
+        vacationOverviewEnabled: true
+        useSelfAvailabilityViaMoves: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

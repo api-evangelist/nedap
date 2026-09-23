@@ -1,0 +1,159 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Client.Shared Resource API
+  version: 0.0.0
+  description: 'Operations tagged ons_client.SharedResource across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_client.SharedResource
+paths:
+  /t/ons_client/shared_resources:
+    get:
+      tags:
+      - ons_client.SharedResource
+      summary: Retrieve all shared resources
+      operationId: ons_client.SharedResourceAPI.byClientIdAndResource
+      parameters:
+      - name: client_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: resource_name
+        in: query
+        schema:
+          type: string
+      - name: resource_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_client.list.SharedResourceList'
+      x-replaced-by: /v0/client/shared_resources
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/client/shared_resources:
+    get:
+      tags:
+      - ons_client.SharedResource
+      summary: Retrieve all shared resources
+      operationId: ons_client.SharedResourceAPI.byClientIdAndResource
+      parameters:
+      - name: client_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: resource_name
+        in: query
+        schema:
+          type: string
+      - name: resource_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_client.list.SharedResourceList'
+      x-replacement-for:
+      - /t/ons_client/shared_resources
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_client.list.SharedResourceList:
+      type: object
+      properties:
+        sharedResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_client.SharedResource'
+      description: SharedResourceList model (no description)
+      example:
+        sharedResources:
+        - id: 1
+          resourceName: Dossier.CarePlan
+          resourceId: '13'
+          clientId: 1
+          recipientGroup: client
+          shareReason: Beste Henk, bij deze een nieuw zorgplan nav ons vorige gesprek. Ik heb nu ook als doel je slikprobleem meegenomen.
+          sharedAt: '2016-10-10T00:00:00.000+02:00'
+          sharedByEmployeeId: 2
+          unshareReason: Deze versie bevatte een spelfout. Ik heb dit in de nieuwe versie aangepast.
+          unsharedAt: '2016-10-12T00:00:00.000+02:00'
+          unsharedByEmployeeId: 2
+          writable: true
+        - id: 2
+          resourceName: Survey.SurveyResult
+          resourceId: '13'
+          clientId: 1
+          recipientGroup: client
+          shareReason: Dit is de ingevulde MIC-melding van afgelopen woensdg.
+          sharedAt: '2016-10-14T13:16:00.000+02:00'
+          sharedByEmployeeId: 2
+          writable: false
+    ons_client.SharedResource:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        resourceId:
+          type: string
+        clientId:
+          type: integer
+          format: int64
+        recipientGroup:
+          type: string
+        shareReason:
+          type: string
+        sharedAt:
+          type: string
+          format: date-time
+        sharedByEmployeeId:
+          type: integer
+          format: int64
+        unshareReason:
+          type: string
+        unsharedAt:
+          type: string
+          format: date-time
+        unsharedByEmployeeId:
+          type: integer
+          format: int64
+        writable:
+          type: boolean
+        resourceName:
+          type: string
+      description: Cupido resources shared with the client environment.
+      example:
+        id: 1
+        resourceName: Dossier.CarePlan
+        resourceId: '13'
+        clientId: 1
+        recipientGroup: client
+        shareReason: Beste Henk, bij deze een nieuw zorgplan nav ons vorige gesprek. Ik heb nu ook als doel je slikprobleem meegenomen.
+        sharedAt: '2016-10-10T00:00:00.000+02:00'
+        sharedByEmployeeId: 2
+        unshareReason: Deze versie bevatte een spelfout. Ik heb dit in de nieuwe versie aangepast.
+        unsharedAt: '2016-10-12T00:00:00.000+02:00'
+        unsharedByEmployeeId: 2
+        writable: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

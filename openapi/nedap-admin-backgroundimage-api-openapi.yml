@@ -1,0 +1,67 @@
+openapi: 3.2.0
+info:
+  title: Nedap Admin.Background Image API
+  version: 0.0.0
+  description: 'Operations tagged admin.BackgroundImage across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: admin.BackgroundImage
+paths:
+  /t/admin/background_image:
+    get:
+      tags:
+      - admin.BackgroundImage
+      summary: Retrieves the BackgroundImage
+      operationId: admin.BackgroundImageAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.BackgroundImage'
+      x-replaced-by: /v0/administration/admin/background_image
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/admin/background_image:
+    get:
+      tags:
+      - admin.BackgroundImage
+      summary: Retrieves the BackgroundImage
+      operationId: admin.BackgroundImageAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin.BackgroundImage'
+      x-replacement-for:
+      - /t/admin/background_image
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    admin.BackgroundImage:
+      type: object
+      properties:
+        isGradient:
+          type: boolean
+          default: false
+        backgroundPath:
+          type: string
+        color:
+          type: string
+      description: BackgroundImage model (no description)
+      example:
+        isGradient: false
+        backgroundPath: /hier/daar/weg.png
+        color: '#123456'
+      xml:
+        name: backgroundImage
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

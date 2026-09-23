@@ -1,0 +1,587 @@
+openapi: 3.2.0
+info:
+  title: Nedap Location Assignment API
+  version: 0.0.0
+  description: 'Operations tagged LocationAssignment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: LocationAssignment
+paths:
+  /t/clients/{client_id}/location_assignments:
+    get:
+      tags:
+      - LocationAssignment
+      summary: Return the location assignments of a Client corresponding to the given id
+      operationId: LocationAssignmentAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentList'
+      x-replaced-by: /v0/administration/clients/{client_id}/locations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/main_location_assignment:
+    get:
+      tags:
+      - LocationAssignment
+      description: Returns the main location assignment of the client
+      operationId: LocationAssignmentAPI.mainLocationAssignmentByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: Sample date for selecting the main location assignment. If omitted, the current date is used
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+      x-replaced-by: /v0/administration/clients/{client_id}/main_location_assignment
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Location assignment API main location assignment by client id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /t/location_assignments:
+    post:
+      tags:
+      - LocationAssignment
+      summary: Create LocationAssignment
+      operationId: LocationAssignmentAPI.create
+      requestBody:
+        description: LocationAssignment to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignment'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+        '400':
+          description: Validation error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/location_assignments/{id}:
+    get:
+      tags:
+      - LocationAssignment
+      summary: Return the Location Assignment corresponding to the given id
+      operationId: LocationAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+        '404':
+          description: Location assignment not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - LocationAssignment
+      summary: Updates the given LocationAssignment
+      operationId: LocationAssignmentAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: LocationAssignment to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignment'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - LocationAssignment
+      summary: Deletes the LocationAssignment with given id
+      operationId: LocationAssignmentAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/location_assignments/x-stream-connect/data:
+    get:
+      tags:
+      - LocationAssignment
+      summary: Return all LocationAssignment models in a streaming manner
+      operationId: LocationAssignmentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/location_assignments/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/location_assignments/x-stream-connect/updates:
+    get:
+      tags:
+      - LocationAssignment
+      summary: Return all LocationAssignment models which where updated since the date given…
+      operationId: LocationAssignmentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/location_assignments/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/locations:
+    get:
+      tags:
+      - LocationAssignment
+      summary: Return the location assignments of a Client corresponding to the given id
+      operationId: LocationAssignmentAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentList'
+      x-replacement-for:
+      - /t/clients/{client_id}/location_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/main_location_assignment:
+    get:
+      tags:
+      - LocationAssignment
+      description: Returns the main location assignment of the client
+      operationId: LocationAssignmentAPI.mainLocationAssignmentByClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: Sample date for selecting the main location assignment. If omitted, the current date is used
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+      x-replacement-for:
+      - /t/clients/{client_id}/main_location_assignment
+      summary: Location assignment API main location assignment by client id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/location_assignments:
+    post:
+      tags:
+      - LocationAssignment
+      summary: Create LocationAssignment
+      operationId: LocationAssignmentAPI.create
+      requestBody:
+        description: LocationAssignment to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignment'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+        '400':
+          description: Validation error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/location_assignments/{id}:
+    get:
+      tags:
+      - LocationAssignment
+      summary: Return the Location Assignment corresponding to the given id
+      operationId: LocationAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+        '404':
+          description: Location assignment not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignments/{id}
+    put:
+      tags:
+      - LocationAssignment
+      summary: Updates the given LocationAssignment
+      operationId: LocationAssignmentAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: LocationAssignment to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignment'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignments/{id}
+    delete:
+      tags:
+      - LocationAssignment
+      summary: Deletes the LocationAssignment with given id
+      operationId: LocationAssignmentAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignments/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/location_assignments/data:
+    get:
+      tags:
+      - LocationAssignment
+      summary: Return all LocationAssignment models in a streaming manner
+      operationId: LocationAssignmentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignments/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/location_assignments/updates:
+    get:
+      tags:
+      - LocationAssignment
+      summary: Return all LocationAssignment models which where updated since the date given…
+      operationId: LocationAssignmentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/LocationAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignments/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    list.LocationAssignmentList:
+      type: object
+      properties:
+        locationAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAssignment'
+          xml:
+            name: locationAssignment
+      description: LocationAssignmentList model (no description)
+      example:
+        locationAssignments:
+        - id: 1
+          beginDate: '2012-08-02'
+          endDate: '2012-08-02'
+          locationAssignmentType: MAIN
+          mainLocation: true
+      xml:
+        name: locationAssignments
+    LocationAssignmentType:
+      enum:
+      - STANDARD
+      - MAIN
+      - MEDICINE
+      - GGZ
+      - WAITING_LIST
+      type: string
+      description: LocationAssignmentType enum (no description)
+      example: STANDARD
+    LocationAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date
+        beginTime:
+          type: string
+          format: time
+        endDate:
+          type: string
+          format: date
+        endTime:
+          type: string
+          format: time
+        clientObjectId:
+          type: integer
+          format: int64
+        locationObjectId:
+          type: integer
+          format: int64
+        moveDate:
+          type: string
+          format: date
+        locationAssignmentType:
+          $ref: '#/components/schemas/LocationAssignmentType'
+        residence:
+          type: boolean
+          description: Indicates if the client resides at this location
+        mainLocation:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - use locationAssignmentType instead'
+          deprecated: true
+        medicineLocation:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - use locationAssignmentType instead'
+          deprecated: true
+      description: LocationAssignment model (no description)
+      example:
+        id: 1
+        beginDate: '2012-08-02'
+        beginTime: '10:11:00.000'
+        endDate: '2012-08-02'
+        endTime: '12:13:00.000'
+        clientObjectId: 2
+        locationObjectId: 3
+        moveDate: '2012-08-02'
+        locationAssignmentType: MAIN
+        residence: false
+        mainLocation: true
+        medicineLocation: false
+      xml:
+        name: locationAssignment
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,156 @@
+openapi: 3.2.0
+info:
+  title: Nedap Cost Center Selection Option API
+  version: 0.0.0
+  description: 'Operations tagged CostCenterSelectionOption across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: CostCenterSelectionOption
+paths:
+  /t/cost_centers:
+    get:
+      tags:
+      - CostCenterSelectionOption
+      summary: Returns every CostCenterSelectionOption for the selection from the…
+      operationId: CostCenterSelectionOptionAPI.costCenterSelectionOptions
+      parameters:
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: employee_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_object_ids
+        in: query
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CostCenterSelectionOptionList'
+      x-replaced-by: /v0/administration/cost_centers/costCenterSelectionOptions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/cost_centers/costCenterSelectionOptions:
+    get:
+      tags:
+      - CostCenterSelectionOption
+      summary: Returns every CostCenterSelectionOption for the selection from the…
+      operationId: CostCenterSelectionOptionAPI.costCenterSelectionOptions
+      parameters:
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: employee_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_object_ids
+        in: query
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.CostCenterSelectionOptionList'
+      x-replacement-for:
+      - /t/cost_centers
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    CostCenterSelectionOption:
+      type: object
+      properties:
+        clusterObjectId:
+          type: integer
+          format: int32
+          x-cupido-id: true
+        category:
+          allOf:
+          - $ref: '#/components/schemas/CostCenterSelectionOptionCategory'
+          description: A category about the cost center; can be COMMON/OWN_TEAM/CLIENT_COSTCENTER/OTHER.
+        name:
+          type: string
+          description: Name
+        identificationNumber:
+          type: string
+          description: Identification number
+      description: CostCenterSelectionOption model (no description)
+      example:
+        clusterObjectId: 5000
+        category: OWN_TEAM
+        name: Carstens Team
+        identificationNumber: AB12
+      xml:
+        name: costCenterSelectionOption
+    list.CostCenterSelectionOptionList:
+      type: object
+      properties:
+        costCenterSelectionOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostCenterSelectionOption'
+          xml:
+            name: costCenterSelectionOption
+      description: CostCenterSelectionOptionList model (no description)
+      example:
+        costCenterSelectionOptions:
+        - clusterObjectId: 5000
+          category: OWN_TEAM
+          name: Carstens Team
+          identificationNumber: AB12
+        - clusterObjectId: 5001
+          category: CLIENT_COSTCENTER
+          name: Backoffice
+          identificationNumber: CD34
+        - clusterObjectId: 5002
+          category: OTHER
+          name: Nedap Healthcare
+          identificationNumber: EF56
+        - clusterObjectId: 5003
+          category: OTHER
+          name: Nedap Livestock
+          identificationNumber: XZ78
+      xml:
+        name: costCenterSelectionOptions
+    CostCenterSelectionOptionCategory:
+      enum:
+      - COMMON
+      - OWN_TEAM
+      - CLIENT_COSTCENTER
+      - OTHER
+      type: string
+      description: A category about the cost center; can be COMMON/OWN_TEAM/CLIENT_COSTCENTER/OTHER.
+      example: OTHER
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

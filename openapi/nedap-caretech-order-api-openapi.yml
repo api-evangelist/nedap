@@ -1,0 +1,454 @@
+openapi: 3.2.0
+info:
+  title: Nedap Caretech.Order API
+  version: 0.0.0
+  description: 'Operations tagged caretech.Order across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: caretech.Order
+paths:
+  /t/caretech/server/orders:
+    get:
+      tags:
+      - caretech.Order
+      summary: Get all care technology orders with optional product codes and statuses
+      operationId: caretech.OrderAPI.getOrdersServerGateway
+      parameters:
+      - name: product_codes
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/caretech.OrderStatus'
+          description: The status of the orders, can be OPEN, DECLINED, ACCEPTED or COMPLETED
+        example:
+        - OPEN
+        - DECLINED
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caretech.list.OrderList'
+      x-replaced-by: /v0/caretech/server/orders
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/caretech/server/orders/{order_id}:
+    get:
+      tags:
+      - caretech.Order
+      summary: Get an care technology order
+      operationId: caretech.OrderAPI.getOrderServerGateway
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caretech.Order'
+        '404':
+          description: Order not found
+      x-replaced-by: /v0/caretech/server/orders/{order_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/caretech/server/orders/{order_id}/status:
+    patch:
+      tags:
+      - caretech.Order
+      summary: Update the status of an order
+      operationId: caretech.OrderAPI.updateOrderStatus
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/caretech.OrderStatusUpdate'
+        required: true
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '404':
+          description: Order not found
+      x-replaced-by: /v0/caretech/server/orders/{order_id}/status
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/caretech/server/orders:
+    get:
+      tags:
+      - caretech.Order
+      summary: Get all care technology orders with optional product codes and statuses
+      operationId: caretech.OrderAPI.getOrdersServerGateway
+      parameters:
+      - name: product_codes
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/caretech.OrderStatus'
+          description: The status of the orders, can be OPEN, DECLINED, ACCEPTED or COMPLETED
+        example:
+        - OPEN
+        - DECLINED
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caretech.list.OrderList'
+      x-replacement-for:
+      - /t/caretech/server/orders
+    servers:
+    - url: https://api-development.ons.io
+  /v0/caretech/server/orders/{order_id}:
+    get:
+      tags:
+      - caretech.Order
+      summary: Get an care technology order
+      operationId: caretech.OrderAPI.getOrderServerGateway
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caretech.Order'
+        '404':
+          description: Order not found
+      x-replacement-for:
+      - /t/caretech/server/orders/{order_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/caretech/server/orders/{order_id}/status:
+    patch:
+      tags:
+      - caretech.Order
+      summary: Update the status of an order
+      operationId: caretech.OrderAPI.updateOrderStatus
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/caretech.OrderStatusUpdate'
+        required: true
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '404':
+          description: Order not found
+      x-replacement-for:
+      - /t/caretech/server/orders/{order_id}/status
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    caretech.DeliveryAddress:
+      required:
+      - city
+      - country
+      - homeNumber
+      - street
+      - type
+      - zipcode
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          pattern: ^[A-Z]{2}$
+          type: string
+        homeNumber:
+          type: integer
+          format: int32
+        homeNumberExtension:
+          type: string
+        note:
+          type: string
+        roomNumber:
+          type: string
+        street:
+          type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/caretech.AddressType'
+          description: The delivery address type, can be CLIENT_HOME, CLIENT_CARE_ALLOCATION, MANUAL
+        zipcode:
+          type: string
+      description: The delivery address of the order
+      example:
+        city: Groenlo
+        country: NL
+        homeNumber: 3
+        homeNumberExtension: c
+        roomNumber: 304a
+        note: graag afleveren bij de buren op nr. 5
+        street: Industrieweg
+        type: CLIENT_HOME
+        zipcode: 7141DD
+    caretech.OrderStatusUpdate:
+      required:
+      - accepted
+      type: object
+      properties:
+        accepted:
+          type: boolean
+        deviceIdentificationNumber:
+          maxLength: 50
+          minLength: 0
+          type: string
+        orderNumber:
+          maxLength: 50
+          minLength: 0
+          type: string
+        supplierNote:
+          maxLength: 140
+          minLength: 0
+          type: string
+        trackingUrl:
+          maxLength: 255
+          minLength: 0
+          type: string
+      description: Object for updating a set of fields related to a caretech Order
+      example:
+        accepted: true
+        deviceIdentificationNumber: DEV0123456
+        orderNumber: ORD-0123456
+        supplierNote: The device will be delivered by PostNL (see tracking url)
+        trackingUrl: www.postnl.nl/some-tracking-url/ORD-0123456
+    caretech.AddressType:
+      enum:
+      - CLIENT_HOME
+      - CLIENT_CARE_ALLOCATION
+      - MANUAL
+      type: string
+      description: The delivery address type, can be CLIENT_HOME, CLIENT_CARE_ALLOCATION, MANUAL
+      example: CLIENT_HOME
+    caretech.Requester:
+      required:
+      - emailAddress
+      - employeeObjectId
+      - name
+      - phoneNumber
+      - teamName
+      - teamObjectId
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        employeeObjectId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        phoneNumber:
+          type: string
+        teamName:
+          type: string
+        teamObjectId:
+          type: integer
+          format: int64
+      description: The person who creates the care technology order
+      example:
+        emailAddress: teamoost@groenlozorg.nl
+        employeeObjectId: 1
+        name: M. Edewerker
+        phoneNumber: 0612345678
+        teamName: Groenlo Oost
+        teamObjectId: 1
+    caretech.list.OrderList:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/caretech.Order'
+      description: OrderList model (no description)
+      example:
+        orders:
+        - id: 1
+          uuid: 46ff9856-a645-4764-be01-9c64668bf93b
+          createdAt: '2025-01-01T12:00:00.000+01:00'
+          updatedAt: '2025-01-01T12:00:00.000+01:00'
+          productId: 1
+          removed: false
+          clientName: Dhr. P. Atient
+          clientObjectId: 1
+          deliveryAddress:
+            city: Groenlo
+            country: NL
+            homeNumber: 3
+            note: graag afleveren bij de buren op nr. 5
+            street: Industrieweg
+            type: CLIENT_HOME
+            zipcode: 7141DD
+          requester:
+            emailAddress: teamoost@groenlozorg.nl
+            employeeObjectId: 1
+            name: M. Edewerker
+            phoneNumber: 0612345678
+            teamName: Groenlo Oost
+            teamObjectId: 1
+          status: ACCEPTED
+    caretech.Order:
+      required:
+      - clientName
+      - clientObjectId
+      - deliveryAddress
+      - productId
+      - removed
+      - requester
+      - status
+      type: object
+      properties:
+        acceptedAt:
+          type: string
+          format: date-time
+        clientName:
+          type: string
+        clientObjectId:
+          type: integer
+          format: int64
+        completedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        declinedAt:
+          type: string
+          format: date-time
+        deliveryAddress:
+          $ref: '#/components/schemas/caretech.DeliveryAddress'
+        deviceIdentificationNumber:
+          type: string
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        orderNumber:
+          type: string
+        productId:
+          type: integer
+          format: int64
+        removed:
+          type: boolean
+        requester:
+          $ref: '#/components/schemas/caretech.Requester'
+        status:
+          allOf:
+          - $ref: '#/components/schemas/caretech.OrderStatus'
+          description: The status of an order, can be OPEN, DECLINED, ACCEPTED or COMPLETED
+        supplierNote:
+          type: string
+        trackingUrl:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+          format: uuid
+      description: Care technology order
+      example:
+        id: 1
+        uuid: 46ff9856-a645-4764-be01-9c64668bf93b
+        createdAt: '2025-01-01T12:00:00.000+01:00'
+        updatedAt: '2025-01-01T12:00:00.000+01:00'
+        productId: 1
+        removed: false
+        clientName: Dhr. P. Atient
+        clientObjectId: 1
+        deliveryAddress:
+          city: Groenlo
+          country: NL
+          homeNumber: 3
+          homeNumberExtension: c
+          roomNumber: 304a
+          note: graag afleveren bij de buren op nr. 5
+          street: Industrieweg
+          type: CLIENT_HOME
+          zipcode: 7141DD
+        requester:
+          emailAddress: teamoost@groenlozorg.nl
+          employeeObjectId: 1
+          name: M. Edewerker
+          phoneNumber: 0612345678
+          teamName: Groenlo Oost
+          teamObjectId: 1
+        declinedAt: '2025-01-01T12:00:00.000+01:00'
+        acceptedAt: '2025-02-01T12:00:00.000+01:00'
+        completedAt: '2025-03-01T12:00:00.000+01:00'
+        status: COMPLETED
+        deviceIdentificationNumber: roos-maan-vis-luna
+        orderNumber: OD-893264276549
+        supplierNote: Graag nog het telefoonnumber van de cliënt invullen
+        trackingUrl: https://www.postnl.nl/track-and-trace/206727865874268278
+    caretech.OrderStatus:
+      enum:
+      - OPEN
+      - DECLINED
+      - ACCEPTED
+      - COMPLETED
+      type: string
+      description: The status of an order, can be OPEN, DECLINED, ACCEPTED or COMPLETED
+      example: OPEN
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

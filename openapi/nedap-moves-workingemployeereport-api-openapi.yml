@@ -1,0 +1,103 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Working Employee Report API
+  version: 0.0.0
+  description: 'Operations tagged moves.WorkingEmployeeReport across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.WorkingEmployeeReport
+paths:
+  /t/moves/working_employee_report:
+    get:
+      tags:
+      - moves.WorkingEmployeeReport
+      summary: Return the list of Employee ids working within the specified period
+      description: Working according to the planning.
+      operationId: moves.WorkingEmployeeReportAPI.between
+      parameters:
+      - name: start_datetime
+        in: query
+        description: The start of the requested period
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      - name: end_datetime
+        in: query
+        description: The end of the requested period (exclusive)
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.WorkingEmployeeReport'
+      x-replaced-by: /v0/plannen_roosteren/working_employee_report
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/working_employee_report:
+    get:
+      tags:
+      - moves.WorkingEmployeeReport
+      summary: Return the list of Employee ids working within the specified period
+      description: Working according to the planning.
+      operationId: moves.WorkingEmployeeReportAPI.between
+      parameters:
+      - name: start_datetime
+        in: query
+        description: The start of the requested period
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      - name: end_datetime
+        in: query
+        description: The end of the requested period (exclusive)
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.WorkingEmployeeReport'
+      x-replacement-for:
+      - /t/moves/working_employee_report
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.WorkingEmployeeReport:
+      title: WorkingEmployeeReport
+      type: object
+      properties:
+        employeeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+      description: WorkingEmployeeReport model (no description)
+      example:
+        employeeIds:
+        - 1
+        - 2
+        - 3
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

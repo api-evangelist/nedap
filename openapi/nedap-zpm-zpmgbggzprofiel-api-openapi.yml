@@ -1,0 +1,139 @@
+openapi: 3.2.0
+info:
+  title: Nedap Zpm.Zpm Gbggz Profiel API
+  version: 0.0.0
+  description: 'Operations tagged zpm.ZpmGbggzProfiel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: zpm.ZpmGbggzProfiel
+paths:
+  /t/zpm/gbggz_profielen:
+    get:
+      tags:
+      - zpm.ZpmGbggzProfiel
+      summary: Returns a list of all ZPM GB-ggz profielen
+      operationId: zpm.ZpmGbggzProfielAPI.getAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.list.ZpmGbggzProfielList'
+      x-replaced-by: /v0/administration/zpm/gbggz_profielen
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/zpm/gbggz_profielen:
+    get:
+      tags:
+      - zpm.ZpmGbggzProfiel
+      summary: Returns a list of all ZPM GB-ggz profielen
+      operationId: zpm.ZpmGbggzProfielAPI.getAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zpm.list.ZpmGbggzProfielList'
+      x-replacement-for:
+      - /t/zpm/gbggz_profielen
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    zpm.ZpmGbggzProfiel:
+      required:
+      - code
+      - name
+      - beginDate
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: Profiel code.
+        name:
+          type: string
+          description: Profiel name.
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+      description: Generalistische basis ggz (gb-ggz) patientprofiel.
+      example:
+        updatedAt: '2021-08-05T14:23:23.000+02:00'
+        createdAt: '2021-08-05T14:23:23.000+02:00'
+        createdBy: user
+        id: 1
+        code: GBG01
+        name: Onvolledig behandeltraject
+        beginDate: '2021-01-01'
+        endDate: '2022-12-31'
+      xml:
+        name: zpmGbggzProfiel
+    zpm.list.ZpmGbggzProfielList:
+      type: object
+      properties:
+        zpmGbggzProfielen:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/zpm.ZpmGbggzProfiel'
+            xml:
+              name: zpmGbggzProfiel
+          xml:
+            name: zpmGbggzProfiel
+      description: ZpmGbggzProfielList model (no description)
+      example:
+        zpmGbggzProfielen:
+        - updatedAt: '2021-08-05T14:23:23.000+02:00'
+          createdAt: '2021-08-05T14:23:23.000+02:00'
+          createdBy: user
+          id: 1
+          code: GBG01
+          name: Onvolledig behandeltraject
+          beginDate: '2021-01-01'
+          endDate: '2022-12-31'
+      xml:
+        name: zpmGbggzProfielen
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

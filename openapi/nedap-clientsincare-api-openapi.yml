@@ -1,0 +1,172 @@
+openapi: 3.2.0
+info:
+  title: Nedap Clients In Care API
+  version: 0.0.0
+  description: 'Operations tagged ClientsInCare across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ClientsInCare
+paths:
+  /t/clients_in_care:
+    get:
+      tags:
+      - ClientsInCare
+      summary: Return the clients in and out of care in a certain period
+      operationId: ClientsInCareAPI.allInPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-01T00:00:00.000Z'
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientsInCare'
+      x-replaced-by: /v0/administration/clients_in_care
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients_in_care/old_method:
+    get:
+      tags:
+      - ClientsInCare
+      summary: The old way of invoicing
+      description: 'Has a less specific way of determining active clients
+
+        Return the clients in and out of care in a certain period'
+      operationId: ClientsInCareAPI.allInPeriodOldMethod
+      parameters:
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-01T00:00:00.000Z'
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientsInCare'
+      deprecated: true
+      x-deprecated-since: 04-11-2020
+      x-replaced-by: /v0/administration/clients_in_care/old_method
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients_in_care:
+    get:
+      tags:
+      - ClientsInCare
+      summary: Return the clients in and out of care in a certain period
+      operationId: ClientsInCareAPI.allInPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-01T00:00:00.000Z'
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientsInCare'
+      x-replacement-for:
+      - /t/clients_in_care
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients_in_care/old_method:
+    get:
+      tags:
+      - ClientsInCare
+      summary: The old way of invoicing
+      description: 'Has a less specific way of determining active clients
+
+        Return the clients in and out of care in a certain period'
+      operationId: ClientsInCareAPI.allInPeriodOldMethod
+      parameters:
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-01T00:00:00.000Z'
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000Z'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientsInCare'
+      deprecated: true
+      x-deprecated-since: 04-11-2020
+      x-replacement-for:
+      - /t/clients_in_care/old_method
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ClientsInCare:
+      type: object
+      properties:
+        noLongerInCareAmount:
+          type: integer
+          format: int32
+        activeInCareAmount:
+          type: integer
+          format: int32
+        inactiveInCareAmount:
+          type: integer
+          format: int32
+        waitingForCareAmount:
+          type: integer
+          format: int32
+        activeNoLongerInCareAmount:
+          type: integer
+          format: int32
+      description: ClientsInCare model (no description)
+      example:
+        noLongerInCareAmount: 1
+        activeInCareAmount: 2
+        inactiveInCareAmount: 3
+        waitingForCareAmount: 4
+        activeNoLongerInCareAmount: 5
+      xml:
+        name: clientsInCare
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

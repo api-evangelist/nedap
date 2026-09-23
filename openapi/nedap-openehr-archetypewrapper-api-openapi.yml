@@ -1,0 +1,884 @@
+openapi: 3.2.0
+info:
+  title: Nedap Openehr.Archetype Wrapper API
+  version: 0.0.0
+  description: 'Operations tagged openehr.ArchetypeWrapper across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: openehr.ArchetypeWrapper
+paths:
+  /t/openehr/archetype_wrappers:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds a list of all archetypeWrappers in the requested format, filtering by…
+      operationId: openehr.ArchetypeWrapperAPI.all
+      parameters:
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetypes. (Requires to be {@link ArchetypeForm#METADATA}.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      - name: archetype_id
+        in: query
+        description: Id of the archetype to filter by. May have partial version information e.g. openEHR-EHR-COMPOSITION.barthel.v2
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/archetype_wrappers/{id}:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds an archetypeWrapper by archetypeId in the requested format
+      operationId: openehr.ArchetypeWrapperAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: The id of the archetype, f.e. openEHR-EHR-COMPOSITION.barthel.v2.0.0
+        required: true
+        schema:
+          type: string
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetype. (Use {@link ArchetypeForm#METADATA} to avoid fetching large JSON blobs.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.ArchetypeWrapper'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/archetype_wrappers/creatable:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds a list of archetypeWrappers that are creatable
+      operationId: openehr.ArchetypeWrapperAPI.creatable
+      parameters:
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetypes. (Requires to be {@link ArchetypeForm#METADATA}.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      - name: module_uuid
+        in: query
+        description: Module UUID(s) of the requested archetypes. When provided, only metadata of archetypes assigned to the module are returned.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: string
+            example: adc5ab71-364a-4661-ae51-586f781b1910
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/creatable
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/archetype_wrappers/creatable/current_versions:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds a list of archetypeWrappers that are the creatable current versions
+      operationId: openehr.ArchetypeWrapperAPI.creatableCurrentVersions
+      parameters:
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetypes. (Requires to be {@link ArchetypeForm#METADATA}.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      - name: module_uuid
+        in: query
+        description: Module UUID(s) of the requested archetypes. When provided, only metadata of archetypes assigned to the module are returned.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: string
+            example: adc5ab71-364a-4661-ae51-586f781b1910
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/creatable/current_versions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/archetype_wrappers/for_client/{client_id}:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds a list of archetypeWrappers for a given client id
+      operationId: openehr.ArchetypeWrapperAPI.forClient
+      parameters:
+      - name: client_id
+        in: path
+        description: id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetypes. (Requires to be {@link ArchetypeForm#METADATA}.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      - name: module_uuid
+        in: query
+        description: UUID's of modules that the requested archetypes should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/for_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds a list of all archetypeWrappers in the requested format, filtering by…
+      operationId: openehr.ArchetypeWrapperAPI.all
+      parameters:
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetypes. (Requires to be {@link ArchetypeForm#METADATA}.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      - name: archetype_id
+        in: query
+        description: Id of the archetype to filter by. May have partial version information e.g. openEHR-EHR-COMPOSITION.barthel.v2
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/archetype_wrappers
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/{id}:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds an archetypeWrapper by archetypeId in the requested format
+      operationId: openehr.ArchetypeWrapperAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: The id of the archetype, f.e. openEHR-EHR-COMPOSITION.barthel.v2.0.0
+        required: true
+        schema:
+          type: string
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetype. (Use {@link ArchetypeForm#METADATA} to avoid fetching large JSON blobs.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.ArchetypeWrapper'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/archetype_wrappers/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/creatable:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds a list of archetypeWrappers that are creatable
+      operationId: openehr.ArchetypeWrapperAPI.creatable
+      parameters:
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetypes. (Requires to be {@link ArchetypeForm#METADATA}.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      - name: module_uuid[]
+        in: query
+        description: Module UUID(s) of the requested archetypes. When provided, only metadata of archetypes assigned to the module are returned.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: string
+            example: adc5ab71-364a-4661-ae51-586f781b1910
+        x-original-parameter:
+          name: module_uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
+      x-replacement-for:
+      - /t/openehr/archetype_wrappers/creatable
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/creatable/current_versions:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds a list of archetypeWrappers that are the creatable current versions
+      operationId: openehr.ArchetypeWrapperAPI.creatableCurrentVersions
+      parameters:
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetypes. (Requires to be {@link ArchetypeForm#METADATA}.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      - name: module_uuid[]
+        in: query
+        description: Module UUID(s) of the requested archetypes. When provided, only metadata of archetypes assigned to the module are returned.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: string
+            example: adc5ab71-364a-4661-ae51-586f781b1910
+        x-original-parameter:
+          name: module_uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
+      x-replacement-for:
+      - /t/openehr/archetype_wrappers/creatable/current_versions
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/for_client/{client_id}:
+    get:
+      tags:
+      - openehr.ArchetypeWrapper
+      summary: Finds a list of archetypeWrappers for a given client id
+      operationId: openehr.ArchetypeWrapperAPI.forClient
+      parameters:
+      - name: client_id
+        in: path
+        description: id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: archetype_form
+        in: query
+        description: Format of the serialized archetypes. (Requires to be {@link ArchetypeForm#METADATA}.)
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ArchetypeForm'
+      - name: module_uuid[]
+        in: query
+        description: UUID's of modules that the requested archetypes should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        x-original-parameter:
+          name: module_uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
+      x-replacement-for:
+      - /t/openehr/archetype_wrappers/for_client/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    openehr.ArchetypeForm:
+      enum:
+      - METADATA
+      - DIFFERENTIAL
+      - DIFFERENTIAL_STANDARDS_COMPLIANT_JSON
+      - FLAT
+      - FLAT_STANDARDS_COMPLIANT_JSON
+      - OPERATIONAL_TEMPLATE
+      - OPERATIONAL_TEMPLATE_STANDARDS_COMPLIANT_JSON
+      type: string
+      description: ArchetypeForm enum (no description)
+      example: METADATA
+    openehr.ArchetypeCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: 'Name of the archetype category.
+
+            Example: "GGZ".'
+      description: 'OpenEHR Archetype Category model.
+
+        Object to return an ArchetypeCategory.
+
+
+        This object includes additional information about Archetype Categories.
+
+
+        Created on 30/01/2022.'
+      example:
+        id: 1
+        name: GGZ
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    ArchetypeWrapperBase:
+      title: ArchetypeWrapper
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        archetypeId:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the archetypeId
+
+            Example: "openEHR-EHR-CLUSTER.symptom_sign.v1.0.0"'
+        archetypeClass:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the archetypeClass
+
+            Example: "AuthoredArchetype"'
+        rootNodeRmTypeName:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the rootNodeRmTypeName (a.k.a. rootNodeRmTypeName)
+
+            Example: "CLUSTER"'
+          example: CLUSTER
+        rootNodeText:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the rootNodeText
+
+            Example: "Symptoom/signaal"'
+          example: Symptoom/signaal
+        rootNodeDescription:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the rootNodeDescription
+
+            Example: "Een klacht van een patient of objectief waargenomen kernmerk van een ziekte."'
+          example: Een klacht van een patiënt of objectief waargenomen kenmerk van een ziekte.
+        purpose:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the purpose
+
+            Example: "To record details about a single episode of a reported symptom or sign including context, but not details, of previous episodes if appropriate."'
+          example: To record details about a single episode of a reported symptom or sign including context, but not details, of previous episodes if appropriate.
+        use:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the use
+
+            Example: "Use to record details about a single episode of a symptom or reported sign in an individual, as reported by the individual, parent, care-giver or other party.  It may be recorded by a clinician as part of a clinical history record as reported to them, observed by the clinician or self-recorded as part of a clinical questionnaire or personal health record. A complete clinical history or patient story may include varying level of details about multiple episodes of an identified symptom or reported sign, as well as multiple symptoms/signs.\n\nIn the purest sense, symptoms are subjective observations of a physical or mental disturbance and signs are objective observations of the same, as experienced by an individual and reported to the history taker by the same individual or another party. From this logic it follows that we will need two archetypes to record clinical history - one for reported symptoms and another for reported signs. In reality this is impractical as it will require clinical data entry into either one of these models which adds signficant overheads to modellers and those entering data. In addition, there is often overlap in clinical concepts - for example, is previous vomiting or bleeding to be categorised as a symptom or reported sign? In response, this archetype has been specifically designed to proved a single information model that allows for recording of the entire continuum between clearly identifable symptoms and reported signs when recording a clinical history.\n\nThis archetype has been intended to be used as a generic pattern for all symptoms and reported signs. The ''Specific details'' SLOT can be used to extend the archetype to include additional, specific data elements for more complex symptoms or signs.\n\nThis archetype has been specifically designed to be used in the ''Structured detail'' SLOT within the OBSERVATION.story archetype, but can also be used within other OBSERVATION or CLUSTER archetypes and in the ''Associated symptom/sign'' or ''Previous episode'' SLOT within other instances of this CLUSTER.symptom_sign archetype.\n\nClinicians frequently record the phrase ''nil significant'' against specific symptoms or reported signs as an efficient method to indicate that they asked the individual and it was not reported as causing any discomfort or disturbance - effectively used more like a ''normal statement'' rather than an explicit exclusion. The ''Nil significant'' data element has been deliberately included in this archetype to allow clinicians to record this same information in a simple and effective way in a clinical system. It can be used to drive a user interface, for example if ''Nil significant'' is recorded as true then the remaining data elements can be hidden on a data entry screen. This pragmatic approach supports the majority of simple clinical recording requirements around reported symptoms and signs.\n\nHowever if there is a clinical imperative to explicitly record that a Symptom or Sign was reported as not present, for example if it will be used to drive clinical decision support, then it would be preferable to use the CLUSTER.exclusion_symptom_sign archetype. The use of CLUSTER.exclusion_symptom_sign will increase the complexity of template modelling, implementation and querying. It is recommended that the CLUSTER.exclusion_symptom_sign archetype only be considered for use if clear benefit can be identified in specific situations, but should not be used for routine symptom/sign recording."'
+        misuse:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the misuse
+
+            Example: "Not to be used to record that a symptom or sign was explicitly reported as not present - use CLUSTER.exclusion_symptom_sign carefully for specific purposes where the overheads of recording in this way warrant the additional complexity, and only if the ''Nil significant'' in this archetype is not specific enough for recording purposes.\n\nNot to be used for recording objective findings as part of a physical examination - use OBSERVATION.exam and related examination CLUSTER archetypes for this purpose.\n\nNot to be used for diagnoses and problems that form part of a persisting Problem List - use EVALUATION.problem_diagnosis."'
+        copyright:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the copyright
+
+            Example: "© openEHR Foundation"'
+          example: © openEHR Foundation
+        keywords:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Array of keywords, which are Strings
+
+            Example: [ "complaint", "symptom" ]'
+        creatable:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean containing value if corresponding archetype is creatable
+        enabled:
+          type:
+          - boolean
+          - 'null'
+          description: Deprecated due to functional change. Replaced with enabledInUi
+          deprecated: true
+          x-deprecated-since: 19-03-2024
+        enabledInUi:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean containing value if corresponding archetype is enabled in the ui
+        archetypeCategories:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/openehr.ArchetypeCategory'
+          description: List of {@link ArchetypeCategory}s of this archetype.
+        authorizedEmployeeGroupsForCreate:
+          type:
+          - array
+          - 'null'
+          items:
+            allOf:
+            - $ref: '#/components/schemas/openehr.EmployeeGroup'
+            xml:
+              name: employeeGroup
+          description: 'List of {@link EmployeeGroup}s who are allowed to create compositions of
+
+            this archetype.
+
+
+            An empty list means all employees are allowed to create compositions of
+
+            this archetype.'
+        authorizedEmployeeGroupsForRead:
+          type:
+          - array
+          - 'null'
+          items:
+            allOf:
+            - $ref: '#/components/schemas/openehr.EmployeeGroup'
+            xml:
+              name: employeeGroup
+          description: 'List of {@link EmployeeGroup}s who are by default allowed to read
+
+            compositions of this archetype.
+
+
+            An empty list means all employees by default are allowed to read
+
+            compositions of this archetype.'
+        authorizedEmployeeGroupsForUpdate:
+          type:
+          - array
+          - 'null'
+          items:
+            allOf:
+            - $ref: '#/components/schemas/openehr.EmployeeGroup'
+            xml:
+              name: employeeGroup
+          description: 'List of {@link EmployeeGroup}s who are by default allowed to update
+
+            compositions of this archetype.
+
+
+            An empty list means all employees by default are allowed to update
+
+            compositions of this archetype.'
+        authorizedForCreate:
+          type:
+          - boolean
+          - 'null'
+          description: 'Boolean to indicate that the current user is authorized to create
+
+            compositions of this archetype.
+
+
+            True if authorizedEmployeeGroupsForCreate is empty or the current user
+
+            is a member of one of the authorizedEmployeeGroupsForCreate.
+
+
+            False if the user not a member of one of the
+
+            authorizedEmployeeGroupsForCreate.
+
+
+            Null if no user information is available.'
+        archetype:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the JSON-blob with the OpenEHR archetype
+
+            This is the actual data stored in Chiron, the openEHR database'
+        form:
+          type:
+          - string
+          - 'null'
+          description: String containing the archetype form, e.g 'OPERATIONAL_TEMPLATE', 'FLAT', 'DIFFERENTIAL' or 'METADATA'
+      description: 'OpenEHR ArchetypeWrapper model.
+
+        Object to return an ArchetypeWrapper. The wrapper contains the actual archetype as a String and relevant metadata.
+
+
+        Based on the OperationalTemplate, see https://www.openehr.org/releases/AM/latest/docs/AOM2/AOM2.html#_overview_2
+
+
+        Created on 22/06/2018.'
+      example:
+        updatedAt: '2018-06-28T00:00:00.000+02:00'
+        createdAt: '2018-06-28T00:00:00.000+02:00'
+        createdBy: Dummy
+        id: 1
+        archetypeId: Dummy
+        archetypeClass: Dummy
+        rootNodeRmTypeName: Dummy
+        rootNodeText: Dummy
+        rootNodeDescription: Dummy
+        purpose: Dummy
+        use: Dummy
+        misuse: Dummy
+        copyright: Dummy
+        keywords: []
+        creatable: true
+        enabled: true
+        enabledInUi: true
+        archetypeCategories:
+        - id: 1
+          name: GGZ
+        authorizedEmployeeGroupsForCreate:
+        - id: 1
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        authorizedEmployeeGroupsForRead: []
+        authorizedEmployeeGroupsForUpdate:
+        - id: 1
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        - id: 2
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        authorizedForCreate: true
+        archetype: Dummy
+        form: OPERATIONAL_TEMPLATE
+    openehr.ArchetypeWrapper:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/ArchetypeWrapperBase'
+      description: ArchetypeWrapper model (no description)
+      example:
+        updatedAt: '2018-06-28T00:00:00.000+02:00'
+        createdAt: '2018-06-28T00:00:00.000+02:00'
+        createdBy: Dummy
+        id: 1
+        archetypeId: Dummy
+        archetypeClass: Dummy
+        rootNodeRmTypeName: Dummy
+        rootNodeText: Dummy
+        rootNodeDescription: Dummy
+        purpose: Dummy
+        use: Dummy
+        misuse: Dummy
+        copyright: Dummy
+        keywords: []
+        creatable: true
+        enabled: true
+        enabledInUi: true
+        archetypeCategories:
+        - id: 1
+          name: GGZ
+        authorizedEmployeeGroupsForCreate:
+        - id: 1
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        authorizedEmployeeGroupsForRead: []
+        authorizedEmployeeGroupsForUpdate:
+        - id: 1
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        - id: 2
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        authorizedForCreate: true
+        archetype: Dummy
+        form: OPERATIONAL_TEMPLATE
+    openehr.list.ArchetypeWrapperList:
+      type: object
+      properties:
+        archetypeWrappers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/openehr.ArchetypeWrapper'
+      description: ArchetypeWrapperList model (no description)
+      example:
+        archetypeWrappers:
+        - updatedAt: '2018-06-28T00:00:00.000+02:00'
+          createdAt: '2018-06-28T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 1
+          archetypeId: openEHR-EHR-OBSERVATION.barthel.v2.0.0
+          archetypeClass: Dummy
+          rootNodeRmTypeName: Dummy
+          rootNodeText: Dummy
+          rootNodeDescription: Dummy
+          purpose: Dummy
+          use: Dummy
+          misuse: Dummy
+          copyright: Dummy
+          keywords: []
+          creatable: true
+          enabled: true
+          archetypeCategories:
+          - id: 1
+            name: GGZ
+          authorizedEmployeeGroupsForCreate:
+          - id: 1
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          authorizedEmployeeGroupsForRead: []
+          authorizedEmployeeGroupsForUpdate:
+          - id: 1
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          - id: 2
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          authorizedForCreate: true
+          archetype: Dummy
+          form: OPERATIONAL_TEMPLATE
+        - updatedAt: '2018-06-28T00:00:00.000+02:00'
+          createdAt: '2018-06-28T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 2
+          archetypeId: openEHR-EHR-OBSERVATION.laboratory_test_result.v1.1.2
+          archetypeClass: Dummy
+          rootNodeRmTypeName: Dummy
+          rootNodeText: Dummy
+          rootNodeDescription: Dummy
+          purpose: Dummy
+          use: Dummy
+          misuse: Dummy
+          copyright: Dummy
+          keywords: []
+          creatable: true
+          enabled: true
+          archetypeCategories:
+          - id: 2
+            name: VVT
+          authorizedEmployeeGroupsForCreate: []
+          authorizedEmployeeGroupsForRead: []
+          authorizedEmployeeGroupsForUpdate: []
+          archetype: Dummy
+          form: OPERATIONAL_TEMPLATE
+    openehr.EmployeeGroup:
+      title: EmployeeGroup
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        employeeGroupType:
+          type:
+          - string
+          - 'null'
+          description: Type of employee group, e.g. EXPERTISE_PROFILE or EXPERTISE_GROUP.
+        originatingSystemId:
+          type:
+          - string
+          - 'null'
+          description: Originating system of the employee group, e.g. Administratie.
+        originatingSystemItemId:
+          type: string
+          description: Id of the employee group in the originating system.
+        parentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct parents of the employee group.
+        childGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct children of the employee group.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the employee group.
+        beginDate:
+          type:
+          - string
+          - 'null'
+          description: Begin date of the employee group.
+          format: date
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: End date of the employee group.
+          format: date
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is deleted.
+        visible:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is visible.
+        allowDossierActions:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create reports with actions. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+        allowDossierConfidential:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create confidential reports. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+      description: 'Employee group used for authorizations in {@link ArchetypeWrapper} and
+
+        {@link CompositionWrapper}.
+
+
+        Employee groups can be based on {@link com.nedap.healthcare.domain.ExpertiseProfile}
+
+        and {@link com.nedap.healthcare.domain.ExpertiseGroup}.'
+      example:
+        id: 132
+        employeeGroupType: EXPERTISE_GROUP
+        originatingSystemId: Administratie
+        originatingSystemItemId: '11'
+        parentGroups:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        childGroups:
+        - id: 134
+          employeeGroupType: EXPERTISE_PROFILE
+          name: Profile1
+          deleted: false
+          allowDossierActions: true
+          allowDossierConfidential: false
+        name: Group1
+        beginDate: '2020-05-11'
+        endDate: '2020-05-25'
+        deleted: false
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,2652 @@
+openapi: 3.2.0
+info:
+  title: Nedap Client API
+  version: 0.0.0
+  description: 'Operations tagged Client across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Client
+paths:
+  /t/clients:
+    post:
+      tags:
+      - Client
+      summary: Create Client
+      operationId: ClientAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Client to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Validation or persistence problems
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clients
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{employee_id}/last_visited_clients:
+    get:
+      tags:
+      - Client
+      summary: Returns the last visited clients of an employee based on presence logs
+      operationId: ClientAPI.lastVisitedClients
+      parameters:
+      - name: employee_id
+        in: path
+        description: '- employee id'
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from_date
+        in: query
+        description: '- begin date of period'
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: to_date
+        in: query
+        description: '- end date of period'
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: offset
+        in: query
+        description: '- position in the result list to start from'
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: '- limit of the result list'
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+      x-replaced-by: /v0/administration/clients/{employee_id}/last_visited_clients
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{id}:
+    get:
+      tags:
+      - Client
+      summary: Find a client by their primary key
+      operationId: ClientAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clients/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - Client
+      summary: Update Client
+      operationId: ClientAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Client to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Validation or persistence problems, or identification number already exists
+        '404':
+          description: Client not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clients/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/by_bsn:
+    get:
+      tags:
+      - Client
+      summary: Find a client by its BSN number
+      operationId: ClientAPI.byBSN
+      parameters:
+      - name: bsn
+        in: query
+        description: The bsn of the client to find
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+        '409':
+          description: If multiple clients are registered with the same BSN
+      x-replaced-by: /v0/administration/clients/by_bsn
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/by_bsn/{bsn}:
+    get:
+      tags:
+      - Client
+      summary: Find a client by its BSN number
+      description: Use byBsn
+      operationId: ClientAPI.byBSNUnsafe
+      parameters:
+      - name: bsn
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+        '409':
+          description: If multiple clients are registered with the same BSN
+      deprecated: true
+      x-deprecated-since: 29-07-2020
+      x-replaced-by: /v0/administration/clients/by_bsn/{bsn}
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/by_skn:
+    get:
+      tags:
+      - Client
+      summary: Find a client by its SKN (strafrechtketennummer)
+      operationId: ClientAPI.bySkn
+      parameters:
+      - name: skn
+        in: query
+        description: the skn of the client to find.
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+      x-replaced-by: /v0/administration/clients/by_skn
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/by_uuid/{uuid}:
+    get:
+      tags:
+      - Client
+      summary: Find a client by its UUID
+      operationId: ClientAPI.byUUID
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+      x-replaced-by: /v0/administration/clients/by_uuid/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/by_identification_no/{identification_no}:
+    get:
+      tags:
+      - Client
+      summary: Find a client based on it's identification number, a logical identifier
+      operationId: ClientAPI.byIdentificationNo
+      parameters:
+      - name: identification_no
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+      x-replaced-by: /v0/administration/clients/byIdentificationNumber/{identification_no}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/searchresult:
+    get:
+      tags:
+      - Client
+      summary: Results returned by this call are not grouped, i.e.
+      description: 'the {@link com.nedap.healthcare.domain.ClientSearchResult#group}
+
+        value is {@link com.nedap.healthcare.domain.ClientSearchResultGroup#UNGROUPED} for all results.'
+      operationId: ClientAPI.search
+      parameters:
+      - name: query
+        in: query
+        description: The string to search for
+        schema:
+          type: string
+      - name: employee_id
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: include_waiting
+        in: query
+        schema:
+          type: boolean
+      - name: include_outofcare
+        in: query
+        schema:
+          type: boolean
+      - name: on_date
+        in: query
+        description: The search will be performed for the given date (instead of now)
+        schema:
+          type: string
+          format: date
+      - name: location_id
+        in: query
+        description: Limit the scope of search to within this location (only works when also using employee_id with an Employee that is linked to a User account)
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientSearchResultList'
+        '404':
+          description: Employee not found
+      deprecated: true
+      x-deprecated-since: 01-03-2026
+      x-replaced-by: /v0/administration/clients/find
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/search_grouped:
+    get:
+      tags:
+      - Client
+      summary: Searches performed through this method are 'grouped' according to the groups…
+      description: 'Searches performed through this method are ''grouped'' according to the groups defined in
+
+        {@link com.nedap.healthcare.domain.ClientSearchResultGroup}, which value is set on the
+
+        {@link com.nedap.healthcare.domain.ClientSearchResult#group} field.'
+      operationId: ClientAPI.searchGrouped
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+      - name: employee_id
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: include_waiting
+        in: query
+        schema:
+          type: boolean
+      - name: include_outofcare
+        in: query
+        schema:
+          type: boolean
+      - name: on_date
+        in: query
+        description: The search will be performed for the given date (instead of now)
+        schema:
+          type: string
+          format: date
+      - name: location_id
+        in: query
+        description: Limit the scope of search to within this location (only works when also using employee_id with an Employee that is linked to a User account)
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientSearchResultList'
+        '404':
+          description: Employee not found
+      deprecated: true
+      x-deprecated-since: 01-03-2026
+      x-replaced-by: /v0/administration/clients/find_grouped
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/ids_in_care_in_period:
+    get:
+      tags:
+      - Client
+      summary: Find clientObjectIds of all clients in care in a given period
+      operationId: ClientAPI.searchClientIdsInCareInPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientObjectIdList'
+        '400':
+          description: Bad request
+      x-replaced-by: /v0/administration/clients/ids_in_care_in_period
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/in_care_in_period:
+    get:
+      tags:
+      - Client
+      summary: Find all clients in care in a given period
+      operationId: ClientAPI.searchInCareInPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+        '400':
+          description: Bad request
+      x-replaced-by: /v0/administration/clients/in_care_in_period
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/multiple:
+    get:
+      tags:
+      - Client
+      summary: Method used for requesting multiple Client objects using their ids
+      operationId: ClientAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clients/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/search_by/locations/{location_id}:
+    get:
+      tags:
+      - Client
+      summary: Find clients by location
+      operationId: ClientAPI.searchByLocationId
+      parameters:
+      - name: location_id
+        in: path
+        description: Location
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: valid_from
+        in: query
+        description: starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+        '404':
+          description: Location not found
+      x-replaced-by: /v0/administration/clients/search_by_location
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/last_visited_clients:
+    get:
+      tags:
+      - Client
+      summary: Return the last visited Clients of a User corresponding to the given id
+      operationId: ClientAPI.lastVisitedByUserId
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+      x-replaced-by: /v0/administration/users/{user_id}/last_visited_clients
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/last_visited_clients/{client_id}:
+    post:
+      tags:
+      - Client
+      summary: Add or update client in favorite table
+      operationId: ClientAPI.addOrUpdateClientInFavorite
+      parameters:
+      - name: user_id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: path
+        description: Client ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: User or client id is required
+        '403':
+          description: Insufficient rights
+        '404':
+          description: User or client not found
+      x-replaced-by: /v0/administration/users/{user_id}/last_visited_clients/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/omnisearch/clients/searchresult:
+    get:
+      tags:
+      - Client
+      summary: Client Search via Omnisearch
+      description: 'Searches performed through this method are ''grouped'' according to the groups defined in
+
+        com.nedap.healthcare.domain.ClientSearchResultGroup, which value is set on the
+
+        com.nedap.healthcare.domain.ClientSearchResult#group field'
+      operationId: ClientAPI.omnisearch
+      parameters:
+      - name: query
+        in: query
+        description: The string to search for
+        required: true
+        schema:
+          type: string
+      - name: employee_id
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: include_waiting
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: include_out_of_care
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: on_date
+        in: query
+        description: The search will be performed for the given date (instead of now)
+        schema:
+          type: string
+          format: date
+      - name: location_id
+        in: query
+        description: Limit the scope of search to within this location
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientSearchResultList'
+        '403':
+          description: No valid authentication
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
+      x-replaced-by: /v0/omnisearch/client/search
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/clients/by_archetype_id/{archetype_id}:
+    get:
+      tags:
+      - Client
+      summary: Returns the clients (but only the client ids) who have data for the given…
+      description: 'When querying
+
+        an archetype id, this also returns clients with data for subversions of that archetype id.
+
+
+        For example openEHR-EHR-COMPOSITION.berg_balance_scale_report.v1 returns clients with data for
+
+        openEHR-EHR-COMPOSITION.berg_balance_scale_report.v1.0.2 and openEHR-EHR-COMPOSITION.berg_balance_scale_report.v1.5.0,
+
+        but not for openEHR-EHR-COMPOSITION.berg_balance_scale_report.v2.0.0.
+
+
+        This will take into account data with lifecycle state COMPLETE and INCOMPLETE, but not DELETED.'
+      operationId: ClientAPI.allByArchetypeId
+      parameters:
+      - name: archetype_id
+        in: path
+        description: '- archetype id can contain the archetype concept plus any precision of the version, like v1 or v1.1.1'
+        required: true
+        schema:
+          type: string
+      - name: valid_from
+        in: query
+        description: '- begin date of the period'
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: '- end date of the period'
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/clients/by_archetype_id/{archetype_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/x-stream-connect/data:
+    get:
+      tags:
+      - Client
+      summary: Return all Client models in a streaming manner
+      operationId: ClientAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/clients/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/x-stream-connect/deletes:
+    get:
+      tags:
+      - Client
+      summary: Return all Client models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Client models'
+      operationId: ClientAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/clients/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/x-stream-connect/updates:
+    get:
+      tags:
+      - Client
+      summary: Return all Client models which where updated since the date given in the request
+      operationId: ClientAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/clients/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients:
+    post:
+      tags:
+      - Client
+      summary: Create Client
+      operationId: ClientAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Client to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Validation or persistence problems
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/clients
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{employee_id}/last_visited_clients:
+    get:
+      tags:
+      - Client
+      summary: Returns the last visited clients of an employee based on presence logs
+      operationId: ClientAPI.lastVisitedClients
+      parameters:
+      - name: employee_id
+        in: path
+        description: '- employee id'
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from_date
+        in: query
+        description: '- begin date of period'
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: to_date
+        in: query
+        description: '- end date of period'
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: offset
+        in: query
+        description: '- position in the result list to start from'
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: '- limit of the result list'
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+      x-replacement-for:
+      - /t/clients/{employee_id}/last_visited_clients
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{id}:
+    get:
+      tags:
+      - Client
+      summary: Find a client by their primary key
+      operationId: ClientAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/clients/{id}
+    put:
+      tags:
+      - Client
+      summary: Update Client
+      operationId: ClientAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Client to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Validation or persistence problems, or identification number already exists
+        '404':
+          description: Client not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/clients/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/by_bsn:
+    get:
+      tags:
+      - Client
+      summary: Find a client by its BSN number
+      operationId: ClientAPI.byBSN
+      parameters:
+      - name: bsn
+        in: query
+        description: The bsn of the client to find
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+        '409':
+          description: If multiple clients are registered with the same BSN
+      x-replacement-for:
+      - /t/clients/by_bsn
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/by_bsn/{bsn}:
+    get:
+      tags:
+      - Client
+      summary: Find a client by its BSN number
+      description: Use byBsn
+      operationId: ClientAPI.byBSNUnsafe
+      parameters:
+      - name: bsn
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+        '409':
+          description: If multiple clients are registered with the same BSN
+      deprecated: true
+      x-deprecated-since: 29-07-2020
+      x-replacement-for:
+      - /t/clients/by_bsn/{bsn}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/by_skn:
+    get:
+      tags:
+      - Client
+      summary: Find a client by its SKN (strafrechtketennummer)
+      operationId: ClientAPI.bySkn
+      parameters:
+      - name: skn
+        in: query
+        description: the skn of the client to find.
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+      x-replacement-for:
+      - /t/clients/by_skn
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/by_uuid/{uuid}:
+    get:
+      tags:
+      - Client
+      summary: Find a client by its UUID
+      operationId: ClientAPI.byUUID
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client not found
+      x-replacement-for:
+      - /t/clients/by_uuid/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/byIdentificationNumber/{identification_no}:
+    get:
+      tags:
+      - Client
+      summary: Find a client based on it's identification number, a logical identifier
+      operationId: ClientAPI.byIdentificationNo
+      parameters:
+      - name: identification_no
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+      x-replacement-for:
+      - /t/clients/by_identification_no/{identification_no}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/find:
+    get:
+      tags:
+      - Client
+      summary: Results returned by this call are not grouped, i.e.
+      description: 'the {@link com.nedap.healthcare.domain.ClientSearchResult#group}
+
+        value is {@link com.nedap.healthcare.domain.ClientSearchResultGroup#UNGROUPED} for all results.'
+      operationId: ClientAPI.search
+      parameters:
+      - name: query
+        in: query
+        description: The string to search for
+        schema:
+          type: string
+      - name: employee
+        in: query
+        schema:
+          type: string
+        x-original-parameter:
+          name: employee_id
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: includewaiting
+        in: query
+        schema:
+          type: boolean
+        x-original-parameter:
+          name: include_waiting
+      - name: includeoutofcare
+        in: query
+        schema:
+          type: boolean
+        x-original-parameter:
+          name: include_outofcare
+      - name: on_date
+        in: query
+        description: The search will be performed for the given date (instead of now)
+        schema:
+          type: string
+          format: date
+      - name: location_id
+        in: query
+        description: Limit the scope of search to within this location (only works when also using employee_id with an Employee that is linked to a User account)
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientSearchResultList'
+        '404':
+          description: Employee not found
+      deprecated: true
+      x-deprecated-since: 01-03-2026
+      x-replacement-for:
+      - /t/clients/searchresult
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/find_grouped:
+    get:
+      tags:
+      - Client
+      summary: Searches performed through this method are 'grouped' according to the groups…
+      description: 'Searches performed through this method are ''grouped'' according to the groups defined in
+
+        {@link com.nedap.healthcare.domain.ClientSearchResultGroup}, which value is set on the
+
+        {@link com.nedap.healthcare.domain.ClientSearchResult#group} field.'
+      operationId: ClientAPI.searchGrouped
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+      - name: employee
+        in: query
+        schema:
+          type: string
+        x-original-parameter:
+          name: employee_id
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: includewaiting
+        in: query
+        schema:
+          type: boolean
+        x-original-parameter:
+          name: include_waiting
+      - name: includeoutofcare
+        in: query
+        schema:
+          type: boolean
+        x-original-parameter:
+          name: include_outofcare
+      - name: on_date
+        in: query
+        description: The search will be performed for the given date (instead of now)
+        schema:
+          type: string
+          format: date
+      - name: location_id
+        in: query
+        description: Limit the scope of search to within this location (only works when also using employee_id with an Employee that is linked to a User account)
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientSearchResultList'
+        '404':
+          description: Employee not found
+      deprecated: true
+      x-deprecated-since: 01-03-2026
+      x-replacement-for:
+      - /t/clients/search_grouped
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/ids_in_care_in_period:
+    get:
+      tags:
+      - Client
+      summary: Find clientObjectIds of all clients in care in a given period
+      operationId: ClientAPI.searchClientIdsInCareInPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientObjectIdList'
+        '400':
+          description: Bad request
+      x-replacement-for:
+      - /t/clients/ids_in_care_in_period
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/in_care_in_period:
+    get:
+      tags:
+      - Client
+      summary: Find all clients in care in a given period
+      operationId: ClientAPI.searchInCareInPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+        '400':
+          description: Bad request
+      x-replacement-for:
+      - /t/clients/in_care_in_period
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/multiple:
+    get:
+      tags:
+      - Client
+      summary: Method used for requesting multiple Client objects using their ids
+      operationId: ClientAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/clients/multiple
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/search_by_location:
+    get:
+      tags:
+      - Client
+      summary: Find clients by location
+      operationId: ClientAPI.searchByLocationId
+      parameters:
+      - name: location_id
+        in: query
+        description: Location
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: path
+      - name: offset
+        in: query
+        description: number of results to skip
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: number of results for one call
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: valid_from
+        in: query
+        description: starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: end time
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+        '404':
+          description: Location not found
+      x-replacement-for:
+      - /t/clients/search_by/locations/{location_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/last_visited_clients:
+    get:
+      tags:
+      - Client
+      summary: Return the last visited Clients of a User corresponding to the given id
+      operationId: ClientAPI.lastVisitedByUserId
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+      x-replacement-for:
+      - /t/users/{user_id}/last_visited_clients
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/last_visited_clients/{client_id}:
+    post:
+      tags:
+      - Client
+      summary: Add or update client in favorite table
+      operationId: ClientAPI.addOrUpdateClientInFavorite
+      parameters:
+      - name: user_id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: client_id
+        in: path
+        description: Client ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: User or client id is required
+        '403':
+          description: Insufficient rights
+        '404':
+          description: User or client not found
+      x-replacement-for:
+      - /t/users/{user_id}/last_visited_clients/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/omnisearch/client/search:
+    get:
+      tags:
+      - Client
+      summary: Client Search via Omnisearch
+      description: 'Searches performed through this method are ''grouped'' according to the groups defined in
+
+        com.nedap.healthcare.domain.ClientSearchResultGroup, which value is set on the
+
+        com.nedap.healthcare.domain.ClientSearchResult#group field'
+      operationId: ClientAPI.omnisearch
+      parameters:
+      - name: query
+        in: query
+        description: The string to search for
+        required: true
+        schema:
+          type: string
+      - name: employee_id
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: include_waiting
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: include_out_of_care
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: on_date
+        in: query
+        description: The search will be performed for the given date (instead of now)
+        schema:
+          type: string
+          format: date
+      - name: location_id
+        in: query
+        description: Limit the scope of search to within this location
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientSearchResultList'
+        '403':
+          description: No valid authentication
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
+      x-replacement-for:
+      - /t/omnisearch/clients/searchresult
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/clients/by_archetype_id/{archetype_id}:
+    get:
+      tags:
+      - Client
+      summary: Returns the clients (but only the client ids) who have data for the given…
+      description: 'When querying
+
+        an archetype id, this also returns clients with data for subversions of that archetype id.
+
+
+        For example openEHR-EHR-COMPOSITION.berg_balance_scale_report.v1 returns clients with data for
+
+        openEHR-EHR-COMPOSITION.berg_balance_scale_report.v1.0.2 and openEHR-EHR-COMPOSITION.berg_balance_scale_report.v1.5.0,
+
+        but not for openEHR-EHR-COMPOSITION.berg_balance_scale_report.v2.0.0.
+
+
+        This will take into account data with lifecycle state COMPLETE and INCOMPLETE, but not DELETED.'
+      operationId: ClientAPI.allByArchetypeId
+      parameters:
+      - name: archetype_id
+        in: path
+        description: '- archetype id can contain the archetype concept plus any precision of the version, like v1 or v1.1.1'
+        required: true
+        schema:
+          type: string
+      - name: valid_from
+        in: query
+        description: '- begin date of the period'
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: '- end date of the period'
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+      x-replacement-for:
+      - /t/openehr/clients/by_archetype_id/{archetype_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/clients/data:
+    get:
+      tags:
+      - Client
+      summary: Return all Client models in a streaming manner
+      operationId: ClientAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/clients/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/clients/deletes:
+    get:
+      tags:
+      - Client
+      summary: Return all Client models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Client models'
+      operationId: ClientAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/clients/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/clients/updates:
+    get:
+      tags:
+      - Client
+      summary: Return all Client models which where updated since the date given in the request
+      operationId: ClientAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/clients/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    list.ClientObjectIdList:
+      type: object
+      properties:
+        clientObjectIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientObjectId'
+      description: List of clientObjectIds
+      example:
+        clientObjectIds:
+        - value: 54321
+        - value: 42
+      xml:
+        name: clientObjectIds
+    CareAllocation:
+      required:
+      - clientId
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        comments:
+          type: string
+        destination:
+          type: string
+          description: 'NVT: N.v.t.
+
+            EIGEN_OMGEVING: Eigen omgeving
+
+            EIGEN_OMGEVING_DAGBEHANDELING: Eigen omgeving met dagbehandeling
+
+            INSTELLING_WLZ: Instelling (WLZ) of ziekenhuis
+
+            INSTELLING_NIET_WLZ: Instelling (niet-WLZ)'
+        reason:
+          type: string
+          description: 'REJECTED: Afgekeurd
+
+            CLASS_CHANGED: Klasse is aangepast
+
+            REVOKE_MUT: Intrekking MUT
+
+            REVOKE_MAZ: Intrekking MAZ
+
+            IN_CARE: N.v.t.
+
+            DISMISS: Ontslag (intramuraal)
+
+            DEATH: Overlijden
+
+            TEMP_GONE: Tijdelijke afwezigheid
+
+            REFUSED_BY_PROVIDER: Aanbieder weigert functie
+
+            REFUSED_BY_CLIENT: Cliënt weigert functie
+
+            RESUME: Onderbroken functie hervat
+
+            END_OF_CARE: Beëindiging zorg
+
+            TRANSFER: Overplaatsing
+
+            END_OF_CARE_CLOSE_FUNCTION: Einde zorg (functies intrekken)
+
+            END_OF_CARE_OPEN_FUNCTION: Einde zorg (functies openlaten)
+
+            TRANSFER_NO_MAZ: Overplaatsing (er is geen Maz)
+
+            REQUEST_CUSTOM_CARE_ORDER: Aanvraag aangepaste zorgtoewijzing
+
+            END_OF_CARE_AFTER_INTAKE: Beëindiging zorg na intake
+
+            DEATH_BY_SUICIDE: Overlijden door suïcide'
+        reasonTemporary:
+          type: string
+          description: 'NVT: N.v.t.
+
+            VAKANTIEVERLOF: Vakantieverlof
+
+            ZIEKENHUISOPNAME: Ziekenhuisopname
+
+            KORTE_VERBLIJFPLAATSING: Korte verblijfplaatsing in WLZ-erkende instelling
+
+            TIJDELIJK_THUIS: Tijdelijk thuis
+
+            PANDEMIE: Pandemie'
+        careProviderId:
+          type: integer
+          description: Care provider id, required when reason is TRANSFER and destination is INSTELLING_WLZ
+          format: int64
+      description: CareAllocation model (no description)
+      example:
+        id: 1
+        clientId: 10
+        beginDate: '2016-01-01'
+        endDate: '2020-01-01'
+        comments: niets te melden
+        destination: EIGEN_OMGEVING
+        reason: IN_CARE
+        reasonTemporary: VAKANTIEVERLOF
+        careProviderId: 42
+      xml:
+        name: careAllocation
+    GenderIdentityType:
+      enum:
+      - MALE
+      - FEMALE
+      - NON_BINARY
+      type: string
+      description: 'Predefined type of gender identity. MALE: ''man'', FEMALE: ''vrouw'', NON_BINARY: ''non-binair'''
+      example: NON_BINARY
+    ClientSearchResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: the id of this object
+          format: int64
+          x-cupido-id: true
+        identificationNo:
+          type: string
+          description: The client number for this Client; e.g. "234567"
+        name:
+          type: string
+          description: The full name of this client; e.g. "Petrus Johannes Paulusma"
+        firstName:
+          type: string
+          description: This Client's first name; e.g. "Petrus Johannes"
+        lastName:
+          type: string
+          description: This Client's last name; e.g. "Paulusma"
+        givenName:
+          type: string
+          description: This Client's given name; e.g. "Piet"
+        gender:
+          type: string
+          description: This Client's gender; can be male, female or unknown
+        pronouns:
+          type: string
+          description: 'This Client''s pronouns; e.g. "zij/haar", "hij/zijn" etc. '
+        preferredName:
+          type: string
+          description: Preferred name of this client. In case a client prefers a different name over the official name; e.g. "Petra Paulusma"
+        dateOfBirth:
+          type: string
+          description: Date of birth, formatted yyyy-mm-dd
+          format: date
+        secretClient:
+          type: boolean
+          description: Boolean for celebrities
+        addressString:
+          type: string
+          description: This Client's address; e.g. "Parallelweg 2, 7141 DC, Groenlo"
+        birthName:
+          type: string
+          description: This Client's surname at birth
+        partnerName:
+          type: string
+          description: This Client's partner's surname at birth
+        birthNamePrefix:
+          type: string
+          description: This Client's prefix; e.g. "van"
+        partnerNamePrefix:
+          type: string
+          description: This client's partner's prefix; e.g. "van de"
+        initials:
+          type: string
+          description: This Client's initials; e.g. "PJ"
+        preferredNameType:
+          type: string
+          description: This Client's preferred name type; e.g. "partnerName"
+        group:
+          allOf:
+          - $ref: '#/components/schemas/ClientSearchResultGroup'
+          description: 'The group to which this result belongs.
+
+            This is only set after calling the ''searchGrouped'' API.'
+          default: UNGROUPED
+      description: Search Result after querying OnsAdmin
+      example:
+        id: 1
+        identificationNo: '12345'
+        name: Dhr. PJ Paulusma
+        firstName: Pieter Johan
+        lastName: Paulusma
+        givenName: Piet
+        gender: M
+        pronouns: zij/haar
+        preferredName: Petra Paulusma
+        dateOfBirth: '1956-12-31'
+        secretClient: false
+        addressString: Dorpstraat 1, Het Dorp
+        birthName: Paulusma
+        partnerName: none
+        birthNamePrefix: none
+        partnerNamePrefix: none
+        initials: PJ
+        preferredNameType: '0'
+        group: WAITINGLIST
+      xml:
+        name: clientSearchResult
+    list.ClientList:
+      type: object
+      properties:
+        clients:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Client'
+          xml:
+            name: client
+      description: ClientList model (no description)
+      example:
+        clients:
+        - id: 1
+          firstName: Mike
+          dateOfBirth: '2012-08-02'
+          birthName: Wazowski
+      xml:
+        name: clients
+    GenderIdentity:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/GenderIdentityType'
+        description:
+          type: string
+          description: Translated description of the gender identity.
+      description: The usage of this schema is deprecated and has been replaced by GenderIdentityType.
+      example:
+        type: NON_BINARY
+        description: non-binair
+      deprecated: true
+      x-deprecated-since: 21-08-2026
+    list.ClientSearchResultList:
+      type: object
+      properties:
+        clientSearchResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientSearchResult'
+          xml:
+            name: clientSearchResult
+      description: ClientSearchResultList model (no description)
+      example:
+        clientSearchResults:
+        - id: 1929
+          identificationNo: '7777777'
+          name: Dhr. PJ Paulusma
+          firstName: Pieter Johan
+          lastName: Paulusma
+          givenName: Piet
+          gender: M
+          dateOfBirth: '1956-12-31'
+          secretClient: false
+          addressString: Dorpstraat 1, Het Dorp
+          birthName: Paulusma
+          partnerName: none
+          birthNamePrefix: none
+          partnerNamePrefix: none
+          initials: PJ
+          preferredNameType: birthname
+          group: UNGROUPED
+      xml:
+        name: clientSearchResults
+    Client:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Person'
+      properties:
+        givenName:
+          type: string
+          description: The given name (roepnaam) of the client.
+        civilStatus:
+          type: integer
+          description: 'The civil status of the client. Allowed values:
+
+            0: Unknown
+
+            1: Unmarried and never had registered partnership
+
+            2: Married
+
+            3: Divorced
+
+            4: Widow
+
+            5: Registered partnership
+
+            6: Divorced but has registered partnership
+
+            7: Widow but has registered partnership
+
+            8: Unmarried and no registered partnership
+
+            9: Unmarried and no registered partnership, but had once a registered partnership'
+          format: int32
+        civilStatusDate:
+          type: string
+          description: The date from which the civil status applies.
+          format: date-time
+        deathDate:
+          type: string
+          description: The date the client passed away.
+          format: date-time
+        hometown:
+          type: string
+          description: The home town of the client.
+        nationality:
+          type: string
+          description: The nationality of the client, as a 2-letter ISO3166 country code.
+        language:
+          type: string
+          description: The language of the client, as a ISO 639-1 language code.
+        religion:
+          type: string
+          description: The religion of the client.
+        addressString:
+          type: string
+          description: Deprecated, this field is never set.
+          deprecated: true
+        match:
+          type: string
+          description: Deprecated, this field is never set.
+          deprecated: true
+        careAllocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CareAllocation'
+          description: All care periods for this client.
+          xml:
+            wrapped: true
+        careAllocationBeginDate:
+          type: string
+          description: The begin date of the current of most recent past care allocation. Deprecated, use careAllocations.
+          format: date
+          deprecated: true
+        careAllocationEndDate:
+          type: string
+          description: The end date of the current or most recent past care allocation. Deprecated, use careAllocations.
+          format: date
+          deprecated: true
+        careAllocationReason:
+          type: string
+          description: The end of care reason of the current or most recent past care allocation. Deprecated, use careAllocations.
+          deprecated: true
+        secretClient:
+          type: boolean
+          description: Indicates if this client is secret.
+        uuid:
+          type: string
+          description: Type 4 Universally Unique Identifier of the client.
+        levelOfEducation:
+          type: string
+          description: 'Level of education of the client. Allowed values are:
+
+            10: Onderwijs aan kleuters
+
+            20: Primair Onderwijs (omvat codes 10 en 20)
+
+            30: VMBO (omvat codes 31, 32 en 33)
+
+            31: Secundair onderwijs, eerste fase, Laag
+
+            32: Secundair onderwijs, eerste fase, Midden
+
+            33: Secundair onderwijs, eerste fase, Hoog
+
+            40: HAVO, VWO, MBO (omvat codes 41, 42 en 43)
+
+            41: Secundair onderwijs, tweede fase, Laag
+
+            42: Secundair onderwijs, tweede fase, Midden
+
+            43: Secundair onderwijs, tweede fase, Hoog
+
+            50: Bachelor (omvat codes 51, 52 en 53)
+
+            51: Hoger onderwijs, eerste fase, Laag
+
+            52: Hoger onderwijs, eerste fase, Midden
+
+            53: Hoger onderwijs, eerste fase, Hoog
+
+            60: Master (omvat codes 60 en 70)
+
+            70: Hoger onderwijs, derde fase
+
+            99: Onbekend'
+        livingSituation:
+          type: string
+          description: 'Living situation of the client. Allowed values are:
+
+            10: Alleenstaand
+
+            20: Zonder partner, met kinderen
+
+            30: Met partner, zonder kinderen
+
+            40: Met partner, met kinderen
+
+            70: Optioneel: Niet-ggz-institutie
+
+            80: Optioneel: Ggz-institutie
+
+            90: Optioneel: Zwervend, dakloos
+
+            97: Anders
+
+            99: Onbekend'
+        skn:
+          type: string
+          description: The strafrechtketennummer, max 15 numeric characters.
+        pronouns:
+          x-deprecated-since: 21-08-2026
+          $ref: '#/components/schemas/Pronouns'
+          description: This field is deprecated and has been replaced by pronounsType.
+          deprecated: true
+        preferredName:
+          type: string
+          description: This field is no longer used and is not populated.
+          deprecated: true
+          x-deprecated-since: 21-08-2026
+        genderIdentity:
+          x-deprecated-since: 21-08-2026
+          $ref: '#/components/schemas/GenderIdentity'
+          description: This field is deprecated and has been replaced by genderIdentityType.
+          deprecated: true
+        pronounsType:
+          $ref: '#/components/schemas/PronounsType'
+        genderIdentityType:
+          $ref: '#/components/schemas/GenderIdentityType'
+      description: Client registered on Cupido system.
+      example:
+        id: 1
+        firstName: Mike
+        name: Dhr Mike Wazowski
+        identificationNo: wazo
+        dateOfBirth: '1982-01-01'
+        preferredNameType: '0'
+        lastName: Wazowski
+        birthName: Wazowski
+        partnerName: none
+        initials: W
+        prefix: ir
+        birthNamePrefix: ir
+        partnerNamePrefix: none
+        gender: M
+        emailAddress: someone@nedap.com
+        mobilePhone: 0612345678
+        freeField1: Free field 1 description
+        freeField2: Free field 2 description
+        freeField3: Free field 3 description
+        freeField4: Free field 4 description
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        givenName: Mike
+        civilStatus: 0
+        civilStatusDate: '2010-03-15T00:00:00.000+01:00'
+        deathDate: '2010-03-15T00:00:00.000+01:00'
+        hometown: Groenlo
+        nationality: NL
+        language: NL
+        religion: None
+        addressString: parallelweg 4, groenlo
+        match: Waiting
+        careAllocations:
+        - id: 1
+          clientId: 10
+          beginDate: '2016-01-01'
+          endDate: '2020-01-01'
+          comments: niets te melden
+          destination: EIGEN_OMGEVING
+          reason: IN_CARE
+          reasonTemporary: VAKANTIEVERLOF
+        careAllocationBeginDate: '2010-01-01'
+        careAllocationEndDate: '2014-01-01'
+        careAllocationReason: InCare
+        secretClient: false
+        uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+        levelOfEducation: '52'
+        livingSituation: '40'
+        skn: '123456789012345'
+        pronouns:
+          type: SHE_HER
+          description: zij/haar
+        preferredName: Michelle Wazowski
+        genderIdentity:
+          type: NON_BINARY
+          description: non-binair
+        pronounsType: SHE_HER
+        genderIdentityType: NON_BINARY
+      xml:
+        name: client
+    PronounsType:
+      enum:
+      - SHE_HER
+      - HE_HIS
+      - WHO_THEIR
+      - THEM_THEIRS
+      type: string
+      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
+      example: WHO_THEIR
+    Pronouns:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/PronounsType'
+        description:
+          type: string
+          description: Translated description of the pronouns.
+      description: The usage of this schema is deprecated and has been replaced by PronounsType.
+      example:
+        type: WHO_THEIR
+        description: die/diens
+      deprecated: true
+      x-deprecated-since: 21-08-2026
+    ClientObjectId:
+      required:
+      - value
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int64
+      description: id of a Client object
+      example:
+        value: 54321
+    ClientSearchResultGroup:
+      type: string
+      oneOf:
+      - title: UNGROUPED
+        enum:
+        - UNGROUPED
+      - title: EXACT
+        enum:
+        - EXACT
+      - title: BEGINNING
+        enum:
+        - BEGINNING
+      - title: WILDCARD
+        enum:
+        - WILDCARD
+      - title: WAITINGLIST
+        enum:
+        - WAITINGLIST
+      - title: OUTOFCARE
+        enum:
+        - OUTOFCARE
+      description: 'The group to which this result belongs.
+
+        This is only set after calling the ''searchGrouped'' API.'
+      example: UNGROUPED
+    Person:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        firstName:
+          type: string
+          description: The first name(s) of the person.
+        name:
+          type: string
+          description: 'The client’s full official name.
+
+            Showing the initials or client first name is a setting that care organisations can select.'
+        identificationNo:
+          type: string
+          description: Human-readable identification number of the person (clientnummer or medewerkernummer).
+        dateOfBirth:
+          type: string
+          description: The date of birth of the person.
+          format: date
+        preferredNameType:
+          type: string
+          description: 'Preferred way of writing the name of the person. Possible values:
+
+            0 (birth name)
+
+            1 (partner name)
+
+            2 (birth name - partner name)
+
+            3 (partner name - birth name)'
+        lastName:
+          type: string
+          description: The last name of the person, taking into account the preferredNameType setting.
+        birthName:
+          type: string
+          description: The birth name of the person, without prefix.
+        partnerName:
+          type: string
+          description: The last name of the partner of the person, without prefix.
+        initials:
+          type: string
+          description: The initials of the person.
+        prefix:
+          type: string
+          description: The prefix(es) of the last name(s) of the person, taking into account the preferredNameType setting.
+        birthNamePrefix:
+          type: string
+          description: The birth name prefix of the person.
+        partnerNamePrefix:
+          type: string
+          description: The partner name prefix of the person.
+        gender:
+          type: string
+          description: The gender of the person.
+        emailAddress:
+          type: string
+          description: The email address of the person, as registered on the personalia screen.
+        mobilePhone:
+          type: string
+          description: The phone number of the person, as registered on the personalia screen.
+        freeField1:
+          type: string
+          description: Contents of free field 1.
+        freeField2:
+          type: string
+          description: Contents of free field 2.
+        freeField3:
+          type: string
+          description: Contents of free field 3.
+        freeField4:
+          type: string
+          description: Contents of free field 4.
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      description: Common attributes for Client and Employee.
+      example:
+        id: 1
+        firstName: Mike
+        name: Dhr Mike Wazowski
+        identificationNo: wazo
+        dateOfBirth: '1982-01-01'
+        preferredNameType: '0'
+        lastName: Wazowski
+        birthName: Wazowski
+        partnerName: none
+        initials: W
+        prefix: ir
+        birthNamePrefix: ir
+        partnerNamePrefix: none
+        gender: M
+        emailAddress: mike.wazowski@nedap.com
+        mobilePhone: 0612345678
+        freeField1: Free field 1 description
+        freeField2: Free field 2 description
+        freeField3: Free field 3 description
+        freeField4: Free field 4 description
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

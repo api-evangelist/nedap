@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Ehr.Navigation Availability API
+  version: 0.0.0
+  description: 'Operations tagged ons_ehr.NavigationAvailability across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_ehr.NavigationAvailability
+paths:
+  /t/ons_ehr/api/back_channel/unauthorized/clients/{client_id}/navigation_availabilities:
+    get:
+      tags:
+      - ons_ehr.NavigationAvailability
+      summary: Get available navigation keys for the given client
+      operationId: ons_ehr.NavigationAvailabilityAPI.byClient
+      parameters:
+      - name: client_id
+        in: path
+        description: The ID of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The navigation abilities of the requested navigation items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_ehr.list.NavigationAvailabilityList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/clients/{client_id}/navigation_availabilities
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/clients/{client_id}/navigation_availabilities:
+    get:
+      tags:
+      - ons_ehr.NavigationAvailability
+      summary: Get available navigation keys for the given client
+      operationId: ons_ehr.NavigationAvailabilityAPI.byClient
+      parameters:
+      - name: client_id
+        in: path
+        description: The ID of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The navigation abilities of the requested navigation items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_ehr.list.NavigationAvailabilityList'
+      x-replacement-for:
+      - /t/ons_ehr/api/back_channel/unauthorized/clients/{client_id}/navigation_availabilities
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_ehr.NavigationAvailabilityState:
+      enum:
+      - AVAILABLE
+      - DISABLED
+      - UNAVAILABLE
+      type: string
+      description: State of the navigation availability
+      example: AVAILABLE
+    ons_ehr.NavigationAvailabilityKey:
+      enum:
+      - PLAN
+      - ASSESSMENT_REPORTS
+      - DISCUSS_CLIENT
+      type: string
+      description: item for navigation availability request
+      example: PLAN
+    ons_ehr.NavigationAvailability:
+      required:
+      - key
+      - state
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/ons_ehr.NavigationAvailabilityKey'
+        state:
+          $ref: '#/components/schemas/ons_ehr.NavigationAvailabilityState'
+      description: A navigation item with its availability
+      example:
+        key: PLAN
+        state: AVAILABLE
+    ons_ehr.list.NavigationAvailabilityList:
+      type: object
+      properties:
+        navigationAvailabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_ehr.NavigationAvailability'
+      description: List of navigation items with their availability
+      example:
+        navigationAvailabilities:
+        - key: PLAN
+          state: AVAILABLE
+        - key: ASSESSMENT_REPORTS
+          state: UNAVAILABLE
+        - key: DISCUSS_CLIENT
+          state: AVAILABLE
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

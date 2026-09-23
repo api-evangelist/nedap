@@ -1,0 +1,491 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Collective Agreement Assignment API
+  version: 0.0.0
+  description: 'Operations tagged payroll.CollectiveAgreementAssignment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.CollectiveAgreementAssignment
+paths:
+  /t/payroll/collective_agreement_assignments:
+    post:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Create the provided collective agreement assignment and assign it to the…
+      operationId: payroll.CollectiveAgreementAssignmentAPI.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        '400':
+          description: Validation errors
+        '404':
+          description: Not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/collective_agreement_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/collective_agreement_assignments/{id}:
+    get:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Returns the collective agreement assignment corresponding to the given id
+      operationId: payroll.CollectiveAgreementAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Collective Agreement Assignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        '404':
+          description: Collective agreement assignment not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/collective_agreement_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Update the provided collective agreement assignment
+      operationId: payroll.CollectiveAgreementAssignmentAPI.updateById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        '400':
+          description: Validation errors
+        '404':
+          description: Not found
+      x-replaced-by: /v0/administration/collective_agreement_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Remove the collective agreement assignment corresponding to the given id
+      operationId: payroll.CollectiveAgreementAssignmentAPI.removeById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Collective agreement assignment not found
+      x-replaced-by: /v0/administration/collective_agreement_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/collective_agreement_assignments:
+    get:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Return the collective agreement assignments of an Employee corresponding to the…
+      operationId: payroll.CollectiveAgreementAssignmentAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.CollectiveAgreementAssignmentList'
+        '404':
+          description: Employee not found
+      x-replaced-by: /v0/administration/collective_agreement_assignments/by_employee_id/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Remove all collective agreement assignments for the employee corresponding to…
+      operationId: payroll.CollectiveAgreementAssignmentAPI.removeByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Collective agreement assignment not found
+      x-replaced-by: /v0/administration/collective_agreement_assignments/by_employee_id/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/collective_agreement_assignments:
+    post:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Create the provided collective agreement assignment and assign it to the…
+      operationId: payroll.CollectiveAgreementAssignmentAPI.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        '400':
+          description: Validation errors
+        '404':
+          description: Not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/collective_agreement_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/collective_agreement_assignments/{id}:
+    get:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Returns the collective agreement assignment corresponding to the given id
+      operationId: payroll.CollectiveAgreementAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Collective Agreement Assignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        '404':
+          description: Collective agreement assignment not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/collective_agreement_assignments/{id}
+    put:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Update the provided collective agreement assignment
+      operationId: payroll.CollectiveAgreementAssignmentAPI.updateById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+        '400':
+          description: Validation errors
+        '404':
+          description: Not found
+      x-replacement-for:
+      - /t/payroll/collective_agreement_assignments/{id}
+    delete:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Remove the collective agreement assignment corresponding to the given id
+      operationId: payroll.CollectiveAgreementAssignmentAPI.removeById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Collective agreement assignment not found
+      x-replacement-for:
+      - /t/payroll/collective_agreement_assignments/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/collective_agreement_assignments/by_employee_id/{employee_id}:
+    get:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Return the collective agreement assignments of an Employee corresponding to the…
+      operationId: payroll.CollectiveAgreementAssignmentAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.CollectiveAgreementAssignmentList'
+        '404':
+          description: Employee not found
+      x-replacement-for:
+      - /t/employees/{employee_id}/collective_agreement_assignments
+    delete:
+      tags:
+      - payroll.CollectiveAgreementAssignment
+      summary: Remove all collective agreement assignments for the employee corresponding to…
+      operationId: payroll.CollectiveAgreementAssignmentAPI.removeByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Collective agreement assignment not found
+      x-replacement-for:
+      - /t/employees/{employee_id}/collective_agreement_assignments
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.CollectiveAgreementSetting:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        collectiveAgreementAssignmentId:
+          type: integer
+          format: int64
+        key:
+          $ref: '#/components/schemas/payroll.ClaSettingsOptions'
+        value:
+          type: string
+      description: 'CollectiveAgreementSetting model
+
+
+        Created on 16/12/25.'
+      example:
+        id: 1
+        collectiveAgreementAssignmentId: 1
+        key: SLEEPSHIFT_COMPENSATE_IN_TIME
+        value: 'true'
+    payroll.list.CollectiveAgreementAssignmentList:
+      type: object
+      properties:
+        collectiveAgreementAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.CollectiveAgreementAssignment'
+      description: CollectiveAgreementAssignmentList model (no description)
+      example:
+        collectiveAgreementAssignments:
+        - id: 1
+          employeeId: 1
+          collectiveAgreementId: 1
+          beginDate: '2015-01-01'
+          endDate: '2020-01-01'
+    payroll.CollectiveAgreementAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeId:
+          type: integer
+          format: int64
+        collectiveAgreementId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        settings:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.CollectiveAgreementSetting'
+          description: The settings of a collective agreement assignment for an employee
+      description: 'CollectiveAgreementAssignment model
+
+
+        Created on 06/05/21.'
+      example:
+        id: 1
+        employeeId: 1
+        collectiveAgreementId: 1
+        beginDate: '2015-01-01'
+        endDate: '2020-01-01'
+        settings:
+        - id: 1
+          collectiveAgreementAssignmentId: 1
+          key: SLEEPSHIFT_COMPENSATE_IN_TIME
+          value: 'true'
+        - id: 2
+          collectiveAgreementAssignmentId: 1
+          key: SLEEPSHIFT_COMPENSATE_IN_TIME
+          value: 'false'
+      xml:
+        name: collectiveAgreementAssignment
+    payroll.ClaSettingsOptions:
+      enum:
+      - SLEEPSHIFT_COMPENSATE_IN_TIME
+      - ON_CALL_COMPENSATE_IN_TIME
+      - STANDBY_COMPENSATE_IN_TIME
+      - ON_CALL_PHONE_COMPENSATE_IN_TIME
+      - SUNDAY_WORKER
+      - CALCULATE_TRAVELTIME
+      - CALL_DURING_ON_CALL_COMPENSATE_IN_TIME
+      - CALL_DURING_ON_CALL_PHONE_COMPENSATE_IN_TIME
+      - IRREGULAR_SHIFTS
+      - ORT_COMPENSATE_IN_TIME
+      - OVERTIME_COMPENSATE_IN_TIME
+      - SLEEPSHIFT_CLAUSE
+      - CONSIGNMENT_COMPENSATE_IN_TIME
+      type: string
+      description: 'Enum defining the supported configuration options that can be applied to collective agreement assignments.
+
+
+        SLEEPSHIFT_COMPENSATE_IN_TIME:
+
+        Determines whether sleepshift compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        ON_CALL_COMPENSATE_IN_TIME:
+
+        Determines whether on call shift compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        STANDBY_COMPENSATE_IN_TIME:
+
+        Determines whether standby shift compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        ON_CALL_PHONE_COMPENSATE_IN_TIME:
+
+        Determines whether on call phone shift compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        SUNDAY_WORKER:
+
+        Indicates whether the employee qualifies as a structural Sunday-only weekend worker and should receive the applicable additional Sunday compensation.
+
+
+        CALCULATE_TRAVELTIME:
+
+        Determines whether travel time should be calculated between consecutive registrations.
+
+
+        CALL_DURING_ON_CALL_COMPENSATE_IN_TIME:
+
+        Determines whether call during on call compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        CALL_DURING_ON_CALL_PHONE_COMPENSATE_IN_TIME:
+
+        Determines whether call during on call phone compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        IRREGULAR_SHIFTS:
+
+        Indicates whether the employee works irregular shifts.
+
+
+        ORT_COMPENSATE_IN_TIME:
+
+        Determines whether ORT compensation is granted in time (true) instead of the default monetary compensation (false).
+
+
+        OVERTIME_COMPENSATE_IN_TIME:
+
+        Determines whether overtime compensation is granted in time (true) instead of the default monetary compensation (false).
+
+
+        SLEEPSHIFT_CLAUSE:
+
+        Indicates whether the employee wants to make use of the previous sleep shift compensation clause.
+
+
+        CONSIGNMENT_COMPENSATE_IN_TIME:
+
+        Determines whether consignment compensation is granted in time (true) or monetary (false).'
+      example: SLEEPSHIFT_COMPENSATE_IN_TIME
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,307 @@
+openapi: 3.2.0
+info:
+  title: Nedap Zorgmail Module.Diagnostic Procedure API
+  version: 0.0.0
+  description: 'Operations tagged zorgmail_module.DiagnosticProcedure across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: zorgmail_module.DiagnosticProcedure
+paths:
+  /t/zorgmail_connector/clients/{client_id}/diagnostic_procedures:
+    get:
+      tags:
+      - zorgmail_module.DiagnosticProcedure
+      summary: Searches for diagnostic procedures
+      description: Retrieve DiagnosticProcedureReports (lab results) for a particular client. This is the source for the lab results displayed in the Dossier application and medical overview
+      operationId: zorgmail_module.DiagnosticProcedureAPI.search
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: include_reports
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zorgmail_module.DiagnosticProcedureSearchResult'
+        '400':
+          description: Invalid or non-parseable date parameters provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zorgmail_module.DiagnosticProcedureSearchResult'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zorgmail_module.DiagnosticProcedureSearchResult'
+      x-replaced-by: /v0/zorgmail_connector/clients/{client_id}/diagnostic_procedures
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/zorgmail_connector/clients/{client_id}/diagnostic_procedures:
+    get:
+      tags:
+      - zorgmail_module.DiagnosticProcedure
+      summary: Searches for diagnostic procedures
+      description: Retrieve DiagnosticProcedureReports (lab results) for a particular client. This is the source for the lab results displayed in the Dossier application and medical overview
+      operationId: zorgmail_module.DiagnosticProcedureAPI.search
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: include_reports
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zorgmail_module.DiagnosticProcedureSearchResult'
+        '400':
+          description: Invalid or non-parseable date parameters provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zorgmail_module.DiagnosticProcedureSearchResult'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zorgmail_module.DiagnosticProcedureSearchResult'
+      x-replacement-for:
+      - /t/zorgmail_connector/clients/{client_id}/diagnostic_procedures
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    zorgmail_module.DiagnosticProcedure:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        issued:
+          type: string
+          description: When was the report made
+          format: date-time
+        diagnosticReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/zorgmail_module.DiagnosticReport'
+          xml:
+            wrapped: true
+        clientId:
+          type: integer
+          description: id of the client
+          format: int64
+        identification:
+          type: string
+          description: unique identification for this procedure
+        requestComment:
+          type: string
+          description: comment made by requester
+        reportComment:
+          type: string
+          description: comment made by the lab
+        status:
+          type: string
+          description: 'one of: PARTIAL or FINAL'
+      description: DiagnosticProcedure model (no description)
+      example:
+        id: 1
+        issued: '2017-11-15T00:00:00.000+01:00'
+        diagnosticReports:
+        - id: 1
+          observations:
+          - id: 1
+            referenceValueIndication: true
+            code: HT B
+            comment: Some observation
+            name: Hb
+            lowerLimit: '0.40'
+            unit: l/l
+            upperLimit: '0.52'
+            value: '0.42'
+            groupName: Differentiatie
+          category: HEAMATOLOGIE
+          comment: Here is all the bloodwork
+        clientId: 1
+        identification: 0805-12345
+        requestComment: I would like a full checkup for mister X
+        reportComment: Here is all we could find and more
+        status: finished
+      xml:
+        name: diagnosticProcedure
+    zorgmail_module.Observation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        referenceValueIndication:
+          type: boolean
+          description: value outside of reference values?
+        code:
+          type: string
+          description: official coding system
+        comment:
+          type: string
+          description: comment made by lab
+        name:
+          type: string
+          description: name of test
+        lowerLimit:
+          type: string
+          description: lower limit for reference values
+        unit:
+          type: string
+          description: unit of values
+        upperLimit:
+          type: string
+          description: upper limit for reference values
+        value:
+          type: string
+          description: test result
+        groupName:
+          type: string
+          description: optional name indicating a group of observations (SectieDeelBepaling)
+      description: Observation model (no description)
+      example:
+        id: 1
+        referenceValueIndication: true
+        code: HT B
+        comment: Some observation
+        name: Hb
+        lowerLimit: '0.40'
+        unit: l/l
+        upperLimit: '0.52'
+        value: '0.42'
+        groupName: Differentiatie
+      xml:
+        name: observation
+    zorgmail_module.DiagnosticProcedureSearchResult:
+      type: object
+      properties:
+        hasMoreResults:
+          type: boolean
+        diagnosticProcedures:
+          type: array
+          items:
+            $ref: '#/components/schemas/zorgmail_module.DiagnosticProcedure'
+          xml:
+            wrapped: true
+      description: DiagnosticProcedureSearchResult model (no description)
+      example:
+        hasMoreResults: true
+        diagnosticProcedures:
+        - id: 1
+          issued: '2017-11-15T00:00:00.000+01:00'
+          diagnosticReports:
+          - id: 1
+            observations:
+            - id: 1
+              referenceValueIndication: true
+              code: HT B
+              comment: Some observation
+              name: Hb
+              lowerLimit: '0.40'
+              unit: l/l
+              upperLimit: '0.52'
+              value: '0.42'
+              groupName: Differentiatie
+            category: HEAMATOLOGIE
+            comment: Here is all the bloodwork
+          clientId: 1
+          identification: 0805-12345
+          requestComment: I would like a full checkup for mister X
+          reportComment: Here is all we could find and more
+          status: finished
+      xml:
+        name: diagnosticProcedureSearchResult
+    zorgmail_module.DiagnosticReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        observations:
+          type: array
+          items:
+            $ref: '#/components/schemas/zorgmail_module.Observation'
+          xml:
+            wrapped: true
+        category:
+          type: string
+          description: the type of diagnostics
+        comment:
+          type: string
+          description: comment for this report made by the lab
+      description: DiagnosticReport model (no description)
+      example:
+        id: 1
+        observations:
+        - id: 1
+          referenceValueIndication: true
+          code: HT B
+          comment: Some observation
+          name: Hb
+          lowerLimit: '0.40'
+          unit: l/l
+          upperLimit: '0.52'
+          value: '0.42'
+          groupName: Differentiatie
+        category: HEAMATOLOGIE
+        comment: Here is all the bloodwork
+      xml:
+        name: diagnosticReport
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

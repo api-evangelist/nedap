@@ -1,0 +1,807 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Plan Card Occurrence API
+  version: 0.0.0
+  description: 'Operations tagged moves.PlanCardOccurrence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.PlanCardOccurrence
+paths:
+  /t/plan_cards/{checksum}:
+    patch:
+      tags:
+      - moves.PlanCardOccurrence
+      summary: Update a plan card occurrence
+      operationId: moves.PlanCardOccurrenceAPI.incidentalChange
+      parameters:
+      - name: checksum
+        in: path
+        description: The checksum of the PlanCardOccurrence being updated
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.PlanCardOccurrenceAttributesRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.PlanCardOccurrenceResponse'
+        '400':
+          description: Parsing errors or user errors.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: It is forbidden for the user to look through these plan cards.
+        '404':
+          description: Plan card occurrence not found.
+        '429':
+          description: Rate limit reached for this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.MovesRatelimitError'
+      x-replaced-by: /v0/plannen_roosteren/plan_cards/{checksum}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/plan_cards/{checksum}/plan:
+    post:
+      tags:
+      - moves.PlanCardOccurrence
+      summary: Plan a single plan card into a container
+      operationId: moves.PlanCardOccurrenceAPI.plan
+      parameters:
+      - name: checksum
+        in: path
+        description: The checksum of the PlanCardOccurrence being planned
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.PlanCardOccurrencePlanRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.PlanCardOccurrenceResponse'
+        '400':
+          description: Parsing errors or user errors.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: It is forbidden for the user to look through these plan cards.
+        '404':
+          description: Plan card occurrence not found.
+        '429':
+          description: Rate limit reached for this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.MovesRatelimitError'
+      x-replaced-by: /v0/plannen_roosteren/plan_cards/{checksum}/plan
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/plan_cards/search:
+    post:
+      tags:
+      - moves.PlanCardOccurrence
+      summary: Return the active plan cards searched for within a specified period
+      operationId: moves.PlanCardOccurrenceAPI.search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.ContainerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.PlanCardOccurrenceList'
+        '400':
+          description: Parsing errors or user errors.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: It is forbidden for the user to look through these plan cards.
+        '429':
+          description: Rate limit reached for this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.MovesRatelimitError'
+      x-replaced-by: /v0/plannen_roosteren/plan_cards/search
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/plan_cards/{checksum}:
+    patch:
+      tags:
+      - moves.PlanCardOccurrence
+      summary: Update a plan card occurrence
+      operationId: moves.PlanCardOccurrenceAPI.incidentalChange
+      parameters:
+      - name: checksum
+        in: path
+        description: The checksum of the PlanCardOccurrence being updated
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.PlanCardOccurrenceAttributesRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.PlanCardOccurrenceResponse'
+        '400':
+          description: Parsing errors or user errors.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: It is forbidden for the user to look through these plan cards.
+        '404':
+          description: Plan card occurrence not found.
+        '429':
+          description: Rate limit reached for this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.MovesRatelimitError'
+      x-replacement-for:
+      - /t/plan_cards/{checksum}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/plan_cards/{checksum}/plan:
+    post:
+      tags:
+      - moves.PlanCardOccurrence
+      summary: Plan a single plan card into a container
+      operationId: moves.PlanCardOccurrenceAPI.plan
+      parameters:
+      - name: checksum
+        in: path
+        description: The checksum of the PlanCardOccurrence being planned
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.PlanCardOccurrencePlanRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.PlanCardOccurrenceResponse'
+        '400':
+          description: Parsing errors or user errors.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: It is forbidden for the user to look through these plan cards.
+        '404':
+          description: Plan card occurrence not found.
+        '429':
+          description: Rate limit reached for this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.MovesRatelimitError'
+      x-replacement-for:
+      - /t/plan_cards/{checksum}/plan
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/plan_cards/search:
+    post:
+      tags:
+      - moves.PlanCardOccurrence
+      summary: Return the active plan cards searched for within a specified period
+      operationId: moves.PlanCardOccurrenceAPI.search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moves.ContainerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.PlanCardOccurrenceList'
+        '400':
+          description: Parsing errors or user errors.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: It is forbidden for the user to look through these plan cards.
+        '429':
+          description: Rate limit reached for this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.MovesRatelimitError'
+      x-replacement-for:
+      - /t/plan_cards/search
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.PlanCardOccurrenceId:
+      title: PlanCardOccurrenceId
+      required:
+      - occurrenceId
+      - planCardChecksum
+      - planCardTimelineId
+      type: object
+      properties:
+        occurrenceId:
+          type: string
+          description: The ID that links to this specific plan card occurrence
+        planCardChecksum:
+          type: string
+          description: The url-encoded checksum used to check if planning changes are made with the correct updated data
+        planCardTimelineId:
+          type: integer
+          description: The timeline id that links this plan card occurrence to the other moments that were planned in the past and in the future
+          format: int64
+      description: A set of identifiers linking to a single PlanCardOccurrence with additional checksums for mutation validations.
+      example:
+        occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+        planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+        planCardTimelineId: 1
+    moves.PlanCardOccurrence:
+      title: PlanCardOccurrence
+      required:
+      - occurrenceId
+      - planCardChecksum
+      - planCardTimelineId
+      - clientId
+      - hourTypeId
+      - durationInSeconds
+      - travelTimeBeforeInSeconds
+      - travelTimeAfterInSeconds
+      - transportationMethodId
+      - date
+      - startDateTime
+      - fixedStartTime
+      - incidental
+      - canceled
+      - address
+      - assignment
+      - recurrence
+      type: object
+      properties:
+        occurrenceId:
+          type: string
+          description: The ID that links to this specific plan card occurrence
+        planCardChecksum:
+          type: string
+          description: The url-encoded checksum used to check if planning changes are made with the correct updated data
+        planCardTimelineId:
+          type: integer
+          description: The timeline id that links this plan card occurrence to the other moments that were planned in the past and in the future
+          format: int64
+        clientId:
+          type:
+          - integer
+          - 'null'
+          description: The identifier of the client that is linked to this plan card
+          format: int64
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          description: The identifier of the hour type attached to this planned care moment
+          format: int64
+        durationInSeconds:
+          type:
+          - integer
+          - 'null'
+          description: The total duration in seconds that this planned care moment is going to take.
+          format: int64
+        travelTimeBeforeInSeconds:
+          type:
+          - integer
+          - 'null'
+          description: The total duration in seconds that is calculated to travel from the previous plan card to this plan card
+          format: int64
+        travelTimeAfterInSeconds:
+          type:
+          - integer
+          - 'null'
+          description: The total duration in seconds that is calculated to travel from the current plan card to the next plan card
+          format: int64
+        transportationMethodId:
+          type:
+          - integer
+          - 'null'
+          description: The identifier of the transportation method that is being used to travel to this plan card
+          format: int64
+        date:
+          type:
+          - string
+          - 'null'
+          description: Date on which this PlanCardOccurrence occurs.
+          format: date
+        startDateTime:
+          type:
+          - string
+          - 'null'
+          description: Date and start time on which this PlanCardOccurrence occurs.
+          format: date-time
+        fixedStartTime:
+          pattern: ^\d{2}:\d{2}:\d{2}$
+          type:
+          - string
+          - 'null'
+          description: The local fixed start time on which this PlanCardOccurrence should occur. This time remains the same when going through DST changes.
+        incidental:
+          type: boolean
+          description: Whether this PlanCardOccurrence has been incidentally changed for only this date
+        canceled:
+          type: boolean
+          description: Whether this PlanCardOccurrence has been incidentally canceled for this date
+        address:
+          $ref: '#/components/schemas/moves.PlannedAddress'
+        assignment:
+          $ref: '#/components/schemas/moves.ContainerAssignment'
+        recurrence:
+          $ref: '#/components/schemas/moves.PlanCardRecurrenceInformation'
+      description: A single instance of a recurring plan card as retrieved from the new Plancore.
+      example:
+        occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+        planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+        planCardTimelineId: 1
+        clientId: 1
+        hourTypeId: 1
+        durationInSeconds: 900
+        travelTimeBeforeInSeconds: 300
+        travelTimeAfterInSeconds: 300
+        transportationMethodId: 1
+        date: '2025-05-23'
+        startDateTime: '2025-05-23T12:30:00.000+02:00'
+        fixedStartTime: '12:30:00'
+        incidental: false
+        canceled: false
+        address:
+          latitude: 52.1
+          longitude: 5.1
+        assignment:
+          containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+          containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+        recurrence:
+          recurrenceStartDate: '2025-05-09'
+          recurrenceType: WEEKLY
+          stepSize: 1
+    moves.ContainerSearchRequest:
+      title: ContainerSearchRequest
+      required:
+      - from
+      - to
+      type: object
+      properties:
+        from:
+          type: string
+          description: The date from which all the results need to be found
+          format: date
+        to:
+          type: string
+          description: The exclusive date until all the results need to be found
+          format: date
+        unitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The identifiers of the units that need to be attached to the result
+        shiftTimelineIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The timeline ids of the shifts that need to be attached to the result
+        employeeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The identifiers of the employees that need to be attached to the result
+      description: The request body used to search for containers
+      example:
+        from: '2025-05-20'
+        to: '2025-05-30'
+        unitIds:
+        - 1
+        - 2
+        shiftTimelineIds: []
+        employeeIds: []
+    moves.PlanCardRecurrenceInformation:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/moves.Recurrence'
+      description: This describes how often this plan card should occur.
+      example:
+        recurrenceStartDate: '2025-05-09'
+        recurrenceType: WEEKLY
+        stepSize: 1
+    moves.Recurrence:
+      title: Recurrence
+      required:
+      - recurrenceStartDate
+      - recurrenceType
+      - stepSize
+      type: object
+      properties:
+        recurrenceStartDate:
+          type: string
+          description: The starting date from which this plan card is supposed to take place. The expected weekday can be infered from this date.
+          format: date
+        recurrenceType:
+          $ref: '#/components/schemas/moves.RecurrenceType'
+        stepSize:
+          type:
+          - integer
+          - 'null'
+          description: Describes how many recurrence periods are between every occurrence. For example, with this being 2 and the recurrenceType being WEEKLY, it means this plan card occurs once every two weeks.
+          format: int64
+      description: This describes how often this plan card should occur.
+      example:
+        recurrenceStartDate: '2025-05-09'
+        recurrenceType: WEEKLY
+        stepSize: 1
+    moves.PlanCardOccurrenceResponseMetadata:
+      title: PlanCardOccurrenceResponseMetadata
+      type: object
+      properties:
+        impact:
+          $ref: '#/components/schemas/moves.PlanCardOccurrenceResponseMetadataImpact'
+      description: Metadata about the impact of the plan card occurrence planning
+      example:
+        impact:
+          containers:
+          - containerId: '|SHIFT:1|UNIT:1|THURSDAY|'
+            containerChecksum: 1:3AjzryeZVF5WQXkpToQYFst.07yuJc.vN.2pPMBhjPvJOV.grawLgU2
+          - containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+    moves.PlanCardOccurrenceList:
+      title: PlanCardOccurrenceList
+      required:
+      - metadata
+      - planCardOccurrences
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/moves.ContainerSearchRequest'
+        planCardOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.PlanCardOccurrence'
+      description: A response body that contains a list of plan tasks found for this search
+      example:
+        metadata:
+          from: '2025-05-20'
+          to: '2025-05-30'
+          unitIds:
+          - 1
+          - 2
+          shiftTimelineIds: []
+          employeeIds: []
+        planCardOccurrences:
+        - occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+          planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+          planCardTimelineId: 1
+          clientId: 1
+          hourTypeId: 1
+          durationInSeconds: 900
+          travelTimeBeforeInSeconds: 18000
+          travelTimeAfterInSeconds: 18000
+          transportationMethodId: 1
+          date: '2025-05-23'
+          startDateTime: '2025-05-23T12:30:00.000+02:00'
+          fixedStartTime: '12:30:00'
+          incidental: false
+          canceled: false
+          address:
+            latitude: 52.1
+            longitude: 5.1
+          assignment:
+            containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+          recurrence:
+            recurrenceStartDate: '2025-05-09'
+            recurrenceType: WEEKLY
+            stepSize: 1
+    moves.PlanCardOccurrenceResponse:
+      title: PlanCardOccurrenceResponse
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/moves.PlanCardOccurrenceResponseMetadata'
+        planCardOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.PlanCardOccurrence'
+      description: The response from a successful plan card planning mutation
+      example:
+        metadata:
+          impact:
+            containers:
+            - containerId: '|SHIFT:1|UNIT:1|THURSDAY|'
+              containerChecksum: 1:3AjzryeZVF5WQXkpToQYFst.07yuJc.vN.2pPMBhjPvJOV.grawLgU2
+            - containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+              containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+        planCardOccurrences:
+        - occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+          planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+          planCardTimelineId: 1
+          clientId: 1
+          hourTypeId: 1
+          durationInSeconds: 900
+          travelTimeBeforeInSeconds: 18000
+          travelTimeAfterInSeconds: 18000
+          transportationMethodId: 1
+          date: '2025-05-23'
+          startDateTime: '2025-05-23T12:30:00.000+02:00'
+          fixedStartTime: '12:30:00'
+          incidental: false
+          canceled: false
+          address:
+            latitude: 52.1
+            longitude: 5.1
+          assignment:
+            containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+          recurrence:
+            recurrenceStartDate: '2025-05-09'
+            recurrenceType: WEEKLY
+            stepSize: 1
+    moves.PlanCardOccurrencePlanRequest:
+      title: PlanCardOccurrencePlanRequest
+      required:
+      - date
+      - occurrenceId
+      - planCardChecksum
+      - planCardTimelineId
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date to plan the plan card to.
+          format: date
+        occurrenceId:
+          type: string
+          description: The ID that links to this specific plan card occurrence
+        planCardChecksum:
+          type: string
+          description: The url-encoded checksum used to check if planning changes are made with the correct updated data
+        planCardTimelineId:
+          type: integer
+          description: The timeline id that links this plan card occurrence to the other moments that were planned in the past and in the future
+          format: int64
+        fixedStartTime:
+          pattern: ^\d{2}:\d{2}:\d{2}$
+          type:
+          - string
+          - 'null'
+          description: The local fixed start time on which this PlanCardOccurrence should occur. This time remains the same when going through DST changes. When set to null, the start time will be calculated automatically.
+        incidental:
+          type: boolean
+          description: Whether this plan action is an incidental action
+        assignment:
+          $ref: '#/components/schemas/moves.ContainerAssignment'
+        beforePlanCard:
+          $ref: '#/components/schemas/moves.PlanCardOccurrenceId'
+        afterPlanCard:
+          $ref: '#/components/schemas/moves.PlanCardOccurrenceId'
+      description: Moves a single plan card to another time and order in a container
+      example:
+        occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+        planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+        planCardTimelineId: 1
+        date: '2025-06-16'
+        fixedStartTime: '12:30:00'
+        assignment:
+          containerId: '|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|'
+          containerChecksum: 1:3A4htqjKzgaY4J23Xehi1wouSatlJVl%2FGbYQbQ%2FuQTAmQp8rpKzrvge
+        afterPlanCard:
+          occurrenceId: 2025-03-18--2025-05-23--20--true--4--|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|
+          planCardChecksum: 1:3AGRpMLiogzgMpVz8s2MlSueNO5Wg0wZncQlt0lQfMxFDlS%2FIfYu0D6
+          planCardTimelineId: 4
+        beforePlanCard:
+          occurrenceId: 2025-03-18--2025-05-23--54--false--2--|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|
+          planCardChecksum: 1:3ALkpfLodVXYnuLpF6ClKYsu8lkXwRUP01Iaq6gNJ7VGjjhHlO%2FTl0W
+          planCardTimelineId: 2
+    moves.MovesRatelimitError:
+      title: MovesRatelimitError
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of error raised
+        title:
+          type: string
+          description: The human readable title of the rate limit error
+        status:
+          type: integer
+          description: The HTTP status code being given
+          format: int64
+      description: An error describing a specific rate limit has been reached and that the client should wait to retry the response
+      example:
+        type: ratelimit-error
+        title: Rate-limit reached
+        status: 429
+    moves.PlannedAddress:
+      type:
+      - object
+      - 'null'
+      properties:
+        latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        city:
+          type:
+          - string
+          - 'null'
+        street:
+          type:
+          - string
+          - 'null'
+        zipcode:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        numberPostfix:
+          type:
+          - string
+          - 'null'
+        residenceAccessInfo:
+          type:
+          - string
+          - 'null'
+        roomNumber:
+          type:
+          - string
+          - 'null'
+      description: 'Address where {@link PlannedVisit}s are planned.
+
+
+        Moves has it''s own Address model, and plancards can be
+
+        planned tp addresses not known in other systems.'
+      example:
+        latitude: 52.038398
+        longitude: 6.624163
+        city: Groenlo
+        street: Parallelweg
+        zipcode: 7141DC
+        number: '31'
+        numberPostfix: a
+        residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
+        roomNumber: '1'
+    moves.PlanCardOccurrenceAttributesRequest:
+      title: PlanCardOccurrenceAttributesRequest
+      required:
+      - date
+      - occurrenceId
+      - planCardChecksum
+      - planCardTimelineId
+      type: object
+      properties:
+        date:
+          type: string
+          description: The date to apply the attributes to
+          format: date
+        occurrenceId:
+          type: string
+          description: The ID that links to this specific plan card occurrence
+        planCardChecksum:
+          type: string
+          description: The url-encoded checksum used to check if planning changes are made with the correct updated data
+        planCardTimelineId:
+          type: integer
+          description: The timeline id that links this plan card occurrence to the other moments that were planned in the past and in the future
+          format: int64
+        canceled:
+          type: boolean
+          description: Whether the plan card occurrence is canceled or not
+      description: Incidentally update a plan card occurrence, for example by canceling a single care moment
+      example:
+        occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+        planCardChecksum: 1:oAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+        planCardTimelineId: 1
+        date: '2025-06-16'
+        canceled: true
+    moves.PlanCardOccurrenceResponseMetadataImpact:
+      title: PlanCardOccurrenceResponseMetadataImpact
+      type: object
+      properties:
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ContainerAssignment'
+      description: Metadata about the impact of the plan card occurrence planning
+      example:
+        containers:
+        - containerId: '|SHIFT:1|UNIT:1|THURSDAY|'
+          containerChecksum: 1:3AjzryeZVF5WQXkpToQYFst.07yuJc.vN.2pPMBhjPvJOV.grawLgU2
+        - containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+          containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+    moves.ContainerAssignment:
+      title: ContainerAssignment
+      required:
+      - containerId
+      - containerChecksum
+      type:
+      - object
+      - 'null'
+      properties:
+        containerId:
+          type: string
+          description: The unique identifier that links to this specific Shift or Employee. Only used for referring to assignments.
+        containerChecksum:
+          type: string
+          description: The url-encoded checksum used to check if planning changes to this container are made with the correct updated data.
+      description: An assignment of a plan card to a specific container ( shift or employee ) on a specific date. 'null' refers to being unplanned
+      example:
+        containerId: '|SHIFT:1|UNIT:1|DAY:MONDAY|'
+        containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+    moves.RecurrenceType:
+      enum:
+      - WEEKLY
+      - INCIDENTAL
+      type: string
+      description: The type of repetition between occurrences. Weekly means once a week, Incidental means once for this validFrom until validTo period.
+      example: WEEKLY
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

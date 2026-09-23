@@ -1,0 +1,1109 @@
+openapi: 3.2.0
+info:
+  title: Nedap Client Contact Relation API
+  version: 0.0.0
+  description: 'Operations tagged ClientContactRelation across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ClientContactRelation
+paths:
+  /t/client_contact_relations:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Returns every ClientContactRelation available from the ClientContactRelationAPI
+      operationId: ClientContactRelationAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_contact_relations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - ClientContactRelation
+      summary: Create ClientContactRelation
+      operationId: ClientContactRelationAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: ClientContactRelation to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientContactRelation'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_contact_relations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_contact_relations/{id}:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return the ClientContactRelation corresponding to the given id
+      operationId: ClientContactRelationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientContactRelation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+        '404':
+          description: ClientContactRelation not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_contact_relations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - ClientContactRelation
+      summary: Updates the given ClientContactRelation
+      operationId: ClientContactRelationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientContactRelation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: ClientContactRelation to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientContactRelation'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+        '400':
+          description: Validation errors
+        '404':
+          description: ClientContactRelation not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_contact_relations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - ClientContactRelation
+      summary: Deletes the ClientContactRelation with given id
+      operationId: ClientContactRelationAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientContactRelation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: default response
+        '404':
+          description: ClientContactRelation not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/client_contact_relations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_contact_relations/by_client_ids:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return the client contact relations of multiple clients corresponding to the…
+      operationId: ClientContactRelationAPI.byClientIds
+      parameters:
+      - name: ids
+        in: query
+        description: The ids of the clients (ids=1&ids=2&ids=3...)
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+      x-replaced-by: /v0/administration/client_contact_relations/by_client_ids
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/client_contact_relations:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return the client contact relations of a client corresponding to the given id
+      operationId: ClientContactRelationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: relation_type
+        in: query
+        description: name of the relationtype as defined in Nexus.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+      x-replaced-by: /v0/administration/client_contact_relations/by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_contact_relations/x-stream-connect/data:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return all ClientContactRelation models in a streaming manner
+      operationId: ClientContactRelationAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/relations/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_contact_relations/x-stream-connect/updates:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return all ClientContactRelation models which where updated since the date…
+      operationId: ClientContactRelationAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/relations/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_contact_relations:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Returns every ClientContactRelation available from the ClientContactRelationAPI
+      operationId: ClientContactRelationAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_contact_relations
+    post:
+      tags:
+      - ClientContactRelation
+      summary: Create ClientContactRelation
+      operationId: ClientContactRelationAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: ClientContactRelation to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientContactRelation'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_contact_relations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_contact_relations/{id}:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return the ClientContactRelation corresponding to the given id
+      operationId: ClientContactRelationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientContactRelation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+        '404':
+          description: ClientContactRelation not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_contact_relations/{id}
+    put:
+      tags:
+      - ClientContactRelation
+      summary: Updates the given ClientContactRelation
+      operationId: ClientContactRelationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientContactRelation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: ClientContactRelation to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientContactRelation'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+        '400':
+          description: Validation errors
+        '404':
+          description: ClientContactRelation not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_contact_relations/{id}
+    delete:
+      tags:
+      - ClientContactRelation
+      summary: Deletes the ClientContactRelation with given id
+      operationId: ClientContactRelationAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientContactRelation
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: default response
+        '404':
+          description: ClientContactRelation not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_contact_relations/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_contact_relations/by_client_ids:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return the client contact relations of multiple clients corresponding to the…
+      operationId: ClientContactRelationAPI.byClientIds
+      parameters:
+      - name: ids
+        in: query
+        description: The ids of the clients (ids=1&ids=2&ids=3...)
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+      x-replacement-for:
+      - /t/client_contact_relations/by_client_ids
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/client_contact_relations/by_client/{client_id}:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return the client contact relations of a client corresponding to the given id
+      operationId: ClientContactRelationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: relation_type
+        in: query
+        description: name of the relationtype as defined in Nexus.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+      x-replacement-for:
+      - /t/clients/{client_id}/client_contact_relations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/relations/data:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return all ClientContactRelation models in a streaming manner
+      operationId: ClientContactRelationAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_contact_relations/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/relations/updates:
+    get:
+      tags:
+      - ClientContactRelation
+      summary: Return all ClientContactRelation models which where updated since the date…
+      operationId: ClientContactRelationAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientContactRelationList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ClientContactRelation'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_contact_relations/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    bsn.BsnSource:
+      type: integer
+      oneOf:
+      - title: UNKNOWN
+        enum:
+        - -1
+      - title: OWN_ADMINISTRATION
+        enum:
+        - 0
+      - title: SBVZ
+        enum:
+        - 1
+      - title: GBA
+        enum:
+        - 2
+      - title: OTHER_BSN_USER
+        enum:
+        - 3
+      description: BsnSource model (no description)
+      example: -1
+    Bsn:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        number:
+          type: string
+        sourceVerified:
+          type: boolean
+        idVerified:
+          type: boolean
+        idNumber:
+          type: string
+        idType:
+          type: string
+        source:
+          type: string
+        idVerifiedType:
+          type: string
+        idVerifiedDate:
+          type: string
+          format: date-time
+        bsnUnknown:
+          type: boolean
+        reasonBsnUnknown:
+          type: string
+        idValidUntil:
+          type: string
+          format: date
+        bsnVerifiedDate:
+          type: string
+          format: date
+        widVerified:
+          type: boolean
+        verifiedByEmployeeId:
+          type: integer
+          format: int64
+        bsnDocumentType:
+          $ref: '#/components/schemas/bsn.BsnDocumentType'
+        bsnSource:
+          $ref: '#/components/schemas/bsn.BsnSource'
+        bsnIdVerifiedType:
+          $ref: '#/components/schemas/bsn.BsnIdVerifiedType'
+      description: Bsn model (no description)
+      example:
+        id: 42
+        clientId: 200
+        number: 0123456789
+        sourceVerified: true
+        idVerified: false
+        idNumber: asd234
+        idType: Paspoort
+        source: OwnAdministration
+        idVerifiedType: Geen
+        idVerifiedDate: '2010-03-15T00:00:00.000+01:00'
+        bsnUnknown: false
+        reasonBsnUnknown: Illegaal
+        idValidUntil: '2010-03-15'
+        bsnVerifiedDate: '2010-03-15'
+        widVerified: false
+        verifiedByEmployeeId: 100
+        bsnDocumentType: 1
+        bsnSource: -1
+        bsnIdVerifiedType: 2
+      xml:
+        name: bsn
+    bsn.BsnIdVerifiedType:
+      type: integer
+      oneOf:
+      - title: GEEN
+        enum:
+        - 0
+      - title: VERGEWIST
+        enum:
+        - 1
+      - title: WID
+        enum:
+        - 2
+      description: BsnIdVerifiedType model (no description)
+      example: 0
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    nexus.PersonalRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/nexus.RelationType'
+      description: Vektiscode
+      example:
+        id: 6
+        name: Father
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    bsn.BsnDocumentType:
+      type: integer
+      oneOf:
+      - title: PASPOORT
+        enum:
+        - 0
+      - title: ID
+        enum:
+        - 1
+      - title: RIJBEWIJS
+        enum:
+        - 2
+      - title: VREEMDELINGENDOCUMENT
+        enum:
+        - 3
+      description: BsnDocumentType model (no description)
+      example: 0
+    nexus.RelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        tag:
+          type: string
+        primary:
+          type: boolean
+        exclusive:
+          type: boolean
+        relevant:
+          type: boolean
+        negative:
+          type: boolean
+        active:
+          type: boolean
+        legal:
+          type: boolean
+        vbmResponsible:
+          type: boolean
+        vektisCode:
+          type: integer
+          description: See https://www.vektis.nl/standaardisatie/codelijsten/COD821-VEKT
+          format: int64
+        reference:
+          type: integer
+          description: Only available during transitional period.
+          format: int64
+          deprecated: true
+        relationCategory:
+          $ref: '#/components/schemas/nexus.RelationCategory'
+      description: RelationType model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 6
+        name: Coach
+        tag: coach
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+      deprecated: true
+      x-deprecated-since: 03-10-2014
+    nexus.ClientContactRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/nexus.RelationType'
+      description: Vektiscode
+      example:
+        id: 6
+        name: Curator
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    list.ClientContactRelationList:
+      type: object
+      properties:
+        clientContactRelations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientContactRelation'
+          xml:
+            name: clientContactRelation
+      description: ClientContactRelationList model (no description)
+      example:
+        clientContactRelations:
+        - updatedAt: '2014-04-17T16:04:36.000+02:00'
+          createdAt: '2014-04-17T16:04:36.000+02:00'
+          id: 10310
+          firstName: ''
+          name: Mw. MMT 05-11-86
+          identificationNo: ''
+          preferredNameType: '0'
+          lastName: 05-11-86-Niemeijer
+          birthName: 05-11-86
+          partnerName: Niemeijer
+          initials: MMT
+          prefix: ''
+          birthNamePrefix: ''
+          partnerNamePrefix: ''
+          gender: F
+          clientObjectId: 30259
+          inCaseOfEmergency: false
+          comments: Casemanager komt 1 keer per maand
+        - updatedAt: '2014-04-17T14:05:26.000+02:00'
+          createdAt: '2014-04-17T14:05:26.000+02:00'
+          id: 10303
+          firstName: ''
+          name: Dhr. AA Groothuis
+          identificationNo: ''
+          preferredNameType: '0'
+          lastName: Groothuis
+          birthName: Groothuis
+          partnerName: ''
+          initials: AA
+          prefix: ''
+          birthNamePrefix: ''
+          partnerNamePrefix: ''
+          gender: M
+          clientObjectId: 30258
+          inCaseOfEmergency: true
+          comments: ''
+      xml:
+        name: clientContactRelations
+    nexus.RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+      xml:
+        name: relationCategory
+    ClientContactRelation:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        firstName:
+          type: string
+        name:
+          type: string
+        identificationNo:
+          type: string
+        preferredNameType:
+          type: string
+        lastName:
+          type: string
+        birthName:
+          type: string
+        partnerName:
+          type: string
+        initials:
+          type: string
+        prefix:
+          type: string
+        birthNamePrefix:
+          type: string
+        partnerNamePrefix:
+          type: string
+        gender:
+          type: string
+        clientObjectId:
+          type: integer
+          format: int64
+        bsn:
+          allOf:
+          - $ref: '#/components/schemas/Bsn'
+          description: DEPRECATED
+          deprecated: true
+        clientContactRelationType:
+          allOf:
+          - $ref: '#/components/schemas/nexus.ClientContactRelationType'
+          description: Vektiscode
+        clientContactRelationTypeObjectId:
+          type: integer
+          format: int64
+        personalRelationType:
+          allOf:
+          - $ref: '#/components/schemas/nexus.PersonalRelationType'
+          description: Vektiscode
+        personalRelationTypeObjectId:
+          type: integer
+          format: int64
+        organization:
+          type: string
+        inCaseOfEmergency:
+          type: boolean
+        comments:
+          type: string
+      description: ClientContactRelation model (no description)
+      example:
+        updatedAt: '2014-04-17T16:04:36.000+02:00'
+        createdAt: '2014-04-17T16:04:36.000+02:00'
+        createdBy: user
+        id: 10310
+        firstName: Wil
+        name: Mw. MMT 05-11-86
+        identificationNo: code
+        preferredNameType: '0'
+        lastName: Jansen-Niemeijer
+        birthName: Jansen
+        partnerName: Niemeijer
+        initials: MMT
+        prefix: ''
+        birthNamePrefix: ''
+        partnerNamePrefix: ''
+        gender: F
+        clientObjectId: 30259
+        bsn:
+          id: 1
+          clientId: 1
+          number: example
+          sourceVerified: true
+          idVerified: true
+          idNumber: example
+          idType: example
+          source: example
+          idVerifiedType: example
+          idVerifiedDate: '2014-12-29T00:00:00.000+01:00'
+          bsnUnknown: true
+          reasonBsnUnknown: example
+          idValidUntil: '2014-12-29'
+          bsnVerifiedDate: '2014-12-29'
+          widVerified: true
+          verifiedByEmployeeId: 1
+          bsnDocumentType: 0
+          bsnSource: -1
+          bsnIdVerifiedType: 0
+        clientContactRelationType:
+          id: 1
+          name: example
+          tag: example
+          primary: true
+          exclusive: true
+          relevant: true
+          negative: true
+          active: true
+          legal: true
+          vbmResponsible: true
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            type: example
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+        clientContactRelationTypeObjectId: 1
+        personalRelationType:
+          id: 1
+          name: example
+          tag: example
+          primary: true
+          exclusive: true
+          relevant: true
+          negative: true
+          active: true
+          legal: true
+          vbmResponsible: true
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            type: example
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+        personalRelationTypeObjectId: 2
+        organization: Nedap
+        inCaseOfEmergency: false
+        comments: Casemanager komt 1 keer per maand
+      xml:
+        name: clientContactRelation
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

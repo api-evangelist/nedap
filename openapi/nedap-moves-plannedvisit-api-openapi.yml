@@ -1,0 +1,1024 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Planned Visit API
+  version: 0.0.0
+  description: 'Operations tagged moves.PlannedVisit across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.PlannedVisit
+paths:
+  /t/clients/{client_id}/planned_visits:
+    get:
+      tags:
+      - moves.PlannedVisit
+      summary: Return the planned visits of a Client within a specified period
+      operationId: moves.PlannedVisitAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: The id of the Client whose PlannedVisits you want to retrieve.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: The start date of the period.
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: The end date of the period (exclusive).
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: include
+        in: query
+        description: 'Comma-separated list of keywords to indicate which
+
+          features/fields/subresources you''d like to have included
+
+          in the response.
+
+          No keywords supported at the moment. Parameter is defined
+
+          for symmetry with PlannedVisitAPI.byEmployeeId.'
+        schema:
+          type: string
+      - name: apply_mutations
+        in: query
+        description: Whether to apply the employees plan mutations to the results
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.PlannedVisitList'
+        '400':
+          description: Parsing errors
+      x-replaced-by: /v0/plannen_roosteren/planned_visits/by_client_id/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/planned_visits:
+    get:
+      tags:
+      - moves.PlannedVisit
+      summary: Return the planned visits of an Employee within a specified period
+      operationId: moves.PlannedVisitAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the Employee whose PlannedVisits you want to retrieve.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: The start date of the period.
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: The end date of the period (exclusive).
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: include
+        in: query
+        description: 'Comma-separated list of keywords to indicate which
+
+          features/fields/subresources you''d like to have included
+
+          in the response.
+
+          `exportability` - The `Plancard.exportable` attribute
+
+          will be computed to indicate whether a plancard would
+
+          be exported by the EmployeeExportApi at this time.'
+        schema:
+          type: string
+      - name: apply_mutations
+        in: query
+        description: Whether to apply the employees plan mutations to the results
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.PlannedVisitList'
+        '400':
+          description: Parsing errors
+      x-replaced-by: /v0/plannen_roosteren/planned_visits/by_employee_id/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/planned_visits/by_client_id/{client_id}:
+    get:
+      tags:
+      - moves.PlannedVisit
+      summary: Return the planned visits of a Client within a specified period
+      operationId: moves.PlannedVisitAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: The id of the Client whose PlannedVisits you want to retrieve.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The start date of the period.
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        description: The end date of the period (exclusive).
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      - name: include
+        in: query
+        description: 'Comma-separated list of keywords to indicate which
+
+          features/fields/subresources you''d like to have included
+
+          in the response.
+
+          No keywords supported at the moment. Parameter is defined
+
+          for symmetry with PlannedVisitAPI.byEmployeeId.'
+        schema:
+          type: string
+      - name: apply_mutations
+        in: query
+        description: Whether to apply the employees plan mutations to the results
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.PlannedVisitList'
+        '400':
+          description: Parsing errors
+      x-replacement-for:
+      - /t/clients/{client_id}/planned_visits
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/planned_visits/by_employee_id/{employee_id}:
+    get:
+      tags:
+      - moves.PlannedVisit
+      summary: Return the planned visits of an Employee within a specified period
+      operationId: moves.PlannedVisitAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The id of the Employee whose PlannedVisits you want to retrieve.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The start date of the period.
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        description: The end date of the period (exclusive).
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      - name: include
+        in: query
+        description: 'Comma-separated list of keywords to indicate which
+
+          features/fields/subresources you''d like to have included
+
+          in the response.
+
+          `exportability` - The `Plancard.exportable` attribute
+
+          will be computed to indicate whether a plancard would
+
+          be exported by the EmployeeExportApi at this time.'
+        schema:
+          type: string
+      - name: apply_mutations
+        in: query
+        description: Whether to apply the employees plan mutations to the results
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.list.PlannedVisitList'
+        '400':
+          description: Parsing errors
+      x-replacement-for:
+      - /t/employees/{employee_id}/planned_visits
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.Plancard:
+      type: object
+      properties:
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        hourTypeName:
+          type:
+          - string
+          - 'null'
+        hourTypeCode:
+          type:
+          - string
+          - 'null'
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration of this Plancard in seconds.
+          format: int32
+        note:
+          type:
+          - string
+          - 'null'
+          description: The note added to this Plancard in the planscreen.
+        promisedStart:
+          type:
+          - string
+          - 'null'
+          description: The entered start time of this Plancard. This time is an intent, not a guarantee.
+          format: date-time
+        dayPart:
+          type:
+          - integer
+          - 'null'
+          description: 'Daypart on which this Plancard is defined in the care arrangement.
+
+
+            <pre>
+
+            1 - Morning
+
+            2 - Afternoon
+
+            3 - Evening
+
+            0 - Night (Night-plancards generally occur after Evening-plancards for the same date)
+
+            null - Incidentally added Plancard that is not linked to a care arrangement.
+
+            </pre>'
+          format: int32
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this Planccard has been incidentally deleted.
+        cycleBase:
+          type: string
+          description: The date from which the recurrence pattern is calculated (usually a Sunday)
+          format: date
+        cycleInterval:
+          type: integer
+          description: The plancard occurs every N-days
+          format: int32
+        cycleOffset:
+          type: integer
+          description: The number of days from cycleBase the plancard occurs, effectively indicating a day of the week. Usually [0-6], 0 is Sunday
+          format: int32
+        originalCycleOffset:
+          type: integer
+          description: When the plancard was incidentally moved, this attribute holds the original value of cycleOffset.
+          format: int32
+        incidentallyChanged:
+          type: boolean
+          description: The information on this plancard is different from its regular/structural state.
+        instanceOfType:
+          type: string
+          description: Either 'PatternRule' (a regular plancard created from the care arrangement) or 'EventRule' (a plancard that was incidentally added from the planscreen)
+        instanceOfId:
+          type: integer
+          description: Reference to 'PatternRule'-record in case `instanceOfType` is `PatternRule`
+          format: int32
+        kind:
+          type:
+          - string
+          - 'null'
+          description: Unused
+        exportable:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this Plancard will be exported. Only available through specific APIs.
+      description: '{@link PlannedVisit}s are the aggregation of a list of Plancards.'
+      example:
+        hourTypeId: 25
+        hourTypeName: PV eten en drinken
+        hourTypeCode: '31'
+        duration: 600
+        note: Les naïfs ægithales hâtifs pondant à Noël où il gèle sont sûrs d'être déçus en voyant leurs drôles d'œufs abîmés.
+        promisedStart: '2010-03-15T00:00:00.000+01:00'
+        dayPart: 1
+        deleted: false
+        cycleBase: '2021-06-24'
+        cycleInterval: 7
+        cycleOffset: 3
+        originalCycleOffset: 5
+        incidentallyChanged: false
+        instanceOfType: PatternRule
+        instanceOfId: 16
+        kind: arrangement
+        exportable: true
+    moves.LocationAuthorization:
+      type: object
+      properties:
+        locationId:
+          type:
+          - integer
+          - 'null'
+          description: 'The location this LocationAuthorization grants access to.
+
+            Reference to Cupido::Location.'
+          format: int64
+      description: LocationAuthorization model (no description)
+      example:
+        locationId: 1
+    moves.list.PlannedVisitList:
+      type: object
+      properties:
+        plannedVisits:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.PlannedVisit'
+      description: PlannedVisitList model (no description)
+      example:
+        plannedVisits:
+        - calculatedStart: '2013-12-06T08:00:00.000+01:00'
+          totalDuration: 14400
+          travelTimeBefore: 0
+          gapTimeBefore: 0
+          notes:
+          - sleutelcode 1234
+          - 'contactpers: kleindochter 06123456789'
+          plancards:
+          - hourTypeId: 39
+            hourTypeName: HH2 hulp bij huishouden
+            hourTypeCode: '0'
+            duration: 14400
+            note: Some note
+            promisedStart: '2013-12-05T08:00:00.000+01:00'
+            kind: arrangement
+          plannedAddress:
+            latitude: 52.038398
+            longitude: 6.624163
+            zipcode: 7141DC
+            number: '31'
+          teamId: 301
+          teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+          unitId: 1091
+          teamName: HV OOST
+          teamCode: '121'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+          employeeId: 9197
+          employeeUuid: 91f118c2-cd22-4105-a5ee-a05758288b68
+          employeeCode: 9197-02
+          employeeName: Gerrie Nijenhuis
+          employeeGender: M
+          employeeIsDummy: false
+        - calculatedStart: '2013-12-06T08:37:00.000+01:00'
+          totalDuration: -1386315420
+          travelTimeBefore: 0
+          gapTimeBefore: 0
+          notes: []
+          plancards:
+          - hourTypeId: 29
+            hourTypeName: VP overige handelingen
+            hourTypeCode: '41'
+            duration: 600
+            note: Some note
+            kind: arrangement
+          - hourTypeId: 30
+            hourTypeName: VP controle lichaamsfuncties
+            hourTypeCode: '41'
+            duration: 600
+            note: Some note
+            kind: arrangement
+          plannedAddress:
+            latitude: 52.038398
+            longitude: 6.624163
+            zipcode: 7141DC
+            number: '31'
+          shiftTimelineId: 33
+          shiftName: Ochtend 2 VP Oost
+          shiftCode: O2VP
+          teamId: 328
+          teamUuid: ef538153-f686-4ef7-b5aa-f6f2d363d9f6
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+          employeeId: 8996
+          employeeUuid: ae3a0b12-88a1-4fde-8ce0-30f5f7b83b3b
+          employeeCode: 8996-02
+          employeeName: Dorien Arentsen - Arentsen
+          employeeGender: M
+          employeeIsDummy: false
+        - totalDuration: 0
+          travelTimeBefore: 0
+          gapTimeBefore: 0
+          notes: []
+          plancards:
+          - hourTypeId: 33
+            hourTypeName: PV medicijnen
+            hourTypeCode: '31'
+            duration: 600
+            note: Some note
+            kind: arrangement
+          plannedAddress:
+            latitude: 52.038398
+            longitude: 6.624163
+            zipcode: 7141DC
+            number: '31'
+          teamId: 328
+          teamUuid: ef538153-f686-4ef7-b5aa-f6f2d363d9f6
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+        - calculatedStart: '2013-12-06T12:03:00.000+01:00'
+          totalDuration: 900
+          travelTimeBefore: 3600
+          gapTimeBefore: 0
+          notes: []
+          plancards:
+          - hourTypeId: 24
+            hourTypeName: PV hulp toilet/stoma
+            hourTypeCode: '31'
+            duration: 900
+            note: Some note
+            kind: arrangement
+          plannedAddress:
+            latitude: 52.038398
+            longitude: 6.624163
+            zipcode: 7141DC
+            number: '31'
+          shiftTimelineId: 6
+          shiftName: Middag De Terp PV
+          shiftCode: MDT
+          teamId: 328
+          teamUuid: ef538153-f686-4ef7-b5aa-f6f2d363d9f6
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+        - calculatedStart: '2013-12-06T12:51:00.000+01:00'
+          totalDuration: -1386330660
+          travelTimeBefore: 3600
+          gapTimeBefore: 0
+          notes: []
+          plancards:
+          - hourTypeId: 25
+            hourTypeName: PV eten en drinken
+            hourTypeCode: '31'
+            duration: 600
+            note: Les naïfs ægithales hâtifs pondant à Noël où il gèle sont sûrs d'être déçus en voyant leurs drôles d'œufs abîmés.
+            kind: arrangement
+          - hourTypeId: 35252
+            hourTypeName: PV-wassen/douchen
+            hourTypeCode: '31'
+            duration: 1500
+            note: Some note
+            kind: arrangement
+          - hourTypeId: 29
+            hourTypeName: VP overige handelingen
+            hourTypeCode: '41'
+            duration: 1200
+            note: Some note
+            kind: arrangement
+          plannedAddress:
+            latitude: 52.038398
+            longitude: 6.624163
+            zipcode: 7141DC
+            number: '31'
+          shiftTimelineId: 6
+          shiftName: Middag De Terp PV
+          shiftCode: MDT
+          teamId: 328
+          teamUuid: ef538153-f686-4ef7-b5aa-f6f2d363d9f6
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+        - calculatedStart: '2013-12-06T16:30:00.000+01:00'
+          totalDuration: 900
+          travelTimeBefore: 0
+          gapTimeBefore: 0
+          notes: []
+          plancards:
+          - hourTypeId: 24
+            hourTypeName: PV hulp toilet/stoma
+            hourTypeCode: '31'
+            duration: 900
+            note: Some note
+            kind: arrangement
+          plannedAddress:
+            latitude: 52.038398
+            longitude: 6.624163
+            zipcode: 7141DC
+            number: '31'
+          shiftTimelineId: 34
+          shiftName: Avond VP
+          shiftCode: AV
+          teamId: 328
+          teamUuid: ef538153-f686-4ef7-b5aa-f6f2d363d9f6
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+          employeeId: 36223
+          employeeUuid: e2bbd4c3-8b6c-4823-b9dc-b4ab1e478bfc
+          employeeCode: 36223-02
+          employeeName: Anita Abbink - Overkamp
+          employeeGender: M
+          employeeIsDummy: false
+        - calculatedStart: '2013-12-06T18:45:00.000+01:00'
+          totalDuration: 1800
+          travelTimeBefore: 0
+          gapTimeBefore: 0
+          notes: []
+          plancards:
+          - hourTypeId: 25
+            hourTypeName: PV eten en drinken
+            hourTypeCode: '31'
+            duration: 900
+            note: Some note
+            kind: arrangement
+          - hourTypeId: 24
+            hourTypeName: PV hulp toilet/stoma
+            hourTypeCode: '31'
+            duration: 900
+            note: Some note
+            kind: arrangement
+          plannedAddress:
+            latitude: 52.038398
+            longitude: 6.624163
+            zipcode: 7141DC
+            number: '31'
+          shiftTimelineId: 9
+          shiftName: Avond 3 PV
+          shiftCode: A3
+          teamId: 328
+          teamUuid: ef538153-f686-4ef7-b5aa-f6f2d363d9f6
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+        - calculatedStart: '2013-12-06T21:19:00.000+01:00'
+          totalDuration: 600
+          travelTimeBefore: 3600
+          gapTimeBefore: 0
+          notes: []
+          plancards:
+          - hourTypeId: 24
+            hourTypeName: PV hulp toilet/stoma
+            hourTypeCode: '31'
+            duration: 600
+            note: Some note
+            kind: arrangement
+          plannedAddress:
+            latitude: 52.038398
+            longitude: 6.624163
+            zipcode: 7141DC
+            number: '31'
+          shiftTimelineId: 9
+          shiftName: Avond 3 PV
+          shiftCode: A3
+          teamId: 328
+          teamUuid: ef538153-f686-4ef7-b5aa-f6f2d363d9f6
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+    moves.PlannedAddress:
+      type:
+      - object
+      - 'null'
+      properties:
+        latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        city:
+          type:
+          - string
+          - 'null'
+        street:
+          type:
+          - string
+          - 'null'
+        zipcode:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        numberPostfix:
+          type:
+          - string
+          - 'null'
+        residenceAccessInfo:
+          type:
+          - string
+          - 'null'
+        roomNumber:
+          type:
+          - string
+          - 'null'
+      description: 'Address where {@link PlannedVisit}s are planned.
+
+
+        Moves has it''s own Address model, and plancards can be
+
+        planned tp addresses not known in other systems.'
+      example:
+        latitude: 52.038398
+        longitude: 6.624163
+        city: Groenlo
+        street: Parallelweg
+        zipcode: 7141DC
+        number: '31'
+        numberPostfix: a
+        residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
+        roomNumber: '1'
+    PronounsType:
+      enum:
+      - SHE_HER
+      - HE_HIS
+      - WHO_THEIR
+      - THEM_THEIRS
+      type: string
+      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
+      example: WHO_THEIR
+    Pronouns:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/PronounsType'
+        description:
+          type: string
+          description: Translated description of the pronouns.
+      description: The usage of this schema is deprecated and has been replaced by PronounsType.
+      example:
+        type: WHO_THEIR
+        description: die/diens
+      deprecated: true
+      x-deprecated-since: 21-08-2026
+    moves.PlannedVisit:
+      type:
+      - object
+      - 'null'
+      properties:
+        date:
+          type:
+          - string
+          - 'null'
+          format: date
+        calculatedStart:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        totalDuration:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        travelTimeBefore:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        gapTimeBefore:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        firstAfterMidnight:
+          type: boolean
+          description: 'This visit is the first after midnight, and a visual indication
+
+            should be shown to the user (e.g. the new date or a 🌙 icon).'
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        plancards:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/moves.Plancard'
+        plannedAddress:
+          $ref: '#/components/schemas/moves.PlannedAddress'
+        shiftTimelineId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        shiftName:
+          type:
+          - string
+          - 'null'
+        shiftCode:
+          type:
+          - string
+          - 'null'
+        teamId:
+          type:
+          - integer
+          - 'null'
+          description: Linked to the Ons Administratie team, can be null if the Moves planning team (unit) is a sub-team from the OA team
+          format: int64
+        teamUuid:
+          type:
+          - string
+          - 'null'
+        unitId:
+          type:
+          - integer
+          - 'null'
+          description: Linked to the Moves planning team (unit)
+          format: int64
+        teamName:
+          type:
+          - string
+          - 'null'
+        teamCode:
+          type:
+          - string
+          - 'null'
+        teamBlockplanned:
+          type:
+          - boolean
+          - 'null'
+          description: 'Indicates if the Team uses the blockplanscreen (clients planned to
+
+            employees directly) instead of the route-based planscreen.'
+        authorizesForLocationId:
+          type:
+          - integer
+          - 'null'
+          description: 'Being planned as Employee for the Team or Shift
+
+            implies authorization for this Location.'
+          format: int64
+          deprecated: true
+        locationAuthorizations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/moves.LocationAuthorization'
+          description: 'Being assigned as Employee for the Team or Shift
+
+            implies authorization for these Locations.'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        clientUuid:
+          type:
+          - string
+          - 'null'
+        clientCode:
+          type:
+          - string
+          - 'null'
+        clientName:
+          type:
+          - string
+          - 'null'
+        clientGender:
+          type:
+          - string
+          - 'null'
+        clientIsDummy:
+          type:
+          - boolean
+          - 'null'
+        clientBirthDate:
+          type:
+          - string
+          - 'null'
+          format: date
+        clientPreferredName:
+          type:
+          - string
+          - 'null'
+        clientPronouns:
+          x-deprecated-since: 21-08-2026
+          $ref: '#/components/schemas/Pronouns'
+          description: This field is no longer used and has been replaced by clientPronounsType.
+          deprecated: true
+        clientPronounsType:
+          $ref: '#/components/schemas/PronounsType'
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeUuid:
+          type:
+          - string
+          - 'null'
+        employeeCode:
+          type:
+          - string
+          - 'null'
+        employeeName:
+          type:
+          - string
+          - 'null'
+        employeeGender:
+          type:
+          - string
+          - 'null'
+        employeeIsDummy:
+          type:
+          - boolean
+          - 'null'
+      description: A Visit from an {@Employee} to a {@Client}.
+      example:
+        date: '2013-12-06'
+        calculatedStart: '2013-12-06T12:51:00.000+01:00'
+        totalDuration: -1386330660
+        travelTimeBefore: 3600
+        gapTimeBefore: 0
+        firstAfterMidnight: false
+        notes: []
+        plancards: []
+        plannedAddress:
+          latitude: 0.5
+          longitude: 0.5
+          city: example
+          street: example
+          zipcode: example
+          number: example
+          numberPostfix: example
+        shiftTimelineId: 6
+        shiftName: Middag De Terp PV
+        shiftCode: MDT
+        teamId: 328
+        teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+        unitId: 1090
+        teamName: V&V De Terp
+        teamCode: '1410'
+        teamBlockplanned: false
+        authorizesForLocationId: 12
+        locationAuthorizations:
+        - locationId: 12
+        clientId: 14947
+        clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+        clientCode: '05645'
+        clientName: A Radstaak - de Doring
+        clientGender: F
+        clientIsDummy: false
+        clientBirthDate: '1932-05-23'
+        clientPreferredName: Arie
+        clientPronouns:
+          description: zij/haar
+          type: SHE_HER
+        clientPronounsType: SHE_HER
+        employeeId: 1
+        employeeUuid: '1234567890'
+        employeeCode: code
+        employeeName: employee
+        employeeGender: m
+        employeeIsDummy: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,110 @@
+openapi: 3.2.0
+info:
+  title: Nedap Medication.Double Check Change API
+  version: 0.0.0
+  description: 'Operations tagged medication.DoubleCheckChange across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: medication.DoubleCheckChange
+paths:
+  /t/medication/double_check_changes:
+    post:
+      tags:
+      - medication.DoubleCheckChange
+      summary: Create DoubleCheckChange
+      operationId: medication.DoubleCheckChangeAPI.create
+      requestBody:
+        description: DoubleCheckChange to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/medication.DoubleCheckChange'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.DoubleCheckChange'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/medicatie_legacy/double_check_changes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/medicatie_legacy/double_check_changes:
+    post:
+      tags:
+      - medication.DoubleCheckChange
+      summary: Create DoubleCheckChange
+      operationId: medication.DoubleCheckChangeAPI.create
+      requestBody:
+        description: DoubleCheckChange to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/medication.DoubleCheckChange'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medication.DoubleCheckChange'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/medication/double_check_changes
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    medication.DoubleCheckChange:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Uniquely designates the DoubleCheckChange.
+          format: int64
+          x-cupido-id: true
+        doubleCheckUuid:
+          type: string
+          description: Reference to the DoubleCheck which was changed.
+        senderEmployeeId:
+          type: integer
+          description: Employee who requested the double check.
+          format: int64
+        checkerEmployeeId:
+          type: integer
+          description: Employee who performed the double check.
+          format: int64
+        decision:
+          type: string
+          description: 'Decision made by a checker about this double check. See DoubleCheck
+
+            for valid values.'
+        decisionReason:
+          type: string
+          description: 'Optional reason why the decision was made. This is mostly used when
+
+            a double check was rejected because there was not enough information.'
+        decisionAt:
+          type: string
+          description: Time at which the decision was set by the checker.
+          format: date-time
+      description: 'DoubleCheckChange represents a state change on a DoubleCheck. It can be
+
+        viewed as a log of DoubleCheck changes over time.'
+      example:
+        id: 7653432
+        doubleCheckUuid: 3373cf0b-4a06-4f3d-96fa-ea680e1f9baa
+        senderEmployeeId: 23
+        checkerEmployeeId: 43
+        decision: rejected
+        decisionReason: It not perfect system.
+        decisionAt: '2019-04-16T14:46:00.000+02:00'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

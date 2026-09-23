@@ -1,0 +1,129 @@
+openapi: 3.2.0
+info:
+  title: Nedap Client Story.Change Set API
+  version: 0.0.0
+  description: 'Operations tagged client_story.ChangeSet across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: client_story.ChangeSet
+paths:
+  /t/client_story/change_sets/most_recent_by_client/{client_id}:
+    get:
+      tags:
+      - client_story.ChangeSet
+      summary: Returns the most recent change set for the client
+      operationId: client_story.ChangeSetAPI.mostRecentByClient
+      parameters:
+      - name: client_id
+        in: path
+        description: The ID of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client_story.ChangeSet'
+      x-replaced-by: /v0/client_story/change_sets/most_recent_by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/client_story/change_sets/most_recent_by_client/{client_id}:
+    get:
+      tags:
+      - client_story.ChangeSet
+      summary: Returns the most recent change set for the client
+      operationId: client_story.ChangeSetAPI.mostRecentByClient
+      parameters:
+      - name: client_id
+        in: path
+        description: The ID of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client_story.ChangeSet'
+      x-replacement-for:
+      - /t/client_story/change_sets/most_recent_by_client/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    client_story.Change:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Type of the question that was changed: array, event, eventMultimedia, multimedia, multipleChoice or question'
+        action:
+          type: string
+          description: 'Change action that was applied to the question answer: update, delete or create'
+        questionTitle:
+          type: string
+          description: Title of the question this change was applied to
+        questionContext:
+          type: string
+          description: Context text of the question that was changed
+        oldValue:
+          type: string
+          description: Old / previous value of the answer to this question
+        newValue:
+          type: string
+          description: Value of this question after this change was applied
+      description: Change model (no description)
+      example:
+        type: question
+        action: create
+        questionTitle: Test question?
+        questionContext: Test question to test
+        oldValue: ''
+        newValue: Test answer
+    client_story.ChangeSet:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp of this changeset
+          format: date-time
+        source:
+          type: string
+          description: 'The source that made the changes in this changeset
+
+            Can be Caren or Dossier'
+        userId:
+          type: integer
+          description: The user id that made the changes. Can refer to the user id or the caren person id depending on the source
+          format: int32
+          default: 0
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/client_story.Change'
+          description: A list of all changes in this changeset
+      description: ChangeSet model (no description)
+      example:
+        timestamp: '2019-10-01T00:00:00.000+02:00'
+        source: Dossier
+        userId: 1337
+        changes:
+        - type: question
+          action: create
+          questionTitle: Test question?
+          questionContext: Test question to test
+          oldValue: ''
+          newValue: Test answer
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,404 @@
+openapi: 3.2.0
+info:
+  title: Nedap Location Assignment Waiting List API
+  version: 0.0.0
+  description: 'Operations tagged LocationAssignmentWaitingList across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: LocationAssignmentWaitingList
+paths:
+  /t/clients/{client_id}/waiting_list_location_assignments:
+    get:
+      tags:
+      - LocationAssignmentWaitingList
+      summary: Return the waiting list location assignments of a Client corresponding to the…
+      operationId: LocationAssignmentWaitingListAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentWaitingListList'
+      x-replaced-by: /v0/administration/clients/{client_id}/waiting_list_locations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/location_assignment_waiting_lists:
+    post:
+      tags:
+      - LocationAssignmentWaitingList
+      summary: Create LocationAssignmentWaitingList
+      operationId: LocationAssignmentWaitingListAPI.create
+      requestBody:
+        description: LocationAssignmentWaitingList to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignmentWaitingList'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentWaitingList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignment_waiting_lists
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/location_assignment_waiting_lists/{id}:
+    get:
+      tags:
+      - LocationAssignmentWaitingList
+      operationId: LocationAssignmentWaitingListAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignmentWaitingList
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentWaitingList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignment_waiting_lists/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Location assignment waiting list API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - LocationAssignmentWaitingList
+      summary: Updates the given LocationAssignmentWaitingList
+      operationId: LocationAssignmentWaitingListAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignmentWaitingList
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: LocationAssignmentWaitingList to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignmentWaitingList'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentWaitingList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/location_assignment_waiting_lists/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/waiting_list_locations:
+    get:
+      tags:
+      - LocationAssignmentWaitingList
+      summary: Return the waiting list location assignments of a Client corresponding to the…
+      operationId: LocationAssignmentWaitingListAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationAssignmentWaitingListList'
+      x-replacement-for:
+      - /t/clients/{client_id}/waiting_list_location_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/location_assignment_waiting_lists:
+    post:
+      tags:
+      - LocationAssignmentWaitingList
+      summary: Create LocationAssignmentWaitingList
+      operationId: LocationAssignmentWaitingListAPI.create
+      requestBody:
+        description: LocationAssignmentWaitingList to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignmentWaitingList'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentWaitingList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignment_waiting_lists
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/location_assignment_waiting_lists/{id}:
+    get:
+      tags:
+      - LocationAssignmentWaitingList
+      operationId: LocationAssignmentWaitingListAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignmentWaitingList
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentWaitingList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignment_waiting_lists/{id}
+      summary: Location assignment waiting list API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - LocationAssignmentWaitingList
+      summary: Updates the given LocationAssignmentWaitingList
+      operationId: LocationAssignmentWaitingListAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting LocationAssignmentWaitingList
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: LocationAssignmentWaitingList to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAssignmentWaitingList'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAssignmentWaitingList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/location_assignment_waiting_lists/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    LocationAssignmentType:
+      enum:
+      - STANDARD
+      - MAIN
+      - MEDICINE
+      - GGZ
+      - WAITING_LIST
+      type: string
+      description: LocationAssignmentType enum (no description)
+      example: STANDARD
+    LocationAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date
+        beginTime:
+          type: string
+          format: time
+        endDate:
+          type: string
+          format: date
+        endTime:
+          type: string
+          format: time
+        clientObjectId:
+          type: integer
+          format: int64
+        locationObjectId:
+          type: integer
+          format: int64
+        moveDate:
+          type: string
+          format: date
+        locationAssignmentType:
+          $ref: '#/components/schemas/LocationAssignmentType'
+        residence:
+          type: boolean
+          description: Indicates if the client resides at this location
+        mainLocation:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - use locationAssignmentType instead'
+          deprecated: true
+        medicineLocation:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - use locationAssignmentType instead'
+          deprecated: true
+      description: LocationAssignment model (no description)
+      example:
+        id: 1
+        beginDate: '2012-08-02'
+        beginTime: '10:11:00.000'
+        endDate: '2012-08-02'
+        endTime: '12:13:00.000'
+        clientObjectId: 2
+        locationObjectId: 3
+        moveDate: '2012-08-02'
+        locationAssignmentType: MAIN
+        residence: false
+        mainLocation: true
+        medicineLocation: false
+      xml:
+        name: locationAssignment
+    LocationAssignmentWaitingList:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/LocationAssignment'
+      properties:
+        waitingFor:
+          type: string
+          description: 'Description field for what event/resources the client is waiting for.
+
+            Possible values are defined by the care organisation'
+        status:
+          type: string
+          description: 'Wachtstatus (urgentie)
+
+            Possible values are defined by the care organisation'
+        description:
+          type: string
+          description: 'Description
+
+            Possible values are defined by the care organisation'
+        classification:
+          type: string
+          description: 'optional field used for financetype ''WLZ''.
+
+            https://assets.zn.nl/p/32768/none/Langdurige%20zorg/Wachtlijsten%20langdurige%20zorg/ZN-Infographic.pdf'
+        closingReason:
+          type: string
+          description: 'Indication of under what circumstances the client is taken off the waiting list
+
+            Assumed use: BI tooling
+
+            Possible values are defined by the care organisation'
+      description: Developed as a (temporary) solution to enable (GGZ) customers to indicate a client is on a 'waiting list'
+      example:
+        id: 1
+        beginDate: '2012-08-02'
+        beginTime: '10:11:00.000'
+        endDate: '2012-08-02'
+        endTime: '12:13:00.000'
+        clientObjectId: 2
+        locationObjectId: 3
+        moveDate: '2012-08-02'
+        locationAssignmentType: WAITING_LIST
+        residence: false
+        mainLocation: false
+        medicineLocation: false
+        waitingFor: BESCHIKBARE_PLEK
+        status: ACTIEF_PLAATSEN
+        description: Client wacht met smart. Contact direct met client, niet via ouders.
+        classification: DREIGENDE_CRISIS_THUIS
+        closingReason: GEPLAATST
+      xml:
+        name: locationAssignmentWaitingList
+    list.LocationAssignmentWaitingListList:
+      type: object
+      properties:
+        locationAssignmentWaitingLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAssignmentWaitingList'
+          xml:
+            name: locationAssignmentWaitingList
+      description: LocationAssignmentWaitingListList model (no description)
+      example:
+        locationAssignmentWaitingLists:
+        - id: 1
+          beginDate: '2012-08-02'
+          beginTime: '10:11:00.000'
+          endDate: '2012-08-02'
+          endTime: '12:13:00.000'
+          clientObjectId: 2
+          locationObjectId: 3
+          moveDate: '2012-08-02'
+          locationAssignmentType: WAITING_LIST
+          residence: false
+          mainLocation: false
+          medicineLocation: false
+          waitingFor: BESCHIKBARE_PLEK
+          status: ACTIEF_PLAATSEN
+          description: Client wacht met smart. Contact direct met client, niet via ouders.
+          classification: DREIGENDE_CRISIS_THUIS
+          closingReason: GEPLAATST
+      xml:
+        name: locationAssignmentWaitingLists
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

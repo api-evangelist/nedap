@@ -1,0 +1,557 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Client Note API
+  version: 0.0.0
+  description: 'Operations tagged dossier.ClientNote across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.ClientNote
+paths:
+  /t/dossier/client_notes:
+    get:
+      tags:
+      - dossier.ClientNote
+      summary: Returns every ClientNote available from the ClientNote API
+      operationId: dossier.ClientNoteAPI.all
+      parameters:
+      - name: updated_since
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ClientNoteList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/client_notes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - dossier.ClientNote
+      summary: Create ClientNote
+      operationId: dossier.ClientNoteAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: ClientNote to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.ClientNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ClientNote'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/client_notes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/client_notes/{id}:
+    get:
+      tags:
+      - dossier.ClientNote
+      operationId: dossier.ClientNoteAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ClientNote'
+        '404':
+          description: ClientNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/client_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Dossier client note API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - dossier.ClientNote
+      summary: Updates the given ClientNote
+      operationId: dossier.ClientNoteAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: ClientNote to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.ClientNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ClientNote'
+        '400':
+          description: Validation errors
+        '404':
+          description: ClientNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/client_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.ClientNote
+      summary: Deletes the ClientNote with given id
+      operationId: dossier.ClientNoteAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ClientNote'
+        '404':
+          description: ClientNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/client_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/client_notes:
+    get:
+      tags:
+      - dossier.ClientNote
+      summary: Return the client notes of a Client corresponding to the given id
+      operationId: dossier.ClientNoteAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ClientNoteList'
+      x-replaced-by: /v0/administration/dossier/client_notes/by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/client_notes:
+    get:
+      tags:
+      - dossier.ClientNote
+      summary: Returns every ClientNote available from the ClientNote API
+      operationId: dossier.ClientNoteAPI.all
+      parameters:
+      - name: updatedSince
+        in: query
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: updated_since
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ClientNoteList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/client_notes
+    post:
+      tags:
+      - dossier.ClientNote
+      summary: Create ClientNote
+      operationId: dossier.ClientNoteAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: ClientNote to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.ClientNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ClientNote'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/client_notes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/client_notes/{id}:
+    get:
+      tags:
+      - dossier.ClientNote
+      operationId: dossier.ClientNoteAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ClientNote'
+        '404':
+          description: ClientNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/client_notes/{id}
+      summary: Dossier client note API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - dossier.ClientNote
+      summary: Updates the given ClientNote
+      operationId: dossier.ClientNoteAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: ClientNote to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.ClientNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ClientNote'
+        '400':
+          description: Validation errors
+        '404':
+          description: ClientNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/client_notes/{id}
+    delete:
+      tags:
+      - dossier.ClientNote
+      summary: Deletes the ClientNote with given id
+      operationId: dossier.ClientNoteAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.ClientNote'
+        '404':
+          description: ClientNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/client_notes/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/client_notes/by_client/{client_id}:
+    get:
+      tags:
+      - dossier.ClientNote
+      summary: Return the client notes of a Client corresponding to the given id
+      operationId: dossier.ClientNoteAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.ClientNoteList'
+      x-replacement-for:
+      - /t/clients/{client_id}/client_notes
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.BaseNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        content:
+          type: string
+        visibleOnWorksheet:
+          type: boolean
+        deleted:
+          type: boolean
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        updatedByAuthorId:
+          type: integer
+          format: int64
+        authorId:
+          type: integer
+          format: int64
+      description: BaseNote model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+        id: 1
+        content: example
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-12-29'
+        endDate: '2014-12-29'
+        updatedByAuthorId: 1
+        authorId: 1
+    dossier.ClientNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.BaseNote'
+      properties:
+        clientId:
+          type: integer
+          format: int64
+      description: ClientNote model (no description)
+      example:
+        id: 1
+        content: Dummy
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-06-16'
+        endDate: '2014-06-16'
+        updatedByAuthorId: 1
+        authorId: 1
+        updatedAt: '2014-06-16T02:00:00.000+02:00'
+        createdAt: '2014-06-16T02:00:00.000+02:00'
+        createdBy: Dummy
+        clientId: 1
+      xml:
+        name: clientNote
+    dossier.list.ClientNoteList:
+      type: object
+      properties:
+        clientNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ClientNote'
+      description: ClientNoteList model (no description)
+      example:
+        clientNotes:
+        - id: 1
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 1
+          authorId: 1
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+          clientId: 1
+        - id: 2
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 2
+          authorId: 2
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+          clientId: 2
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

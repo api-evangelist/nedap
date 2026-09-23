@@ -1,0 +1,497 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.System Note API
+  version: 0.0.0
+  description: 'Operations tagged dossier.SystemNote across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.SystemNote
+paths:
+  /t/dossier/system_notes:
+    get:
+      tags:
+      - dossier.SystemNote
+      summary: Returns every SystemNote available from the SystemNoteAPI
+      operationId: dossier.SystemNoteAPI.all
+      parameters:
+      - name: updated_since
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.SystemNoteList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/system_notes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - dossier.SystemNote
+      summary: Create SystemNote
+      operationId: dossier.SystemNoteAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: SystemNote to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.SystemNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.SystemNote'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/system_notes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/system_notes/{id}:
+    get:
+      tags:
+      - dossier.SystemNote
+      operationId: dossier.SystemNoteAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting SystemNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.SystemNote'
+        '404':
+          description: SystemNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/system_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Dossier system note API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - dossier.SystemNote
+      summary: Updates the given SystemNote
+      operationId: dossier.SystemNoteAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting SystemNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: SystemNote to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.SystemNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.SystemNote'
+        '400':
+          description: Validation errors
+        '404':
+          description: SystemNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/system_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.SystemNote
+      summary: Deletes the SystemNote with given id
+      operationId: dossier.SystemNoteAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting SystemNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.SystemNote'
+        '404':
+          description: SystemNote not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/system_notes/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/system_notes:
+    get:
+      tags:
+      - dossier.SystemNote
+      summary: Returns every SystemNote available from the SystemNoteAPI
+      operationId: dossier.SystemNoteAPI.all
+      parameters:
+      - name: updatedSince
+        in: query
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: updated_since
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.SystemNoteList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/system_notes
+    post:
+      tags:
+      - dossier.SystemNote
+      summary: Create SystemNote
+      operationId: dossier.SystemNoteAPI.create
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: SystemNote to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.SystemNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.SystemNote'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/system_notes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/system_notes/{id}:
+    get:
+      tags:
+      - dossier.SystemNote
+      operationId: dossier.SystemNoteAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting SystemNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.SystemNote'
+        '404':
+          description: SystemNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/system_notes/{id}
+      summary: Dossier system note API by id
+      x-summary-source: derived
+    put:
+      tags:
+      - dossier.SystemNote
+      summary: Updates the given SystemNote
+      operationId: dossier.SystemNoteAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting SystemNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: SystemNote to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.SystemNote'
+        required: true
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.SystemNote'
+        '400':
+          description: Validation errors
+        '404':
+          description: SystemNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/system_notes/{id}
+    delete:
+      tags:
+      - dossier.SystemNote
+      summary: Deletes the SystemNote with given id
+      operationId: dossier.SystemNoteAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting SystemNote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.SystemNote'
+        '404':
+          description: SystemNote not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/system_notes/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.list.SystemNoteList:
+      type: object
+      properties:
+        systemNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.SystemNote'
+      description: SystemNoteList model (no description)
+      example:
+        systemNotes:
+        - id: 1
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 1
+          authorId: 1
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+        - id: 1
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 1
+          authorId: 2
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+    dossier.BaseNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        content:
+          type: string
+        visibleOnWorksheet:
+          type: boolean
+        deleted:
+          type: boolean
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        updatedByAuthorId:
+          type: integer
+          format: int64
+        authorId:
+          type: integer
+          format: int64
+      description: BaseNote model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+        id: 1
+        content: example
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-12-29'
+        endDate: '2014-12-29'
+        updatedByAuthorId: 1
+        authorId: 1
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.SystemNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.BaseNote'
+      description: SystemNote model (no description)
+      example:
+        id: 1
+        content: Dummy
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-06-16'
+        endDate: '2014-06-16'
+        updatedByAuthorId: 1
+        authorId: 1
+        updatedAt: '2014-06-16T02:00:00.000+02:00'
+        createdAt: '2014-06-16T02:00:00.000+02:00'
+        createdBy: Dummy
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

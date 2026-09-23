@@ -1,0 +1,100 @@
+openapi: 3.2.0
+info:
+  title: Nedap Employee Privacy Settings API
+  version: 0.0.0
+  description: 'Operations tagged EmployeePrivacySettings across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: EmployeePrivacySettings
+paths:
+  /t/employees/{employee_id}/privacy_settings:
+    put:
+      tags:
+      - EmployeePrivacySettings
+      summary: Update the employee privacy settings corresponding to the given id
+      operationId: EmployeePrivacySettingsAPI.updateByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePrivacySettings'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeePrivacySettings'
+      x-replaced-by: /v0/administration/employees/{employee_id}/privacy_settings
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/privacy_settings:
+    put:
+      tags:
+      - EmployeePrivacySettings
+      summary: Update the employee privacy settings corresponding to the given id
+      operationId: EmployeePrivacySettingsAPI.updateByEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePrivacySettings'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeePrivacySettings'
+      x-replacement-for:
+      - /t/employees/{employee_id}/privacy_settings
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    EmployeePrivacySettings:
+      type: object
+      properties:
+        employeeObjectId:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        shareBirthDay:
+          type: boolean
+        sharePrivateEmailAddress:
+          type: boolean
+        sharePrivateTelephoneNumber:
+          type: boolean
+        shareResidence:
+          type: boolean
+      description: EmployeePrivacySettings model (no description)
+      example:
+        employeeObjectId: 1
+        shareBirthDay: true
+        sharePrivateEmailAddress: true
+        sharePrivateTelephoneNumber: true
+        shareResidence: true
+      xml:
+        name: employeePrivacySettings
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

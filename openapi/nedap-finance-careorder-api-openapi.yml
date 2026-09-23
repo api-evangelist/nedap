@@ -1,0 +1,799 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Care Order API
+  version: 0.0.0
+  description: 'Operations tagged finance.CareOrder across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.CareOrder
+paths:
+  /t/finance/care_orders:
+    post:
+      tags:
+      - finance.CareOrder
+      summary: Create CareOrder
+      operationId: finance.CareOrderAPI.create
+      requestBody:
+        description: CareOrder to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.CareOrder'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/care_orders
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_orders/{id}:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: Return the CareOrder corresponding to the given id
+      operationId: finance.CareOrderAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '404':
+          description: CareOrder does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/care_orders/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - finance.CareOrder
+      summary: Updates the given CareOrder
+      operationId: finance.CareOrderAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: CareOrder to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.CareOrder'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '400':
+          description: ID of model does not match path
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/care_orders/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - finance.CareOrder
+      summary: Deletes the CareOrder with given id
+      operationId: finance.CareOrderAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the care order
+        '400':
+          description: Missing ID, or Careorder is assigned to a client, or the care order has care order products assigned
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/care_orders/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_orders/by_client_and_finance_type/{client_object_id}:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: If you are looking for 'zorglegitimaties', then you can use the CareOrder API
+      operationId: finance.CareOrderAPI.byClientAndFinanceType
+      parameters:
+      - name: client_object_id
+        in: path
+        description: ID of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: financetypeObjectId
+        in: query
+        description: ID of the finance type
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderList'
+      x-replaced-by: /v0/administration/finance/care_orders/by_client_and_finance_type/{client_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_orders/by_client/{client_id}:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: If you are looking for 'zorglegitimaties', then you can use the CareOrder API
+      operationId: finance.CareOrderAPI.byClient
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderList'
+      x-replaced-by: /v0/administration/finance/care_orders/by_client/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_orders/by_identification_no/{identification_no}:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: Finds a CareOrder by its identification number ('legitimatienummer')
+      description: In the returned model the identification number is named "userIdentifier".
+      operationId: finance.CareOrderAPI.byIdentificationNo
+      parameters:
+      - name: identification_no
+        in: path
+        description: 'The identification number (Dutch: legitimatienummer) of the care order to find.'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+      x-replaced-by: /v0/administration/finance/care_orders/by_identification_no/{identification_no}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_orders/x-stream-connect/data:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: Return all CareOrder models in a streaming manner
+      operationId: finance.CareOrderAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/care_orders/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/care_orders/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: Return all CareOrder models which where updated since the date given in the…
+      operationId: finance.CareOrderAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/care_orders/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/care_orders:
+    post:
+      tags:
+      - finance.CareOrder
+      summary: Create CareOrder
+      operationId: finance.CareOrderAPI.create
+      requestBody:
+        description: CareOrder to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.CareOrder'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_orders
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/care_orders/{id}:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: Return the CareOrder corresponding to the given id
+      operationId: finance.CareOrderAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '404':
+          description: CareOrder does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_orders/{id}
+    put:
+      tags:
+      - finance.CareOrder
+      summary: Updates the given CareOrder
+      operationId: finance.CareOrderAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: CareOrder to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/finance.CareOrder'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '400':
+          description: ID of model does not match path
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_orders/{id}
+    delete:
+      tags:
+      - finance.CareOrder
+      summary: Deletes the CareOrder with given id
+      operationId: finance.CareOrderAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareOrder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the care order
+        '400':
+          description: Missing ID, or Careorder is assigned to a client, or the care order has care order products assigned
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_orders/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/care_orders/by_client_and_finance_type/{client_object_id}:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: If you are looking for 'zorglegitimaties', then you can use the CareOrder API
+      operationId: finance.CareOrderAPI.byClientAndFinanceType
+      parameters:
+      - name: client_object_id
+        in: path
+        description: ID of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: financetypeObjectId
+        in: query
+        description: ID of the finance type
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderList'
+      x-replacement-for:
+      - /t/finance/care_orders/by_client_and_finance_type/{client_object_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/care_orders/by_client/{client_id}:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: If you are looking for 'zorglegitimaties', then you can use the CareOrder API
+      operationId: finance.CareOrderAPI.byClient
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderList'
+      x-replacement-for:
+      - /t/finance/care_orders/by_client/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/care_orders/by_identification_no/{identification_no}:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: Finds a CareOrder by its identification number ('legitimatienummer')
+      description: In the returned model the identification number is named "userIdentifier".
+      operationId: finance.CareOrderAPI.byIdentificationNo
+      parameters:
+      - name: identification_no
+        in: path
+        description: 'The identification number (Dutch: legitimatienummer) of the care order to find.'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+      x-replacement-for:
+      - /t/finance/care_orders/by_identification_no/{identification_no}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/care_orders/data:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: Return all CareOrder models in a streaming manner
+      operationId: finance.CareOrderAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_orders/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/care_orders/updates:
+    get:
+      tags:
+      - finance.CareOrder
+      summary: Return all CareOrder models which where updated since the date given in the…
+      operationId: finance.CareOrderAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.CareOrderList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.CareOrder'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/care_orders/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.CareOrder:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        userIdentifier:
+          type: string
+          description: Identification number of this care order, provided by the user, or in some cases derived from the lawIdentification.
+        clientIdentifier:
+          type: string
+          description: Legal identifier of the client this care order belongs to. This is not necessarily the same as the client number of the client.
+        beschikkingsNummer:
+          type: string
+          description: 'Deprecated since: 23-07-2021 use lawIdentification instead'
+          deprecated: true
+        lawIdentification:
+          type: string
+          description: Identification number of this care order, provided by the authority that issued this care order.
+        indicatieorgaanCode:
+          type: string
+          description: Code of the indicatieorgaan that issued this care order, only used by old pre-2015 AWBZ care orders.
+        aanvraagNummer:
+          type: string
+          description: Request number for the care order (if applicable).
+        issueDate:
+          type: string
+          description: Date and time this care order was issued. In particular important for the clipping (veeg) mechanism.
+          format: date-time
+        contactPerson:
+          type: string
+          description: Contact person, only used by old pre-2015 AWBZ care orders.
+        comments:
+          type: string
+          description: Comments, generally only used by old pre-2015 AWBZ care orders.
+        beginDate:
+          type: string
+          description: Begin date of the care order, the time component is ignored, and considered to be 00:00:00.
+          format: date-time
+        endDate:
+          type: string
+          description: End date of the care order, the time component is ignored, and considered to be 23:59:59.
+          format: date-time
+        clientId:
+          type: integer
+          description: ID of the client this care order belongs to.
+          format: int64
+        financeTypeId:
+          type: integer
+          description: ID of the finance type this care order belongs to.
+          format: int64
+        debtorId:
+          type: integer
+          description: ID of the debtor that this care order belongs to.
+          format: int64
+        careOrderProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.CareOrderProduct'
+          xml:
+            wrapped: true
+      description: CareOrder model (no description)
+      example:
+        id: 1
+        userIdentifier: Dummy
+        clientIdentifier: Dummy
+        beschikkingsNummer: Dummy
+        lawIdentification: Dummy
+        indicatieorgaanCode: Dummy
+        aanvraagNummer: Dummy
+        issueDate: '2014-12-29T00:00:00.000+01:00'
+        contactPerson: Dummy
+        comments: Dummy
+        beginDate: '2014-12-29T00:00:00.000+01:00'
+        endDate: '2014-12-29T00:00:00.000+01:00'
+        clientId: 1
+        financeTypeId: 1
+        debtorId: 1
+        careOrderProducts:
+        - id: 2
+          careOrderId: 1
+          userIdentifier: '1'
+          quantity: 1
+          quantityUnit: MinutesPerWeek
+          magnitudeQuantityValue: 1
+          magnitudeUnitQuantity: 1
+          magnitudeUnitType: MINUTE
+          magnitudeFrequency: PER_WEEK
+          comments: comments
+          productId: 1
+          financeTypeId: 1
+          instellingsCode: ABCD
+          functietype: ZZP
+          debtorId: 1
+          beginDate: '2014-12-29T00:00:00.000+01:00'
+          endDate: '2014-12-29T00:00:00.000+01:00'
+          clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+          clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+      xml:
+        name: careOrder
+    finance.CareOrderProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        careOrderId:
+          type: integer
+          description: ID of the care order this care order product belongs to.
+          format: int64
+        userIdentifier:
+          type: string
+        quantity:
+          type: integer
+          description: 'Deprecated since: 14-03-2019'
+          format: int32
+          deprecated: true
+        quantityUnit:
+          type: string
+          description: 'Deprecated since: 14-03-2019'
+          deprecated: true
+        magnitudeQuantityValue:
+          type: integer
+          description: 'Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].
+
+            For example 30 * 1 minute per week. This value represents the quantityValue part and is mandatory.'
+          format: int32
+        magnitudeUnitQuantity:
+          type: integer
+          description: 'Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].
+
+            For example 30 * 1 minute per week. This value represents the unitQuantity part and it can be omitted.
+
+            In most cases this is 1.'
+          format: int32
+        magnitudeUnitType:
+          type: string
+          description: "Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].\nFor example 30 * 1 minute per week. This value represents the unitType part and it can be omitted.\nThe following values are supported:\n  - EURO_CENT\n  - PIECE\n  - MINUTE\n  - HOUR"
+        magnitudeFrequency:
+          type: string
+          description: "Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].\nFor example 30 * 1 minute per week. This value represents the frequency part and it can be omitted.\nThe following values are supported:\n  - PER_DAG\n  - PER_WEEK\n  - PER_VIER_WEKEN\n  - PER_MAAND\n  - PER_JAAR\n  - PER_TRAJECT"
+        comments:
+          type: string
+          description: Comments, generally only used by old pre-2015 AWBZ care order products.
+        productId:
+          type: integer
+          description: ID of the product that this care order product is for
+          format: int64
+        financeTypeId:
+          type: integer
+          description: ID of the finance type this care order product belongs to.
+          format: int64
+        instellingsCode:
+          type: string
+          description: AGB code of the care provider responsible for handling this care order product
+        functietype:
+          type: string
+          description: 'Deprecated: field was never set.'
+          deprecated: true
+          x-deprecated-since: 14-10-2021
+        debtorId:
+          type: integer
+          description: ID of the debtor that this care order product belongs to.
+          format: int64
+        beginDate:
+          type: string
+          description: Original begin date of the care order product, the time component is ignored, and considered to be 00:00:00.
+          format: date-time
+        endDate:
+          type: string
+          description: Original end date of the care order product, the time component is ignored, and considered to be 23:59:59.
+          format: date-time
+        clippedBeginDate:
+          type: string
+          description: Begin date of the care order product after clipping (vegen), the time component is ignored, and considered to be 00:00:00.
+          format: date-time
+        clippedEndDate:
+          type: string
+          description: End date of the care order product after clipping (vegen), the time component is ignored, and considered to be 23:59:59.
+          format: date-time
+      description: CareOrderProduct model (no description)
+      example:
+        id: 1
+        careOrderId: 1
+        userIdentifier: '1'
+        quantity: 1
+        quantityUnit: MinutesPerWeek
+        magnitudeQuantityValue: 1
+        magnitudeUnitQuantity: 1
+        magnitudeUnitType: MINUTE
+        magnitudeFrequency: PER_WEEK
+        comments: comments
+        productId: 1
+        financeTypeId: 1
+        instellingsCode: ABCD
+        functietype: ZZP
+        debtorId: 1
+        beginDate: '2014-12-29T00:00:00.000+01:00'
+        endDate: '2014-12-29T00:00:00.000+01:00'
+        clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+        clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+      xml:
+        name: careOrderProduct
+    finance.list.CareOrderList:
+      type: object
+      properties:
+        careOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.CareOrder'
+          xml:
+            name: careOrder
+      description: CareOrderList model (no description)
+      example:
+        careOrders:
+        - id: 1
+          userIdentifier: Dummy
+          clientIdentifier: Dummy
+          beschikkingsNummer: Dummy
+          lawIdentification: Dummy
+          indicatieorgaanCode: Dummy
+          aanvraagNummer: Dummy
+          issueDate: '2014-12-29T00:00:00.000+01:00'
+          contactPerson: Dummy
+          comments: Dummy
+          beginDate: '2014-12-29T00:00:00.000+01:00'
+          endDate: '2014-12-29T00:00:00.000+01:00'
+          clientId: 1
+          financeTypeId: 1
+          debtorId: 1
+          careOrderProducts:
+          - id: 1
+            careOrderId: 1
+            userIdentifier: '1'
+            quantity: 1
+            quantityUnit: MinutesPerWeek
+            magnitudeQuantityValue: 1
+            magnitudeUnitQuantity: 1
+            magnitudeUnitType: MINUTE
+            magnitudeFrequency: PER_WEEK
+            comments: comments
+            productId: 1
+            financeTypeId: 1
+            instellingsCode: ABCD
+            functietype: ZZP
+            debtorId: 1
+            beginDate: '2014-12-29T00:00:00.000+01:00'
+            endDate: '2014-12-29T00:00:00.000+01:00'
+            clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+            clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+          - id: 2
+            careOrderId: 1
+            userIdentifier: '1'
+            quantity: 2
+            quantityUnit: MinutesPerWeek
+            magnitudeQuantityValue: 1
+            magnitudeUnitQuantity: 1
+            magnitudeUnitType: MINUTE
+            magnitudeFrequency: PER_WEEK
+            comments: comments
+            productId: 1
+            financeTypeId: 1
+            instellingsCode: ABCD
+            functietype: ZZP
+            debtorId: 1
+            beginDate: '2014-12-29T00:00:00.000+01:00'
+            endDate: '2014-12-29T00:00:00.000+01:00'
+            clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+            clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+      xml:
+        name: careOrders
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

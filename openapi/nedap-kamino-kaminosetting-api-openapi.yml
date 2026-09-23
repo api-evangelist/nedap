@@ -1,0 +1,245 @@
+openapi: 3.2.0
+info:
+  title: Nedap Kamino.Kamino Setting API
+  version: 0.0.0
+  description: 'Operations tagged kamino.KaminoSetting across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: kamino.KaminoSetting
+paths:
+  /t/employees/{employee_id}/kamino_setting:
+    get:
+      tags:
+      - kamino.KaminoSetting
+      summary: Return the kamino setting of a employee corresponding to the given employee id
+      description: Return the kamino setting of a employee corresponding to the given employee id.
+      operationId: kamino.KaminoSettingAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kamino.KaminoSetting'
+        '403':
+          description: Unauthorized without customer header
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kamino.Error'
+        '404':
+          description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kamino.Error'
+      x-replaced-by: /v0/berichten/employees/{employee_id}/setting
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    patch:
+      tags:
+      - kamino.KaminoSetting
+      summary: Updates the kamino setting of the employee corresponding to the given employee…
+      description: Updates the kamino setting of the employee corresponding to the given employee id.
+      operationId: kamino.KaminoSettingAPI.update
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/kamino.KaminoSetting'
+        required: true
+      responses:
+        '204':
+          description: If successfully patched the setting
+          content: {}
+        '403':
+          description: Unauthorized without customer header
+          content: {}
+        '404':
+          description: Employee not found
+          content: {}
+      x-replaced-by: /v0/berichten/employees/{employee_id}/setting
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/berichten/employees/{employee_id}/setting:
+    get:
+      tags:
+      - kamino.KaminoSetting
+      summary: Return the kamino setting of a employee corresponding to the given employee id
+      description: Return the kamino setting of a employee corresponding to the given employee id.
+      operationId: kamino.KaminoSettingAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kamino.KaminoSetting'
+        '403':
+          description: Unauthorized without customer header
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kamino.Error'
+        '404':
+          description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kamino.Error'
+      x-replacement-for:
+      - /t/employees/{employee_id}/kamino_setting
+    patch:
+      tags:
+      - kamino.KaminoSetting
+      summary: Updates the kamino setting of the employee corresponding to the given employee…
+      description: Updates the kamino setting of the employee corresponding to the given employee id.
+      operationId: kamino.KaminoSettingAPI.update
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/kamino.KaminoSetting'
+        required: true
+      responses:
+        '204':
+          description: If successfully patched the setting
+          content: {}
+        '403':
+          description: Unauthorized without customer header
+          content: {}
+        '404':
+          description: Employee not found
+          content: {}
+      x-replacement-for:
+      - /t/employees/{employee_id}/kamino_setting
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    kamino.Error:
+      required:
+      - error
+      - message
+      type: object
+      properties:
+        error:
+          type: string
+          description: 'Machine-parseable error code.
+
+
+            At least the following errors can be returned:
+
+            * `401 Unauthorized: token_missing`
+
+            * `401 Unauthorized: token_unauthorized`
+
+            * `401 Unauthorized: token_expired`
+
+            * `401 Unauthorized: token_missing`
+
+            * `403 Forbidden: employee_without_team`
+
+            * `404 Not Found: not_found`
+
+            * `422 Unprocessable Entity: validation_failed`
+
+            * `500 Internal Server Error: internal_server_error`
+
+            * `503 Service Unavailable: service_unavailable`
+
+            '
+          example: validation_failed
+        message:
+          type: string
+          description: Human readable message, giving more details about the error. These messages might change and may _never_ be shown to users.
+          example: 'Validation failed: Body can''t be blank'
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/kamino.ErrorParam'
+          description: Any params attached to this error. For instance an array of fields which failed validation.
+          example:
+          - code: missing_field
+            field: body
+            resource: Message
+      description: The Kamino API uses HTTP response code to indicate success or failure. When an error occurs, the JSON response can be used to determine what action to take.
+      example:
+        error: validation_failed
+        message: 'Validation failed: Body can''t be blank'
+        params:
+        - code: missing_field
+          field: body
+          resource: Message
+    kamino.KaminoSetting:
+      type: object
+      properties:
+        notifyForTeamMessages:
+          type:
+          - boolean
+          - 'null'
+          xml:
+            name: notifyForTeamMessages
+      description: KaminoSetting model (no description)
+      example:
+        notifyForTeamMessages: true
+      xml:
+        name: kaminoSetting
+    kamino.ErrorParam:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-parseable error code.
+          example: missing_field
+        field:
+          type: string
+          description: The field in which the error occurred.
+          example: body
+        resource:
+          type: string
+          description: The resource on which the error occurred.
+          example: Message
+      description: Kamino ErrorParam model (no description)
+      example:
+        code: missing_field
+        field: body
+        resource: Message
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

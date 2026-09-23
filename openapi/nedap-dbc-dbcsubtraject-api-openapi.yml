@@ -1,0 +1,386 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dbc.DBC Sub Traject API
+  version: 0.0.0
+  description: 'Operations tagged dbc.DBCSubTraject across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dbc.DBCSubTraject
+paths:
+  /t/dbc/dbc_sub_trajects/{id}:
+    get:
+      tags:
+      - dbc.DBCSubTraject
+      summary: Return the specific dbcsubtraject as specified by the id
+      operationId: dbc.DBCSubTrajectAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DBCSubTraject
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.DBCSubTraject'
+        '404':
+          description: DBCSubtraject not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dbc/dbc_sub_trajects/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dbc/dbc_sub_trajects/in_period:
+    get:
+      tags:
+      - dbc.DBCSubTraject
+      summary: Return all dbc subtrajects that have been active at any time in the requested…
+      operationId: dbc.DBCSubTrajectAPI.byPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        description: begindate of the period (inclusive)
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: enddate of the period (exclusive)
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.list.DBCSubTrajectList'
+      x-replaced-by: /v0/administration/dbc/dbc_sub_trajects/in_period
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dbc/dbc_trajects/{dbc_traject_id}/dbc_sub_trajects:
+    get:
+      tags:
+      - dbc.DBCSubTraject
+      summary: Return the DBCSubTrajects of a DBCTraject corresponding to the given id
+      operationId: dbc.DBCSubTrajectAPI.byDBCTrajectId
+      parameters:
+      - name: dbc_traject_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.list.DBCSubTrajectList'
+      x-replaced-by: /v0/administration/dbc/dbc_trajects/{dbc_traject_id}/dbc_sub_trajects
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dbc/dbc_sub_trajects/{id}:
+    get:
+      tags:
+      - dbc.DBCSubTraject
+      summary: Return the specific dbcsubtraject as specified by the id
+      operationId: dbc.DBCSubTrajectAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting DBCSubTraject
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.DBCSubTraject'
+        '404':
+          description: DBCSubtraject not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dbc/dbc_sub_trajects/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dbc/dbc_sub_trajects/in_period:
+    get:
+      tags:
+      - dbc.DBCSubTraject
+      summary: Return all dbc subtrajects that have been active at any time in the requested…
+      operationId: dbc.DBCSubTrajectAPI.byPeriod
+      parameters:
+      - name: valid_from
+        in: query
+        description: begindate of the period (inclusive)
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: enddate of the period (exclusive)
+        schema:
+          type: string
+          format: date
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.list.DBCSubTrajectList'
+      x-replacement-for:
+      - /t/dbc/dbc_sub_trajects/in_period
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dbc/dbc_trajects/{dbc_traject_id}/dbc_sub_trajects:
+    get:
+      tags:
+      - dbc.DBCSubTraject
+      summary: Return the DBCSubTrajects of a DBCTraject corresponding to the given id
+      operationId: dbc.DBCSubTrajectAPI.byDBCTrajectId
+      parameters:
+      - name: dbc_traject_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dbc.list.DBCSubTrajectList'
+      x-replacement-for:
+      - /t/dbc/dbc_trajects/{dbc_traject_id}/dbc_sub_trajects
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dbc.list.DBCSubTrajectList:
+      type: object
+      properties:
+        dbcSubTrajects:
+          type: array
+          items:
+            $ref: '#/components/schemas/dbc.DBCSubTraject'
+          xml:
+            name: dbcSubTraject
+      description: DBCSubTrajectList model (no description)
+      example:
+        dbcSubTrajects:
+        - updatedAt: '2014-09-17T00:00:00.000+02:00'
+          createdAt: '2014-09-17T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 1
+          source: Dummy
+          dbcIdentifier: Dummy
+          clientId: 1
+          clientIdentifier: Dummy
+          financeTypeId: 1
+          contactPerson: Dummy
+          startDate: '2014-09-17T00:00:00.000+02:00'
+          endDate: '2014-09-17T00:00:00.000+02:00'
+          issueDate: '2014-09-17T00:00:00.000+02:00'
+          startDateClipped: '2014-09-17T00:00:00.000+02:00'
+          endDateClipped: '2014-09-17T00:00:00.000+02:00'
+          debtorId: 1
+          comments: Dummy
+          dbcDiagnosisCode: Dummy
+          endOfCare: '2014-09-17T00:00:00.000+02:00'
+          afsluitingsCode: Dummy
+          zorgTypeCode: Dummy
+          resignationDestination: Dummy
+          dischargeDestinationId: 1
+          transport: true
+          grouperCheck: true
+          dbcTrajectId: 1
+      xml:
+        name: dbcSubTrajects
+    dbc.DBCSubTraject:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        source:
+          type: string
+        dbcIdentifier:
+          type: string
+        clientId:
+          type: integer
+          format: int64
+        clientIdentifier:
+          type: string
+        financeTypeId:
+          type: integer
+          format: int64
+        contactPerson:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        issueDate:
+          type: string
+          format: date-time
+        startDateClipped:
+          type: string
+          format: date-time
+        endDateClipped:
+          type: string
+          format: date-time
+        debtorId:
+          type: integer
+          format: int64
+        comments:
+          type: string
+        dbcDiagnosisCode:
+          type: string
+        endOfCare:
+          type: string
+          format: date-time
+        afsluitingsCode:
+          type: string
+        zorgTypeCode:
+          type: string
+        resignationDestination:
+          type: string
+          deprecated: true
+          x-deprecated-since: 24-08-2026
+        dischargeDestinationId:
+          type: integer
+          format: int64
+        transport:
+          type: boolean
+        grouperCheck:
+          type: boolean
+        dbcTrajectId:
+          type: integer
+          format: int64
+      description: DBC sub traject, a.k.a. DBCCareOrder in Administration.
+      example:
+        updatedAt: '2014-09-17T00:00:00.000+02:00'
+        createdAt: '2014-09-17T00:00:00.000+02:00'
+        createdBy: Dummy
+        id: 1
+        source: Dummy
+        dbcIdentifier: Dummy
+        clientId: 1
+        clientIdentifier: Dummy
+        financeTypeId: 1
+        contactPerson: Dummy
+        startDate: '2014-09-17T00:00:00.000+02:00'
+        endDate: '2014-09-17T00:00:00.000+02:00'
+        issueDate: '2014-09-17T00:00:00.000+02:00'
+        startDateClipped: '2014-09-17T00:00:00.000+02:00'
+        endDateClipped: '2014-09-17T00:00:00.000+02:00'
+        debtorId: 1
+        comments: Dummy
+        dbcDiagnosisCode: Dummy
+        endOfCare: '2014-09-17T00:00:00.000+02:00'
+        afsluitingsCode: Dummy
+        zorgTypeCode: Dummy
+        resignationDestination: Dummy
+        dischargeDestinationId: 1
+        transport: true
+        grouperCheck: true
+        dbcTrajectId: 1
+      xml:
+        name: dbcSubTraject
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

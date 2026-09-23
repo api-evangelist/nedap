@@ -1,0 +1,1711 @@
+openapi: 3.2.0
+info:
+  title: Nedap Tasque.Care Task Occurrence API
+  version: 0.0.0
+  description: 'Operations tagged tasque.CareTaskOccurrence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: tasque.CareTaskOccurrence
+paths:
+  /t/tasque/care_task_occurrences/{id}:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      operationId: tasque.CareTaskOccurrenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskOccurrence
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Tasque care task occurrence API by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/destroy_following:
+    delete:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Removes the given task occurrences item and all of the following occurrences of…
+      operationId: tasque.CareTaskOccurrenceAPI.destroyFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '204':
+          description: If successfully removed the care task occurrences
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/destroy_following
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/destroy_incidentally:
+    delete:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Removes the given task occurrence item
+      operationId: tasque.CareTaskOccurrenceAPI.destroyIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '204':
+          description: If successfully removed the care task occurrence
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/destroy_incidentally
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/finish:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Set state of the given task occurrence to finish
+      operationId: tasque.CareTaskOccurrenceAPI.finish
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/finish
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/next_date/{date}:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      operationId: tasque.CareTaskOccurrenceAPI.nextById
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskOccurrence
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: used for find the next occurrence
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/next_date/{date}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Tasque care task occurrence API next by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/next_date/{date}/destroy_following:
+    delete:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Find the next CareTaskOccurrence based on the id and a baseline search date and…
+      operationId: tasque.CareTaskOccurrenceAPI.destroyNextFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: The date from which the search for the next occurrence should be done
+        required: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/next_date/{date}/destroy_following
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/next_date/{date}/destroy_incidentally:
+    delete:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Find the next CareTaskOccurrence based on the id and a baseline search date and…
+      operationId: tasque.CareTaskOccurrenceAPI.destroyNextIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: The date from which the search for the next occurrence should be done
+        required: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/next_date/{date}/destroy_incidentally
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/next_date/{date}/update_following:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Find the next CareTaskOccurrence based on the id and a baseline search date and…
+      operationId: tasque.CareTaskOccurrenceAPI.updateNextFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: The date from which the search for the next occurrence should be done
+        required: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/next_date/{date}/update_following
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/next_date/{date}/update_incidentally:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Find the next CareTaskOccurrence based on the id and a baseline search date and…
+      operationId: tasque.CareTaskOccurrenceAPI.updateNextIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: The date from which the search for the next occurrence should be done
+        required: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/next_date/{date}/update_incidentally
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/update_following:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Updates the given CareTaskOccurrence item and all of the following occurrences…
+      operationId: tasque.CareTaskOccurrenceAPI.updateFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/update_following
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/{id}/update_incidentally:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Updates only the given CareTaskOccurrence item
+      operationId: tasque.CareTaskOccurrenceAPI.updateIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replaced-by: /v0/taken/care_task_occurrences/{id}/update_incidentally
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/by_sub_type_id/{sub_type_id}:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for the given sub-type and sub-type query
+      operationId: tasque.CareTaskOccurrenceAPI.bySubType
+      parameters:
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: path
+        description: sub_type_id of task
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replaced-by: /v0/taken/care_task_occurrences/by_sub_type_id/{sub_type_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/tasque/care_task_occurrences/client_ids_by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Query unique pairs [, , ] by sub type
+      operationId: tasque.CareTaskOccurrenceAPI.getClientIdsBySubType
+      parameters:
+      - name: sub_type_query
+        in: query
+        description: String to match tasks that have a 'sub_type' starting with this string.
+        required: true
+        schema:
+          type: string
+        example: care_plan_
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.ClientIdBySubTypeList'
+      x-replaced-by: /v0/taken/care_task_occurrences/client_ids_by_sub_type
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/care_task_occurrences:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences of a Client corresponding to the given id
+      operationId: tasque.CareTaskOccurrenceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: include_finished
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replaced-by: /v0/taken/clients/{client_id}/care_task_occurrences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/care_task_occurrences/by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for a client and the given sub-type and…
+      operationId: tasque.CareTaskOccurrenceAPI.byClientAndSubType
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replaced-by: /v0/taken/clients/{client_id}/care_task_occurrences/by_sub_type
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/care_task_occurrences/by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for a employee and the given sub-type and…
+      operationId: tasque.CareTaskOccurrenceAPI.byEmployeeAndSubType
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replaced-by: /v0/taken/employees/{employee_id}/care_task_occurrences/by_sub_type
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/locations/{location_id}/care_task_occurrences:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences of a Location corresponding to the given id
+      operationId: tasque.CareTaskOccurrenceAPI.byLocationId
+      parameters:
+      - name: location_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: include_finished
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replaced-by: /v0/taken/locations/{location_id}/care_task_occurrences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/locations/{location_id}/care_task_occurrences/by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for a location and the given sub-type and…
+      operationId: tasque.CareTaskOccurrenceAPI.byLocationAndSubType
+      parameters:
+      - name: location_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replaced-by: /v0/taken/locations/{location_id}/care_task_occurrences/by_sub_type
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams/{team_id}/care_task_occurrences/by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for a team and the given sub-type and…
+      operationId: tasque.CareTaskOccurrenceAPI.byTeamAndSubType
+      parameters:
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replaced-by: /v0/taken/teams/{team_id}/care_task_occurrences/by_sub_type
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      operationId: tasque.CareTaskOccurrenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskOccurrence
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}
+      summary: Tasque care task occurrence API by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/destroy_following:
+    delete:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Removes the given task occurrences item and all of the following occurrences of…
+      operationId: tasque.CareTaskOccurrenceAPI.destroyFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '204':
+          description: If successfully removed the care task occurrences
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/destroy_following
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/destroy_incidentally:
+    delete:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Removes the given task occurrence item
+      operationId: tasque.CareTaskOccurrenceAPI.destroyIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '204':
+          description: If successfully removed the care task occurrence
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/destroy_incidentally
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/finish:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Set state of the given task occurrence to finish
+      operationId: tasque.CareTaskOccurrenceAPI.finish
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/finish
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/next_date/{date}:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      operationId: tasque.CareTaskOccurrenceAPI.nextById
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting CareTaskOccurrence
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: used for find the next occurrence
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/next_date/{date}
+      summary: Tasque care task occurrence API next by id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/next_date/{date}/destroy_following:
+    delete:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Find the next CareTaskOccurrence based on the id and a baseline search date and…
+      operationId: tasque.CareTaskOccurrenceAPI.destroyNextFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: The date from which the search for the next occurrence should be done
+        required: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/next_date/{date}/destroy_following
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/next_date/{date}/destroy_incidentally:
+    delete:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Find the next CareTaskOccurrence based on the id and a baseline search date and…
+      operationId: tasque.CareTaskOccurrenceAPI.destroyNextIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to delete.
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: The date from which the search for the next occurrence should be done
+        required: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        description: AgendaOccurrence to remove
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/next_date/{date}/destroy_incidentally
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/next_date/{date}/update_following:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Find the next CareTaskOccurrence based on the id and a baseline search date and…
+      operationId: tasque.CareTaskOccurrenceAPI.updateNextFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: The date from which the search for the next occurrence should be done
+        required: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/next_date/{date}/update_following
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/next_date/{date}/update_incidentally:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Find the next CareTaskOccurrence based on the id and a baseline search date and…
+      operationId: tasque.CareTaskOccurrenceAPI.updateNextIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: path
+        description: The date from which the search for the next occurrence should be done
+        required: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/next_date/{date}/update_incidentally
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/update_following:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Updates the given CareTaskOccurrence item and all of the following occurrences…
+      operationId: tasque.CareTaskOccurrenceAPI.updateFollowing
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/update_following
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/{id}/update_incidentally:
+    put:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Updates only the given CareTaskOccurrence item
+      operationId: tasque.CareTaskOccurrenceAPI.updateIncidentally
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of CareTaskOccurrence to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/{id}/update_incidentally
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/by_sub_type_id/{sub_type_id}:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for the given sub-type and sub-type query
+      operationId: tasque.CareTaskOccurrenceAPI.bySubType
+      parameters:
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: path
+        description: sub_type_id of task
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/by_sub_type_id/{sub_type_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/care_task_occurrences/client_ids_by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Query unique pairs [, , ] by sub type
+      operationId: tasque.CareTaskOccurrenceAPI.getClientIdsBySubType
+      parameters:
+      - name: sub_type_query
+        in: query
+        description: String to match tasks that have a 'sub_type' starting with this string.
+        required: true
+        schema:
+          type: string
+        example: care_plan_
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.ClientIdBySubTypeList'
+      x-replacement-for:
+      - /t/tasque/care_task_occurrences/client_ids_by_sub_type
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/clients/{client_id}/care_task_occurrences:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences of a Client corresponding to the given id
+      operationId: tasque.CareTaskOccurrenceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      - name: include_finished
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replacement-for:
+      - /t/clients/{client_id}/care_task_occurrences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/clients/{client_id}/care_task_occurrences/by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for a client and the given sub-type and…
+      operationId: tasque.CareTaskOccurrenceAPI.byClientAndSubType
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replacement-for:
+      - /t/clients/{client_id}/care_task_occurrences/by_sub_type
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/employees/{employee_id}/care_task_occurrences/by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for a employee and the given sub-type and…
+      operationId: tasque.CareTaskOccurrenceAPI.byEmployeeAndSubType
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/care_task_occurrences/by_sub_type
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/locations/{location_id}/care_task_occurrences:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences of a Location corresponding to the given id
+      operationId: tasque.CareTaskOccurrenceAPI.byLocationId
+      parameters:
+      - name: location_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_from
+      - name: to
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        x-original-parameter:
+          name: valid_to
+      - name: include_finished
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replacement-for:
+      - /t/locations/{location_id}/care_task_occurrences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/locations/{location_id}/care_task_occurrences/by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for a location and the given sub-type and…
+      operationId: tasque.CareTaskOccurrenceAPI.byLocationAndSubType
+      parameters:
+      - name: location_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replacement-for:
+      - /t/locations/{location_id}/care_task_occurrences/by_sub_type
+    servers:
+    - url: https://api-development.ons.io
+  /v0/taken/teams/{team_id}/care_task_occurrences/by_sub_type:
+    get:
+      tags:
+      - tasque.CareTaskOccurrence
+      summary: Returns the care task occurrences for a team and the given sub-type and…
+      operationId: tasque.CareTaskOccurrenceAPI.byTeamAndSubType
+      parameters:
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sub_type_query
+        in: query
+        description: regex for sub_type
+        required: true
+        schema:
+          type: string
+      - name: sub_type_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasque.list.CareTaskOccurrenceList'
+      x-replacement-for:
+      - /t/teams/{team_id}/care_task_occurrences/by_sub_type
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    tasque.Subject:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        employeeId:
+          type: integer
+          format: int64
+        locationId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
+      description: A client, employee, location or team
+      example:
+        clientId: 1
+        employeeId: 1
+        locationId: 1
+        teamId: 1
+    tasque.list.ClientIdBySubTypeList:
+      type: object
+      properties:
+        clientIdsBySubType:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/tasque.ClientIdBySubType'
+            xml:
+              name: clientIdBySubType
+      description: ClientIdBySubTypeList model (no description)
+      example:
+        clientIdsBySubType:
+        - subType: test_task_group_16
+          subTypeId: '1'
+          clientId: 2
+        - subType: test_task_group_16
+          subTypeId: '1'
+          clientId: 4
+    tasque.list.CareTaskOccurrenceList:
+      type: object
+      properties:
+        careTaskOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/tasque.CareTaskOccurrence'
+      description: CareTaskOccurrenceList model (no description)
+      example:
+        careTaskOccurrences:
+        - id: 123f3e3
+          uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+          occurrenceDate: '2012-08-02'
+          timelineId: 1
+          type: during
+          subType: CarePlan
+          subTypeId: '12'
+          limitView: true
+          name: Renew care plan
+          comment: no comment
+          validFrom: '2012-08-02'
+          validTo: '2012-09-02'
+          recurrenceType: single
+          monday: true
+          tuesday: true
+          wednesday: true
+          thursday: true
+          friday: true
+          saturday: true
+          sunday: true
+          cycleInterval: 1
+          subject:
+            clientId: 1
+            employeeId: 1
+            locationId: 1
+            teamId: 1
+          executors:
+          - employeeId: 1
+          creatorId: 12
+          finishDate: '2012-08-03'
+          finisherId: 12
+    tasque.CareTaskGroup:
+      required:
+      - namedPath
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: ID of task group provided by source
+          readOnly: true
+          x-cupido-id: true
+        namedPath:
+          type: string
+          description: Name of the task group including hierarchy when nesting via '/'
+        active:
+          type:
+          - boolean
+          - 'null'
+          description: True if task group is active globally
+        qualityTask:
+          type: boolean
+          description: True if task group is active and tasks are visible in Kwaliteitsmonitor
+        rights:
+          type: array
+          items:
+            type: string
+          description: A list of rights
+      description: Group of tasks with the same subtype
+      example:
+        id: care_plan_renew
+        namedPath: Dossier/Care plan/renewal
+        active: true
+        qualityTask: true
+        rights:
+        - client_overview
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    tasque.CareTaskOccurrence:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Occurrence ID, the combination of date and task id in hexidecimal format
+          x-cupido-id: true
+        uuid:
+          type: string
+          description: UUID from source or autogenerated to enforce uniqueness
+        occurrenceDate:
+          type: string
+          description: Date on which the task occurs
+          format: date
+        timelineId:
+          type: integer
+          description: Internal reference to the original task ID, mostly used for exceptions
+          format: int64
+        type:
+          type: string
+          description: 'The type of the task
+
+            <pre>
+
+            Possible values:
+
+            BeforeTask
+
+            DuringTask
+
+            </pre>'
+        subType:
+          type: string
+          description: 'Type of task to group multiple tasks.
+
+            For example care_plan_base_renew, survey_base_review, profile etc.'
+        subTypeId:
+          type: string
+          description: 'ID to uniquely identify the task in the subType.
+
+            For example in care_plan_base_renew the client id and for survey_base_review the survey id, etc.'
+        manual:
+          type: boolean
+          description: Manual tasks are allowed to mark as finished manually
+        limitView:
+          type: boolean
+          description: True if the task should only be visible to the executors
+        name:
+          type: string
+          description: The title of the task
+        comment:
+          type: string
+          description: A comment added to a task
+        url:
+          type: string
+          description: URL to where the task can be executed
+        validFrom:
+          type: string
+          description: Begin date of the task
+          format: date
+        validTo:
+          type: string
+          description: End date of the task
+          format: date
+        recurrenceType:
+          allOf:
+          - $ref: '#/components/schemas/RecurrenceType'
+          description: 'If and when the task should reoccure
+
+            <pre>
+
+            single
+
+            daily
+
+            weekly
+
+            monthly_on_day
+
+            monthly_on_week
+
+            yearly
+
+            </pre>'
+        startAfter:
+          type: string
+          description: The time on the validFrom date the task should be started to be executed
+          format: time
+        finishBefore:
+          type: string
+          description: The time on the validTo date the task should be finished before
+          format: time
+        expectedDuration:
+          type: integer
+          description: Expected duration of task in seconds
+          format: int32
+        monday:
+          type: boolean
+          description: True if task happens on Monday
+        tuesday:
+          type: boolean
+          description: True if task happens on Tuesday
+        wednesday:
+          type: boolean
+          description: True if task happens on Wednesday
+        thursday:
+          type: boolean
+          description: True if task happens on Thursday
+        friday:
+          type: boolean
+          description: True if task happens on Friday
+        saturday:
+          type: boolean
+          description: True if task happens on Saturday
+        sunday:
+          type: boolean
+          description: True if task happens on Sunday
+        cycleInterval:
+          type: integer
+          description: The interval of the cycle based on the recurrence type
+          format: int32
+          default: 0
+        cycleBase:
+          type: string
+          description: Date on which the task cycle starts
+          format: date
+        subject:
+          allOf:
+          - $ref: '#/components/schemas/tasque.Subject'
+          description: A client, employee, location or team
+        executors:
+          type: array
+          items:
+            $ref: '#/components/schemas/tasque.Executor'
+          description: A list of employees, locations, teams, expertise profiles or expertise groups
+        creatorId:
+          type: integer
+          description: ID of the person who created the task
+          format: int64
+        finishDate:
+          type: string
+          description: The date on which the task was finished
+          format: date
+        finisherId:
+          type: integer
+          description: ID of the person who finished the task
+          format: int64
+        careTaskGroup:
+          allOf:
+          - $ref: '#/components/schemas/tasque.CareTaskGroup'
+          description: Group of tasks with the same subtype
+        autoExpireAfter:
+          type: integer
+          format: int64
+        expiredDate:
+          type: string
+          format: date
+        morning:
+          type: boolean
+          description: True if task should happen in the morning
+        afternoon:
+          type: boolean
+          description: True is task should happen in the afternoon
+        evening:
+          type: boolean
+          description: True is task should happen in the evening
+        night:
+          type: boolean
+          description: True is task should happen in the night
+        userAuthorized:
+          type: boolean
+          description: True if the user is authorized to see the content of the task
+        rights:
+          type: array
+          items:
+            type: string
+          description: A list of rights
+        hideExpiredSubject:
+          type: boolean
+      description: Care Task occurrence domain model used by Cupido system. Only used for read, update and deleting existing care tasks
+      example:
+        id: 123f3e3
+        uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+        occurrenceDate: '2012-08-02'
+        timelineId: 1
+        type: during
+        subType: CarePlan
+        subTypeId: '12'
+        manual: true
+        limitView: true
+        name: Renew care plan
+        comment: no comment
+        url: /client/view/13/careplan
+        validFrom: '2012-08-02'
+        validTo: '2012-09-02'
+        recurrenceType: single
+        startAfter: '12:00:00.000'
+        finishBefore: '16:00:00.000'
+        expectedDuration: 120
+        monday: true
+        tuesday: true
+        wednesday: true
+        thursday: true
+        friday: true
+        saturday: true
+        sunday: true
+        cycleInterval: 1
+        cycleBase: '2010-01-01'
+        subject:
+          clientId: 13
+        executors:
+        - employeeId: 1
+        creatorId: 12
+        finishDate: '2012-08-03'
+        finisherId: 12
+        careTaskGroup:
+          id: care_plan_renew
+          namedPath: Dossier/Care plan/renewal
+          qualityTask: true
+        autoExpireAfter: 5
+        expiredDate: '2016-09-06'
+        morning: true
+        afternoon: true
+        evening: true
+        night: true
+        userAuthorized: true
+        rights:
+        - client_overview
+        hideExpiredSubject: true
+    tasque.Executor:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        locationId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
+        expertiseProfileId:
+          type: integer
+          format: int64
+        expertiseGroupId:
+          type: integer
+          format: int64
+      description: Executor model (no description)
+      example:
+        employeeId: 1
+        locationId: 1
+        teamId: 1
+        expertiseProfileId: 1
+        expertiseGroupId: 1
+    tasque.ClientIdBySubType:
+      type: object
+      properties:
+        subType:
+          type: string
+          description: sub type of task
+        subTypeId:
+          type: string
+          description: id of sub type of task
+        clientId:
+          type: integer
+          description: client id
+      description: ClientIdBySubType model (no description)
+      example:
+        subType: test_task_group_16
+        subTypeId: '1'
+        clientId: 2
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

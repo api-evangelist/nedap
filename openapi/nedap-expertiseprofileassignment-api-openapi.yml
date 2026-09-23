@@ -1,0 +1,642 @@
+openapi: 3.2.0
+info:
+  title: Nedap Expertise Profile Assignment API
+  version: 0.0.0
+  description: 'Operations tagged ExpertiseProfileAssignment across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ExpertiseProfileAssignment
+paths:
+  /t/employees/{employee_id}/expertise_profile_assignments:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return the expertise profile assignments of a Employee corresponding to the…
+      operationId: ExpertiseProfileAssignmentAPI.byEmployeeIdAndDateRange
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/expertise_profile_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expertise_profile_assignments:
+    post:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Create new expertise profile assignment for the Employee corresponding to the…
+      operationId: ExpertiseProfileAssignmentAPI.assignExpertiseProfileToEmployee
+      parameters:
+      - name: employee_id
+        in: query
+        description: employee id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpertiseProfileAssignmentUpdateModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '400':
+          description: Begin date is invalid, there is already an assignment starting at this date for this employee.
+        '404':
+          description: Employee or expertise profile not found
+      x-replaced-by: /v0/administration/expertise_profile_assignments
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expertise_profile_assignments/{id}:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return the expertise profile assignment corresponding to the given id
+      operationId: ExpertiseProfileAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ExpertiseProfileAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '404':
+          description: Expertise profile assignment not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/expertise_profile_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Update the expertise profile assignment corresponding to the given id
+      operationId: ExpertiseProfileAssignmentAPI.updateById
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ExpertiseProfileAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpertiseProfileAssignmentUpdateModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '404':
+          description: Expertise profile assignment or new expertise profile not found
+      x-replaced-by: /v0/administration/expertise_profile_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Deletes the expertise profile assignment corresponding to the given id
+      operationId: ExpertiseProfileAssignmentAPI.deleteById
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ExpertiseProfileAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Expertise profile assignment not found
+      x-replaced-by: /v0/administration/expertise_profile_assignments/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expertise_profile_assignments/by_employee_ids:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return all the expertise profile assignments for a list of employees
+      operationId: ExpertiseProfileAssignmentAPI.byEmployeeIds
+      parameters:
+      - name: begin_date
+        in: query
+        description: the begin date, used as a filter to return only expertise profile assignments for the specified period
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: the end date, used as a filter to return only expertise profile assignments for the specified period
+        schema:
+          type: string
+          format: date
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc, contains a list of employee object ids'
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+        '400':
+          description: Incorrect request. The list of employee object ids must contain between 1 and 100 elements
+      x-replaced-by: /v0/administration/expertise_profile_assignments/by_employee_ids
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expertise_profile_assignments/multiple:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Method used for requesting multiple ExpertiseProfileAssignment objects using…
+      operationId: ExpertiseProfileAssignmentAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/expertise_profile_assignments/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expertise_profile_assignments/x-stream-connect/data:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return all ExpertiseProfileAssignment models in a streaming manner
+      operationId: ExpertiseProfileAssignmentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/expertise_profile_assignments/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/expertise_profile_assignments/x-stream-connect/updates:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return all ExpertiseProfileAssignment models which where updated since the date…
+      operationId: ExpertiseProfileAssignmentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/expertise_profile_assignments/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/expertise_profile_assignments:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return the expertise profile assignments of a Employee corresponding to the…
+      operationId: ExpertiseProfileAssignmentAPI.byEmployeeIdAndDateRange
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/expertise_profile_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expertise_profile_assignments:
+    post:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Create new expertise profile assignment for the Employee corresponding to the…
+      operationId: ExpertiseProfileAssignmentAPI.assignExpertiseProfileToEmployee
+      parameters:
+      - name: employee_id
+        in: query
+        description: employee id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpertiseProfileAssignmentUpdateModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '400':
+          description: Begin date is invalid, there is already an assignment starting at this date for this employee.
+        '404':
+          description: Employee or expertise profile not found
+      x-replacement-for:
+      - /t/expertise_profile_assignments
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expertise_profile_assignments/{id}:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return the expertise profile assignment corresponding to the given id
+      operationId: ExpertiseProfileAssignmentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ExpertiseProfileAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '404':
+          description: Expertise profile assignment not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/expertise_profile_assignments/{id}
+    put:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Update the expertise profile assignment corresponding to the given id
+      operationId: ExpertiseProfileAssignmentAPI.updateById
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ExpertiseProfileAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpertiseProfileAssignmentUpdateModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '404':
+          description: Expertise profile assignment or new expertise profile not found
+      x-replacement-for:
+      - /t/expertise_profile_assignments/{id}
+    delete:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Deletes the expertise profile assignment corresponding to the given id
+      operationId: ExpertiseProfileAssignmentAPI.deleteById
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ExpertiseProfileAssignment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Expertise profile assignment not found
+      x-replacement-for:
+      - /t/expertise_profile_assignments/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expertise_profile_assignments/by_employee_ids:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return all the expertise profile assignments for a list of employees
+      operationId: ExpertiseProfileAssignmentAPI.byEmployeeIds
+      parameters:
+      - name: begin_date
+        in: query
+        description: the begin date, used as a filter to return only expertise profile assignments for the specified period
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: the end date, used as a filter to return only expertise profile assignments for the specified period
+        schema:
+          type: string
+          format: date
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc, contains a list of employee object ids'
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+        '400':
+          description: Incorrect request. The list of employee object ids must contain between 1 and 100 elements
+      x-replacement-for:
+      - /t/expertise_profile_assignments/by_employee_ids
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/expertise_profile_assignments/multiple:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Method used for requesting multiple ExpertiseProfileAssignment objects using…
+      operationId: ExpertiseProfileAssignmentAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/expertise_profile_assignments/multiple
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/expertise_profile_assignments/data:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return all ExpertiseProfileAssignment models in a streaming manner
+      operationId: ExpertiseProfileAssignmentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/expertise_profile_assignments/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/expertise_profile_assignments/updates:
+    get:
+      tags:
+      - ExpertiseProfileAssignment
+      summary: Return all ExpertiseProfileAssignment models which where updated since the date…
+      operationId: ExpertiseProfileAssignmentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ExpertiseProfileAssignment'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/expertise_profile_assignments/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ExpertiseProfileAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        employeeObjectId:
+          type: integer
+          format: int64
+        expertiseProfileObjectId:
+          type: integer
+          format: int64
+      description: Expertise profile assignment.
+      example:
+        id: 1
+        startTime: '2012-08-02T13:48:46.836+02:00'
+        endTime: '2012-08-02T13:48:46.836+02:00'
+        employeeObjectId: 9941
+        expertiseProfileObjectId: 2
+      xml:
+        name: expertiseProfileAssignment
+    ExpertiseProfileAssignmentUpdateModel:
+      type: object
+      properties:
+        expertiseProfileObjectId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date-time
+      description: Expertise profile assignment model for creating and modifying.
+      example:
+        expertiseProfileObjectId: 4
+        beginDate: '2012-08-02T13:48:46.836+02:00'
+    list.ExpertiseProfileAssignmentList:
+      type: object
+      properties:
+        expertiseProfileAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfileAssignment'
+          xml:
+            name: expertiseProfileAssignment
+      description: ExpertiseProfileAssignmentList model (no description)
+      example:
+        expertiseProfileAssignments:
+        - id: 1
+          startTime: '2012-08-02T11:48:46.836+02:00'
+          endTime: '2012-08-02T11:48:46.836+02:00'
+          employeeObjectId: 9941
+          expertiseProfileObjectId: 2
+      xml:
+        name: expertiseProfileAssignments
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

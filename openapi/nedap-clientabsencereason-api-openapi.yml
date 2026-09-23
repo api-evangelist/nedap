@@ -1,0 +1,148 @@
+openapi: 3.2.0
+info:
+  title: Nedap Client Absence Reason API
+  version: 0.0.0
+  description: 'Operations tagged ClientAbsenceReason across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ClientAbsenceReason
+paths:
+  /t/client_absence_reasons/{id}:
+    get:
+      tags:
+      - ClientAbsenceReason
+      summary: Get the Client Absence Reason corresponding to the given id
+      operationId: ClientAbsenceReasonAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsenceReason
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAbsenceReason'
+        '404':
+          description: Absence reason not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clientAbsenceReasons/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_absence_reasons:
+    get:
+      tags:
+      - ClientAbsenceReason
+      summary: Returns every ClientAbsenceReason available from the ClientAbsenceReasonAPI
+      operationId: ClientAbsenceReasonAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientAbsenceReasonList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clientAbsenceReasons/all
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clientAbsenceReasons/{id}:
+    get:
+      tags:
+      - ClientAbsenceReason
+      summary: Get the Client Absence Reason corresponding to the given id
+      operationId: ClientAbsenceReasonAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsenceReason
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAbsenceReason'
+        '404':
+          description: Absence reason not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_absence_reasons/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clientAbsenceReasons/all:
+    get:
+      tags:
+      - ClientAbsenceReason
+      summary: Returns every ClientAbsenceReason available from the ClientAbsenceReasonAPI
+      operationId: ClientAbsenceReasonAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientAbsenceReasonList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_absence_reasons
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ClientAbsenceReason:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        reason:
+          type: string
+        active:
+          type: boolean
+          default: false
+      description: ClientAbsenceReason domain model used by Cupido system.
+      example:
+        id: 42
+        reason: aap
+        active: true
+      xml:
+        name: clientAbsenceReason
+    list.ClientAbsenceReasonList:
+      type: object
+      properties:
+        clientAbsenceReasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientAbsenceReason'
+          xml:
+            name: clientAbsenceReason
+      description: ClientAbsenceReasonList model (no description)
+      example:
+        clientAbsenceReasons:
+        - id: 42
+          reason: aap
+          active: true
+        - id: 1337
+          reason: dev
+          active: false
+      xml:
+        name: clientAbsenceReasons
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

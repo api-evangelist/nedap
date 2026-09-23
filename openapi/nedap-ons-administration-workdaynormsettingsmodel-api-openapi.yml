@@ -1,0 +1,523 @@
+openapi: 3.2.0
+info:
+  title: Nedap Ons Administration.Workday Norm Settings Model API
+  version: 0.0.0
+  description: 'Operations tagged ons_administration.WorkdayNormSettingsModel across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ons_administration.WorkdayNormSettingsModel
+paths:
+  /t/employees/{employee_object_id}/workday_norms:
+    get:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Returns all workday norms settings for the given employee.
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.getForEmployee
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayNormSettingsModelList'
+        '404':
+          description: Employee not found
+      x-replaced-by: /v0/administration/employees/{employee_object_id}/workday_norms
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Creates a new workday norm settings for the given employee
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.createWorkdayNorm
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        '400':
+          description: Validation errors
+        '404':
+          description: Employee not found
+      x-replaced-by: /v0/administration/employees/{employee_object_id}/workday_norms
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_object_id}/workday_norms/{settings_object_id}:
+    get:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Returns the specified workday norm settings for the given employee
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.getWorkdayNorm
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: settings_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        '404':
+          description: Employee or settings not found
+      x-replaced-by: /v0/administration/employees/{employee_object_id}/workday_norms/{settings_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Updates the specified workday norm settings for the given employee
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.updateWorkdayNorm
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: settings_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        '400':
+          description: Validation errors
+        '404':
+          description: Employee or settings not found
+      x-replaced-by: /v0/administration/employees/{employee_object_id}/workday_norms/{settings_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Deletes the specified workday norm settings for the given employee
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.deleteWorkdayNorm
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: settings_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '404':
+          description: Employee or settings not found
+      x-replaced-by: /v0/administration/employees/{employee_object_id}/workday_norms/{settings_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/workday_norms:
+    get:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Returns the current and future workday norms settings for the given employees.
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.getCurrentAndFutureForEmployees
+      parameters:
+      - name: id
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayNormSettingsModelList'
+        '400':
+          description: Validation errors
+        '404':
+          description: One or more employees not found
+      x-replaced-by: /v0/administration/employees/workday_norms
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/workday_norms/from:
+    get:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Returns the workday norm settings for the given employees that were valid from…
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.getForEmployeesFrom
+      parameters:
+      - name: id
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayNormSettingsModelList'
+        '400':
+          description: Validation errors
+        '404':
+          description: One or more employees not found
+      x-replaced-by: /v0/administration/employees/workday_norms/from
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_object_id}/workday_norms:
+    get:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Returns all workday norms settings for the given employee.
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.getForEmployee
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayNormSettingsModelList'
+        '404':
+          description: Employee not found
+      x-replacement-for:
+      - /t/employees/{employee_object_id}/workday_norms
+    post:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Creates a new workday norm settings for the given employee
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.createWorkdayNorm
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        '400':
+          description: Validation errors
+        '404':
+          description: Employee not found
+      x-replacement-for:
+      - /t/employees/{employee_object_id}/workday_norms
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_object_id}/workday_norms/{settings_object_id}:
+    get:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Returns the specified workday norm settings for the given employee
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.getWorkdayNorm
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: settings_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        '404':
+          description: Employee or settings not found
+      x-replacement-for:
+      - /t/employees/{employee_object_id}/workday_norms/{settings_object_id}
+    put:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Updates the specified workday norm settings for the given employee
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.updateWorkdayNorm
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: settings_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+        '400':
+          description: Validation errors
+        '404':
+          description: Employee or settings not found
+      x-replacement-for:
+      - /t/employees/{employee_object_id}/workday_norms/{settings_object_id}
+    delete:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Deletes the specified workday norm settings for the given employee
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.deleteWorkdayNorm
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: settings_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Validation errors
+        '404':
+          description: Employee or settings not found
+      x-replacement-for:
+      - /t/employees/{employee_object_id}/workday_norms/{settings_object_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/workday_norms:
+    get:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Returns the current and future workday norms settings for the given employees.
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.getCurrentAndFutureForEmployees
+      parameters:
+      - name: id
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayNormSettingsModelList'
+        '400':
+          description: Validation errors
+        '404':
+          description: One or more employees not found
+      x-replacement-for:
+      - /t/employees/workday_norms
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/workday_norms/from:
+    get:
+      tags:
+      - ons_administration.WorkdayNormSettingsModel
+      summary: Returns the workday norm settings for the given employees that were valid from…
+      operationId: ons_administration.WorkdayNormSettingsModelAPI.getForEmployeesFrom
+      parameters:
+      - name: id
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ons_administration.list.WorkdayNormSettingsModelList'
+        '400':
+          description: Validation errors
+        '404':
+          description: One or more employees not found
+      x-replacement-for:
+      - /t/employees/workday_norms/from
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ons_administration.WorkdayNormSettingsModel:
+      required:
+      - employeeObjectId
+      - startDate
+      type: object
+      properties:
+        claDefault:
+          type: boolean
+          description: If true, these settings are the default from the collective labour agreement
+          readOnly: true
+        employeeObjectId:
+          type: integer
+          description: The employee object id
+          format: int64
+        endDate:
+          type: string
+          description: The end date of the period during which this setting is valid
+          format: date
+        id:
+          type: integer
+          description: The object id of the settings, required for UPDATE
+          format: int64
+        normPeriod:
+          type: integer
+          description: The measurement period in weeks to evaluate if the workday norm is breached. Required when optOut is false
+          format: int32
+        optOut:
+          type: boolean
+          description: If true, the employee is opted out of the workday norm
+        startDate:
+          type: string
+          description: The start date of the period during which this setting is valid
+          format: date
+        workdayNorm:
+          type: integer
+          description: 'DEPRECATED: use workdayNormTotal instead. The maximum number of workdays the employee has to work in a week'
+          format: int32
+          deprecated: true
+          x-deprecated-since: 20-01-2026
+        workdayNormTotal:
+          type: integer
+          description: The total number of workdays the employee has to work in the whole measurement period. Required when optOut is false
+          format: int32
+      description: 'Workday norm settings model. This model describes the maximum workdays a given
+
+        employee has to work per week during a given measurement period.
+
+        '
+      example:
+        id: 7
+        employeeObjectId: 42
+        startDate: '2025-12-29'
+        endDate: '2026-12-27'
+        workdayNormTotal: 20
+        normPeriod: 4
+        optOut: false
+    ons_administration.list.WorkdayNormSettingsModelList:
+      type: object
+      properties:
+        workdayNormSettingsModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+      description: List of WorkdayNormSettingsModels
+      example:
+        workdayNormSettingsModels:
+        - id: 7
+          employeeObjectId: 42
+          startDate: '2025-12-29'
+          endDate: '2026-12-27'
+          workdayNormTotal: 20
+          normPeriod: 4
+          optOut: false
+        - id: 8
+          employeeObjectId: 42
+          startDate: '2026-12-28'
+          workdayNormTotal: 8
+          normPeriod: 2
+          optOut: false
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

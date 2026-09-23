@@ -1,0 +1,707 @@
+openapi: 3.2.0
+info:
+  title: Nedap Arrangement.Intent API
+  version: 0.0.0
+  description: 'Operations tagged arrangement.Intent across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: arrangement.Intent
+paths:
+  /t/arrangement/intents:
+    post:
+      tags:
+      - arrangement.Intent
+      summary: Create Intent
+      description: Deprecated due to potential overlap validation issues. Use createOrUpdateTimeline instead.
+      operationId: arrangement.IntentAPI.create
+      requestBody:
+        description: Intent to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.Intent'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Intent'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 19-01-2024
+      x-replaced-by: /v0/administration/arrangement/intents
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/intents/{uuid}:
+    put:
+      tags:
+      - arrangement.Intent
+      summary: Updates the given Intent
+      description: Deprecated due to potential overlap validation issues. Use createOrUpdateTimeline instead.
+      operationId: arrangement.IntentAPI.update
+      parameters:
+      - name: uuid
+        in: path
+        description: Identifier of Intent to update.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Intent to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.Intent'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Intent'
+        '400':
+          description: Intent does not match UUID
+        '403':
+          description: Intent can't be modified because it is created by the OA-CONVERTER
+        '404':
+          description: Intent not found
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 19-01-2024
+      x-replaced-by: /v0/administration/arrangement/intents/{uuid}
+    delete:
+      tags:
+      - arrangement.Intent
+      summary: Deletes the Intent with given uuid
+      description: Deprecated due to potential overlap validation issues. Use deleteTimeline instead.
+      operationId: arrangement.IntentAPI.delete
+      parameters:
+      - name: uuid
+        in: path
+        description: Identifier of Intent to delete.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Intent'
+        '403':
+          description: Intent can't be modified because it is created by the OA-CONVERTER
+        '404':
+          description: Intent not found
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 19-01-2024
+      x-replaced-by: /v0/administration/arrangement/intents/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/intents/by_client_period_plannable/{client_id}:
+    get:
+      tags:
+      - arrangement.Intent
+      summary: Gets all intents for a Client in a given period and whether they are plannable
+      operationId: arrangement.IntentAPI.byClientInPeriodPlannable
+      parameters:
+      - name: client_id
+        in: path
+        description: objectId of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: period_begin
+        in: query
+        description: beginning of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: period_end
+        in: query
+        description: end of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: plannable
+        in: query
+        description: if the intent is plannable
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.IntentList'
+      x-replaced-by: /v0/administration/arrangement/intents/by_client_period_plannable/{client_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/intents/by_employee/{employee_id}:
+    get:
+      tags:
+      - arrangement.Intent
+      summary: Gets all intents for an Employee
+      operationId: arrangement.IntentAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include_education
+        in: query
+        description: if `true` also intents of the employee's education are returned
+        schema:
+          type: boolean
+      - name: include_cluster
+        in: query
+        description: if `true` also intents of the employee's team are returned
+        schema:
+          type: boolean
+      - name: period_begin
+        in: query
+        description: the beginning of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: period_end
+        in: query
+        description: the end of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.IntentList'
+      x-replaced-by: /v0/administration/arrangement/intents/by_employee/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/arrangement/intents/by_timeline/{timeline_uuid}:
+    put:
+      tags:
+      - arrangement.Intent
+      summary: Updates all intents for a timeline identified by a UUID
+      operationId: arrangement.IntentAPI.createOrUpdateTimeline
+      parameters:
+      - name: timeline_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.list.IntentList'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.IntentList'
+        '400':
+          description: Timeline UUID is invalid or does not match intent
+        '403':
+          description: Intent can't be modified because it is created by the OA-CONVERTER
+        '404':
+          description: No intents found for the given timeline UUID
+      x-replaced-by: /v0/administration/arrangement/intents/by_timeline/{timeline_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - arrangement.Intent
+      summary: Deletes all intents for a timeline identified by a UUID
+      operationId: arrangement.IntentAPI.deleteTimeline
+      parameters:
+      - name: timeline_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Timeline UUID cannot be null
+        '403':
+          description: Intent can't be modified because it is created by the OA-CONVERTER
+        '404':
+          description: Timeline not found
+      x-replaced-by: /v0/administration/arrangement/intents/by_timeline/{timeline_uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intents:
+    post:
+      tags:
+      - arrangement.Intent
+      summary: Create Intent
+      description: Deprecated due to potential overlap validation issues. Use createOrUpdateTimeline instead.
+      operationId: arrangement.IntentAPI.create
+      requestBody:
+        description: Intent to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.Intent'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Intent'
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 19-01-2024
+      x-replacement-for:
+      - /t/arrangement/intents
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intents/{uuid}:
+    put:
+      tags:
+      - arrangement.Intent
+      summary: Updates the given Intent
+      description: Deprecated due to potential overlap validation issues. Use createOrUpdateTimeline instead.
+      operationId: arrangement.IntentAPI.update
+      parameters:
+      - name: uuid
+        in: path
+        description: Identifier of Intent to update.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Intent to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.Intent'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Intent'
+        '400':
+          description: Intent does not match UUID
+        '403':
+          description: Intent can't be modified because it is created by the OA-CONVERTER
+        '404':
+          description: Intent not found
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 19-01-2024
+      x-replacement-for:
+      - /t/arrangement/intents/{uuid}
+    delete:
+      tags:
+      - arrangement.Intent
+      summary: Deletes the Intent with given uuid
+      description: Deprecated due to potential overlap validation issues. Use deleteTimeline instead.
+      operationId: arrangement.IntentAPI.delete
+      parameters:
+      - name: uuid
+        in: path
+        description: Identifier of Intent to delete.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.Intent'
+        '403':
+          description: Intent can't be modified because it is created by the OA-CONVERTER
+        '404':
+          description: Intent not found
+      deprecated: true
+      x-cupido-common-method: true
+      x-deprecated-since: 19-01-2024
+      x-replacement-for:
+      - /t/arrangement/intents/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intents/by_client_period_plannable/{client_id}:
+    get:
+      tags:
+      - arrangement.Intent
+      summary: Gets all intents for a Client in a given period and whether they are plannable
+      operationId: arrangement.IntentAPI.byClientInPeriodPlannable
+      parameters:
+      - name: client_id
+        in: path
+        description: objectId of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: period_begin
+        in: query
+        description: beginning of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: period_end
+        in: query
+        description: end of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: plannable
+        in: query
+        description: if the intent is plannable
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.IntentList'
+      x-replacement-for:
+      - /t/arrangement/intents/by_client_period_plannable/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intents/by_employee/{employee_id}:
+    get:
+      tags:
+      - arrangement.Intent
+      summary: Gets all intents for an Employee
+      operationId: arrangement.IntentAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include_education
+        in: query
+        description: if `true` also intents of the employee's education are returned
+        schema:
+          type: boolean
+      - name: include_cluster
+        in: query
+        description: if `true` also intents of the employee's team are returned
+        schema:
+          type: boolean
+      - name: period_begin
+        in: query
+        description: the beginning of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: period_end
+        in: query
+        description: the end of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.IntentList'
+      x-replacement-for:
+      - /t/arrangement/intents/by_employee/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/arrangement/intents/by_timeline/{timeline_uuid}:
+    put:
+      tags:
+      - arrangement.Intent
+      summary: Updates all intents for a timeline identified by a UUID
+      operationId: arrangement.IntentAPI.createOrUpdateTimeline
+      parameters:
+      - name: timeline_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/arrangement.list.IntentList'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrangement.list.IntentList'
+        '400':
+          description: Timeline UUID is invalid or does not match intent
+        '403':
+          description: Intent can't be modified because it is created by the OA-CONVERTER
+        '404':
+          description: No intents found for the given timeline UUID
+      x-replacement-for:
+      - /t/arrangement/intents/by_timeline/{timeline_uuid}
+    delete:
+      tags:
+      - arrangement.Intent
+      summary: Deletes all intents for a timeline identified by a UUID
+      operationId: arrangement.IntentAPI.deleteTimeline
+      parameters:
+      - name: timeline_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Timeline UUID cannot be null
+        '403':
+          description: Intent can't be modified because it is created by the OA-CONVERTER
+        '404':
+          description: Timeline not found
+      x-replacement-for:
+      - /t/arrangement/intents/by_timeline/{timeline_uuid}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    arrangement.RecurrenceType:
+      enum:
+      - HOUR
+      - DAY
+      - WEEK
+      - PERIOD
+      type: string
+      description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
+
+        Examples:
+
+        - 1, WEEK corresponds to ''every week''
+
+        - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
+      example: HOUR
+    arrangement.list.IntentList:
+      type: object
+      properties:
+        intents:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.Intent'
+      description: IntentList model (no description)
+      example:
+        intents:
+        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
+          clientId: 544
+          beginDate: '2022-01-01'
+          hourTypeId: 1
+          frequency: 3
+          quantityAmount: 4
+          quantityUnit: HOUR
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
+        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
+          clientId: 544
+          beginDate: '2022-01-01'
+          hourTypeId: 1
+          frequency: 3
+          quantityAmount: 4
+          quantityUnit: HOUR
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
+    arrangement.QuantityUnit:
+      enum:
+      - MINUTE
+      - HOUR
+      - DAY_PART
+      - DAY
+      - PIECE
+      type: string
+      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+        quantity of th the care that is intended. For example:
+
+        - 2, HOUR means ''2 hours''
+
+        - 120, MINUTE means ''120 minutes'''
+      example: MINUTE
+    arrangement.Intent:
+      required:
+      - uuid
+      - timelineUuid
+      - clientUuid
+      - clientId
+      - beginDate
+      - hourTypeId
+      - frequency
+      - quantityAmount
+      - quantityUnit
+      - recurrenceInterval
+      - recurrenceType
+      - sourceApp
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID identifying this Intent across applications
+          x-cupido-id: true
+        timelineUuid:
+          type: string
+          description: UUID for the timeline that groups this Intent with other Intents
+        clientUuid:
+          type: string
+          description: The client UUID of the client for which this Intent is intended
+        clientId:
+          type: integer
+          description: The client ID of the client for which this Intent is intended
+          format: int64
+        beginDate:
+          type: string
+          description: The date at which this Intent is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the Intent ends, or <code>null</code> if it does not end
+          format: date
+        hourTypeId:
+          type: integer
+          description: The HourType of the Intent
+          format: int64
+        frequency:
+          type: integer
+          description: 'The number of times this intent is present within the recurrence interval. It can be seen as the multiplier of the
+
+            quantity. For example in ''3 times 4 hours every week'', 3 is the frequency.'
+          format: int32
+        quantityAmount:
+          type: integer
+          description: The amount matching the quantity
+          format: int32
+        quantityUnit:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.QuantityUnit'
+          description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+            quantity of th the care that is intended. For example:
+
+            - 2, HOUR means ''2 hours''
+
+            - 120, MINUTE means ''120 minutes'''
+        recurrenceInterval:
+          type: integer
+          description: The recurrence interval
+          format: int32
+        recurrenceType:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.RecurrenceType'
+          description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
+
+            Examples:
+
+            - 1, WEEK corresponds to ''every week''
+
+            - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
+        sourceApp:
+          type: string
+          description: The app that created this intent. Apps should use upper case names to identify themselves and never change this.
+        sourceReference:
+          type: string
+          description: The reference to this intent. The exact meaning is application specific.
+        sourceDescription:
+          type: string
+          description: Free text description.
+        splittable:
+          type: boolean
+          description: Whether this intent may be split across multiple agenda entries when planning it.
+        title:
+          type: string
+          description: The title of this intent.
+        description:
+          type: string
+          description: The description of this intent.
+        plannable:
+          type: boolean
+          description: Whether this intent plannable;
+      description: Intent of the preference
+      example:
+        uuid: '12345'
+        timelineUuid: '12344'
+        clientUuid: ABCD
+        clientId: 24
+        beginDate: '2018-06-14'
+        endDate: '2018-05-20'
+        hourTypeId: 12
+        frequency: 3
+        quantityAmount: 1
+        quantityUnit: DAY_PART
+        recurrenceInterval: 1
+        recurrenceType: WEEK
+        sourceApp: PLANNING
+        sourceReference: planning/123
+        sourceDescription: for someone
+        splittable: true
+        title: title
+        description: description
+        plannable: true
+      xml:
+        name: intent
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

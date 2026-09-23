@@ -1,0 +1,577 @@
+openapi: 3.2.0
+info:
+  title: Nedap Client Absence API
+  version: 0.0.0
+  description: 'Operations tagged ClientAbsence across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: ClientAbsence
+paths:
+  /t/client_absences:
+    post:
+      tags:
+      - ClientAbsence
+      summary: Create ClientAbsence
+      operationId: ClientAbsenceAPI.create
+      requestBody:
+        description: ClientAbsence to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientAbsence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAbsence'
+        '400':
+          description: Bad request
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clientAbsences
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_absences/{id}:
+    get:
+      tags:
+      - ClientAbsence
+      summary: Get the Client Absence corresponding to the given id
+      operationId: ClientAbsenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAbsence'
+        '404':
+          description: Client absence not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clientAbsences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - ClientAbsence
+      summary: Updates the given ClientAbsence
+      operationId: ClientAbsenceAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: ClientAbsence to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientAbsence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAbsence'
+        '400':
+          description: Bad request
+        '404':
+          description: Client Absence not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clientAbsences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - ClientAbsence
+      summary: Deletes the ClientAbsence with given id
+      operationId: ClientAbsenceAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the client absence
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clientAbsences/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/client_absences:
+    get:
+      tags:
+      - ClientAbsence
+      summary: Return the client absences of a Client corresponding to the given id
+      operationId: ClientAbsenceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: Long identifying the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: LocalDate the date to start searching from (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: LocalDate the date to search until (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientAbsenceList'
+        '400':
+          description: Invalid client_id
+        '404':
+          description: Client not found
+      x-replaced-by: /v0/administration/clientAbsences/search_by_client
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/client_absences_by_type:
+    get:
+      tags:
+      - ClientAbsence
+      summary: Return the type-specific client absences for a Client corresponding to the…
+      operationId: ClientAbsenceAPI.byClientIdAndType
+      parameters:
+      - name: client_id
+        in: path
+        description: Long identifying the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: LocalDate the date to start searching from (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: LocalDate the date to search until (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: type_id
+        in: query
+        description: "String containing a numeric representation of the type of AbsenceReason\n                  (ie. \"0\" or \"1\" or \"2\" being USER, DBC and DBC_UNFINANCED respectively)"
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientAbsenceList'
+        '400':
+          description: Invalid type ID, or invalid client_id
+        '404':
+          description: Client not found
+      x-replaced-by: /v0/administration/clientAbsences/search_by_client_and_type
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/client_absences/x-stream-connect/data:
+    get:
+      tags:
+      - ClientAbsence
+      summary: Return all ClientAbsences models in a streaming manner
+      operationId: ClientAbsenceAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientAbsenceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ClientAbsence'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/client_absences/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clientAbsences:
+    post:
+      tags:
+      - ClientAbsence
+      summary: Create ClientAbsence
+      operationId: ClientAbsenceAPI.create
+      requestBody:
+        description: ClientAbsence to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientAbsence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAbsence'
+        '400':
+          description: Bad request
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_absences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clientAbsences/{id}:
+    get:
+      tags:
+      - ClientAbsence
+      summary: Get the Client Absence corresponding to the given id
+      operationId: ClientAbsenceAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAbsence'
+        '404':
+          description: Client absence not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_absences/{id}
+    put:
+      tags:
+      - ClientAbsence
+      summary: Updates the given ClientAbsence
+      operationId: ClientAbsenceAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: ClientAbsence to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientAbsence'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAbsence'
+        '400':
+          description: Bad request
+        '404':
+          description: Client Absence not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_absences/{id}
+    delete:
+      tags:
+      - ClientAbsence
+      summary: Deletes the ClientAbsence with given id
+      operationId: ClientAbsenceAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting ClientAbsence
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: If successfully removed the client absence
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_absences/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clientAbsences/search_by_client:
+    get:
+      tags:
+      - ClientAbsence
+      summary: Return the client absences of a Client corresponding to the given id
+      operationId: ClientAbsenceAPI.byClientId
+      parameters:
+      - name: client_id
+        in: query
+        description: Long identifying the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: path
+      - name: valid_from
+        in: query
+        description: LocalDate the date to start searching from (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: LocalDate the date to search until (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientAbsenceList'
+        '400':
+          description: Invalid client_id
+        '404':
+          description: Client not found
+      x-replacement-for:
+      - /t/clients/{client_id}/client_absences
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clientAbsences/search_by_client_and_type:
+    get:
+      tags:
+      - ClientAbsence
+      summary: Return the type-specific client absences for a Client corresponding to the…
+      operationId: ClientAbsenceAPI.byClientIdAndType
+      parameters:
+      - name: client_id
+        in: query
+        description: Long identifying the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: path
+      - name: valid_from
+        in: query
+        description: LocalDate the date to start searching from (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: LocalDate the date to search until (inclusive)
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: type_id
+        in: query
+        description: "String containing a numeric representation of the type of AbsenceReason\n                  (ie. \"0\" or \"1\" or \"2\" being USER, DBC and DBC_UNFINANCED respectively)"
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientAbsenceList'
+        '400':
+          description: Invalid type ID, or invalid client_id
+        '404':
+          description: Client not found
+      x-replacement-for:
+      - /t/clients/{client_id}/client_absences_by_type
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/client_absences/data:
+    get:
+      tags:
+      - ClientAbsence
+      summary: Return all ClientAbsences models in a streaming manner
+      operationId: ClientAbsenceAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.ClientAbsenceList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ClientAbsence'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/client_absences/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ClientAbsenceReason:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        reason:
+          type: string
+        active:
+          type: boolean
+          default: false
+      description: ClientAbsenceReason domain model used by Cupido system.
+      example:
+        id: 42
+        reason: aap
+        active: true
+      xml:
+        name: clientAbsenceReason
+    list.ClientAbsenceList:
+      type: object
+      properties:
+        clientAbsences:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientAbsence'
+          xml:
+            name: clientAbsence
+      description: ClientAbsenceList model (no description)
+      example:
+        clientAbsences:
+        - id: 1
+          clientId: 1
+          endDate: '2012-08-02T11:48:46.836+02:00'
+          beginTime: '11:48:46.836'
+          endTime: '12:48:46.836'
+          note: aap
+          sourceId: 900
+        - id: 2
+          clientId: 2
+          endDate: '2012-08-03T11:48:46.836+02:00'
+          endTime: '12:48:46.836'
+          note: noot
+          sourceId: 901
+        - id: 3
+          clientId: 3
+          endDate: '2012-08-04T11:48:46.836+02:00'
+          beginTime: '11:48:46.836'
+          note: mies
+          sourceId: 902
+      xml:
+        name: clientAbsences
+    ClientAbsence:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        clientAbsenceReason:
+          $ref: '#/components/schemas/ClientAbsenceReason'
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        beginTime:
+          type: string
+          format: time
+        endTime:
+          type: string
+          format: time
+        note:
+          type: string
+        sourceId:
+          type: integer
+          format: int64
+      description: ClientAbsence domain model used by Cupido system.
+      example:
+        id: 1
+        clientId: 1
+        clientAbsenceReason:
+          id: 42
+          reason: aap
+          active: true
+        beginDate: '2012-08-02T13:48:46.836+02:00'
+        endDate: '2012-08-02T13:48:46.836+02:00'
+        beginTime: '11:48:46.836'
+        endTime: '12:48:46.836'
+        note: mies
+        sourceId: 900
+      xml:
+        name: clientAbsence
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

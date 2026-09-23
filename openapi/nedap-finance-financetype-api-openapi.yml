@@ -1,0 +1,334 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Finance Type API
+  version: 0.0.0
+  description: 'Operations tagged finance.FinanceType across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.FinanceType
+paths:
+  /t/finance/finance_types/{id}:
+    get:
+      tags:
+      - finance.FinanceType
+      summary: Return the Finance Type corresponding to the given id
+      operationId: finance.FinanceTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting FinanceType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceType'
+        '404':
+          description: Finance type not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/finance/finance_types/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/finance_types/x-stream-connect/data:
+    get:
+      tags:
+      - finance.FinanceType
+      summary: Return all FinanceType models in a streaming manner
+      operationId: finance.FinanceTypeAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.FinanceTypeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceType'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/finance_types/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/finance_types/x-stream-connect/updates:
+    get:
+      tags:
+      - finance.FinanceType
+      summary: Return all FinanceType models which where updated since the date given in the…
+      operationId: finance.FinanceTypeAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.FinanceTypeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceType'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/finance_types/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/finance_types/{id}:
+    get:
+      tags:
+      - finance.FinanceType
+      summary: Return the Finance Type corresponding to the given id
+      operationId: finance.FinanceTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting FinanceType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceType'
+        '404':
+          description: Finance type not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/finance_types/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/finance_types/data:
+    get:
+      tags:
+      - finance.FinanceType
+      summary: Return all FinanceType models in a streaming manner
+      operationId: finance.FinanceTypeAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.FinanceTypeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceType'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/finance_types/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/finance_types/updates:
+    get:
+      tags:
+      - finance.FinanceType
+      summary: Return all FinanceType models which where updated since the date given in the…
+      operationId: finance.FinanceTypeAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.FinanceTypeList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/finance.FinanceType'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/finance/finance_types/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.Shape:
+      type: string
+      oneOf:
+      - title: SQUARE
+        enum:
+        - square
+      - title: CIRCLE
+        enum:
+        - circle
+      - title: TRIANGLE
+        enum:
+        - triangle
+      description: This is the shape of the icon used in Administration
+      example: square
+    finance.FinanceType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        externalCode:
+          type: string
+        description:
+          type: string
+        userIdentifier:
+          type: string
+          description: Short description
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        systemDefined:
+          type: boolean
+          description: Indicates if this FinanceType was created by Nedap (=true) or if this was manually created (=false)
+        covRequired:
+          type: boolean
+        agbSelectionEnabled:
+          type: boolean
+          description: Indicates if the agbcode can be manually selected (=true)
+        cakDelivery:
+          type: boolean
+          description: Indicates if this FinanceType is eligible (=true) for the CAK delivery
+          deprecated: true
+        useWmoNumbering:
+          type: boolean
+          description: Indicates if this FinanceType has a beschikkingsnummer/aanvraagnummer/indicatie orgaan
+        zzpAllowed:
+          type: boolean
+          description: Indicates if this FinanceType is allowed to have ZZP products
+        shape:
+          allOf:
+          - $ref: '#/components/schemas/finance.Shape'
+          description: This is the shape of the icon used in Administration
+        colorHex:
+          type: string
+          description: This is color of the shape of the icon used in Administration
+        timeRange:
+          type: boolean
+          description: If this is true this finance type works with klassen otherwise this financetype works with a timerange
+        category:
+          type: integer
+          description: '<pre>
+
+            Possible values:
+
+            0 - Overig
+
+            1 - AWBZ extramuraal
+
+            2 - AWBZ intramuraal
+
+            3 - WMO
+
+            4 - PGB
+
+            5 - Onderaannemer
+
+            7 - Jeugdwet
+
+            9 - Eigen risico
+
+            10 - ZVW
+
+            11 - GGZ
+
+            </pre>'
+          format: int32
+      description: '{@link FinanceType} for which this profile is defined.'
+      example:
+        id: 1
+        externalCode: Dummy
+        description: Dummy
+        userIdentifier: Dummy
+        beginDate: '2015-01-01'
+        endDate: '2019-01-01'
+        systemDefined: true
+        covRequired: true
+        agbSelectionEnabled: true
+        cakDelivery: false
+        useWmoNumbering: false
+        zzpAllowed: false
+        shape: square
+        colorHex: '#FFFFFF'
+        timeRange: true
+        category: 2
+      xml:
+        name: financeType
+    finance.list.FinanceTypeList:
+      type: object
+      properties:
+        financeTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.FinanceType'
+          xml:
+            name: financeType
+      description: FinanceTypeList model (no description)
+      example:
+        financeTypes:
+        - id: 1
+          externalCode: Dummy
+          description: Dummy
+          userIdentifier: Dummy
+          beginDate: '2015-01-01'
+          endDate: '2019-01-01'
+          systemDefined: true
+          covRequired: true
+          agbSelectionEnabled: true
+          cakDelivery: false
+          useWmoNumbering: false
+          zzpAllowed: false
+      xml:
+        name: financeTypes
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,290 @@
+openapi: 3.2.0
+info:
+  title: Nedap Nuts.Consent API
+  version: 0.0.0
+  description: 'Operations tagged nuts.Consent across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: nuts.Consent
+paths:
+  /t/clients/{client_id}/consents:
+    get:
+      tags:
+      - nuts.Consent
+      summary: Return the list of consent of a client corresponding to the given client id
+      operationId: nuts.ConsentAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nuts.list.ConsentList'
+      x-replaced-by: /v0/administration/clients/{client_id}/consents
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/nuts/consents/{id}:
+    get:
+      tags:
+      - nuts.Consent
+      summary: Return the Consent corresponding to the given id
+      operationId: nuts.ConsentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Consent
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nuts.Consent'
+        '404':
+          description: ClientPrivacySetting not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/consents/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/consents:
+    get:
+      tags:
+      - nuts.Consent
+      summary: Return the list of consent of a client corresponding to the given client id
+      operationId: nuts.ConsentAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nuts.list.ConsentList'
+      x-replacement-for:
+      - /t/clients/{client_id}/consents
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/consents/{id}:
+    get:
+      tags:
+      - nuts.Consent
+      summary: Return the Consent corresponding to the given id
+      operationId: nuts.ConsentAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Consent
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nuts.Consent'
+        '404':
+          description: ClientPrivacySetting not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/nuts/consents/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    nuts.Consent:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: Reference to the client
+          format: int64
+        purpose:
+          type: string
+          description: A description about the consent, readable for professional and patient
+        careProviderId:
+          type: integer
+          description: 'A reference to the care provider, eg: a GP'
+          format: int64
+        policy:
+          type: string
+          description: 'The policy or outcome of the consent question: PERMIT_ALL, DENY_ALL or empty, which assumes DENY_ALL but also the exceptions must be ignored'
+        category:
+          type: string
+          description: CONTACT, MEDICAL, MENTAL, in the future it might refer to FHIR (http://hl7.org/fhir/ValueSet/consent-category)
+        documentId:
+          type: integer
+          description: The latest signed document which is the proof for the consent
+          format: int64
+          deprecated: true
+        signedDocumentIds:
+          type: array
+          items:
+            type: integer
+            description: The signed documents which are the proof for the consent
+            format: int64
+            xml:
+              name: signedDocumentId
+          description: The signed documents which are the proof for the consent
+          xml:
+            wrapped: true
+        validFrom:
+          type: string
+          description: period start where this consent is valid from, inclusive
+          format: date
+        validTo:
+          type: string
+          description: period end where this consent is valid to, exclusive
+          format: date
+        party:
+          type: string
+          description: 'The party the data may be shared with.
+
+            Possible options include:
+
+            - "MEDIQUEST"
+
+            - "QUALIZORG"
+
+            - "GENERAL_PRACTITIONERS"
+
+            - "PHARMACISTS"'
+        goal:
+          type: string
+          description: 'Why this specific set of data is shared.
+
+            Possible options include:
+
+            - "NOTIFICATION"
+
+            - "SURVEY"
+
+            - "EXECUTION_OF_CARE"
+
+            - "LDF"'
+        subject:
+          type: string
+          description: 'The set of data to be shared.
+
+            Possible options include:
+
+            - "EMAIL"
+
+            - "POSTAL_ADDRESS"
+
+            - "MOBILE_PHONE_SMS"
+
+            - "MEDICAL_INFORMATION"
+
+            - "TREATMENT_EPISODE"
+
+            - "PREM_RESULT"'
+      description: Consent model (no description)
+      example:
+        updatedAt: '2018-11-30T00:00:00.000+01:00'
+        createdAt: '2018-11-30T00:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        clientId: 1
+        purpose: Het delen van medische gegevens met de huisarts.
+        careProviderId: 2
+        policy: PERMIT_ALL
+        category: MEDICAL
+        documentId: 1337
+        signedDocumentIds:
+        - 1337
+        - 1338
+        validFrom: '2018-01-01'
+        validTo: '2050-01-01'
+        party: GENERAL_PRACTITIONERS
+        goal: EXECUTION_OF_CARE
+        subject: MEDICAL_INFORMATION
+      xml:
+        name: consent
+    nuts.list.ConsentList:
+      type: object
+      properties:
+        consents:
+          type: array
+          items:
+            $ref: '#/components/schemas/nuts.Consent'
+      description: ConsentList model (no description)
+      example:
+        consents:
+        - updatedAt: '2018-11-30T00:00:00.000+01:00'
+          createdAt: '2018-11-30T00:00:00.000+01:00'
+          createdBy: user
+          id: 1
+          clientId: 1
+          purpose: Het delen van medische gegevens met de huisarts.
+          careProviderId: 2
+          policy: PERMIT_ALL
+          category: MEDICAL
+          documentId: 1337
+          signedDocumentIds:
+          - 1337
+          - 1338
+          validFrom: '2018-01-01'
+          validTo: '2050-01-01'
+          party: GENERAL_PRACTITIONERS
+          goal: EXECUTION_OF_CARE
+          subject: MEDICAL_INFORMATION
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

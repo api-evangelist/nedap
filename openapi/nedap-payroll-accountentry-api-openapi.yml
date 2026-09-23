@@ -1,0 +1,628 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Account Entry API
+  version: 0.0.0
+  description: 'Operations tagged payroll.AccountEntry across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.AccountEntry
+paths:
+  /t/payroll/account_entries/{id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Return the Account Entry corresponding to the given id
+      operationId: payroll.AccountEntryAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AccountEntry
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.AccountEntry'
+        '400':
+          description: The ID is required
+        '404':
+          description: The account entry cannot be found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/account_entries/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/account_entries/by_employee_and_type_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve all AccountEntry for an Employee for a specific AccountType in a period
+      description: Retrieve all {@link AccountEntry} for an {@link Employee} for a specific {@link AccountType} in a period
+      operationId: payroll.AccountEntryAPI.byEmployeeAndAccountTypeInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        description: the specific employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: account_type_id
+        in: query
+        description: the account type
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: the start of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: the end of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replaced-by: /v0/administration/account_entries/by_employee_and_type_in_period/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/account_entries/by_employee_and_type_till_date/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve the account entries up until the specified date for a specific…
+      operationId: payroll.AccountEntryAPI.byEmployeeIdAndAccountTypeIdTillDate
+      parameters:
+      - name: employee_id
+        in: path
+        description: of the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: account_type_id
+        in: query
+        description: the specified accountType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: until accountentries are requested
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replaced-by: /v0/administration/account_entries/by_employee_and_type_till_date/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/account_entries/by_employee_and_type/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve all AccountEntry for an Employee and a specific AccountType
+      description: Retrieve all {@link AccountEntry} for an {@link Employee} and a specific {@link AccountType}
+      operationId: payroll.AccountEntryAPI.byEmployeeAndAccountType
+      parameters:
+      - name: employee_id
+        in: path
+        description: the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: account_type_id
+        in: query
+        description: the specific accountType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replaced-by: /v0/administration/account_entries/by_employee_and_type/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/account_entries/by_employee_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve all the AccountEntry for an Employee in a specified period
+      description: Retrieve all the {@link AccountEntry} for an {@link Employee} in a specified period
+      operationId: payroll.AccountEntryAPI.byEmployeeInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        description: of the request employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: the start of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: the end of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replaced-by: /v0/administration/account_entries/by_employee_in_period/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/account_entries/by_employee_till_date/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve the account entries up until the specified date for a specific employee
+      operationId: payroll.AccountEntryAPI.byEmployeeIdTillDate
+      parameters:
+      - name: employee_id
+        in: path
+        description: of the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: until accountentries are requested
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replaced-by: /v0/administration/account_entries/by_employee_till_date/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/account_entries/by_employee/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve all AccountEntry for an Employee
+      description: Retrieve all {@link AccountEntry} for an {@link Employee}
+      operationId: payroll.AccountEntryAPI.byEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replaced-by: /v0/administration/account_entries/by_employee/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_entries/{id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Return the Account Entry corresponding to the given id
+      operationId: payroll.AccountEntryAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AccountEntry
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.AccountEntry'
+        '400':
+          description: The ID is required
+        '404':
+          description: The account entry cannot be found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/account_entries/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_entries/by_employee_and_type_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve all AccountEntry for an Employee for a specific AccountType in a period
+      description: Retrieve all {@link AccountEntry} for an {@link Employee} for a specific {@link AccountType} in a period
+      operationId: payroll.AccountEntryAPI.byEmployeeAndAccountTypeInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        description: the specific employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: account_type_id
+        in: query
+        description: the account type
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: the start of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: the end of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replacement-for:
+      - /t/payroll/account_entries/by_employee_and_type_in_period/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_entries/by_employee_and_type_till_date/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve the account entries up until the specified date for a specific…
+      operationId: payroll.AccountEntryAPI.byEmployeeIdAndAccountTypeIdTillDate
+      parameters:
+      - name: employee_id
+        in: path
+        description: of the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: account_type_id
+        in: query
+        description: the specified accountType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: until accountentries are requested
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replacement-for:
+      - /t/payroll/account_entries/by_employee_and_type_till_date/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_entries/by_employee_and_type/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve all AccountEntry for an Employee and a specific AccountType
+      description: Retrieve all {@link AccountEntry} for an {@link Employee} and a specific {@link AccountType}
+      operationId: payroll.AccountEntryAPI.byEmployeeAndAccountType
+      parameters:
+      - name: employee_id
+        in: path
+        description: the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: account_type_id
+        in: query
+        description: the specific accountType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replacement-for:
+      - /t/payroll/account_entries/by_employee_and_type/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_entries/by_employee_in_period/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve all the AccountEntry for an Employee in a specified period
+      description: Retrieve all the {@link AccountEntry} for an {@link Employee} in a specified period
+      operationId: payroll.AccountEntryAPI.byEmployeeInPeriod
+      parameters:
+      - name: employee_id
+        in: path
+        description: of the request employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        description: the start of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: the end of the period
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replacement-for:
+      - /t/payroll/account_entries/by_employee_in_period/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_entries/by_employee_till_date/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve the account entries up until the specified date for a specific employee
+      operationId: payroll.AccountEntryAPI.byEmployeeIdTillDate
+      parameters:
+      - name: employee_id
+        in: path
+        description: of the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        description: until accountentries are requested
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replacement-for:
+      - /t/payroll/account_entries/by_employee_till_date/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_entries/by_employee/{employee_id}:
+    get:
+      tags:
+      - payroll.AccountEntry
+      summary: Retrieve all AccountEntry for an Employee
+      description: Retrieve all {@link AccountEntry} for an {@link Employee}
+      operationId: payroll.AccountEntryAPI.byEmployee
+      parameters:
+      - name: employee_id
+        in: path
+        description: the requested employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountEntryList'
+      x-replacement-for:
+      - /t/payroll/account_entries/by_employee/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.SubType:
+      type: string
+      oneOf:
+      - title: NONE
+        enum:
+        - none
+      - title: PLB
+        enum:
+        - plb
+      - title: LFB
+        enum:
+        - lfb
+      - title: SPECIAL_LEAVE
+        enum:
+        - special leave
+      description: SubType model (no description)
+      example: none
+    payroll.AccountEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeId:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        minutes:
+          type: integer
+          format: int64
+        reason:
+          type: string
+        comment:
+          type: string
+        accountTypeId:
+          type: integer
+          format: int64
+        subType:
+          $ref: '#/components/schemas/payroll.SubType'
+        absolute:
+          type: boolean
+        correction:
+          type: boolean
+        verified:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        reasonAsText:
+          type: string
+        includedInStartingBalance:
+          type: boolean
+          description: Used to mark an accountEntry that is already included in the starting balance account amount. Will only be set to true when the account entry is set on the exact same date and time as the start of the requested period.
+      description: AccountEntry model (no description)
+      example:
+        id: 1741079
+        employeeId: 3
+        date: '2015-09-03'
+        minutes: 30
+        reason: Calculated
+        comment: Een comment op deze accountEntry
+        accountTypeId: 2
+        subType: lfb
+        absolute: false
+        correction: false
+        verified: true
+        createdAt: '2015-09-03T00:00:00.000+02:00'
+        updatedAt: '2015-09-03T00:00:00.000+02:00'
+        reasonAsText: Berekend over week 35 2015
+        includedInStartingBalance: false
+    payroll.list.AccountEntryList:
+      type: object
+      properties:
+        accountEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.AccountEntry'
+      description: AccountEntryList model (no description)
+      example:
+        accountEntries:
+        - id: 1741079
+          employeeId: 3
+          date: '2015-09-03'
+          minutes: 30
+          reason: Calculated
+          comment: Een comment op deze accountEntry
+          accountTypeId: 2
+          subType: lfb
+          absolute: false
+          correction: false
+          verified: true
+          createdAt: '2015-09-03T00:00:00.000+02:00'
+          updatedAt: '2015-09-03T00:00:00.000+02:00'
+          reasonAsText: Berekend over week 35 2015
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

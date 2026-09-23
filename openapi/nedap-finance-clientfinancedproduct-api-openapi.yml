@@ -1,0 +1,274 @@
+openapi: 3.2.0
+info:
+  title: Nedap Finance.Client Financed Product API
+  version: 0.0.0
+  description: 'Operations tagged finance.ClientFinancedProduct across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: finance.ClientFinancedProduct
+paths:
+  /t/finance/client_financed_products/by_location_and_finance_type_in_period:
+    get:
+      tags:
+      - finance.ClientFinancedProduct
+      summary: Retrieve the legally financeable products for all clients on a certain…
+      operationId: finance.ClientFinancedProductAPI.byLocationAndFinanceTypeInPeriod
+      parameters:
+      - name: unit_id
+        in: query
+        description: the id of the location we want a list of
+        schema:
+          type: integer
+          format: int64
+      - name: finance_id
+        in: query
+        description: the financetype we're interested in
+        schema:
+          type: integer
+          format: int64
+      - name: start_period
+        in: query
+        description: the start of the period
+        schema:
+          type: string
+          format: date
+      - name: end_period
+        in: query
+        description: the end of the period
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ClientFinancedProductList'
+        '400':
+          description: The unit, finance type, start date and end date are required, and the end date cannot be after the begin date
+      x-replaced-by: /v0/administration/finance/client_financed_products/by_location_and_finance_type_in_period
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/finance/client_financed_products/by_location_and_finance_types_in_period:
+    get:
+      tags:
+      - finance.ClientFinancedProduct
+      summary: Retrieve the legally financeable products for all clients on a certain…
+      operationId: finance.ClientFinancedProductAPI.byLocationAndFinanceTypesInPeriod
+      parameters:
+      - name: unit_id
+        in: query
+        description: the id of the location we want a list of
+        schema:
+          type: integer
+          format: int64
+      - name: finance_ids
+        in: query
+        description: a list of the financetypes we're interested in
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: start_period
+        in: query
+        description: the start of the period
+        schema:
+          type: string
+          format: date
+      - name: end_period
+        in: query
+        description: the end of the period
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ClientFinancedProductList'
+        '400':
+          description: The unit, finance types, start date and end date are required, and the end date cannot be after the begin date
+      x-replaced-by: /v0/administration/finance/client_financed_products/by_location_and_finance_types_in_period
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/client_financed_products/by_location_and_finance_type_in_period:
+    get:
+      tags:
+      - finance.ClientFinancedProduct
+      summary: Retrieve the legally financeable products for all clients on a certain…
+      operationId: finance.ClientFinancedProductAPI.byLocationAndFinanceTypeInPeriod
+      parameters:
+      - name: unit_id
+        in: query
+        description: the id of the location we want a list of
+        schema:
+          type: integer
+          format: int64
+      - name: finance_id
+        in: query
+        description: the financetype we're interested in
+        schema:
+          type: integer
+          format: int64
+      - name: start_period
+        in: query
+        description: the start of the period
+        schema:
+          type: string
+          format: date
+      - name: end_period
+        in: query
+        description: the end of the period
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ClientFinancedProductList'
+        '400':
+          description: The unit, finance type, start date and end date are required, and the end date cannot be after the begin date
+      x-replacement-for:
+      - /t/finance/client_financed_products/by_location_and_finance_type_in_period
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/finance/client_financed_products/by_location_and_finance_types_in_period:
+    get:
+      tags:
+      - finance.ClientFinancedProduct
+      summary: Retrieve the legally financeable products for all clients on a certain…
+      operationId: finance.ClientFinancedProductAPI.byLocationAndFinanceTypesInPeriod
+      parameters:
+      - name: unit_id
+        in: query
+        description: the id of the location we want a list of
+        schema:
+          type: integer
+          format: int64
+      - name: finance_ids
+        in: query
+        description: a list of the financetypes we're interested in
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: start_period
+        in: query
+        description: the start of the period
+        schema:
+          type: string
+          format: date
+      - name: end_period
+        in: query
+        description: the end of the period
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/finance.list.ClientFinancedProductList'
+        '400':
+          description: The unit, finance types, start date and end date are required, and the end date cannot be after the begin date
+      x-replacement-for:
+      - /t/finance/client_financed_products/by_location_and_finance_types_in_period
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    finance.list.ClientFinancedProductList:
+      type: object
+      properties:
+        clientFinancedProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.ClientFinancedProduct'
+          xml:
+            name: clientFinancedProduct
+      description: ClientFinancedProductList model (no description)
+      example:
+        clientFinancedProducts:
+        - clientObjectId: 1
+          financeTypeObjectId: 2
+          financedProducts:
+          - productObjectId: 2
+            startDate: '2018-01-01'
+            endDate: '2018-01-31'
+          - productObjectId: 3
+            startDate: '2018-02-01'
+            endDate: '2018-03-01'
+      xml:
+        name: clientFinancedProducts
+    finance.ClientFinancedProduct:
+      type: object
+      properties:
+        clientObjectId:
+          type: integer
+          description: The client for which we produce a list of products which are legally financed
+          format: int64
+        financeTypeObjectId:
+          type: integer
+          format: int64
+        financedProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.FinancedProduct'
+          description: The list of products
+          xml:
+            wrapped: true
+      description: ClientFinancedProduct model (no description)
+      example:
+        clientObjectId: 1
+        financeTypeObjectId: 2
+        financedProducts:
+        - productObjectId: 2
+          startDate: '2018-01-01'
+          endDate: '2018-01-31'
+        - productObjectId: 3
+          startDate: '2018-02-01'
+          endDate: '2018-03-01'
+      xml:
+        name: clientFinancedProduct
+    finance.FinancedProduct:
+      type: object
+      properties:
+        productObjectId:
+          type: integer
+          description: The product that the client has legal financial rights for
+          format: int64
+        startDate:
+          type: string
+          description: The start date the product has legal financial rights
+          format: date
+        endDate:
+          type: string
+          description: The end date (inclusive) the product has financial rights
+          format: date
+      description: FinancedProduct model (no description)
+      example:
+        productObjectId: 2
+        startDate: '2018-01-01'
+        endDate: '2018-01-31'
+      xml:
+        name: financedProduct
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

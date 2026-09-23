@@ -1,0 +1,1060 @@
+openapi: 3.2.0
+info:
+  title: Nedap Document API
+  version: 0.0.0
+  description: 'Operations tagged Document across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Document
+paths:
+  /t/documents:
+    post:
+      tags:
+      - Document
+      summary: Create a document for a client.
+      description: 'WARNING: Documents uploaded without visibility settings (expertise profile or expertise group) may be visible to clients in Caren, depending on how the customer environment is set up.
+
+
+        POST body:
+
+
+        POST /t/documents HTTP/1.1
+
+        Accept: application/xml
+
+        Accept-Encoding: gzip, deflate
+
+        Connection: keep-alive
+
+        Content-Type: multipart/form-data; boundary=---------------------------9051914041544843365972754266
+
+        Content-Length: 554
+
+        -----------------------------9051914041544843365972754266
+
+        Content-Disposition: form-data; name=“metadata”
+
+        Content-Type: application/json
+
+        {"clientObjectId": 12, "employeeObjectId": 10}
+
+        -----------------------------9051914041544843365972754266
+
+        Content-Disposition: form-data; name=“attachment"; filename=“somefilename"
+
+        Content-Type: application/octet-stream
+
+        0010010010101001001000
+
+        -----------------------------9051914041544843365972754266--
+
+
+        Curl example
+
+
+        curl -vv -S
+
+        --cert common-name.pem --key common-name.key
+
+        -X POST https://api-development.ons.io/t/documents?client_id=12
+
+        -H ''Accept: application/xml,application/json''
+
+        -H ''Cache-Control: no-cache''
+
+        -H ''Content-Type: multipart/form-data''
+
+        -F ''metadata={"clientObjectId":12, "employeeObjectId" : 10};type=application/json''
+
+        -F ''attachment=@temp.txt''
+
+
+        When using Postman api client the metadata has to be an xml object'
+      operationId: DocumentAPI.create
+      parameters:
+      - name: client_id
+        in: query
+        description: Id of the client object
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: "An object with metadata about the document (clientObjectId and employeeObjectId are required).\n When setting expertise profiles or expertise groups the rightSelection should be set to Group.\n The RightSelection `Education` ignores any supplied expertise profiles and expertise groups and applies the\n currently valid expertise profile of the employee."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '415':
+          description: Unsupported Media Type can be returned when media type is unsupported or if an attachment was not received completely. A retry should normally fix this.
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/clients/{client_id}/documents
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    get:
+      tags:
+      - Document
+      summary: Find the document corresponding to the given client and document id's
+      operationId: DocumentAPI.byClientIdAndDocumentId
+      parameters:
+      - name: client_id
+        in: query
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: doc_id
+        in: query
+        description: the id of the document
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '405':
+          description: When no doc_id query parameter is provided
+      x-replaced-by: /v0/administration/clients/{client_id}/documents/{doc_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/documents/download:
+    get:
+      tags:
+      - Document
+      summary: Returns a stream of bytes representing the document, be sure to close the…
+      operationId: DocumentAPI.downloadByClientIdAndDocumentId
+      parameters:
+      - name: client_id
+        in: query
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: doc_id
+        in: query
+        description: the id of the document
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Download file
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '405':
+          description: When no doc_id query parameter is provided
+      x-replaced-by: /v0/administration/clients/{client_id}/documents/{doc_id}/download
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/documents/by_client/{client_id}:
+    get:
+      tags:
+      - Document
+      summary: Find all documents for a client
+      description: Optionally filter by employee who has access to the files and by creation date.
+      operationId: DocumentAPI.byClientIdAndEmployeeIdAndDate
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        description: an optional filter. Adding an employee id will only return those documents that that employee can access
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: only return the documents added after this date
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: only return the documents added before this date
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+      x-replaced-by: /v0/administration/clients/{client_id}/documents/all
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/documents/by_client/{client_id}/all_archived_included:
+    get:
+      tags:
+      - Document
+      summary: Find all active and archived documents
+      description: Optionally filter by employee who has access to the files and by creation date.
+      operationId: DocumentAPI.documentsByClientInPeriodIncludeArchived
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        description: an optional filter. Adding an employee id will only return thosdocuments that that employee can access
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: only return the documents added after this date
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: only return the documents added before this date
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+        '404':
+          description: Employee cannot be found
+      x-replaced-by: /v0/administration/clients/{client_id}/documents/all_archived_included
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/documents/update_status/{document_object_id}:
+    put:
+      tags:
+      - Document
+      summary: Update the status of a document
+      description: 'WARNING: Documents uploaded without visibility settings (expertise profile or expertise group) may be visible to clients in Caren, depending on how the customer environment is set up.'
+      operationId: DocumentAPI.updateStatus
+      parameters:
+      - name: document_object_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: status_code
+        in: query
+        description: 'The status of the document. Possible values: Stored(2), Deleted(3), Archived(6), Scheduled for purging(7)'
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+      x-replaced-by: /v0/administration/documents/{document_object_id}/status
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/documents/x-stream-connect/data:
+    get:
+      tags:
+      - Document
+      summary: Return all Document models in a streaming manner
+      description: 'Note: While fields are included for expertiseProfiles and expertiseGroups, these are not filled. That data
+
+        can be found by fetching the metadata of the individual document.'
+      operationId: DocumentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/documents/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/documents/x-stream-connect/deletes:
+    get:
+      tags:
+      - Document
+      summary: Return all Document models which where deleted since the date given in the…
+      description: 'If no date is
+
+        given it will return all deleted Document models'
+      operationId: DocumentAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/documents/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/documents/x-stream-connect/updates:
+    get:
+      tags:
+      - Document
+      summary: Return all Document models which where updated since the date given in the…
+      description: 'Note: While fields are included for expertiseProfiles and expertiseGroups, these are not filled. That data
+
+        can be found by fetching the metadata of the individual document.'
+      operationId: DocumentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/documents/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/documents:
+    post:
+      tags:
+      - Document
+      summary: Create a document for a client.
+      description: 'WARNING: Documents uploaded without visibility settings (expertise profile or expertise group) may be visible to clients in Caren, depending on how the customer environment is set up.
+
+
+        POST body:
+
+
+        POST /t/documents HTTP/1.1
+
+        Accept: application/xml
+
+        Accept-Encoding: gzip, deflate
+
+        Connection: keep-alive
+
+        Content-Type: multipart/form-data; boundary=---------------------------9051914041544843365972754266
+
+        Content-Length: 554
+
+        -----------------------------9051914041544843365972754266
+
+        Content-Disposition: form-data; name=“metadata”
+
+        Content-Type: application/json
+
+        {"clientObjectId": 12, "employeeObjectId": 10}
+
+        -----------------------------9051914041544843365972754266
+
+        Content-Disposition: form-data; name=“attachment"; filename=“somefilename"
+
+        Content-Type: application/octet-stream
+
+        0010010010101001001000
+
+        -----------------------------9051914041544843365972754266--
+
+
+        Curl example
+
+
+        curl -vv -S
+
+        --cert common-name.pem --key common-name.key
+
+        -X POST https://api-development.ons.io/t/documents?client_id=12
+
+        -H ''Accept: application/xml,application/json''
+
+        -H ''Cache-Control: no-cache''
+
+        -H ''Content-Type: multipart/form-data''
+
+        -F ''metadata={"clientObjectId":12, "employeeObjectId" : 10};type=application/json''
+
+        -F ''attachment=@temp.txt''
+
+
+        When using Postman api client the metadata has to be an xml object'
+      operationId: DocumentAPI.create
+      parameters:
+      - name: client_id
+        in: path
+        description: Id of the client object
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: query
+      requestBody:
+        description: "An object with metadata about the document (clientObjectId and employeeObjectId are required).\n When setting expertise profiles or expertise groups the rightSelection should be set to Group.\n The RightSelection `Education` ignores any supplied expertise profiles and expertise groups and applies the\n currently valid expertise profile of the employee."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '415':
+          description: Unsupported Media Type can be returned when media type is unsupported or if an attachment was not received completely. A retry should normally fix this.
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/documents
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/documents/{doc_id}:
+    get:
+      tags:
+      - Document
+      summary: Find the document corresponding to the given client and document id's
+      operationId: DocumentAPI.byClientIdAndDocumentId
+      parameters:
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: query
+      - name: doc_id
+        in: path
+        description: the id of the document
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: query
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '405':
+          description: When no doc_id query parameter is provided
+      x-replacement-for:
+      - /t/documents
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/documents/{doc_id}/download:
+    get:
+      tags:
+      - Document
+      summary: Returns a stream of bytes representing the document, be sure to close the…
+      operationId: DocumentAPI.downloadByClientIdAndDocumentId
+      parameters:
+      - name: client_id
+        in: path
+        description: the id of the client
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: query
+      - name: doc_id
+        in: path
+        description: the id of the document
+        required: true
+        schema:
+          type: integer
+          format: int64
+        x-original-parameter:
+          in: query
+      responses:
+        '200':
+          description: Download file
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '405':
+          description: When no doc_id query parameter is provided
+      x-replacement-for:
+      - /t/documents/download
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/documents/all:
+    get:
+      tags:
+      - Document
+      summary: Find all documents for a client
+      description: Optionally filter by employee who has access to the files and by creation date.
+      operationId: DocumentAPI.byClientIdAndEmployeeIdAndDate
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        description: an optional filter. Adding an employee id will only return those documents that that employee can access
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: only return the documents added after this date
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: only return the documents added before this date
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+      x-replacement-for:
+      - /t/documents/by_client/{client_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/documents/all_archived_included:
+    get:
+      tags:
+      - Document
+      summary: Find all active and archived documents
+      description: Optionally filter by employee who has access to the files and by creation date.
+      operationId: DocumentAPI.documentsByClientInPeriodIncludeArchived
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: employee_id
+        in: query
+        description: an optional filter. Adding an employee id will only return thosdocuments that that employee can access
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: only return the documents added after this date
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: only return the documents added before this date
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+        '404':
+          description: Employee cannot be found
+      x-replacement-for:
+      - /t/documents/by_client/{client_id}/all_archived_included
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/documents/{document_object_id}/status:
+    put:
+      tags:
+      - Document
+      summary: Update the status of a document
+      description: 'WARNING: Documents uploaded without visibility settings (expertise profile or expertise group) may be visible to clients in Caren, depending on how the customer environment is set up.'
+      operationId: DocumentAPI.updateStatus
+      parameters:
+      - name: document_object_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: status_code
+        in: query
+        description: 'The status of the document. Possible values: Stored(2), Deleted(3), Archived(6), Scheduled for purging(7)'
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+      x-replacement-for:
+      - /t/documents/update_status/{document_object_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/documents/data:
+    get:
+      tags:
+      - Document
+      summary: Return all Document models in a streaming manner
+      description: 'Note: While fields are included for expertiseProfiles and expertiseGroups, these are not filled. That data
+
+        can be found by fetching the metadata of the individual document.'
+      operationId: DocumentAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/documents/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/documents/deletes:
+    get:
+      tags:
+      - Document
+      summary: Return all Document models which where deleted since the date given in the…
+      description: 'If no date is
+
+        given it will return all deleted Document models'
+      operationId: DocumentAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/documents/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/documents/updates:
+    get:
+      tags:
+      - Document
+      summary: Return all Document models which where updated since the date given in the…
+      description: 'Note: While fields are included for expertiseProfiles and expertiseGroups, these are not filled. That data
+
+        can be found by fetching the metadata of the individual document.'
+      operationId: DocumentAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.DocumentList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/documents/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ExpertiseGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        parentObjectid:
+          type: integer
+          format: int64
+        name:
+          type: string
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        expertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfile'
+          xml:
+            wrapped: true
+      description: Model is used to group {@link ExpertiseProfile}'s, with possibly other {@link ExpertiseGroup}'s as parent/children.
+      example:
+        id: 2
+        parentObjectid: 1
+        name: Alle helpenden
+        beginDate: '2016-01-01'
+        endDate: '2021-12-31'
+        expertiseProfiles:
+        - id: 5
+          description: Helpenden A
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+        - id: 6
+          description: Helpenden B
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+      xml:
+        name: expertiseGroup
+    list.DocumentList:
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+          xml:
+            name: document
+      description: DocumentList model (no description)
+      example:
+        documents:
+        - id: 88
+          employeeObjectId: 10
+          clientObjectId: 2
+          description: Dit is een test
+          rightSelection: Group
+          expertiseProfiles:
+          - id: 1
+          - id: 2
+          expertiseGroups:
+          - id: 1
+          tags:
+          - test
+          - Een tweede tag
+        - id: 162
+          employeeObjectId: 11
+          clientObjectId: 2
+          description: Dit is een test
+          rightSelection: Group
+          expertiseProfiles:
+          - id: 1
+          - id: 4
+          expertiseGroups:
+          - id: 1
+          tags:
+          - Een tweede tag
+      xml:
+        name: documents
+    RightSelection:
+      enum:
+      - Me
+      - Group
+      - Education
+      - All
+      - Nobody
+      type: string
+      description: RightSelection enum (no description)
+      example: Me
+    ExpertiseProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        visible:
+          type: boolean
+        beginDate:
+          type: string
+          description: 'Deprecated since: 2024-05-14, unused, always empty'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 14-05-2024
+        endDate:
+          type: string
+          description: 'Deprecated since: 2024-05-14, unused, always empty'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 14-05-2024
+        allowDossierActions:
+          type: boolean
+        allowDossierConfidential:
+          type: boolean
+        hourTypeIds:
+          type: array
+          items:
+            type: integer
+            description: List of Ids of {@link HourType}s assigned to this expertise profile
+            format: int64
+            xml:
+              name: hourTypeId
+          description: List of Ids of {@link HourType}s assigned to this expertise profile
+          xml:
+            wrapped: true
+      description: Model is used to check to see if a person can be connected to a certain {@link HourType}.
+      example:
+        id: 5
+        description: Helpenden
+        visible: true
+        beginDate: '2015-01-01T12:00:00.000+01:00'
+        endDate: '2020-01-01T12:00:00.000+01:00'
+        allowDossierActions: true
+        allowDossierConfidential: false
+        hourTypeIds:
+        - 1
+        - 2
+        - 3
+    Document:
+      required:
+      - employeeObjectId
+      - clientObjectId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        clientObjectId:
+          type: integer
+          format: int64
+        description:
+          type: string
+        rightSelection:
+          $ref: '#/components/schemas/RightSelection'
+        status:
+          type: integer
+          description: '0: New
+
+            1: Uploading
+
+            2: Stored
+
+            3: Deleted
+
+            4: Purged
+
+            5: Error
+
+            6: Archived'
+          format: int32
+        fileName:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        expertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfile'
+          xml:
+            wrapped: true
+        expertiseGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseGroup'
+          xml:
+            wrapped: true
+        tags:
+          type: array
+          items:
+            type: string
+            xml:
+              name: tag
+          xml:
+            wrapped: true
+      description: Document model (no description)
+      example:
+        id: 1233
+        employeeObjectId: 10
+        clientObjectId: 2
+        description: Dit is een test
+        rightSelection: Group
+        status: 1
+        fileName: file.pdf
+        updatedAt: '2017-06-08T00:00:00.000+02:00'
+        createdAt: '2017-06-06T00:00:00.000+02:00'
+        expertiseProfiles:
+        - id: 1
+        - id: 2
+        expertiseGroups:
+        - id: 1
+        tags:
+        - test
+        - Een tweede tag
+      xml:
+        name: document
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

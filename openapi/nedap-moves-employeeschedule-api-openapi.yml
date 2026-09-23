@@ -1,0 +1,1598 @@
+openapi: 3.2.0
+info:
+  title: Nedap Moves.Employee Schedule API
+  version: 0.0.0
+  description: 'Operations tagged moves.EmployeeSchedule across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: moves.EmployeeSchedule
+paths:
+  /t/employee_schedules/by_employee_id/{employee_id}:
+    get:
+      tags:
+      - moves.EmployeeSchedule
+      summary: Returns the EmployeeSchedule for the given Employee for the requested period
+      operationId: moves.EmployeeScheduleAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The {id} of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The start date of the period.
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: The end date of the period (exclusive).
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: include
+        in: query
+        description: "Comma-separated list of keywords to indicate which\n                   features/fields/subresources you'd like to have included\n                   in the response.\n                   `exportability` - The `.exportable` attribute of various\n                   models will be computed to indicate whether they would\n                   be exported by the EmployeeExportApi at this time.\n                   `flex_signups` - RosterSlots will be included for which\n                   the employee has signedup, but has not been assigned to\n                   yet. FlexSignups of colleagues for the same RosterSlot\n                   are also included.\n                   `unavailability` - UnavailabilityOccurrences for both\n                   whole days and parts of days are included.\n                   `location_authorizations` - LocationAuthorizations are\n                   included for each RosterSlot and PlannedVisit.\n                   `availability` - AvailabilityOccurrences are included.\n                   `leave_requests` - LeaveRequestOccurrences are included."
+        schema:
+          type: string
+      - name: apply_mutations
+        in: query
+        description: Whether to apply the employees plan mutations to the results
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.EmployeeSchedule'
+      x-replaced-by: /v0/plannen_roosteren/employee_schedules/by_employee_id/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/plannen_roosteren/employee_schedules/by_employee_id/{employee_id}:
+    get:
+      tags:
+      - moves.EmployeeSchedule
+      summary: Returns the EmployeeSchedule for the given Employee for the requested period
+      operationId: moves.EmployeeScheduleAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The {id} of the requested Employee
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: from
+        in: query
+        description: The start date of the period.
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: The end date of the period (exclusive).
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: include
+        in: query
+        description: "Comma-separated list of keywords to indicate which\n                   features/fields/subresources you'd like to have included\n                   in the response.\n                   `exportability` - The `.exportable` attribute of various\n                   models will be computed to indicate whether they would\n                   be exported by the EmployeeExportApi at this time.\n                   `flex_signups` - RosterSlots will be included for which\n                   the employee has signedup, but has not been assigned to\n                   yet. FlexSignups of colleagues for the same RosterSlot\n                   are also included.\n                   `unavailability` - UnavailabilityOccurrences for both\n                   whole days and parts of days are included.\n                   `location_authorizations` - LocationAuthorizations are\n                   included for each RosterSlot and PlannedVisit.\n                   `availability` - AvailabilityOccurrences are included.\n                   `leave_requests` - LeaveRequestOccurrences are included."
+        schema:
+          type: string
+      - name: apply_mutations
+        in: query
+        description: Whether to apply the employees plan mutations to the results
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moves.EmployeeSchedule'
+      x-replacement-for:
+      - /t/employee_schedules/by_employee_id/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    moves.EmployeeSchedule:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        from:
+          type: string
+          description: Describes, together with the "to" attribute, for which period the EmployeeSchedule was retrieved.
+          format: date
+        to:
+          type: string
+          description: Describes, together with the "from" attribute, for which period the EmployeeSchedule was retrieved.
+          format: date
+        employeeScheduleDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.EmployeeScheduleDay'
+          description: List of EmployeeScheduleDays that make up this EmployeeSchedule.
+      description: EmployeeSchedule model (no description)
+      example:
+        employeeId: 1
+        from: '2019-11-25'
+        to: '2019-11-26'
+        employeeScheduleDays:
+        - date: '2019-11-25'
+          employeeScheduleItems:
+          - rosterSlot:
+              id: 21@2019-11-25
+              date: '2019-11-25'
+              beginTime: '2019-11-25T22:00:00.000+01:00'
+              endTime: '2019-11-25T23:00:00.000+01:00'
+              note: Some note
+              shiftId: 1@2019-10-25
+              externalExpertiseProfileId: 1
+              externalTeamId: 1
+              authorizesForLocationId: 12
+              shiftAssignments:
+              - id: 1
+                date: '1999-12-31'
+                beginTime: '1999-12-31T22:00:00.000+01:00'
+                endTime: '1999-12-31T23:00:00.000+01:00'
+                externalExpertiseProfileId: 1
+                expertiseProfileName: Verpleegkundige
+                shiftId: 1@2014-03-28
+                employeeId: 1
+                employeeLeadingName: Jan Henk
+                employeeName: Jan Henk Heilersig
+                onCall: true
+              flexSignups: []
+              plannedVisits:
+              - date: '2013-12-06'
+                calculatedStart: '2013-12-06T12:51:00.000+01:00'
+                totalDuration: -1386330660
+                travelTimeBefore: 3600
+                gapTimeBefore: 0
+                notes: []
+                plancards: []
+                shiftTimelineId: 6
+                shiftName: Middag De Terp PV
+                shiftCode: MDT
+                teamId: 328
+                teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+                unitId: 1090
+                teamName: V&V De Terp
+                teamCode: '1410'
+                teamBlockplanned: false
+                authorizesForLocationId: 12
+                clientId: 14947
+                clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+                clientCode: '05645'
+                clientName: A Radstaak - de Doring
+                clientGender: F
+                clientIsDummy: false
+                clientBirthDate: '1932-05-23'
+                employeeId: 1
+                employeeUuid: '1234567890'
+                employeeCode: code
+                employeeName: employee
+                employeeGender: m
+                employeeIsDummy: true
+          - unavailabilityOccurrence:
+              timelineId: 1
+              date: '2019-11-19'
+              employeeId: 1
+              typeName: Ziek
+              typeAbbreviation: Z
+              allDay: true
+              beginTime: '2019-11-19T00:00:00.000+01:00'
+              endTime: '2019-11-19T00:00:00.000+01:00'
+              note: Dummy
+          - directlyPlannedVisits:
+            - date: '2013-12-06'
+              calculatedStart: '2013-12-06T12:51:00.000+01:00'
+              totalDuration: -1386330660
+              travelTimeBefore: 3600
+              gapTimeBefore: 0
+              notes: []
+              plancards: []
+              shiftTimelineId: 6
+              shiftName: Middag De Terp PV
+              shiftCode: MDT
+              teamId: 328
+              teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+              unitId: 1090
+              teamName: V&V De Terp
+              teamCode: '1410'
+              teamBlockplanned: false
+              authorizesForLocationId: 12
+              clientId: 14947
+              clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+              clientCode: '05645'
+              clientName: A Radstaak - de Doring
+              clientGender: F
+              clientIsDummy: false
+              clientBirthDate: '1932-05-23'
+              employeeId: 1
+              employeeUuid: '1234567890'
+              employeeCode: code
+              employeeName: employee
+              employeeGender: m
+              employeeIsDummy: true
+    moves.Plancard:
+      type: object
+      properties:
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        hourTypeName:
+          type:
+          - string
+          - 'null'
+        hourTypeCode:
+          type:
+          - string
+          - 'null'
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration of this Plancard in seconds.
+          format: int32
+        note:
+          type:
+          - string
+          - 'null'
+          description: The note added to this Plancard in the planscreen.
+        promisedStart:
+          type:
+          - string
+          - 'null'
+          description: The entered start time of this Plancard. This time is an intent, not a guarantee.
+          format: date-time
+        dayPart:
+          type:
+          - integer
+          - 'null'
+          description: 'Daypart on which this Plancard is defined in the care arrangement.
+
+
+            <pre>
+
+            1 - Morning
+
+            2 - Afternoon
+
+            3 - Evening
+
+            0 - Night (Night-plancards generally occur after Evening-plancards for the same date)
+
+            null - Incidentally added Plancard that is not linked to a care arrangement.
+
+            </pre>'
+          format: int32
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this Planccard has been incidentally deleted.
+        cycleBase:
+          type: string
+          description: The date from which the recurrence pattern is calculated (usually a Sunday)
+          format: date
+        cycleInterval:
+          type: integer
+          description: The plancard occurs every N-days
+          format: int32
+        cycleOffset:
+          type: integer
+          description: The number of days from cycleBase the plancard occurs, effectively indicating a day of the week. Usually [0-6], 0 is Sunday
+          format: int32
+        originalCycleOffset:
+          type: integer
+          description: When the plancard was incidentally moved, this attribute holds the original value of cycleOffset.
+          format: int32
+        incidentallyChanged:
+          type: boolean
+          description: The information on this plancard is different from its regular/structural state.
+        instanceOfType:
+          type: string
+          description: Either 'PatternRule' (a regular plancard created from the care arrangement) or 'EventRule' (a plancard that was incidentally added from the planscreen)
+        instanceOfId:
+          type: integer
+          description: Reference to 'PatternRule'-record in case `instanceOfType` is `PatternRule`
+          format: int32
+        kind:
+          type:
+          - string
+          - 'null'
+          description: Unused
+        exportable:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this Plancard will be exported. Only available through specific APIs.
+      description: '{@link PlannedVisit}s are the aggregation of a list of Plancards.'
+      example:
+        hourTypeId: 25
+        hourTypeName: PV eten en drinken
+        hourTypeCode: '31'
+        duration: 600
+        note: Les naïfs ægithales hâtifs pondant à Noël où il gèle sont sûrs d'être déçus en voyant leurs drôles d'œufs abîmés.
+        promisedStart: '2010-03-15T00:00:00.000+01:00'
+        dayPart: 1
+        deleted: false
+        cycleBase: '2021-06-24'
+        cycleInterval: 7
+        cycleOffset: 3
+        originalCycleOffset: 5
+        incidentallyChanged: false
+        instanceOfType: PatternRule
+        instanceOfId: 16
+        kind: arrangement
+        exportable: true
+    moves.AvailabilityOccurrence:
+      type: object
+      properties:
+        timelineId:
+          type: integer
+          description: Same value for all AvailabilityOccurrences generated from the same Availability.
+          format: int64
+        date:
+          type: string
+          description: Date on which this AvailabilityOccurrence occurs.
+          format: date
+        employeeId:
+          type: integer
+          description: Refers to the Employee this AvailabilityOccurrence belongs to.
+          format: int64
+        beginTime:
+          type: string
+          description: Time at which this AvailabilityOccurrence begins.
+          format: date-time
+        endTime:
+          type: string
+          description: Time at which this AvailabilityOccurrence ends.
+          format: date-time
+        note:
+          type: string
+          description: Note/comment about this AvailabilityOccurrence.
+      description: AvailabilityOccurrence model (no description)
+      example:
+        timelineId: 1
+        date: '2019-11-19'
+        employeeId: 1
+        beginTime: '2019-11-19T00:00:00.000+01:00'
+        endTime: '2019-11-20T00:00:00.000+01:00'
+        note: Dummy
+    moves.LocationAuthorization:
+      type: object
+      properties:
+        locationId:
+          type:
+          - integer
+          - 'null'
+          description: 'The location this LocationAuthorization grants access to.
+
+            Reference to Cupido::Location.'
+          format: int64
+      description: LocationAuthorization model (no description)
+      example:
+        locationId: 1
+    moves.FlexRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        date:
+          type: string
+          format: date
+        shiftTimelineId:
+          type: integer
+          format: int64
+        shiftId:
+          type: string
+        order:
+          type: integer
+          format: int64
+        rosterTeamId:
+          type: integer
+          format: int64
+        rosterUnitId:
+          type: integer
+          format: int64
+        requestingTeamId:
+          type: integer
+          format: int64
+        flexTeamId:
+          type: integer
+          format: int64
+        flexUnitId:
+          type: integer
+          format: int64
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        breakStartTime:
+          type: string
+          format: date-time
+        breakEndTime:
+          type: string
+          format: date-time
+        externalExpertiseProfileId:
+          type: integer
+          format: int64
+        expertiseProfileName:
+          type: string
+        requestedAt:
+          type: string
+          format: date-time
+        flexSignups:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.FlexSignup'
+      description: FlexRequest model (no description)
+      example:
+        id: 1
+        date: '2025-01-15'
+        shiftTimelineId: 123
+        shiftId: 123@2025-01-15
+        order: 0
+        rosterTeamId: 8
+        rosterUnitId: 15
+        requestingTeamId: 8
+        flexTeamId: 432
+        flexUnitId: 10
+        startTime: '2025-01-15T08:00:00.000+01:00'
+        endTime: '2025-01-15T16:00:00.000+01:00'
+        breakStartTime: '2025-01-15T12:00:00.000+01:00'
+        breakEndTime: '2025-01-15T12:30:00.000+01:00'
+        externalExpertiseProfileId: 10
+        expertiseProfileName: Verpleegkundige
+        requestedAt: '2025-01-01T14:30:00.000+01:00'
+        flexSignups:
+        - id: 1
+          shiftId: 123@2025-01-15
+          date: '2025-01-15'
+          employeeId: 1
+          employeeLeadingName: Jan Henk
+          employeeName: Jan Henk Heilersig
+          suggested: false
+          struckOut: false
+          signedUpAt: '2025-01-01T00:00:00.000+01:00'
+    moves.RosterSlot:
+      type: object
+      properties:
+        id:
+          type: string
+          x-cupido-id: true
+        date:
+          type: string
+          format: date
+        beginTime:
+          type: string
+          description: 'Regular begin time of the Shift.
+
+            The date component of this field is always the same as the date of this RosterSlot.'
+          format: date-time
+        beginBreakTime:
+          type: string
+          description: 'Regular begin time of the break in this Shift (if any).
+
+            Can be after midnight, relative to the date of this RosterSlot.'
+          format: date-time
+        endBreakTime:
+          type: string
+          description: 'Regular end time of the break in this Shift (if any).
+
+            Can be after midnight, relative to the date of this RosterSlot.'
+          format: date-time
+        endTime:
+          type: string
+          description: 'Regular end time of this Shift.
+
+            Can be after midnight, relative to the date of this RosterSlot.'
+          format: date-time
+        note:
+          type: string
+        code:
+          type: string
+          description: 'The code of the Shift.
+
+            Usually a shortend version of the description.'
+        description:
+          type: string
+          description: The description of the Shift.
+        transportationMethodName:
+          type: string
+          description: Name of the transportation method of the Shift.
+        transportationMethodImage:
+          type: string
+          description: 'Image of the transportation method of the Shift.
+
+
+            Possible values:
+
+            <pre>
+
+            car
+
+            person
+
+            bike
+
+            moped
+
+            train
+
+            bus
+
+            unknown
+
+            </pre>'
+        expertiseProfileName:
+          type: string
+          description: Name of expertise required for this RosterSlot.
+        teamName:
+          type: string
+          description: Name of the team this RosterSlot belongs to.
+        shiftId:
+          type: string
+        externalExpertiseProfileId:
+          type: integer
+          description: Id of the related expertise profile in OA
+          format: int64
+        externalTeamId:
+          type: integer
+          description: Id of the related team in OA
+          format: int64
+        authorizesForLocationId:
+          type: integer
+          description: 'Being assigned as Employee for the Team or Shift
+
+            implies authorization for this Location.'
+          format: int64
+          deprecated: true
+        locationAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.LocationAuthorization'
+          description: 'Being assigned as Employee for the Team or Shift
+
+            implies authorization for these Locations.'
+        shiftAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ShiftAssignment'
+        flexRequests:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.FlexRequest'
+        flexSignups:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.FlexSignup'
+        plannedVisits:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.PlannedVisit'
+          description: The PlannedVisits that are planned to this RosterSlot.
+      description: 'A RosterSlot that has been assigned to the Employee,
+
+        or that the Employee has signed-up for.
+
+
+        Note 1:  When rosterSlot is set, unavailabilityOccurrence, directlyPlannedVisits, availabilityOccurrence and leaveRequestOccurrence are all null.
+
+        Note 2:  When multiple Employees are assigned to this RosterSlot, a ShiftAssignment will be included for each one of them.'
+      example:
+        id: 21@2014-04-11
+        date: '2013-12-31'
+        beginTime: '2013-12-31T22:00:00.000+01:00'
+        beginBreakTime: '2013-12-31T22:15:00.000+01:00'
+        endBreakTime: '2013-12-31T22:30:00.000+01:00'
+        endTime: '2013-12-31T23:00:00.000+01:00'
+        note: Some note
+        code: A2
+        description: Avond 2
+        transportationMethodName: Auto in de binnenstad
+        transportationMethodImage: car
+        expertiseProfileName: Verzorgende
+        teamName: Groenlo Noord
+        shiftId: 1@2014-03-28
+        externalExpertiseProfileId: 1
+        externalTeamId: 1
+        authorizesForLocationId: 12
+        locationAuthorizations:
+        - locationId: 12
+        shiftAssignments:
+        - id: 1
+          date: '1999-12-31'
+          beginTime: '1999-12-31T22:00:00.000+01:00'
+          endTime: '1999-12-31T23:00:00.000+01:00'
+          externalExpertiseProfileId: 1
+          expertiseProfileName: Verpleegkundige
+          shiftId: 1@2014-03-28
+          employeeId: 1
+          employeeLeadingName: Jan Henk
+          employeeName: Jan Henk Heilersig
+          onCall: true
+        - id: 2
+          date: '1999-12-31'
+          beginTime: '1999-12-31T22:00:00.000+01:00'
+          endTime: '1999-12-31T23:00:00.000+01:00'
+          externalExpertiseProfileId: 1
+          expertiseProfileName: Verpleegkundige
+          shiftId: 1@2014-03-28
+          employeeId: 2
+          employeeLeadingName: Selvi
+          employeeName: Selvi Ratnasingam
+          onCall: false
+        flexRequests:
+        - id: 1
+          date: '2025-01-15'
+          shiftTimelineId: 123
+          shiftId: 123@2024-03-28
+          order: 0
+          rosterTeamId: 8
+          rosterUnitId: 15
+          requestingTeamId: 8
+          flexTeamId: 432
+          flexUnitId: 10
+          startTime: '2024-01-15T08:00:00.000+01:00'
+          endTime: '2024-01-15T16:00:00.000+01:00'
+          breakStartTime: '2024-01-15T12:00:00.000+01:00'
+          breakEndTime: '2024-01-15T12:30:00.000+01:00'
+          externalExpertiseProfileId: 10
+          expertiseProfileName: Expertise Profile Name
+          requestedAt: '2024-01-10T14:30:00.000+01:00'
+          flexSignups:
+          - id: 1
+            shiftId: 123@2025-01-15
+            date: '2025-01-15'
+            employeeId: 1
+            employeeLeadingName: Pieter
+            employeeName: Pieter Bos
+            suggested: false
+            struckOut: false
+            signedUpAt: '2025-01-15T00:00:00.000+01:00'
+        flexSignups:
+        - id: 1
+          shiftId: 123@2025-01-15
+          date: '2025-01-15'
+          employeeId: 1
+          employeeLeadingName: Pieter
+          employeeName: Pieter Bos
+          suggested: false
+          struckOut: false
+          signedUpAt: '2025-01-15T00:00:00.000+01:00'
+        plannedVisits:
+        - date: '2013-12-06'
+          calculatedStart: '2013-12-06T12:51:00.000+01:00'
+          totalDuration: -1386330660
+          travelTimeBefore: 3600
+          gapTimeBefore: 0
+          notes: []
+          plancards: []
+          shiftTimelineId: 6
+          shiftName: Middag De Terp PV
+          shiftCode: MDT
+          teamId: 328
+          teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+          employeeId: 1
+          employeeUuid: '1234567890'
+          employeeCode: code
+          employeeName: employee
+          employeeGender: m
+          employeeIsDummy: true
+    moves.ShiftAssignment:
+      title: ShiftAssignment
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        date:
+          type:
+          - string
+          - 'null'
+          format: date
+        beginTime:
+          type:
+          - string
+          - 'null'
+          description: Effective begin time (based on the shift or incidental)
+          format: date-time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: Effective end time (based on the shift or incidental)
+          format: date-time
+        shiftId:
+          type:
+          - string
+          - 'null'
+          description: 'Composed from the timeline_id and date: "413@2019-05-01"'
+        shiftName:
+          type:
+          - string
+          - 'null'
+          description: Name of the shift
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeLeadingName:
+          type:
+          - string
+          - 'null'
+        employeeName:
+          type:
+          - string
+          - 'null'
+        externalExpertiseProfileId:
+          type:
+          - integer
+          - 'null'
+          description: Effective expertise profile (based on the shift or incidentally changed)
+          format: int64
+        expertiseProfileName:
+          type:
+          - string
+          - 'null'
+          description: Name of the effective expertise profile
+        onCall:
+          type:
+          - boolean
+          - 'null'
+          description: Is it an on-call (bereikbaarheidsdienst) shift
+        timelineShiftId:
+          type:
+          - integer
+          - 'null'
+          description: To what shift does it belong
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          description: To what team does it belong
+          format: int64
+        unitId:
+          type:
+          - integer
+          - 'null'
+          description: To what team does it belong
+          format: int64
+          deprecated: true
+          x-deprecated-since: 01-06-2026
+        breakDuration:
+          type:
+          - integer
+          - 'null'
+          description: How long is the break (in minutes)
+          format: int64
+        incidental:
+          type:
+          - boolean
+          - 'null'
+          description: Has one of the following fields been changed in comparison to the original shift (begin/end time, start/stop break time and/or expertise profile).
+        order:
+          type:
+          - integer
+          - 'null'
+          description: Order of ShiftAssignments if there are multiple on the same date and shift.
+          format: int64
+        startBreakTime:
+          type:
+          - string
+          - 'null'
+          description: Effective start break time (based on the shift or incidental)
+          format: date-time
+        stopBreakTime:
+          type:
+          - string
+          - 'null'
+          description: Effective stop break time (based on the shift or incidental)
+          format: date-time
+        discardedAt:
+          type:
+          - string
+          - 'null'
+          description: Shift Assignments are not hard-deleted, but marked as discarded. When the Shift Assignment is discarded, discardedAt shows when this was discarded.
+          format: date-time
+        exportable:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this ShiftAssignnment will be exported. Only available through specific APIs.
+      description: Updated by Jurriën Gosselink on 04-03-19
+      example:
+        id: 1
+        date: '1999-12-31'
+        beginTime: '1999-12-31T22:00:00.000+01:00'
+        endTime: '1999-12-31T23:00:00.000+01:00'
+        shiftId: 1@2014-03-28
+        shiftName: (1) Morning
+        employeeId: 1
+        employeeLeadingName: Jan Henk
+        employeeName: Jan Henk Heilersig
+        externalExpertiseProfileId: 1
+        expertiseProfileName: Verpleegkundige
+        onCall: true
+        timelineShiftId: 1654
+        unitId: 5
+        teamId: 5
+        breakDuration: 15
+        incidental: true
+        order: 0
+        startBreakTime: '1999-12-31T22:15:00.000+01:00'
+        stopBreakTime: '1999-12-31T23:29:00.000+01:00'
+        discardedAt: '2000-12-31T23:29:00.000+01:00'
+        exportable: true
+      xml:
+        name: shiftAssignment
+    moves.EmployeeScheduleDay:
+      type: object
+      properties:
+        date:
+          type: string
+          description: The logical date for the EmployeeScheduleItems, which can be different from the actual date.
+          format: date
+        employeeScheduleItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.EmployeeScheduleItem'
+          description: 'List of items rostered, planned, or otherwise scheduled for the Employee in Ons Planning.
+
+
+            The order of items is the same as the order in whicn Ons Planning displays them.
+
+            Items should be displayed in this same order by other applications.'
+        onsdraaiboekMyPlanningUrl:
+          type: string
+          description: Link to view the planning of this day in OnsDraaiboek.
+        onsdraaiboekMyRosterUrl:
+          type: string
+          description: Link to view the roster of this day in OnsDraaiboek.
+        partiallyUnpublished:
+          type: boolean
+          description: 'If true, one of more teams have not published their roster/planning,
+
+            and information contained in this EmployeeScheduleDay is incomplete.'
+      description: EmployeeScheduleDay model (no description)
+      example:
+        date: '2019-11-25'
+        employeeScheduleItems:
+        - rosterSlot:
+            id: 21@2019-11-25
+            date: '2019-11-25'
+            beginTime: '2019-11-25T22:00:00.000+01:00'
+            endTime: '2019-11-25T23:00:00.000+01:00'
+            note: Some note
+            shiftId: 1@2019-10-25
+            externalExpertiseProfileId: 1
+            externalTeamId: 1
+            authorizesForLocationId: 12
+            shiftAssignments:
+            - id: 1
+              date: '1999-12-31'
+              beginTime: '1999-12-31T22:00:00.000+01:00'
+              endTime: '1999-12-31T23:00:00.000+01:00'
+              externalExpertiseProfileId: 1
+              expertiseProfileName: Verpleegkundige
+              shiftId: 1@2014-03-28
+              employeeId: 1
+              employeeLeadingName: Jan Henk
+              employeeName: Jan Henk Heilersig
+              onCall: true
+            flexSignups: []
+            plannedVisits:
+            - date: '2013-12-06'
+              calculatedStart: '2013-12-06T12:51:00.000+01:00'
+              totalDuration: -1386330660
+              travelTimeBefore: 3600
+              gapTimeBefore: 0
+              notes: []
+              plancards: []
+              shiftTimelineId: 6
+              shiftName: Middag De Terp PV
+              shiftCode: MDT
+              teamId: 328
+              teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+              unitId: 1090
+              teamName: V&V De Terp
+              teamCode: '1410'
+              teamBlockplanned: false
+              authorizesForLocationId: 12
+              clientId: 14947
+              clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+              clientCode: '05645'
+              clientName: A Radstaak - de Doring
+              clientGender: F
+              clientIsDummy: false
+              clientBirthDate: '1932-05-23'
+              employeeId: 1
+              employeeUuid: '1234567890'
+              employeeCode: code
+              employeeName: employee
+              employeeGender: m
+              employeeIsDummy: true
+        - unavailabilityOccurrence:
+            timelineId: 1
+            date: '2019-11-19'
+            employeeId: 1
+            typeName: Ziek
+            typeAbbreviation: Z
+            allDay: true
+            beginTime: '2019-11-19T00:00:00.000+01:00'
+            endTime: '2019-11-19T00:00:00.000+01:00'
+            note: Dummy
+        - directlyPlannedVisits:
+          - date: '2013-12-06'
+            calculatedStart: '2013-12-06T12:51:00.000+01:00'
+            totalDuration: -1386330660
+            travelTimeBefore: 3600
+            gapTimeBefore: 0
+            notes: []
+            plancards: []
+            shiftTimelineId: 6
+            shiftName: Middag De Terp PV
+            shiftCode: MDT
+            teamId: 328
+            teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+            unitId: 1090
+            teamName: V&V De Terp
+            teamCode: '1410'
+            teamBlockplanned: false
+            authorizesForLocationId: 12
+            clientId: 14947
+            clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+            clientCode: '05645'
+            clientName: A Radstaak - de Doring
+            clientGender: F
+            clientIsDummy: false
+            clientBirthDate: '1932-05-23'
+            employeeId: 1
+            employeeUuid: '1234567890'
+            employeeCode: code
+            employeeName: employee
+            employeeGender: m
+            employeeIsDummy: true
+        onsdraaiboekMyPlanningUrl: https://customer.hasmoves.com/onsdraaiboek/planning/2019-11-25
+        onsdraaiboekMyRosterUrl: https://customer.hasmoves.com/onsdraaiboek/roster/2019-11-25
+        partiallyUnpublished: false
+    moves.LeaveRequestOccurrence:
+      type: object
+      properties:
+        timelineId:
+          type: integer
+          description: Same value for all LeaveRequestOccurrences generated from the same Availability.
+          format: int64
+        date:
+          type: string
+          description: Date on which this LeaveRequestOccurrence occurs.
+          format: date
+        employeeId:
+          type: integer
+          description: Refers to the Employee this LeaveRequestOccurrence belongs to.
+          format: int64
+        beginTime:
+          type: string
+          description: 'Time at which the LeaveRequest begins.
+
+            For longer LeaveRequests, this DateTime will not be on the same Date as the date attribute.'
+          format: date-time
+        endTime:
+          type: string
+          description: 'Time at which the LeaveRequest ends.
+
+            For longer LeaveRequests, this DateTime will not be on the same Date as the date attribute.'
+          format: date-time
+        status:
+          type: string
+          description: Status of the LeaveRequest
+      description: LeaveRequestOccurrence model (no description)
+      example:
+        timelineId: 1
+        date: '2019-11-19'
+        employeeId: 1
+        beginTime: '2019-11-19T00:00:00.000+01:00'
+        endTime: '2019-11-20T00:00:00.000+01:00'
+        status: pending
+    moves.PlannedAddress:
+      type:
+      - object
+      - 'null'
+      properties:
+        latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        city:
+          type:
+          - string
+          - 'null'
+        street:
+          type:
+          - string
+          - 'null'
+        zipcode:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        numberPostfix:
+          type:
+          - string
+          - 'null'
+        residenceAccessInfo:
+          type:
+          - string
+          - 'null'
+        roomNumber:
+          type:
+          - string
+          - 'null'
+      description: 'Address where {@link PlannedVisit}s are planned.
+
+
+        Moves has it''s own Address model, and plancards can be
+
+        planned tp addresses not known in other systems.'
+      example:
+        latitude: 52.038398
+        longitude: 6.624163
+        city: Groenlo
+        street: Parallelweg
+        zipcode: 7141DC
+        number: '31'
+        numberPostfix: a
+        residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
+        roomNumber: '1'
+    moves.UnavailabilityOccurrence:
+      type: object
+      properties:
+        timelineId:
+          type: integer
+          description: Same value for all UnavailabilityOccurrences generated from the same Unavailability.
+          format: int64
+        date:
+          type: string
+          format: date
+        employeeId:
+          type: integer
+          format: int64
+        typeName:
+          type: string
+          description: Human-readable name indicating kind of Unavailability. For examle "Sick" or "Holiday".
+        typeAbbreviation:
+          type: string
+          description: Short (one or two characters) representation that can be used instead of typeName when space is limited.
+        allDay:
+          type: boolean
+          description: Indicates if this UnavailabilityOccurrence last the whole.
+        beginTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        note:
+          type: string
+        exportable:
+          type: boolean
+          description: Indicates if this UnavailabilityOccurrence will be exported. Only available through specific APIs.
+      description: 'An UnavailabilityOccurrence of the Employee.
+
+
+        When unavailabilityOccurrence is set, rosterSlot, directlyPlannedVisits, availabilityOccurrence and leaveRequestOccurrence are all null.'
+      example:
+        timelineId: 1
+        date: '2019-11-19'
+        employeeId: 1
+        typeName: Ziek
+        typeAbbreviation: Z
+        allDay: true
+        beginTime: '2019-11-19T00:00:00.000+01:00'
+        endTime: '2019-11-20T00:00:00.000+01:00'
+        note: Dummy
+        exportable: true
+    PronounsType:
+      enum:
+      - SHE_HER
+      - HE_HIS
+      - WHO_THEIR
+      - THEM_THEIRS
+      type: string
+      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
+      example: WHO_THEIR
+    Pronouns:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/PronounsType'
+        description:
+          type: string
+          description: Translated description of the pronouns.
+      description: The usage of this schema is deprecated and has been replaced by PronounsType.
+      example:
+        type: WHO_THEIR
+        description: die/diens
+      deprecated: true
+      x-deprecated-since: 21-08-2026
+    moves.EmployeeScheduleItem:
+      type: object
+      properties:
+        rosterSlot:
+          allOf:
+          - $ref: '#/components/schemas/moves.RosterSlot'
+          description: 'A RosterSlot that has been assigned to the Employee,
+
+            or that the Employee has signed-up for.
+
+
+            Note 1:  When rosterSlot is set, unavailabilityOccurrence, directlyPlannedVisits, availabilityOccurrence and leaveRequestOccurrence are all null.
+
+            Note 2:  When multiple Employees are assigned to this RosterSlot, a ShiftAssignment will be included for each one of them.'
+        unavailabilityOccurrence:
+          allOf:
+          - $ref: '#/components/schemas/moves.UnavailabilityOccurrence'
+          description: 'An UnavailabilityOccurrence of the Employee.
+
+
+            When unavailabilityOccurrence is set, rosterSlot, directlyPlannedVisits, availabilityOccurrence and leaveRequestOccurrence are all null.'
+        directlyPlannedVisits:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.PlannedVisit'
+          description: 'PlannedVisits that have been directly planned to the Employee.
+
+
+            When directlyPlannedVisits is set, rosterSlot, unavailabilityOccurrence, availabilityOccurrence and leaveRequestOccurrence are all null.'
+        availabilityOccurrence:
+          $ref: '#/components/schemas/moves.AvailabilityOccurrence'
+        leaveRequestOccurrence:
+          $ref: '#/components/schemas/moves.LeaveRequestOccurrence'
+        displayCategory:
+          type: string
+          description: 'Indicates how this item should be presented to the user.
+
+            <pre>
+
+            working
+
+            not-working
+
+            not-working-tentative
+
+            available
+
+            flex-signed-up
+
+            </pre>'
+        onsdraaiboekUrl:
+          type: string
+          description: URL to OnsDraaiboek where this item can be found.
+      description: An item rostered, planned, or otherwise scheduled for an Employee in Ons Planning.
+      example:
+        rosterSlot:
+          id: 21@2019-11-25
+          date: '2019-11-25'
+          beginTime: '2019-11-25T22:00:00.000+01:00'
+          endTime: '2019-11-25T23:00:00.000+01:00'
+          note: Some note
+          shiftId: 1@2019-10-25
+          externalExpertiseProfileId: 1
+          externalTeamId: 1
+          authorizesForLocationId: 12
+          shiftAssignments:
+          - id: 1
+            date: '1999-12-31'
+            beginTime: '1999-12-31T22:00:00.000+01:00'
+            endTime: '1999-12-31T23:00:00.000+01:00'
+            externalExpertiseProfileId: 1
+            expertiseProfileName: Verpleegkundige
+            shiftId: 1@2014-03-28
+            employeeId: 1
+            employeeLeadingName: Jan Henk
+            employeeName: Jan Henk Heilersig
+            onCall: true
+          flexSignups: []
+          plannedVisits:
+          - date: '2013-12-06'
+            calculatedStart: '2013-12-06T12:51:00.000+01:00'
+            totalDuration: -1386330660
+            travelTimeBefore: 3600
+            gapTimeBefore: 0
+            notes: []
+            plancards: []
+            shiftTimelineId: 6
+            shiftName: Middag De Terp PV
+            shiftCode: MDT
+            teamId: 328
+            teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+            unitId: 1090
+            teamName: V&V De Terp
+            teamCode: '1410'
+            teamBlockplanned: false
+            authorizesForLocationId: 12
+            clientId: 14947
+            clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+            clientCode: '05645'
+            clientName: A Radstaak - de Doring
+            clientGender: F
+            clientIsDummy: false
+            clientBirthDate: '1932-05-23'
+            employeeId: 1
+            employeeUuid: '1234567890'
+            employeeCode: code
+            employeeName: employee
+            employeeGender: m
+            employeeIsDummy: true
+        unavailabilityOccurrence:
+          timelineId: 1
+          date: '2019-11-19'
+          employeeId: 1
+          typeName: Ziek
+          typeAbbreviation: Z
+          allDay: true
+          beginTime: '2019-11-19T00:00:00.000+01:00'
+          endTime: '2019-11-19T00:00:00.000+01:00'
+          note: Dummy
+        directlyPlannedVisits:
+        - date: '2013-12-06'
+          calculatedStart: '2013-12-06T12:51:00.000+01:00'
+          totalDuration: -1386330660
+          travelTimeBefore: 3600
+          gapTimeBefore: 0
+          notes: []
+          plancards: []
+          shiftTimelineId: 6
+          shiftName: Middag De Terp PV
+          shiftCode: MDT
+          teamId: 328
+          teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+          unitId: 1090
+          teamName: V&V De Terp
+          teamCode: '1410'
+          teamBlockplanned: false
+          authorizesForLocationId: 12
+          clientId: 14947
+          clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+          clientCode: '05645'
+          clientName: A Radstaak - de Doring
+          clientGender: F
+          clientIsDummy: false
+          clientBirthDate: '1932-05-23'
+          employeeId: 1
+          employeeUuid: '1234567890'
+          employeeCode: code
+          employeeName: employee
+          employeeGender: m
+          employeeIsDummy: true
+        availabilityOccurrence:
+          timelineId: 1
+          date: '2019-11-19'
+          employeeId: 1
+          beginTime: '2019-11-19T00:00:00.000+01:00'
+          endTime: '2019-11-20T00:00:00.000+01:00'
+          note: Dummy
+        leaveRequestOccurrence:
+          timelineId: 1
+          date: '2019-11-19'
+          employeeId: 1
+          beginTime: '2019-11-19T00:00:00.000+01:00'
+          endTime: '2019-11-20T00:00:00.000+01:00'
+          status: pending
+        displayCategory: working
+        onsdraaiboekUrl: https://customer.hasmoves.com/onsdraaiboek
+    moves.FlexSignup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        date:
+          type: string
+          format: date
+        shiftId:
+          type: string
+        employeeId:
+          type: integer
+          format: int64
+        employeeLeadingName:
+          type: string
+        employeeName:
+          type: string
+        suggested:
+          type: boolean
+        struckOut:
+          type: boolean
+        signedUpAt:
+          type: string
+          format: date-time
+      description: FlexSignup model (no description)
+      example:
+        id: 1
+        date: '1999-12-31'
+        shiftId: 1@2014-03-28
+        employeeId: 1
+        employeeLeadingName: Jan Henk
+        employeeName: Jan Henk Heilersig
+    moves.PlannedVisit:
+      type:
+      - object
+      - 'null'
+      properties:
+        date:
+          type:
+          - string
+          - 'null'
+          format: date
+        calculatedStart:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        totalDuration:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        travelTimeBefore:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        gapTimeBefore:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        firstAfterMidnight:
+          type: boolean
+          description: 'This visit is the first after midnight, and a visual indication
+
+            should be shown to the user (e.g. the new date or a 🌙 icon).'
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        plancards:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/moves.Plancard'
+        plannedAddress:
+          $ref: '#/components/schemas/moves.PlannedAddress'
+        shiftTimelineId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        shiftName:
+          type:
+          - string
+          - 'null'
+        shiftCode:
+          type:
+          - string
+          - 'null'
+        teamId:
+          type:
+          - integer
+          - 'null'
+          description: Linked to the Ons Administratie team, can be null if the Moves planning team (unit) is a sub-team from the OA team
+          format: int64
+        teamUuid:
+          type:
+          - string
+          - 'null'
+        unitId:
+          type:
+          - integer
+          - 'null'
+          description: Linked to the Moves planning team (unit)
+          format: int64
+        teamName:
+          type:
+          - string
+          - 'null'
+        teamCode:
+          type:
+          - string
+          - 'null'
+        teamBlockplanned:
+          type:
+          - boolean
+          - 'null'
+          description: 'Indicates if the Team uses the blockplanscreen (clients planned to
+
+            employees directly) instead of the route-based planscreen.'
+        authorizesForLocationId:
+          type:
+          - integer
+          - 'null'
+          description: 'Being planned as Employee for the Team or Shift
+
+            implies authorization for this Location.'
+          format: int64
+          deprecated: true
+        locationAuthorizations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/moves.LocationAuthorization'
+          description: 'Being assigned as Employee for the Team or Shift
+
+            implies authorization for these Locations.'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        clientUuid:
+          type:
+          - string
+          - 'null'
+        clientCode:
+          type:
+          - string
+          - 'null'
+        clientName:
+          type:
+          - string
+          - 'null'
+        clientGender:
+          type:
+          - string
+          - 'null'
+        clientIsDummy:
+          type:
+          - boolean
+          - 'null'
+        clientBirthDate:
+          type:
+          - string
+          - 'null'
+          format: date
+        clientPreferredName:
+          type:
+          - string
+          - 'null'
+        clientPronouns:
+          x-deprecated-since: 21-08-2026
+          $ref: '#/components/schemas/Pronouns'
+          description: This field is no longer used and has been replaced by clientPronounsType.
+          deprecated: true
+        clientPronounsType:
+          $ref: '#/components/schemas/PronounsType'
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeUuid:
+          type:
+          - string
+          - 'null'
+        employeeCode:
+          type:
+          - string
+          - 'null'
+        employeeName:
+          type:
+          - string
+          - 'null'
+        employeeGender:
+          type:
+          - string
+          - 'null'
+        employeeIsDummy:
+          type:
+          - boolean
+          - 'null'
+      description: A Visit from an {@Employee} to a {@Client}.
+      example:
+        date: '2013-12-06'
+        calculatedStart: '2013-12-06T12:51:00.000+01:00'
+        totalDuration: -1386330660
+        travelTimeBefore: 3600
+        gapTimeBefore: 0
+        firstAfterMidnight: false
+        notes: []
+        plancards: []
+        plannedAddress:
+          latitude: 0.5
+          longitude: 0.5
+          city: example
+          street: example
+          zipcode: example
+          number: example
+          numberPostfix: example
+        shiftTimelineId: 6
+        shiftName: Middag De Terp PV
+        shiftCode: MDT
+        teamId: 328
+        teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+        unitId: 1090
+        teamName: V&V De Terp
+        teamCode: '1410'
+        teamBlockplanned: false
+        authorizesForLocationId: 12
+        locationAuthorizations:
+        - locationId: 12
+        clientId: 14947
+        clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+        clientCode: '05645'
+        clientName: A Radstaak - de Doring
+        clientGender: F
+        clientIsDummy: false
+        clientBirthDate: '1932-05-23'
+        clientPreferredName: Arie
+        clientPronouns:
+          description: zij/haar
+          type: SHE_HER
+        clientPronounsType: SHE_HER
+        employeeId: 1
+        employeeUuid: '1234567890'
+        employeeCode: code
+        employeeName: employee
+        employeeGender: m
+        employeeIsDummy: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

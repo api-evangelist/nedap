@@ -1,0 +1,927 @@
+openapi: 3.2.0
+info:
+  title: Nedap Team API
+  version: 0.0.0
+  description: 'Operations tagged Team across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Team
+paths:
+  /t/employees/{employee_id}/teams:
+    get:
+      tags:
+      - Team
+      summary: Return the teams of a Employee corresponding to the given id between 2 dates
+      operationId: TeamAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The identifier of the employee for which to retrieve teams
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/clipped_teams
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams:
+    get:
+      tags:
+      - Team
+      summary: Return all teams
+      operationId: TeamAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/teams
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams/{id}:
+    get:
+      tags:
+      - Team
+      summary: Return the Team corresponding to the given id
+      operationId: TeamAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Team
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '404':
+          description: Team not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/teams/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams/by_code/{code}:
+    get:
+      tags:
+      - Team
+      summary: Return the code of a Team corresponding to the given id
+      operationId: TeamAPI.byCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '404':
+          description: Team not found
+      x-replaced-by: /v0/administration/teams/by_code/{code}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams/multiple:
+    get:
+      tags:
+      - Team
+      summary: Method used for requesting multiple Team objects using their ids
+      operationId: TeamAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/teams/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/last_visited_teams:
+    get:
+      tags:
+      - Team
+      summary: Return the last visited Teams of a User corresponding to the given id
+      operationId: TeamAPI.lastVisitedByUserId
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-replaced-by: /v0/administration/users/{user_id}/last_visited_teams
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/scoped_teams:
+    get:
+      tags:
+      - Team
+      summary: Return the scoped Teams of a User corresponding to the given id
+      description: use Shield. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346
+      operationId: TeamAPI.scopedByUserId
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      deprecated: true
+      x-deprecated-since: 11-11-2019
+      x-replaced-by: /v0/administration/users/{user_id}/scoped_teams
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams/agenda_enabled:
+    get:
+      tags:
+      - Team
+      summary: Check whether agenda is enabled
+      description: Returns all agenda-enabled teams
+      operationId: TeamAPI.agendaEnabled
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-replaced-by: /v0/agenda/teams
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams/x-stream-connect/data:
+    get:
+      tags:
+      - Team
+      summary: Return all Team models in a streaming manner
+      operationId: TeamAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/teams/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams/x-stream-connect/deletes:
+    get:
+      tags:
+      - Team
+      summary: Return all Team models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Team models'
+      operationId: TeamAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/teams/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/teams/x-stream-connect/updates:
+    get:
+      tags:
+      - Team
+      summary: Return all Team models which where updated since the date given in the request
+      operationId: TeamAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/teams/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/clipped_teams:
+    get:
+      tags:
+      - Team
+      summary: Return the teams of a Employee corresponding to the given id between 2 dates
+      operationId: TeamAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: The identifier of the employee for which to retrieve teams
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: valid_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/teams
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/teams:
+    get:
+      tags:
+      - Team
+      summary: Return all teams
+      operationId: TeamAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/teams
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/teams/{id}:
+    get:
+      tags:
+      - Team
+      summary: Return the Team corresponding to the given id
+      operationId: TeamAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Team
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '404':
+          description: Team not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/teams/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/teams/by_code/{code}:
+    get:
+      tags:
+      - Team
+      summary: Return the code of a Team corresponding to the given id
+      operationId: TeamAPI.byCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '404':
+          description: Team not found
+      x-replacement-for:
+      - /t/teams/by_code/{code}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/teams/multiple:
+    get:
+      tags:
+      - Team
+      summary: Method used for requesting multiple Team objects using their ids
+      operationId: TeamAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/teams/multiple
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/last_visited_teams:
+    get:
+      tags:
+      - Team
+      summary: Return the last visited Teams of a User corresponding to the given id
+      operationId: TeamAPI.lastVisitedByUserId
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-replacement-for:
+      - /t/users/{user_id}/last_visited_teams
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/scoped_teams:
+    get:
+      tags:
+      - Team
+      summary: Return the scoped Teams of a User corresponding to the given id
+      description: use Shield. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346
+      operationId: TeamAPI.scopedByUserId
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      deprecated: true
+      x-deprecated-since: 11-11-2019
+      x-replacement-for:
+      - /t/users/{user_id}/scoped_teams
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/teams:
+    get:
+      tags:
+      - Team
+      summary: Check whether agenda is enabled
+      description: Returns all agenda-enabled teams
+      operationId: TeamAPI.agendaEnabled
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+      x-replacement-for:
+      - /t/teams/agenda_enabled
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/teams/data:
+    get:
+      tags:
+      - Team
+      summary: Return all Team models in a streaming manner
+      operationId: TeamAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/teams/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/teams/deletes:
+    get:
+      tags:
+      - Team
+      summary: Return all Team models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Team models'
+      operationId: TeamAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/teams/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/teams/updates:
+    get:
+      tags:
+      - Team
+      summary: Return all Team models which where updated since the date given in the request
+      operationId: TeamAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.TeamList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/teams/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    TeamAddress:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Address'
+      properties:
+        teamId:
+          type: integer
+          format: int64
+      description: The address of a team
+      example:
+        id: 1
+        beginDate: '2010-02-16'
+        endDate: '2010-02-17'
+        homeNumber: 4
+        homeNumberExtension: a
+        poBoxNumber: 123a
+        street: Parallelweg
+        city: Enschede
+        zipcode: 7513KC
+        municipality: Enschede
+        country: Netherlands
+        telephoneNumber: 053-1234567
+        telephoneCountryCode: '+31'
+        telephoneNumber2: 053-1234567
+        telephoneCountryCode2: '+31'
+        faxNumber: 053-1234567
+        email: mike.wazowski@nedap.com
+        type: '98'
+        typeString: Other address
+        residentType: '0'
+        personType: '6'
+        personTypeString: cluster
+        roomNumber: '1'
+        locationDescription: Afdeling noord
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        latitude: 52.1
+        longitude: 6.9
+        teamId: 2
+        situationDescription: Test
+        residenceAccessInfo: Test
+      xml:
+        name: teamAddress
+    list.TeamList:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+          xml:
+            name: team
+      description: TeamList model (no description)
+      example:
+        teams:
+        - id: 1
+          beginDate: '1999-12-31T23:00:00.000+01:00'
+          externCode: ''
+          identificationNo: '0001'
+          name: Nedap Demo
+          poolTeam: false
+          costCenterNumber: '0001'
+          parentObjectId: 0
+      xml:
+        name: teams
+    Team:
+      title: Team
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        externCode:
+          type:
+          - string
+          - 'null'
+        identificationNo:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        poolTeam:
+          type:
+          - boolean
+          - 'null'
+        costCenterNumber:
+          type:
+          - string
+          - 'null'
+        parentObjectId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TeamAddress'
+      description: Team (Cluster)
+      example:
+        id: 1
+        beginDate: '2000-01-01T00:00:00.000+01:00'
+        endDate: '2001-01-01T00:00:00.000+01:00'
+        externCode: agb
+        identificationNo: '0001'
+        name: Nedap Demo
+        poolTeam: false
+        costCenterNumber: '0001'
+        parentObjectId: 0
+        addresses: []
+      xml:
+        name: team
+    Address:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        homeNumber:
+          type: integer
+          format: int32
+        homeNumberExtension:
+          type: string
+        poBoxNumber:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        zipcode:
+          type: string
+        municipality:
+          type: string
+        country:
+          type: string
+        telephoneNumber:
+          type: string
+        telephoneCountryCode:
+          type: string
+        telephoneNumber2:
+          type: string
+        telephoneCountryCode2:
+          type: string
+        faxNumber:
+          type: string
+        email:
+          type: string
+        type:
+          type: string
+          description: '0: Unknown
+
+            1: Living
+
+            2: Postal
+
+            3: Residence
+
+            4: Temporary
+
+            50: Sleuteladres
+
+            98: Other
+
+            100: Factuuradres'
+        typeString:
+          type: string
+        residentType:
+          type: string
+          description: '0: Unknown
+
+            1: One-family house
+
+            2: Upstairs apartment
+
+            3: Ground floor apartment
+
+            4: Apartment or flat
+
+            5: Apartment or flat, with elevator between floors
+
+            6: Houseboat
+
+            7: Trailer
+
+            8: WLZ organisation (with stay facilities)
+
+            9: Homeless
+
+            11: Assisted living
+
+            12: WLZ organisation
+
+            13: ZVW organisation
+
+            14: WMO organisation
+
+            21: asylum seekers center
+
+            31: Correctional Institution
+
+            99: Other'
+        personType:
+          type: string
+          description: '1: Client
+
+            2: Employee
+
+            3: Relation
+
+            4: Careprovider
+
+            5: Unit'
+        personTypeString:
+          type: string
+        roomNumber:
+          type: string
+        locationDescription:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        situationDescription:
+          type: string
+          description: Toelichting woonsituatie
+        residenceAccessInfo:
+          type: string
+          description: Informatie over toegang tot de woning
+      description: Address model.
+      example:
+        id: 1
+        beginDate: '2010-02-16'
+        endDate: '2010-02-17'
+        homeNumber: 4
+        homeNumberExtension: b
+        poBoxNumber: 123a
+        street: Parallelweg
+        city: Groenlo
+        zipcode: 7513KC
+        municipality: Enschede
+        country: Netherlands
+        telephoneNumber: 053-1234567
+        telephoneCountryCode: '+31'
+        telephoneNumber2: 053-1234567
+        telephoneCountryCode2: '+31'
+        faxNumber: 053-1234567
+        email: mike.wazowski@nedap.com
+        type: '3'
+        typeString: residence address
+        residentType: '?'
+        personType: '1'
+        personTypeString: client
+        roomNumber: '1'
+        locationDescription: Afdeling noord
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        latitude: 52.1
+        longitude: 6.9
+        situationDescription: Woont bij ex
+        residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

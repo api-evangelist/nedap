@@ -1,0 +1,558 @@
+openapi: 3.2.0
+info:
+  title: Nedap Agenda.Agenda Series API
+  version: 0.0.0
+  description: 'Operations tagged agenda.AgendaSeries across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: agenda.AgendaSeries
+paths:
+  /t/agenda_series:
+    post:
+      tags:
+      - agenda.AgendaSeries
+      summary: Create AgendaSeries
+      description: Used to create AgendaSeries
+      operationId: agenda.AgendaSeriesAPI.create
+      requestBody:
+        description: AgendaSeries to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaSeries'
+        required: true
+      responses:
+        '200':
+          description: If successfully created the agenda series
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaSeries'
+        '204':
+          description: No Content
+        '400':
+          description: Bad request
+      x-cupido-common-method: true
+      x-replaced-by: /v0/agenda/agenda_series
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/agenda_series/archive_group:
+    post:
+      tags:
+      - agenda.AgendaSeries
+      summary: Archive an AgendaSeries from a Groupcare Group
+      description: 'Used to archive an AgendaSeries from a Groupcare Group. Deprecated: use Groepsplanning instead.'
+      operationId: agenda.AgendaSeriesAPI.archiveGroup
+      requestBody:
+        description: AgendaSeries from a Group to archive
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaSeries'
+        required: true
+      responses:
+        '200':
+          description: If successfully archived the agenda series
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaSeries'
+      deprecated: true
+      x-deprecated-since: 20-11-2025
+      x-replaced-by: /v0/agenda/agenda_series/archive_group
+    servers:
+    - url: https://api-development.ons.io
+  /t/agenda_series/update_group:
+    put:
+      tags:
+      - agenda.AgendaSeries
+      summary: Update the Group information for an Agenda series
+      description: 'Used to update the Group information for an Agenda series. Deprecated: use Groepsplanning instead.'
+      operationId: agenda.AgendaSeriesAPI.updateGroup
+      requestBody:
+        description: AgendaSeries from a group to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaSeries'
+        required: true
+      responses:
+        '200':
+          description: If successfully updated the agenda series
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaSeries'
+      deprecated: true
+      x-deprecated-since: 20-11-2025
+      x-replaced-by: /v0/agenda/agenda_series/update_group
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_series:
+    post:
+      tags:
+      - agenda.AgendaSeries
+      summary: Create AgendaSeries
+      description: Used to create AgendaSeries
+      operationId: agenda.AgendaSeriesAPI.create
+      requestBody:
+        description: AgendaSeries to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaSeries'
+        required: true
+      responses:
+        '200':
+          description: If successfully created the agenda series
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaSeries'
+        '204':
+          description: No Content
+        '400':
+          description: Bad request
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/agenda_series
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_series/archive_group:
+    post:
+      tags:
+      - agenda.AgendaSeries
+      summary: Archive an AgendaSeries from a Groupcare Group
+      description: 'Used to archive an AgendaSeries from a Groupcare Group. Deprecated: use Groepsplanning instead.'
+      operationId: agenda.AgendaSeriesAPI.archiveGroup
+      requestBody:
+        description: AgendaSeries from a Group to archive
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaSeries'
+        required: true
+      responses:
+        '200':
+          description: If successfully archived the agenda series
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaSeries'
+      deprecated: true
+      x-deprecated-since: 20-11-2025
+      x-replacement-for:
+      - /t/agenda_series/archive_group
+    servers:
+    - url: https://api-development.ons.io
+  /v0/agenda/agenda_series/update_group:
+    put:
+      tags:
+      - agenda.AgendaSeries
+      summary: Update the Group information for an Agenda series
+      description: 'Used to update the Group information for an Agenda series. Deprecated: use Groepsplanning instead.'
+      operationId: agenda.AgendaSeriesAPI.updateGroup
+      requestBody:
+        description: AgendaSeries from a group to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agenda.AgendaSeries'
+        required: true
+      responses:
+        '200':
+          description: If successfully updated the agenda series
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agenda.AgendaSeries'
+      deprecated: true
+      x-deprecated-since: 20-11-2025
+      x-replacement-for:
+      - /t/agenda_series/update_group
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    agenda.AgendaSeries:
+      title: EventSeries
+      required:
+      - validFrom
+      - startTime
+      - endTime
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: Identifier of this `AgendaSeries`
+          format: int64
+          x-cupido-id: true
+        timelineId:
+          type:
+          - integer
+          - 'null'
+          description: 'Identifier of the `AgendaSeries`
+
+
+            Exceptions to the series have the same `timelineId` as the series.'
+          format: int64
+        uuid:
+          type:
+          - string
+          - 'null'
+          description: "External reference for AgendaSeries. Optional field. If not needed it is adviced to exclude this; in that\ncase it will be auto-generated. If it is needed, i.e. for own bookkeeping purposes, it must be an unique\nvalue within AgendaSeries and should follow pattern described by \nhttps://dev.mysql.com/doc/refman/8.0/en/miscellaneous-functions.html#function_is-uuid\n"
+          format: uuid
+        groupUuid:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: Short summary of the event
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Longer description of the event, notes
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Identifier of HourType
+
+
+            When using the per-client product selection (part of _uitgebreide workflow_), use the `hourTypeId` field in the client invitation instead'
+          format: int64
+        validFrom:
+          type:
+          - string
+          - 'null'
+          description: Start date of the appointment series
+          format: date
+        validTo:
+          type:
+          - string
+          - 'null'
+          description: 'Recurrence end date
+
+
+            If recurring, the event is recurring up to this date (exclusive)'
+          format: date
+        startTime:
+          type:
+          - string
+          - 'null'
+          description: Start time of the event
+          format: time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: End time of the event
+          format: time
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration in seconds
+          format: int32
+          default: 0
+        recurrenceType:
+          allOf:
+          - $ref: '#/components/schemas/RecurrenceType'
+          description: Frequency of the recurrence
+        cycleInterval:
+          type:
+          - integer
+          - 'null'
+          description: 'Interval length of the series
+
+
+            For a recurrenceType of `weekly`, an interval of `2`
+
+            means this event happens every 2 weeks.'
+          format: int32
+          default: 0
+          example: 1
+        cycleBase:
+          type:
+          - string
+          - 'null'
+          description: Start date of the recurrence, should be equal to `validFrom`
+          format: date
+        customLocation:
+          type:
+          - string
+          - 'null'
+        creatorObjectId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        monday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on monday
+        tuesday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on tuesday
+        wednesday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on wednesday
+        thursday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on thursday
+        friday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on friday
+        saturday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on saturday
+        sunday:
+          type:
+          - boolean
+          - 'null'
+          description: Weekly event occurs on sunday
+        clientPresent:
+          type:
+          - boolean
+          - 'null'
+          description: Whether the client is expected in this event
+        travelTimeBefore:
+          maximum: 1440
+          minimum: 0
+          type: integer
+          description: 'Travel time (in minutes) prior to the event.
+
+
+            This number must be between 0 and 1440 (range is inclusive). The Agenda setting ''show travel time'' must be
+
+            enabled, supplying this field when the setting is disabled will yield an error. When the setting is enabled
+
+            and the field is not supplied, the value will default to 0.'
+          format: int64
+        travelTimeAfter:
+          type: integer
+          description: 'Travel time (in minutes) following the event.
+
+
+            This number must be between 0 and 1440 (range is inclusive). The Agenda setting ''show travel time'' must be
+
+            enabled, supplying this field when the setting is disabled will yield an error. When the setting is enabled
+
+            and the field is not supplied, the value will default to 0.'
+          format: int64
+        agendaInvitations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/agenda.AgendaInvitation'
+          description: 'Clients, locations, teams or employees invited to this appointment
+
+
+            Does not support clients when using per-client product selection (part of _uitgebreide workflow_). When per-client product selection is enabled, use `agendaClientInvitations` instead to invite clients.'
+        agendaClientInvitations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/agenda.AgendaClientInvitation'
+          description: 'Clients invited to this occurrence
+
+
+            When _not_ using per-client product selection (part of _uitgebreide workflow_) use `agendaInvitations` instead to invite clients.'
+        labels:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/agenda.Label'
+      description: Agenda series domain model used by Cupido system.
+      example:
+        id: 2
+        timelineId: 1
+        uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+        groupUuid: bbca58ed-0138-4aec-87c6-5d391e98161c
+        name: fysio
+        comment: no comment
+        hourTypeId: 42
+        validFrom: '2012-08-02'
+        validTo: '2012-09-02'
+        startTime: '08:10:00.000'
+        endTime: '08:20:00.000'
+        duration: 600
+        recurrenceType: single
+        cycleInterval: 1
+        cycleBase: '2012-08-02'
+        customLocation: Gemeentehuis
+        agendaInvitations:
+        - clientId: 1
+          employeeId: 2
+          locationId: 4
+          teamId: 3
+          accepted: true
+          groupId: 12
+        agendaClientInvitations:
+        - clientId: 1
+          employeeId: 2
+          locationId: 4
+          teamId: 3
+          accepted: true
+          hourTypeId: 52
+          careOrderId: 2
+          surchargeIds:
+          - 9
+          - 10
+        creatorObjectId: 1
+        monday: true
+        tuesday: false
+        wednesday: true
+        thursday: true
+        friday: false
+        saturday: true
+        sunday: false
+        clientPresent: true
+        travelTimeBefore: 15
+        travelTimeAfter: 35
+        labels: []
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    agenda.AgendaClientInvitation:
+      title: ClientInvitation
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/agenda.AgendaInvitation'
+      properties:
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Identifier of Hour Type
+
+
+            When _not_ using the per-client product selection (part of _uitgebreide workflow_), use the `hourTypeId` field  in the appointment instead'
+          format: int64
+        careOrderId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        surchargeIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+      description: Agenda client invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
+        hourTypeId: 52
+        careOrderId: 2
+        surchargeIds:
+        - 9
+        - 10
+    agenda.AgendaInvitation:
+      title: Invitation
+      type: object
+      properties:
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        accepted:
+          type:
+          - boolean
+          - 'null'
+        groupId:
+          type: integer
+          format: int64
+      description: Agenda invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
+    agenda.Label:
+      title: Label
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+      description: Domain model for Labels for AgendaOccurrences/AgendaSeries
+      example:
+        id: 1
+        name: Telefonisch
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

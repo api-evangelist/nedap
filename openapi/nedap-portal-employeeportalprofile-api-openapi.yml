@@ -1,0 +1,99 @@
+openapi: 3.2.0
+info:
+  title: Nedap Portal.Employee Portal Profile API
+  version: 0.0.0
+  description: 'Operations tagged portal.EmployeePortalProfile across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: portal.EmployeePortalProfile
+paths:
+  /t/employees/{employee_id}/employee_portal_profile:
+    get:
+      tags:
+      - portal.EmployeePortalProfile
+      summary: Return the employee portal profile of a employee corresponding to the given…
+      operationId: portal.EmployeePortalProfileAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/portal.EmployeePortalProfile'
+      x-replaced-by: /v0/medewerkerportaal/employees/{employee_id}/employee_portal_profile
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/medewerkerportaal/employees/{employee_id}/employee_portal_profile:
+    get:
+      tags:
+      - portal.EmployeePortalProfile
+      summary: Return the employee portal profile of a employee corresponding to the given…
+      operationId: portal.EmployeePortalProfileAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/portal.EmployeePortalProfile'
+      x-replacement-for:
+      - /t/employees/{employee_id}/employee_portal_profile
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    portal.EmployeePortalProfile:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        facebookEnabled:
+          type: boolean
+        rosterEnabled:
+          type: boolean
+        selfRosteringEnabled:
+          type: boolean
+        selfAvailabilityEnabled:
+          type: boolean
+        vacationHoursEnabled:
+          type: boolean
+        employeePortalUrl:
+          type: string
+        externalWebsiteName:
+          type: string
+        sendEmailForKaminoMessage:
+          type: boolean
+      description: EmployeePortalProfile model (no description)
+      example:
+        employeeId: 2002
+        facebookEnabled: true
+        rosterEnabled: true
+        selfRosteringEnabled: true
+        selfAvailabilityEnabled: true
+        vacationHoursEnabled: true
+        employeePortalUrl: https://employee.portal.test
+        externalWebsiteName: Intranet
+        sendEmailForKaminoMessage: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,104 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Work Load API
+  version: 0.0.0
+  description: 'Operations tagged payroll.WorkLoad across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.WorkLoad
+paths:
+  /t/payroll/work_load/by_employee_in_year/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkLoad
+      summary: Retrieves the workload for the given year and employee
+      description: When the work load is requested for the current year, the result will be given until last Sunday.
+      operationId: payroll.WorkLoadAPI.byEmployeeInYear
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: year
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.WorkLoad'
+      x-replaced-by: /v0/administration/work_load/by_employee_in_year/{employee_object_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/work_load/by_employee_in_year/{employee_object_id}:
+    get:
+      tags:
+      - payroll.WorkLoad
+      summary: Retrieves the workload for the given year and employee
+      description: When the work load is requested for the current year, the result will be given until last Sunday.
+      operationId: payroll.WorkLoadAPI.byEmployeeInYear
+      parameters:
+      - name: employee_object_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: year
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.WorkLoad'
+      x-replacement-for:
+      - /t/payroll/work_load/by_employee_in_year/{employee_object_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.WorkLoad:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        contractMinutes:
+          type: integer
+          description: The total amount of contracted minutes in the specified year
+          format: int64
+        payedMinutes:
+          type: integer
+          description: The total amount of payable minutes in the specified year
+          format: int64
+        year:
+          type: integer
+          description: 'The year for which the results apply.
+
+            In case of the current year, results are given until last Sunday'
+          format: int32
+      description: WorkLoad model (no description)
+      example:
+        employeeId: 1
+        contractMinutes: 100
+        payedMinutes: 120
+        year: 2019
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

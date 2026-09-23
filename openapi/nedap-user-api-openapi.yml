@@ -1,0 +1,1315 @@
+openapi: 3.2.0
+info:
+  title: Nedap User API
+  version: 0.0.0
+  description: 'Operations tagged User across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: User
+paths:
+  /t/users:
+    post:
+      tags:
+      - User
+      summary: Create User
+      operationId: UserAPI.create
+      requestBody:
+        description: User to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/users
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{id}:
+    get:
+      tags:
+      - User
+      summary: Get user by ID
+      operationId: UserAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting User
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/users/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - User
+      summary: Updates the given User
+      operationId: UserAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting User
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: User to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/users/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - User
+      summary: Deletes the User with given id
+      operationId: UserAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting User
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/users/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/last_visited_locations:
+    get:
+      tags:
+      - User
+      summary: Return the last visited Locations of a User corresponding to the given id
+      operationId: UserAPI.lastVisitedLocations
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      x-replaced-by: /v0/administration/users/{user_id}/last_visited_locations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/password:
+    put:
+      tags:
+      - User
+      summary: Changes the users password
+      operationId: UserAPI.changePassword
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: the new password, must consist of a combination of upper- and lowercase letters, numbers and special characters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordChange'
+      x-replaced-by: /v0/administration/users/{user_id}/password
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/status:
+    get:
+      tags:
+      - User
+      summary: returns the status of the user
+      description: containing a description about if the user is allowed to log into the application
+      operationId: UserAPI.getUserStatus
+      parameters:
+      - name: user_id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStatus'
+      x-replaced-by: /v0/administration/users/{user_id}/status
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/{user_id}/viewable_locations:
+    get:
+      tags:
+      - User
+      summary: Return the viewable Locations of a User corresponding to the given id
+      description: use Shield. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346
+      operationId: UserAPI.viewableLocations
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: ignore_recursive_locations_enabled
+        in: query
+        description: Only return location user has explicitly access to, ignoring locations beneath those locations
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      deprecated: true
+      x-deprecated-since: 11-11-2019
+      x-replaced-by: /v0/administration/users/{user_id}/viewable_locations
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/by_employee_id/{employee_id}:
+    get:
+      tags:
+      - User
+      summary: Get user by employee ID
+      operationId: UserAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-replaced-by: /v0/administration/users/by_employee_id/{employee_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/by_sso:
+    get:
+      tags:
+      - User
+      summary: Return the User with the given SSO id
+      operationId: UserAPI.bySso
+      parameters:
+      - name: sso_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: sso_provider_id
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.UserList'
+        '404':
+          description: User not found
+      x-replaced-by: /v0/administration/users/by_sso
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/by_user_name:
+    get:
+      tags:
+      - User
+      summary: Find by user name
+      operationId: UserAPI.byUserName
+      parameters:
+      - name: user_name
+        in: query
+        description: The username of the user to find
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-replaced-by: /v0/administration/users/by_username
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/by_user_name/{user_name}:
+    get:
+      tags:
+      - User
+      summary: Find by user name
+      description: Use byUserNameSafe
+      operationId: UserAPI.byUserNameUnsafe
+      parameters:
+      - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      deprecated: true
+      x-deprecated-since: 04-07-2020
+      x-replaced-by: /v0/administration/users/by_username/{user_name}
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/by_uuid/{uuid}:
+    get:
+      tags:
+      - User
+      summary: Get user by UUID
+      operationId: UserAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bump_session_expire_time
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-replaced-by: /v0/administration/users/by_uuid/{uuid}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/x-stream-connect/data:
+    get:
+      tags:
+      - User
+      summary: Return all User models in a streaming manner
+      operationId: UserAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.UserList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/responsibilities/data
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/x-stream-connect/deletes:
+    get:
+      tags:
+      - User
+      summary: Return all User models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Membership models'
+      operationId: UserAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.UserList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/responsibilities/deletes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/users/x-stream-connect/updates:
+    get:
+      tags:
+      - User
+      summary: Return all User models which where updated since the date given in the request
+      operationId: UserAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.UserList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replaced-by: /v0/xstream/responsibilities/updates
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users:
+    post:
+      tags:
+      - User
+      summary: Create User
+      operationId: UserAPI.create
+      requestBody:
+        description: User to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/users
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{id}:
+    get:
+      tags:
+      - User
+      summary: Get user by ID
+      operationId: UserAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting User
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/users/{id}
+    put:
+      tags:
+      - User
+      summary: Updates the given User
+      operationId: UserAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting User
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: User to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/users/{id}
+    delete:
+      tags:
+      - User
+      summary: Deletes the User with given id
+      operationId: UserAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting User
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/users/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/last_visited_locations:
+    get:
+      tags:
+      - User
+      summary: Return the last visited Locations of a User corresponding to the given id
+      operationId: UserAPI.lastVisitedLocations
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      x-replacement-for:
+      - /t/users/{user_id}/last_visited_locations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/password:
+    put:
+      tags:
+      - User
+      summary: Changes the users password
+      operationId: UserAPI.changePassword
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: the new password, must consist of a combination of upper- and lowercase letters, numbers and special characters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordChange'
+      x-replacement-for:
+      - /t/users/{user_id}/password
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/status:
+    get:
+      tags:
+      - User
+      summary: returns the status of the user
+      description: containing a description about if the user is allowed to log into the application
+      operationId: UserAPI.getUserStatus
+      parameters:
+      - name: user_id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStatus'
+      x-replacement-for:
+      - /t/users/{user_id}/status
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/{user_id}/viewable_locations:
+    get:
+      tags:
+      - User
+      summary: Return the viewable Locations of a User corresponding to the given id
+      description: use Shield. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346
+      operationId: UserAPI.viewableLocations
+      parameters:
+      - name: user_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: ignore_recursive_locations_enabled
+        in: query
+        description: Only return location user has explicitly access to, ignoring locations beneath those locations
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.LocationList'
+      deprecated: true
+      x-deprecated-since: 11-11-2019
+      x-replacement-for:
+      - /t/users/{user_id}/viewable_locations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/by_employee_id/{employee_id}:
+    get:
+      tags:
+      - User
+      summary: Get user by employee ID
+      operationId: UserAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-replacement-for:
+      - /t/users/by_employee_id/{employee_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/by_sso:
+    get:
+      tags:
+      - User
+      summary: Return the User with the given SSO id
+      operationId: UserAPI.bySso
+      parameters:
+      - name: sso_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: sso_provider_id
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.UserList'
+        '404':
+          description: User not found
+      x-replacement-for:
+      - /t/users/by_sso
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/by_username:
+    get:
+      tags:
+      - User
+      summary: Find by user name
+      operationId: UserAPI.byUserName
+      parameters:
+      - name: username
+        in: query
+        description: The username of the user to find
+        schema:
+          type: string
+        x-original-parameter:
+          name: user_name
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-replacement-for:
+      - /t/users/by_user_name
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/by_username/{user_name}:
+    get:
+      tags:
+      - User
+      summary: Find by user name
+      description: Use byUserNameSafe
+      operationId: UserAPI.byUserNameUnsafe
+      parameters:
+      - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      deprecated: true
+      x-deprecated-since: 04-07-2020
+      x-replacement-for:
+      - /t/users/by_user_name/{user_name}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/users/by_uuid/{uuid}:
+    get:
+      tags:
+      - User
+      summary: Get user by UUID
+      operationId: UserAPI.byUuid
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bump_session_expire_time
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+      x-replacement-for:
+      - /t/users/by_uuid/{uuid}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/responsibilities/data:
+    get:
+      tags:
+      - User
+      summary: Return all User models in a streaming manner
+      operationId: UserAPI.streamAll
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.UserList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/users/x-stream-connect/data
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/responsibilities/deletes:
+    get:
+      tags:
+      - User
+      summary: Return all User models which where deleted since the date given in the request
+      description: 'If no date is
+
+        given it will return all deleted Membership models'
+      operationId: UserAPI.streamDeletes
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.UserList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/users/x-stream-connect/deletes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/xstream/responsibilities/updates:
+    get:
+      tags:
+      - User
+      summary: Return all User models which where updated since the date given in the request
+      operationId: UserAPI.streamUpdates
+      parameters:
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        example: '2014-12-29T00:00:00.000'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.UserList'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Could not parse request parameter
+        '404':
+          description: Resource not found
+        '500':
+          description: Unspecified internal error
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/users/x-stream-connect/updates
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    list.UserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          xml:
+            name: user
+      description: UserList model (no description)
+      example:
+        users:
+        - id: 100
+          employeeObjectId: 100
+          userName: rick.devries
+          ssoEnabled: true
+          ssoId: user@domain.com
+          ssoProviderId: '12345'
+          contractRequiredAtLogin: true
+      xml:
+        name: users
+    UserStatus:
+      type: object
+      properties:
+        userLoginAllowed:
+          type: boolean
+          description: true if the user is allowed to log in
+        loginDescription:
+          type: string
+          description: describes why the user can (not) log in
+        type:
+          type: string
+          description: 'describes the state as enum name
+
+            - APPLICATION_LOCK_DOWN
+
+            - CONTRACT_REQUIRED_USER_NEEDS_NO_CONTRACT
+
+            - CONTRACT_REQUIRED_USER_HAS_ACTIVE_CONTRACT
+
+            - CONTRACT_REQUIRED_USER_HAS_ACTIVE_CONTRACT_IN_NEAR_FUTURE
+
+            - CONTRACT_REQUIRED_USER_HAS_NO_ACTIVE_CONTRACT_IN_NEAR_FUTURE
+
+            - CONTRACT_REQUIRED_USER_HAS_NO_CONTRACTS
+
+            - CONTRACT_NOT_REQUIRED_USER_HAS_CONTRACT_WITH_NO_ENDDATE
+
+            - CONTRACT_NOT_REQUIRED_USER_HAS_NO_CONTRACTS
+
+            - CONTRACT_NOT_REQUIRED_USER_HAS_ACTIVE_CONTRACT
+
+            - CONTRACT_NOT_REQUIRED_USER_HAS_NO_ACTIVE_CONTRACT'
+      description: UserStatus model (no description)
+      example:
+        userLoginAllowed: true
+        loginDescription: User can log in
+        type: CONTRACT_REQUIRED_USER_NEEDS_NO_CONTRACT
+    PasswordChange:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        newPassword:
+          type: string
+      description: PasswordChange model (no description)
+      example:
+        userId: 1
+        newPassword: newPassword
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        identificationNo:
+          type: string
+        name:
+          type: string
+        agbCode:
+          type: string
+          description: 'Deprecated since: 14-03-2019 - nationally issued unique identifying code for organisations and persons that have a registration in the agb register'
+          deprecated: true
+        agbcodeId:
+          type: integer
+          format: int64
+        materializedPath:
+          type: string
+          description: automatically calculated field
+        wzaCode:
+          type: string
+          description: unique identifying code. Used by municipalities
+        intramuralLocation:
+          type: boolean
+        locationType:
+          type: string
+        capacity:
+          type: integer
+          format: int32
+          default: 0
+        costCenter:
+          type: string
+        roomType:
+          type: string
+        parentObjectId:
+          type: integer
+          description: location objectid of the parent where this location belongs to
+          format: int64
+        icon:
+          type: integer
+          format: int32
+          default: 0
+        medicineAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a medication location
+        ggzAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a mental healthcare residence location
+        waitingListAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a waiting list
+        registeredLocationNumber:
+          type: string
+          description: The location as registered for Wzd / Wvggz purposes
+        correspondenceName:
+          type: string
+          description: Correspondence name for use in mail correspondence when location name is not fit for mail correspondence (e.g. 'K PS fys 03'). Default correspondence name is the location name, unless set otherwise
+        hideCorrespondenceName:
+          type: boolean
+          description: Whether the correspondence name should be hidden
+        addressObjectId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Location model (no description)
+      example:
+        id: 1
+        beginDate: '2012-08-02T11:48:46.836+02:00'
+        endDate: '2012-08-02T11:48:46.836+02:00'
+        identificationNo: '1'
+        name: Nedap Demo
+        agbCode: '75750535'
+        agbcodeId: 1
+        materializedPath: '1.2'
+        wzaCode: '690535'
+        intramuralLocation: false
+        locationType: Locatie
+        capacity: 0
+        costCenter: costCenter
+        roomType: '1'
+        parentObjectId: 0
+        medicineAllowed: true
+        ggzAllowed: true
+        waitingListAllowed: true
+        addressObjectId: 1
+        registeredLocationNumber: '123456789012'
+        updatedAt: '2012-08-02T11:48:46.836+02:00'
+        createdAt: '2012-08-02T11:48:46.836+02:00'
+        icon: 1
+        correspondenceName: Pretty correspondence name
+        hideCorrespondenceName: false
+      xml:
+        name: location
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type: string
+        userName:
+          type: string
+        activeSession:
+          type: boolean
+        employeeObjectId:
+          type: integer
+          format: int64
+        employeeName:
+          type: string
+        teamObjectId:
+          type: integer
+          description: read only, corresponds with the team.id of the active team for the employee related to this user
+          format: int64
+        teamName:
+          type: string
+        mobilePhone:
+          type: string
+          description: read only, corresponds with employee.mobilePhoneNumber
+        mobilePhoneNumber:
+          type: string
+          description: read only, corresponds with employee.authenticationMobilePhone
+        passwordChange:
+          type: boolean
+        emailAddress:
+          type: string
+          description: 'Deprecated since: 14-03-2019'
+          deprecated: true
+        administrationEnabled:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - Replaced by the `AdministrationLogin` right. Determines if a user can log into Administration.'
+          deprecated: true
+        portalEnabled:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - Replaced by the `EmployeePortalLogin` right. Determines if a user can log into the Nurse Portal.'
+          deprecated: true
+        accessTestEnvironmentEnabled:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - Replaced by the `AdministrationTestLogin` right. Determines if a user can log into development / staging environments'
+          deprecated: true
+        shieldEnabled:
+          type: boolean
+          description: 'Deprecated since: 11-11-2019 - Shield is now always enabled.'
+          deprecated: true
+        ssoEnabled:
+          type: boolean
+        ssoId:
+          type: string
+        ssoProviderId:
+          type: string
+        forceSmsAuthentication:
+          type: boolean
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+          xml:
+            wrapped: true
+        allLocationsViewable:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+        limitLocationView:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+        teamAccess:
+          type: string
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+        locationAccess:
+          type: string
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+        contractRequiredAtLogin:
+          type: boolean
+          description: Indicates if the user should have an active contract during login (if this functionality is enabled)
+          default: false
+        dashboardProfileObjectId:
+          type: integer
+          description: Object id of the dashboard profile to use for this User. If not set when creating a user, the default dashboard profile is used.
+          format: int64
+      description: User model (no description)
+      example:
+        employeeObjectId: 334
+        userName: mike.wazowski
+        id: 348
+        employeeName: Dhr. Mike Wazowski
+        activeSession: true
+        teamObjectId: 209
+        teamName: Team wijkzorg
+        mobilePhone: '0655130353'
+        mobilePhoneNumber: 0653238787
+        passwordChange: false
+        emailAddress: mike.wazowski@nedap.com
+        teamAccess: All
+        locationAccess: All
+        administrationEnabled: true
+        portalEnabled: true
+        shieldEnabled: true
+        ssoEnabled: true
+        ssoId: user@domain.com
+        ssoProviderId: '12345'
+        forceSmsAuthentication: false
+        accessTestEnvironmentEnabled: true
+        contractRequiredAtLogin: true
+        uuid: '129347091234'
+        allLocationsViewable: true
+        limitLocationView: false
+        roles: []
+        dashboardProfileObjectId: 1
+      xml:
+        name: user
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          x-cupido-id: true
+        name:
+          type: string
+      description: Role model (no description)
+      example:
+        id: 24
+        name: iO Me gebruiker
+      xml:
+        name: role
+    list.LocationList:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+          xml:
+            name: location
+      description: LocationList model (no description)
+      example:
+        locations:
+        - id: 1
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-02T11:48:46.836+02:00'
+          identificationNo: '1'
+          name: Nedap Demo
+          agbCode: '75750535'
+          agbcodeId: 1
+          materializedPath: '1.2'
+          wzaCode: '690535'
+          intramuralLocation: false
+          locationType: Locatie
+          capacity: 0
+          costCenter: costCenter
+          roomType: '1'
+          parentObjectId: 0
+          icon: 0
+          registeredLocationNumber: '123456789012'
+          correspondenceName: Pretty correspondence name
+          hideCorrespondenceName: false
+      xml:
+        name: locations
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

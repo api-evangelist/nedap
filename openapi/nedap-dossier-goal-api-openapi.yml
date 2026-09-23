@@ -1,0 +1,942 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Goal API
+  version: 0.0.0
+  description: 'Operations tagged dossier.Goal across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.Goal
+paths:
+  /t/dossier/demands/{demand_id}/goals:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Return the Goals of a Demand corresponding to the given id
+      operationId: dossier.GoalAPI.byDemandId
+      parameters:
+      - name: demand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.GoalList'
+      x-replaced-by: /v0/administration/dossier/demands/{demand_id}/goals
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/domains/{domain_id}/goals:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Return the Goals of a Domain corresponding to the given id
+      operationId: dossier.GoalAPI.byDomainId
+      parameters:
+      - name: domain_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.GoalList'
+      x-replaced-by: /v0/administration/dossier/domains/{domain_id}/goals
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/goals:
+    post:
+      tags:
+      - dossier.Goal
+      summary: Create Goal
+      operationId: dossier.GoalAPI.create
+      requestBody:
+        description: Goal to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Goal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Goal'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/goals
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/goals/{id}:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Get a resource by its ID
+      operationId: dossier.GoalAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Goal
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Goal'
+        '404':
+          description: Goal not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/goals/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - dossier.Goal
+      summary: Updates the given Goal
+      operationId: dossier.GoalAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Goal
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Goal to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Goal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Goal'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/goals/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - dossier.Goal
+      summary: Deletes the Goal with given id
+      operationId: dossier.GoalAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Goal
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the goal
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/goals/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/goals/multiple:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Method used for requesting multiple Goal objects using their ids
+      operationId: dossier.GoalAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.GoalList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/dossier/goals/multiple
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/goals/search:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Returns the Goals which meet the search criteria
+      operationId: dossier.GoalAPI.search
+      parameters:
+      - name: keyword
+        in: query
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.GoalList'
+      x-replaced-by: /v0/administration/dossier/goals/search
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/demands/{demand_id}/goals:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Return the Goals of a Demand corresponding to the given id
+      operationId: dossier.GoalAPI.byDemandId
+      parameters:
+      - name: demand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.GoalList'
+      x-replacement-for:
+      - /t/dossier/demands/{demand_id}/goals
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/domains/{domain_id}/goals:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Return the Goals of a Domain corresponding to the given id
+      operationId: dossier.GoalAPI.byDomainId
+      parameters:
+      - name: domain_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.GoalList'
+      x-replacement-for:
+      - /t/dossier/domains/{domain_id}/goals
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/goals:
+    post:
+      tags:
+      - dossier.Goal
+      summary: Create Goal
+      operationId: dossier.GoalAPI.create
+      requestBody:
+        description: Goal to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Goal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Goal'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/goals
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/goals/{id}:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Get a resource by its ID
+      operationId: dossier.GoalAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Goal
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Goal'
+        '404':
+          description: Goal not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/goals/{id}
+    put:
+      tags:
+      - dossier.Goal
+      summary: Updates the given Goal
+      operationId: dossier.GoalAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Goal
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Goal to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.Goal'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.Goal'
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/goals/{id}
+    delete:
+      tags:
+      - dossier.Goal
+      summary: Deletes the Goal with given id
+      operationId: dossier.GoalAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Goal
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: If successfully removed the goal
+        '400':
+          description: Validation errors
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/goals/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/goals/multiple:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Method used for requesting multiple Goal objects using their ids
+      operationId: dossier.GoalAPI.multiple
+      parameters:
+      - name: id
+        in: query
+        description: 'array style id''s: id=1&id=2&etc'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.GoalList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/goals/multiple
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/dossier/goals/search:
+    get:
+      tags:
+      - dossier.Goal
+      summary: Returns the Goals which meet the search criteria
+      operationId: dossier.GoalAPI.search
+      parameters:
+      - name: keyword
+        in: query
+        schema:
+          type: string
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.GoalList'
+      x-replacement-for:
+      - /t/dossier/goals/search
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.Goal:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        demandId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        allowTitleOverride:
+          type: boolean
+          default: false
+        allowComment:
+          type: boolean
+          default: false
+        reportProgress:
+          type: boolean
+          default: false
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "doel"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        demandId: 3
+        definition: Target definition
+        allowTitleOverride: true
+        allowComment: true
+        reportProgress: false
+        hidden: false
+        classificationId: intervention.category.case_management
+      xml:
+        name: goal
+    dossier.Domain:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.list.GoalList:
+      type: object
+      properties:
+        goals:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Goal'
+          xml:
+            name: goal
+      description: GoalList model (no description)
+      example:
+        goals:
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2421
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt accepteert huishoudelijke ondersteuning
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2422
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt doet zelfstandig de was
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2423
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt heeft een opgeruimde kamer
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2424
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt heeft een schoon huis
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2013-02-12T11:24:30.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2425
+          domainId: 2052
+          demandId: 2132
+          definition: Cliënt kan zelf maaltijden klaarmaken
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: true
+          hidden: false
+        - updatedAt: '2013-12-04T17:11:24.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2426
+          domainId: 2052
+          demandId: 2132
+          definition: Cliënt kan zelfstandig deuren openen en sluiten
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2427
+          domainId: 2052
+          demandId: 2132
+          definition: Cliënt kan zelfstandig douchen
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2428
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt kan zelfstandig het huishouden verzorgen
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2429
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt kan zelfstandig huishoudelijke apparaten bedienen
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2430
+          domainId: 2052
+          demandId: 2132
+          definition: Cliënt kan zelfstandig naar het toilet
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2431
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt voert lichte poets- en opruimwerkzaamheden zelf uit
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2432
+          domainId: 2052
+          demandId: 2132
+          definition: Cliënt wil zelfstandig blijven wonen
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2433
+          domainId: 2052
+          demandId: 2133
+          definition: Cliënt voelt zich veilig in de woning
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2434
+          domainId: 2052
+          demandId: 2133
+          definition: Cliënt voelt zich veilig in huis
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2435
+          domainId: 2052
+          demandId: 2133
+          definition: Cliënt woont in een veilige woonomgeving
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2436
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt is tevreden met de situatie in huis
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2437
+          domainId: 2052
+          demandId: 2133
+          definition: Cliënt is tevreden over woonsituatie
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2438
+          domainId: 2052
+          demandId: 2133
+          definition: Cliënt kan zelfstandig huishoudelijke apparaten en gereedschap onderhouden
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2439
+          domainId: 2052
+          demandId: 2133
+          definition: Cliënt voelt zich prettig bij inrichting van de woning
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2440
+          domainId: 2052
+          demandId: 2133
+          definition: Woning is comfortabel voor cliënt
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2441
+          domainId: 2052
+          demandId: 2133
+          definition: Woonwensen cliënt zijn duidelijk
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3607
+          domainId: 2052
+          demandId: 2930
+          definition: Client heeft voldoende privacy
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3608
+          domainId: 2052
+          demandId: 2131
+          definition: Client is tevreden met de situatie in huis
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3609
+          domainId: 2052
+          demandId: 2131
+          definition: Client kan zelfstandig het huishouden verzorgen
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 3610
+          domainId: 2052
+          demandId: 2131
+          definition: Cliënt kan zelfstandig schoonmaken
+          allowTitleOverride: false
+          allowComment: false
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2013-01-21T22:22:18.000+01:00'
+          createdAt: '2010-12-08T16:14:48.000+01:00'
+          id: 3643
+          domainId: 2052
+          demandId: 2132
+          definition: Doel
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: true
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:48.000+01:00'
+          createdAt: '2010-12-08T16:14:48.000+01:00'
+          id: 3644
+          domainId: 2052
+          demandId: 2133
+          definition: Doel
+          allowTitleOverride: false
+          allowComment: true
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:48.000+01:00'
+          createdAt: '2010-12-08T16:14:48.000+01:00'
+          id: 3645
+          domainId: 2052
+          demandId: 2930
+          definition: Doel
+          allowTitleOverride: false
+          allowComment: true
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:48.000+01:00'
+          createdAt: '2010-12-08T16:14:48.000+01:00'
+          id: 3646
+          domainId: 2052
+          demandId: 2131
+          definition: Doel
+          allowTitleOverride: false
+          allowComment: true
+          reportProgress: false
+          hidden: false
+        - updatedAt: '2013-01-21T22:26:24.000+01:00'
+          createdAt: '2012-02-08T12:06:31.000+01:00'
+          id: 16050
+          domainId: 2052
+          demandId: 2132
+          definition: verbeteren Bewegingsmogelijkheden
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: true
+          hidden: false
+        - updatedAt: '2013-06-13T10:45:26.000+02:00'
+          createdAt: '2013-06-13T10:45:26.000+02:00'
+          id: 39802
+          domainId: 2052
+          demandId: 25500
+          definition: test123
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: false
+          hidden: false
+      xml:
+        name: goals
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

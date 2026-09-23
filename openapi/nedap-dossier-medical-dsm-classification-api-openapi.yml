@@ -1,0 +1,440 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.medical.dsm.Classification API
+  version: 0.0.0
+  description: 'Operations tagged dossier.medical.dsm.Classification across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.medical.dsm.Classification
+paths:
+  /t/dossier/medical/dsm/classifications:
+    get:
+      tags:
+      - dossier.medical.dsm.Classification
+      summary: Returns every Classification available from the ClassificationAPI
+      operationId: dossier.medical.dsm.ClassificationAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.list.ClassificationList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/dsm/classifications
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/medical/dsm/classifications/{id}:
+    get:
+      tags:
+      - dossier.medical.dsm.Classification
+      summary: Gets the DSM classification for the specified ID
+      operationId: dossier.medical.dsm.ClassificationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Classification
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.Classification'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/medical/dsm/classifications/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/dsm/classifications:
+    get:
+      tags:
+      - dossier.medical.dsm.Classification
+      summary: Returns every Classification available from the ClassificationAPI
+      operationId: dossier.medical.dsm.ClassificationAPI.all
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.list.ClassificationList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/dsm/classifications
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/medical/dsm/classifications/{id}:
+    get:
+      tags:
+      - dossier.medical.dsm.Classification
+      summary: Gets the DSM classification for the specified ID
+      operationId: dossier.medical.dsm.ClassificationAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Classification
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.medical.dsm.Classification'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/medical/dsm/classifications/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.medical.dsm.Classification:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        findings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.dsm.Finding'
+          description: The findings belonging to this classification
+        evaluations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.dsm.Evaluation'
+          description: The evaluations belonging to this classification
+        beginDate:
+          type: string
+          description: The begin date of the classification phase
+          format: date
+        endDate:
+          type: string
+          description: The end date of the classification phase
+          format: date
+        classificationDate:
+          type: string
+          description: The date the classification was determined
+          format: date
+        status:
+          type: string
+          description: The status of the classification phase
+        diagnosisDescription:
+          type: string
+          description: The descriptive diagnosis
+        parentId:
+          type: integer
+          description: The classification phase this classification was derived from
+          format: int32
+        childId:
+          type: integer
+          description: The classification phase that was derived from this classification
+          format: int32
+        immutable:
+          type: boolean
+          description: Whether or not the classification is immutable
+        axis3weight:
+          type: integer
+          description: The weight of the axis 3 findings
+          format: int32
+        gafStart:
+          type: integer
+          description: The start GAF score
+          format: int32
+        gafCurrent:
+          type: integer
+          description: The current GAF score
+          format: int32
+        gafMax:
+          type: integer
+          description: The maximum GAF score
+          format: int32
+        gafEnd:
+          type: integer
+          description: The end GAF score
+          format: int32
+        classificationSeriesId:
+          type: integer
+          description: The series this classification is a part of
+          format: int64
+      description: Classification model (no description)
+      example:
+        id: 5
+        uuid: 9ee1eb44-a89f-4fb6-bb29-ff39bfeef98e
+        clientId: 8
+        createdById: 1
+        updatedById: 1
+        createdAt: '2016-10-26T19:39:33.000+02:00'
+        updatedAt: '2016-10-26T19:39:33.000+02:00'
+        findings:
+        - id: 9
+          uuid: dbff59ee-4ec0-40bf-bdab-8ee8f29a83f4
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-26T19:39:33.000+02:00'
+          updatedAt: '2016-10-26T19:39:33.000+02:00'
+          axis: 1
+          signsOf: false
+          mainDiagnosis: true
+          compoundCode: 2016-01-01|as1_10.02|0
+          icd9cmCode: '300.13'
+          icd10Code: F44.1
+          dsmType: DSM-IV
+          description: Dissociatieve fugue
+        - id: 10
+          uuid: 99db4e0f-0d7a-4c68-9f01-a38a7c30d11b
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-26T19:39:33.000+02:00'
+          updatedAt: '2016-10-26T19:39:33.000+02:00'
+          axis: 2
+          signsOf: true
+          mainDiagnosis: false
+          compoundCode: 2016-01-01|as2_17.01|0
+          icd9cmCode: V62.89
+          icd10Code: F44.1
+          dsmType: DSM-IV
+          description: Zwakbegaafdheid
+        evaluations:
+        - id: 1
+          uuid: 46b414fb-576c-4a5b-890e-0e7e058b4a72
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-26T19:39:42.000+02:00'
+          updatedAt: '2016-10-26T19:39:42.000+02:00'
+          evaluationText: Dit is een evaluatie
+          newDraft: false
+        beginDate: '2016-10-26'
+        endDate: '2016-10-26'
+        classificationDate: '2016-10-26'
+        status: treatment_active
+        diagnosisDescription: This is the descriptive diagnosis
+        parentId: 2
+        childId: 3
+        immutable: true
+        axis3weight: 1
+        gafStart: 51
+        gafCurrent: 61
+        gafMax: 71
+        gafEnd: 81
+        classificationSeriesId: 1
+    dossier.medical.dsm.Evaluation:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        evaluationText:
+          type: string
+          description: The evaluation text
+        newDraft:
+          type: boolean
+          description: Whether or not this evaluation led to a new draft classification
+      description: Evaluation model (no description)
+      example:
+        id: 1
+        uuid: 46b414fb-576c-4a5b-890e-0e7e058b4a72
+        clientId: 8
+        createdById: 1
+        updatedById: 1
+        createdAt: '2016-10-26T19:39:42.000+02:00'
+        updatedAt: '2016-10-26T19:39:42.000+02:00'
+        evaluationText: Dit is een evaluatie
+        newDraft: false
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.medical.dsm.list.ClassificationList:
+      type: object
+      properties:
+        classifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.dsm.Classification'
+      description: ClassificationList model (no description)
+      example:
+        classifications:
+        - id: 5
+          uuid: 9ee1eb44-a89f-4fb6-bb29-ff39bfeef98e
+          clientId: 8
+          createdById: 1
+          updatedById: 1
+          createdAt: '2016-10-26T19:39:33.000+02:00'
+          updatedAt: '2016-10-26T19:39:33.000+02:00'
+          findings:
+          - id: 9
+            uuid: dbff59ee-4ec0-40bf-bdab-8ee8f29a83f4
+            clientId: 8
+            createdById: 1
+            updatedById: 1
+            createdAt: '2016-10-26T19:39:33.000+02:00'
+            updatedAt: '2016-10-26T19:39:33.000+02:00'
+            axis: 1
+            signsOf: false
+            mainDiagnosis: true
+            compoundCode: 2016-01-01|as1_10.02|0
+            dsmType: DSM-IV
+            description: Dissociatieve fugue
+          - id: 10
+            uuid: 99db4e0f-0d7a-4c68-9f01-a38a7c30d11b
+            clientId: 8
+            createdById: 1
+            updatedById: 1
+            createdAt: '2016-10-26T19:39:33.000+02:00'
+            updatedAt: '2016-10-26T19:39:33.000+02:00'
+            axis: 2
+            signsOf: true
+            mainDiagnosis: false
+            compoundCode: 2016-01-01|as2_17.01|0
+            dsmType: DSM-IV
+            description: Zwakbegaafdheid
+          evaluations:
+          - id: 1
+            uuid: 46b414fb-576c-4a5b-890e-0e7e058b4a72
+            clientId: 8
+            createdById: 1
+            updatedById: 1
+            createdAt: '2016-10-26T19:39:42.000+02:00'
+            updatedAt: '2016-10-26T19:39:42.000+02:00'
+            evaluationText: Dit is een evaluatie
+            newDraft: false
+          beginDate: '2016-10-26'
+          endDate: '2016-10-26'
+          classificationDate: '2016-10-26'
+          status: treatment_active
+          diagnosisDescription: This is the descriptive diagnosis
+          parentId: 2
+          childId: 3
+          immutable: true
+          axis3weight: 1
+          gafStart: 51
+          gafCurrent: 61
+          gafMax: 71
+          gafEnd: 81
+          classificationSeriesId: 1
+    dossier.medical.dsm.Finding:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        axis:
+          type: integer
+          description: The axis of the finding
+          format: int32
+        signsOf:
+          type: boolean
+          description: Whether or not there are signs of the diagnosis
+        mainDiagnosis:
+          type: boolean
+          description: Whether or it is the primary diagnosis
+        compoundCode:
+          type: string
+          description: 'The compound code that uniquely identifies the diagnosis
+
+
+            For DSM-IV this is:
+
+            CL_DIAGNOSE_BEGINDATUM|CL_DIAGNOSE_CODE|CL_DIAGNOSE_BRANCHE_INDICATIE
+
+
+            For DSM-5 this is:
+
+            CL_DIAGNOSE_BEGINDATUM|CL_D5_DIAGNOSE_CODE'
+        icd9cmCode:
+          type: string
+          description: The ICD-9-CM code of the diagnosis
+        icd10Code:
+          type: string
+          description: The ICD-10 code of the diagnosis
+        dsmType:
+          type: string
+          description: Whether it is a DSM-IV or a DSM-V finding
+        convertedCompoundCodeDsm4:
+          type: string
+          description: If it is a DSM-5 finding, this is the converted DSM-IV compound code
+        description:
+          type: string
+          description: The description of the diagnosis
+        diagnosisClaimType:
+          type: integer
+          description: The claim type of a diagnosis.
+          format: int32
+      description: Finding model (no description)
+      example:
+        id: 10
+        uuid: 99db4e0f-0d7a-4c68-9f01-a38a7c30d11b
+        clientId: 8
+        createdById: 1
+        updatedById: 1
+        createdAt: '2016-10-26T19:39:33.000+02:00'
+        updatedAt: '2016-10-26T19:39:33.000+02:00'
+        axis: 2
+        signsOf: true
+        mainDiagnosis: false
+        compoundCode: 2016-01-01|as2_17.01|0
+        icd9cmCode: V62.89
+        icd10Code: F44.1
+        dsmType: DSM-IV
+        convertedCompoundCodeDsm4: 2000-01-01|as1_5.04|0
+        description: Waanstoornis
+        diagnosisClaimType: 2
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

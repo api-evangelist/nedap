@@ -1,0 +1,171 @@
+openapi: 3.2.0
+info:
+  title: Nedap Zorgdomein Module.Bundle Wrapper API
+  version: 0.0.0
+  description: 'Operations tagged zorgdomein_module.BundleWrapper across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: zorgdomein_module.BundleWrapper
+paths:
+  /t/zorgdomein_module/cupido/fhir/r3/bundle_wrapper:
+    post:
+      tags:
+      - zorgdomein_module.BundleWrapper
+      summary: Create a new item using a FHIR R3 bundle wrapped in a json object
+      description: The bundle contains a single field `data` that contains serialized JSON. The success response is an BundleWrapper with empty data.
+      operationId: zorgdomein_module.BundleWrapperAPI.createByWrapper
+      requestBody:
+        description: BundleWrapper to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/zorgdomein_module.BundleWrapper'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zorgdomein_module.BundleWrapper'
+        '400':
+          description: Missing bundle data, missing identifiers, or other validation errors that prevent the Bundle from being processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Persistence conflict while storing the Bundle backup
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '412':
+          description: Bundle processing precondition failed, for example when the preferred customer identifier does not resolve to a tenant
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: FHIR Bundle parse error or missing required FHIR Bundle element
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replaced-by: /v0/zorgdomein_module/cupido/fhir/r3/bundle_wrapper
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/zorgdomein_module/cupido/fhir/r3/bundle_wrapper:
+    post:
+      tags:
+      - zorgdomein_module.BundleWrapper
+      summary: Create a new item using a FHIR R3 bundle wrapped in a json object
+      description: The bundle contains a single field `data` that contains serialized JSON. The success response is an BundleWrapper with empty data.
+      operationId: zorgdomein_module.BundleWrapperAPI.createByWrapper
+      requestBody:
+        description: BundleWrapper to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/zorgdomein_module.BundleWrapper'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zorgdomein_module.BundleWrapper'
+        '400':
+          description: Missing bundle data, missing identifiers, or other validation errors that prevent the Bundle from being processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Persistence conflict while storing the Bundle backup
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '412':
+          description: Bundle processing precondition failed, for example when the preferred customer identifier does not resolve to a tenant
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: FHIR Bundle parse error or missing required FHIR Bundle element
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replacement-for:
+      - /t/zorgdomein_module/cupido/fhir/r3/bundle_wrapper
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    zorgdomein_module.BundleWrapper:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: string
+          description: Data from original HL7 FHIR DSTU3 bundle. Contains JSON.
+      description: BundleWrapper model for transporting HL7 FHIR DSTU3 bundle data to the Zorgdomein module.
+      example:
+        data: bundlejson
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

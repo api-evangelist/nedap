@@ -1,0 +1,402 @@
+openapi: 3.2.0
+info:
+  title: Nedap Dossier.Restrictive Measure Registration API
+  version: 0.0.0
+  description: 'Operations tagged dossier.RestrictiveMeasureRegistration across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: dossier.RestrictiveMeasureRegistration
+paths:
+  /t/dossier/restrictive_measure_registrations:
+    post:
+      tags:
+      - dossier.RestrictiveMeasureRegistration
+      summary: Create RestrictiveMeasureRegistration
+      description: Create restrictive measure registration
+      operationId: dossier.RestrictiveMeasureRegistrationAPI.create
+      requestBody:
+        description: RestrictiveMeasureRegistration to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+        required: true
+      responses:
+        '201':
+          description: Returns created restrictive measure registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+        '400':
+          description: Restrictive measure registration failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measure_registrations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/restrictive_measure_registrations/{id}:
+    put:
+      tags:
+      - dossier.RestrictiveMeasureRegistration
+      summary: Update RestrictiveMeasureRegistration
+      description: Update restrictive measure registration
+      operationId: dossier.RestrictiveMeasureRegistrationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for updating RestrictiveMeasureRegistration
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: RestrictiveMeasureRegistration to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+        required: true
+      responses:
+        '201':
+          description: Returns updated restrictive measure registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+        '400':
+          description: Restrictive measure registration failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measure_registrations/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/dossier/clients/{client_id}/care_plan/restrictive_measure_registrations:
+    get:
+      tags:
+      - dossier.RestrictiveMeasureRegistration
+      summary: Get the registrations by client
+      description: Find restrictive measure registrations by client id. When the client is not found this will return an empty list.
+      operationId: dossier.RestrictiveMeasureRegistrationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: The client id for which to get the registrations
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.RestrictiveMeasureRegistrationList'
+      x-replaced-by: /v0/dossier/back_channel/unauthorized/clients/{client_id}/care_plan/restrictive_measure_registrations
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measure_registrations:
+    post:
+      tags:
+      - dossier.RestrictiveMeasureRegistration
+      summary: Create RestrictiveMeasureRegistration
+      description: Create restrictive measure registration
+      operationId: dossier.RestrictiveMeasureRegistrationAPI.create
+      requestBody:
+        description: RestrictiveMeasureRegistration to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+        required: true
+      responses:
+        '201':
+          description: Returns created restrictive measure registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+        '400':
+          description: Restrictive measure registration failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/restrictive_measure_registrations
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/care_plan/restrictive_measure_registrations/{id}:
+    put:
+      tags:
+      - dossier.RestrictiveMeasureRegistration
+      summary: Update RestrictiveMeasureRegistration
+      description: Update restrictive measure registration
+      operationId: dossier.RestrictiveMeasureRegistrationAPI.update
+      parameters:
+      - name: id
+        in: path
+        description: used for updating RestrictiveMeasureRegistration
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: RestrictiveMeasureRegistration to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+        required: true
+      responses:
+        '201':
+          description: Returns updated restrictive measure registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+        '400':
+          description: Restrictive measure registration failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/dossier/restrictive_measure_registrations/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/dossier/back_channel/unauthorized/clients/{client_id}/care_plan/restrictive_measure_registrations:
+    get:
+      tags:
+      - dossier.RestrictiveMeasureRegistration
+      summary: Get the registrations by client
+      description: Find restrictive measure registrations by client id. When the client is not found this will return an empty list.
+      operationId: dossier.RestrictiveMeasureRegistrationAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: The client id for which to get the registrations
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier.list.RestrictiveMeasureRegistrationList'
+      x-replacement-for:
+      - /t/dossier/clients/{client_id}/care_plan/restrictive_measure_registrations
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    dossier.RestrictiveMeasureRegistration:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The id of this registration
+          format: int64
+          x-cupido-id: true
+        restrictiveMeasureEntryId:
+          type:
+          - integer
+          - 'null'
+          description: Optional linked restrictive measure entry from the care plan
+          format: int64
+        restrictiveMeasureId:
+          type:
+          - integer
+          - 'null'
+          description: The applied restrictive measure
+          format: int64
+        law:
+          type:
+          - integer
+          - 'null'
+          description: 'The law that was valid when this measure was applied
+
+            - 0 Bopz
+
+            - 1 Wzd
+
+            - 2 Wvggz
+
+            - 3 Wzd with fz'
+          format: int32
+        narrative:
+          type:
+          - string
+          - 'null'
+          description: Optional narrative that was recorded during the registration
+        resistant:
+          type:
+          - boolean
+          - 'null'
+          description: Whether there was resistance during the application of this measure
+          default: false
+          deprecated: true
+        clientExternalId:
+          type:
+          - integer
+          - 'null'
+          description: The id of the client this registration is linked to
+          format: int64
+        legalTitle:
+          type:
+          - string
+          - 'null'
+          description: 'The legal title under which this measure was applied:
+
+            - determine_later
+
+            - care_authorization
+
+            - crisis_measure
+
+            - temp_unforeseen
+
+            - temp_mandatory_before_cm
+
+            - continuation_authorization
+
+            - tbs_pij'
+        startTime:
+          type:
+          - string
+          - 'null'
+          description: When the application of this measure started
+          format: date-time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: Optional when the application of this measure ended.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          description: When this registration was created
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: When this registration was last updated
+          format: date-time
+        reportId:
+          type:
+          - integer
+          - 'null'
+          description: The id of the report that is linked to this registration
+          format: int64
+      description: RestrictiveMeasureRegistration model (no description)
+      example:
+        id: 1
+        restrictiveMeasureEntryId: 2
+        restrictiveMeasureId: 3
+        law: 1
+        narrative: narrative
+        resistant: false
+        clientExternalId: 4
+        reportId: 1234
+        legalTitle: crisis_measure
+        startTime: '2021-01-01T00:00:00.000+01:00'
+        endTime: '2021-01-02T00:00:00.000+01:00'
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+    dossier.list.RestrictiveMeasureRegistrationList:
+      type: object
+      properties:
+        restrictiveMeasureRegistrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+      description: RestrictiveMeasureRegistrationList model (no description)
+      example:
+        restrictiveMeasureRegistrations:
+        - id: 1
+          restrictiveMeasureEntryId: 2
+          restrictiveMeasureId: 3
+          law: 1
+          narrative: narrative
+          resistant: false
+          clientExternalId: 4
+          legalTitle: crisis_measure
+          startTime: '2021-01-01T00:00:00.000+01:00'
+          endTime: '2021-01-02T00:00:00.000+01:00'
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+        - id: 1
+          restrictiveMeasureEntryId: 2
+          restrictiveMeasureId: 3
+          law: 1
+          narrative: narrative
+          resistant: false
+          clientExternalId: 4
+          legalTitle: crisis_measure
+          startTime: '2021-01-01T00:00:00.000+01:00'
+          endTime: '2021-01-02T00:00:00.000+01:00'
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,113 @@
+openapi: 3.2.0
+info:
+  title: Nedap Authorization.provisioning.User Scope Settings API
+  version: 0.0.0
+  description: 'Operations tagged authorization.provisioning.UserScopeSettings across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: authorization.provisioning.UserScopeSettings
+paths:
+  /t/authorization/provisioning/users/{user_uuid}/scope_settings:
+    put:
+      tags:
+      - authorization.provisioning.UserScopeSettings
+      summary: Updates scope settings of a user
+      description: 'Updates scope settings of a user. Provide the complete set of legacy_auth_scoping_options that should be assigned to the user.
+
+        As this API is idempotent, the state provided in the last call is the final state. Any scopes previously added but not specified in the body will be removed.
+
+        This endpoint together with /my_teams and /my_locations are replacements for the PUT /users/{user_uuid}/scopes endpoint.'
+      operationId: authorization.provisioning.UserScopeSettingsAPI.set
+      parameters:
+      - name: user_uuid
+        in: path
+        description: Identifier of User to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: the new set of scope settings
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorization.provisioning.UserScopeSettings'
+        required: true
+      responses:
+        '200':
+          description: User scope settings have been updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization.provisioning.UserScopeSettings'
+      x-replaced-by: /v0/authorization/provisioning/users/{user_uuid}/scope_settings
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/authorization/provisioning/users/{user_uuid}/scope_settings:
+    put:
+      tags:
+      - authorization.provisioning.UserScopeSettings
+      summary: Updates scope settings of a user
+      description: 'Updates scope settings of a user. Provide the complete set of legacy_auth_scoping_options that should be assigned to the user.
+
+        As this API is idempotent, the state provided in the last call is the final state. Any scopes previously added but not specified in the body will be removed.
+
+        This endpoint together with /my_teams and /my_locations are replacements for the PUT /users/{user_uuid}/scopes endpoint.'
+      operationId: authorization.provisioning.UserScopeSettingsAPI.set
+      parameters:
+      - name: user_uuid
+        in: path
+        description: Identifier of User to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: the new set of scope settings
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorization.provisioning.UserScopeSettings'
+        required: true
+      responses:
+        '200':
+          description: User scope settings have been updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization.provisioning.UserScopeSettings'
+      x-replacement-for:
+      - /t/authorization/provisioning/users/{user_uuid}/scope_settings
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    authorization.provisioning.UserLegacyAuthScopingOptions:
+      type: object
+      properties:
+        myself:
+          type: boolean
+        allEmployees:
+          type: boolean
+        allClients:
+          type: boolean
+      description: ''
+      example:
+        myself: true
+        allEmployees: true
+        allClients: true
+    authorization.provisioning.UserScopeSettings:
+      type: object
+      properties:
+        legacyAuthScopingOptions:
+          $ref: '#/components/schemas/authorization.provisioning.UserLegacyAuthScopingOptions'
+      description: ''
+      example:
+        legacyAuthScopingOptions:
+          myself: true
+          allEmployees: true
+          allClients: true
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

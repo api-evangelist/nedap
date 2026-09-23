@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: Nedap Herald.Announcement Count API
+  version: 0.0.0
+  description: 'Operations tagged herald.AnnouncementCount across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: herald.AnnouncementCount
+paths:
+  /t/herald/announcement_count:
+    get:
+      tags:
+      - herald.AnnouncementCount
+      operationId: herald.AnnouncementCountAPI.byUserId
+      parameters:
+      - name: user_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/herald.AnnouncementCount'
+      x-replaced-by: /v0/announcements/announcement_count
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+      summary: Herald announcement count API by user id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+  /v0/announcements/announcement_count:
+    get:
+      tags:
+      - herald.AnnouncementCount
+      operationId: herald.AnnouncementCountAPI.byUserId
+      parameters:
+      - name: user_id
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/herald.AnnouncementCount'
+      x-replacement-for:
+      - /t/herald/announcement_count
+      summary: Herald announcement count API by user id
+      x-summary-source: derived
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    herald.AnnouncementCount:
+      required:
+      - count
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The number of unread announcements
+          format: int32
+      description: AnnouncementCount model (no description)
+      example:
+        count: 10
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

@@ -1,0 +1,236 @@
+openapi: 3.2.0
+info:
+  title: Nedap Payroll.Account Type API
+  version: 0.0.0
+  description: 'Operations tagged payroll.AccountType across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: payroll.AccountType
+paths:
+  /t/payroll/account_types:
+    get:
+      tags:
+      - payroll.AccountType
+      summary: Returns every AccountType available from the AccountTypeAPI
+      operationId: payroll.AccountTypeAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountTypeList'
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/account_types
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/payroll/account_types/{id}:
+    get:
+      tags:
+      - payroll.AccountType
+      summary: Return the AccountType corresponding to the given id
+      operationId: payroll.AccountTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AccountType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.AccountType'
+        '400':
+          description: ID is required
+        '404':
+          description: The account type could not be found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/account_types/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_types:
+    get:
+      tags:
+      - payroll.AccountType
+      summary: Returns every AccountType available from the AccountTypeAPI
+      operationId: payroll.AccountTypeAPI.all
+      parameters:
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.list.AccountTypeList'
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/account_types
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/account_types/{id}:
+    get:
+      tags:
+      - payroll.AccountType
+      summary: Return the AccountType corresponding to the given id
+      operationId: payroll.AccountTypeAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting AccountType
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: X-Cupido-User-Name
+        in: header
+        schema:
+          type: string
+      - name: X-Cupido-Active-Identity
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payroll.AccountType'
+        '400':
+          description: ID is required
+        '404':
+          description: The account type could not be found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/payroll/account_types/{id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    payroll.SubType:
+      type: string
+      oneOf:
+      - title: NONE
+        enum:
+        - none
+      - title: PLB
+        enum:
+        - plb
+      - title: LFB
+        enum:
+        - lfb
+      - title: SPECIAL_LEAVE
+        enum:
+        - special leave
+      description: SubType model (no description)
+      example: none
+    payroll.list.AccountTypeList:
+      type: object
+      properties:
+        accountTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.AccountType'
+          xml:
+            name: accountType
+      description: AccountTypeList model (no description)
+      example:
+        accountTypes:
+        - id: 1
+          name: Test account type
+          importCode: test importcode
+          type: Vacation
+          subType: lfb
+          priority: 1
+          expirationMonths: 12
+          startDate: '2016-01-01'
+          endDate: '2016-12-31'
+        - id: 666
+          name: Bovenwettelijke uren
+          importCode: bovenwettelijk
+          type: Vacation
+          subType: none
+          priority: 2
+          expirationMonths: 18
+          startDate: '2015-01-01'
+          endDate: '2015-12-31'
+      xml:
+        name: accountTypes
+    payroll.AccountType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        importCode:
+          type: string
+        type:
+          type: string
+        subType:
+          $ref: '#/components/schemas/payroll.SubType'
+        priority:
+          type: integer
+          format: int32
+        expirationMonths:
+          type: integer
+          format: int32
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+      description: AccountType model (no description)
+      example:
+        id: 1
+        name: Test account type
+        importCode: test importcode
+        type: Vacation
+        subType: lfb
+        priority: 1
+        expirationMonths: 12
+        startDate: '2016-01-01'
+        endDate: '2016-12-31'
+      xml:
+        name: accountType
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

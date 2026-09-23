@@ -1,0 +1,324 @@
+openapi: 3.2.0
+info:
+  title: Nedap Practitioner Big Code API
+  version: 0.0.0
+  description: 'Operations tagged PractitionerBigCode across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: PractitionerBigCode
+paths:
+  /t/employees/{employee_id}/big_codes:
+    get:
+      tags:
+      - PractitionerBigCode
+      summary: Return the BIG codes assigned to the employee corresponding to the provided id
+      operationId: PractitionerBigCodeAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.PractitionerBigCodeList'
+      x-replaced-by: /v0/administration/employees/{employee_id}/big_codes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - PractitionerBigCode
+      summary: Creates the provided BIG code and assigns it to the employee corresponding to…
+      operationId: PractitionerBigCodeAPI.createForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerBigCode'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerBigCode'
+      x-replaced-by: /v0/administration/employees/{employee_id}/big_codes
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/employees/{employee_id}/big_codes/{big_code_id}:
+    get:
+      tags:
+      - PractitionerBigCode
+      summary: Return the BIG code with the provided id assigned to the employee corresponding…
+      operationId: PractitionerBigCodeAPI.byEmployeeIdAndBigId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: big_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerBigCode'
+      x-replaced-by: /v0/administration/employees/{employee_id}/big_codes/{big_code_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - PractitionerBigCode
+      summary: Updates the provided BIG code assigned to the employee corresponding to the…
+      operationId: PractitionerBigCodeAPI.updateForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: big_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerBigCode'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerBigCode'
+      x-replaced-by: /v0/administration/employees/{employee_id}/big_codes/{big_code_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - PractitionerBigCode
+      summary: Deletes the BIG code with the provided id assigned to the employee…
+      operationId: PractitionerBigCodeAPI.deleteForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: big_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No response was specified
+      x-replaced-by: /v0/administration/employees/{employee_id}/big_codes/{big_code_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/big_codes:
+    get:
+      tags:
+      - PractitionerBigCode
+      summary: Return the BIG codes assigned to the employee corresponding to the provided id
+      operationId: PractitionerBigCodeAPI.byEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list.PractitionerBigCodeList'
+      x-replacement-for:
+      - /t/employees/{employee_id}/big_codes
+    post:
+      tags:
+      - PractitionerBigCode
+      summary: Creates the provided BIG code and assigns it to the employee corresponding to…
+      operationId: PractitionerBigCodeAPI.createForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerBigCode'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerBigCode'
+      x-replacement-for:
+      - /t/employees/{employee_id}/big_codes
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/employees/{employee_id}/big_codes/{big_code_id}:
+    get:
+      tags:
+      - PractitionerBigCode
+      summary: Return the BIG code with the provided id assigned to the employee corresponding…
+      operationId: PractitionerBigCodeAPI.byEmployeeIdAndBigId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: big_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerBigCode'
+      x-replacement-for:
+      - /t/employees/{employee_id}/big_codes/{big_code_id}
+    put:
+      tags:
+      - PractitionerBigCode
+      summary: Updates the provided BIG code assigned to the employee corresponding to the…
+      operationId: PractitionerBigCodeAPI.updateForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: big_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PractitionerBigCode'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerBigCode'
+      x-replacement-for:
+      - /t/employees/{employee_id}/big_codes/{big_code_id}
+    delete:
+      tags:
+      - PractitionerBigCode
+      summary: Deletes the BIG code with the provided id assigned to the employee…
+      operationId: PractitionerBigCodeAPI.deleteForEmployeeId
+      parameters:
+      - name: employee_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: big_code_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No response was specified
+      x-replacement-for:
+      - /t/employees/{employee_id}/big_codes/{big_code_id}
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    PractitionerBigCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+      description: PractitionerBigCode model (no description)
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+    list.PractitionerBigCodeList:
+      type: object
+      properties:
+        practitionerBigCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerBigCode'
+      description: PractitionerBigCodeList model (no description)
+      example:
+        practitionerBigCodes:
+        - id: 1
+          employeeObjectId: 1
+          code: '12345678'
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

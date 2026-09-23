@@ -1,0 +1,357 @@
+openapi: 3.2.0
+info:
+  title: Nedap Bsn API
+  version: 0.0.0
+  description: 'Operations tagged Bsn across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: Bsn
+paths:
+  /t/bsns:
+    post:
+      tags:
+      - Bsn
+      summary: Create Bsn
+      operationId: BsnAPI.create
+      requestBody:
+        description: Bsn to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bsn'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bsn'
+        '400':
+          description: Invalid BSN
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/bsns
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/bsns/{id}:
+    get:
+      tags:
+      - Bsn
+      summary: Return the Bsn corresponding to the given id
+      operationId: BsnAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Bsn
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bsn'
+        '404':
+          description: Bsn not found
+      x-cupido-common-method: true
+      x-replaced-by: /v0/administration/bsns/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/clients/{client_id}/bsn:
+    get:
+      tags:
+      - Bsn
+      summary: Return the bsn of a client corresponding to the given client id
+      operationId: BsnAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bsn'
+      x-replaced-by: /v0/administration/clients/{client_id}/bsn
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - Bsn
+      summary: Updates the BSN of a client
+      operationId: BsnAPI.updateBsn
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bsn'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bsn'
+      x-replaced-by: /v0/administration/clients/{client_id}/bsn
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/bsns:
+    post:
+      tags:
+      - Bsn
+      summary: Create Bsn
+      operationId: BsnAPI.create
+      requestBody:
+        description: Bsn to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bsn'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bsn'
+        '400':
+          description: Invalid BSN
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/bsns
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/bsns/{id}:
+    get:
+      tags:
+      - Bsn
+      summary: Return the Bsn corresponding to the given id
+      operationId: BsnAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: used for selecting Bsn
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bsn'
+        '404':
+          description: Bsn not found
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/bsns/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/administration/clients/{client_id}/bsn:
+    get:
+      tags:
+      - Bsn
+      summary: Return the bsn of a client corresponding to the given client id
+      operationId: BsnAPI.byClientId
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bsn'
+      x-replacement-for:
+      - /t/clients/{client_id}/bsn
+    put:
+      tags:
+      - Bsn
+      summary: Updates the BSN of a client
+      operationId: BsnAPI.updateBsn
+      parameters:
+      - name: client_id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bsn'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bsn'
+      x-replacement-for:
+      - /t/clients/{client_id}/bsn
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    bsn.BsnSource:
+      type: integer
+      oneOf:
+      - title: UNKNOWN
+        enum:
+        - -1
+      - title: OWN_ADMINISTRATION
+        enum:
+        - 0
+      - title: SBVZ
+        enum:
+        - 1
+      - title: GBA
+        enum:
+        - 2
+      - title: OTHER_BSN_USER
+        enum:
+        - 3
+      description: BsnSource model (no description)
+      example: -1
+    bsn.BsnDocumentType:
+      type: integer
+      oneOf:
+      - title: PASPOORT
+        enum:
+        - 0
+      - title: ID
+        enum:
+        - 1
+      - title: RIJBEWIJS
+        enum:
+        - 2
+      - title: VREEMDELINGENDOCUMENT
+        enum:
+        - 3
+      description: BsnDocumentType model (no description)
+      example: 0
+    Bsn:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        number:
+          type: string
+        sourceVerified:
+          type: boolean
+        idVerified:
+          type: boolean
+        idNumber:
+          type: string
+        idType:
+          type: string
+        source:
+          type: string
+        idVerifiedType:
+          type: string
+        idVerifiedDate:
+          type: string
+          format: date-time
+        bsnUnknown:
+          type: boolean
+        reasonBsnUnknown:
+          type: string
+        idValidUntil:
+          type: string
+          format: date
+        bsnVerifiedDate:
+          type: string
+          format: date
+        widVerified:
+          type: boolean
+        verifiedByEmployeeId:
+          type: integer
+          format: int64
+        bsnDocumentType:
+          $ref: '#/components/schemas/bsn.BsnDocumentType'
+        bsnSource:
+          $ref: '#/components/schemas/bsn.BsnSource'
+        bsnIdVerifiedType:
+          $ref: '#/components/schemas/bsn.BsnIdVerifiedType'
+      description: Bsn model (no description)
+      example:
+        id: 42
+        clientId: 200
+        number: 0123456789
+        sourceVerified: true
+        idVerified: false
+        idNumber: asd234
+        idType: Paspoort
+        source: OwnAdministration
+        idVerifiedType: Geen
+        idVerifiedDate: '2010-03-15T00:00:00.000+01:00'
+        bsnUnknown: false
+        reasonBsnUnknown: Illegaal
+        idValidUntil: '2010-03-15'
+        bsnVerifiedDate: '2010-03-15'
+        widVerified: false
+        verifiedByEmployeeId: 100
+        bsnDocumentType: 1
+        bsnSource: -1
+        bsnIdVerifiedType: 2
+      xml:
+        name: bsn
+    bsn.BsnIdVerifiedType:
+      type: integer
+      oneOf:
+      - title: GEEN
+        enum:
+        - 0
+      - title: VERGEWIST
+        enum:
+        - 1
+      - title: WID
+        enum:
+        - 2
+      description: BsnIdVerifiedType model (no description)
+      example: 0
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

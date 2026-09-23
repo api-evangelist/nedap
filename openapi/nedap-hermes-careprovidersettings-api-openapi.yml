@@ -1,0 +1,70 @@
+openapi: 3.2.0
+info:
+  title: Nedap Hermes.Care Provider Settings API
+  version: 0.0.0
+  description: 'Operations tagged hermes.CareProviderSettings across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: hermes.CareProviderSettings
+paths:
+  /t/hermes/care_provider_settings:
+    get:
+      tags:
+      - hermes.CareProviderSettings
+      summary: Retrieves the CareProviderSettings
+      operationId: hermes.CareProviderSettingsAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.CareProviderSettings'
+      x-replaced-by: /v0/notification/care_provider_settings
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/notification/care_provider_settings:
+    get:
+      tags:
+      - hermes.CareProviderSettings
+      summary: Retrieves the CareProviderSettings
+      operationId: hermes.CareProviderSettingsAPI.get
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hermes.CareProviderSettings'
+      x-replacement-for:
+      - /t/hermes/care_provider_settings
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    hermes.CareProviderSettings:
+      type: object
+      properties:
+        enabled:
+          type:
+          - boolean
+          - 'null'
+        defaultTemplateSet:
+          type:
+          - string
+          - 'null'
+        defaultContactMethod:
+          type:
+          - string
+          - 'null'
+      description: CareProviderSettings model (no description)
+      example:
+        enabled: true
+        defaultTemplateSet: junior
+        defaultContactMethod: Email
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json

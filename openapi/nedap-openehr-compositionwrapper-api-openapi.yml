@@ -1,0 +1,3305 @@
+openapi: 3.2.0
+info:
+  title: Nedap Openehr.Composition Wrapper API
+  version: 0.0.0
+  description: 'Operations tagged openehr.CompositionWrapper across 2 of this provider''s published API definitions: nedap-ons-deprecated-openapi-original.json, nedap-ons-openapi-original.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-development.ons.io
+tags:
+- name: openehr.CompositionWrapper
+paths:
+  /t/openehr/composition_wrappers:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds all CompositionWrappers of all clients that are an instance of the given…
+      description: This API supports pagination by using limit, and by default will only return the 20 most recent results.
+      operationId: openehr.CompositionWrapperAPI.all
+      parameters:
+      - name: client_id
+        in: query
+        description: The client id
+        schema:
+          type: integer
+          format: int64
+      - name: archetype_id
+        in: query
+        description: Id of the archetype that the requested compositions should be an instance of
+        schema:
+          type: string
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the compositions. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: with_incomplete
+        in: query
+        description: Set to true to also include compositions with lifecycleState INCOMPLETE. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: Limits the number of results returned
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        schema:
+          type: integer
+          format: int32
+      - name: valid_from
+        in: query
+        description: Starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End time
+        schema:
+          type: string
+          format: date
+      - name: updated_since
+        in: query
+        description: Fetch only the compositions that were updated on or after the given date
+        schema:
+          type: string
+          format: local-date-time
+        example: '2014-12-29T00:00:00'
+      - name: item_tag_key
+        in: query
+        description: Fetch only the compositions associated with any of the provided item tag keys
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: module_uuid
+        in: query
+        description: UUID's of modules that the archetypes of the requested compositions should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: with_abandoned
+        in: query
+        description: Set to true to also include compositions with lifecycleState ABANDONED. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      - name: with_inactive
+        in: query
+        description: Set to true to also include compositions with lifecycleState INACTIVE. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionWrapperList'
+        '400':
+          description: Limit exceeds bounds (1-10000)
+        '404':
+          description: When the clientId does not exist
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Create CompositionWrapper
+      description: Composition data can be provided by means of either paths and values or ReferenceModelObject. A provided ReferenceModelObject will be deserialized using the standard-compliant Jackson deserializer.
+      operationId: openehr.CompositionWrapperAPI.createV2
+      parameters:
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the composition. The default value is PATHS_AND_VALUES. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: false
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      requestBody:
+        description: CompositionWrapper to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.CompositionWrapper'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '400':
+          description: When the composition could not be created because it failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionValidationErrorResponse'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Deletes multiple Compositions by given id's
+      operationId: openehr.CompositionWrapperAPI.deleteMultiple
+      parameters:
+      - name: id
+        in: query
+        description: A list with Identifiers of CompositionWrappers to delete
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Deleted
+        '404':
+          description: When one or more compositions do not exist or are deleted
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/all:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds all CompositionWrappers of all clients that are an instance of the given…
+      description: 'This API supports pagination by using limit, and by default will only return the 20 most recent results.
+
+
+        Deprecated operation, please use ''openehr.CompositionWrapperAPI.all'' instead'
+      operationId: openehr.CompositionWrapperAPI.all2
+      parameters:
+      - name: client_id
+        in: query
+        description: The client id
+        schema:
+          type: integer
+          format: int64
+      - name: archetype_id
+        in: query
+        description: Id of the archetype that the requested compositions should be an instance of
+        schema:
+          type: string
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the compositions. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: with_incomplete
+        in: query
+        description: Set to true to also include compositions with lifecycleState INCOMPLETE. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: Limits the number of results returned
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        schema:
+          type: integer
+          format: int32
+      - name: valid_from
+        in: query
+        description: Starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End time
+        schema:
+          type: string
+          format: date
+      - name: updated_since
+        in: query
+        description: Fetch only the compositions that were updated on or after the given date
+        schema:
+          type: string
+          format: local-date-time
+        example: '2014-12-29T00:00:00'
+      - name: item_tag_key
+        in: query
+        description: Fetch only the compositions associated with any of the provided item tag keys
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: module_uuid
+        in: query
+        description: UUID's of modules that the archetypes of the requested compositions should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: with_abandoned
+        in: query
+        description: Set to true to also include compositions with lifecycleState ABANDONED. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      - name: with_inactive
+        in: query
+        description: Set to true to also include compositions with lifecycleState INACTIVE. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionWrapperList'
+        '400':
+          description: Limit exceeds bounds (1-10000)
+        '404':
+          description: When the clientId does not exist
+      x-cupido-common-method: true
+      deprecated: true
+      x-deprecated-since: 03-05-2023
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/{id}:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds a compositionWrapper in the requested form
+      operationId: openehr.CompositionWrapperAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the composition. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '404':
+          description: When the composition does not exist or is deleted
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    put:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Updates the given CompositionWrapper
+      description: Updated composition data can be provided by means of either paths and values or ReferenceModelObject. A provided ReferenceModelObject will be deserialized using the standard-compliant Jackson deserializer.
+      operationId: openehr.CompositionWrapperAPI.updateV2
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the composition. The default value is PATHS_AND_VALUES. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: false
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      requestBody:
+        description: CompositionWrapper to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.CompositionWrapper'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '400':
+          description: When the composition could not be updated because it failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionValidationErrorResponse'
+        '404':
+          description: When the composition does not exist or is deleted
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    delete:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Deletes the CompositionWrapper with given id
+      operationId: openehr.CompositionWrapperAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '404':
+          description: When the composition does not exist or is deleted
+      x-cupido-common-method: true
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/{id}/composition_versions:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds all CompositionVersionWrappers of a given composition
+      description: 'Finds all {@link CompositionVersionWrapper}s of a given composition.
+
+        Contains logic for both authorized and non-authorized API usage.
+
+        This API supports pogination by using limit and offset. By default will only the 20 most recent results.'
+      operationId: openehr.CompositionWrapperAPI.compositionVersions
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the composition. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: limit
+        in: query
+        description: The amount of {@link CompositionVersionWrapper}s should be returned
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 20
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result
+        schema:
+          type: integer
+          format: int32
+      - name: client_id
+        in: query
+        description: The client id
+        schema:
+          type: integer
+          format: int64
+      - name: lifecycle_state
+        in: query
+        description: 'List of lifecycle states that composition versions should be in, should be called in style: ?lifecycle_state[]=ABANDONED&lifecycle_state[]=INACTIVE'
+        explode: true
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.LifecycleState'
+        example:
+        - COMPLETE
+        - INACTIVE
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionVersionWrapperList'
+        '400':
+          description: Limit exceeds bounds (1-10000)
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{id}/composition_versions
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/{id}/incoming_links:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds all reference model objects linking to given composition that are an…
+      description: This API supports pagination by using limit, and by default will only return the 20 most recent results.
+      operationId: openehr.CompositionWrapperAPI.incomingLinks
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the reference model object. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: archetype_id
+        in: query
+        description: List of archetype Ids that the requested compositions should be an instance of
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Limits the number of results returned
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        schema:
+          type: integer
+          format: int32
+      - name: valid_from
+        in: query
+        description: Starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End time
+        schema:
+          type: string
+          format: date
+      - name: module_uuid
+        in: query
+        description: UUID's of modules that the archetypes of the requested compositions should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: lifecycle_state
+        in: query
+        description: 'List of lifecycle states that the incoming links should be in, should be called in style: ?lifecycle_state=ABANDONED&lifecycle_state=INACTIVE'
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.LifecycleState'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.LinkedReferenceModelObjectWrapperList'
+        '400':
+          description: Limit exceeds bounds (1-10000)
+        '404':
+          description: When the composition does not exist or is deleted
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{id}/incoming_links
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/by_item_tags:
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Returns all compositions that contain all given item tags
+      description: Only compositions that match all item tags with key and/or value are returned (AND semantics). At least one item tag needs to be provided and each should have a key and optionally a value. If an archetype id is provided, only the compositions of that archetype are returned. Results are ordered by first event time, most recent first. If module uuid's are provided, only the archetypes that are assigned to these modules are returned.
+      operationId: openehr.CompositionWrapperAPI.byItemTags
+      parameters:
+      - name: client_id
+        in: query
+        description: The client id.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: The requested form of the compositions.
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: archetype_id
+        in: query
+        description: Id of the archetype that the requested compositions should be an instance of.
+        required: false
+        schema:
+          type: string
+      - name: module_uuid
+        in: query
+        description: UUID's of modules that the archetypes of the requested compositions should belong to.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: Limits the number of results returned.
+        required: false
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 20
+      requestBody:
+        description: The item tags that the returned compositions must all match where key is mandatory and value optional.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.list.ItemTagList'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionWrapperList'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/by_item_tags
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/evaluate:
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Posts a compositionWrapper and returns the ruleEvaluation
+      description: Composition data can be provided by means of either paths and values or ReferenceModelObject. A provided ReferenceModelObject will be deserialized using the standard-compliant Jackson deserializer.
+      operationId: openehr.CompositionWrapperAPI.evaluate
+      parameters:
+      - name: save_temporary_composition
+        in: query
+        description: When true, this will save the provided composition as temporary composition.
+        schema:
+          type: boolean
+      requestBody:
+        description: The posted CompositionWrapper, containing the structure of the paths and values.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.CompositionWrapper'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.RuleEvaluationResult'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/evaluate
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/export_to_xlsx:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Returns an XLSX file with the content of all compositions within a clients ehr…
+      operationId: openehr.CompositionWrapperAPI.exportToXLSX
+      parameters:
+      - name: client_id
+        in: query
+        description: client id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: When the clientId does not exist
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/export_to_xlsx
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/plan_elements:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Lists all plan element compositions associated with the requested executor…
+      description: A provided archetype id for filtering must be (a specialization of) openEHR-EHR-COMPOSITION.care_plan-plan_element. If no executor group names are provided, all plan elements are returned. Matches also direct parent and child groups of the provided executor group names. If a client id is provided, only the compositions of that client are returned. Results are ordered by first event time, most recent first. If module UUIDs are provided, only the archetypes that are assigned to these modules are returned.
+      operationId: openehr.CompositionWrapperAPI.planElementCompositions
+      parameters:
+      - name: client_id
+        in: query
+        description: The client id, when given only the compositions of that client are returned
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: The requested form of the compositions
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: archetype_id
+        in: query
+        description: Id of the archetype that the requested compositions should be an instance of, must be (a specialization of) openEHR-EHR-COMPOSITION.care_plan-plan_element
+        required: false
+        schema:
+          type: string
+      - name: executor_group_name
+        in: query
+        description: Names of the executor employee groups that the requested plan elements should be assigned to
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: lifecycle_state
+        in: query
+        description: List of lifecycle states that the requested compositions should be in
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.LifecycleState'
+      - name: module_uuid
+        in: query
+        description: UUIDs of modules that the archetypes of the requested compositions should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: Limits the number of results returned
+        required: false
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 20
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionWrapperList'
+        '400':
+          description: Invalid request
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/plan_elements
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/composition_wrappers/selected_values:
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Query composition data by archetype and path
+      description: Queries values from compositions based on the requested archetypes and paths, optionally limited by a start and/or end date/time. Returns values for the requested paths from compositions that match the requested archetype ids or specializations thereof. The result is ordered by first event time descending.
+      operationId: openehr.CompositionWrapperAPI.selectedValues
+      parameters:
+      - name: client_id
+        in: query
+        description: The id of the client in Ons Administratie for which the data is requested
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the compositions. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: with_authorized_employee_groups
+        in: query
+        description: Set this to true if the response should also include the employee groups who are allowed to read or update the composition
+        schema:
+          type: boolean
+          default: false
+      - name: with_item_tags
+        in: query
+        description: Set this to true if the response should also include the item tags connected to the composition
+        schema:
+          type: boolean
+          default: false
+      - name: lifecycle_state
+        in: query
+        description: 'List of lifecycle states that the compositions should be in, should be called in style: ?lifecycle_state=ABANDONED&lifecycle_state=INACTIVE'
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.LifecycleState'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.list.ArchetypeSelectionList'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionValuesForArchetypeList'
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/selected_values
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/vvt_care_profiles/{careplan_id}:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds a VVT care profile compositionWrapper in the requested form
+      operationId: openehr.CompositionWrapperAPI.byVvtCareProfileCareplanId
+      parameters:
+      - name: careplan_id
+        in: path
+        description: The id of the careplan for which to request the vvt care profile
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the vvt care profile composition. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '404':
+          description: When the vvt care profile composition does not exist or is deleted
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/vvt_care_profiles/{careplan_id}
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /t/openehr/vvt_care_profiles/{careplan_id}/copy:
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Copies a VVT care profile compositionWrapper to a new careplan
+      description: 'This will update the event time of the observation in
+
+        the composition to the date time this was copied'
+      operationId: openehr.CompositionWrapperAPI.copyVvtCareProfile
+      parameters:
+      - name: careplan_id
+        in: path
+        description: The id of the careplan from which to copy the vvt care profile
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: new_careplan_id
+        in: query
+        description: The id of the careplan for which to create a vvt care profile
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the vvt care profile composition. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '404':
+          description: When the vvt care profile composition does not exist or is deleted
+      x-replaced-by: /v0/openehr_dossier/back_channel/unauthorized/vvt_care_profiles/{careplan_id}/copy
+      deprecated: true
+      x-deprecated-since: 19-11-2025
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds all CompositionWrappers of all clients that are an instance of the given…
+      description: This API supports pagination by using limit, and by default will only return the 20 most recent results.
+      operationId: openehr.CompositionWrapperAPI.all
+      parameters:
+      - name: client_id
+        in: query
+        description: The client id
+        schema:
+          type: integer
+          format: int64
+      - name: archetype_id
+        in: query
+        description: Id of the archetype that the requested compositions should be an instance of
+        schema:
+          type: string
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the compositions. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: with_incomplete
+        in: query
+        description: Set to true to also include compositions with lifecycleState INCOMPLETE. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: Limits the number of results returned
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        schema:
+          type: integer
+          format: int32
+      - name: valid_from
+        in: query
+        description: Starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End time
+        schema:
+          type: string
+          format: date
+      - name: updated_since
+        in: query
+        description: Fetch only the compositions that were updated on or after the given date
+        schema:
+          type: string
+          format: local-date-time
+        example: '2014-12-29T00:00:00'
+      - name: item_tag_key[]
+        in: query
+        description: Fetch only the compositions associated with any of the provided item tag keys
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        x-original-parameter:
+          name: item_tag_key
+      - name: module_uuid[]
+        in: query
+        description: UUID's of modules that the archetypes of the requested compositions should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        x-original-parameter:
+          name: module_uuid
+      - name: with_abandoned
+        in: query
+        description: Set to true to also include compositions with lifecycleState ABANDONED. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      - name: with_inactive
+        in: query
+        description: Set to true to also include compositions with lifecycleState INACTIVE. By default only compositions with lifecycleState COMPLETE are included.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionWrapperList'
+        '400':
+          description: Limit exceeds bounds (1-10000)
+        '404':
+          description: When the clientId does not exist
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/composition_wrappers
+      - /t/openehr/composition_wrappers/all
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Create CompositionWrapper
+      description: Composition data can be provided by means of either paths and values or ReferenceModelObject. A provided ReferenceModelObject will be deserialized using the standard-compliant Jackson deserializer.
+      operationId: openehr.CompositionWrapperAPI.createV2
+      parameters:
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the composition. The default value is PATHS_AND_VALUES. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: false
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      requestBody:
+        description: CompositionWrapper to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.CompositionWrapper'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '400':
+          description: When the composition could not be created because it failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionValidationErrorResponse'
+      x-replacement-for:
+      - /t/openehr/composition_wrappers
+    delete:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Deletes multiple Compositions by given id's
+      operationId: openehr.CompositionWrapperAPI.deleteMultiple
+      parameters:
+      - name: id[]
+        in: query
+        description: A list with Identifiers of CompositionWrappers to delete
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+        x-original-parameter:
+          name: id
+      responses:
+        '204':
+          description: Deleted
+        '404':
+          description: When one or more compositions do not exist or are deleted
+      x-replacement-for:
+      - /t/openehr/composition_wrappers
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{id}:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds a compositionWrapper in the requested form
+      operationId: openehr.CompositionWrapperAPI.byId
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the composition. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '404':
+          description: When the composition does not exist or is deleted
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/{id}
+    put:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Updates the given CompositionWrapper
+      description: Updated composition data can be provided by means of either paths and values or ReferenceModelObject. A provided ReferenceModelObject will be deserialized using the standard-compliant Jackson deserializer.
+      operationId: openehr.CompositionWrapperAPI.updateV2
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the composition. The default value is PATHS_AND_VALUES. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: false
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      requestBody:
+        description: CompositionWrapper to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.CompositionWrapper'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '400':
+          description: When the composition could not be updated because it failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionValidationErrorResponse'
+        '404':
+          description: When the composition does not exist or is deleted
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/{id}
+    delete:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Deletes the CompositionWrapper with given id
+      operationId: openehr.CompositionWrapperAPI.delete
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '404':
+          description: When the composition does not exist or is deleted
+      x-cupido-common-method: true
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/{id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{id}/composition_versions:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds all CompositionVersionWrappers of a given composition
+      description: 'Finds all {@link CompositionVersionWrapper}s of a given composition.
+
+        Contains logic for both authorized and non-authorized API usage.
+
+        This API supports pogination by using limit and offset. By default will only the 20 most recent results.'
+      operationId: openehr.CompositionWrapperAPI.compositionVersions
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the composition. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: limit
+        in: query
+        description: The amount of {@link CompositionVersionWrapper}s should be returned
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 20
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result
+        schema:
+          type: integer
+          format: int32
+      - name: client_id
+        in: query
+        description: The client id
+        schema:
+          type: integer
+          format: int64
+      - name: lifecycle_state[]
+        in: query
+        description: 'List of lifecycle states that composition versions should be in, should be called in style: ?lifecycle_state[]=ABANDONED&lifecycle_state[]=INACTIVE'
+        explode: true
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.LifecycleState'
+        example:
+        - COMPLETE
+        - INACTIVE
+        x-original-parameter:
+          name: lifecycle_state
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionVersionWrapperList'
+        '400':
+          description: Limit exceeds bounds (1-10000)
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/{id}/composition_versions
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{id}/incoming_links:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds all reference model objects linking to given composition that are an…
+      description: This API supports pagination by using limit, and by default will only return the 20 most recent results.
+      operationId: openehr.CompositionWrapperAPI.incomingLinks
+      parameters:
+      - name: id
+        in: path
+        description: The id of the composition
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the reference model object. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: archetype_id[]
+        in: query
+        description: List of archetype Ids that the requested compositions should be an instance of
+        schema:
+          type: array
+          items:
+            type: string
+        x-original-parameter:
+          name: archetype_id
+      - name: limit
+        in: query
+        description: Limits the number of results returned
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        schema:
+          type: integer
+          format: int32
+      - name: valid_from
+        in: query
+        description: Starting time
+        schema:
+          type: string
+          format: date
+      - name: valid_to
+        in: query
+        description: End time
+        schema:
+          type: string
+          format: date
+      - name: module_uuid[]
+        in: query
+        description: UUID's of modules that the archetypes of the requested compositions should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        x-original-parameter:
+          name: module_uuid
+      - name: lifecycle_state
+        in: query
+        description: 'List of lifecycle states that the incoming links should be in, should be called in style: ?lifecycle_state=ABANDONED&lifecycle_state=INACTIVE'
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.LifecycleState'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.LinkedReferenceModelObjectWrapperList'
+        '400':
+          description: Limit exceeds bounds (1-10000)
+        '404':
+          description: When the composition does not exist or is deleted
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/{id}/incoming_links
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/by_item_tags:
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Returns all compositions that contain all given item tags
+      description: Only compositions that match all item tags with key and/or value are returned (AND semantics). At least one item tag needs to be provided and each should have a key and optionally a value. If an archetype id is provided, only the compositions of that archetype are returned. Results are ordered by first event time, most recent first. If module uuid's are provided, only the archetypes that are assigned to these modules are returned.
+      operationId: openehr.CompositionWrapperAPI.byItemTags
+      parameters:
+      - name: client_id
+        in: query
+        description: The client id.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: The requested form of the compositions.
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: archetype_id
+        in: query
+        description: Id of the archetype that the requested compositions should be an instance of.
+        required: false
+        schema:
+          type: string
+      - name: module_uuid[]
+        in: query
+        description: UUID's of modules that the archetypes of the requested compositions should belong to.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        x-original-parameter:
+          name: module_uuid
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: Limits the number of results returned.
+        required: false
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 20
+      requestBody:
+        description: The item tags that the returned compositions must all match where key is mandatory and value optional.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.list.ItemTagList'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionWrapperList'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/by_item_tags
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/evaluate:
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Posts a compositionWrapper and returns the ruleEvaluation
+      description: Composition data can be provided by means of either paths and values or ReferenceModelObject. A provided ReferenceModelObject will be deserialized using the standard-compliant Jackson deserializer.
+      operationId: openehr.CompositionWrapperAPI.evaluate
+      parameters:
+      - name: save_temporary_composition
+        in: query
+        description: When true, this will save the provided composition as temporary composition.
+        schema:
+          type: boolean
+      requestBody:
+        description: The posted CompositionWrapper, containing the structure of the paths and values.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.CompositionWrapper'
+        required: true
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.RuleEvaluationResult'
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/evaluate
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/export_to_xlsx:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Returns an XLSX file with the content of all compositions within a clients ehr…
+      operationId: openehr.CompositionWrapperAPI.exportToXLSX
+      parameters:
+      - name: client_id
+        in: query
+        description: client id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: When the clientId does not exist
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/export_to_xlsx
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/plan_elements:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Lists all plan element compositions associated with the requested executor…
+      description: A provided archetype id for filtering must be (a specialization of) openEHR-EHR-COMPOSITION.care_plan-plan_element. If no executor group names are provided, all plan elements are returned. Matches also direct parent and child groups of the provided executor group names. If a client id is provided, only the compositions of that client are returned. Results are ordered by first event time, most recent first. If module UUIDs are provided, only the archetypes that are assigned to these modules are returned.
+      operationId: openehr.CompositionWrapperAPI.planElementCompositions
+      parameters:
+      - name: client_id
+        in: query
+        description: The client id, when given only the compositions of that client are returned
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: The requested form of the compositions
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: archetype_id
+        in: query
+        description: Id of the archetype that the requested compositions should be an instance of, must be (a specialization of) openEHR-EHR-COMPOSITION.care_plan-plan_element
+        required: false
+        schema:
+          type: string
+      - name: executor_group_name[]
+        in: query
+        description: Names of the executor employee groups that the requested plan elements should be assigned to
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        x-original-parameter:
+          name: executor_group_name
+      - name: lifecycle_state[]
+        in: query
+        description: List of lifecycle states that the requested compositions should be in
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.LifecycleState'
+        x-original-parameter:
+          name: lifecycle_state
+      - name: module_uuid[]
+        in: query
+        description: UUIDs of modules that the archetypes of the requested compositions should belong to
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        x-original-parameter:
+          name: module_uuid
+      - name: offset
+        in: query
+        description: Offsets the number of records of the first result.
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: Limits the number of results returned
+        required: false
+        schema:
+          maximum: 10000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 20
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionWrapperList'
+        '400':
+          description: Invalid request
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/plan_elements
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/selected_values:
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Query composition data by archetype and path
+      description: Queries values from compositions based on the requested archetypes and paths, optionally limited by a start and/or end date/time. Returns values for the requested paths from compositions that match the requested archetype ids or specializations thereof. The result is ordered by first event time descending.
+      operationId: openehr.CompositionWrapperAPI.selectedValues
+      parameters:
+      - name: client_id
+        in: query
+        description: The id of the client in Ons Administratie for which the data is requested
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the compositions. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      - name: with_authorized_employee_groups
+        in: query
+        description: Set this to true if the response should also include the employee groups who are allowed to read or update the composition
+        schema:
+          type: boolean
+          default: false
+      - name: with_item_tags
+        in: query
+        description: Set this to true if the response should also include the item tags connected to the composition
+        schema:
+          type: boolean
+          default: false
+      - name: lifecycle_state
+        in: query
+        description: 'List of lifecycle states that the compositions should be in, should be called in style: ?lifecycle_state=ABANDONED&lifecycle_state=INACTIVE'
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.LifecycleState'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/openehr.list.ArchetypeSelectionList'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.list.CompositionValuesForArchetypeList'
+      x-replacement-for:
+      - /t/openehr/composition_wrappers/selected_values
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/vvt_care_profiles/{careplan_id}:
+    get:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Finds a VVT care profile compositionWrapper in the requested form
+      operationId: openehr.CompositionWrapperAPI.byVvtCareProfileCareplanId
+      parameters:
+      - name: careplan_id
+        in: path
+        description: The id of the careplan for which to request the vvt care profile
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the vvt care profile composition. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '404':
+          description: When the vvt care profile composition does not exist or is deleted
+      x-replacement-for:
+      - /t/openehr/vvt_care_profiles/{careplan_id}
+    servers:
+    - url: https://api-development.ons.io
+  /v0/openehr_dossier/back_channel/unauthorized/vvt_care_profiles/{careplan_id}/copy:
+    post:
+      tags:
+      - openehr.CompositionWrapper
+      summary: Copies a VVT care profile compositionWrapper to a new careplan
+      description: 'This will update the event time of the observation in
+
+        the composition to the date time this was copied'
+      operationId: openehr.CompositionWrapperAPI.copyVvtCareProfile
+      parameters:
+      - name: careplan_id
+        in: path
+        description: The id of the careplan from which to copy the vvt care profile
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: new_careplan_id
+        in: query
+        description: The id of the careplan for which to create a vvt care profile
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reference_model_object_form
+        in: query
+        description: 'The requested form of the vvt care profile composition. The options are:
+
+          * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+          * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+          * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+          * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+        required: true
+        schema:
+          $ref: '#/components/schemas/openehr.ReferenceModelObjectForm'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/openehr.CompositionWrapper'
+        '404':
+          description: When the vvt care profile composition does not exist or is deleted
+      x-replacement-for:
+      - /t/openehr/vvt_care_profiles/{careplan_id}/copy
+    servers:
+    - url: https://api-development.ons.io
+components:
+  schemas:
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    openehr.list.CompositionValuesForArchetypeList:
+      type: object
+      properties:
+        compositionValuesForArchetypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CompositionValuesForArchetype'
+      description: List of the requested archetype ids and the values for the matching compositions. Will contain one entry for each of the requested archetype ids.
+      example:
+        compositionValuesForArchetypes:
+        - archetypeId: openEHR-EHR-OBSERVATION.bem.v1
+          compositionValues:
+          - archetypeId: openEHR-EHR-COMPOSITION.bem_ggz_report.v0.0.2
+            versionedCompositionId: 5
+            versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+            ehrId: 1
+            clientId: 3
+            composerId: 1
+            composerName: Dhr. Mike Wazowski
+            composerEmployeeId: 10
+            timeCommitted: '2024-05-03T10:43:45.000+02:00'
+            firstEventTime: '2023-05-03T10:43:45.000+02:00'
+            lifecycleState: COMPLETE
+            authorizedForUpdate: true
+            authorizedEmployeeGroupsForRead:
+            - id: 57
+              employeeGroupType: EXPERTISE_GROUP
+              name: TestGroup
+              deleted: false
+            authorizedEmployeeGroupsForUpdate:
+            - id: 57
+              employeeGroupType: EXPERTISE_GROUP
+              name: TestGroup
+              deleted: false
+            valuesForPath:
+            - path: /data[id2]/events[id3]/time/value
+              values:
+              - '"2021-06-16T11:18:30+0100"'
+            - path: /data[id2]/events[id3]/data[id4]/items[id31]/items[id77.1]/value/value
+              values:
+              - '"Categorie 1: cliënt bestelt en gebruikt medicatie zelf"'
+    openehr.list.ArchetypeSelectionList:
+      type: object
+      properties:
+        archetypeSelections:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.ArchetypeSelection'
+      description: List of archetypes and paths to request the values of
+      example:
+        archetypeSelections:
+        - archetypeId: openEHR-EHR-OBSERVATION.bem.v1
+          requestedPaths:
+          - /data[id2]/events[id3]/time/value
+          - /data[id2]/events[id3]/data[id4]/items[id31]/items[id77]/value/value
+          startDateTime: '2022-09-07T01:00:00.000+02:00'
+          endDateTime: '2023-09-14T23:59:59.000+02:00'
+        - archetypeId: openEHR-EHR-OBSERVATION.six_minute_walking_test.v1.0.0
+          requestedPaths:
+          - /data[id2]/events[id3]/time/value
+          - /data[id2]/events[id3]/data[id4]/items[id30]/value/magnitude
+          startDateTime: '2022-08-03T00:00:00.000+02:00'
+          endDateTime: '2023-06-01T00:00:00.000+02:00'
+    openehr.LinkedReferenceModelObjectWrapper:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/openehr.ReferenceModelObjectWrapper'
+      properties:
+        sourcePath:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the path from where the link is made.
+
+            Example: "/" or "/content[id0.2]/data[id2]/events[id3]".'
+        targetEhrUri:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the full target EHR URI of the link.
+
+            Note: Some characters might be escaped, e.g. square brackets can be %5B and %5D and spaces can be %20.
+
+            Example: "ehr:/32/compositions/42" or
+
+            "ehr:compositions/20/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]" or
+
+            "ehr:compositions/20/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D/data%5Bid4%5D/items%5Bid5.1%5D".'
+        targetPathInsideTopLevelStructure:
+          type:
+          - string
+          - 'null'
+          description: 'String containing target path inside the top level structure (composition).
+
+            Null when linked to the composition root.
+
+            Note: This will not contain escaped characters.
+
+            Example: "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]".'
+        linkMeaningValue:
+          type:
+          - string
+          - 'null'
+          description: 'String containing meaning value of the link.
+
+            Example: "related information".'
+        linkTypeValue:
+          type:
+          - string
+          - 'null'
+          description: 'String containing type value of the link.
+
+            Example: "intake".'
+      description: 'OpenEHR Linked Reference Model Object Wrapper model.
+
+        Object to return an LinkedReferenceModelObjectWrapper.
+
+
+        This object includes additional information about linked Reference Model Objects.
+
+
+        Created on 19/02/2019.'
+      example:
+        id: 1
+        ehrId: 1
+        clientId: 1
+        archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
+        storedCompositionId: 5
+        versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        type: COMPOSITION
+        firstEventTime: '2019-02-18T00:00:00.000+01:00'
+        composerId: 9
+        composerName: R den Doorn
+        composerEmployeeId: 5
+        timeCommitted: '2019-02-18T00:00:00.000+01:00'
+        committerName: R den Doorn
+        committerEmployeeId: 5
+        authorizedForUpdate: true
+        lifecycleState: COMPLETE
+        referenceModelObject: '{"@type":"COMPOSITION","content":[{"@type":"OBSERVATION","archetype_node_id":"id0.0.100.1","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/97/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}}]}]}'
+        pathsAndValues: '{"/content[id0.0.100.1,1]/links/target/value":"ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}'
+        authorizedEmployeeGroupsForRead: []
+        authorizedEmployeeGroupsForUpdate:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        - id: 58
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        itemTags:
+        - id: 59
+          key: important
+          value: value
+          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+        updatedAt: '2019-02-18T00:00:00.000+01:00'
+        createdAt: '2019-02-18T00:00:00.000+01:00'
+        createdBy: R den Doorn
+        sourcePath: /content[id0.0.100.1,1]
+        targetEhrUri: ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D
+        targetPathInsideTopLevelStructure: /content[id0.2]/data[id2]/events[id3]
+        linkMeaningValue: Meaning
+        linkTypeValue: Type
+        instructions: []
+    openehr.InstructionState:
+      enum:
+      - PRE_ACTIVE
+      - ACTIVE
+      - INACTIVE
+      - TERMINATED
+      type: string
+      description: The aggregated state of the instruction.
+      example: TERMINATED
+    openehr.list.ItemTagList:
+      type: object
+      properties:
+        itemTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.ItemTag'
+      description: List of openEHR ItemTags.
+      example:
+        itemTags:
+        - id: 59
+          key: important
+          value: value
+          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+    openehr.ReferenceModelObjectWrapper:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        ehrId:
+          type:
+          - integer
+          - 'null'
+          description: Integer containing the ehrId.
+          format: int64
+        clientId:
+          type:
+          - integer
+          - 'null'
+          description: 'Integer containing the clientId. This might be empty, since a reference model object is primarily linked to an
+
+            ehr. An EHR might not have a link to a cupido client, for example if a client is not known in Ons Administratie.'
+          format: int64
+        archetypeId:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the archetypeId of the archetype used.
+
+            Example: "openEHR-EHR-CLUSTER.symptom_sign.v1.0.0"'
+        storedCompositionId:
+          type:
+          - integer
+          - 'null'
+          description: 'Long containing the storedCompositionId, referring to the id of the object in Chiron.
+
+            Integer containing the storedCompositionId, referring to the id of the object in Chiron.'
+          format: int64
+        versionedCompositionUuid:
+          type: string
+          description: UUID containing the versionedCompositionUuid, referring to the UUID of the object in Chiron.
+        type:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the type of object stored.
+
+            Example: "composition", "archetyped_object" or "temporary_composition"'
+        firstEventTime:
+          type:
+          - string
+          - 'null'
+          description: DateTime of the first event that took place when the reference model was created.
+          format: date-time
+        composerId:
+          type:
+          - integer
+          - 'null'
+          description: 'Long containing the composerId, referring to the composer of the object.
+
+            Integer containing the composerId, referring to the composer of the object.
+
+            Note: The composer is not always the same person as the person who commits the object.'
+          format: int64
+        composerName:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the composerName, referring to the composer of the object.
+
+            Note: The composer is not always the same person as the person who commits the object.'
+        composerEmployeeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Integer containing the employeeId in Ons Administratie of the composer. This can be empty when the composer
+
+            is not known in Ons Administratie, or when just the name was recorded.
+
+            Note: The composer is not always the same person as the person who commits the object.'
+          format: int64
+        timeCommitted:
+          type:
+          - string
+          - 'null'
+          description: Fetched from the contribution. Time that the composition was committed
+          format: date-time
+        committerName:
+          type: string
+          description: 'String containing the name of the committer.
+
+            Note: The committer is not always the same person as the person who composes the object.'
+        committerEmployeeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Integer containing the employeeId in Ons Administratie of the committer. This can be empty when the committer
+
+            is not known in Ons Administratie. The name of the committer is recorded in the committerName field.
+
+            Note: The committer is not always the same person as the person who composes the object.'
+          format: int64
+        authorizedForUpdate:
+          type:
+          - boolean
+          - 'null'
+          description: 'Boolean to indicate that the current user is authorized to update this
+
+            composition.
+
+
+            True if authorizedEmployeeGroupsForUpdate is empty or the current user
+
+            is a member of one of the authorizedEmployeeGroupsForUpdate.
+
+
+            False if the user not a member of one of the
+
+            authorizedEmployeeGroupsForUpdate.
+
+
+            Null if no user information is available.'
+        lifecycleState:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the state of the ReferenceModelObject.
+
+            Example: "COMPLETE", "INCOMPLETE" or "DELETED"'
+        referenceModelObject:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the JSON-blob with the actual OpenEHR Reference Object
+
+            This is the actual referenceModelObject stored in Chiron, the openEHR database'
+        pathsAndValues:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the summarized structure of the paths and values of an stored object.
+
+            This contains the same information as a fully fledged ReferenceModelObject, but combined in one data-structure.
+
+            Example: {
+
+            "/content[id3]/data[id4]/items[id7]/value/defining_code": "at2",
+
+            "/category/defining_code": "at1",
+
+            "/content[id3]/data[id4]/items[id9]/value/value": "2017-11-05T13:15:30Z",
+
+            }'
+        authorizedEmployeeGroupsForRead:
+          type:
+          - array
+          - 'null'
+          items:
+            allOf:
+            - $ref: '#/components/schemas/openehr.EmployeeGroup'
+            xml:
+              name: employeeGroup
+          description: 'List of {@link EmployeeGroup}s who are by allowed to read this
+
+            composition.
+
+
+            An empty list means all employees are allowed to read this composition.'
+        authorizedEmployeeGroupsForUpdate:
+          type:
+          - array
+          - 'null'
+          items:
+            allOf:
+            - $ref: '#/components/schemas/openehr.EmployeeGroup'
+            xml:
+              name: employeeGroup
+          description: 'List of {@link EmployeeGroup}s who are allowed to update this
+
+            composition.
+
+
+
+            An empty list means all employees are allowed to update this
+
+            composition.'
+        itemTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.ItemTag'
+          description: List of {@link ItemTag}s connected to this ReferenceModelObject.
+        instructions:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.Instruction'
+          description: List of instructions in the returned composition.
+      description: 'OpenEHR Reference Model Object Wrapper model.
+
+        Object to return an ReferenceModelObjectWrapper.
+
+        This is the superclass of every object in an EHR, such as StoredComposition, ArchetypedObject or Observation.
+
+        It also includes relevant metadata.
+
+
+        See also https://www.openehr.org/releases/BASE/latest/docs/resource/resource.html
+
+
+        Created on 08/06/2018.'
+      example:
+        id: 1
+        ehrId: 1
+        clientId: 1
+        archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
+        storedCompositionId: 1
+        versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        type: COMPOSITION
+        firstEventTime: '2018-06-08T00:00:00.000+02:00'
+        composerId: 1
+        composerName: Dhr. Mike Wazowski
+        composerEmployeeId: 1
+        timeCommitted: '2021-06-16T11:18:30.000+02:00'
+        committerName: Dhr. Mike Wazowski
+        committerEmployeeId: 1
+        authorizedForUpdate: true
+        lifecycleState: COMPLETE
+        referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+        pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Tekst rapportage test"}'
+        authorizedEmployeeGroupsForRead: []
+        authorizedEmployeeGroupsForUpdate:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        - id: 58
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        itemTags:
+        - id: 59
+          key: important
+          value: value
+          targetPath: /content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]
+        - id: 60
+          key: evaluation
+          value: value
+          targetPath: /content[id0.2]/data[id2]/events[id3]/data[id4]/items[id7]
+        updatedAt: '2021-06-16T11:18:30.000+02:00'
+        createdAt: '2018-06-08T00:00:00.000+02:00'
+        createdBy: Dhr. Mike Wazowski
+        instructions: []
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    openehr.RuleEvaluationResult:
+      type: object
+      properties:
+        compositionAfterRuleEvaluation:
+          type:
+          - string
+          - 'null'
+          description: String containing the JSON-blob with the openEHR referenceModelObject obtained after rule evaluation of the build composition in Chiron.
+        evaluationResult:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the evaluationResult
+
+            Example:
+
+            "evaluation_result": {
+
+            "assertion_results": [],
+
+            "paths_that_must_not_exist": [],
+
+            "set_path_values": {},
+
+            "paths_that_must_exist": []
+
+            }'
+          example: "\"evaluation_result\": {\n    \"assertion_results\": [],\n    \"paths_that_must_not_exist\": [],\n    \"set_path_values\": {},\n    \"paths_that_must_exist\": []\n}"
+        validationMessages:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the validationMessages
+
+            Example: "validation_messages":
+
+            "validation_messages": [
+
+            {
+
+            "archetype_path": "/category",
+
+            "path": "/category",
+
+            "human_readable_archetype_path": "/category",
+
+            "message": "Attribute category of class COMPOSITION does not match existence 1..1",
+
+            "type": "REQUIRED"
+
+            }
+
+            ]'
+          example: "\"validation_messages\": [\n    {\n        \"archetype_path\": \"/category\",\n        \"path\": \"/category\",\n        \"human_readable_archetype_path\": \"/category\",\n        \"message\": \"Attribute category of class COMPOSITION does not match existence 1..1\",\n        \"type\": \"REQUIRED\"\n    }\n]"
+      description: 'OpenEHR RuleEvaluationResult model.
+
+        Object to return an RuleEvaluationResult, which checks the rules of an archetype.
+
+
+        Created on 18/06/2018.'
+      example:
+        compositionAfterRuleEvaluation: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+        evaluationResult: '{"assertion_results":["raw result in json format per rule in the archetype"],"paths_that_must_exist":["/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude"],"paths_that_must_not_exist":["/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id124]/magnitude"],"set_path_values":{"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id5]/items[id508]/value/magnitude":{"paths":[],"null":true},"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id6]/items[id608]/value/magnitude":{"paths":[],"null":true}}}'
+        validationMessages: '[{"archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude","path":"/content[id0.0.100.1, 1]/data[id3]/events[id4, 1]/data[id2]/items[id12, 1]/items[id1201, 1]/value/magnitude[id9999]","human_readable_archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude","message":"De waarde 101 moet minimaal 0 en maximaal 100 zijn","type":"DEFAULT"},{"archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1202]","path":"/content[id0.0.100.1, 1]/data[id3]/events[id4, 1]/data[id2]/items[id12, 1]/items[id1202]","human_readable_archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1202]","message":"Attribuut komt 0 keer voor, maar dit moet 1..1 zijn","type":"REQUIRED"}]'
+    openehr.CompositionValidationErrorEntry:
+      type: object
+      properties:
+        field:
+          type: string
+          description: The full path where the validation error occurred within the posted composition.
+        value:
+          type: string
+          description: The value at `field` that was rejected by the validator, as text. Empty when the validation error is about an absent value, such as a missing required element.
+        archetypeId:
+          type: string
+          description: The id of the archetype that the validation error occurred in. This can be a sub-archetype of the posted composition, for example one slotted in at runtime or included with use_archetype.
+        archetypePath:
+          type: string
+          description: The path where the validation error occurred within the archetype identified by `archetypeId`. When the validation error is about a node in the archetype of the posted composition itself, this is the same as `field`.
+        message:
+          type: string
+          description: Technical message from the openEHR validator describing why validation failed. These messages are not understandable for end users and may change at any time, so they should not be shown to users. Use `type` to generate an understandable message instead.
+        type:
+          $ref: '#/components/schemas/openehr.CompositionValidationErrorEntryType'
+      description: A single validation error found while creating or updating a composition.
+      example:
+        field: /content[id0001]/data
+        value: ''
+        archetypeId: openEHR-EHR-EVALUATION.problem_diagnosis.v1
+        archetypePath: /data
+        message: Attribuut data van class EVALUATION komt niet overeen met existence 1..1
+        type: REQUIRED
+    openehr.CompositionValues:
+      type: object
+      properties:
+        archetypeId:
+          type: string
+          description: The archetype id of the actual archetype of the composition
+        versionedCompositionId:
+          type: integer
+          description: The numberic id of the versioned composition
+          format: int64
+        versionedCompositionUuid:
+          type: string
+          description: The UUID of the versioned composition
+        ehrId:
+          type: integer
+          description: The numberic id of the EHR containing the versioned composition
+          format: int64
+        clientId:
+          type: integer
+          description: The id of the client in Ons Administratie to who this versioned composition belongs
+          format: int64
+        composerId:
+          type: integer
+          description: The numberic id of the person in Chiron who composed this composition
+          format: int64
+        composerName:
+          type: string
+          description: The name of the composer of this composition
+        composerEmployeeId:
+          type: integer
+          description: The id of the employee in Ons Administratie who composed this composition
+          format: int64
+        timeCommitted:
+          type: string
+          description: The date/time the latest composition version of this composition was committed
+          format: date-time
+        firstEventTime:
+          type: string
+          description: The date/time of the chronological first event in this composition
+          format: date-time
+        lifecycleState:
+          type: string
+          description: 'State of this particular composition version with possible values: COMPLETE, INCOMPLETE, ABANDONED, INACTIVE, DELETED'
+        authorizedForUpdate:
+          type: boolean
+          description: Indicates whether the current user is authorized to update this composition
+        authorizedEmployeeGroupsForRead:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of EmployeeGroups who are by allowed to read this composition. An empty list means all employees are allowed to read this composition.
+        authorizedEmployeeGroupsForUpdate:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of EmployeeGroups who are allowed to update this composition. An empty list means all employees are allowed to update this composition.
+        valuesForPath:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CompositionValuesForPath'
+          description: List of requested paths with their values from the composition.
+        itemTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.ItemTag'
+          description: List of {@link ItemTag}s connected to this composition.
+      description: Values of a specific Composition, including the values for the requested path
+      example:
+        archetypeId: openEHR-EHR-COMPOSITION.bem_ggz_report.v0.0.2
+        versionedCompositionId: 5
+        versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+        ehrId: 1
+        clientId: 3
+        composerId: 1
+        composerName: Dhr. Mike Wazowski
+        composerEmployeeId: 10
+        timeCommitted: '2024-05-03T10:43:45.000+02:00'
+        firstEventTime: '2023-05-03T10:43:45.000+02:00'
+        lifecycleState: COMPLETE
+        authorizedForUpdate: true
+        authorizedEmployeeGroupsForRead:
+        - id: 1
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        authorizedEmployeeGroupsForUpdate:
+        - id: 1
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        valuesForPath:
+        - path: /data[id2]/events[id3]/time/value
+          values:
+          - '"2021-06-16T11:18:30+0100"'
+        - path: /data[id2]/events[id3]/data[id4]/items[id31]/items[id77.1]/value/value
+          values:
+          - '"Categorie 1: cliënt bestelt en gebruikt medicatie zelf"'
+        itemTags:
+        - id: 59
+          key: important
+          value: value
+          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+        - id: 60
+          key: evaluation
+          value: value
+          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id7]
+    openehr.ArchetypeSelection:
+      type: object
+      properties:
+        archetypeId:
+          type: string
+          description: Archetype id. Can be a archetype concept id without version number, or an archetype id with a major, minor or patch version number.
+        requestedPaths:
+          type: array
+          items:
+            type: string
+          description: List of paths to request the values of. Paths will also match specializations, e.g. '/content[id4]' will also match '/content[id4.2]'.
+        startDateTime:
+          type: string
+          description: When provided, only data from compositions with a first event time after the provided start date/time will be included.
+          format: date-time
+        endDateTime:
+          type: string
+          description: When provided, only data from compositions with a first event time before the provided end date/time will be included.
+          format: date-time
+        limit:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          description: When provided, the number of results will be limited to the given value, starting with the most recent result.
+          format: int32
+      description: Requested archetype id and the paths to get the values for, optionally limited by a start and/or end date/time.
+      example:
+        archetypeId: openEHR-EHR-OBSERVATION.bem.v1
+        requestedPaths:
+        - /data[id2]/events[id3]/time/value
+        - /data[id2]/events[id3]/data[id4]/items[id31]/items[id77]/value/value
+        startDateTime: '2022-09-07T01:00:00.000+02:00'
+        endDateTime: '2023-09-14T23:59:59.000+02:00'
+        limit: 120
+    openehr.EmployeeGroup:
+      title: EmployeeGroup
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        employeeGroupType:
+          type:
+          - string
+          - 'null'
+          description: Type of employee group, e.g. EXPERTISE_PROFILE or EXPERTISE_GROUP.
+        originatingSystemId:
+          type:
+          - string
+          - 'null'
+          description: Originating system of the employee group, e.g. Administratie.
+        originatingSystemItemId:
+          type: string
+          description: Id of the employee group in the originating system.
+        parentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct parents of the employee group.
+        childGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct children of the employee group.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the employee group.
+        beginDate:
+          type:
+          - string
+          - 'null'
+          description: Begin date of the employee group.
+          format: date
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: End date of the employee group.
+          format: date
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is deleted.
+        visible:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is visible.
+        allowDossierActions:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create reports with actions. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+        allowDossierConfidential:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create confidential reports. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+      description: 'Employee group used for authorizations in {@link ArchetypeWrapper} and
+
+        {@link CompositionWrapper}.
+
+
+        Employee groups can be based on {@link com.nedap.healthcare.domain.ExpertiseProfile}
+
+        and {@link com.nedap.healthcare.domain.ExpertiseGroup}.'
+      example:
+        id: 132
+        employeeGroupType: EXPERTISE_GROUP
+        originatingSystemId: Administratie
+        originatingSystemItemId: '11'
+        parentGroups:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        childGroups:
+        - id: 134
+          employeeGroupType: EXPERTISE_PROFILE
+          name: Profile1
+          deleted: false
+          allowDossierActions: true
+          allowDossierConfidential: false
+        name: Group1
+        beginDate: '2020-05-11'
+        endDate: '2020-05-25'
+        deleted: false
+    openehr.CompositionWrapper:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/openehr.ReferenceModelObjectWrapper'
+      properties:
+        uuid:
+          type: string
+          description: UUID of the composition, referring to the UUID of the object in Chiron.
+        temporaryCompositionKey:
+          type:
+          - string
+          - 'null'
+          description: In combination with the archetype version, serves as a unique identifier for this temporary composition.
+      description: 'OpenEHR CompositionWrapper model, including relevant metadata.
+
+        Object to return an CompositionWrapper, which extends from the ReferenceModelObjectWrapper
+
+
+        See also https://www.openehr.org/releases/BASE/latest/docs/resource/resource.html
+
+
+        Created on 08/06/2018.'
+      example:
+        id: 1
+        ehrId: 1
+        clientId: 1
+        archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
+        storedCompositionId: 1
+        versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        temporaryCompositionKey: a2bc5e00-c67e-4d7e-bb87-b3b74cdefd00
+        type: COMPOSITION
+        firstEventTime: '2018-06-08T00:00:00.000+02:00'
+        composerId: 1
+        composerName: Dhr. Mike Wazowski
+        composerEmployeeId: 1
+        timeCommitted: '2021-06-16T11:18:30.000+02:00'
+        committerName: Dhr. Mike Wazowski
+        committerEmployeeId: 1
+        authorizedForUpdate: true
+        lifecycleState: COMPLETE
+        referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+        pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Tekst rapportage test"}'
+        authorizedEmployeeGroupsForRead: []
+        authorizedEmployeeGroupsForUpdate:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        - id: 58
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        itemTags:
+        - id: 59
+          key: important
+          value: value
+          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+        updatedAt: '2021-06-16T11:18:30.000+02:00'
+        createdAt: '2018-06-08T00:00:00.000+02:00'
+        createdBy: Dhr. Mike Wazowski
+        uuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        instructions: []
+    openehr.list.CompositionWrapperList:
+      type: object
+      properties:
+        compositionWrappers:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CompositionWrapper'
+      description: List of wrapper openEHR Compositions.
+      example:
+        compositionWrappers:
+        - id: 1
+          ehrId: 1
+          clientId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
+          storedCompositionId: 1
+          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+          temporaryCompositionKey: a2bc5e00-c67e-4d7e-bb87-b3b74cdefd00
+          type: COMPOSITION
+          firstEventTime: '2018-06-08T00:00:00.000+02:00'
+          composerId: 1
+          composerName: Dhr. Mike Wazowski
+          composerEmployeeId: 1
+          timeCommitted: '2021-06-16T11:18:30.000+02:00'
+          committerName: Dhr. Mike Wazowski
+          committerEmployeeId: 1
+          authorizedForUpdate: true
+          lifecycleState: COMPLETE
+          referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+          pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Tekst rapportage test"}'
+          authorizedEmployeeGroupsForRead: []
+          authorizedEmployeeGroupsForUpdate:
+          - id: 57
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          - id: 58
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          itemTags:
+          - id: 59
+            key: important
+            value: value
+            targetPath: /content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]
+          updatedAt: '2021-06-16T11:18:30.000+02:00'
+          createdAt: '2018-06-08T00:00:00.000+02:00'
+          createdBy: Dhr. Mike Wazowski
+          uuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+          instructions: []
+        - id: 2
+          ehrId: 1
+          clientId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
+          storedCompositionId: 2
+          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+          temporaryCompositionKey: b7f0d5a1-2c31-4f0e-9a44-1d2e3f4a5b6c
+          type: COMPOSITION
+          firstEventTime: '2018-06-08T00:00:00.000+02:00'
+          composerId: 2
+          composerName: Mevr. Celia Mae
+          composerEmployeeId: 2
+          timeCommitted: '2021-06-17T09:42:11.000+02:00'
+          committerName: Mevr. Celia Mae
+          committerEmployeeId: 2
+          authorizedForUpdate: true
+          lifecycleState: COMPLETE
+          referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+          pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Wondobservatie test"}'
+          authorizedEmployeeGroupsForRead: []
+          authorizedEmployeeGroupsForUpdate: []
+          itemTags: []
+          updatedAt: '2021-06-17T09:42:11.000+02:00'
+          createdAt: '2018-06-08T00:00:00.000+02:00'
+          createdBy: Mevr. Celia Mae
+          uuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+          instructions: []
+    openehr.list.LinkedReferenceModelObjectWrapperList:
+      type: object
+      properties:
+        linkedReferenceModelObjectWrappers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/openehr.LinkedReferenceModelObjectWrapper'
+      description: List of wrapper openEHR LinkedReferenceModelObjects.
+      example:
+        linkedReferenceModelObjectWrappers:
+        - id: 1
+          ehrId: 1
+          clientId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
+          storedCompositionId: 5
+          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+          type: COMPOSITION
+          firstEventTime: '2018-06-08T00:00:00.000+02:00'
+          composerId: 9
+          composerName: R den Doorn
+          composerEmployeeId: 5
+          timeCommitted: '2018-06-08T00:00:00.000+02:00'
+          committerName: R den Doorn
+          committerEmployeeId: 5
+          authorizedForUpdate: true
+          lifecycleState: COMPLETE
+          referenceModelObject: '{"@type":"COMPOSITION","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/1"}}]}'
+          pathsAndValues: '{"/links/target/value":"ehr:compositions/1"}'
+          updatedAt: '2018-06-08T00:00:00.000+02:00'
+          createdAt: '2018-06-08T00:00:00.000+02:00'
+          createdBy: R den Doorn
+          sourcePath: /
+          targetEhrUri: ehr:compositions/1
+        - id: 2
+          ehrId: 1
+          clientId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
+          storedCompositionId: 6
+          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+          type: COMPOSITION
+          firstEventTime: '2018-06-08T00:00:00.000+02:00'
+          composerId: 9
+          composerName: R den Doorn
+          composerEmployeeId: 5
+          timeCommitted: '2018-06-08T00:00:00.000+02:00'
+          committerName: R den Doorn
+          committerEmployeeId: 5
+          authorizedForUpdate: true
+          lifecycleState: COMPLETE
+          referenceModelObject: '{"@type":"COMPOSITION","content":[{"@type":"OBSERVATION","archetype_node_id":"id0.0.100.1","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/97/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}}]}]}'
+          pathsAndValues: '{"/content[id0.0.100.1,1]/links/target/value":"ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}'
+          updatedAt: '2018-06-08T00:00:00.000+02:00'
+          createdAt: '2018-06-08T00:00:00.000+02:00'
+          createdBy: R den Doorn
+          sourcePath: /content[id0.0.100.1,1]
+          targetEhrUri: ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D
+          targetPathInsideTopLevelStructure: /content[id0.2]/data[id2]/events[id3]
+          linkMeaningValue: Meaning
+          linkTypeValue: Type
+    openehr.ItemTag:
+      required:
+      - key
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        key:
+          type: string
+          description: The tag key. May not be empty or contain leading or trailing whitespace.
+        value:
+          type: string
+          description: The value. If set, may not be empty.
+        targetPath:
+          type: string
+          description: Optional archetype or RM path within target, used to tag a fine-grained element.
+      description: OpenEHR ItemTag, which is a tag with a key and optional value that is associated with a target ReferenceModelObjectWrapper.
+      example:
+        id: 59
+        key: important
+        value: value
+        targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+    openehr.CompositionValuesForPath:
+      type: object
+      properties:
+        path:
+          type: string
+          description: The requested path
+        values:
+          type: array
+          items:
+            type: string
+          description: List of JSON-encoded values for the requested path in this composition
+      description: Combination of requested path and its values in this composition
+      example:
+        path: /data[id2]/events[id3]/time/value
+        values:
+        - '"2021-06-16T11:18:30+0100"'
+    openehr.LifecycleState:
+      enum:
+      - ABANDONED
+      - COMPLETE
+      - DELETED
+      - INACTIVE
+      - INCOMPLETE
+      type: string
+      description: The lifecycle state of a composition version.
+      example: COMPLETE
+    openehr.ReferenceModelObjectForm:
+      enum:
+      - RM_OBJECT
+      - PATHS_AND_VALUES
+      - METADATA
+      - RM_OBJECT_STANDARDS_COMPLIANT_JSON
+      type: string
+      description: 'ReferenceModelObjectForm enum.
+
+        * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+        * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+        * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+        * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+      example: RM_OBJECT
+    openehr.CompositionValidationErrorResponse:
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CompositionValidationErrorEntry'
+      description: Returned when a composition could not be created or updated because it failed validation. Contains one entry per validation error found. The property is named errorResponseEntries so that clients written against ErrorResponse keep working.
+      example:
+        errorResponseEntries:
+        - field: /content[id0001]/data
+          value: ''
+          archetypeId: openEHR-EHR-EVALUATION.problem_diagnosis.v1
+          archetypePath: /data
+          message: Attribuut data van class EVALUATION komt niet overeen met existence 1..1
+          type: REQUIRED
+        - field: /content[id0006]/data[id0002]/events[id0003]/data[id0004]/items[id0005]/value
+          value: '5'
+          archetypeId: openEHR-EHR-OBSERVATION.braden_scale.v1
+          archetypePath: /data[id0002]/events[id0003]/data[id0004]/items[id0005]/value
+          message: "Object komt niet overeen met tupel: [value, symbol] ∈ {\n\t[{4}, {[at66]}],\n\t[{3}, {[at67]}],\n\t[{2}, {[at68]}],\n\t[{1}, {[at69]}],\n\t[{0}, {[at70]}]\n}"
+          type: DEFAULT
+    openehr.CompositionValidationErrorEntryType:
+      enum:
+      - DEFAULT
+      - REQUIRED
+      - WRONG_TYPE
+      - CARDINALITY_MISMATCH
+      - EMPTY_OBSERVATION
+      - ARCHETYPE_SLOT_ID_MISMATCH
+      - ARCHETYPE_NOT_FOUND
+      - INVARIANT_ERROR
+      - EXCEPTION
+      type: string
+      description: 'The kind of validation error reported by a composition validation error entry.
+
+
+        The `message` of an entry is raw output of the openEHR validator and is not understandable for end users. Clients should switch on this type to generate an understandable message themselves, and should treat an unknown type as `DEFAULT`.
+
+        * **DEFAULT**: A validation error that does not fall into any of the other categories.
+
+        * **REQUIRED**: A required element is missing.
+
+        * **WRONG_TYPE**: The value at the field does not have the type required by the archetype.
+
+        * **CARDINALITY_MISMATCH**: The cardinality of an attribute violates the cardinality constraint of the archetype.
+
+        * **EMPTY_OBSERVATION**: An observation was submitted without any data.
+
+        * **ARCHETYPE_SLOT_ID_MISMATCH**: The archetype filling an archetype slot does not match the constraint on that slot.
+
+        * **ARCHETYPE_NOT_FOUND**: The referenced archetype could not be found.
+
+        * **INVARIANT_ERROR**: An openEHR reference model invariant was violated.
+
+        * **EXCEPTION**: An unexpected exception occurred while validating the composition.'
+      example: REQUIRED
+    openehr.CompositionValuesForArchetype:
+      type: object
+      properties:
+        archetypeId:
+          type: string
+          description: The requested archetype id
+        compositionValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CompositionValues'
+          description: List of compositions with the values for the requested paths
+      description: The requested archetype id and returned composition data including values for requested paths
+      example:
+        archetypeId: openEHR-EHR-OBSERVATION.bem.v1
+        compositionValues:
+        - archetypeId: openEHR-EHR-COMPOSITION.bem_ggz_report.v0.0.2
+          versionedCompositionId: 5
+          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+          ehrId: 1
+          clientId: 3
+          composerId: 1
+          composerName: Dhr. Mike Wazowski
+          composerEmployeeId: 10
+          timeCommitted: '2024-05-03T10:43:45.000+02:00'
+          firstEventTime: '2023-05-03T10:43:45.000+02:00'
+          lifecycleState: COMPLETE
+          authorizedForUpdate: true
+          authorizedEmployeeGroupsForRead:
+          - id: 57
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          authorizedEmployeeGroupsForUpdate:
+          - id: 57
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          valuesForPath:
+          - path: /data[id2]/events[id3]/time/value
+            values:
+            - '"2021-06-16T11:18:30+0100"'
+          - path: /data[id2]/events[id3]/data[id4]/items[id31]/items[id77.1]/value/value
+            values:
+            - '"Categorie 1: cliënt bestelt en gebruikt medicatie zelf"'
+    openehr.CompositionVersionWrapper:
+      required:
+      - id
+      - objectVersion
+      - timeCommitted
+      - lifecycleState
+      - archetypeId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        uid:
+          type: string
+          description: 'The UID of the composition version with lexical form: ''object_id::creating_system_id::version_tree_id'''
+        ehrId:
+          type: integer
+          description: The numberic id of the EHR containing the composition version
+          format: int64
+        versionedCompositionId:
+          type: integer
+          description: The id of the versionedComposition
+          format: int64
+        objectVersion:
+          type: string
+          description: The Composition version number as specified by openEHR. 1, 2, 3 for main versions, 1.1, 1.2, 1.3 for different branches, etc
+        precedingVersionId:
+          type: integer
+          description: The composition version that precedes this composition version
+          format: int64
+        timeCommitted:
+          type: string
+          description: Fetched from the contribution. Time that the composition was committed
+          format: date-time
+        committerName:
+          type:
+          - string
+          - 'null'
+          description: Fetched from the contribution. Name of the committer of the composition
+        committerEmployeeId:
+          type: integer
+          description: Fetched from contribution. Administratie employee id of the committer of the composition
+          format: int64
+        lifecycleState:
+          type:
+          - string
+          - 'null'
+          description: 'State of this particular composition version with possible values: COMPLETE, INCOMPLETE, DELETED'
+        composerName:
+          type:
+          - string
+          - 'null'
+          description: Name of the composer of this composition version
+        composerEmployeeId:
+          type: integer
+          description: Administration employee id of the composer of the composition
+          format: int64
+        archetypeId:
+          type: string
+          description: The id of the archetype version contained in this composition version
+        referenceModelObject:
+          type:
+          - string
+          - 'null'
+          description: The json RM object
+        pathsAndValues:
+          type:
+          - string
+          - 'null'
+          description: Contents of this composition version in JSON format
+        signature:
+          type:
+          - string
+          - 'null'
+          description: Digital signature of the committer
+        attestationPending:
+          type:
+          - boolean
+          - 'null'
+          description: True if this stored composition version is awaiting an attestation
+      description: CompositionVersionWrapper model (no description)
+      example:
+        id: 2
+        uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::2
+        ehrId: 1
+        versionedCompositionId: 1
+        objectVersion: '2'
+        precedingVersionId: 1
+        timeCommitted: '2021-06-16T11:18:30.000+02:00'
+        committerName: Dhr. Mike Wazowski
+        committerEmployeeId: 1
+        lifecycleState: COMPLETE
+        composerName: Dhr. Mike Wazowski
+        composerEmployeeId: 1
+        archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
+        referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+        pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Tekst rapportage test"}'
+        signature: ea599408eeb005b1013131bd7d2bc05faf9b9b97
+        attestationPending: false
+    openehr.list.CompositionVersionWrapperList:
+      type: object
+      properties:
+        compositionVersionWrappers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/openehr.CompositionVersionWrapper'
+      description: CompositionVersionWrapperList model (no description)
+      example:
+        compositionVersionWrappers:
+        - id: 1
+          uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::1
+          ehrId: 1
+          versionedCompositionId: 1
+          objectVersion: '1'
+          timeCommitted: '2021-06-16T11:18:30.000+02:00'
+          committerName: Dhr. Mike Wazowski
+          committerEmployeeId: 1
+          lifecycleState: COMPLETE
+          composerName: Dhr. Mike Wazowski
+          composerEmployeeId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0
+          referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"dummy_archetype","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"at1"},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::7"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"TestEmployee"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"ovl-text_report-story-001","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5.1","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]","value":{"@type":"DV_TEXT","mappings":[],"value":"This is an initial dummy value"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Any event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story/History"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+          pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30+0100", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]/value[id10.1]/value": "This is an initial dummy value"}'
+          signature: Dummy
+          attestationPending: false
+        - id: 2
+          uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::2
+          ehrId: 1
+          versionedCompositionId: 1
+          objectVersion: '2'
+          precedingVersionId: 1
+          timeCommitted: '2021-06-16T11:19:00.000+02:00'
+          committerName: Dhr. Mike Wazowski
+          committerEmployeeId: 1
+          lifecycleState: COMPLETE
+          composerName: Dhr. Mike Wazowski
+          composerEmployeeId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0
+          referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"dummy_archetype","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"at1"},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::7"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"TestEmployee"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"ovl-text_report-story-001","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5.1","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]","value":{"@type":"DV_TEXT","mappings":[],"value":"This is an updated dummy value"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Any event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story/History"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+          pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30+0100", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]/value[id10.1]/value": "This is an updated dummy value"}'
+          signature: Dummy
+          attestationPending: false
+    openehr.Receiver:
+      type: object
+      properties:
+        personId:
+          type: integer
+          description: The id of the receiving person as it is stored in ons-ehr-db.
+          format: int64
+        employeeId:
+          type: integer
+          description: The id of the receiving employee as it is stored in Ons Administratie.
+        employeeGroupId:
+          type: integer
+          description: The id of the employee group as it is stored in ons-ehr-db.
+          format: int64
+        expertiseProfileId:
+          type: integer
+          description: The id of the expertise profile as it is stored in Ons Administratie.
+          format: int64
+        expertiseGroupId:
+          type: integer
+          description: The id of the expertise group as it is stored in Ons Administratie.
+        name:
+          type: string
+          description: The name of the receiving person or employee group
+      description: Contains information about the receiving ons-ehr-db Person or EmployeeGroup.
+      example:
+        personId: 1
+        employeeId: 1
+        employeeGroupId: 1
+        expertiseProfileId: 1
+        expertiseGroupId: 1
+        name: Verpleegkundige
+    openehr.Instruction:
+      type: object
+      properties:
+        instructionCompositionId:
+          type: integer
+          description: Integer containing the id of the composition containing the instruction
+          format: int64
+        instructionCompositionUuid:
+          type: string
+          description: UUID of the composition containing the instruction
+          format: uuid
+        instructionCompositionArchetypeId:
+          type: string
+          description: The archetype id of the composition archetype the instruction is created from.
+        instructionArchetypeId:
+          type: string
+          description: The archetype id of the instruction archetype this instruction is created from.
+        pathFromCompositionRoot:
+          type: string
+          description: String containing the path where the instruction is located from the root of the composition containing it.
+        aggregatedState:
+          $ref: '#/components/schemas/openehr.InstructionState'
+        receiverMatchesUser:
+          type: boolean
+          description: Boolean to indicate whether the requesing user is a receiving person or part of a receiving employee group.
+        receivers:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.Receiver'
+          description: List of objects containing information about the receiver of the instruction.
+      description: Contains metadata of an ons-ehr-db Instruction like it's path within a composition, the aggregated state and the receivers of the Instruction.
+      example:
+        instructionCompositionId: 1
+        instructionCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        instructionCompositionArchetypeId: openEHR-EHR-COMPOSITION.generic_text_report.v1.0.0
+        instructionArchetypeId: openEHR-EHR-INSTRUCTION.service_request-report_action.v1.0.0
+        pathFromCompositionRoot: /content[id1]
+        aggregatedState: TERMINATED
+        receiverMatchesUser: true
+        receivers:
+        - personId: 1
+          employeeId: 1
+          employeeGroupId: 1
+          expertiseProfileId: 1
+          expertiseGroupId: 1
+          name: Verpleegkundige
+        - personId: 2
+          employeeId: 2
+          employeeGroupId: 2
+          expertiseProfileId: 2
+          expertiseGroupId: 2
+          name: Verpleegkundige
+x-refined-from:
+- nedap-ons-deprecated-openapi-original.json
+- nedap-ons-openapi-original.json
