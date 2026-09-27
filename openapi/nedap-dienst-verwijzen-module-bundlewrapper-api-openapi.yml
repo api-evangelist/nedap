@@ -66,7 +66,7 @@ paths:
       - dienst_verwijzen_module.BundleWrapper
       summary: Create a new item using a FHIR R3 bundle wrapped in a json object
       description: The bundle contains a single field `data` that contains serialized JSON. The success response has no body.
-      operationId: dienst_verwijzen_module.BundleWrapperAPI.createByWrapper
+      operationId: postV0DienstVerwijzenModuleCupidoFhirR3BundleWrapper
       requestBody:
         description: BundleWrapper to create
         content:
@@ -109,10 +109,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-replacement-for:
       - /t/dienst_verwijzen_module/cupido/fhir/r3/bundle_wrapper
+      x-operation-id-source: normalized
+      x-operation-id-original: dienst_verwijzen_module.BundleWrapperAPI.createByWrapper
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    dienst_verwijzen_module.BundleWrapper:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: string
+          description: Data from original HL7 FHIR DSTU3 bundle. Contains JSON.
+      description: BundleWrapper model for transporting HL7 FHIR DSTU3 bundle data to the Dienst Verwijzen module.
+      example:
+        data: bundlejson
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -132,32 +160,6 @@ components:
         - field: two
           value: a
           message: too short
-    dienst_verwijzen_module.BundleWrapper:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          type: string
-          description: Data from original HL7 FHIR DSTU3 bundle. Contains JSON.
-      description: BundleWrapper model for transporting HL7 FHIR DSTU3 bundle data to the Dienst Verwijzen module.
-      example:
-        data: bundlejson
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
-      example:
-        field: one
-        value: empty
-        message: field can not be empty
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

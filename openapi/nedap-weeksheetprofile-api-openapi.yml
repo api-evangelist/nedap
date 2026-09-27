@@ -112,7 +112,7 @@ paths:
       tags:
       - WeeksheetProfile
       summary: Return the weeksheet profile of a employee corresponding to the given employee…
-      operationId: WeeksheetProfileAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdWeeksheetProfile
       parameters:
       - name: employee_id
         in: path
@@ -130,11 +130,13 @@ paths:
                 $ref: '#/components/schemas/WeeksheetProfile'
       x-replacement-for:
       - /t/employees/{employee_id}/weeksheet_profile
+      x-operation-id-source: normalized
+      x-operation-id-original: WeeksheetProfileAPI.byEmployeeId
     delete:
       tags:
       - WeeksheetProfile
       summary: Delete the weeksheet profile of a employee corresponding to the given employee…
-      operationId: WeeksheetProfileAPI.deleteByEmployeeId
+      operationId: deleteV0AdministrationEmployeesByEmployeeIdWeeksheetProfile
       parameters:
       - name: employee_id
         in: path
@@ -150,6 +152,8 @@ paths:
           description: Employee not found
       x-replacement-for:
       - /t/employees/{employee_id}/weeksheet_profile
+      x-operation-id-source: normalized
+      x-operation-id-original: WeeksheetProfileAPI.deleteByEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/weeksheet_profile/{weeksheet_profile_id}:
@@ -157,7 +161,7 @@ paths:
       tags:
       - WeeksheetProfile
       summary: Update the weeksheet profile of an employee corresponding to the given employee…
-      operationId: WeeksheetProfileAPI.updateByEmployeeIdAndWeeksheetProfileId
+      operationId: putV0AdministrationEmployeesByEmployeeIdWeeksheetProfileByWeeksheetProfileId
       parameters:
       - name: employee_id
         in: path
@@ -183,6 +187,8 @@ paths:
           description: Employee or weeksheet profile not found
       x-replacement-for:
       - /t/employees/{employee_id}/weeksheet_profile/{weeksheet_profile_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: WeeksheetProfileAPI.updateByEmployeeIdAndWeeksheetProfileId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/weeksheet_profiles:
@@ -190,7 +196,7 @@ paths:
       tags:
       - WeeksheetProfile
       summary: Return all weeksheet profiles
-      operationId: WeeksheetProfileAPI.getAllWeeksheetProfiles
+      operationId: getV0AdministrationWeeksheetProfiles
       responses:
         '200':
           description: Success
@@ -200,10 +206,97 @@ paths:
                 $ref: '#/components/schemas/list.WeeksheetProfileList'
       x-replacement-for:
       - /t/weeksheet_profiles
+      x-operation-id-source: normalized
+      x-operation-id-original: WeeksheetProfileAPI.getAllWeeksheetProfiles
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ProfilePolicy:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: not part of the shared model
+          format: int64
+          deprecated: true
+          x-cupido-id: true
+        type:
+          type: integer
+          format: int32
+        createPerm:
+          type: boolean
+        createDossier:
+          type: boolean
+        hideDefaultBookingDossier:
+          type: boolean
+        createBetween:
+          type: boolean
+        createBetweenTimegab:
+          type: integer
+          format: int32
+        updateIoserver:
+          type: boolean
+        updateIome:
+          type: boolean
+        updateIodevice:
+          type: boolean
+        updateMoves:
+          type: boolean
+        updateOnsAgenda:
+          type: boolean
+        updateOnsVandaag:
+          type: boolean
+        deleteIoserver:
+          type: boolean
+        deleteIome:
+          type: boolean
+        deleteIodevice:
+          type: boolean
+        deleteMoves:
+          type: boolean
+        deleteOnsAgenda:
+          type: boolean
+        deleteOnsVandaag:
+          type: boolean
+      description: Contains the weeksheet profile policy
+      example:
+        id: 1
+        type: 1
+        createPerm: true
+        createDossier: true
+        hideDefaultBookingDossier: true
+        createBetween: true
+        createBetweenTimegab: 1
+        updateIoserver: true
+        updateIome: true
+        updateIodevice: true
+        updateMoves: true
+        updateOnsAgenda: true
+        updateOnsVandaag: true
+        deleteIoserver: true
+        deleteIome: true
+        deleteIodevice: true
+        deleteMoves: true
+        deleteOnsAgenda: true
+        deleteOnsVandaag: true
+    list.WeeksheetProfileList:
+      type: object
+      properties:
+        weeksheetProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/WeeksheetProfile'
+      description: WeeksheetprofileList model (no description)
+      example:
+        weeksheetProfiles:
+        - id: 10
+          description: Klinisch Verpleegkundige
+          registrationActivities: true
+          registrationWithDossierReport: true
+          registrationIndirectActivitiesInFutureAllowed: true
+          allowCreateBeforeVerifyDate: false
+          timeWindowDate: '2012-08-02T13:48:46.836+02:00'
     WeeksheetProfile:
       type: object
       properties:
@@ -300,91 +393,6 @@ components:
         allowDeleteVisitPlanning: true
       xml:
         name: weeksheetProfile
-    ProfilePolicy:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: not part of the shared model
-          format: int64
-          deprecated: true
-          x-cupido-id: true
-        type:
-          type: integer
-          format: int32
-        createPerm:
-          type: boolean
-        createDossier:
-          type: boolean
-        hideDefaultBookingDossier:
-          type: boolean
-        createBetween:
-          type: boolean
-        createBetweenTimegab:
-          type: integer
-          format: int32
-        updateIoserver:
-          type: boolean
-        updateIome:
-          type: boolean
-        updateIodevice:
-          type: boolean
-        updateMoves:
-          type: boolean
-        updateOnsAgenda:
-          type: boolean
-        updateOnsVandaag:
-          type: boolean
-        deleteIoserver:
-          type: boolean
-        deleteIome:
-          type: boolean
-        deleteIodevice:
-          type: boolean
-        deleteMoves:
-          type: boolean
-        deleteOnsAgenda:
-          type: boolean
-        deleteOnsVandaag:
-          type: boolean
-      description: Contains the weeksheet profile policy
-      example:
-        id: 1
-        type: 1
-        createPerm: true
-        createDossier: true
-        hideDefaultBookingDossier: true
-        createBetween: true
-        createBetweenTimegab: 1
-        updateIoserver: true
-        updateIome: true
-        updateIodevice: true
-        updateMoves: true
-        updateOnsAgenda: true
-        updateOnsVandaag: true
-        deleteIoserver: true
-        deleteIome: true
-        deleteIodevice: true
-        deleteMoves: true
-        deleteOnsAgenda: true
-        deleteOnsVandaag: true
-    list.WeeksheetProfileList:
-      type: object
-      properties:
-        weeksheetProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/WeeksheetProfile'
-      description: WeeksheetprofileList model (no description)
-      example:
-        weeksheetProfiles:
-        - id: 10
-          description: Klinisch Verpleegkundige
-          registrationActivities: true
-          registrationWithDossierReport: true
-          registrationIndirectActivitiesInFutureAllowed: true
-          allowCreateBeforeVerifyDate: false
-          timeWindowDate: '2012-08-02T13:48:46.836+02:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

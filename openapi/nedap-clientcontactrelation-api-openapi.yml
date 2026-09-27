@@ -320,7 +320,7 @@ paths:
       tags:
       - ClientContactRelation
       summary: Returns every ClientContactRelation available from the ClientContactRelationAPI
-      operationId: ClientContactRelationAPI.all
+      operationId: getV0AdministrationClientContactRelations
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -340,11 +340,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_contact_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.all
     post:
       tags:
       - ClientContactRelation
       summary: Create ClientContactRelation
-      operationId: ClientContactRelationAPI.create
+      operationId: postV0AdministrationClientContactRelations
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -371,6 +373,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_contact_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/client_contact_relations/{id}:
@@ -378,7 +382,7 @@ paths:
       tags:
       - ClientContactRelation
       summary: Return the ClientContactRelation corresponding to the given id
-      operationId: ClientContactRelationAPI.byId
+      operationId: getV0AdministrationClientContactRelationsById
       parameters:
       - name: id
         in: path
@@ -413,11 +417,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_contact_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.byId
     put:
       tags:
       - ClientContactRelation
       summary: Updates the given ClientContactRelation
-      operationId: ClientContactRelationAPI.update
+      operationId: putV0AdministrationClientContactRelationsById
       parameters:
       - name: id
         in: path
@@ -455,11 +461,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_contact_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.update
     delete:
       tags:
       - ClientContactRelation
       summary: Deletes the ClientContactRelation with given id
-      operationId: ClientContactRelationAPI.delete
+      operationId: deleteV0AdministrationClientContactRelationsById
       parameters:
       - name: id
         in: path
@@ -484,6 +492,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_contact_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/client_contact_relations/by_client_ids:
@@ -491,7 +501,7 @@ paths:
       tags:
       - ClientContactRelation
       summary: Return the client contact relations of multiple clients corresponding to the…
-      operationId: ClientContactRelationAPI.byClientIds
+      operationId: getV0AdministrationClientContactRelationsByClientIds
       parameters:
       - name: ids
         in: query
@@ -519,6 +529,8 @@ paths:
                 $ref: '#/components/schemas/list.ClientContactRelationList'
       x-replacement-for:
       - /t/client_contact_relations/by_client_ids
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.byClientIds
     servers:
     - url: https://api-development.ons.io
   /v0/administration/client_contact_relations/by_client/{client_id}:
@@ -526,7 +538,7 @@ paths:
       tags:
       - ClientContactRelation
       summary: Return the client contact relations of a client corresponding to the given id
-      operationId: ClientContactRelationAPI.byClientId
+      operationId: getV0AdministrationClientContactRelationsByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -549,6 +561,8 @@ paths:
                 $ref: '#/components/schemas/list.ClientContactRelationList'
       x-replacement-for:
       - /t/clients/{client_id}/client_contact_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/relations/data:
@@ -556,7 +570,7 @@ paths:
       tags:
       - ClientContactRelation
       summary: Return all ClientContactRelation models in a streaming manner
-      operationId: ClientContactRelationAPI.streamAll
+      operationId: getV0XstreamRelationsData
       responses:
         '200':
           description: No response was specified
@@ -576,6 +590,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_contact_relations/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/relations/updates:
@@ -583,7 +599,7 @@ paths:
       tags:
       - ClientContactRelation
       summary: Return all ClientContactRelation models which where updated since the date…
-      operationId: ClientContactRelationAPI.streamUpdates
+      operationId: getV0XstreamRelationsUpdates
       parameters:
       - name: since
         in: query
@@ -611,30 +627,86 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_contact_relations/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    bsn.BsnSource:
-      type: integer
-      oneOf:
-      - title: UNKNOWN
-        enum:
-        - -1
-      - title: OWN_ADMINISTRATION
-        enum:
-        - 0
-      - title: SBVZ
-        enum:
-        - 1
-      - title: GBA
-        enum:
-        - 2
-      - title: OTHER_BSN_USER
-        enum:
-        - 3
-      description: BsnSource model (no description)
-      example: -1
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    nexus.ClientContactRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/nexus.RelationType'
+      description: Vektiscode
+      example:
+        id: 6
+        name: Curator
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    nexus.RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+      xml:
+        name: relationCategory
     Bsn:
       type: object
       properties:
@@ -706,44 +778,23 @@ components:
         bsnIdVerifiedType: 2
       xml:
         name: bsn
-    bsn.BsnIdVerifiedType:
+    bsn.BsnDocumentType:
       type: integer
       oneOf:
-      - title: GEEN
+      - title: PASPOORT
         enum:
         - 0
-      - title: VERGEWIST
+      - title: ID
         enum:
         - 1
-      - title: WID
+      - title: RIJBEWIJS
         enum:
         - 2
-      description: BsnIdVerifiedType model (no description)
+      - title: VREEMDELINGENDOCUMENT
+        enum:
+        - 3
+      description: BsnDocumentType model (no description)
       example: 0
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     nexus.PersonalRelationType:
       type: object
       allOf:
@@ -771,186 +822,6 @@ components:
         updatedAt: '2013-09-24T11:49:58.000+02:00'
         createdAt: '2013-09-24T11:49:58.000+02:00'
         createdBy: user
-    bsn.BsnDocumentType:
-      type: integer
-      oneOf:
-      - title: PASPOORT
-        enum:
-        - 0
-      - title: ID
-        enum:
-        - 1
-      - title: RIJBEWIJS
-        enum:
-        - 2
-      - title: VREEMDELINGENDOCUMENT
-        enum:
-        - 3
-      description: BsnDocumentType model (no description)
-      example: 0
-    nexus.RelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        tag:
-          type: string
-        primary:
-          type: boolean
-        exclusive:
-          type: boolean
-        relevant:
-          type: boolean
-        negative:
-          type: boolean
-        active:
-          type: boolean
-        legal:
-          type: boolean
-        vbmResponsible:
-          type: boolean
-        vektisCode:
-          type: integer
-          description: See https://www.vektis.nl/standaardisatie/codelijsten/COD821-VEKT
-          format: int64
-        reference:
-          type: integer
-          description: Only available during transitional period.
-          format: int64
-          deprecated: true
-        relationCategory:
-          $ref: '#/components/schemas/nexus.RelationCategory'
-      description: RelationType model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 6
-        name: Coach
-        tag: coach
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: false
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-      deprecated: true
-      x-deprecated-since: 03-10-2014
-    nexus.ClientContactRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/nexus.RelationType'
-      description: Vektiscode
-      example:
-        id: 6
-        name: Curator
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: true
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-    list.ClientContactRelationList:
-      type: object
-      properties:
-        clientContactRelations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientContactRelation'
-          xml:
-            name: clientContactRelation
-      description: ClientContactRelationList model (no description)
-      example:
-        clientContactRelations:
-        - updatedAt: '2014-04-17T16:04:36.000+02:00'
-          createdAt: '2014-04-17T16:04:36.000+02:00'
-          id: 10310
-          firstName: ''
-          name: Mw. MMT 05-11-86
-          identificationNo: ''
-          preferredNameType: '0'
-          lastName: 05-11-86-Niemeijer
-          birthName: 05-11-86
-          partnerName: Niemeijer
-          initials: MMT
-          prefix: ''
-          birthNamePrefix: ''
-          partnerNamePrefix: ''
-          gender: F
-          clientObjectId: 30259
-          inCaseOfEmergency: false
-          comments: Casemanager komt 1 keer per maand
-        - updatedAt: '2014-04-17T14:05:26.000+02:00'
-          createdAt: '2014-04-17T14:05:26.000+02:00'
-          id: 10303
-          firstName: ''
-          name: Dhr. AA Groothuis
-          identificationNo: ''
-          preferredNameType: '0'
-          lastName: Groothuis
-          birthName: Groothuis
-          partnerName: ''
-          initials: AA
-          prefix: ''
-          birthNamePrefix: ''
-          partnerNamePrefix: ''
-          gender: M
-          clientObjectId: 30258
-          inCaseOfEmergency: true
-          comments: ''
-      xml:
-        name: clientContactRelations
-    nexus.RelationCategory:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
-      xml:
-        name: relationCategory
     ClientContactRelation:
       type: object
       allOf:
@@ -1104,6 +975,153 @@ components:
         comments: Casemanager komt 1 keer per maand
       xml:
         name: clientContactRelation
+    nexus.RelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        tag:
+          type: string
+        primary:
+          type: boolean
+        exclusive:
+          type: boolean
+        relevant:
+          type: boolean
+        negative:
+          type: boolean
+        active:
+          type: boolean
+        legal:
+          type: boolean
+        vbmResponsible:
+          type: boolean
+        vektisCode:
+          type: integer
+          description: See https://www.vektis.nl/standaardisatie/codelijsten/COD821-VEKT
+          format: int64
+        reference:
+          type: integer
+          description: Only available during transitional period.
+          format: int64
+          deprecated: true
+        relationCategory:
+          $ref: '#/components/schemas/nexus.RelationCategory'
+      description: RelationType model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 6
+        name: Coach
+        tag: coach
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+      deprecated: true
+      x-deprecated-since: 03-10-2014
+    list.ClientContactRelationList:
+      type: object
+      properties:
+        clientContactRelations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientContactRelation'
+          xml:
+            name: clientContactRelation
+      description: ClientContactRelationList model (no description)
+      example:
+        clientContactRelations:
+        - updatedAt: '2014-04-17T16:04:36.000+02:00'
+          createdAt: '2014-04-17T16:04:36.000+02:00'
+          id: 10310
+          firstName: ''
+          name: Mw. MMT 05-11-86
+          identificationNo: ''
+          preferredNameType: '0'
+          lastName: 05-11-86-Niemeijer
+          birthName: 05-11-86
+          partnerName: Niemeijer
+          initials: MMT
+          prefix: ''
+          birthNamePrefix: ''
+          partnerNamePrefix: ''
+          gender: F
+          clientObjectId: 30259
+          inCaseOfEmergency: false
+          comments: Casemanager komt 1 keer per maand
+        - updatedAt: '2014-04-17T14:05:26.000+02:00'
+          createdAt: '2014-04-17T14:05:26.000+02:00'
+          id: 10303
+          firstName: ''
+          name: Dhr. AA Groothuis
+          identificationNo: ''
+          preferredNameType: '0'
+          lastName: Groothuis
+          birthName: Groothuis
+          partnerName: ''
+          initials: AA
+          prefix: ''
+          birthNamePrefix: ''
+          partnerNamePrefix: ''
+          gender: M
+          clientObjectId: 30258
+          inCaseOfEmergency: true
+          comments: ''
+      xml:
+        name: clientContactRelations
+    bsn.BsnIdVerifiedType:
+      type: integer
+      oneOf:
+      - title: GEEN
+        enum:
+        - 0
+      - title: VERGEWIST
+        enum:
+        - 1
+      - title: WID
+        enum:
+        - 2
+      description: BsnIdVerifiedType model (no description)
+      example: 0
+    bsn.BsnSource:
+      type: integer
+      oneOf:
+      - title: UNKNOWN
+        enum:
+        - -1
+      - title: OWN_ADMINISTRATION
+        enum:
+        - 0
+      - title: SBVZ
+        enum:
+        - 1
+      - title: GBA
+        enum:
+        - 2
+      - title: OTHER_BSN_USER
+        enum:
+        - 3
+      description: BsnSource model (no description)
+      example: -1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -42,7 +42,7 @@ paths:
       - agenda.ReservationCreate
       summary: Creates a reservation for the specified employee
       description: Creates a reservation for an employee. When a recurrenceRule is supplied a recurring reservation is created, otherwise a single reservation is created.
-      operationId: agenda.ReservationCreateAPI.createReservation
+      operationId: postV0AgendaEntriesReservations
       requestBody:
         description: Reservation to be created
         content:
@@ -61,10 +61,54 @@ paths:
           description: Request parameters did not validate
       x-replacement-for:
       - /t/agenda/entries/reservations
+      x-operation-id-source: normalized
+      x-operation-id-original: agenda.ReservationCreateAPI.createReservation
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    agenda.ReservationCreate:
+      title: ReservationCreate
+      required:
+      - employeeId
+      - startsAt
+      - endsAt
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          description: Id of the employee for which the reservation is created.
+          format: int64
+        startsAt:
+          type: string
+          description: Start moment of the reservation. Must be on the same day as endsAt and supplied in the Europe/Amsterdam time zone.
+          format: date-time
+        endsAt:
+          type: string
+          description: End moment (exclusive) of the reservation. Must be after startsAt, on the same day, and supplied in the Europe/Amsterdam time zone.
+          format: date-time
+        labelIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Ids of the labels to assign to this reservation.
+        recurrenceRule:
+          $ref: '#/components/schemas/agenda.RecurrenceRule'
+      description: Request body used to create a reservation. When a recurrenceRule is supplied, startsAt must be on or before its repeatUntil.
+      example:
+        employeeId: 1
+        startsAt: '2025-06-05T08:10:00.000+02:00'
+        endsAt: '2025-06-05T08:20:00.000+02:00'
+        labelIds:
+        - 1
+        recurrenceRule:
+          recurrenceType: weekly
+          interval: 1
+          weekdays:
+          - 1
+          - 3
+          repeatUntil: '2025-08-02'
     agenda.RecurrenceRule:
       title: AgendaRecurrenceRule
       required:
@@ -131,48 +175,6 @@ components:
         * yearly: The entry occurs every year on the given date.'
       default: single
       example: single
-    agenda.ReservationCreate:
-      title: ReservationCreate
-      required:
-      - employeeId
-      - startsAt
-      - endsAt
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          description: Id of the employee for which the reservation is created.
-          format: int64
-        startsAt:
-          type: string
-          description: Start moment of the reservation. Must be on the same day as endsAt and supplied in the Europe/Amsterdam time zone.
-          format: date-time
-        endsAt:
-          type: string
-          description: End moment (exclusive) of the reservation. Must be after startsAt, on the same day, and supplied in the Europe/Amsterdam time zone.
-          format: date-time
-        labelIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Ids of the labels to assign to this reservation.
-        recurrenceRule:
-          $ref: '#/components/schemas/agenda.RecurrenceRule'
-      description: Request body used to create a reservation. When a recurrenceRule is supplied, startsAt must be on or before its repeatUntil.
-      example:
-        employeeId: 1
-        startsAt: '2025-06-05T08:10:00.000+02:00'
-        endsAt: '2025-06-05T08:20:00.000+02:00'
-        labelIds:
-        - 1
-        recurrenceRule:
-          recurrenceType: weekly
-          interval: 1
-          weekdays:
-          - 1
-          - 3
-          repeatUntil: '2025-08-02'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

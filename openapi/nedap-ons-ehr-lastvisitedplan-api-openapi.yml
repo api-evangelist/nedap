@@ -39,7 +39,7 @@ paths:
       tags:
       - ons_ehr.LastVisitedPlan
       summary: Finds the last visited plan of the given employee
-      operationId: ons_ehr.LastVisitedPlanAPI.byEmployeeId
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedEmployeesByEmployeeIdLastVisitedPlan
       parameters:
       - name: employee_id
         in: path
@@ -57,10 +57,20 @@ paths:
                 $ref: '#/components/schemas/ons_ehr.LastVisitedPlan'
       x-replacement-for:
       - /t/ons_ehr/employees/{employee_id}/last_visited_plan
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_ehr.LastVisitedPlanAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ons_ehr.LastVisitedPlanType:
+      enum:
+      - ggz_plan
+      - sfmpc_plan
+      - care_plan
+      type: string
+      description: Unique code that identifies the visited plan type
+      example: sfmpc_plan
     ons_ehr.LastVisitedPlan:
       type: object
       properties:
@@ -77,14 +87,6 @@ components:
       example:
         planType: care_plan
         employeeId: 123
-    ons_ehr.LastVisitedPlanType:
-      enum:
-      - ggz_plan
-      - sfmpc_plan
-      - care_plan
-      type: string
-      description: Unique code that identifies the visited plan type
-      example: sfmpc_plan
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

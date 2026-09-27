@@ -128,7 +128,7 @@ paths:
       tags:
       - hermes.Notification
       summary: Return the hermes notifications of an Employee corresponding to the given id
-      operationId: hermes.NotificationAPI.byEmployeeId
+      operationId: getV0NotificationEmployeesByEmployeeIdNotifications
       parameters:
       - name: employee_id
         in: path
@@ -146,6 +146,8 @@ paths:
                 $ref: '#/components/schemas/hermes.list.NotificationList'
       x-replacement-for:
       - /t/employees/{employee_id}/notifications
+      x-operation-id-source: normalized
+      x-operation-id-original: hermes.NotificationAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/notification/notifications:
@@ -156,7 +158,7 @@ paths:
       description: 'There are 2 notification systems available, but /portal/notifications is deprecated since 28-10-2019, so you should not implement that one.
 
         When hermes (ons-notificaties) is activated notifications are received by this api.'
-      operationId: hermes.NotificationAPI.create
+      operationId: postV0NotificationNotifications
       requestBody:
         content:
           application/json:
@@ -177,13 +179,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/hermes/notifications
+      x-operation-id-source: normalized
+      x-operation-id-original: hermes.NotificationAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/notification/notifications/{id}:
     get:
       tags:
       - hermes.Notification
-      operationId: hermes.NotificationAPI.byId
+      operationId: getV0NotificationNotificationsById
       parameters:
       - name: id
         in: path
@@ -206,13 +210,15 @@ paths:
       - /t/hermes/notifications/{id}
       summary: Hermes notification API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: hermes.NotificationAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/notification/notifications/by_uuid/{uuid}:
     get:
       tags:
       - hermes.Notification
-      operationId: hermes.NotificationAPI.byUuid
+      operationId: getV0NotificationNotificationsByUuidByUuid
       parameters:
       - name: uuid
         in: path
@@ -232,43 +238,12 @@ paths:
       - /t/hermes/notifications/by_uuid/{uuid}
       summary: Hermes notification API by uuid
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: hermes.NotificationAPI.byUuid
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    hermes.list.NotificationList:
-      type: object
-      properties:
-        hermesNotifications:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/hermes.Notification'
-            xml:
-              name: hermesNotification
-      description: NotificationList model (no description)
-      example:
-        hermesNotifications:
-        - id: 1
-          title: spam
-          message: You have new spam
-          path: /spam
-          deploymentType: PortalDeployment
-          collapseKey: blik
-          collapseMethod: replace
-          collapseTitle: '%{count} spam'
-          collapseMessage: You have %{count} new spam
-          createdAt: '2015-01-01T12:00:00.000+01:00'
-          updatedAt: '2015-01-01T12:00:00.000+01:00'
-          iconId: default
-          silent: false
-          recipient:
-            clientId: 1
-            clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
-            employeeId: 1
-          read: true
-      xml:
-        name: hermesNotifications
     hermes.Notification:
       type: object
       properties:
@@ -396,6 +371,39 @@ components:
         read: true
       xml:
         name: hermesNotification
+    hermes.list.NotificationList:
+      type: object
+      properties:
+        hermesNotifications:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/hermes.Notification'
+            xml:
+              name: hermesNotification
+      description: NotificationList model (no description)
+      example:
+        hermesNotifications:
+        - id: 1
+          title: spam
+          message: You have new spam
+          path: /spam
+          deploymentType: PortalDeployment
+          collapseKey: blik
+          collapseMethod: replace
+          collapseTitle: '%{count} spam'
+          collapseMessage: You have %{count} new spam
+          createdAt: '2015-01-01T12:00:00.000+01:00'
+          updatedAt: '2015-01-01T12:00:00.000+01:00'
+          iconId: default
+          silent: false
+          recipient:
+            clientId: 1
+            clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
+            employeeId: 1
+          read: true
+      xml:
+        name: hermesNotifications
     hermes.Recipient:
       type:
       - object

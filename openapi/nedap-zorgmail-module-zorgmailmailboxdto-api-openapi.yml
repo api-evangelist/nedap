@@ -51,7 +51,7 @@ paths:
       - zorgmail_module.ZorgmailMailboxDto
       summary: validate
       description: Checks if the provided Zorgmail credentials are valid.
-      operationId: zorgmail_module.ZorgmailMailboxDtoAPI.validate
+      operationId: postV0ZorgmailModuleCupidoZorgmailCredentialsValidate
       requestBody:
         content:
           application/json:
@@ -79,29 +79,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-replacement-for:
       - /t/zorgmail-module/cupido/zorgmail/credentials/validate
+      x-operation-id-source: normalized
+      x-operation-id-original: zorgmail_module.ZorgmailMailboxDtoAPI.validate
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
     ErrorResponseEntry:
       title: ErrorResponseEntry
       type: object
@@ -150,6 +133,25 @@ components:
         domain: lms.lifeline.nl
         password: my-secret-password
         username: '5005132548'
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -475,7 +475,7 @@ paths:
 
 
         When using Postman api client the metadata has to be an xml object'
-      operationId: DocumentAPI.create
+      operationId: postV0AdministrationClientsByClientIdDocuments
       parameters:
       - name: client_id
         in: path
@@ -505,6 +505,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/documents
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/documents/{doc_id}:
@@ -512,7 +514,7 @@ paths:
       tags:
       - Document
       summary: Find the document corresponding to the given client and document id's
-      operationId: DocumentAPI.byClientIdAndDocumentId
+      operationId: getV0AdministrationClientsByClientIdDocumentsByDocId
       parameters:
       - name: client_id
         in: path
@@ -543,6 +545,8 @@ paths:
           description: When no doc_id query parameter is provided
       x-replacement-for:
       - /t/documents
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.byClientIdAndDocumentId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/documents/{doc_id}/download:
@@ -550,7 +554,7 @@ paths:
       tags:
       - Document
       summary: Returns a stream of bytes representing the document, be sure to close the…
-      operationId: DocumentAPI.downloadByClientIdAndDocumentId
+      operationId: getV0AdministrationClientsByClientIdDocumentsByDocIdDownload
       parameters:
       - name: client_id
         in: path
@@ -582,6 +586,8 @@ paths:
           description: When no doc_id query parameter is provided
       x-replacement-for:
       - /t/documents/download
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.downloadByClientIdAndDocumentId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/documents/all:
@@ -590,7 +596,7 @@ paths:
       - Document
       summary: Find all documents for a client
       description: Optionally filter by employee who has access to the files and by creation date.
-      operationId: DocumentAPI.byClientIdAndEmployeeIdAndDate
+      operationId: getV0AdministrationClientsByClientIdDocumentsAll
       parameters:
       - name: client_id
         in: path
@@ -626,6 +632,8 @@ paths:
                 $ref: '#/components/schemas/list.DocumentList'
       x-replacement-for:
       - /t/documents/by_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.byClientIdAndEmployeeIdAndDate
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/documents/all_archived_included:
@@ -634,7 +642,7 @@ paths:
       - Document
       summary: Find all active and archived documents
       description: Optionally filter by employee who has access to the files and by creation date.
-      operationId: DocumentAPI.documentsByClientInPeriodIncludeArchived
+      operationId: getV0AdministrationClientsByClientIdDocumentsAllArchivedIncluded
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -680,6 +688,8 @@ paths:
           description: Employee cannot be found
       x-replacement-for:
       - /t/documents/by_client/{client_id}/all_archived_included
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.documentsByClientInPeriodIncludeArchived
     servers:
     - url: https://api-development.ons.io
   /v0/administration/documents/{document_object_id}/status:
@@ -688,7 +698,7 @@ paths:
       - Document
       summary: Update the status of a document
       description: 'WARNING: Documents uploaded without visibility settings (expertise profile or expertise group) may be visible to clients in Caren, depending on how the customer environment is set up.'
-      operationId: DocumentAPI.updateStatus
+      operationId: putV0AdministrationDocumentsByDocumentObjectIdStatus
       parameters:
       - name: document_object_id
         in: path
@@ -712,6 +722,8 @@ paths:
                 $ref: '#/components/schemas/Document'
       x-replacement-for:
       - /t/documents/update_status/{document_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.updateStatus
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/documents/data:
@@ -722,7 +734,7 @@ paths:
       description: 'Note: While fields are included for expertiseProfiles and expertiseGroups, these are not filled. That data
 
         can be found by fetching the metadata of the individual document.'
-      operationId: DocumentAPI.streamAll
+      operationId: getV0XstreamDocumentsData
       responses:
         '200':
           description: No response was specified
@@ -742,6 +754,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/documents/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/documents/deletes:
@@ -752,7 +766,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted Document models'
-      operationId: DocumentAPI.streamDeletes
+      operationId: getV0XstreamDocumentsDeletes
       parameters:
       - name: since
         in: query
@@ -780,6 +794,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/documents/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/documents/updates:
@@ -790,7 +806,7 @@ paths:
       description: 'Note: While fields are included for expertiseProfiles and expertiseGroups, these are not filled. That data
 
         can be found by fetching the metadata of the individual document.'
-      operationId: DocumentAPI.streamUpdates
+      operationId: getV0XstreamDocumentsUpdates
       parameters:
       - name: since
         in: query
@@ -818,58 +834,22 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/documents/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: DocumentAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ExpertiseGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        parentObjectid:
-          type: integer
-          format: int64
-        name:
-          type: string
-        beginDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        expertiseProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpertiseProfile'
-          xml:
-            wrapped: true
-      description: Model is used to group {@link ExpertiseProfile}'s, with possibly other {@link ExpertiseGroup}'s as parent/children.
-      example:
-        id: 2
-        parentObjectid: 1
-        name: Alle helpenden
-        beginDate: '2016-01-01'
-        endDate: '2021-12-31'
-        expertiseProfiles:
-        - id: 5
-          description: Helpenden A
-          visible: true
-          beginDate: '2015-01-01T12:00:00.000+01:00'
-          endDate: '2020-01-01T12:00:00.000+01:00'
-          allowDossierActions: true
-          allowDossierConfidential: false
-        - id: 6
-          description: Helpenden B
-          visible: true
-          beginDate: '2015-01-01T12:00:00.000+01:00'
-          endDate: '2020-01-01T12:00:00.000+01:00'
-          allowDossierActions: true
-          allowDossierConfidential: false
-      xml:
-        name: expertiseGroup
+    RightSelection:
+      enum:
+      - Me
+      - Group
+      - Education
+      - All
+      - Nobody
+      type: string
+      description: RightSelection enum (no description)
+      example: Me
     list.DocumentList:
       type: object
       properties:
@@ -909,16 +889,6 @@ components:
           - Een tweede tag
       xml:
         name: documents
-    RightSelection:
-      enum:
-      - Me
-      - Group
-      - Education
-      - All
-      - Nobody
-      type: string
-      description: RightSelection enum (no description)
-      example: Me
     ExpertiseProfile:
       type: object
       properties:
@@ -970,6 +940,54 @@ components:
         - 1
         - 2
         - 3
+    ExpertiseGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        parentObjectid:
+          type: integer
+          format: int64
+        name:
+          type: string
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        expertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfile'
+          xml:
+            wrapped: true
+      description: Model is used to group {@link ExpertiseProfile}'s, with possibly other {@link ExpertiseGroup}'s as parent/children.
+      example:
+        id: 2
+        parentObjectid: 1
+        name: Alle helpenden
+        beginDate: '2016-01-01'
+        endDate: '2021-12-31'
+        expertiseProfiles:
+        - id: 5
+          description: Helpenden A
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+        - id: 6
+          description: Helpenden B
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+      xml:
+        name: expertiseGroup
     Document:
       required:
       - employeeObjectId

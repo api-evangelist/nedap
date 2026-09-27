@@ -190,7 +190,7 @@ paths:
         As this is potentially a large list, cursor-based pagination is used.
 
         When the `Link` header is part of the response, continue fetching the next set of results using the provided URI in the header, until the response does not include the `Link` header anymore.'
-      operationId: medication.MedicationPlanAPI.currentWeekOverview
+      operationId: getV0MedicatieLegacyMedicationPlanOverviewsCurrentWeek
       parameters:
       - name: after
         in: query
@@ -215,6 +215,8 @@ paths:
           description: Unspecified internal error
       x-replacement-for:
       - /t/medication/medication_plans/weeks/current
+      x-operation-id-source: normalized
+      x-operation-id-original: medication.MedicationPlanAPI.currentWeekOverview
     servers:
     - url: https://api-development.ons.io
   /v0/medicatie_legacy/medication_plan_overviews/next_week:
@@ -227,7 +229,7 @@ paths:
         As this is potentially a large list, cursor-based pagination is used.
 
         When the `Link` header is part of the response, continue fetching the next set of results using the provided URI in the header, until the response does not include the `Link` header anymore.'
-      operationId: medication.MedicationPlanAPI.nextWeekOverview
+      operationId: getV0MedicatieLegacyMedicationPlanOverviewsNextWeek
       parameters:
       - name: after
         in: query
@@ -252,6 +254,8 @@ paths:
           description: Unspecified internal error
       x-replacement-for:
       - /t/medication/medication_plans/weeks/next
+      x-operation-id-source: normalized
+      x-operation-id-original: medication.MedicationPlanAPI.nextWeekOverview
     servers:
     - url: https://api-development.ons.io
   /v0/medicatie_legacy/medication_plans/clients/{client_id}/weeks/{week}:
@@ -262,7 +266,7 @@ paths:
       description: 'Returns a PDF version of a medication plan for a specific client and week.
 
         The `ETag` header is included in each response to save bandwidth. The next request using the same URI should include the value of the `ETag` header in the request header `If-None-Match`. The `ETag` (sent with `If-None-Match`) will be compared to the `ETag` of the current version of the medication plan and if both values match, a 304 `Not Modified` status, without a body, will be returned, meaning the cached version of the response is still good to use (fresh).'
-      operationId: medication.MedicationPlanAPI.getMedicationPlan
+      operationId: getV0MedicatieLegacyMedicationPlansClientsByClientIdWeeksByWeek
       parameters:
       - name: client_id
         in: path
@@ -347,6 +351,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-replacement-for:
       - /t/medication/medication_plans/clients/{client_id}/weeks/{week}
+      x-operation-id-source: normalized
+      x-operation-id-original: medication.MedicationPlanAPI.getMedicationPlan
     servers:
     - url: https://api-development.ons.io
 components:
@@ -377,6 +383,17 @@ components:
         field: one
         value: empty
         message: field can not be empty
+    medication.list.MedicationPlanList:
+      type: object
+      properties:
+        medicationPlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/medication.MedicationPlan'
+      description: MedicationPlanList model (no description)
+      example:
+        medicationPlans:
+        - documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -396,17 +413,6 @@ components:
         - field: two
           value: a
           message: too short
-    medication.list.MedicationPlanList:
-      type: object
-      properties:
-        medicationPlans:
-          type: array
-          items:
-            $ref: '#/components/schemas/medication.MedicationPlan'
-      description: MedicationPlanList model (no description)
-      example:
-        medicationPlans:
-        - documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

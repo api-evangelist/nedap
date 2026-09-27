@@ -221,7 +221,7 @@ paths:
       tags:
       - finance.DeclarationRule
       summary: Create DeclarationRule
-      operationId: finance.DeclarationRuleAPI.create
+      operationId: postV0AdministrationFinanceDeclarationRules
       requestBody:
         description: DeclarationRule to create
         content:
@@ -239,13 +239,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/declaration_rules
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DeclarationRuleAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/declaration_rules/{id}:
     get:
       tags:
       - finance.DeclarationRule
-      operationId: finance.DeclarationRuleAPI.byId
+      operationId: getV0AdministrationFinanceDeclarationRulesById
       parameters:
       - name: id
         in: path
@@ -266,11 +268,13 @@ paths:
       - /t/finance/declaration_rules/{id}
       summary: Finance declaration rule API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DeclarationRuleAPI.byId
     put:
       tags:
       - finance.DeclarationRule
       summary: Updates the given DeclarationRule
-      operationId: finance.DeclarationRuleAPI.update
+      operationId: putV0AdministrationFinanceDeclarationRulesById
       parameters:
       - name: id
         in: path
@@ -296,11 +300,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/declaration_rules/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DeclarationRuleAPI.update
     delete:
       tags:
       - finance.DeclarationRule
       summary: Deletes the DeclarationRule with given id
-      operationId: finance.DeclarationRuleAPI.delete
+      operationId: deleteV0AdministrationFinanceDeclarationRulesById
       parameters:
       - name: id
         in: path
@@ -319,6 +325,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/declaration_rules/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DeclarationRuleAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/declaration_rules/by_client/{client_id}:
@@ -326,7 +334,7 @@ paths:
       tags:
       - finance.DeclarationRule
       summary: Return the Declaration rules belonging to a certain client
-      operationId: finance.DeclarationRuleAPI.byClient
+      operationId: getV0AdministrationFinanceDeclarationRulesByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -350,6 +358,8 @@ paths:
                 $ref: '#/components/schemas/finance.list.DeclarationRuleList'
       x-replacement-for:
       - /t/finance/declaration_rules/by_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DeclarationRuleAPI.byClient
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/declaration_rules/by_client/{client_id}/is_verified:
@@ -357,7 +367,7 @@ paths:
       tags:
       - finance.DeclarationRule
       summary: Returns whether the declaration rules for a given client are (partly) verified…
-      operationId: finance.DeclarationRuleAPI.isVerifiedInPeriod
+      operationId: getV0AdministrationFinanceDeclarationRulesByClientByClientIdIsVerified
       parameters:
       - name: client_id
         in: path
@@ -389,13 +399,15 @@ paths:
                 $ref: '#/components/schemas/BooleanWithReason'
       x-replacement-for:
       - /t/finance/declaration_rules/by_client/{client_id}/is_verified
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DeclarationRuleAPI.isVerifiedInPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/declaration_rules/by_client/{client_id}/verified_until:
     get:
       tags:
       - finance.DeclarationRule
-      operationId: finance.DeclarationRuleAPI.verifiedUntil
+      operationId: getV0AdministrationFinanceDeclarationRulesByClientByClientIdVerifiedUntil
       parameters:
       - name: client_id
         in: path
@@ -415,6 +427,8 @@ paths:
       - /t/finance/declaration_rules/by_client/{client_id}/verified_until
       summary: Finance declaration rule API verified until
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DeclarationRuleAPI.verifiedUntil
     servers:
     - url: https://api-development.ons.io
 components:
@@ -434,34 +448,6 @@ components:
       example:
         start: '2018-03-26'
         end: '2018-04-02'
-    BooleanWithReason:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          type: boolean
-          description: Answer to the question
-        reason:
-          type: string
-      description: This class is used to answer a simple true/false question with an optional reason.
-      example:
-        result: true
-        reason: Just Because!
-      xml:
-        name: booleanWithReason
-    DateWrapper:
-      type: object
-      properties:
-        date:
-          type: string
-          description: The wrapped date
-          format: date
-      description: 'DateWrapper can be used to return date''s from API calls. '
-      example:
-        date: '2018-03-26'
-      xml:
-        name: dateWrapper
     finance.list.DeclarationRuleList:
       type: object
       properties:
@@ -506,6 +492,34 @@ components:
             end: '2017-06-06'
       xml:
         name: declarationRules
+    BooleanWithReason:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: Answer to the question
+        reason:
+          type: string
+      description: This class is used to answer a simple true/false question with an optional reason.
+      example:
+        result: true
+        reason: Just Because!
+      xml:
+        name: booleanWithReason
+    DateWrapper:
+      type: object
+      properties:
+        date:
+          type: string
+          description: The wrapped date
+          format: date
+      description: 'DateWrapper can be used to return date''s from API calls. '
+      example:
+        date: '2018-03-26'
+      xml:
+        name: dateWrapper
     finance.DeclarationRule:
       type: object
       properties:

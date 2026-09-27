@@ -158,7 +158,7 @@ paths:
       tags:
       - Insurance
       summary: Return the insurances of a Client corresponding to the given id
-      operationId: InsuranceAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdInsurances
       parameters:
       - name: client_id
         in: path
@@ -176,6 +176,8 @@ paths:
                 $ref: '#/components/schemas/list.InsuranceList'
       x-replacement-for:
       - /t/clients/{client_id}/insurances
+      x-operation-id-source: normalized
+      x-operation-id-original: InsuranceAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/insurances:
@@ -183,7 +185,7 @@ paths:
       tags:
       - Insurance
       summary: Create an Insurance for a Client
-      operationId: InsuranceAPI.create
+      operationId: postV0AdministrationInsurances
       requestBody:
         description: the Insurance to create.
         content:
@@ -201,6 +203,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/insurances
+      x-operation-id-source: normalized
+      x-operation-id-original: InsuranceAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/insurances/{id}:
@@ -208,7 +212,7 @@ paths:
       tags:
       - Insurance
       summary: Return the Insurance corresponding to the given id
-      operationId: InsuranceAPI.byId
+      operationId: getV0AdministrationInsurancesById
       parameters:
       - name: id
         in: path
@@ -229,6 +233,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/insurances/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: InsuranceAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/insurances/data:
@@ -236,7 +242,7 @@ paths:
       tags:
       - Insurance
       summary: Return all Insurance models in a streaming manner
-      operationId: InsuranceAPI.streamAll
+      operationId: getV0XstreamInsurancesData
       responses:
         '200':
           description: No response was specified
@@ -256,6 +262,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/insurances/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: InsuranceAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/insurances/updates:
@@ -263,7 +271,7 @@ paths:
       tags:
       - Insurance
       summary: Return all Insurance models which where updated since the date given in the…
-      operationId: InsuranceAPI.streamUpdates
+      operationId: getV0XstreamInsurancesUpdates
       parameters:
       - name: since
         in: query
@@ -291,10 +299,42 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/insurances/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: InsuranceAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.InsuranceList:
+      type: object
+      properties:
+        insurances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insurance'
+          xml:
+            name: insurance
+      description: InsuranceList model (no description)
+      example:
+        insurances:
+        - id: 1
+          registrationNumber: '1'
+          clientObjectId: 1234
+          debtorObjectId: 4321
+          sourceType: 1
+          insuranceType: AV
+          packageCode: 001T0
+          packageName: Top geen Tandarts
+          labelCode: '001'
+          labelName: Salland Zorgverzekeringen
+          requestedDate: '2012-08-02'
+          clientIsDead: false
+          comments: comments
+          beginDate: '2022-01-01T08:00:00.000+01:00'
+          createdAt: '2012-08-02T11:48:46.836+02:00'
+          updatedAt: '2012-08-02T11:48:46.836+02:00'
+      xml:
+        name: insurances
     Insurance:
       required:
       - clientObjectId
@@ -421,6 +461,27 @@ components:
         updatedAt: '2012-08-02T11:48:46.836+02:00'
       xml:
         name: insurance
+    InsuranceType:
+      enum:
+      - BV
+      - AV
+      - TV
+      - HV
+      type: string
+      description: 'Insurance type. Possible values:
+
+        <pre>
+
+        BV (Basis Verzekering)
+
+        AV (Aanvullende Verzekering)
+
+        TV (Tand Verzekering)
+
+        HV (Hoofd Verzekering)
+
+        </pre>'
+      example: BV
     BankAccount:
       type: object
       properties:
@@ -463,27 +524,6 @@ components:
         updatedAt: '2016-01-01T12:00:00.000+01:00'
       xml:
         name: bankAccount
-    InsuranceType:
-      enum:
-      - BV
-      - AV
-      - TV
-      - HV
-      type: string
-      description: 'Insurance type. Possible values:
-
-        <pre>
-
-        BV (Basis Verzekering)
-
-        AV (Aanvullende Verzekering)
-
-        TV (Tand Verzekering)
-
-        HV (Hoofd Verzekering)
-
-        </pre>'
-      example: BV
     Debtor:
       type: object
       properties:
@@ -701,36 +741,6 @@ components:
         creditOnToewijzingnummerChangeStartDate: '2015-08-02T11:48:46.836+02:00'
       xml:
         name: debtor
-    list.InsuranceList:
-      type: object
-      properties:
-        insurances:
-          type: array
-          items:
-            $ref: '#/components/schemas/Insurance'
-          xml:
-            name: insurance
-      description: InsuranceList model (no description)
-      example:
-        insurances:
-        - id: 1
-          registrationNumber: '1'
-          clientObjectId: 1234
-          debtorObjectId: 4321
-          sourceType: 1
-          insuranceType: AV
-          packageCode: 001T0
-          packageName: Top geen Tandarts
-          labelCode: '001'
-          labelName: Salland Zorgverzekeringen
-          requestedDate: '2012-08-02'
-          clientIsDead: false
-          comments: comments
-          beginDate: '2022-01-01T08:00:00.000+01:00'
-          createdAt: '2012-08-02T11:48:46.836+02:00'
-          updatedAt: '2012-08-02T11:48:46.836+02:00'
-      xml:
-        name: insurances
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

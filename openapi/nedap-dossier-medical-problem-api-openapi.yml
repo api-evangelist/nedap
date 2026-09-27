@@ -145,7 +145,7 @@ paths:
       tags:
       - dossier.medical.Problem
       summary: Create Problem
-      operationId: dossier.medical.ProblemAPI.create
+      operationId: postV0DossierBackChannelUnauthorizedMedicalProblems
       requestBody:
         description: Problem to create
         content:
@@ -163,6 +163,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/problems
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.ProblemAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/unauthorized/medical/problems/{id}:
@@ -170,7 +172,7 @@ paths:
       tags:
       - dossier.medical.Problem
       summary: Get a specific topic
-      operationId: dossier.medical.ProblemAPI.byId
+      operationId: getV0DossierBackChannelUnauthorizedMedicalProblemsById
       parameters:
       - name: id
         in: path
@@ -188,11 +190,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/problems/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.ProblemAPI.byId
     put:
       tags:
       - dossier.medical.Problem
       summary: Updates the given Problem
-      operationId: dossier.medical.ProblemAPI.update
+      operationId: putV0DossierBackChannelUnauthorizedMedicalProblemsById
       parameters:
       - name: id
         in: path
@@ -218,11 +222,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/problems/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.ProblemAPI.update
     delete:
       tags:
       - dossier.medical.Problem
       summary: Deletes the Problem with given id
-      operationId: dossier.medical.ProblemAPI.delete
+      operationId: deleteV0DossierBackChannelUnauthorizedMedicalProblemsById
       parameters:
       - name: id
         in: path
@@ -237,11 +243,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/problems/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.ProblemAPI.delete
     patch:
       tags:
       - dossier.medical.Problem
       summary: Patches Problem with given id
-      operationId: dossier.medical.ProblemAPI.patch
+      operationId: patchV0DossierBackChannelUnauthorizedMedicalProblemsById
       parameters:
       - name: id
         in: path
@@ -265,10 +273,104 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/problems/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.ProblemAPI.patch
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.medical.DiagnosisBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      description: DiagnosisBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 22298006 | Myocardial infarction (disorder) |
+        name: Hartinfarct
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
+    dossier.FeederAuditTransferType:
+      enum:
+      - eoverdracht_nursing
+      - anw
+      - other
+      type: string
+      description: Type of the transfer containing this content (a.k.a. the use case)
+      example: eoverdracht_nursing
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
     dossier.Encoding:
       type: object
       properties:
@@ -284,14 +386,36 @@ components:
         code: E10
         codeSystem: ICD-10
         displayName: Type 1-diabetes
-    dossier.FeederAuditTransferType:
+    dossier.medical.Diagnosis:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+          description: 'Deprecated since: 01-12-2021 - use encodings instead
+
+            (the `code` field of all encodings is equivalent to this stringified array of codes)'
+          deprecated: true
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Encoding'
+      description: Diagnosis model (no description)
+      example:
+        name: Type 1-diabetes
+        code: E10
+        encodings:
+        - code: E10
+          codeSystem: ICD-10
+          displayName: Type 1-diabetes
+    dossier.FeederAuditContentStoreType:
       enum:
-      - eoverdracht_nursing
-      - anw
+      - ons_ketenverkeer
       - other
       type: string
-      description: Type of the transfer containing this content (a.k.a. the use case)
-      example: eoverdracht_nursing
+      description: Identifier of the content store that is providing this content
+      example: ons_ketenverkeer
     dossier.medical.Problem:
       type: object
       allOf:
@@ -438,120 +562,6 @@ components:
         feederAuditContentId: abz123
         feederAuditSenderName: Some care organisation
         feederAuditTransferType: eoverdracht_nursing
-    dossier.medical.MedicalBase:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        uuid:
-          type:
-          - string
-          - 'null'
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        updatedById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      description: MedicalBase model (no description)
-      example:
-        id: 1
-        uuid: Dummy
-        clientId: 1
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T00:00:00.000+01:00'
-        updatedAt: '2014-11-10T00:00:00.000+01:00'
-    dossier.medical.DiagnosisBuilder:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
-      description: DiagnosisBuilder model (no description)
-      example:
-        system: SNOMED
-        query: 22298006 | Myocardial infarction (disorder) |
-        name: Hartinfarct
-    dossier.medical.RelationshipBuilder:
-      type: object
-      properties:
-        system:
-          type:
-          - string
-          - 'null'
-          description: 'Which code system this builder should query
-
-            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
-        query:
-          type:
-          - string
-          - 'null'
-          description: 'Query used to build the correct concept within the given code system.
-
-            Will use the first concept within the code system that matches the query,
-
-            for the best results your query should be as close as possible to a complete code from the system'
-        name:
-          type:
-          - string
-          - 'null'
-      description: RelationshipBuilder model (no description)
-      example:
-        system: Dummy
-        query: Dummy
-        name: Dummy
-    dossier.FeederAuditContentStoreType:
-      enum:
-      - ons_ketenverkeer
-      - other
-      type: string
-      description: Identifier of the content store that is providing this content
-      example: ons_ketenverkeer
-    dossier.medical.Diagnosis:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: string
-          description: 'Deprecated since: 01-12-2021 - use encodings instead
-
-            (the `code` field of all encodings is equivalent to this stringified array of codes)'
-          deprecated: true
-        encodings:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Encoding'
-      description: Diagnosis model (no description)
-      example:
-        name: Type 1-diabetes
-        code: E10
-        encodings:
-        - code: E10
-          codeSystem: ICD-10
-          displayName: Type 1-diabetes
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

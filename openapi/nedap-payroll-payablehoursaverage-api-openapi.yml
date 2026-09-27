@@ -268,7 +268,7 @@ paths:
         Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
 
         We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
-      operationId: payroll.PayableHoursAverageAPI.onDayOfWeekInPeriod
+      operationId: getV0AdministrationPayableHoursAveragesOnDayOfWeekInPeriodByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -321,6 +321,8 @@ paths:
       deprecated: true
       x-replacement-for:
       - /t/payroll/payable_hours_averages/on_day_of_week_in_period/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.PayableHoursAverageAPI.onDayOfWeekInPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/payable_hours_averages/on_days_of_week_in_period/{employee_id}:
@@ -333,7 +335,7 @@ paths:
         Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
 
         We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
-      operationId: payroll.PayableHoursAverageAPI.onDaysOfWeekInPeriod
+      operationId: getV0AdministrationPayableHoursAveragesOnDaysOfWeekInPeriodByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -388,6 +390,8 @@ paths:
           description: Employee is required and must be under contract in the requested period
       x-replacement-for:
       - /t/payroll/payable_hours_averages/on_days_of_week_in_period/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.PayableHoursAverageAPI.onDaysOfWeekInPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/payable_hours_averages/per_day_in_period/{employee_id}:
@@ -400,7 +404,7 @@ paths:
         Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
 
         We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
-      operationId: payroll.PayableHoursAverageAPI.perDayInPeriod
+      operationId: getV0AdministrationPayableHoursAveragesPerDayInPeriodByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -446,6 +450,8 @@ paths:
           description: Employee is required and must be under contract in the requested period
       x-replacement-for:
       - /t/payroll/payable_hours_averages/per_day_in_period/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.PayableHoursAverageAPI.perDayInPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/payable_hours_averages/per_week_in_period/{employee_id}:
@@ -458,7 +464,7 @@ paths:
         Only payable hours are included. Shifts are not automatically payable hours. Only the parts of the shift for which active work was booked.
 
         We include payrolling, vacation, sick leave, PLB vacation, LFB, moved shifts, moved shift day off, calls during shifts, and overtime.'
-      operationId: payroll.PayableHoursAverageAPI.perWeekInPeriod
+      operationId: getV0AdministrationPayableHoursAveragesPerWeekInPeriodByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -504,10 +510,34 @@ paths:
           description: Employee is required and must be under contract in the requested period
       x-replacement-for:
       - /t/payroll/payable_hours_averages/per_week_in_period/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.PayableHoursAverageAPI.perWeekInPeriod
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    payroll.list.PayableHoursAverageList:
+      type: object
+      properties:
+        payableHoursAverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.PayableHoursAverage'
+      description: PayableHoursAverageList model (no description)
+      example:
+        payableHoursAverages:
+        - value: 123.45
+          perDay: true
+          dayOfWeek: 4
+          employeeId: 1
+          validFrom: '2021-12-16'
+          validTo: '2021-12-16'
+        - value: 456.78
+          perDay: true
+          dayOfWeek: 5
+          employeeId: 1
+          validFrom: '2021-12-17'
+          validTo: '2021-12-17'
     payroll.PayableHoursAverage:
       required:
       - value
@@ -548,28 +578,6 @@ components:
         validTo: '2021-12-16'
       xml:
         name: payableHoursAverage
-    payroll.list.PayableHoursAverageList:
-      type: object
-      properties:
-        payableHoursAverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.PayableHoursAverage'
-      description: PayableHoursAverageList model (no description)
-      example:
-        payableHoursAverages:
-        - value: 123.45
-          perDay: true
-          dayOfWeek: 4
-          employeeId: 1
-          validFrom: '2021-12-16'
-          validTo: '2021-12-16'
-        - value: 456.78
-          perDay: true
-          dayOfWeek: 5
-          employeeId: 1
-          validFrom: '2021-12-17'
-          validTo: '2021-12-17'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

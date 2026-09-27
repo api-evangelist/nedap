@@ -131,7 +131,7 @@ paths:
       tags:
       - export.ExportPresenceLog
       summary: Collects the Export Presence Logs
-      operationId: export.ExportPresenceLogAPI.collect
+      operationId: getV0AdministrationExportExportPresenceLogsCollect
       parameters:
       - name: employee_id
         in: query
@@ -187,6 +187,8 @@ paths:
           description: No status information could be found
       x-replacement-for:
       - /t/export/export_presence_logs/collect
+      x-operation-id-source: normalized
+      x-operation-id-original: export.ExportPresenceLogAPI.collect
     servers:
     - url: https://api-development.ons.io
   /v0/administration/export/export_presence_logs/result/{uuid}:
@@ -194,7 +196,7 @@ paths:
       tags:
       - export.ExportPresenceLog
       summary: Return the results of the Export Presence Log corresponding to the given uuid
-      operationId: export.ExportPresenceLogAPI.resultByUuid
+      operationId: getV0AdministrationExportExportPresenceLogsResultByUuid
       parameters:
       - name: uuid
         in: path
@@ -213,6 +215,8 @@ paths:
           description: UUID is required, or no status could be found
       x-replacement-for:
       - /t/export/export_presence_logs/result/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: export.ExportPresenceLogAPI.resultByUuid
     servers:
     - url: https://api-development.ons.io
   /v0/administration/export/export_presence_logs/status/{uuid}:
@@ -220,7 +224,7 @@ paths:
       tags:
       - export.ExportPresenceLog
       summary: Return the status of the Export Presence Log corresponding to the given uuid
-      operationId: export.ExportPresenceLogAPI.statusByUuid
+      operationId: getV0AdministrationExportExportPresenceLogsStatusByUuid
       parameters:
       - name: uuid
         in: path
@@ -239,33 +243,36 @@ paths:
           description: UUID is required, or no status could be found
       x-replacement-for:
       - /t/export/export_presence_logs/status/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: export.ExportPresenceLogAPI.statusByUuid
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    export.ExportStatus:
+    export.list.ExportPresenceLogList:
       type: object
       properties:
-        exportUuid:
-          $ref: '#/components/schemas/export.ExportUuid'
-        exportStatusType:
-          $ref: '#/components/schemas/export.ExportStatusType'
-        exportSettings:
+        exportPresenceLogs:
           type: array
           items:
-            $ref: '#/components/schemas/export.ExportSetting'
+            $ref: '#/components/schemas/export.ExportPresenceLog'
           xml:
-            wrapped: true
-      description: Export Status entry returned from Cupido.
+            name: exportPresenceLog
+      description: ExportPresenceLogList model (no description)
       example:
-        exportUuid:
-          uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
-        exportStatusType: RUNNING
-        exportSettings:
-        - key: start date
-          value: '2015-12-20T17:23:59.999+01:00'
+        exportPresenceLogs:
+        - clientId: 234
+          employeeId: 123
+          teamId: 345
+          locationId: 456
+          employeeContractId: '567'
+          productName: name
+          isDuration: true
+          beginDate: '1973-12-20T17:00:00.000+01:00'
+          endDate: '2015-12-20T17:23:59.999+01:00'
+          duration: true
       xml:
-        name: exportStatus
+        name: exportPresenceLogs
     export.ExportPresenceLog:
       type: object
       properties:
@@ -312,6 +319,39 @@ components:
         duration: true
       xml:
         name: exportPresenceLog
+    export.ExportStatus:
+      type: object
+      properties:
+        exportUuid:
+          $ref: '#/components/schemas/export.ExportUuid'
+        exportStatusType:
+          $ref: '#/components/schemas/export.ExportStatusType'
+        exportSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/export.ExportSetting'
+          xml:
+            wrapped: true
+      description: Export Status entry returned from Cupido.
+      example:
+        exportUuid:
+          uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
+        exportStatusType: RUNNING
+        exportSettings:
+        - key: start date
+          value: '2015-12-20T17:23:59.999+01:00'
+      xml:
+        name: exportStatus
+    export.ExportUuid:
+      type: object
+      properties:
+        uuid:
+          type: string
+      description: Export Status entry returned from Cupido.
+      example:
+        uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
+      xml:
+        name: exportUuid
     export.ExportSetting:
       type: object
       properties:
@@ -325,16 +365,6 @@ components:
         value: '2015-12-20T17:23:59.999+01:00'
       xml:
         name: exportSetting
-    export.ExportUuid:
-      type: object
-      properties:
-        uuid:
-          type: string
-      description: Export Status entry returned from Cupido.
-      example:
-        uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
-      xml:
-        name: exportUuid
     export.ExportStatusType:
       enum:
       - STARTED
@@ -345,30 +375,6 @@ components:
       type: string
       description: ExportStatusType enum (no description)
       example: STARTED
-    export.list.ExportPresenceLogList:
-      type: object
-      properties:
-        exportPresenceLogs:
-          type: array
-          items:
-            $ref: '#/components/schemas/export.ExportPresenceLog'
-          xml:
-            name: exportPresenceLog
-      description: ExportPresenceLogList model (no description)
-      example:
-        exportPresenceLogs:
-        - clientId: 234
-          employeeId: 123
-          teamId: 345
-          locationId: 456
-          employeeContractId: '567'
-          productName: name
-          isDuration: true
-          beginDate: '1973-12-20T17:00:00.000+01:00'
-          endDate: '2015-12-20T17:23:59.999+01:00'
-          duration: true
-      xml:
-        name: exportPresenceLogs
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

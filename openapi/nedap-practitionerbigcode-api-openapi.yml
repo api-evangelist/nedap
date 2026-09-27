@@ -155,7 +155,7 @@ paths:
       tags:
       - PractitionerBigCode
       summary: Return the BIG codes assigned to the employee corresponding to the provided id
-      operationId: PractitionerBigCodeAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdBigCodes
       parameters:
       - name: employee_id
         in: path
@@ -172,11 +172,13 @@ paths:
                 $ref: '#/components/schemas/list.PractitionerBigCodeList'
       x-replacement-for:
       - /t/employees/{employee_id}/big_codes
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerBigCodeAPI.byEmployeeId
     post:
       tags:
       - PractitionerBigCode
       summary: Creates the provided BIG code and assigns it to the employee corresponding to…
-      operationId: PractitionerBigCodeAPI.createForEmployeeId
+      operationId: postV0AdministrationEmployeesByEmployeeIdBigCodes
       parameters:
       - name: employee_id
         in: path
@@ -199,6 +201,8 @@ paths:
                 $ref: '#/components/schemas/PractitionerBigCode'
       x-replacement-for:
       - /t/employees/{employee_id}/big_codes
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerBigCodeAPI.createForEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/big_codes/{big_code_id}:
@@ -206,7 +210,7 @@ paths:
       tags:
       - PractitionerBigCode
       summary: Return the BIG code with the provided id assigned to the employee corresponding…
-      operationId: PractitionerBigCodeAPI.byEmployeeIdAndBigId
+      operationId: getV0AdministrationEmployeesByEmployeeIdBigCodesByBigCodeId
       parameters:
       - name: employee_id
         in: path
@@ -229,11 +233,13 @@ paths:
                 $ref: '#/components/schemas/PractitionerBigCode'
       x-replacement-for:
       - /t/employees/{employee_id}/big_codes/{big_code_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerBigCodeAPI.byEmployeeIdAndBigId
     put:
       tags:
       - PractitionerBigCode
       summary: Updates the provided BIG code assigned to the employee corresponding to the…
-      operationId: PractitionerBigCodeAPI.updateForEmployeeId
+      operationId: putV0AdministrationEmployeesByEmployeeIdBigCodesByBigCodeId
       parameters:
       - name: employee_id
         in: path
@@ -262,11 +268,13 @@ paths:
                 $ref: '#/components/schemas/PractitionerBigCode'
       x-replacement-for:
       - /t/employees/{employee_id}/big_codes/{big_code_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerBigCodeAPI.updateForEmployeeId
     delete:
       tags:
       - PractitionerBigCode
       summary: Deletes the BIG code with the provided id assigned to the employee…
-      operationId: PractitionerBigCodeAPI.deleteForEmployeeId
+      operationId: deleteV0AdministrationEmployeesByEmployeeIdBigCodesByBigCodeId
       parameters:
       - name: employee_id
         in: path
@@ -285,6 +293,8 @@ paths:
           description: No response was specified
       x-replacement-for:
       - /t/employees/{employee_id}/big_codes/{big_code_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerBigCodeAPI.deleteForEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:

@@ -31,7 +31,7 @@ paths:
       tags:
       - zpm.ZpmSetting
       summary: Returns a list of all ZPM settings
-      operationId: zpm.ZpmSettingAPI.getAll
+      operationId: getV0AdministrationZpmSettings
       responses:
         '200':
           description: No response was specified
@@ -41,56 +41,12 @@ paths:
                 $ref: '#/components/schemas/zpm.list.ZpmSettingList'
       x-replacement-for:
       - /t/zpm/settings
+      x-operation-id-source: normalized
+      x-operation-id-original: zpm.ZpmSettingAPI.getAll
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    zpm.list.ZpmSettingList:
-      type: object
-      properties:
-        zpmSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/zpm.ZpmSetting'
-          xml:
-            name: zpmSetting
-      description: ZpmSettingList model (no description)
-      example:
-        zpmSettings:
-        - updatedAt: '2021-08-09T16:17:11.000+02:00'
-          createdAt: '2021-06-28T13:21:32.000+02:00'
-          id: 1
-          code: S01
-          legalBegin: '2021-01-01'
-          activeBegin: '2022-01-01'
-          activeEnd: '2022-12-31'
-          name: Ambulant - kwaliteitsstatuut sectie II
-      xml:
-        name: zpmSettings
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     zpm.ZpmSetting:
       required:
       - code
@@ -142,6 +98,52 @@ components:
         name: Ambulant - kwaliteitsstatuut sectie II
       xml:
         name: zpmSetting
+    zpm.list.ZpmSettingList:
+      type: object
+      properties:
+        zpmSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.ZpmSetting'
+          xml:
+            name: zpmSetting
+      description: ZpmSettingList model (no description)
+      example:
+        zpmSettings:
+        - updatedAt: '2021-08-09T16:17:11.000+02:00'
+          createdAt: '2021-06-28T13:21:32.000+02:00'
+          id: 1
+          code: S01
+          legalBegin: '2021-01-01'
+          activeBegin: '2022-01-01'
+          activeEnd: '2022-12-31'
+          name: Ambulant - kwaliteitsstatuut sectie II
+      xml:
+        name: zpmSettings
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

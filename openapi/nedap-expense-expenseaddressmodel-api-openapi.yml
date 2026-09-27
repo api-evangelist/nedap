@@ -130,7 +130,7 @@ paths:
       tags:
       - expense.ExpenseAddressModel
       summary: Returns the expense addresses of given employee
-      operationId: expense.ExpenseAddressModelAPI.getExpenseAddresses
+      operationId: getV0AdministrationAuthorizedEmployeesByEmployeeIdExpenseAddress
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -157,11 +157,13 @@ paths:
           description: Insufficient rights
       x-replacement-for:
       - /t/employees/{employee_id}/expense_address
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAddressModelAPI.getExpenseAddresses
     put:
       tags:
       - expense.ExpenseAddressModel
       summary: Update an expense address
-      operationId: expense.ExpenseAddressModelAPI.createOrUpdateExpenseAddress
+      operationId: putV0AdministrationAuthorizedEmployeesByEmployeeIdExpenseAddress
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -197,6 +199,8 @@ paths:
           description: Insufficient rights
       x-replacement-for:
       - /t/employees/{employee_id}/expense_address
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAddressModelAPI.createOrUpdateExpenseAddress
     servers:
     - url: https://api-development.ons.io
   /v0/administration/authorized/employees/{employee_id}/expense_address/{expenseAddress_id}:
@@ -204,7 +208,7 @@ paths:
       tags:
       - expense.ExpenseAddressModel
       summary: Removes expense address
-      operationId: expense.ExpenseAddressModelAPI.removeExpenseAddress
+      operationId: deleteV0AdministrationAuthorizedEmployeesByEmployeeIdExpenseAddressByExpenseAddressId
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -237,24 +241,12 @@ paths:
           description: Expense address not found
       x-replacement-for:
       - /t/employees/{employee_id}/expense_address/{expenseAddress_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAddressModelAPI.removeExpenseAddress
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    expense.list.ExpenseAddressModelList:
-      type: object
-      properties:
-        expenseAddressModels:
-          type: array
-          items:
-            $ref: '#/components/schemas/expense.ExpenseAddressModel'
-      description: List of departe location settings (ExpenseAddressModel) for an employee
-      example:
-        expenseAddressModels:
-        - id: 124
-          beginDate: '2020-01-01'
-          departureLocation: HOME
-          endDate: '2020-01-31'
     DepartureLocation:
       enum:
       - HOME
@@ -285,6 +277,20 @@ components:
         beginDate: '2020-01-01'
         departureLocation: HOME
         endDate: '2020-01-31'
+    expense.list.ExpenseAddressModelList:
+      type: object
+      properties:
+        expenseAddressModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense.ExpenseAddressModel'
+      description: List of departe location settings (ExpenseAddressModel) for an employee
+      example:
+        expenseAddressModels:
+        - id: 124
+          beginDate: '2020-01-01'
+          departureLocation: HOME
+          endDate: '2020-01-31'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

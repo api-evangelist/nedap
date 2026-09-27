@@ -125,7 +125,7 @@ paths:
       tags:
       - Bsn
       summary: Create Bsn
-      operationId: BsnAPI.create
+      operationId: postV0AdministrationBsns
       requestBody:
         description: Bsn to create
         content:
@@ -145,6 +145,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/bsns
+      x-operation-id-source: normalized
+      x-operation-id-original: BsnAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/bsns/{id}:
@@ -152,7 +154,7 @@ paths:
       tags:
       - Bsn
       summary: Return the Bsn corresponding to the given id
-      operationId: BsnAPI.byId
+      operationId: getV0AdministrationBsnsById
       parameters:
       - name: id
         in: path
@@ -173,6 +175,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/bsns/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: BsnAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/bsn:
@@ -180,7 +184,7 @@ paths:
       tags:
       - Bsn
       summary: Return the bsn of a client corresponding to the given client id
-      operationId: BsnAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdBsn
       parameters:
       - name: client_id
         in: path
@@ -198,11 +202,13 @@ paths:
                 $ref: '#/components/schemas/Bsn'
       x-replacement-for:
       - /t/clients/{client_id}/bsn
+      x-operation-id-source: normalized
+      x-operation-id-original: BsnAPI.byClientId
     put:
       tags:
       - Bsn
       summary: Updates the BSN of a client
-      operationId: BsnAPI.updateBsn
+      operationId: putV0AdministrationClientsByClientIdBsn
       parameters:
       - name: client_id
         in: path
@@ -226,6 +232,8 @@ paths:
                 $ref: '#/components/schemas/Bsn'
       x-replacement-for:
       - /t/clients/{client_id}/bsn
+      x-operation-id-source: normalized
+      x-operation-id-original: BsnAPI.updateBsn
     servers:
     - url: https://api-development.ons.io
 components:
@@ -250,23 +258,6 @@ components:
         - 3
       description: BsnSource model (no description)
       example: -1
-    bsn.BsnDocumentType:
-      type: integer
-      oneOf:
-      - title: PASPOORT
-        enum:
-        - 0
-      - title: ID
-        enum:
-        - 1
-      - title: RIJBEWIJS
-        enum:
-        - 2
-      - title: VREEMDELINGENDOCUMENT
-        enum:
-        - 3
-      description: BsnDocumentType model (no description)
-      example: 0
     Bsn:
       type: object
       properties:
@@ -338,6 +329,23 @@ components:
         bsnIdVerifiedType: 2
       xml:
         name: bsn
+    bsn.BsnDocumentType:
+      type: integer
+      oneOf:
+      - title: PASPOORT
+        enum:
+        - 0
+      - title: ID
+        enum:
+        - 1
+      - title: RIJBEWIJS
+        enum:
+        - 2
+      - title: VREEMDELINGENDOCUMENT
+        enum:
+        - 3
+      description: BsnDocumentType model (no description)
+      example: 0
     bsn.BsnIdVerifiedType:
       type: integer
       oneOf:

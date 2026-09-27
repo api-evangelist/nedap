@@ -48,7 +48,7 @@ paths:
       tags:
       - worksheet.Worksheet
       summary: Returns worksheet in pdf format
-      operationId: worksheet.WorksheetAPI.generate
+      operationId: getV0AdministrationWorksheetsByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -75,6 +75,8 @@ paths:
                 $ref: '#/components/schemas/worksheet.Worksheet'
       x-replacement-for:
       - /t/worksheets/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: worksheet.WorksheetAPI.generate
     servers:
     - url: https://api-development.ons.io
 components:

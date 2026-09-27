@@ -96,7 +96,7 @@ paths:
       tags:
       - jw.JwZorglegitimatie
       summary: Create JwZorglegitimatie
-      operationId: jw.JwZorglegitimatieAPI.create
+      operationId: postV0AdministrationJwZorglegitimaties
       requestBody:
         description: JwZorglegitimatie to create
         content:
@@ -116,6 +116,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/jw/zorglegitimaties
+      x-operation-id-source: normalized
+      x-operation-id-original: jw.JwZorglegitimatieAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/jw/zorglegitimaties/{id}:
@@ -123,7 +125,7 @@ paths:
       tags:
       - jw.JwZorglegitimatie
       summary: Return the JwZorglegitimatie corresponding to the given id
-      operationId: jw.JwZorglegitimatieAPI.byId
+      operationId: getV0AdministrationJwZorglegitimatiesById
       parameters:
       - name: id
         in: path
@@ -144,11 +146,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/jw/zorglegitimaties/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: jw.JwZorglegitimatieAPI.byId
     delete:
       tags:
       - jw.JwZorglegitimatie
       summary: Delete a JwZorglegitimatie
-      operationId: jw.JwZorglegitimatieAPI.delete
+      operationId: deleteV0AdministrationJwZorglegitimatiesById
       parameters:
       - name: id
         in: path
@@ -169,25 +173,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/jw/zorglegitimaties/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: jw.JwZorglegitimatieAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    lz.Bericht:
-      required:
-      - content
-      type: object
-      properties:
-        content:
-          type: string
-          description: 'The content of the messages, surrounded with CDATA tags.
-
-            The content needs to be a valid AW33 / AW35 or AW39 message.'
-      description: Bericht model (no description)
-      example:
-        content: Dummy
-      xml:
-        name: bericht
     jw.JwZorglegitimatie:
       required:
       - id
@@ -222,6 +213,21 @@ components:
         - content: test
       xml:
         name: jwZorglegitimatie
+    lz.Bericht:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: string
+          description: 'The content of the messages, surrounded with CDATA tags.
+
+            The content needs to be a valid AW33 / AW35 or AW39 message.'
+      description: Bericht model (no description)
+      example:
+        content: Dummy
+      xml:
+        name: bericht
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

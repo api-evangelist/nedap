@@ -74,7 +74,7 @@ paths:
       tags:
       - ClientEmployeeRelationType
       summary: Returns every ClientEmployeeRelationType available from the…
-      operationId: ClientEmployeeRelationTypeAPI.all
+      operationId: getV0AdministrationClientEmployeeRelationTypes
       parameters:
       - name: offset
         in: query
@@ -98,6 +98,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/client_employee_relation_types
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientEmployeeRelationTypeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/client_employee_relation_types/{id}:
@@ -105,7 +107,7 @@ paths:
       tags:
       - ClientEmployeeRelationType
       summary: Returns the ClientEmployeeRelationType corresponding to the given id
-      operationId: ClientEmployeeRelationTypeAPI.byId
+      operationId: getV0AdministrationClientEmployeeRelationTypesById
       parameters:
       - name: id
         in: path
@@ -126,10 +128,84 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/client_employee_relation_types/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientEmployeeRelationTypeAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+    ClientEmployeeRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/RelationType'
+      description: ClientEmployeeRelationType model (no description)
+      example:
+        id: 6
+        name: Coach
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
     list.ClientEmployeeRelationTypeList:
       type: object
       properties:
@@ -155,30 +231,6 @@ components:
             name: Standard
           updatedAt: '2013-09-24T11:49:58.000+02:00'
           createdAt: '2013-09-24T11:49:58.000+02:00'
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     RelationType:
       type: object
       allOf:
@@ -241,54 +293,6 @@ components:
           createdBy: user
           id: 7
           name: Standard
-    ClientEmployeeRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/RelationType'
-      description: ClientEmployeeRelationType model (no description)
-      example:
-        id: 6
-        name: Coach
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: false
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-    RelationCategory:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

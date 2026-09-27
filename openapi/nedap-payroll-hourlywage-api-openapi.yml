@@ -131,7 +131,7 @@ paths:
       tags:
       - payroll.HourlyWage
       summary: Return the Hourly Wage corresponding to the given id
-      operationId: payroll.HourlyWageAPI.byId
+      operationId: getV0AdministrationHourlyWagesById
       parameters:
       - name: id
         in: path
@@ -152,6 +152,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/hourly_wages/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.HourlyWageAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/hourly_wages/by_employee/{employee_object_id}:
@@ -159,7 +161,7 @@ paths:
       tags:
       - payroll.HourlyWage
       summary: Retrieves all the hourly wages of the employee
-      operationId: payroll.HourlyWageAPI.byEmployee
+      operationId: getV0AdministrationHourlyWagesByEmployeeByEmployeeObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -176,6 +178,8 @@ paths:
                 $ref: '#/components/schemas/payroll.list.HourlyWageList'
       x-replacement-for:
       - /t/payroll/hourly_wages/by_employee/{employee_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.HourlyWageAPI.byEmployee
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/hourly_wages/data:
@@ -183,7 +187,7 @@ paths:
       tags:
       - payroll.HourlyWage
       summary: Return all Hourly wages odels in a streaming manner
-      operationId: payroll.HourlyWageAPI.streamAll
+      operationId: getV0XstreamHourlyWagesData
       responses:
         '200':
           description: No response was specified
@@ -203,6 +207,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/hourly_wages/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.HourlyWageAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/hourly_wages/updates:
@@ -210,7 +216,7 @@ paths:
       tags:
       - payroll.HourlyWage
       summary: Return all Hourly wages models which where updated since the date given in the…
-      operationId: payroll.HourlyWageAPI.streamUpdates
+      operationId: getV0XstreamHourlyWagesUpdates
       parameters:
       - name: since
         in: query
@@ -238,10 +244,29 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/hourly_wages/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.HourlyWageAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    payroll.list.HourlyWageList:
+      type: object
+      properties:
+        hourlyWages:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.HourlyWage'
+      description: HourlyWageList model (no description)
+      example:
+        hourlyWages:
+        - id: 1
+          employeeId: 10
+          wageInCents: 1500
+          beginDate: '2017-01-01'
+          endDate: '2017-10-01'
+          createdAt: '2017-10-23T00:00:00.000+02:00'
+          updatedAt: '2017-10-23T00:00:00.000+02:00'
     payroll.HourlyWage:
       type: object
       properties:
@@ -278,23 +303,6 @@ components:
         updatedAt: '2017-10-23T00:00:00.000+02:00'
       xml:
         name: hourlyWage
-    payroll.list.HourlyWageList:
-      type: object
-      properties:
-        hourlyWages:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.HourlyWage'
-      description: HourlyWageList model (no description)
-      example:
-        hourlyWages:
-        - id: 1
-          employeeId: 10
-          wageInCents: 1500
-          beginDate: '2017-01-01'
-          endDate: '2017-10-01'
-          createdAt: '2017-10-23T00:00:00.000+02:00'
-          updatedAt: '2017-10-23T00:00:00.000+02:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

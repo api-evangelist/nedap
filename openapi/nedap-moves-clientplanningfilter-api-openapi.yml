@@ -53,7 +53,7 @@ paths:
       tags:
       - moves.ClientPlanningFilter
       summary: Return the client planning filters of a Client within a specified period
-      operationId: moves.ClientPlanningFilterAPI.byClientId
+      operationId: getV0PlannenRoosterenClientsByClientIdClientPlanningFilters
       parameters:
       - name: client_id
         in: path
@@ -89,6 +89,8 @@ paths:
                 $ref: '#/components/schemas/moves.list.ClientPlanningFilterList'
       x-replacement-for:
       - /t/clients/{client_id}/client_planning_filters
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ClientPlanningFilterAPI.byClientId
     servers:
     - url: https://api-development.ons.io
 components:
@@ -163,6 +165,14 @@ components:
           reason: out_of_care
           validFrom: '2014-02-01'
           teamScope: all
+    moves.UnitType:
+      enum:
+      - Extramuraal
+      - Intramuraal
+      - WMO
+      type: string
+      description: Type of the unit
+      example: Intramuraal
     moves.ClientPlanningFilter:
       type: object
       properties:
@@ -215,14 +225,6 @@ components:
         teamType: Intramuraal
         startTime: '15:00'
         stopTime: '18:00'
-    moves.UnitType:
-      enum:
-      - Extramuraal
-      - Intramuraal
-      - WMO
-      type: string
-      description: Type of the unit
-      example: Intramuraal
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

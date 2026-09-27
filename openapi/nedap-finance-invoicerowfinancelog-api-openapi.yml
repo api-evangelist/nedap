@@ -49,7 +49,7 @@ paths:
       tags:
       - finance.InvoiceRowFinanceLog
       summary: Return all InvoiceRowFinanceLog models which where updated since the date given…
-      operationId: finance.InvoiceRowFinanceLogAPI.streamUpdates
+      operationId: getV0XstreamInvoiceRowFinanceLogsUpdates
       parameters:
       - name: since
         in: query
@@ -77,25 +77,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/invoice_row_finance_logs/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.InvoiceRowFinanceLogAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    finance.InvoiceRowFinanceLog:
-      type: object
-      properties:
-        invoiceRowId:
-          type: integer
-          format: int64
-        financeLogId:
-          type: integer
-          format: int64
-      description: Relations between InoviceRow and FinanceLog
-      example:
-        invoiceRowId: 1
-        financeLogId: 1
-      xml:
-        name: invoiceRowFinanceLog
     finance.list.InvoiceRowFinanceLogList:
       type: object
       properties:
@@ -118,6 +105,21 @@ components:
           financeLogId: 4
       xml:
         name: invoiceRowFinanceLogs
+    finance.InvoiceRowFinanceLog:
+      type: object
+      properties:
+        invoiceRowId:
+          type: integer
+          format: int64
+        financeLogId:
+          type: integer
+          format: int64
+      description: Relations between InoviceRow and FinanceLog
+      example:
+        invoiceRowId: 1
+        financeLogId: 1
+      xml:
+        name: invoiceRowFinanceLog
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

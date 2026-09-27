@@ -489,7 +489,7 @@ paths:
       tags:
       - User
       summary: Create User
-      operationId: UserAPI.create
+      operationId: postV0AdministrationUsers
       requestBody:
         description: User to create
         content:
@@ -507,6 +507,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/users
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{id}:
@@ -514,7 +516,7 @@ paths:
       tags:
       - User
       summary: Get user by ID
-      operationId: UserAPI.byId
+      operationId: getV0AdministrationUsersById
       parameters:
       - name: id
         in: path
@@ -535,11 +537,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/users/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.byId
     put:
       tags:
       - User
       summary: Updates the given User
-      operationId: UserAPI.update
+      operationId: putV0AdministrationUsersById
       parameters:
       - name: id
         in: path
@@ -567,11 +571,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/users/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.update
     delete:
       tags:
       - User
       summary: Deletes the User with given id
-      operationId: UserAPI.delete
+      operationId: deleteV0AdministrationUsersById
       parameters:
       - name: id
         in: path
@@ -592,6 +598,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/users/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{user_id}/last_visited_locations:
@@ -599,7 +607,7 @@ paths:
       tags:
       - User
       summary: Return the last visited Locations of a User corresponding to the given id
-      operationId: UserAPI.lastVisitedLocations
+      operationId: getV0AdministrationUsersByUserIdLastVisitedLocations
       parameters:
       - name: user_id
         in: path
@@ -617,6 +625,8 @@ paths:
                 $ref: '#/components/schemas/list.LocationList'
       x-replacement-for:
       - /t/users/{user_id}/last_visited_locations
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.lastVisitedLocations
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{user_id}/password:
@@ -624,7 +634,7 @@ paths:
       tags:
       - User
       summary: Changes the users password
-      operationId: UserAPI.changePassword
+      operationId: putV0AdministrationUsersByUserIdPassword
       parameters:
       - name: user_id
         in: path
@@ -648,6 +658,8 @@ paths:
                 $ref: '#/components/schemas/PasswordChange'
       x-replacement-for:
       - /t/users/{user_id}/password
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.changePassword
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{user_id}/status:
@@ -656,7 +668,7 @@ paths:
       - User
       summary: returns the status of the user
       description: containing a description about if the user is allowed to log into the application
-      operationId: UserAPI.getUserStatus
+      operationId: getV0AdministrationUsersByUserIdStatus
       parameters:
       - name: user_id
         in: path
@@ -674,6 +686,8 @@ paths:
                 $ref: '#/components/schemas/UserStatus'
       x-replacement-for:
       - /t/users/{user_id}/status
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.getUserStatus
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{user_id}/viewable_locations:
@@ -682,7 +696,7 @@ paths:
       - User
       summary: Return the viewable Locations of a User corresponding to the given id
       description: use Shield. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346
-      operationId: UserAPI.viewableLocations
+      operationId: getV0AdministrationUsersByUserIdViewableLocations
       parameters:
       - name: user_id
         in: path
@@ -708,6 +722,8 @@ paths:
       x-deprecated-since: 11-11-2019
       x-replacement-for:
       - /t/users/{user_id}/viewable_locations
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.viewableLocations
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/by_employee_id/{employee_id}:
@@ -715,7 +731,7 @@ paths:
       tags:
       - User
       summary: Get user by employee ID
-      operationId: UserAPI.byEmployeeId
+      operationId: getV0AdministrationUsersByEmployeeIdByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -735,6 +751,8 @@ paths:
           description: User not found
       x-replacement-for:
       - /t/users/by_employee_id/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/by_sso:
@@ -742,7 +760,7 @@ paths:
       tags:
       - User
       summary: Return the User with the given SSO id
-      operationId: UserAPI.bySso
+      operationId: getV0AdministrationUsersBySso
       parameters:
       - name: sso_id
         in: query
@@ -765,6 +783,8 @@ paths:
           description: User not found
       x-replacement-for:
       - /t/users/by_sso
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.bySso
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/by_username:
@@ -772,7 +792,7 @@ paths:
       tags:
       - User
       summary: Find by user name
-      operationId: UserAPI.byUserName
+      operationId: getV0AdministrationUsersByUsername
       parameters:
       - name: username
         in: query
@@ -792,6 +812,8 @@ paths:
           description: User not found
       x-replacement-for:
       - /t/users/by_user_name
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.byUserName
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/by_username/{user_name}:
@@ -800,7 +822,7 @@ paths:
       - User
       summary: Find by user name
       description: Use byUserNameSafe
-      operationId: UserAPI.byUserNameUnsafe
+      operationId: getV0AdministrationUsersByUsernameByUserName
       parameters:
       - name: user_name
         in: path
@@ -818,6 +840,8 @@ paths:
       x-deprecated-since: 04-07-2020
       x-replacement-for:
       - /t/users/by_user_name/{user_name}
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.byUserNameUnsafe
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/by_uuid/{uuid}:
@@ -825,7 +849,7 @@ paths:
       tags:
       - User
       summary: Get user by UUID
-      operationId: UserAPI.byUuid
+      operationId: getV0AdministrationUsersByUuidByUuid
       parameters:
       - name: uuid
         in: path
@@ -848,6 +872,8 @@ paths:
           description: User not found
       x-replacement-for:
       - /t/users/by_uuid/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.byUuid
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/responsibilities/data:
@@ -855,7 +881,7 @@ paths:
       tags:
       - User
       summary: Return all User models in a streaming manner
-      operationId: UserAPI.streamAll
+      operationId: getV0XstreamResponsibilitiesData
       responses:
         '200':
           description: No response was specified
@@ -875,6 +901,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/users/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/responsibilities/deletes:
@@ -885,7 +913,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted Membership models'
-      operationId: UserAPI.streamDeletes
+      operationId: getV0XstreamResponsibilitiesDeletes
       parameters:
       - name: since
         in: query
@@ -913,6 +941,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/users/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/responsibilities/updates:
@@ -920,7 +950,7 @@ paths:
       tags:
       - User
       summary: Return all User models which where updated since the date given in the request
-      operationId: UserAPI.streamUpdates
+      operationId: getV0XstreamResponsibilitiesUpdates
       parameters:
       - name: since
         in: query
@@ -948,6 +978,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/users/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: UserAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
@@ -973,6 +1005,140 @@ components:
           contractRequiredAtLogin: true
       xml:
         name: users
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type: string
+        userName:
+          type: string
+        activeSession:
+          type: boolean
+        employeeObjectId:
+          type: integer
+          format: int64
+        employeeName:
+          type: string
+        teamObjectId:
+          type: integer
+          description: read only, corresponds with the team.id of the active team for the employee related to this user
+          format: int64
+        teamName:
+          type: string
+        mobilePhone:
+          type: string
+          description: read only, corresponds with employee.mobilePhoneNumber
+        mobilePhoneNumber:
+          type: string
+          description: read only, corresponds with employee.authenticationMobilePhone
+        passwordChange:
+          type: boolean
+        emailAddress:
+          type: string
+          description: 'Deprecated since: 14-03-2019'
+          deprecated: true
+        administrationEnabled:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - Replaced by the `AdministrationLogin` right. Determines if a user can log into Administration.'
+          deprecated: true
+        portalEnabled:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - Replaced by the `EmployeePortalLogin` right. Determines if a user can log into the Nurse Portal.'
+          deprecated: true
+        accessTestEnvironmentEnabled:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019 - Replaced by the `AdministrationTestLogin` right. Determines if a user can log into development / staging environments'
+          deprecated: true
+        shieldEnabled:
+          type: boolean
+          description: 'Deprecated since: 11-11-2019 - Shield is now always enabled.'
+          deprecated: true
+        ssoEnabled:
+          type: boolean
+        ssoId:
+          type: string
+        ssoProviderId:
+          type: string
+        forceSmsAuthentication:
+          type: boolean
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+          xml:
+            wrapped: true
+        allLocationsViewable:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+        limitLocationView:
+          type: boolean
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+        teamAccess:
+          type: string
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+        locationAccess:
+          type: string
+          description: 'Deprecated since: 14-03-2019
+
+            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
+          deprecated: true
+        contractRequiredAtLogin:
+          type: boolean
+          description: Indicates if the user should have an active contract during login (if this functionality is enabled)
+          default: false
+        dashboardProfileObjectId:
+          type: integer
+          description: Object id of the dashboard profile to use for this User. If not set when creating a user, the default dashboard profile is used.
+          format: int64
+      description: User model (no description)
+      example:
+        employeeObjectId: 334
+        userName: mike.wazowski
+        id: 348
+        employeeName: Dhr. Mike Wazowski
+        activeSession: true
+        teamObjectId: 209
+        teamName: Team wijkzorg
+        mobilePhone: '0655130353'
+        mobilePhoneNumber: 0653238787
+        passwordChange: false
+        emailAddress: mike.wazowski@nedap.com
+        teamAccess: All
+        locationAccess: All
+        administrationEnabled: true
+        portalEnabled: true
+        shieldEnabled: true
+        ssoEnabled: true
+        ssoId: user@domain.com
+        ssoProviderId: '12345'
+        forceSmsAuthentication: false
+        accessTestEnvironmentEnabled: true
+        contractRequiredAtLogin: true
+        uuid: '129347091234'
+        allLocationsViewable: true
+        limitLocationView: false
+        roles: []
+        dashboardProfileObjectId: 1
+      xml:
+        name: user
     UserStatus:
       type: object
       properties:
@@ -1128,155 +1294,6 @@ components:
         hideCorrespondenceName: false
       xml:
         name: location
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        uuid:
-          type: string
-        userName:
-          type: string
-        activeSession:
-          type: boolean
-        employeeObjectId:
-          type: integer
-          format: int64
-        employeeName:
-          type: string
-        teamObjectId:
-          type: integer
-          description: read only, corresponds with the team.id of the active team for the employee related to this user
-          format: int64
-        teamName:
-          type: string
-        mobilePhone:
-          type: string
-          description: read only, corresponds with employee.mobilePhoneNumber
-        mobilePhoneNumber:
-          type: string
-          description: read only, corresponds with employee.authenticationMobilePhone
-        passwordChange:
-          type: boolean
-        emailAddress:
-          type: string
-          description: 'Deprecated since: 14-03-2019'
-          deprecated: true
-        administrationEnabled:
-          type: boolean
-          description: 'Deprecated since: 14-03-2019 - Replaced by the `AdministrationLogin` right. Determines if a user can log into Administration.'
-          deprecated: true
-        portalEnabled:
-          type: boolean
-          description: 'Deprecated since: 14-03-2019 - Replaced by the `EmployeePortalLogin` right. Determines if a user can log into the Nurse Portal.'
-          deprecated: true
-        accessTestEnvironmentEnabled:
-          type: boolean
-          description: 'Deprecated since: 14-03-2019 - Replaced by the `AdministrationTestLogin` right. Determines if a user can log into development / staging environments'
-          deprecated: true
-        shieldEnabled:
-          type: boolean
-          description: 'Deprecated since: 11-11-2019 - Shield is now always enabled.'
-          deprecated: true
-        ssoEnabled:
-          type: boolean
-        ssoId:
-          type: string
-        ssoProviderId:
-          type: string
-        forceSmsAuthentication:
-          type: boolean
-        roles:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Role'
-          description: 'Deprecated since: 14-03-2019
-
-            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
-          deprecated: true
-          xml:
-            wrapped: true
-        allLocationsViewable:
-          type: boolean
-          description: 'Deprecated since: 14-03-2019
-
-            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
-          deprecated: true
-        limitLocationView:
-          type: boolean
-          description: 'Deprecated since: 14-03-2019
-
-            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
-          deprecated: true
-        teamAccess:
-          type: string
-          description: 'Deprecated since: 14-03-2019
-
-            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
-          deprecated: true
-        locationAccess:
-          type: string
-          description: 'Deprecated since: 14-03-2019
-
-            Do not use. Shield will not support it. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346'
-          deprecated: true
-        contractRequiredAtLogin:
-          type: boolean
-          description: Indicates if the user should have an active contract during login (if this functionality is enabled)
-          default: false
-        dashboardProfileObjectId:
-          type: integer
-          description: Object id of the dashboard profile to use for this User. If not set when creating a user, the default dashboard profile is used.
-          format: int64
-      description: User model (no description)
-      example:
-        employeeObjectId: 334
-        userName: mike.wazowski
-        id: 348
-        employeeName: Dhr. Mike Wazowski
-        activeSession: true
-        teamObjectId: 209
-        teamName: Team wijkzorg
-        mobilePhone: '0655130353'
-        mobilePhoneNumber: 0653238787
-        passwordChange: false
-        emailAddress: mike.wazowski@nedap.com
-        teamAccess: All
-        locationAccess: All
-        administrationEnabled: true
-        portalEnabled: true
-        shieldEnabled: true
-        ssoEnabled: true
-        ssoId: user@domain.com
-        ssoProviderId: '12345'
-        forceSmsAuthentication: false
-        accessTestEnvironmentEnabled: true
-        contractRequiredAtLogin: true
-        uuid: '129347091234'
-        allLocationsViewable: true
-        limitLocationView: false
-        roles: []
-        dashboardProfileObjectId: 1
-      xml:
-        name: user
-    Role:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          x-cupido-id: true
-        name:
-          type: string
-      description: Role model (no description)
-      example:
-        id: 24
-        name: iO Me gebruiker
-      xml:
-        name: role
     list.LocationList:
       type: object
       properties:
@@ -1310,6 +1327,21 @@ components:
           hideCorrespondenceName: false
       xml:
         name: locations
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          x-cupido-id: true
+        name:
+          type: string
+      description: Role model (no description)
+      example:
+        id: 24
+        name: iO Me gebruiker
+      xml:
+        name: role
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

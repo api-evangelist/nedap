@@ -137,7 +137,7 @@ paths:
       tags:
       - moves.PlannedVisit
       summary: Return the planned visits of a Client within a specified period
-      operationId: moves.PlannedVisitAPI.byClientId
+      operationId: getV0PlannenRoosterenPlannedVisitsByClientIdByClientId
       parameters:
       - name: client_id
         in: path
@@ -194,6 +194,8 @@ paths:
           description: Parsing errors
       x-replacement-for:
       - /t/clients/{client_id}/planned_visits
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.PlannedVisitAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/plannen_roosteren/planned_visits/by_employee_id/{employee_id}:
@@ -201,7 +203,7 @@ paths:
       tags:
       - moves.PlannedVisit
       summary: Return the planned visits of an Employee within a specified period
-      operationId: moves.PlannedVisitAPI.byEmployeeId
+      operationId: getV0PlannenRoosterenPlannedVisitsByEmployeeIdByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -260,138 +262,12 @@ paths:
           description: Parsing errors
       x-replacement-for:
       - /t/employees/{employee_id}/planned_visits
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.PlannedVisitAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.Plancard:
-      type: object
-      properties:
-        hourTypeId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        hourTypeName:
-          type:
-          - string
-          - 'null'
-        hourTypeCode:
-          type:
-          - string
-          - 'null'
-        duration:
-          type:
-          - integer
-          - 'null'
-          description: Duration of this Plancard in seconds.
-          format: int32
-        note:
-          type:
-          - string
-          - 'null'
-          description: The note added to this Plancard in the planscreen.
-        promisedStart:
-          type:
-          - string
-          - 'null'
-          description: The entered start time of this Plancard. This time is an intent, not a guarantee.
-          format: date-time
-        dayPart:
-          type:
-          - integer
-          - 'null'
-          description: 'Daypart on which this Plancard is defined in the care arrangement.
-
-
-            <pre>
-
-            1 - Morning
-
-            2 - Afternoon
-
-            3 - Evening
-
-            0 - Night (Night-plancards generally occur after Evening-plancards for the same date)
-
-            null - Incidentally added Plancard that is not linked to a care arrangement.
-
-            </pre>'
-          format: int32
-        deleted:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates if this Planccard has been incidentally deleted.
-        cycleBase:
-          type: string
-          description: The date from which the recurrence pattern is calculated (usually a Sunday)
-          format: date
-        cycleInterval:
-          type: integer
-          description: The plancard occurs every N-days
-          format: int32
-        cycleOffset:
-          type: integer
-          description: The number of days from cycleBase the plancard occurs, effectively indicating a day of the week. Usually [0-6], 0 is Sunday
-          format: int32
-        originalCycleOffset:
-          type: integer
-          description: When the plancard was incidentally moved, this attribute holds the original value of cycleOffset.
-          format: int32
-        incidentallyChanged:
-          type: boolean
-          description: The information on this plancard is different from its regular/structural state.
-        instanceOfType:
-          type: string
-          description: Either 'PatternRule' (a regular plancard created from the care arrangement) or 'EventRule' (a plancard that was incidentally added from the planscreen)
-        instanceOfId:
-          type: integer
-          description: Reference to 'PatternRule'-record in case `instanceOfType` is `PatternRule`
-          format: int32
-        kind:
-          type:
-          - string
-          - 'null'
-          description: Unused
-        exportable:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates if this Plancard will be exported. Only available through specific APIs.
-      description: '{@link PlannedVisit}s are the aggregation of a list of Plancards.'
-      example:
-        hourTypeId: 25
-        hourTypeName: PV eten en drinken
-        hourTypeCode: '31'
-        duration: 600
-        note: Les naïfs ægithales hâtifs pondant à Noël où il gèle sont sûrs d'être déçus en voyant leurs drôles d'œufs abîmés.
-        promisedStart: '2010-03-15T00:00:00.000+01:00'
-        dayPart: 1
-        deleted: false
-        cycleBase: '2021-06-24'
-        cycleInterval: 7
-        cycleOffset: 3
-        originalCycleOffset: 5
-        incidentallyChanged: false
-        instanceOfType: PatternRule
-        instanceOfId: 16
-        kind: arrangement
-        exportable: true
-    moves.LocationAuthorization:
-      type: object
-      properties:
-        locationId:
-          type:
-          - integer
-          - 'null'
-          description: 'The location this LocationAuthorization grants access to.
-
-            Reference to Cupido::Location.'
-          format: int64
-      description: LocationAuthorization model (no description)
-      example:
-        locationId: 1
     moves.list.PlannedVisitList:
       type: object
       properties:
@@ -712,6 +588,20 @@ components:
           clientGender: F
           clientIsDummy: false
           clientBirthDate: '1932-05-23'
+    moves.LocationAuthorization:
+      type: object
+      properties:
+        locationId:
+          type:
+          - integer
+          - 'null'
+          description: 'The location this LocationAuthorization grants access to.
+
+            Reference to Cupido::Location.'
+          format: int64
+      description: LocationAuthorization model (no description)
+      example:
+        locationId: 1
     moves.PlannedAddress:
       type:
       - object
@@ -771,15 +661,120 @@ components:
         numberPostfix: a
         residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
         roomNumber: '1'
-    PronounsType:
-      enum:
-      - SHE_HER
-      - HE_HIS
-      - WHO_THEIR
-      - THEM_THEIRS
-      type: string
-      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
-      example: WHO_THEIR
+    moves.Plancard:
+      type: object
+      properties:
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        hourTypeName:
+          type:
+          - string
+          - 'null'
+        hourTypeCode:
+          type:
+          - string
+          - 'null'
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration of this Plancard in seconds.
+          format: int32
+        note:
+          type:
+          - string
+          - 'null'
+          description: The note added to this Plancard in the planscreen.
+        promisedStart:
+          type:
+          - string
+          - 'null'
+          description: The entered start time of this Plancard. This time is an intent, not a guarantee.
+          format: date-time
+        dayPart:
+          type:
+          - integer
+          - 'null'
+          description: 'Daypart on which this Plancard is defined in the care arrangement.
+
+
+            <pre>
+
+            1 - Morning
+
+            2 - Afternoon
+
+            3 - Evening
+
+            0 - Night (Night-plancards generally occur after Evening-plancards for the same date)
+
+            null - Incidentally added Plancard that is not linked to a care arrangement.
+
+            </pre>'
+          format: int32
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this Planccard has been incidentally deleted.
+        cycleBase:
+          type: string
+          description: The date from which the recurrence pattern is calculated (usually a Sunday)
+          format: date
+        cycleInterval:
+          type: integer
+          description: The plancard occurs every N-days
+          format: int32
+        cycleOffset:
+          type: integer
+          description: The number of days from cycleBase the plancard occurs, effectively indicating a day of the week. Usually [0-6], 0 is Sunday
+          format: int32
+        originalCycleOffset:
+          type: integer
+          description: When the plancard was incidentally moved, this attribute holds the original value of cycleOffset.
+          format: int32
+        incidentallyChanged:
+          type: boolean
+          description: The information on this plancard is different from its regular/structural state.
+        instanceOfType:
+          type: string
+          description: Either 'PatternRule' (a regular plancard created from the care arrangement) or 'EventRule' (a plancard that was incidentally added from the planscreen)
+        instanceOfId:
+          type: integer
+          description: Reference to 'PatternRule'-record in case `instanceOfType` is `PatternRule`
+          format: int32
+        kind:
+          type:
+          - string
+          - 'null'
+          description: Unused
+        exportable:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this Plancard will be exported. Only available through specific APIs.
+      description: '{@link PlannedVisit}s are the aggregation of a list of Plancards.'
+      example:
+        hourTypeId: 25
+        hourTypeName: PV eten en drinken
+        hourTypeCode: '31'
+        duration: 600
+        note: Les naïfs ægithales hâtifs pondant à Noël où il gèle sont sûrs d'être déçus en voyant leurs drôles d'œufs abîmés.
+        promisedStart: '2010-03-15T00:00:00.000+01:00'
+        dayPart: 1
+        deleted: false
+        cycleBase: '2021-06-24'
+        cycleInterval: 7
+        cycleOffset: 3
+        originalCycleOffset: 5
+        incidentallyChanged: false
+        instanceOfType: PatternRule
+        instanceOfId: 16
+        kind: arrangement
+        exportable: true
     Pronouns:
       type: object
       properties:
@@ -1019,6 +1014,15 @@ components:
         employeeName: employee
         employeeGender: m
         employeeIsDummy: true
+    PronounsType:
+      enum:
+      - SHE_HER
+      - HE_HIS
+      - WHO_THEIR
+      - THEM_THEIRS
+      type: string
+      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
+      example: WHO_THEIR
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

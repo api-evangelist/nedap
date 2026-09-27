@@ -155,7 +155,7 @@ paths:
       tags:
       - PractitionerProfession
       summary: Return the professions assigned to the employee corresponding to the provided id
-      operationId: PractitionerProfessionAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdProfessions
       parameters:
       - name: employee_id
         in: path
@@ -172,11 +172,13 @@ paths:
                 $ref: '#/components/schemas/list.PractitionerProfessionList'
       x-replacement-for:
       - /t/employees/{employee_id}/professions
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerProfessionAPI.byEmployeeId
     post:
       tags:
       - PractitionerProfession
       summary: Creates the provided profession and assigns it to the employee corresponding to…
-      operationId: PractitionerProfessionAPI.createForEmployeeId
+      operationId: postV0AdministrationEmployeesByEmployeeIdProfessions
       parameters:
       - name: employee_id
         in: path
@@ -199,6 +201,8 @@ paths:
                 $ref: '#/components/schemas/PractitionerProfession'
       x-replacement-for:
       - /t/employees/{employee_id}/professions
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerProfessionAPI.createForEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/professions/{profession_id}:
@@ -206,7 +210,7 @@ paths:
       tags:
       - PractitionerProfession
       summary: Return the profession with the provided id assigned to the employee…
-      operationId: PractitionerProfessionAPI.byEmployeeIdAndProfessionId
+      operationId: getV0AdministrationEmployeesByEmployeeIdProfessionsByProfessionId
       parameters:
       - name: employee_id
         in: path
@@ -229,11 +233,13 @@ paths:
                 $ref: '#/components/schemas/PractitionerProfession'
       x-replacement-for:
       - /t/employees/{employee_id}/professions/{profession_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerProfessionAPI.byEmployeeIdAndProfessionId
     put:
       tags:
       - PractitionerProfession
       summary: Updates the provided profession assigned to the employee corresponding to the…
-      operationId: PractitionerProfessionAPI.updateForEmployeeId
+      operationId: putV0AdministrationEmployeesByEmployeeIdProfessionsByProfessionId
       parameters:
       - name: employee_id
         in: path
@@ -262,11 +268,13 @@ paths:
                 $ref: '#/components/schemas/PractitionerProfession'
       x-replacement-for:
       - /t/employees/{employee_id}/professions/{profession_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerProfessionAPI.updateForEmployeeId
     delete:
       tags:
       - PractitionerProfession
       summary: Deletes the profession with the provided id assigned to the employee…
-      operationId: PractitionerProfessionAPI.deleteForEmployeeId
+      operationId: deleteV0AdministrationEmployeesByEmployeeIdProfessionsByProfessionId
       parameters:
       - name: employee_id
         in: path
@@ -285,6 +293,8 @@ paths:
           description: No response was specified
       x-replacement-for:
       - /t/employees/{employee_id}/professions/{profession_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerProfessionAPI.deleteForEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:
@@ -343,6 +353,20 @@ components:
         professionType: 0
         beginDate: '2018-01-01'
         endDate: '2018-12-31'
+    PractitionerProfessionType:
+      type: integer
+      oneOf:
+      - title: COD878_GZ_BEROEPZORGVERLENER
+        enum:
+        - 0
+      - title: COD016_PEZ_GRZ_SUBBEROEPSGROEP
+        enum:
+        - 1
+      - title: ZPM_BEROEP
+        enum:
+        - 2
+      description: Indicates the codelist this profession orginates from
+      example: 0
     list.PractitionerProfessionList:
       type: object
       properties:
@@ -362,20 +386,6 @@ components:
           professionType: 0
           beginDate: '2018-01-01'
           endDate: '2018-12-31'
-    PractitionerProfessionType:
-      type: integer
-      oneOf:
-      - title: COD878_GZ_BEROEPZORGVERLENER
-        enum:
-        - 0
-      - title: COD016_PEZ_GRZ_SUBBEROEPSGROEP
-        enum:
-        - 1
-      - title: ZPM_BEROEP
-        enum:
-        - 2
-      description: Indicates the codelist this profession orginates from
-      example: 0
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

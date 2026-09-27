@@ -126,7 +126,7 @@ paths:
       tags:
       - dossier.ReportType
       summary: Returns every ReportType available from the ReportTypeAPI
-      operationId: dossier.ReportTypeAPI.all
+      operationId: getV0AdministrationDossierReportTypes
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -146,13 +146,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/report_types
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportTypeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/report_types/{id}:
     get:
       tags:
       - dossier.ReportType
-      operationId: dossier.ReportTypeAPI.byId
+      operationId: getV0AdministrationDossierReportTypesById
       parameters:
       - name: id
         in: path
@@ -187,11 +189,13 @@ paths:
       - /t/dossier/report_types/{id}
       summary: Dossier report type API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportTypeAPI.byId
     put:
       tags:
       - dossier.ReportType
       summary: Updates the given ReportType
-      operationId: dossier.ReportTypeAPI.update
+      operationId: putV0AdministrationDossierReportTypesById
       parameters:
       - name: id
         in: path
@@ -229,10 +233,36 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/report_types/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportTypeAPI.update
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     dossier.list.ReportTypeList:
       type: object
       properties:
@@ -395,30 +425,6 @@ components:
           enabled: true
       xml:
         name: reportTypes
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     dossier.ReportType:
       type: object
       allOf:

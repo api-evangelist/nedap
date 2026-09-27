@@ -128,7 +128,7 @@ paths:
       tags:
       - dossier.episodes.SubGoal
       summary: Create SubGoal
-      operationId: dossier.episodes.SubGoalAPI.create
+      operationId: postV0DossierBackChannelUnauthorizedEpisodesSubGoals
       requestBody:
         description: SubGoal to create
         content:
@@ -146,6 +146,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/episodes/sub_goals
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.episodes.SubGoalAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/unauthorized/episodes/sub_goals/{id}:
@@ -153,7 +155,7 @@ paths:
       tags:
       - dossier.episodes.SubGoal
       summary: Updates the given SubGoal
-      operationId: dossier.episodes.SubGoalAPI.update
+      operationId: putV0DossierBackChannelUnauthorizedEpisodesSubGoalsById
       parameters:
       - name: id
         in: path
@@ -179,11 +181,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/episodes/sub_goals/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.episodes.SubGoalAPI.update
     patch:
       tags:
       - dossier.episodes.SubGoal
       summary: Patches SubGoal with given id
-      operationId: dossier.episodes.SubGoalAPI.patch
+      operationId: patchV0DossierBackChannelUnauthorizedEpisodesSubGoalsById
       parameters:
       - name: id
         in: path
@@ -207,6 +211,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/episodes/sub_goals/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.episodes.SubGoalAPI.patch
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/unauthorized/episodes/sub_goals/by_episode_id/{episode_id}:
@@ -214,7 +220,7 @@ paths:
       tags:
       - dossier.episodes.SubGoal
       summary: Gets all the sub goals for the specified episode ID
-      operationId: dossier.episodes.SubGoalAPI.byEpisodeId
+      operationId: getV0DossierBackChannelUnauthorizedEpisodesSubGoalsByEpisodeIdByEpisodeId
       parameters:
       - name: episode_id
         in: path
@@ -232,33 +238,62 @@ paths:
                 $ref: '#/components/schemas/dossier.episodes.list.SubGoalList'
       x-replacement-for:
       - /t/dossier/episodes/sub_goals/by_episode_id/{episode_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.episodes.SubGoalAPI.byEpisodeId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.episodes.list.SubGoalList:
+    dossier.episodes.SubGoal:
       type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
       properties:
-        subGoals:
+        id:
+          type: integer
+          description: Object id of this sub goal
+          format: int64
+          x-cupido-id: true
+        title:
+          type: string
+          description: Title of this sub goal
+        episodeId:
+          type: integer
+          description: Object id of the parent episode of this sub goal
+          format: int64
+        archived:
+          type: boolean
+          description: Archived status of this sub goal
+        actions:
           type: array
           items:
-            $ref: '#/components/schemas/dossier.episodes.SubGoal'
-      description: SubGoalList model (no description)
+            $ref: '#/components/schemas/dossier.episodes.Action'
+          description: Actions on this sub goal
+      description: SubGoal model (no description)
       example:
-        subGoals:
-        - updatedAt: '2017-11-27T00:00:00.000+01:00'
-          createdAt: '2017-11-27T00:00:00.000+01:00'
-          createdBy: Dummy
-          id: 2
-          title: Some sub goal
-          episodeId: 1
-          archived: false
-        - updatedAt: '2017-11-27T00:00:00.000+01:00'
-          createdAt: '2017-11-27T00:00:00.000+01:00'
-          createdBy: Dummy
-          id: 5
-          title: Some archived sub goal
-          episodeId: 22
+        updatedAt: '2017-11-27T00:00:00.000+01:00'
+        createdAt: '2017-11-27T00:00:00.000+01:00'
+        createdBy: Dummy
+        id: 2
+        title: Some sub goal
+        episodeId: 1
+        archived: false
+        actions:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          title: example
+          subGoalId: 1
+          showInCarePlan: true
+          archived: true
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          title: example
+          subGoalId: 1
+          showInCarePlan: true
           archived: true
     dossier.episodes.Action:
       type: object
@@ -317,56 +352,29 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    dossier.episodes.SubGoal:
+    dossier.episodes.list.SubGoalList:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
       properties:
-        id:
-          type: integer
-          description: Object id of this sub goal
-          format: int64
-          x-cupido-id: true
-        title:
-          type: string
-          description: Title of this sub goal
-        episodeId:
-          type: integer
-          description: Object id of the parent episode of this sub goal
-          format: int64
-        archived:
-          type: boolean
-          description: Archived status of this sub goal
-        actions:
+        subGoals:
           type: array
           items:
-            $ref: '#/components/schemas/dossier.episodes.Action'
-          description: Actions on this sub goal
-      description: SubGoal model (no description)
+            $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      description: SubGoalList model (no description)
       example:
-        updatedAt: '2017-11-27T00:00:00.000+01:00'
-        createdAt: '2017-11-27T00:00:00.000+01:00'
-        createdBy: Dummy
-        id: 2
-        title: Some sub goal
-        episodeId: 1
-        archived: false
-        actions:
-        - updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          title: example
-          subGoalId: 1
-          showInCarePlan: true
-          archived: true
-        - updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          title: example
-          subGoalId: 1
-          showInCarePlan: true
+        subGoals:
+        - updatedAt: '2017-11-27T00:00:00.000+01:00'
+          createdAt: '2017-11-27T00:00:00.000+01:00'
+          createdBy: Dummy
+          id: 2
+          title: Some sub goal
+          episodeId: 1
+          archived: false
+        - updatedAt: '2017-11-27T00:00:00.000+01:00'
+          createdAt: '2017-11-27T00:00:00.000+01:00'
+          createdBy: Dummy
+          id: 5
+          title: Some archived sub goal
+          episodeId: 22
           archived: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json

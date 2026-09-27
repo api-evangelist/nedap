@@ -48,7 +48,7 @@ paths:
       - dossier.CarePlanSignatureRequirement
       summary: Find signature requirement by id
       description: Find care plan signature requirement by id
-      operationId: dossier.CarePlanSignatureRequirementAPI.byId
+      operationId: getV0DossierBackChannelUnauthorizedCarePlanByIdSignatureRequirement
       parameters:
       - name: id
         in: path
@@ -73,65 +73,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/care_plan_signature_requirements/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.CarePlanSignatureRequirementAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.CarePlanSignatureRequirementDiscussionType:
-      enum:
-      - discussed
-      - discussed_later
-      - no_discussion
-      - no_agreement
-      type:
-      - string
-      - 'null'
-      description: 'The type of discussion with the client/representative. This field should be null when a signature is required (required: true). When required is false, this indicates the discussion status. Values:
-
-        - discussed: has been discussed with the client/representative and they agree
-
-        - discussed_later: will be discussed with the client/representative later
-
-        - no_discussion: will not be discussed with the client/representative
-
-        - no_agreement: has not been agreed upon by client/representative
-
-        '
-      example: discussed
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
-      example:
-        field: one
-        value: empty
-        message: field can not be empty
     AuditedBase:
       title: AuditedBase
       type: object
@@ -156,6 +103,27 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
+    dossier.CarePlanSignatureRequirementDiscussionType:
+      enum:
+      - discussed
+      - discussed_later
+      - no_discussion
+      - no_agreement
+      type:
+      - string
+      - 'null'
+      description: 'The type of discussion with the client/representative. This field should be null when a signature is required (required: true). When required is false, this indicates the discussion status. Values:
+
+        - discussed: has been discussed with the client/representative and they agree
+
+        - discussed_later: will be discussed with the client/representative later
+
+        - no_discussion: will not be discussed with the client/representative
+
+        - no_agreement: has not been agreed upon by client/representative
+
+        '
+      example: discussed
     dossier.CarePlanSignatureRequirement:
       type: object
       allOf:
@@ -195,6 +163,40 @@ components:
         comment: Signature requirement comment
         discussionType: discussed
         required: true
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

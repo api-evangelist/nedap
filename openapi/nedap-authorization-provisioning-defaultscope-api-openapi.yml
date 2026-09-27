@@ -58,7 +58,7 @@ paths:
       description: 'Provide the complete set of all the groups that should be assigned (e.g. teams, locations, etc) to the user.
 
         As this API is idempotent, the state provided in the last call is the final state. Any groups previously added but not specified in the body will be removed.'
-      operationId: authorization.provisioning.DefaultScopeAPI.update
+      operationId: putV0AuthorizationProvisioningUsersByUserUuidScopes
       parameters:
       - name: user_uuid
         in: path
@@ -91,6 +91,8 @@ paths:
       x-deprecated-since: 11-11-2025
       x-replacement-for:
       - /t/authorization/provisioning/users/{user_uuid}/scopes
+      x-operation-id-source: normalized
+      x-operation-id-original: authorization.provisioning.DefaultScopeAPI.update
     servers:
     - url: https://api-development.ons.io
 components:

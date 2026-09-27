@@ -32,7 +32,7 @@ paths:
       tags:
       - authorization.provisioning.Role
       summary: Returns every Role available from the RoleAPI
-      operationId: authorization.provisioning.RoleAPI.all
+      operationId: getV0AuthorizationProvisioningRoles
       responses:
         '200':
           description: No response was specified
@@ -43,6 +43,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/authorization/provisioning/roles
+      x-operation-id-source: normalized
+      x-operation-id-original: authorization.provisioning.RoleAPI.all
     servers:
     - url: https://api-development.ons.io
 components:

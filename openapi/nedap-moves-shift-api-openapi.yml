@@ -144,7 +144,7 @@ paths:
       tags:
       - moves.Shift
       summary: Get a shift by its ID
-      operationId: moves.ShiftAPI.byId
+      operationId: getV0PlannenRoosterenShiftsById
       parameters:
       - name: id
         in: path
@@ -164,6 +164,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/shifts/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ShiftAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/shifts/data:
@@ -171,7 +173,7 @@ paths:
       tags:
       - moves.Shift
       summary: Return all Shift models in a streaming manner
-      operationId: moves.ShiftAPI.streamAll
+      operationId: getV0XstreamShiftsData
       responses:
         '200':
           description: No response was specified
@@ -191,6 +193,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/shifts/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ShiftAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/shifts/deletes:
@@ -201,7 +205,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted Shift models'
-      operationId: moves.ShiftAPI.streamDeletes
+      operationId: getV0XstreamShiftsDeletes
       parameters:
       - name: since
         in: query
@@ -229,6 +233,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/shifts/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ShiftAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/shifts/updates:
@@ -236,7 +242,7 @@ paths:
       tags:
       - moves.Shift
       summary: Return all Shift models which where updated since the date given in the request
-      operationId: moves.ShiftAPI.streamUpdates
+      operationId: getV0XstreamShiftsUpdates
       parameters:
       - name: since
         in: query
@@ -264,6 +270,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/shifts/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ShiftAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:

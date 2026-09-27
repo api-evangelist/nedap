@@ -50,7 +50,7 @@ paths:
       - survey.Answer
       summary: Deletes the Answer with given id
       description: Answer IDs are found through the endpoint /t/suveys/survey_results/{survey_result_id}
-      operationId: survey.AnswerAPI.delete
+      operationId: deleteV0AdministrationSurveyAnswerById
       parameters:
       - name: id
         in: path
@@ -77,6 +77,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/survey/answers/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: survey.AnswerAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:

@@ -106,7 +106,7 @@ paths:
       tags:
       - finance.ClientFinancedProduct
       summary: Retrieve the legally financeable products for all clients on a certain…
-      operationId: finance.ClientFinancedProductAPI.byLocationAndFinanceTypeInPeriod
+      operationId: getV0AdministrationFinanceClientFinancedProductsByLocationAndFinanceTypeInPeriod
       parameters:
       - name: unit_id
         in: query
@@ -143,6 +143,8 @@ paths:
           description: The unit, finance type, start date and end date are required, and the end date cannot be after the begin date
       x-replacement-for:
       - /t/finance/client_financed_products/by_location_and_finance_type_in_period
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.ClientFinancedProductAPI.byLocationAndFinanceTypeInPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/client_financed_products/by_location_and_finance_types_in_period:
@@ -150,7 +152,7 @@ paths:
       tags:
       - finance.ClientFinancedProduct
       summary: Retrieve the legally financeable products for all clients on a certain…
-      operationId: finance.ClientFinancedProductAPI.byLocationAndFinanceTypesInPeriod
+      operationId: getV0AdministrationFinanceClientFinancedProductsByLocationAndFinanceTypesInPeriod
       parameters:
       - name: unit_id
         in: query
@@ -190,6 +192,8 @@ paths:
           description: The unit, finance types, start date and end date are required, and the end date cannot be after the begin date
       x-replacement-for:
       - /t/finance/client_financed_products/by_location_and_finance_types_in_period
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.ClientFinancedProductAPI.byLocationAndFinanceTypesInPeriod
     servers:
     - url: https://api-development.ons.io
 components:
@@ -217,6 +221,28 @@ components:
             endDate: '2018-03-01'
       xml:
         name: clientFinancedProducts
+    finance.FinancedProduct:
+      type: object
+      properties:
+        productObjectId:
+          type: integer
+          description: The product that the client has legal financial rights for
+          format: int64
+        startDate:
+          type: string
+          description: The start date the product has legal financial rights
+          format: date
+        endDate:
+          type: string
+          description: The end date (inclusive) the product has financial rights
+          format: date
+      description: FinancedProduct model (no description)
+      example:
+        productObjectId: 2
+        startDate: '2018-01-01'
+        endDate: '2018-01-31'
+      xml:
+        name: financedProduct
     finance.ClientFinancedProduct:
       type: object
       properties:
@@ -247,28 +273,6 @@ components:
           endDate: '2018-03-01'
       xml:
         name: clientFinancedProduct
-    finance.FinancedProduct:
-      type: object
-      properties:
-        productObjectId:
-          type: integer
-          description: The product that the client has legal financial rights for
-          format: int64
-        startDate:
-          type: string
-          description: The start date the product has legal financial rights
-          format: date
-        endDate:
-          type: string
-          description: The end date (inclusive) the product has financial rights
-          format: date
-      description: FinancedProduct model (no description)
-      example:
-        productObjectId: 2
-        startDate: '2018-01-01'
-        endDate: '2018-01-31'
-      xml:
-        name: financedProduct
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

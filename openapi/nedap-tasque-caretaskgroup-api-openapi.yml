@@ -115,7 +115,7 @@ paths:
       tags:
       - tasque.CareTaskGroup
       summary: Create CareTaskGroup
-      operationId: tasque.CareTaskGroupAPI.create
+      operationId: postV0TakenCareTaskGroups
       requestBody:
         description: CareTaskGroup to create
         content:
@@ -133,6 +133,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/tasque/care_task_groups
+      x-operation-id-source: normalized
+      x-operation-id-original: tasque.CareTaskGroupAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/taken/care_task_groups/{id}:
@@ -140,7 +142,7 @@ paths:
       tags:
       - tasque.CareTaskGroup
       summary: Gets task group
-      operationId: tasque.CareTaskGroupAPI.byId
+      operationId: getV0TakenCareTaskGroupsById
       parameters:
       - name: id
         in: path
@@ -158,11 +160,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/tasque/care_task_groups/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: tasque.CareTaskGroupAPI.byId
     put:
       tags:
       - tasque.CareTaskGroup
       summary: Updates the given CareTaskGroup
-      operationId: tasque.CareTaskGroupAPI.update
+      operationId: putV0TakenCareTaskGroupsById
       parameters:
       - name: id
         in: path
@@ -187,11 +191,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/tasque/care_task_groups/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: tasque.CareTaskGroupAPI.update
     delete:
       tags:
       - tasque.CareTaskGroup
       summary: Deletes the CareTaskGroup with given id
-      operationId: tasque.CareTaskGroupAPI.delete
+      operationId: deleteV0TakenCareTaskGroupsById
       parameters:
       - name: id
         in: path
@@ -206,6 +212,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/tasque/care_task_groups/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: tasque.CareTaskGroupAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:

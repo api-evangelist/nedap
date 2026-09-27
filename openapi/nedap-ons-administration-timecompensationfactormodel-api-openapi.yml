@@ -53,7 +53,7 @@ paths:
       tags:
       - ons_administration.TimeCompensationFactorModel
       summary: Returns the time compensation factor (minimum wage divided by hourly wage) for…
-      operationId: ons_administration.TimeCompensationFactorModelAPI.forEmployeesInPeriod
+      operationId: getV0AdministrationEmployeesTimeCompensationFactors
       parameters:
       - name: id
         in: query
@@ -85,6 +85,8 @@ paths:
           description: One or more employees not found
       x-replacement-for:
       - /t/employees/time_compensation_factors
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.TimeCompensationFactorModelAPI.forEmployeesInPeriod
     servers:
     - url: https://api-development.ons.io
 components:
@@ -123,6 +125,16 @@ components:
         endDate: '2026-03-15'
         factor: 0.16715909090909092
         status: COMPENSATION_IN_TIME
+    ons_administration.TimeCompensationFactorStatus:
+      enum:
+      - COMPENSATION_IN_TIME
+      - COMPENSATION_IN_MONEY
+      - COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE
+      - DEFAULT_COMPENSATION_IN_MONEY
+      - DEFAULT_COMPENSATION_IN_TIME
+      type: string
+      description: 'Information on the factor computation: COMPENSATION_IN_TIME, COMPENSATION_IN_MONEY, COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE, DEFAULT_COMPENSATION_IN_MONEY, DEFAULT_COMPENSATION_IN_TIME'
+      example: COMPENSATION_IN_TIME
     ons_administration.list.TimeCompensationFactorModelList:
       type: object
       properties:
@@ -143,16 +155,6 @@ components:
           endDate: '2026-04-30'
           factor: 0.12
           status: DEFAULT_COMPENSATION_IN_TIME
-    ons_administration.TimeCompensationFactorStatus:
-      enum:
-      - COMPENSATION_IN_TIME
-      - COMPENSATION_IN_MONEY
-      - COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE
-      - DEFAULT_COMPENSATION_IN_MONEY
-      - DEFAULT_COMPENSATION_IN_TIME
-      type: string
-      description: 'Information on the factor computation: COMPENSATION_IN_TIME, COMPENSATION_IN_MONEY, COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE, DEFAULT_COMPENSATION_IN_MONEY, DEFAULT_COMPENSATION_IN_TIME'
-      example: COMPENSATION_IN_TIME
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

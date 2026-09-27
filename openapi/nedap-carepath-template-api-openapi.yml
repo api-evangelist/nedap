@@ -86,7 +86,7 @@ paths:
       tags:
       - carepath.Template
       summary: Create Template
-      operationId: carepath.TemplateAPI.create
+      operationId: postV0ZorgpadenTemplateV2
       requestBody:
         description: Template to create
         content:
@@ -114,6 +114,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/carepath/template/v2
+      x-operation-id-source: normalized
+      x-operation-id-original: carepath.TemplateAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/zorgpaden/template/v2/{uuid}:
@@ -121,7 +123,7 @@ paths:
       tags:
       - carepath.Template
       summary: Fetch a care path template
-      operationId: carepath.TemplateAPI.byId
+      operationId: getV0ZorgpadenTemplateV2ByUuid
       parameters:
       - name: uuid
         in: path
@@ -150,96 +152,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/carepath/template/v2/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: carepath.TemplateAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    carepath.Template:
-      required:
-      - uuid
-      - name
-      - modules
-      type: object
-      properties:
-        uuid:
-          type: string
-          description: The UUID of this template
-          x-cupido-id: true
-        name:
-          type: string
-          description: The name of this template
-        description:
-          type: string
-          description: A description of this template
-        modules:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/carepath.ModuleTemplate'
-            xml:
-              name: moduleTemplate
-          description: The modules in this template
-          xml:
-            wrapped: true
-      description: A template which may be used for creating care paths for clients using the web interface
-      example:
-        uuid: 46ff9856-a645-4764-be01-9c64668bf93b
-        name: Dummy
-        description: Dummy description
-        modules:
-        - uuid: Dummy
-          name: Dummy
-          duration: 0
-          precededBy: Dummy2
-          offset: 0
-          intents:
-          - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
-            timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
-            duration: 7
-            offset: 0
-            hourTypeId: 1
-            frequency: 3
-            quantityAmount: 4
-            quantityUnit: HOUR
-            recurrenceInterval: 1
-            recurrenceType: WEEK
-          templateRoot: true
-      xml:
-        name: template
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
-      example:
-        field: one
-        value: empty
-        message: field can not be empty
     carepath.ModuleTemplate:
       required:
       - uuid
@@ -306,6 +224,58 @@ components:
         templateRoot: true
       xml:
         name: moduleTemplate
+    carepath.Template:
+      required:
+      - uuid
+      - name
+      - modules
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: The UUID of this template
+          x-cupido-id: true
+        name:
+          type: string
+          description: The name of this template
+        description:
+          type: string
+          description: A description of this template
+        modules:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/carepath.ModuleTemplate'
+            xml:
+              name: moduleTemplate
+          description: The modules in this template
+          xml:
+            wrapped: true
+      description: A template which may be used for creating care paths for clients using the web interface
+      example:
+        uuid: 46ff9856-a645-4764-be01-9c64668bf93b
+        name: Dummy
+        description: Dummy description
+        modules:
+        - uuid: Dummy
+          name: Dummy
+          duration: 0
+          precededBy: Dummy2
+          offset: 0
+          intents:
+          - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+            timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+            duration: 7
+            offset: 0
+            hourTypeId: 1
+            frequency: 3
+            quantityAmount: 4
+            quantityUnit: HOUR
+            recurrenceInterval: 1
+            recurrenceType: WEEK
+          templateRoot: true
+      xml:
+        name: template
     carepath.IntentTemplate:
       required:
       - timelineUuid
@@ -391,6 +361,40 @@ components:
         sourceDescription: for someone
       xml:
         name: intentTemplate
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

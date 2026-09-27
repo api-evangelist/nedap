@@ -251,7 +251,7 @@ paths:
       tags:
       - dossier.MedicalNote
       summary: Returns every MedicalNote available from the MedicalNoteAPI
-      operationId: dossier.MedicalNoteAPI.all
+      operationId: getV0AdministrationDossierMedicalNotes
       parameters:
       - name: updatedSince
         in: query
@@ -278,11 +278,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.MedicalNoteAPI.all
     post:
       tags:
       - dossier.MedicalNote
       summary: Create MedicalNote
-      operationId: dossier.MedicalNoteAPI.create
+      operationId: postV0AdministrationDossierMedicalNotes
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -309,13 +311,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.MedicalNoteAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/medical_notes/{id}:
     get:
       tags:
       - dossier.MedicalNote
-      operationId: dossier.MedicalNoteAPI.byId
+      operationId: getV0AdministrationDossierMedicalNotesById
       parameters:
       - name: id
         in: path
@@ -352,11 +356,13 @@ paths:
       - /t/dossier/medical_notes/{id}
       summary: Dossier medical note API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.MedicalNoteAPI.byId
     put:
       tags:
       - dossier.MedicalNote
       summary: Updates the given MedicalNote
-      operationId: dossier.MedicalNoteAPI.update
+      operationId: putV0AdministrationDossierMedicalNotesById
       parameters:
       - name: id
         in: path
@@ -394,11 +400,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical_notes/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.MedicalNoteAPI.update
     delete:
       tags:
       - dossier.MedicalNote
       summary: Deletes the MedicalNote with given id
-      operationId: dossier.MedicalNoteAPI.delete
+      operationId: deleteV0AdministrationDossierMedicalNotesById
       parameters:
       - name: id
         in: path
@@ -427,6 +435,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical_notes/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.MedicalNoteAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/medical_notes/by_client/{client_id}:
@@ -434,7 +444,7 @@ paths:
       tags:
       - dossier.MedicalNote
       summary: Return the active medical notes of a Client corresponding to the given id
-      operationId: dossier.MedicalNoteAPI.byClientId
+      operationId: getV0AdministrationDossierMedicalNotesByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -452,6 +462,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.MedicalNoteList'
       x-replacement-for:
       - /t/clients/{client_id}/medical_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.MedicalNoteAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/medical_notes/unfiltered_by_client/{client_id}:
@@ -459,7 +471,7 @@ paths:
       tags:
       - dossier.MedicalNote
       summary: Return all the medical notes (including archived) of a Client corresponding to…
-      operationId: dossier.MedicalNoteAPI.unfilteredByClientId
+      operationId: getV0AdministrationDossierMedicalNotesUnfilteredByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -477,34 +489,12 @@ paths:
                 $ref: '#/components/schemas/dossier.list.MedicalNoteList'
       x-replacement-for:
       - /t/clients/{client_id}/unfiltered_medical_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.MedicalNoteAPI.unfilteredByClientId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.MedicalNote:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.BaseNote'
-      properties:
-        clientId:
-          type: integer
-          format: int64
-      description: MedicalNote model (no description)
-      example:
-        id: 1
-        content: Dummy
-        visibleOnWorksheet: true
-        deleted: true
-        startDate: '2014-06-16'
-        endDate: '2014-06-16'
-        updatedByAuthorId: 1
-        authorId: 1
-        updatedAt: '2014-06-16T02:00:00.000+02:00'
-        createdAt: '2014-06-16T02:00:00.000+02:00'
-        createdBy: Dummy
-        clientId: 1
-      xml:
-        name: medicalNote
     dossier.BaseNote:
       type: object
       allOf:
@@ -545,30 +535,6 @@ components:
         endDate: '2014-12-29'
         updatedByAuthorId: 1
         authorId: 1
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     dossier.list.MedicalNoteList:
       type: object
       properties:
@@ -603,6 +569,54 @@ components:
           createdAt: '2014-06-16T02:00:00.000+02:00'
           createdBy: Dummy
           clientId: 2
+    dossier.MedicalNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.BaseNote'
+      properties:
+        clientId:
+          type: integer
+          format: int64
+      description: MedicalNote model (no description)
+      example:
+        id: 1
+        content: Dummy
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-06-16'
+        endDate: '2014-06-16'
+        updatedByAuthorId: 1
+        authorId: 1
+        updatedAt: '2014-06-16T02:00:00.000+02:00'
+        createdAt: '2014-06-16T02:00:00.000+02:00'
+        createdBy: Dummy
+        clientId: 1
+      xml:
+        name: medicalNote
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

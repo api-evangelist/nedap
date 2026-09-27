@@ -996,7 +996,7 @@ paths:
       tags:
       - Client
       summary: Create Client
-      operationId: ClientAPI.create
+      operationId: postV0AdministrationClients
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -1025,6 +1025,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/clients
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{employee_id}/last_visited_clients:
@@ -1032,7 +1034,7 @@ paths:
       tags:
       - Client
       summary: Returns the last visited clients of an employee based on presence logs
-      operationId: ClientAPI.lastVisitedClients
+      operationId: getV0AdministrationClientsByEmployeeIdLastVisitedClients
       parameters:
       - name: employee_id
         in: path
@@ -1078,6 +1080,8 @@ paths:
                 $ref: '#/components/schemas/list.ClientList'
       x-replacement-for:
       - /t/clients/{employee_id}/last_visited_clients
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.lastVisitedClients
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{id}:
@@ -1085,7 +1089,7 @@ paths:
       tags:
       - Client
       summary: Find a client by their primary key
-      operationId: ClientAPI.byId
+      operationId: getV0AdministrationClientsById
       parameters:
       - name: id
         in: path
@@ -1114,11 +1118,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/clients/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.byId
     put:
       tags:
       - Client
       summary: Update Client
-      operationId: ClientAPI.update
+      operationId: putV0AdministrationClientsById
       parameters:
       - name: id
         in: path
@@ -1156,6 +1162,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/clients/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.update
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/by_bsn:
@@ -1163,7 +1171,7 @@ paths:
       tags:
       - Client
       summary: Find a client by its BSN number
-      operationId: ClientAPI.byBSN
+      operationId: getV0AdministrationClientsByBsn
       parameters:
       - name: bsn
         in: query
@@ -1191,6 +1199,8 @@ paths:
           description: If multiple clients are registered with the same BSN
       x-replacement-for:
       - /t/clients/by_bsn
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.byBSN
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/by_bsn/{bsn}:
@@ -1199,7 +1209,7 @@ paths:
       - Client
       summary: Find a client by its BSN number
       description: Use byBsn
-      operationId: ClientAPI.byBSNUnsafe
+      operationId: getV0AdministrationClientsByBsnByBsn
       parameters:
       - name: bsn
         in: path
@@ -1229,6 +1239,8 @@ paths:
       x-deprecated-since: 29-07-2020
       x-replacement-for:
       - /t/clients/by_bsn/{bsn}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.byBSNUnsafe
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/by_skn:
@@ -1236,7 +1248,7 @@ paths:
       tags:
       - Client
       summary: Find a client by its SKN (strafrechtketennummer)
-      operationId: ClientAPI.bySkn
+      operationId: getV0AdministrationClientsBySkn
       parameters:
       - name: skn
         in: query
@@ -1262,6 +1274,8 @@ paths:
           description: Client not found
       x-replacement-for:
       - /t/clients/by_skn
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.bySkn
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/by_uuid/{uuid}:
@@ -1269,7 +1283,7 @@ paths:
       tags:
       - Client
       summary: Find a client by its UUID
-      operationId: ClientAPI.byUUID
+      operationId: getV0AdministrationClientsByUuidByUuid
       parameters:
       - name: uuid
         in: path
@@ -1296,6 +1310,8 @@ paths:
           description: Client not found
       x-replacement-for:
       - /t/clients/by_uuid/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.byUUID
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/byIdentificationNumber/{identification_no}:
@@ -1303,7 +1319,7 @@ paths:
       tags:
       - Client
       summary: Find a client based on it's identification number, a logical identifier
-      operationId: ClientAPI.byIdentificationNo
+      operationId: getV0AdministrationClientsByIdentificationNumberByIdentificationNo
       parameters:
       - name: identification_no
         in: path
@@ -1319,6 +1335,8 @@ paths:
                 $ref: '#/components/schemas/Client'
       x-replacement-for:
       - /t/clients/by_identification_no/{identification_no}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.byIdentificationNo
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/find:
@@ -1329,7 +1347,7 @@ paths:
       description: 'the {@link com.nedap.healthcare.domain.ClientSearchResult#group}
 
         value is {@link com.nedap.healthcare.domain.ClientSearchResultGroup#UNGROUPED} for all results.'
-      operationId: ClientAPI.search
+      operationId: getV0AdministrationClientsFind
       parameters:
       - name: query
         in: query
@@ -1399,6 +1417,8 @@ paths:
       x-deprecated-since: 01-03-2026
       x-replacement-for:
       - /t/clients/searchresult
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.search
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/find_grouped:
@@ -1411,7 +1431,7 @@ paths:
         {@link com.nedap.healthcare.domain.ClientSearchResultGroup}, which value is set on the
 
         {@link com.nedap.healthcare.domain.ClientSearchResult#group} field.'
-      operationId: ClientAPI.searchGrouped
+      operationId: getV0AdministrationClientsFindGrouped
       parameters:
       - name: query
         in: query
@@ -1480,6 +1500,8 @@ paths:
       x-deprecated-since: 01-03-2026
       x-replacement-for:
       - /t/clients/search_grouped
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.searchGrouped
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/ids_in_care_in_period:
@@ -1487,7 +1509,7 @@ paths:
       tags:
       - Client
       summary: Find clientObjectIds of all clients in care in a given period
-      operationId: ClientAPI.searchClientIdsInCareInPeriod
+      operationId: getV0AdministrationClientsIdsInCareInPeriod
       parameters:
       - name: valid_from
         in: query
@@ -1530,6 +1552,8 @@ paths:
           description: Bad request
       x-replacement-for:
       - /t/clients/ids_in_care_in_period
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.searchClientIdsInCareInPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/in_care_in_period:
@@ -1537,7 +1561,7 @@ paths:
       tags:
       - Client
       summary: Find all clients in care in a given period
-      operationId: ClientAPI.searchInCareInPeriod
+      operationId: getV0AdministrationClientsInCareInPeriod
       parameters:
       - name: valid_from
         in: query
@@ -1580,6 +1604,8 @@ paths:
           description: Bad request
       x-replacement-for:
       - /t/clients/in_care_in_period
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.searchInCareInPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/multiple:
@@ -1587,7 +1613,7 @@ paths:
       tags:
       - Client
       summary: Method used for requesting multiple Client objects using their ids
-      operationId: ClientAPI.multiple
+      operationId: getV0AdministrationClientsMultiple
       parameters:
       - name: id
         in: query
@@ -1616,6 +1642,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/clients/multiple
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.multiple
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/search_by_location:
@@ -1623,7 +1651,7 @@ paths:
       tags:
       - Client
       summary: Find clients by location
-      operationId: ClientAPI.searchByLocationId
+      operationId: getV0AdministrationClientsSearchByLocation
       parameters:
       - name: location_id
         in: query
@@ -1679,6 +1707,8 @@ paths:
           description: Location not found
       x-replacement-for:
       - /t/clients/search_by/locations/{location_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.searchByLocationId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{user_id}/last_visited_clients:
@@ -1686,7 +1716,7 @@ paths:
       tags:
       - Client
       summary: Return the last visited Clients of a User corresponding to the given id
-      operationId: ClientAPI.lastVisitedByUserId
+      operationId: getV0AdministrationUsersByUserIdLastVisitedClients
       parameters:
       - name: user_id
         in: path
@@ -1704,6 +1734,8 @@ paths:
                 $ref: '#/components/schemas/list.ClientList'
       x-replacement-for:
       - /t/users/{user_id}/last_visited_clients
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.lastVisitedByUserId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{user_id}/last_visited_clients/{client_id}:
@@ -1711,7 +1743,7 @@ paths:
       tags:
       - Client
       summary: Add or update client in favorite table
-      operationId: ClientAPI.addOrUpdateClientInFavorite
+      operationId: postV0AdministrationUsersByUserIdLastVisitedClientsByClientId
       parameters:
       - name: user_id
         in: path
@@ -1738,6 +1770,8 @@ paths:
           description: User or client not found
       x-replacement-for:
       - /t/users/{user_id}/last_visited_clients/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.addOrUpdateClientInFavorite
     servers:
     - url: https://api-development.ons.io
   /v0/omnisearch/client/search:
@@ -1750,7 +1784,7 @@ paths:
         com.nedap.healthcare.domain.ClientSearchResultGroup, which value is set on the
 
         com.nedap.healthcare.domain.ClientSearchResult#group field'
-      operationId: ClientAPI.omnisearch
+      operationId: getV0OmnisearchClientSearch
       parameters:
       - name: query
         in: query
@@ -1821,6 +1855,8 @@ paths:
           description: Service unavailable
       x-replacement-for:
       - /t/omnisearch/clients/searchresult
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.omnisearch
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/clients/by_archetype_id/{archetype_id}:
@@ -1841,7 +1877,7 @@ paths:
 
 
         This will take into account data with lifecycle state COMPLETE and INCOMPLETE, but not DELETED.'
-      operationId: ClientAPI.allByArchetypeId
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedClientsByArchetypeIdByArchetypeId
       parameters:
       - name: archetype_id
         in: path
@@ -1870,6 +1906,8 @@ paths:
                 $ref: '#/components/schemas/list.ClientList'
       x-replacement-for:
       - /t/openehr/clients/by_archetype_id/{archetype_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.allByArchetypeId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/clients/data:
@@ -1877,7 +1915,7 @@ paths:
       tags:
       - Client
       summary: Return all Client models in a streaming manner
-      operationId: ClientAPI.streamAll
+      operationId: getV0XstreamClientsData
       responses:
         '200':
           description: No response was specified
@@ -1897,6 +1935,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/clients/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/clients/deletes:
@@ -1907,7 +1947,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted Client models'
-      operationId: ClientAPI.streamDeletes
+      operationId: getV0XstreamClientsDeletes
       parameters:
       - name: since
         in: query
@@ -1935,6 +1975,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/clients/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/clients/updates:
@@ -1942,7 +1984,7 @@ paths:
       tags:
       - Client
       summary: Return all Client models which where updated since the date given in the request
-      operationId: ClientAPI.streamUpdates
+      operationId: getV0XstreamClientsUpdates
       parameters:
       - name: since
         in: query
@@ -1970,257 +2012,144 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/clients/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.ClientObjectIdList:
-      type: object
-      properties:
-        clientObjectIds:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientObjectId'
-      description: List of clientObjectIds
-      example:
-        clientObjectIds:
-        - value: 54321
-        - value: 42
-      xml:
-        name: clientObjectIds
-    CareAllocation:
-      required:
-      - clientId
-      - beginDate
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        clientId:
-          type: integer
-          format: int64
-        beginDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        comments:
-          type: string
-        destination:
-          type: string
-          description: 'NVT: N.v.t.
-
-            EIGEN_OMGEVING: Eigen omgeving
-
-            EIGEN_OMGEVING_DAGBEHANDELING: Eigen omgeving met dagbehandeling
-
-            INSTELLING_WLZ: Instelling (WLZ) of ziekenhuis
-
-            INSTELLING_NIET_WLZ: Instelling (niet-WLZ)'
-        reason:
-          type: string
-          description: 'REJECTED: Afgekeurd
-
-            CLASS_CHANGED: Klasse is aangepast
-
-            REVOKE_MUT: Intrekking MUT
-
-            REVOKE_MAZ: Intrekking MAZ
-
-            IN_CARE: N.v.t.
-
-            DISMISS: Ontslag (intramuraal)
-
-            DEATH: Overlijden
-
-            TEMP_GONE: Tijdelijke afwezigheid
-
-            REFUSED_BY_PROVIDER: Aanbieder weigert functie
-
-            REFUSED_BY_CLIENT: Cliënt weigert functie
-
-            RESUME: Onderbroken functie hervat
-
-            END_OF_CARE: Beëindiging zorg
-
-            TRANSFER: Overplaatsing
-
-            END_OF_CARE_CLOSE_FUNCTION: Einde zorg (functies intrekken)
-
-            END_OF_CARE_OPEN_FUNCTION: Einde zorg (functies openlaten)
-
-            TRANSFER_NO_MAZ: Overplaatsing (er is geen Maz)
-
-            REQUEST_CUSTOM_CARE_ORDER: Aanvraag aangepaste zorgtoewijzing
-
-            END_OF_CARE_AFTER_INTAKE: Beëindiging zorg na intake
-
-            DEATH_BY_SUICIDE: Overlijden door suïcide'
-        reasonTemporary:
-          type: string
-          description: 'NVT: N.v.t.
-
-            VAKANTIEVERLOF: Vakantieverlof
-
-            ZIEKENHUISOPNAME: Ziekenhuisopname
-
-            KORTE_VERBLIJFPLAATSING: Korte verblijfplaatsing in WLZ-erkende instelling
-
-            TIJDELIJK_THUIS: Tijdelijk thuis
-
-            PANDEMIE: Pandemie'
-        careProviderId:
-          type: integer
-          description: Care provider id, required when reason is TRANSFER and destination is INSTELLING_WLZ
-          format: int64
-      description: CareAllocation model (no description)
-      example:
-        id: 1
-        clientId: 10
-        beginDate: '2016-01-01'
-        endDate: '2020-01-01'
-        comments: niets te melden
-        destination: EIGEN_OMGEVING
-        reason: IN_CARE
-        reasonTemporary: VAKANTIEVERLOF
-        careProviderId: 42
-      xml:
-        name: careAllocation
-    GenderIdentityType:
-      enum:
-      - MALE
-      - FEMALE
-      - NON_BINARY
+    ClientSearchResultGroup:
       type: string
-      description: 'Predefined type of gender identity. MALE: ''man'', FEMALE: ''vrouw'', NON_BINARY: ''non-binair'''
-      example: NON_BINARY
-    ClientSearchResult:
+      oneOf:
+      - title: UNGROUPED
+        enum:
+        - UNGROUPED
+      - title: EXACT
+        enum:
+        - EXACT
+      - title: BEGINNING
+        enum:
+        - BEGINNING
+      - title: WILDCARD
+        enum:
+        - WILDCARD
+      - title: WAITINGLIST
+        enum:
+        - WAITINGLIST
+      - title: OUTOFCARE
+        enum:
+        - OUTOFCARE
+      description: 'The group to which this result belongs.
+
+        This is only set after calling the ''searchGrouped'' API.'
+      example: UNGROUPED
+    Person:
       type: object
       properties:
         id:
-          type: integer
-          description: the id of this object
+          type:
+          - integer
+          - 'null'
           format: int64
           x-cupido-id: true
-        identificationNo:
-          type: string
-          description: The client number for this Client; e.g. "234567"
-        name:
-          type: string
-          description: The full name of this client; e.g. "Petrus Johannes Paulusma"
         firstName:
           type: string
-          description: This Client's first name; e.g. "Petrus Johannes"
-        lastName:
+          description: The first name(s) of the person.
+        name:
           type: string
-          description: This Client's last name; e.g. "Paulusma"
-        givenName:
+          description: 'The client’s full official name.
+
+            Showing the initials or client first name is a setting that care organisations can select.'
+        identificationNo:
           type: string
-          description: This Client's given name; e.g. "Piet"
-        gender:
-          type: string
-          description: This Client's gender; can be male, female or unknown
-        pronouns:
-          type: string
-          description: 'This Client''s pronouns; e.g. "zij/haar", "hij/zijn" etc. '
-        preferredName:
-          type: string
-          description: Preferred name of this client. In case a client prefers a different name over the official name; e.g. "Petra Paulusma"
+          description: Human-readable identification number of the person (clientnummer or medewerkernummer).
         dateOfBirth:
           type: string
-          description: Date of birth, formatted yyyy-mm-dd
+          description: The date of birth of the person.
           format: date
-        secretClient:
-          type: boolean
-          description: Boolean for celebrities
-        addressString:
-          type: string
-          description: This Client's address; e.g. "Parallelweg 2, 7141 DC, Groenlo"
-        birthName:
-          type: string
-          description: This Client's surname at birth
-        partnerName:
-          type: string
-          description: This Client's partner's surname at birth
-        birthNamePrefix:
-          type: string
-          description: This Client's prefix; e.g. "van"
-        partnerNamePrefix:
-          type: string
-          description: This client's partner's prefix; e.g. "van de"
-        initials:
-          type: string
-          description: This Client's initials; e.g. "PJ"
         preferredNameType:
           type: string
-          description: This Client's preferred name type; e.g. "partnerName"
-        group:
-          allOf:
-          - $ref: '#/components/schemas/ClientSearchResultGroup'
-          description: 'The group to which this result belongs.
+          description: 'Preferred way of writing the name of the person. Possible values:
 
-            This is only set after calling the ''searchGrouped'' API.'
-          default: UNGROUPED
-      description: Search Result after querying OnsAdmin
+            0 (birth name)
+
+            1 (partner name)
+
+            2 (birth name - partner name)
+
+            3 (partner name - birth name)'
+        lastName:
+          type: string
+          description: The last name of the person, taking into account the preferredNameType setting.
+        birthName:
+          type: string
+          description: The birth name of the person, without prefix.
+        partnerName:
+          type: string
+          description: The last name of the partner of the person, without prefix.
+        initials:
+          type: string
+          description: The initials of the person.
+        prefix:
+          type: string
+          description: The prefix(es) of the last name(s) of the person, taking into account the preferredNameType setting.
+        birthNamePrefix:
+          type: string
+          description: The birth name prefix of the person.
+        partnerNamePrefix:
+          type: string
+          description: The partner name prefix of the person.
+        gender:
+          type: string
+          description: The gender of the person.
+        emailAddress:
+          type: string
+          description: The email address of the person, as registered on the personalia screen.
+        mobilePhone:
+          type: string
+          description: The phone number of the person, as registered on the personalia screen.
+        freeField1:
+          type: string
+          description: Contents of free field 1.
+        freeField2:
+          type: string
+          description: Contents of free field 2.
+        freeField3:
+          type: string
+          description: Contents of free field 3.
+        freeField4:
+          type: string
+          description: Contents of free field 4.
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      description: Common attributes for Client and Employee.
       example:
         id: 1
-        identificationNo: '12345'
-        name: Dhr. PJ Paulusma
-        firstName: Pieter Johan
-        lastName: Paulusma
-        givenName: Piet
-        gender: M
-        pronouns: zij/haar
-        preferredName: Petra Paulusma
-        dateOfBirth: '1956-12-31'
-        secretClient: false
-        addressString: Dorpstraat 1, Het Dorp
-        birthName: Paulusma
-        partnerName: none
-        birthNamePrefix: none
-        partnerNamePrefix: none
-        initials: PJ
+        firstName: Mike
+        name: Dhr Mike Wazowski
+        identificationNo: wazo
+        dateOfBirth: '1982-01-01'
         preferredNameType: '0'
-        group: WAITINGLIST
-      xml:
-        name: clientSearchResult
-    list.ClientList:
-      type: object
-      properties:
-        clients:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Client'
-          xml:
-            name: client
-      description: ClientList model (no description)
-      example:
-        clients:
-        - id: 1
-          firstName: Mike
-          dateOfBirth: '2012-08-02'
-          birthName: Wazowski
-      xml:
-        name: clients
-    GenderIdentity:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/GenderIdentityType'
-        description:
-          type: string
-          description: Translated description of the gender identity.
-      description: The usage of this schema is deprecated and has been replaced by GenderIdentityType.
-      example:
-        type: NON_BINARY
-        description: non-binair
-      deprecated: true
-      x-deprecated-since: 21-08-2026
+        lastName: Wazowski
+        birthName: Wazowski
+        partnerName: none
+        initials: W
+        prefix: ir
+        birthNamePrefix: ir
+        partnerNamePrefix: none
+        gender: M
+        emailAddress: mike.wazowski@nedap.com
+        mobilePhone: 0612345678
+        freeField1: Free field 1 description
+        freeField2: Free field 2 description
+        freeField3: Free field 3 description
+        freeField4: Free field 4 description
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
     list.ClientSearchResultList:
       type: object
       properties:
@@ -2252,6 +2181,25 @@ components:
           group: UNGROUPED
       xml:
         name: clientSearchResults
+    ClientObjectId:
+      required:
+      - value
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int64
+      description: id of a Client object
+      example:
+        value: 54321
+    GenderIdentityType:
+      enum:
+      - MALE
+      - FEMALE
+      - NON_BINARY
+      type: string
+      description: 'Predefined type of gender identity. MALE: ''man'', FEMALE: ''vrouw'', NON_BINARY: ''non-binair'''
+      example: NON_BINARY
     Client:
       type: object
       allOf:
@@ -2481,15 +2429,127 @@ components:
         genderIdentityType: NON_BINARY
       xml:
         name: client
-    PronounsType:
-      enum:
-      - SHE_HER
-      - HE_HIS
-      - WHO_THEIR
-      - THEM_THEIRS
-      type: string
-      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
-      example: WHO_THEIR
+    list.ClientList:
+      type: object
+      properties:
+        clients:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Client'
+          xml:
+            name: client
+      description: ClientList model (no description)
+      example:
+        clients:
+        - id: 1
+          firstName: Mike
+          dateOfBirth: '2012-08-02'
+          birthName: Wazowski
+      xml:
+        name: clients
+    CareAllocation:
+      required:
+      - clientId
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        comments:
+          type: string
+        destination:
+          type: string
+          description: 'NVT: N.v.t.
+
+            EIGEN_OMGEVING: Eigen omgeving
+
+            EIGEN_OMGEVING_DAGBEHANDELING: Eigen omgeving met dagbehandeling
+
+            INSTELLING_WLZ: Instelling (WLZ) of ziekenhuis
+
+            INSTELLING_NIET_WLZ: Instelling (niet-WLZ)'
+        reason:
+          type: string
+          description: 'REJECTED: Afgekeurd
+
+            CLASS_CHANGED: Klasse is aangepast
+
+            REVOKE_MUT: Intrekking MUT
+
+            REVOKE_MAZ: Intrekking MAZ
+
+            IN_CARE: N.v.t.
+
+            DISMISS: Ontslag (intramuraal)
+
+            DEATH: Overlijden
+
+            TEMP_GONE: Tijdelijke afwezigheid
+
+            REFUSED_BY_PROVIDER: Aanbieder weigert functie
+
+            REFUSED_BY_CLIENT: Cliënt weigert functie
+
+            RESUME: Onderbroken functie hervat
+
+            END_OF_CARE: Beëindiging zorg
+
+            TRANSFER: Overplaatsing
+
+            END_OF_CARE_CLOSE_FUNCTION: Einde zorg (functies intrekken)
+
+            END_OF_CARE_OPEN_FUNCTION: Einde zorg (functies openlaten)
+
+            TRANSFER_NO_MAZ: Overplaatsing (er is geen Maz)
+
+            REQUEST_CUSTOM_CARE_ORDER: Aanvraag aangepaste zorgtoewijzing
+
+            END_OF_CARE_AFTER_INTAKE: Beëindiging zorg na intake
+
+            DEATH_BY_SUICIDE: Overlijden door suïcide'
+        reasonTemporary:
+          type: string
+          description: 'NVT: N.v.t.
+
+            VAKANTIEVERLOF: Vakantieverlof
+
+            ZIEKENHUISOPNAME: Ziekenhuisopname
+
+            KORTE_VERBLIJFPLAATSING: Korte verblijfplaatsing in WLZ-erkende instelling
+
+            TIJDELIJK_THUIS: Tijdelijk thuis
+
+            PANDEMIE: Pandemie'
+        careProviderId:
+          type: integer
+          description: Care provider id, required when reason is TRANSFER and destination is INSTELLING_WLZ
+          format: int64
+      description: CareAllocation model (no description)
+      example:
+        id: 1
+        clientId: 10
+        beginDate: '2016-01-01'
+        endDate: '2020-01-01'
+        comments: niets te melden
+        destination: EIGEN_OMGEVING
+        reason: IN_CARE
+        reasonTemporary: VAKANTIEVERLOF
+        careProviderId: 42
+      xml:
+        name: careAllocation
     Pronouns:
       type: object
       properties:
@@ -2504,149 +2564,133 @@ components:
         description: die/diens
       deprecated: true
       x-deprecated-since: 21-08-2026
-    ClientObjectId:
-      required:
-      - value
-      type: object
-      properties:
-        value:
-          type: integer
-          format: int64
-      description: id of a Client object
-      example:
-        value: 54321
-    ClientSearchResultGroup:
-      type: string
-      oneOf:
-      - title: UNGROUPED
-        enum:
-        - UNGROUPED
-      - title: EXACT
-        enum:
-        - EXACT
-      - title: BEGINNING
-        enum:
-        - BEGINNING
-      - title: WILDCARD
-        enum:
-        - WILDCARD
-      - title: WAITINGLIST
-        enum:
-        - WAITINGLIST
-      - title: OUTOFCARE
-        enum:
-        - OUTOFCARE
-      description: 'The group to which this result belongs.
-
-        This is only set after calling the ''searchGrouped'' API.'
-      example: UNGROUPED
-    Person:
+    ClientSearchResult:
       type: object
       properties:
         id:
-          type:
-          - integer
-          - 'null'
+          type: integer
+          description: the id of this object
           format: int64
           x-cupido-id: true
-        firstName:
-          type: string
-          description: The first name(s) of the person.
-        name:
-          type: string
-          description: 'The client’s full official name.
-
-            Showing the initials or client first name is a setting that care organisations can select.'
         identificationNo:
           type: string
-          description: Human-readable identification number of the person (clientnummer or medewerkernummer).
-        dateOfBirth:
+          description: The client number for this Client; e.g. "234567"
+        name:
           type: string
-          description: The date of birth of the person.
-          format: date
-        preferredNameType:
+          description: The full name of this client; e.g. "Petrus Johannes Paulusma"
+        firstName:
           type: string
-          description: 'Preferred way of writing the name of the person. Possible values:
-
-            0 (birth name)
-
-            1 (partner name)
-
-            2 (birth name - partner name)
-
-            3 (partner name - birth name)'
+          description: This Client's first name; e.g. "Petrus Johannes"
         lastName:
           type: string
-          description: The last name of the person, taking into account the preferredNameType setting.
-        birthName:
+          description: This Client's last name; e.g. "Paulusma"
+        givenName:
           type: string
-          description: The birth name of the person, without prefix.
-        partnerName:
-          type: string
-          description: The last name of the partner of the person, without prefix.
-        initials:
-          type: string
-          description: The initials of the person.
-        prefix:
-          type: string
-          description: The prefix(es) of the last name(s) of the person, taking into account the preferredNameType setting.
-        birthNamePrefix:
-          type: string
-          description: The birth name prefix of the person.
-        partnerNamePrefix:
-          type: string
-          description: The partner name prefix of the person.
+          description: This Client's given name; e.g. "Piet"
         gender:
           type: string
-          description: The gender of the person.
-        emailAddress:
+          description: This Client's gender; can be male, female or unknown
+        pronouns:
           type: string
-          description: The email address of the person, as registered on the personalia screen.
-        mobilePhone:
+          description: 'This Client''s pronouns; e.g. "zij/haar", "hij/zijn" etc. '
+        preferredName:
           type: string
-          description: The phone number of the person, as registered on the personalia screen.
-        freeField1:
+          description: Preferred name of this client. In case a client prefers a different name over the official name; e.g. "Petra Paulusma"
+        dateOfBirth:
           type: string
-          description: Contents of free field 1.
-        freeField2:
+          description: Date of birth, formatted yyyy-mm-dd
+          format: date
+        secretClient:
+          type: boolean
+          description: Boolean for celebrities
+        addressString:
           type: string
-          description: Contents of free field 2.
-        freeField3:
+          description: This Client's address; e.g. "Parallelweg 2, 7141 DC, Groenlo"
+        birthName:
           type: string
-          description: Contents of free field 3.
-        freeField4:
+          description: This Client's surname at birth
+        partnerName:
           type: string
-          description: Contents of free field 4.
-        updatedAt:
+          description: This Client's partner's surname at birth
+        birthNamePrefix:
           type: string
-          format: date-time
-        createdAt:
+          description: This Client's prefix; e.g. "van"
+        partnerNamePrefix:
           type: string
-          format: date-time
-      description: Common attributes for Client and Employee.
+          description: This client's partner's prefix; e.g. "van de"
+        initials:
+          type: string
+          description: This Client's initials; e.g. "PJ"
+        preferredNameType:
+          type: string
+          description: This Client's preferred name type; e.g. "partnerName"
+        group:
+          allOf:
+          - $ref: '#/components/schemas/ClientSearchResultGroup'
+          description: 'The group to which this result belongs.
+
+            This is only set after calling the ''searchGrouped'' API.'
+          default: UNGROUPED
+      description: Search Result after querying OnsAdmin
       example:
         id: 1
-        firstName: Mike
-        name: Dhr Mike Wazowski
-        identificationNo: wazo
-        dateOfBirth: '1982-01-01'
-        preferredNameType: '0'
-        lastName: Wazowski
-        birthName: Wazowski
-        partnerName: none
-        initials: W
-        prefix: ir
-        birthNamePrefix: ir
-        partnerNamePrefix: none
+        identificationNo: '12345'
+        name: Dhr. PJ Paulusma
+        firstName: Pieter Johan
+        lastName: Paulusma
+        givenName: Piet
         gender: M
-        emailAddress: mike.wazowski@nedap.com
-        mobilePhone: 0612345678
-        freeField1: Free field 1 description
-        freeField2: Free field 2 description
-        freeField3: Free field 3 description
-        freeField4: Free field 4 description
-        updatedAt: '2016-01-01T12:00:00.000+01:00'
-        createdAt: '2016-01-01T12:00:00.000+01:00'
+        pronouns: zij/haar
+        preferredName: Petra Paulusma
+        dateOfBirth: '1956-12-31'
+        secretClient: false
+        addressString: Dorpstraat 1, Het Dorp
+        birthName: Paulusma
+        partnerName: none
+        birthNamePrefix: none
+        partnerNamePrefix: none
+        initials: PJ
+        preferredNameType: '0'
+        group: WAITINGLIST
+      xml:
+        name: clientSearchResult
+    PronounsType:
+      enum:
+      - SHE_HER
+      - HE_HIS
+      - WHO_THEIR
+      - THEM_THEIRS
+      type: string
+      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
+      example: WHO_THEIR
+    list.ClientObjectIdList:
+      type: object
+      properties:
+        clientObjectIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientObjectId'
+      description: List of clientObjectIds
+      example:
+        clientObjectIds:
+        - value: 54321
+        - value: 42
+      xml:
+        name: clientObjectIds
+    GenderIdentity:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/GenderIdentityType'
+        description:
+          type: string
+          description: Translated description of the gender identity.
+      description: The usage of this schema is deprecated and has been replaced by GenderIdentityType.
+      example:
+        type: NON_BINARY
+        description: non-binair
+      deprecated: true
+      x-deprecated-since: 21-08-2026
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

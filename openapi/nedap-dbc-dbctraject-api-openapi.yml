@@ -82,7 +82,7 @@ paths:
       tags:
       - dbc.DBCTraject
       summary: Return the specific dbctraject as specified by the id
-      operationId: dbc.DBCTrajectAPI.byId
+      operationId: getV0AdministrationDbcDbcTrajectsById
       parameters:
       - name: id
         in: path
@@ -117,6 +117,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dbc/dbc_trajects/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dbc.DBCTrajectAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dbc/dbc_trajects/by_client/{client_id}:
@@ -124,7 +126,7 @@ paths:
       tags:
       - dbc.DBCTraject
       summary: Return the dbc trajects of a Client corresponding to the given id
-      operationId: dbc.DBCTrajectAPI.byClientId
+      operationId: getV0AdministrationDbcDbcTrajectsByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -142,10 +144,36 @@ paths:
                 $ref: '#/components/schemas/dbc.list.DBCTrajectList'
       x-replacement-for:
       - /t/clients/{client_id}/dbc_trajects
+      x-operation-id-source: normalized
+      x-operation-id-original: dbc.DBCTrajectAPI.byClientId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     dbc.DBCTraject:
       type: object
       allOf:
@@ -208,30 +236,6 @@ components:
         specialistAgbCode: Dummy
       xml:
         name: dbcTraject
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     dbc.list.DBCTrajectList:
       type: object
       properties:

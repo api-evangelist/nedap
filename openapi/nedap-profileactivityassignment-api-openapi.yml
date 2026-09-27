@@ -188,7 +188,7 @@ paths:
       tags:
       - ProfileActivityAssignment
       summary: Return the direct profile activity assignments of an Employee corresponding to…
-      operationId: ProfileActivityAssignmentAPI.directAssignmentsByEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdWeeksheetProfileDirectProfileActivityAssignments
       parameters:
       - name: employee_id
         in: path
@@ -205,6 +205,8 @@ paths:
                 $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
       x-replacement-for:
       - /t/employees/{employee_id}/weeksheet_profile/direct_profile_activity_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ProfileActivityAssignmentAPI.directAssignmentsByEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/weeksheet_profile/indirect_duration_profile_activity_assignments:
@@ -212,7 +214,7 @@ paths:
       tags:
       - ProfileActivityAssignment
       summary: Return the indirect duration profile activity assignments of an Employee…
-      operationId: ProfileActivityAssignmentAPI.indirectDurationAssignmentsByEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdWeeksheetProfileIndirectDurationProfileActivityAssignments
       parameters:
       - name: employee_id
         in: path
@@ -229,6 +231,8 @@ paths:
                 $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
       x-replacement-for:
       - /t/employees/{employee_id}/weeksheet_profile/indirect_duration_profile_activity_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ProfileActivityAssignmentAPI.indirectDurationAssignmentsByEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/weeksheet_profile/indirect_profile_activity_assignments:
@@ -236,7 +240,7 @@ paths:
       tags:
       - ProfileActivityAssignment
       summary: Return the indirect profile activity assignments of an Employee corresponding…
-      operationId: ProfileActivityAssignmentAPI.indirectAssignmentsByEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdWeeksheetProfileIndirectProfileActivityAssignments
       parameters:
       - name: employee_id
         in: path
@@ -253,6 +257,8 @@ paths:
                 $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
       x-replacement-for:
       - /t/employees/{employee_id}/weeksheet_profile/indirect_profile_activity_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ProfileActivityAssignmentAPI.indirectAssignmentsByEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/direct_profile_activity_assignments:
@@ -260,7 +266,7 @@ paths:
       tags:
       - ProfileActivityAssignment
       summary: Return the direct profile activity assignments of an WeeksheetProfile…
-      operationId: ProfileActivityAssignmentAPI.directAssignmentsByWeeksheetProfileId
+      operationId: getV0AdministrationWeeksheetProfilesByWeeksheetProfileIdDirectProfileActivityAssignments
       parameters:
       - name: weeksheet_profile_id
         in: path
@@ -277,6 +283,8 @@ paths:
                 $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
       x-replacement-for:
       - /t/weeksheet_profiles/{weeksheet_profile_id}/direct_profile_activity_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ProfileActivityAssignmentAPI.directAssignmentsByWeeksheetProfileId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/expense_profile_activity_assignments:
@@ -284,7 +292,7 @@ paths:
       tags:
       - ProfileActivityAssignment
       summary: Return the indirect duration profile activity assignments of an…
-      operationId: ProfileActivityAssignmentAPI.expenseAssignmentsByWeeksheetProfileId
+      operationId: getV0AdministrationWeeksheetProfilesByWeeksheetProfileIdExpenseProfileActivityAssignments
       parameters:
       - name: weeksheet_profile_id
         in: path
@@ -301,6 +309,8 @@ paths:
                 $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
       x-replacement-for:
       - /t/weeksheet_profiles/{weeksheet_profile_id}/expense_profile_activity_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ProfileActivityAssignmentAPI.expenseAssignmentsByWeeksheetProfileId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/indirect_duration_profile_activity_assignments:
@@ -308,7 +318,7 @@ paths:
       tags:
       - ProfileActivityAssignment
       summary: Return the indirect duration profile activity assignments of an…
-      operationId: ProfileActivityAssignmentAPI.indirectDurationAssignmentsByWeeksheetProfileId
+      operationId: getV0AdministrationWeeksheetProfilesByWeeksheetProfileIdIndirectDurationProfileActivityAssignments
       parameters:
       - name: weeksheet_profile_id
         in: path
@@ -325,6 +335,8 @@ paths:
                 $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
       x-replacement-for:
       - /t/weeksheet_profiles/{weeksheet_profile_id}/indirect_duration_profile_activity_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ProfileActivityAssignmentAPI.indirectDurationAssignmentsByWeeksheetProfileId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/weeksheet_profiles/{weeksheet_profile_id}/indirect_profile_activity_assignments:
@@ -332,7 +344,7 @@ paths:
       tags:
       - ProfileActivityAssignment
       summary: Return the indirect profile activity assignments of an WeeksheetProfile…
-      operationId: ProfileActivityAssignmentAPI.indirectAssignmentsByWeeksheetProfileId
+      operationId: getV0AdministrationWeeksheetProfilesByWeeksheetProfileIdIndirectProfileActivityAssignments
       parameters:
       - name: weeksheet_profile_id
         in: path
@@ -349,6 +361,8 @@ paths:
                 $ref: '#/components/schemas/list.ProfileActivityAssignmentList'
       x-replacement-for:
       - /t/weeksheet_profiles/{weeksheet_profile_id}/indirect_profile_activity_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ProfileActivityAssignmentAPI.indirectAssignmentsByWeeksheetProfileId
     servers:
     - url: https://api-development.ons.io
 components:
@@ -442,6 +456,76 @@ components:
         splitHourtype: false
       xml:
         name: hourType
+    list.ProfileActivityAssignmentList:
+      type: object
+      properties:
+        profileActivityAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileActivityAssignment'
+      description: ProfileActivityAssignmentList model (no description)
+      example:
+        profileActivityAssignments:
+        - id: 1
+          type: 3
+          mobile: false
+          ioMe: false
+    ProfileActivityAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        type:
+          type: integer
+          format: int32
+          default: 0
+        mobile:
+          type: boolean
+          default: false
+        ioMe:
+          type: boolean
+          default: false
+        hourType:
+          $ref: '#/components/schemas/HourType'
+        expenseType:
+          $ref: '#/components/schemas/expense.ExpenseType'
+      description: The difference hourtypes from the employees weekcard profile (direct, indirect (time), indirect (duration))
+      example:
+        id: 1
+        type: 3
+        mobile: false
+        ioMe: true
+        hourType:
+          id: 1
+          description: Activiteiten begeleiding - patiëntgebonden handelen
+          identificationNo: '194822'
+          activityGroupObjectId: 1
+          externalCode3: '3'
+          active: true
+          payrolling: true
+          direct: true
+          systemDefined: false
+          travelTime: false
+          activityType: Payrolling
+          groupCare: false
+          quantityBased: true
+        expenseType:
+          id: 1
+          name: Kilometers
+          unit: KM
+          inputType: Value
+          format: Float
+          icon: Walk
+          exportCode: KMP
+          exportCodeGreaterThanTen: KMD
+          compensationInCents: 19
+          compensationInCentsGreaterThanTen: 27
+          removed: false
+          travelCalculationEnabled: true
+          beginDate: '1973-12-20T17:00:00.000+01:00'
+          endDate: '2015-12-20T17:00:00.000+01:00'
     expense.ExpenseType:
       type: object
       properties:
@@ -539,76 +623,6 @@ components:
         alternativeToTravelCalc: true
       xml:
         name: expenseType
-    ProfileActivityAssignment:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        type:
-          type: integer
-          format: int32
-          default: 0
-        mobile:
-          type: boolean
-          default: false
-        ioMe:
-          type: boolean
-          default: false
-        hourType:
-          $ref: '#/components/schemas/HourType'
-        expenseType:
-          $ref: '#/components/schemas/expense.ExpenseType'
-      description: The difference hourtypes from the employees weekcard profile (direct, indirect (time), indirect (duration))
-      example:
-        id: 1
-        type: 3
-        mobile: false
-        ioMe: true
-        hourType:
-          id: 1
-          description: Activiteiten begeleiding - patiëntgebonden handelen
-          identificationNo: '194822'
-          activityGroupObjectId: 1
-          externalCode3: '3'
-          active: true
-          payrolling: true
-          direct: true
-          systemDefined: false
-          travelTime: false
-          activityType: Payrolling
-          groupCare: false
-          quantityBased: true
-        expenseType:
-          id: 1
-          name: Kilometers
-          unit: KM
-          inputType: Value
-          format: Float
-          icon: Walk
-          exportCode: KMP
-          exportCodeGreaterThanTen: KMD
-          compensationInCents: 19
-          compensationInCentsGreaterThanTen: 27
-          removed: false
-          travelCalculationEnabled: true
-          beginDate: '1973-12-20T17:00:00.000+01:00'
-          endDate: '2015-12-20T17:00:00.000+01:00'
-    list.ProfileActivityAssignmentList:
-      type: object
-      properties:
-        profileActivityAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileActivityAssignment'
-      description: ProfileActivityAssignmentList model (no description)
-      example:
-        profileActivityAssignments:
-        - id: 1
-          type: 3
-          mobile: false
-          ioMe: false
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

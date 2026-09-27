@@ -41,7 +41,7 @@ paths:
       tags:
       - moves.AvailabilityType
       summary: Return all AvailabilityType models in a streaming manner
-      operationId: moves.AvailabilityTypeAPI.streamAll
+      operationId: getV0XstreamAvailabilityTypesData
       responses:
         '200':
           description: No response was specified
@@ -61,6 +61,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/availability_types/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.AvailabilityTypeAPI.streamAll
     servers:
     - url: https://api-development.ons.io
 components:

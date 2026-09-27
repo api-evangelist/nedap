@@ -301,7 +301,7 @@ paths:
       tags:
       - ExpertiseProfileAssignment
       summary: Return the expertise profile assignments of a Employee corresponding to the…
-      operationId: ExpertiseProfileAssignmentAPI.byEmployeeIdAndDateRange
+      operationId: getV0AdministrationEmployeesByEmployeeIdExpertiseProfileAssignments
       parameters:
       - name: employee_id
         in: path
@@ -328,6 +328,8 @@ paths:
                 $ref: '#/components/schemas/list.ExpertiseProfileAssignmentList'
       x-replacement-for:
       - /t/employees/{employee_id}/expertise_profile_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.byEmployeeIdAndDateRange
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expertise_profile_assignments:
@@ -335,7 +337,7 @@ paths:
       tags:
       - ExpertiseProfileAssignment
       summary: Create new expertise profile assignment for the Employee corresponding to the…
-      operationId: ExpertiseProfileAssignmentAPI.assignExpertiseProfileToEmployee
+      operationId: postV0AdministrationExpertiseProfileAssignments
       parameters:
       - name: employee_id
         in: query
@@ -363,6 +365,8 @@ paths:
           description: Employee or expertise profile not found
       x-replacement-for:
       - /t/expertise_profile_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.assignExpertiseProfileToEmployee
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expertise_profile_assignments/{id}:
@@ -370,7 +374,7 @@ paths:
       tags:
       - ExpertiseProfileAssignment
       summary: Return the expertise profile assignment corresponding to the given id
-      operationId: ExpertiseProfileAssignmentAPI.byId
+      operationId: getV0AdministrationExpertiseProfileAssignmentsById
       parameters:
       - name: id
         in: path
@@ -391,11 +395,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profile_assignments/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.byId
     put:
       tags:
       - ExpertiseProfileAssignment
       summary: Update the expertise profile assignment corresponding to the given id
-      operationId: ExpertiseProfileAssignmentAPI.updateById
+      operationId: putV0AdministrationExpertiseProfileAssignmentsById
       parameters:
       - name: id
         in: path
@@ -421,11 +427,13 @@ paths:
           description: Expertise profile assignment or new expertise profile not found
       x-replacement-for:
       - /t/expertise_profile_assignments/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.updateById
     delete:
       tags:
       - ExpertiseProfileAssignment
       summary: Deletes the expertise profile assignment corresponding to the given id
-      operationId: ExpertiseProfileAssignmentAPI.deleteById
+      operationId: deleteV0AdministrationExpertiseProfileAssignmentsById
       parameters:
       - name: id
         in: path
@@ -441,6 +449,8 @@ paths:
           description: Expertise profile assignment not found
       x-replacement-for:
       - /t/expertise_profile_assignments/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.deleteById
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expertise_profile_assignments/by_employee_ids:
@@ -448,7 +458,7 @@ paths:
       tags:
       - ExpertiseProfileAssignment
       summary: Return all the expertise profile assignments for a list of employees
-      operationId: ExpertiseProfileAssignmentAPI.byEmployeeIds
+      operationId: getV0AdministrationExpertiseProfileAssignmentsByEmployeeIds
       parameters:
       - name: begin_date
         in: query
@@ -483,6 +493,8 @@ paths:
           description: Incorrect request. The list of employee object ids must contain between 1 and 100 elements
       x-replacement-for:
       - /t/expertise_profile_assignments/by_employee_ids
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.byEmployeeIds
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expertise_profile_assignments/multiple:
@@ -490,7 +502,7 @@ paths:
       tags:
       - ExpertiseProfileAssignment
       summary: Method used for requesting multiple ExpertiseProfileAssignment objects using…
-      operationId: ExpertiseProfileAssignmentAPI.multiple
+      operationId: getV0AdministrationExpertiseProfileAssignmentsMultiple
       parameters:
       - name: id
         in: query
@@ -511,6 +523,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profile_assignments/multiple
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.multiple
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/expertise_profile_assignments/data:
@@ -518,7 +532,7 @@ paths:
       tags:
       - ExpertiseProfileAssignment
       summary: Return all ExpertiseProfileAssignment models in a streaming manner
-      operationId: ExpertiseProfileAssignmentAPI.streamAll
+      operationId: getV0XstreamExpertiseProfileAssignmentsData
       responses:
         '200':
           description: No response was specified
@@ -538,6 +552,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profile_assignments/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/expertise_profile_assignments/updates:
@@ -545,7 +561,7 @@ paths:
       tags:
       - ExpertiseProfileAssignment
       summary: Return all ExpertiseProfileAssignment models which where updated since the date…
-      operationId: ExpertiseProfileAssignmentAPI.streamUpdates
+      operationId: getV0XstreamExpertiseProfileAssignmentsUpdates
       parameters:
       - name: since
         in: query
@@ -573,6 +589,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profile_assignments/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAssignmentAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
@@ -605,19 +623,6 @@ components:
         expertiseProfileObjectId: 2
       xml:
         name: expertiseProfileAssignment
-    ExpertiseProfileAssignmentUpdateModel:
-      type: object
-      properties:
-        expertiseProfileObjectId:
-          type: integer
-          format: int64
-        beginDate:
-          type: string
-          format: date-time
-      description: Expertise profile assignment model for creating and modifying.
-      example:
-        expertiseProfileObjectId: 4
-        beginDate: '2012-08-02T13:48:46.836+02:00'
     list.ExpertiseProfileAssignmentList:
       type: object
       properties:
@@ -637,6 +642,19 @@ components:
           expertiseProfileObjectId: 2
       xml:
         name: expertiseProfileAssignments
+    ExpertiseProfileAssignmentUpdateModel:
+      type: object
+      properties:
+        expertiseProfileObjectId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date-time
+      description: Expertise profile assignment model for creating and modifying.
+      example:
+        expertiseProfileObjectId: 4
+        beginDate: '2012-08-02T13:48:46.836+02:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

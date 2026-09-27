@@ -70,7 +70,7 @@ paths:
       - zorgdomein_module.BundleWrapper
       summary: Create a new item using a FHIR R3 bundle wrapped in a json object
       description: The bundle contains a single field `data` that contains serialized JSON. The success response is an BundleWrapper with empty data.
-      operationId: zorgdomein_module.BundleWrapperAPI.createByWrapper
+      operationId: postV0ZorgdomeinModuleCupidoFhirR3BundleWrapper
       requestBody:
         description: BundleWrapper to create
         content:
@@ -117,29 +117,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-replacement-for:
       - /t/zorgdomein_module/cupido/fhir/r3/bundle_wrapper
+      x-operation-id-source: normalized
+      x-operation-id-original: zorgdomein_module.BundleWrapperAPI.createByWrapper
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
     ErrorResponseEntry:
       title: ErrorResponseEntry
       type: object
@@ -166,6 +149,25 @@ components:
       description: BundleWrapper model for transporting HL7 FHIR DSTU3 bundle data to the Zorgdomein module.
       example:
         data: bundlejson
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

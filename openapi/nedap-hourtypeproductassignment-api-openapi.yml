@@ -89,7 +89,7 @@ paths:
       tags:
       - HourTypeProductAssignment
       summary: Returns every HourTypeProductAssignment available
-      operationId: HourTypeProductAssignmentAPI.all
+      operationId: getV0AdministrationHourTypeProductAssignments
       responses:
         '200':
           description: No response was specified
@@ -100,6 +100,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/hour_type_product_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeProductAssignmentAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/hour_type_product_assignments/{id}:
@@ -107,7 +109,7 @@ paths:
       tags:
       - HourTypeProductAssignment
       summary: Returns the HourTypeProductAssignment with the provided id
-      operationId: HourTypeProductAssignmentAPI.byId
+      operationId: getV0AdministrationHourTypeProductAssignmentsById
       parameters:
       - name: id
         in: path
@@ -128,6 +130,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/hour_type_product_assignments/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeProductAssignmentAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/hour_types/{id}/product_assignments:
@@ -135,7 +139,7 @@ paths:
       tags:
       - HourTypeProductAssignment
       summary: Returns the HourTypeProductAssignments assigned to the HourType with the…
-      operationId: HourTypeProductAssignmentAPI.byHourTypeId
+      operationId: getV0AdministrationHourTypesByIdProductAssignments
       parameters:
       - name: id
         in: path
@@ -155,6 +159,8 @@ paths:
           description: Hour type not found
       x-replacement-for:
       - /t/hour_types/{id}/product_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeProductAssignmentAPI.byHourTypeId
     servers:
     - url: https://api-development.ons.io
 components:

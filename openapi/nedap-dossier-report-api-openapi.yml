@@ -1379,7 +1379,7 @@ paths:
       tags:
       - dossier.Report
       summary: Create Report
-      operationId: dossier.ReportAPI.create
+      operationId: postV0AdministrationDossierReports
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -1408,6 +1408,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/reports
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/{id}:
@@ -1415,7 +1417,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return the Report corresponding to the given id
-      operationId: dossier.ReportAPI.byId
+      operationId: getV0AdministrationDossierReportsById
       parameters:
       - name: id
         in: path
@@ -1444,11 +1446,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/reports/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.byId
     put:
       tags:
       - dossier.Report
       summary: Updates the given Report
-      operationId: dossier.ReportAPI.update
+      operationId: putV0AdministrationDossierReportsById
       parameters:
       - name: id
         in: path
@@ -1484,11 +1488,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/reports/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.update
     delete:
       tags:
       - dossier.Report
       summary: Deletes the Report with given id
-      operationId: dossier.ReportAPI.delete
+      operationId: deleteV0AdministrationDossierReportsById
       parameters:
       - name: id
         in: path
@@ -1519,6 +1525,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/reports/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/{report_id}/children:
@@ -1526,7 +1534,7 @@ paths:
       tags:
       - dossier.Report
       summary: Returns all the reactions for a given report
-      operationId: dossier.ReportAPI.childrenByReportId
+      operationId: getV0AdministrationDossierReportsByReportIdChildren
       parameters:
       - name: report_id
         in: path
@@ -1543,6 +1551,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/reports/{report_id}/children
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.childrenByReportId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/by_care_plan_entry_unescaped/{care_plan_entry_id}:
@@ -1550,7 +1560,7 @@ paths:
       tags:
       - dossier.Report
       summary: Returns all reports filtered by care plan entry without applying HTML esaping
-      operationId: dossier.ReportAPI.findByCarePlanEntryUnescaped
+      operationId: getV0AdministrationDossierReportsByCarePlanEntryUnescapedByCarePlanEntryId
       parameters:
       - name: care_plan_entry_id
         in: path
@@ -1587,6 +1597,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/reports/by_care_plan_entry_unescaped/{care_plan_entry_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.findByCarePlanEntryUnescaped
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/by_care_plan_entry/{care_plan_entry_id}:
@@ -1594,7 +1606,7 @@ paths:
       tags:
       - dossier.Report
       summary: Returns all reports filtered by care plan entry with HTML escaping applied to…
-      operationId: dossier.ReportAPI.findByCarePlanEntry
+      operationId: getV0AdministrationDossierReportsByCarePlanEntryByCarePlanEntryId
       parameters:
       - name: care_plan_entry_id
         in: path
@@ -1631,6 +1643,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/reports/by_care_plan_entry/{care_plan_entry_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.findByCarePlanEntry
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/by_date/{valid_from}...{valid_to}:
@@ -1639,7 +1653,7 @@ paths:
       - dossier.Report
       summary: Returns all reports filtered by date
       description: valid_from and valid_to are required query parameters
-      operationId: dossier.ReportAPI.findByDate
+      operationId: getV0AdministrationDossierReportsByDateByValidFrom}{validTo
       parameters:
       - name: client_id
         in: query
@@ -1679,6 +1693,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/reports/by_date
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.findByDate
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/by_demand/{demand_id}:
@@ -1686,7 +1702,7 @@ paths:
       tags:
       - dossier.Report
       summary: Returns all reports filtered by demand id
-      operationId: dossier.ReportAPI.findByDemand
+      operationId: getV0AdministrationDossierReportsByDemandByDemandId
       parameters:
       - name: demand_id
         in: path
@@ -1713,6 +1729,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/reports/by_demand/{demand_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.findByDemand
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/by_episode/{episode_id}:
@@ -1720,7 +1738,7 @@ paths:
       tags:
       - dossier.Report
       summary: Returns all reports filtered by episode id
-      operationId: dossier.ReportAPI.findByEpisode
+      operationId: getV0AdministrationDossierReportsByEpisodeByEpisodeId
       parameters:
       - name: episode_id
         in: path
@@ -1742,6 +1760,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/reports/by_episode/{episode_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.findByEpisode
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/by_report_link/{report_link_id}:
@@ -1749,7 +1769,7 @@ paths:
       tags:
       - dossier.Report
       summary: Returns all reports filtered by report link id
-      operationId: dossier.ReportAPI.findByReportLink
+      operationId: getV0AdministrationDossierReportsByReportLinkByReportLinkId
       parameters:
       - name: report_link_id
         in: path
@@ -1771,6 +1791,8 @@ paths:
                 $ref: '#/components/schemas/dossier.Report'
       x-replacement-for:
       - /t/dossier/reports/by_report_link/{report_link_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.findByReportLink
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/by_restrictive_measure/{restrictive_measure_id}:
@@ -1778,7 +1800,7 @@ paths:
       tags:
       - dossier.Report
       summary: Returns all reports filtered by restrictive measures id
-      operationId: dossier.ReportAPI.findByRestrictiveMeasure
+      operationId: getV0AdministrationDossierReportsByRestrictiveMeasureByRestrictiveMeasureId
       parameters:
       - name: restrictive_measure_id
         in: path
@@ -1800,6 +1822,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/reports/by_restrictive_measure/{restrictive_measure_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.findByRestrictiveMeasure
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/by_uuid/{uuid}:
@@ -1807,7 +1831,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return the Report corresponding to the given uuid
-      operationId: dossier.ReportAPI.byUuid
+      operationId: getV0AdministrationDossierReportsByUuidByUuid
       parameters:
       - name: uuid
         in: path
@@ -1834,6 +1858,8 @@ paths:
           description: Report not found
       x-replacement-for:
       - /t/dossier/reports/by_uuid/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.byUuid
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/last_report_authorizations:
@@ -1841,7 +1867,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return the child Reports of a Report corresponding to the given id
-      operationId: dossier.ReportAPI.lastReportAuthorizationsByClientIdAndEmployeeId
+      operationId: getV0AdministrationDossierReportsLastReportAuthorizations
       parameters:
       - name: client_id
         in: query
@@ -1874,6 +1900,8 @@ paths:
           description: Client and employee are required
       x-replacement-for:
       - /t/dossier/reports/last_report_authorizations
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.lastReportAuthorizationsByClientIdAndEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/search_by_client:
@@ -1881,7 +1909,7 @@ paths:
       tags:
       - dossier.Report
       summary: Searches for Reports for the Client (corresponding to the given id)
-      operationId: dossier.ReportAPI.searchByClient
+      operationId: getV0AdministrationDossierReportsSearchByClient
       parameters:
       - name: client_id
         in: query
@@ -2007,6 +2035,8 @@ paths:
           description: No client ID
       x-replacement-for:
       - /t/dossier/reports/search_by_client
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.searchByClient
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/soap/report:
@@ -2015,7 +2045,7 @@ paths:
       - dossier.Report
       summary: Create a SOAP report where each soap-part (optionally) has it's own…
       description: To make use of the per-soap-part authorization model make sure to fill each of the S-O-A-P parts of a SOAP report and put them in the SoapReportEntries nested in the Report.
-      operationId: dossier.ReportAPI.createSoapReport
+      operationId: postV0AdministrationDossierReportsSoapReport
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -2043,6 +2073,8 @@ paths:
           description: Validation errors
       x-replacement-for:
       - /t/dossier/reports/soap/report
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.createSoapReport
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/reports/soap/report/{id}:
@@ -2051,7 +2083,7 @@ paths:
       - dossier.Report
       summary: Updates a SOAP report where each soap-part (optionally) has it's own…
       description: To make use of the per-soap-part authorization model make sure to fill each of the S-O-A-P parts of a SOAP report and put them in the SoapReportEntries nested in the Report.
-      operationId: dossier.ReportAPI.updateSoapReport
+      operationId: putV0AdministrationDossierReportsSoapReportById
       parameters:
       - name: id
         in: path
@@ -2085,6 +2117,8 @@ paths:
           description: Validation errors
       x-replacement-for:
       - /t/dossier/reports/soap/report/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.updateSoapReport
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/clients/{client_id}/reports:
@@ -2092,7 +2126,7 @@ paths:
       tags:
       - dossier.Report
       summary: Create Report. Authorization is done in dossier controller this points to
-      operationId: dossier.ReportAPI.authorizedCreate
+      operationId: postV0DossierBackChannelAuthorizedClientsByClientIdReports
       parameters:
       - name: client_id
         in: path
@@ -2116,6 +2150,8 @@ paths:
                 $ref: '#/components/schemas/dossier.Report'
       x-replacement-for:
       - /t/dossier/authorized/clients/{client_id}/reports
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.authorizedCreate
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/clients/{client_id}/reports/{report_id}:
@@ -2123,7 +2159,7 @@ paths:
       tags:
       - dossier.Report
       summary: Update Report. Authorization is done in dossier controller this points to
-      operationId: dossier.ReportAPI.authorizedUpdate
+      operationId: putV0DossierBackChannelAuthorizedClientsByClientIdReportsByReportId
       parameters:
       - name: client_id
         in: path
@@ -2154,6 +2190,8 @@ paths:
                 $ref: '#/components/schemas/dossier.Report'
       x-replacement-for:
       - /t/dossier/authorized/clients/{client_id}/reports/{report_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.authorizedUpdate
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/clients/{client_id}/reports/search_by_client:
@@ -2161,7 +2199,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return Reports, filtered by params Authorization is done in dossier controller…
-      operationId: dossier.ReportAPI.authorizedSearchByClient
+      operationId: getV0DossierBackChannelAuthorizedClientsByClientIdReportsSearchByClient
       parameters:
       - name: client_id
         in: path
@@ -2270,6 +2308,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/authorized/clients/{client_id}/reports/search_by_client
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.authorizedSearchByClient
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/clients/{client_id}/reports/search_by_client_with_updated_since:
@@ -2277,7 +2317,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return Reports with updated since option, filtered by params Authorization is…
-      operationId: dossier.ReportAPI.authorizedSearchByClientWithUpdatedSince
+      operationId: getV0DossierBackChannelAuthorizedClientsByClientIdReportsSearchByClientWithUpdatedSince
       parameters:
       - name: client_id
         in: path
@@ -2391,6 +2431,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/authorized/clients/{client_id}/reports/search_by_client_with_updated_since
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.authorizedSearchByClientWithUpdatedSince
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/clients/{client_id}/reports/vital_signs_reports:
@@ -2399,7 +2441,7 @@ paths:
       - dossier.Report
       summary: Lists vital signs from reports
       description: Lists systolic, diastolic, pulse, saturation and temperature values from reports and It requires `DossierReportsModify` rights for the given client.
-      operationId: dossier.ReportAPI.vitalSignsReports
+      operationId: getV0DossierBackChannelAuthorizedClientsByClientIdReportsVitalSignsReports
       parameters:
       - name: client_id
         in: path
@@ -2418,6 +2460,8 @@ paths:
                 $ref: '#/components/schemas/dossier.ReportVitalSignList'
       x-replacement-for:
       - /t/dossier/clients/{client_id}/reports/vital_signs_reports
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.vitalSignsReports
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/reports/with_actions:
@@ -2425,7 +2469,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return reports that have actions created by user or for user's expertise
-      operationId: dossier.ReportAPI.withActions
+      operationId: getV0DossierBackChannelAuthorizedReportsWithActions
       parameters:
       - name: my_actions
         in: query
@@ -2470,6 +2514,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/authorized/reports/with_actions
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.withActions
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/reports/with_actions_summary:
@@ -2477,7 +2523,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return a count of reports that have actions created by user or for user's…
-      operationId: dossier.ReportAPI.withActionsSummary
+      operationId: getV0DossierBackChannelAuthorizedReportsWithActionsSummary
       parameters:
       - name: location_id
         in: query
@@ -2516,6 +2562,8 @@ paths:
                 $ref: '#/components/schemas/dossier.ReportsWithActionsSummary'
       x-replacement-for:
       - /t/dossier/authorized/reports/with_actions_summary
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.withActionsSummary
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/unauthorized/clients/{client_id}/reports/unfiltered_search_by_client:
@@ -2523,7 +2571,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return Reports Unfiltered, filtered by params Authorization is done in dossier…
-      operationId: dossier.ReportAPI.authorizedUnfilteredSearchByClient
+      operationId: getV0DossierBackChannelUnauthorizedClientsByClientIdReportsUnfilteredSearchByClient
       parameters:
       - name: client_id
         in: path
@@ -2632,6 +2680,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportList'
       x-replacement-for:
       - /t/dossier/authorized/clients/{client_id}/reports/unfiltered_search_by_client
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.authorizedUnfilteredSearchByClient
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/unauthorized/reports/by_next_dossier_report_link/{report_link_id}:
@@ -2639,7 +2689,7 @@ paths:
       tags:
       - dossier.Report
       summary: Returns report by next dossier report link
-      operationId: dossier.ReportAPI.findByNextDossierReportLink
+      operationId: getV0DossierBackChannelUnauthorizedReportsByNextDossierReportLinkByReportLinkId
       parameters:
       - name: report_link_id
         in: path
@@ -2656,6 +2706,8 @@ paths:
                 $ref: '#/components/schemas/dossier.Report'
       x-replacement-for:
       - /t/dossier/reports/by_next_dossier_report_link/{report_link_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.findByNextDossierReportLink
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/reports/data:
@@ -2663,7 +2715,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return all Report models in a streaming manner
-      operationId: dossier.ReportAPI.streamAll
+      operationId: getV0XstreamReportsData
       responses:
         '200':
           description: No response was specified
@@ -2683,6 +2735,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/reports/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/reports/updates:
@@ -2690,7 +2744,7 @@ paths:
       tags:
       - dossier.Report
       summary: Return all Report models which were updated since the date given in the request
-      operationId: dossier.ReportAPI.streamUpdates
+      operationId: getV0XstreamReportsUpdates
       parameters:
       - name: since
         in: query
@@ -2718,42 +2772,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/reports/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.ReportLinkType:
-      enum:
-      - NEXT_DOSSIER
-      type: string
-      description: ReportLinkType enum (no description)
-      example: NEXT_DOSSIER
-    dossier.ReportAuthorization:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        carePlanId:
-          type: integer
-          description: 'Deprecated since: 14-03-2019'
-          format: int64
-          deprecated: true
-        expertiseProfileId:
-          type: integer
-          format: int64
-        expertiseGroupObjectId:
-          type: integer
-          format: int64
-      description: "Only present when dossier.Report.confidential == true, then:\n- In the case of SOEP-reports (reportType 315), contains all disciplines that can see any of the \nSOEP-report's reportEntries. Which discipline can see which entry is defined on the reportEntries themselves.\n- For other reports, contains which discipline can see the report."
-      example:
-        id: 1
-        carePlanId: 1
-        expertiseProfileId: 1
-        expertiseGroupObjectId: 1
-      xml:
-        name: reportAuthorization
     AuditedBase:
       title: AuditedBase
       type: object
@@ -2778,71 +2802,151 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    dossier.list.ReportAuthorizationList:
+    dossier.ReportsWithActionsSummary:
       type: object
       properties:
-        reportAuthorizations:
+        actionsForUser:
+          type: integer
+          format: int64
+        actionsByUser:
+          type: integer
+          format: int64
+      description: ReportsWithActionsSummary model (no description)
+      example:
+        actionsForUser: 42
+        actionsByUser: 87
+    dossier.SoapReportEntry:
+      type: object
+      properties:
+        soapPart:
+          type: string
+        confidential:
+          type: boolean
+          description: When this is true this SOAP entry is shown regardless of the attached rights
+          default: false
+        content:
+          type: string
+        expertiseProfileIds:
           type: array
           items:
-            $ref: '#/components/schemas/dossier.ReportAuthorization'
+            type: integer
+            format: int64
+            xml:
+              name: expertiseProfileId
           xml:
-            name: reportAuthorization
-      description: ReportAuthorizationList model (no description)
+            wrapped: true
+        expertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseGroupId
+          xml:
+            wrapped: true
+      description: SoapReportEntry model (no description)
       example:
-        reportAuthorizations:
-        - id: 1
-          expertiseProfileId: 1
-          expertiseGroupObjectId: 2
-        - id: 2
-          expertiseProfileId: 2
-          expertiseGroupObjectId: 1
+        soapPart: Subjective
+        confidential: true
+        content: Text about the subjective experiences of the client
+        expertiseProfileIds:
+        - 1
+        - 2
+        - 3
+        expertiseGroupIds:
+        - 4
+        - 5
+        - 6
       xml:
-        name: reportAuthorizations
-    dossier.ReportEntry:
+        name: soapReportEntry
+    dossier.ReportVitalSignList:
+      title: VitalSignsReports
       type: object
       properties:
-        name:
-          type: string
-          description: 'Explicitly supported values for well-known report types are:
-
-            - decimalValue
-
-            - systolicPressure
-
-            - diastolicPressure
-
-            - heartRate
-
-            - weight
-
-            - size
-
-            - bmi
-
-            - subjective
-
-            - objective
-
-            - assessment
-
-            - plan'
-        value:
-          type: string
-        format:
-          type: string
-        unit:
-          type: string
-        displayName:
-          type: string
-      description: ReportEntry model (no description)
+        systolic:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        diastolic:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        pulse:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        temperature:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        saturation:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+      description: List of vital signs
       example:
-        name: systolicPressure
-        value: '120'
-        format: '%.1f'
-        unit: mm[Hg]
-        displayName: Systolic pressure
+        systolic:
+          id: systolic_blood_pressure
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: mm[Hg]
+          type: Systolisch
+          value: '55'
+        diastolic:
+          id: diastolic_blood_pressure
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: mm[Hg]
+          type: Diastolisch
+          value: '55'
+        pulse:
+          id: pulse
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: /min
+          type: Frequentie
+          value: '55'
+        temperature:
+          id: body_temperature
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: Cek
+          type: Temperatuur
+          value: '55'
+        saturation:
+          id: body_saturation
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: '%'
+          type: Saturatie
+          value: '55'
+    dossier.list.ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Report'
+          xml:
+            name: report
+      description: ReportList model (no description)
+      example:
+        reports:
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 1
+          reportingDate: '2014-04-01T17:00:00.000+02:00'
+          comment: Goed geplast
+          flagged: true
+          confidential: false
+          hidden: false
+          parentType: careplanreport
+          carenId: 10
+          carenName: Foeken
+          carenRole: Mantelzorger
+          status: 1
+          reportTypeId: 101
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 2
+          reportingDate: '2014-04-01T17:00:00.000+02:00'
+          comment: Goed geplast
+          flagged: true
+          confidential: false
+          hidden: false
+          parentType: careplanreport
+          carenId: 10
+          carenName: Foeken
+          carenRole: Mantelzorger
+          status: 1
+          reportTypeId: 101
       xml:
-        name: reportEntry
+        name: reports
     dossier.ReportAction:
       type: object
       allOf:
@@ -2901,19 +3005,6 @@ components:
         unit: mm[Hg]
         type: Systolisch
         value: '55'
-    dossier.ReportsWithActionsSummary:
-      type: object
-      properties:
-        actionsForUser:
-          type: integer
-          format: int64
-        actionsByUser:
-          type: integer
-          format: int64
-      description: ReportsWithActionsSummary model (no description)
-      example:
-        actionsForUser: 42
-        actionsByUser: 87
     dossier.ReportFilter:
       type: string
       oneOf:
@@ -2931,6 +3022,83 @@ components:
         - with_created_actions
       description: ReportFilter model (no description)
       example: all
+    ExpertiseProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        visible:
+          type: boolean
+        beginDate:
+          type: string
+          description: 'Deprecated since: 2024-05-14, unused, always empty'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 14-05-2024
+        endDate:
+          type: string
+          description: 'Deprecated since: 2024-05-14, unused, always empty'
+          format: date-time
+          deprecated: true
+          x-deprecated-since: 14-05-2024
+        allowDossierActions:
+          type: boolean
+        allowDossierConfidential:
+          type: boolean
+        hourTypeIds:
+          type: array
+          items:
+            type: integer
+            description: List of Ids of {@link HourType}s assigned to this expertise profile
+            format: int64
+            xml:
+              name: hourTypeId
+          description: List of Ids of {@link HourType}s assigned to this expertise profile
+          xml:
+            wrapped: true
+      description: Model is used to check to see if a person can be connected to a certain {@link HourType}.
+      example:
+        id: 5
+        description: Helpenden
+        visible: true
+        beginDate: '2015-01-01T12:00:00.000+01:00'
+        endDate: '2020-01-01T12:00:00.000+01:00'
+        allowDossierActions: true
+        allowDossierConfidential: false
+        hourTypeIds:
+        - 1
+        - 2
+        - 3
+    dossier.ReportLinkType:
+      enum:
+      - NEXT_DOSSIER
+      type: string
+      description: ReportLinkType enum (no description)
+      example: NEXT_DOSSIER
+    dossier.list.ReportAuthorizationList:
+      type: object
+      properties:
+        reportAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorization'
+          xml:
+            name: reportAuthorization
+      description: ReportAuthorizationList model (no description)
+      example:
+        reportAuthorizations:
+        - id: 1
+          expertiseProfileId: 1
+          expertiseGroupObjectId: 2
+        - id: 2
+          expertiseProfileId: 2
+          expertiseGroupObjectId: 1
+      xml:
+        name: reportAuthorizations
     dossier.Report:
       required:
       - reportTypeId
@@ -3153,189 +3321,77 @@ components:
         reportLinkType: NEXT_DOSSIER
       xml:
         name: report
-    dossier.list.ReportList:
-      type: object
-      properties:
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Report'
-          xml:
-            name: report
-      description: ReportList model (no description)
-      example:
-        reports:
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 1
-          reportingDate: '2014-04-01T17:00:00.000+02:00'
-          comment: Goed geplast
-          flagged: true
-          confidential: false
-          hidden: false
-          parentType: careplanreport
-          carenId: 10
-          carenName: Foeken
-          carenRole: Mantelzorger
-          status: 1
-          reportTypeId: 101
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 2
-          reportingDate: '2014-04-01T17:00:00.000+02:00'
-          comment: Goed geplast
-          flagged: true
-          confidential: false
-          hidden: false
-          parentType: careplanreport
-          carenId: 10
-          carenName: Foeken
-          carenRole: Mantelzorger
-          status: 1
-          reportTypeId: 101
-      xml:
-        name: reports
-    dossier.SoapReportEntry:
-      type: object
-      properties:
-        soapPart:
-          type: string
-        confidential:
-          type: boolean
-          description: When this is true this SOAP entry is shown regardless of the attached rights
-          default: false
-        content:
-          type: string
-        expertiseProfileIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-            xml:
-              name: expertiseProfileId
-          xml:
-            wrapped: true
-        expertiseGroupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-            xml:
-              name: expertiseGroupId
-          xml:
-            wrapped: true
-      description: SoapReportEntry model (no description)
-      example:
-        soapPart: Subjective
-        confidential: true
-        content: Text about the subjective experiences of the client
-        expertiseProfileIds:
-        - 1
-        - 2
-        - 3
-        expertiseGroupIds:
-        - 4
-        - 5
-        - 6
-      xml:
-        name: soapReportEntry
-    dossier.ReportVitalSignList:
-      title: VitalSignsReports
-      type: object
-      properties:
-        systolic:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-        diastolic:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-        pulse:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-        temperature:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-        saturation:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-      description: List of vital signs
-      example:
-        systolic:
-          id: systolic_blood_pressure
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: mm[Hg]
-          type: Systolisch
-          value: '55'
-        diastolic:
-          id: diastolic_blood_pressure
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: mm[Hg]
-          type: Diastolisch
-          value: '55'
-        pulse:
-          id: pulse
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: /min
-          type: Frequentie
-          value: '55'
-        temperature:
-          id: body_temperature
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: Cek
-          type: Temperatuur
-          value: '55'
-        saturation:
-          id: body_saturation
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: '%'
-          type: Saturatie
-          value: '55'
-    ExpertiseProfile:
+    dossier.ReportAuthorization:
       type: object
       properties:
         id:
           type: integer
           format: int64
           x-cupido-id: true
-        description:
-          type: string
-        visible:
-          type: boolean
-        beginDate:
-          type: string
-          description: 'Deprecated since: 2024-05-14, unused, always empty'
-          format: date-time
+        carePlanId:
+          type: integer
+          description: 'Deprecated since: 14-03-2019'
+          format: int64
           deprecated: true
-          x-deprecated-since: 14-05-2024
-        endDate:
-          type: string
-          description: 'Deprecated since: 2024-05-14, unused, always empty'
-          format: date-time
-          deprecated: true
-          x-deprecated-since: 14-05-2024
-        allowDossierActions:
-          type: boolean
-        allowDossierConfidential:
-          type: boolean
-        hourTypeIds:
-          type: array
-          items:
-            type: integer
-            description: List of Ids of {@link HourType}s assigned to this expertise profile
-            format: int64
-            xml:
-              name: hourTypeId
-          description: List of Ids of {@link HourType}s assigned to this expertise profile
-          xml:
-            wrapped: true
-      description: Model is used to check to see if a person can be connected to a certain {@link HourType}.
+        expertiseProfileId:
+          type: integer
+          format: int64
+        expertiseGroupObjectId:
+          type: integer
+          format: int64
+      description: "Only present when dossier.Report.confidential == true, then:\n- In the case of SOEP-reports (reportType 315), contains all disciplines that can see any of the \nSOEP-report's reportEntries. Which discipline can see which entry is defined on the reportEntries themselves.\n- For other reports, contains which discipline can see the report."
       example:
-        id: 5
-        description: Helpenden
-        visible: true
-        beginDate: '2015-01-01T12:00:00.000+01:00'
-        endDate: '2020-01-01T12:00:00.000+01:00'
-        allowDossierActions: true
-        allowDossierConfidential: false
-        hourTypeIds:
-        - 1
-        - 2
-        - 3
+        id: 1
+        carePlanId: 1
+        expertiseProfileId: 1
+        expertiseGroupObjectId: 1
+      xml:
+        name: reportAuthorization
+    dossier.ReportEntry:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Explicitly supported values for well-known report types are:
+
+            - decimalValue
+
+            - systolicPressure
+
+            - diastolicPressure
+
+            - heartRate
+
+            - weight
+
+            - size
+
+            - bmi
+
+            - subjective
+
+            - objective
+
+            - assessment
+
+            - plan'
+        value:
+          type: string
+        format:
+          type: string
+        unit:
+          type: string
+        displayName:
+          type: string
+      description: ReportEntry model (no description)
+      example:
+        name: systolicPressure
+        value: '120'
+        format: '%.1f'
+        unit: mm[Hg]
+        displayName: Systolic pressure
+      xml:
+        name: reportEntry
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

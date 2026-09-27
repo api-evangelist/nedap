@@ -78,7 +78,7 @@ paths:
       tags:
       - ClientsInCare
       summary: Return the clients in and out of care in a certain period
-      operationId: ClientsInCareAPI.allInPeriod
+      operationId: getV0AdministrationClientsInCare
       parameters:
       - name: valid_from
         in: query
@@ -101,6 +101,8 @@ paths:
                 $ref: '#/components/schemas/ClientsInCare'
       x-replacement-for:
       - /t/clients_in_care
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientsInCareAPI.allInPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients_in_care/old_method:
@@ -111,7 +113,7 @@ paths:
       description: 'Has a less specific way of determining active clients
 
         Return the clients in and out of care in a certain period'
-      operationId: ClientsInCareAPI.allInPeriodOldMethod
+      operationId: getV0AdministrationClientsInCareOldMethod
       parameters:
       - name: valid_from
         in: query
@@ -136,6 +138,8 @@ paths:
       x-deprecated-since: 04-11-2020
       x-replacement-for:
       - /t/clients_in_care/old_method
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientsInCareAPI.allInPeriodOldMethod
     servers:
     - url: https://api-development.ons.io
 components:

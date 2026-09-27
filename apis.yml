@@ -14,6 +14,22 @@ description: Nedap N.V. is a Dutch technology company founded in 1929 and listed
   gated on a client TLS certificate signed by Nedap's own CA and issued through the Ons API Dashboard,
   so the specifications are public while the runtime is not.
 url: https://raw.githubusercontent.com/api-evangelist/nedap/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - nedap/retail-services-api
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 image: https://stream.nedap.com/57pq0bsyu489/w_1200,ex_0,ey_247,ew_1200,eh_628/nedap-logo-avatar-blue-at-2x.jpg
 x-type: company
 x-source: harvest:openehr-coalition

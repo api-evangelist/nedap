@@ -143,7 +143,7 @@ paths:
       tags:
       - dossier.medical.PropensityToAdverseReaction
       summary: Returns allergies of the given client corresponding to the given id
-      operationId: dossier.medical.PropensityToAdverseReactionAPI.byClientId
+      operationId: getV0DossierBackChannelAuthorizedClientsByClientIdMedicalPropensitiesToAdverseReaction
       parameters:
       - name: client_id
         in: path
@@ -161,6 +161,8 @@ paths:
                 $ref: '#/components/schemas/dossier.medical.list.PropensityToAdverseReactionList'
       x-replacement-for:
       - /t/clients/{client_id}/medical/propensities_to_adverse_reaction
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.PropensityToAdverseReactionAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/medical/propensities_to_adverse_reaction:
@@ -168,7 +170,7 @@ paths:
       tags:
       - dossier.medical.PropensityToAdverseReaction
       summary: Creates allergy or propensity to adverse reaction of the given client
-      operationId: dossier.medical.PropensityToAdverseReactionAPI.create
+      operationId: postV0DossierBackChannelAuthorizedMedicalPropensitiesToAdverseReaction
       requestBody:
         description: Allergy or propensity to adverse reaction to create
         content:
@@ -186,6 +188,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/propensities_to_adverse_reaction
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.PropensityToAdverseReactionAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/medical/propensities_to_adverse_reaction/{id}:
@@ -193,7 +197,7 @@ paths:
       tags:
       - dossier.medical.PropensityToAdverseReaction
       summary: Returns allergy of the given client corresponding to the given id
-      operationId: dossier.medical.PropensityToAdverseReactionAPI.byId
+      operationId: getV0DossierBackChannelAuthorizedMedicalPropensitiesToAdverseReactionById
       parameters:
       - name: id
         in: path
@@ -212,11 +216,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/propensities_to_adverse_reaction/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.PropensityToAdverseReactionAPI.byId
     put:
       tags:
       - dossier.medical.PropensityToAdverseReaction
       summary: Updates allergy or propensity to adverse reaction of the given client
-      operationId: dossier.medical.PropensityToAdverseReactionAPI.update
+      operationId: putV0DossierBackChannelAuthorizedMedicalPropensitiesToAdverseReactionById
       parameters:
       - name: id
         in: path
@@ -242,11 +248,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/propensities_to_adverse_reaction/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.PropensityToAdverseReactionAPI.update
     delete:
       tags:
       - dossier.medical.PropensityToAdverseReaction
       summary: Deletes allergy of the given client corresponding to the given id
-      operationId: dossier.medical.PropensityToAdverseReactionAPI.delete
+      operationId: deleteV0DossierBackChannelAuthorizedMedicalPropensitiesToAdverseReactionById
       parameters:
       - name: id
         in: path
@@ -261,33 +269,28 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/propensities_to_adverse_reaction/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.PropensityToAdverseReactionAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.Encoding:
+    dossier.medical.encoded_concepts.CausativeAgent:
       type: object
       properties:
-        code:
+        name:
           type: string
-        codeSystem:
-          type: string
-        displayName:
-          type: string
-          description: The display name (or title) corresponding to the code in its code system
-      description: Encoding
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Encoding'
+      description: CausativeAgent model (no description)
       example:
-        code: E10
-        codeSystem: ICD-10
-        displayName: Type 1-diabetes
-    dossier.FeederAuditTransferType:
-      enum:
-      - eoverdracht_nursing
-      - anw
-      - other
-      type: string
-      description: Type of the transfer containing this content (a.k.a. the use case)
-      example: eoverdracht_nursing
+        name: Aardbeien
+        encodings:
+        - code: '102261002'
+          codeSystem: SNOMED CT
+          displayName: strawberry
     dossier.medical.PropensityToAdverseReaction:
       type: object
       allOf:
@@ -384,6 +387,58 @@ components:
         feederAuditSenderName: Some care organisation
         feederAuditTransferType: eoverdracht_nursing
         immutable: true
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
+    dossier.FeederAuditTransferType:
+      enum:
+      - eoverdracht_nursing
+      - anw
+      - other
+      type: string
+      description: Type of the transfer containing this content (a.k.a. the use case)
+      example: eoverdracht_nursing
+    dossier.snomed.ClinicalFinding:
+      enum:
+      - allergy
+      - adverse_reaction
+      type: string
+      description: ClinicalFinding enum (no description)
+      example: allergy
+    dossier.medical.CauseBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      description: CauseBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 256259004 | pollen |
+        name: Pollen
     dossier.medical.MedicalBase:
       type: object
       properties:
@@ -431,13 +486,28 @@ components:
         updatedById: 1
         createdAt: '2014-11-10T00:00:00.000+01:00'
         updatedAt: '2014-11-10T00:00:00.000+01:00'
-    dossier.snomed.ClinicalFinding:
+    dossier.Encoding:
+      type: object
+      properties:
+        code:
+          type: string
+        codeSystem:
+          type: string
+        displayName:
+          type: string
+          description: The display name (or title) corresponding to the code in its code system
+      description: Encoding
+      example:
+        code: E10
+        codeSystem: ICD-10
+        displayName: Type 1-diabetes
+    dossier.FeederAuditContentStoreType:
       enum:
-      - allergy
-      - adverse_reaction
+      - ons_ketenverkeer
+      - other
       type: string
-      description: ClinicalFinding enum (no description)
-      example: allergy
+      description: Identifier of the content store that is providing this content
+      example: ons_ketenverkeer
     dossier.medical.list.PropensityToAdverseReactionList:
       type: object
       properties:
@@ -483,66 +553,6 @@ components:
           immutable: true
       xml:
         name: propensityToAdverseReactions
-    dossier.medical.RelationshipBuilder:
-      type: object
-      properties:
-        system:
-          type:
-          - string
-          - 'null'
-          description: 'Which code system this builder should query
-
-            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
-        query:
-          type:
-          - string
-          - 'null'
-          description: 'Query used to build the correct concept within the given code system.
-
-            Will use the first concept within the code system that matches the query,
-
-            for the best results your query should be as close as possible to a complete code from the system'
-        name:
-          type:
-          - string
-          - 'null'
-      description: RelationshipBuilder model (no description)
-      example:
-        system: Dummy
-        query: Dummy
-        name: Dummy
-    dossier.FeederAuditContentStoreType:
-      enum:
-      - ons_ketenverkeer
-      - other
-      type: string
-      description: Identifier of the content store that is providing this content
-      example: ons_ketenverkeer
-    dossier.medical.CauseBuilder:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
-      description: CauseBuilder model (no description)
-      example:
-        system: SNOMED
-        query: 256259004 | pollen |
-        name: Pollen
-    dossier.medical.encoded_concepts.CausativeAgent:
-      type: object
-      properties:
-        name:
-          type: string
-        encodings:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Encoding'
-      description: CausativeAgent model (no description)
-      example:
-        name: Aardbeien
-        encodings:
-        - code: '102261002'
-          codeSystem: SNOMED CT
-          displayName: strawberry
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

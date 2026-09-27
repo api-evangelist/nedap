@@ -213,7 +213,7 @@ paths:
         This method is not actually used, but just a decoy to fool openapi2 into
 
         generating the correct doc for create(Long, MultimediaFile, String, InputStream)'
-      operationId: openehr.MultimediaFileAPI.create
+      operationId: postV0OpenehrDossierBackChannelUnauthorizedMultimediaFiles
       requestBody:
         content:
           multipart/form-data:
@@ -230,6 +230,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/openehr/multimedia_files
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.MultimediaFileAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}:
@@ -237,7 +239,7 @@ paths:
       tags:
       - openehr.MultimediaFile
       summary: Finds a MultimediaFile metadata
-      operationId: openehr.MultimediaFileAPI.byId
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedMultimediaFilesById
       parameters:
       - name: id
         in: path
@@ -258,6 +260,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/openehr/multimedia_files/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.MultimediaFileAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}/download:
@@ -265,7 +269,7 @@ paths:
       tags:
       - openehr.MultimediaFile
       summary: Returns a stream of bytes representing the file related to this MultimediaFile…
-      operationId: openehr.MultimediaFileAPI.download
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedMultimediaFilesByIdDownload
       parameters:
       - name: id
         in: path
@@ -290,6 +294,8 @@ paths:
           description: When the multimedia file does not exist
       x-replacement-for:
       - /t/openehr/multimedia_files/{id}/download
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.MultimediaFileAPI.download
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/multimedia_files/{id}/thumbnail:
@@ -297,7 +303,7 @@ paths:
       tags:
       - openehr.MultimediaFile
       summary: Returns a stream of bytes representing the thumbnail with specified scale…
-      operationId: openehr.MultimediaFileAPI.thumbnail
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedMultimediaFilesByIdThumbnail
       parameters:
       - name: id
         in: path
@@ -324,10 +330,36 @@ paths:
           description: When the multimedia file does not exist
       x-replacement-for:
       - /t/openehr/multimedia_files/{id}/thumbnail
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.MultimediaFileAPI.thumbnail
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     openehr.MultimediaFileCreateRequest:
       required:
       - metadata
@@ -404,30 +436,6 @@ components:
         clientId: 3
         committerEmployeeId: 4
         mediaType: image/jpeg
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     openehr.Scale:
       enum:
       - SMALL

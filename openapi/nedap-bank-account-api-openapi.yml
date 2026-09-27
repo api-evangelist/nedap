@@ -102,7 +102,7 @@ paths:
       tags:
       - Bank Account
       summary: Return the BankAccount of a client based on the clientId
-      operationId: BankAccountAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdBankAccount
       parameters:
       - name: client_id
         in: path
@@ -119,6 +119,8 @@ paths:
                 $ref: '#/components/schemas/BankAccount'
       x-replacement-for:
       - /t/clients/{client_id}/bank_account
+      x-operation-id-source: normalized
+      x-operation-id-original: BankAccountAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/bank_accounts/data:
@@ -126,7 +128,7 @@ paths:
       tags:
       - Bank Account
       summary: Return all BankAccount models in a streaming manner
-      operationId: BankAccountAPI.streamAll
+      operationId: getV0XstreamBankAccountsData
       responses:
         '200':
           description: No response was specified
@@ -146,6 +148,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/bank_accounts/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: BankAccountAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/bank_accounts/updates:
@@ -153,7 +157,7 @@ paths:
       tags:
       - Bank Account
       summary: Return all BankAccount models which where updated since the date given in the…
-      operationId: BankAccountAPI.streamUpdates
+      operationId: getV0XstreamBankAccountsUpdates
       parameters:
       - name: since
         in: query
@@ -181,10 +185,46 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/bank_accounts/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: BankAccountAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.BankAccountList:
+      type: object
+      properties:
+        bankAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankAccount'
+          xml:
+            name: bankAccount
+      description: BankAccountList model (no description)
+      example:
+        bankAccounts:
+        - id: 1
+          number: NL27TRIO0207182531
+          nameOfOwner: Pietje puk
+          cityOfOwner: Lutjebroek
+          iban: Dummy
+          bic: Dummy
+          creditBankAccount: false
+          authorizationDate: '2016-01-01'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+        - id: 2
+          number: NL27TRIO0207182532
+          nameOfOwner: Pietje pok
+          cityOfOwner: Lutjebroek
+          iban: Dummy
+          bic: Dummy
+          creditBankAccount: false
+          authorizationDate: '2016-01-01'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccounts
     BankAccount:
       type: object
       properties:
@@ -227,40 +267,6 @@ components:
         updatedAt: '2016-01-01T12:00:00.000+01:00'
       xml:
         name: bankAccount
-    list.BankAccountList:
-      type: object
-      properties:
-        bankAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BankAccount'
-          xml:
-            name: bankAccount
-      description: BankAccountList model (no description)
-      example:
-        bankAccounts:
-        - id: 1
-          number: NL27TRIO0207182531
-          nameOfOwner: Pietje puk
-          cityOfOwner: Lutjebroek
-          iban: Dummy
-          bic: Dummy
-          creditBankAccount: false
-          authorizationDate: '2016-01-01'
-          createdAt: '2016-01-01T12:00:00.000+01:00'
-          updatedAt: '2016-01-01T12:00:00.000+01:00'
-        - id: 2
-          number: NL27TRIO0207182532
-          nameOfOwner: Pietje pok
-          cityOfOwner: Lutjebroek
-          iban: Dummy
-          bic: Dummy
-          creditBankAccount: false
-          authorizationDate: '2016-01-01'
-          createdAt: '2016-01-01T12:00:00.000+01:00'
-          updatedAt: '2016-01-01T12:00:00.000+01:00'
-      xml:
-        name: bankAccounts
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

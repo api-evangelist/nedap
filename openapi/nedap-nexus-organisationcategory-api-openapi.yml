@@ -73,7 +73,7 @@ paths:
       tags:
       - nexus.OrganisationCategory
       summary: Returns every OrganisationCategory available from the OrganisationCategoryAPI
-      operationId: nexus.OrganisationCategoryAPI.all
+      operationId: getV0OnsNexusOrganisationCategories
       parameters:
       - name: offset
         in: query
@@ -97,13 +97,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/nexus/organisation_categories
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.OrganisationCategoryAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/ons_nexus/organisation_categories/{id}:
     get:
       tags:
       - nexus.OrganisationCategory
-      operationId: nexus.OrganisationCategoryAPI.byId
+      operationId: getV0OnsNexusOrganisationCategoriesById
       parameters:
       - name: id
         in: path
@@ -124,10 +126,36 @@ paths:
       - /t/nexus/organisation_categories/{id}
       summary: Nexus organisation category API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.OrganisationCategoryAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     nexus.OrganisationCategory:
       type: object
       allOf:
@@ -178,30 +206,6 @@ components:
           name: Dentists
           azr: false
           reference: 1
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -98,7 +98,7 @@ paths:
       tags:
       - moves.Team
       summary: Return all Teams used for planning and rostering ( also known as a unit ).
-      operationId: moves.TeamAPI.all
+      operationId: getV0PlannenRoosterenUnits
       responses:
         '200':
           description: Success
@@ -109,6 +109,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/units
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.TeamAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/plannen_roosteren/units/{unit_id}:
@@ -116,7 +118,7 @@ paths:
       tags:
       - moves.Team
       summary: Return the team used for planning and rostering (also known as a unit) for the…
-      operationId: moves.TeamAPI.byId
+      operationId: getV0PlannenRoosterenUnitsByUnitId
       parameters:
       - name: unit_id
         in: path
@@ -135,6 +137,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/units/{unit_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.TeamAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/plannen_roosteren/units/{unit_id}/clients:
@@ -142,7 +146,7 @@ paths:
       tags:
       - moves.Team
       summary: Return a list of relevant clients for the team, for given start and end date
-      operationId: moves.TeamAPI.relevantClientsByUnitId
+      operationId: getV0PlannenRoosterenUnitsByUnitIdClients
       parameters:
       - name: unit_id
         in: path
@@ -173,18 +177,24 @@ paths:
                 $ref: '#/components/schemas/moves.list.ClientList'
       x-replacement-for:
       - /t/moves/units/{unit_id}/clients
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.TeamAPI.relevantClientsByUnitId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.FlexSignupVisibility:
-      enum:
-      - hide_signups
-      - show_anonymous
-      - show_names
-      type: string
-      description: How flex request signups of colleagues are shown to employees
-      example: show_names
+    moves.list.ClientList:
+      type: object
+      properties:
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Client'
+      description: List of Clients
+      example:
+        clients:
+        - id: 5678
+          externalId: 5678
     moves.list.TeamList:
       type: object
       properties:
@@ -211,35 +221,14 @@ components:
           useSelfRostering: true
           selfRosteringStartDate: '2000-01-01'
           rosterPublicationDate: '2025-08-30'
-    moves.UnitType:
+    moves.FlexSignupVisibility:
       enum:
-      - Extramuraal
-      - Intramuraal
-      - WMO
+      - hide_signups
+      - show_anonymous
+      - show_names
       type: string
-      description: Type of the unit
-      example: Intramuraal
-    moves.WhoMakesFlexAssignments:
-      enum:
-      - requesting_unit
-      - primary_flex_unit
-      - requesting_unit_and_primary_flex_unit
-      - all_units
-      type: string
-      description: Which unit assigns employees to flex requests
-      example: primary_flex_unit
-    moves.list.ClientList:
-      type: object
-      properties:
-        clients:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Client'
-      description: List of Clients
-      example:
-        clients:
-        - id: 5678
-          externalId: 5678
+      description: How flex request signups of colleagues are shown to employees
+      example: show_names
     moves.Team:
       type: object
       properties:
@@ -417,6 +406,23 @@ components:
       example:
         id: 1234
         externalId: 5678
+    moves.WhoMakesFlexAssignments:
+      enum:
+      - requesting_unit
+      - primary_flex_unit
+      - requesting_unit_and_primary_flex_unit
+      - all_units
+      type: string
+      description: Which unit assigns employees to flex requests
+      example: primary_flex_unit
+    moves.UnitType:
+      enum:
+      - Extramuraal
+      - Intramuraal
+      - WMO
+      type: string
+      description: Type of the unit
+      example: Intramuraal
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

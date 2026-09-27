@@ -51,7 +51,7 @@ paths:
       tags:
       - ClientCard
       summary: Return the client cards of a Client corresponding to the given id
-      operationId: ClientCardAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdClippedCards
       parameters:
       - name: client_id
         in: path
@@ -81,6 +81,8 @@ paths:
                 $ref: '#/components/schemas/list.ClientCardList'
       x-replacement-for:
       - /t/clients/{client_id}/client_cards
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientCardAPI.byClientId
     servers:
     - url: https://api-development.ons.io
 components:

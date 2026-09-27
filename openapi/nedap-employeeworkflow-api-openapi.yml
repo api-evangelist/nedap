@@ -70,7 +70,7 @@ paths:
     put:
       tags:
       - EmployeeWorkflow
-      operationId: EmployeeWorkflowAPI.setTimesheetSubmitDate
+      operationId: putV0AdministrationEmployeeWorkflowsByEmployeeIdTimesheetSubmitDate
       parameters:
       - name: employee_id
         in: path
@@ -92,13 +92,15 @@ paths:
       - /t/employee_workflows/{employee_id}/timesheet_submit_date
       summary: Employee workflow API set timesheet submit date
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: EmployeeWorkflowAPI.setTimesheetSubmitDate
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employee_workflows/{employee_id}/timesheet_submit_date_authorized:
     put:
       tags:
       - EmployeeWorkflow
-      operationId: EmployeeWorkflowAPI.setTimesheetSubmitDateAuthorized
+      operationId: putV0AdministrationEmployeeWorkflowsByEmployeeIdTimesheetSubmitDateAuthorized
       parameters:
       - name: employee_id
         in: path
@@ -120,6 +122,8 @@ paths:
       - /t/employee_workflows/{employee_id}/timesheet_submit_date_authorized
       summary: Employee workflow API set timesheet submit date authorized
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: EmployeeWorkflowAPI.setTimesheetSubmitDateAuthorized
     servers:
     - url: https://api-development.ons.io
 x-refined-from:

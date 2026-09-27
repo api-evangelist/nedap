@@ -41,7 +41,7 @@ paths:
       tags:
       - dossier.omaha.Problem
       summary: Returns every Problem available from the ProblemAPI
-      operationId: dossier.omaha.ProblemAPI.all
+      operationId: getV0AdministrationOmahaProblems
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -61,48 +61,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/omaha/problems
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.omaha.ProblemAPI.all
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.omaha.Problem:
-      type: object
-      properties:
-        classificationId:
-          type: string
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit gebied
-        omahaDomain:
-          allOf:
-          - $ref: '#/components/schemas/dossier.omaha.Domain'
-          description: (nl) Domein van dit gebied
-        omahaSignsAndSymptoms:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.omaha.SignOrSymptom'
-          description: (nl) Gerelateerde signalen en symptomen
-          xml:
-            wrapped: true
-      description: 'Omaha definitie van ''gebied'' '
-      example:
-        classificationId: Dummy
-        name: Dummy
-        omahaDomain:
-          classificationId: example
-          name: example
-        omahaSignsAndSymptoms:
-        - classificationId: example
-          name: example
-          problemId: example
-          textAllowed: true
-        - classificationId: example
-          name: example
-          problemId: example
-          textAllowed: true
-      xml:
-        name: omahaProblem
     dossier.omaha.SignOrSymptom:
       type: object
       properties:
@@ -161,6 +125,44 @@ components:
         name: Dummy
       xml:
         name: omahaDomain
+    dossier.omaha.Problem:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit gebied
+        omahaDomain:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.Domain'
+          description: (nl) Domein van dit gebied
+        omahaSignsAndSymptoms:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.omaha.SignOrSymptom'
+          description: (nl) Gerelateerde signalen en symptomen
+          xml:
+            wrapped: true
+      description: 'Omaha definitie van ''gebied'' '
+      example:
+        classificationId: Dummy
+        name: Dummy
+        omahaDomain:
+          classificationId: example
+          name: example
+        omahaSignsAndSymptoms:
+        - classificationId: example
+          name: example
+          problemId: example
+          textAllowed: true
+        - classificationId: example
+          name: example
+          problemId: example
+          textAllowed: true
+      xml:
+        name: omahaProblem
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

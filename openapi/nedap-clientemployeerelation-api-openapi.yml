@@ -231,7 +231,7 @@ paths:
       tags:
       - ClientEmployeeRelation
       summary: Creates a ClientEmployeeRelation
-      operationId: ClientEmployeeRelationAPI.create
+      operationId: postV0AdministrationClientEmployeeRelations
       requestBody:
         description: ClientEmployeeRelation to create
         content:
@@ -253,6 +253,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/client_employee_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientEmployeeRelationAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/client_employee_relations/{id}:
@@ -260,7 +262,7 @@ paths:
       tags:
       - ClientEmployeeRelation
       summary: Returns the ClientEmployeeRelation corresponding to the given id
-      operationId: ClientEmployeeRelationAPI.byId
+      operationId: getV0AdministrationClientEmployeeRelationsById
       parameters:
       - name: id
         in: path
@@ -281,11 +283,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/client_employee_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientEmployeeRelationAPI.byId
     put:
       tags:
       - ClientEmployeeRelation
       summary: Updates the ClientEmployeeRelation corresponding to the given id
-      operationId: ClientEmployeeRelationAPI.update
+      operationId: putV0AdministrationClientEmployeeRelationsById
       parameters:
       - name: id
         in: path
@@ -313,11 +317,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/client_employee_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientEmployeeRelationAPI.update
     delete:
       tags:
       - ClientEmployeeRelation
       summary: Deletes the ClientEmployeeRelation corresponding to the given id
-      operationId: ClientEmployeeRelationAPI.delete
+      operationId: deleteV0AdministrationClientEmployeeRelationsById
       parameters:
       - name: id
         in: path
@@ -334,6 +340,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/client_employee_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientEmployeeRelationAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/client_employee_relations:
@@ -341,7 +349,7 @@ paths:
       tags:
       - ClientEmployeeRelation
       summary: Return the ClientEmployeeRelations corresponding to the given client id
-      operationId: ClientEmployeeRelationAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdClientEmployeeRelations
       parameters:
       - name: client_id
         in: path
@@ -385,6 +393,8 @@ paths:
                 $ref: '#/components/schemas/list.ClientEmployeeRelationList'
       x-replacement-for:
       - /t/administration/clients/{client_id}/client_employee_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientEmployeeRelationAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/client_employee_relations:
@@ -392,7 +402,7 @@ paths:
       tags:
       - ClientEmployeeRelation
       summary: Return the ClientEmployeeRelations corresponding to the given employee id
-      operationId: ClientEmployeeRelationAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdClientEmployeeRelations
       parameters:
       - name: employee_id
         in: path
@@ -436,45 +446,12 @@ paths:
                 $ref: '#/components/schemas/list.ClientEmployeeRelationList'
       x-replacement-for:
       - /t/administration/employees/{employee_id}/client_employee_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientEmployeeRelationAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.ClientEmployeeRelationList:
-      type: object
-      properties:
-        clientEmployeeRelations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientEmployeeRelation'
-      description: ClientEmployeeRelationList model (no description)
-      example:
-        clientEmployeeRelations:
-        - updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          id: 17
-          relationName: Cach
-          validFrom: '2013-11-28T11:49:58.000+01:00'
-          validTo: '2013-11-30T11:49:58.000+01:00'
-          relationType:
-            id: 6
-            name: Cach
-            primary: true
-            exclusive: true
-            negative: false
-            active: true
-            vektisCode: 1
-            reference: 1
-            relationCategory:
-              updatedAt: '2013-09-24T11:49:58.000+02:00'
-              createdAt: '2013-09-24T11:49:58.000+02:00'
-              id: 7
-              name: Standard
-            updatedAt: '2013-09-24T11:49:58.000+02:00'
-            createdAt: '2013-09-24T11:49:58.000+02:00'
-          relationTypeId: 6
-          clientId: 3
-          employeeId: 12
     AuditedBase:
       title: AuditedBase
       type: object
@@ -499,6 +476,54 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
+    RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+    ClientEmployeeRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/RelationType'
+      description: ClientEmployeeRelationType model (no description)
+      example:
+        id: 6
+        name: Coach
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
     RelationType:
       type: object
       allOf:
@@ -561,6 +586,41 @@ components:
           createdBy: user
           id: 7
           name: Standard
+    list.ClientEmployeeRelationList:
+      type: object
+      properties:
+        clientEmployeeRelations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientEmployeeRelation'
+      description: ClientEmployeeRelationList model (no description)
+      example:
+        clientEmployeeRelations:
+        - updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          id: 17
+          relationName: Cach
+          validFrom: '2013-11-28T11:49:58.000+01:00'
+          validTo: '2013-11-30T11:49:58.000+01:00'
+          relationType:
+            id: 6
+            name: Cach
+            primary: true
+            exclusive: true
+            negative: false
+            active: true
+            vektisCode: 1
+            reference: 1
+            relationCategory:
+              updatedAt: '2013-09-24T11:49:58.000+02:00'
+              createdAt: '2013-09-24T11:49:58.000+02:00'
+              id: 7
+              name: Standard
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+          relationTypeId: 6
+          clientId: 3
+          employeeId: 12
     ClientEmployeeRelation:
       type: object
       allOf:
@@ -623,54 +683,6 @@ components:
         relationTypeId: 6
         clientId: 3
         employeeId: 12
-    ClientEmployeeRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/RelationType'
-      description: ClientEmployeeRelationType model (no description)
-      example:
-        id: 6
-        name: Coach
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: false
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-    RelationCategory:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

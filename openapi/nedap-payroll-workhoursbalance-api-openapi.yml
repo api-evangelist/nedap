@@ -137,7 +137,7 @@ paths:
       tags:
       - payroll.WorkHoursBalance
       summary: Retrieves a list with all workhour balances for the given employee and for the…
-      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAtDate
+      operationId: getV0AdministrationWorkHoursBalancesByEmployeeAtDateByEmployeeObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -160,6 +160,8 @@ paths:
                 $ref: '#/components/schemas/payroll.list.WorkHoursBalanceList'
       x-replacement-for:
       - /t/payroll/work_hours_balances/by_employee_at_date/{employee_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.WorkHoursBalanceAPI.byEmployeeAtDate
     servers:
     - url: https://api-development.ons.io
   /v0/administration/work_hours_balances/by_employee_with_type_at_date/{employee_object_id}:
@@ -167,7 +169,7 @@ paths:
       tags:
       - payroll.WorkHoursBalance
       summary: Retrieves a workhour balance for the given employee/accounttype and date
-      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAndAccountTypeAtDate
+      operationId: getV0AdministrationWorkHoursBalancesByEmployeeWithTypeAtDateByEmployeeObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -196,6 +198,8 @@ paths:
                 $ref: '#/components/schemas/payroll.WorkHoursBalance'
       x-replacement-for:
       - /t/payroll/work_hours_balances/by_employee_with_type_at_date/{employee_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.WorkHoursBalanceAPI.byEmployeeAndAccountTypeAtDate
     servers:
     - url: https://api-development.ons.io
   /v0/administration/work_hours_balances/by_employee_with_type/{employee_object_id}:
@@ -203,7 +207,7 @@ paths:
       tags:
       - payroll.WorkHoursBalance
       summary: Retrieves a workhour balance for the given employee and account type
-      operationId: payroll.WorkHoursBalanceAPI.byEmployeeAndAccountType
+      operationId: getV0AdministrationWorkHoursBalancesByEmployeeWithTypeByEmployeeObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -226,6 +230,8 @@ paths:
                 $ref: '#/components/schemas/payroll.WorkHoursBalance'
       x-replacement-for:
       - /t/payroll/work_hours_balances/by_employee_with_type/{employee_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.WorkHoursBalanceAPI.byEmployeeAndAccountType
     servers:
     - url: https://api-development.ons.io
   /v0/administration/work_hours_balances/by_employee/{employee_object_id}:
@@ -233,7 +239,7 @@ paths:
       tags:
       - payroll.WorkHoursBalance
       summary: Retrieves a list with all workhour balances for the given employee
-      operationId: payroll.WorkHoursBalanceAPI.byEmployee
+      operationId: getV0AdministrationWorkHoursBalancesByEmployeeByEmployeeObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -250,6 +256,8 @@ paths:
                 $ref: '#/components/schemas/payroll.list.WorkHoursBalanceList'
       x-replacement-for:
       - /t/payroll/work_hours_balances/by_employee/{employee_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.WorkHoursBalanceAPI.byEmployee
     servers:
     - url: https://api-development.ons.io
 components:

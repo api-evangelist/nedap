@@ -51,7 +51,7 @@ paths:
       - dossier.ActionEntrySummary
       summary: Return the latest ActionEntrySummaries corresponding to the given persistentIds
       description: Return the latest action entry summaries by the given persistent ids.
-      operationId: dossier.ActionEntrySummaryAPI.lastByPersistentIds
+      operationId: getV0DossierBackChannelUnauthorizedActionEntrySummariesLastByPersistentIds
       parameters:
       - name: persistent_ids[]
         in: query
@@ -81,29 +81,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-replacement-for:
       - /t/dossier/action_entry_summaries/last_by_persistent_ids
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionEntrySummaryAPI.lastByPersistentIds
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
     ErrorResponseEntry:
       title: ErrorResponseEntry
       type: object
@@ -119,22 +102,6 @@ components:
         field: one
         value: empty
         message: field can not be empty
-    dossier.list.ActionEntrySummaryList:
-      type: object
-      properties:
-        actionEntrySummaries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/dossier.ActionEntrySummary'
-      description: ActionEntrySummaryList model (no description)
-      example:
-        actionEntrySummaries:
-        - id: 10561
-          comment: Gebruik van hulpmiddelen aanleren; rollator les bij ergo
-        - id: 10562
-          comment: Conditie verbeteren door dagelijks 3 maal 15 minuten oefenen achter rollator
     dossier.ActionEntrySummary:
       type: object
       properties:
@@ -179,6 +146,41 @@ components:
         goalName: goal
         demandName: demand
         domainName: domain
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    dossier.list.ActionEntrySummaryList:
+      type: object
+      properties:
+        actionEntrySummaries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.ActionEntrySummary'
+      description: ActionEntrySummaryList model (no description)
+      example:
+        actionEntrySummaries:
+        - id: 10561
+          comment: Gebruik van hulpmiddelen aanleren; rollator les bij ergo
+        - id: 10562
+          comment: Conditie verbeteren door dagelijks 3 maal 15 minuten oefenen achter rollator
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

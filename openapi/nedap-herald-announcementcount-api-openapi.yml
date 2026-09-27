@@ -37,7 +37,7 @@ paths:
     get:
       tags:
       - herald.AnnouncementCount
-      operationId: herald.AnnouncementCountAPI.byUserId
+      operationId: getV0AnnouncementsAnnouncementCount
       parameters:
       - name: user_id
         in: query
@@ -55,6 +55,8 @@ paths:
       - /t/herald/announcement_count
       summary: Herald announcement count API by user id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: herald.AnnouncementCountAPI.byUserId
     servers:
     - url: https://api-development.ons.io
 components:

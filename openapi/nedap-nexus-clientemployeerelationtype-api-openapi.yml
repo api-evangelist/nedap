@@ -72,7 +72,7 @@ paths:
       tags:
       - nexus.ClientEmployeeRelationType
       summary: Deprecated. Please use `/administration/client_employee_relation_types` instead
-      operationId: nexus.ClientEmployeeRelationTypeAPI.all
+      operationId: getV0OnsNexusClientEmployeeRelationTypes
       parameters:
       - name: offset
         in: query
@@ -98,6 +98,8 @@ paths:
       x-deprecated-since: 12-05-2026
       x-replacement-for:
       - /t/nexus/client_employee_relation_types
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationTypeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/ons_nexus/client_employee_relation_types/{id}:
@@ -105,7 +107,7 @@ paths:
       tags:
       - nexus.ClientEmployeeRelationType
       summary: Deprecated.
-      operationId: nexus.ClientEmployeeRelationTypeAPI.byId
+      operationId: getV0OnsNexusClientEmployeeRelationTypesById
       parameters:
       - name: id
         in: path
@@ -126,6 +128,8 @@ paths:
       x-deprecated-since: 12-05-2026
       x-replacement-for:
       - /t/nexus/client_employee_relation_types/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationTypeAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
@@ -154,6 +158,56 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
+    nexus.ClientEmployeeRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/nexus.RelationType'
+      description: ClientEmployeeRelationType model (no description)
+      example:
+        id: 6
+        name: Coach
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    nexus.RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+      xml:
+        name: relationCategory
     nexus.RelationType:
       type: object
       allOf:
@@ -217,56 +271,6 @@ components:
           name: Standard
       deprecated: true
       x-deprecated-since: 03-10-2014
-    nexus.ClientEmployeeRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/nexus.RelationType'
-      description: ClientEmployeeRelationType model (no description)
-      example:
-        id: 6
-        name: Coach
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: false
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-    nexus.RelationCategory:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
-      xml:
-        name: relationCategory
     nexus.list.ClientEmployeeRelationTypeList:
       type: object
       properties:

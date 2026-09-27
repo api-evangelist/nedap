@@ -31,7 +31,7 @@ paths:
       tags:
       - admin.Version
       summary: Retrieves the Version
-      operationId: admin.VersionAPI.get
+      operationId: getV0AdministrationAdminVersion
       responses:
         '200':
           description: No response was specified
@@ -41,6 +41,8 @@ paths:
                 $ref: '#/components/schemas/admin.Version'
       x-replacement-for:
       - /t/admin/version
+      x-operation-id-source: normalized
+      x-operation-id-original: admin.VersionAPI.get
     servers:
     - url: https://api-development.ons.io
 components:

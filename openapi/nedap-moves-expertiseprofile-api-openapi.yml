@@ -116,7 +116,7 @@ paths:
       tags:
       - moves.ExpertiseProfile
       summary: Return all ExpertiseProfile models in a streaming manner
-      operationId: moves.ExpertiseProfileAPI.streamAll
+      operationId: getV0XstreamExpertiseProfilesData
       responses:
         '200':
           description: No response was specified
@@ -136,6 +136,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/expertise_profiles/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ExpertiseProfileAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/expertise_profiles/deletes:
@@ -146,7 +148,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted ExpertiseProfile models'
-      operationId: moves.ExpertiseProfileAPI.streamDeletes
+      operationId: getV0XstreamExpertiseProfilesDeletes
       parameters:
       - name: since
         in: query
@@ -174,6 +176,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/expertise_profiles/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ExpertiseProfileAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/expertise_profiles/updates:
@@ -181,7 +185,7 @@ paths:
       tags:
       - moves.ExpertiseProfile
       summary: Return all ExpertiseProfile models which where updated since the date given in…
-      operationId: moves.ExpertiseProfileAPI.streamUpdates
+      operationId: getV0XstreamExpertiseProfilesUpdates
       parameters:
       - name: since
         in: query
@@ -209,10 +213,27 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/expertise_profiles/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ExpertiseProfileAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.list.ExpertiseProfileList:
+      type: object
+      properties:
+        expertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ExpertiseProfile'
+      description: ExpertiseProfileList model (no description)
+      example:
+        expertiseProfiles:
+        - id: 1
+          externalId: 2
+          name: Verpleegkundige
+          hidden: false
+          parent: 10
     moves.ExpertiseProfile:
       type: object
       properties:
@@ -237,21 +258,6 @@ components:
         name: Verpleegkundige
         hidden: false
         parent: 10
-    moves.list.ExpertiseProfileList:
-      type: object
-      properties:
-        expertiseProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.ExpertiseProfile'
-      description: ExpertiseProfileList model (no description)
-      example:
-        expertiseProfiles:
-        - id: 1
-          externalId: 2
-          name: Verpleegkundige
-          hidden: false
-          parent: 10
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

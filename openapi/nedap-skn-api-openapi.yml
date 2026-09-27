@@ -42,7 +42,7 @@ paths:
       tags:
       - Skn
       summary: Return the Skn corresponding to the given id
-      operationId: SknAPI.byId
+      operationId: getV0AdministrationSknsById
       parameters:
       - name: id
         in: path
@@ -63,6 +63,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/skns/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: SknAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:

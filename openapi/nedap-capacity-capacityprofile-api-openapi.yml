@@ -90,7 +90,7 @@ paths:
       tags:
       - capacity.CapacityProfile
       summary: Returns every CapacityProfile available from the CapacityProfileAPI
-      operationId: capacity.CapacityProfileAPI.all
+      operationId: getV0AdministrationCapacityCapacityProfiles
       responses:
         '200':
           description: No response was specified
@@ -101,6 +101,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/capacity/capacity_profiles
+      x-operation-id-source: normalized
+      x-operation-id-original: capacity.CapacityProfileAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/capacity/capacity_profiles/{id}:
@@ -108,7 +110,7 @@ paths:
       tags:
       - capacity.CapacityProfile
       summary: Return the Capacity Profile corresponding to the given id
-      operationId: capacity.CapacityProfileAPI.byId
+      operationId: getV0AdministrationCapacityCapacityProfilesById
       parameters:
       - name: id
         in: path
@@ -131,6 +133,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/capacity/capacity_profiles/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: capacity.CapacityProfileAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/capacity/capacity_profiles/all_active:
@@ -138,7 +142,7 @@ paths:
       tags:
       - capacity.CapacityProfile
       summary: Find a list of CapacityProfiles that are active on the given date
-      operationId: capacity.CapacityProfileAPI.allActive
+      operationId: getV0AdministrationCapacityCapacityProfilesAllActive
       parameters:
       - name: date
         in: query
@@ -157,103 +161,12 @@ paths:
           description: Date is required
       x-replacement-for:
       - /t/capacity/capacity_profiles/all_active
+      x-operation-id-source: normalized
+      x-operation-id-original: capacity.CapacityProfileAPI.allActive
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    capacity.CapacityCategory:
-      required:
-      - name
-      - financeType
-      - productObjectId
-      - profileObjectId
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        financeType:
-          allOf:
-          - $ref: '#/components/schemas/finance.FinanceType'
-          description: '{@link FinanceType} for which this profile is defined.'
-        productObjectId:
-          type: integer
-          description: The objectId of the {@link com.nedap.healthcare.domain.finance.Product} instance on which this category is based.
-          format: int64
-        capacityExpertiseProfileAssignments:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/capacity.CapacityExpertiseProfileAssignment'
-          description: Set of all {@link CapacityExpertiseProfileAssignment} instances this category contains.
-          xml:
-            wrapped: true
-        capacityExpertiseGroupAssignments:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/capacity.CapacityExpertiseGroupAssignment'
-          description: Set of all {@link CapacityExpertiseGroupAssignment} instances this category contains.
-          xml:
-            wrapped: true
-        profileObjectId:
-          type: integer
-          description: The objectId of the {@link CapacityProfile} that this category belongs to.
-          format: int64
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      description: 'Every CapacityCategory is defined for a single {@link FinanceType}.
-
-        CapacityCategory is a category that can have multiple {@link CapacityExpertiseProfileAssignment} instances and multiple {@link CapacityExpertiseGroupAssignment} instances.
-
-        Each assignment specifies how many minutes the {@link com.nedap.healthcare.domain.ExpertiseProfile} or {@link com.nedap.healthcare.domain.ExpertiseGroup} is required for this category.'
-      example:
-        id: 1
-        name: Capacity category
-        financeType:
-          id: 1
-          externalCode: Dummy
-          description: Dummy
-          userIdentifier: Dummy
-          beginDate: '2015-01-01'
-          endDate: '2019-01-01'
-          systemDefined: true
-          covRequired: true
-          agbSelectionEnabled: true
-          cakDelivery: false
-          useWmoNumbering: false
-          zzpAllowed: false
-          shape: square
-          colorHex: '#FFFFFF'
-          timeRange: true
-          category: 2
-        productObjectId: 1
-        capacityExpertiseProfileAssignments:
-        - id: 1
-          expertiseProfileObjectId: 4
-          categoryObjectId: 3
-          minutes: 30
-          createdAt: '2018-01-01T12:00:00.000+01:00'
-          updatedAt: '2018-01-01T12:00:00.000+01:00'
-        capacityExpertiseGroupAssignments:
-        - id: 1
-          expertiseGroupObjectId: 3
-          categoryObjectId: 3
-          minutes: 60
-          createdAt: '2018-01-01T12:00:00.000+01:00'
-          updatedAt: '2018-01-01T12:00:00.000+01:00'
-        profileObjectId: 1
-        createdAt: '2018-01-01T12:00:00.000+01:00'
-        updatedAt: '2018-01-01T12:00:00.000+01:00'
-      xml:
-        name: capacityCategory
     capacity.CapacityProfile:
       required:
       - name
@@ -351,116 +264,6 @@ components:
         updatedAt: '2018-01-01T12:00:00.000+01:00'
       xml:
         name: capacityProfile
-    finance.FinanceType:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        externalCode:
-          type: string
-        description:
-          type: string
-        userIdentifier:
-          type: string
-          description: Short description
-        beginDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        systemDefined:
-          type: boolean
-          description: Indicates if this FinanceType was created by Nedap (=true) or if this was manually created (=false)
-        covRequired:
-          type: boolean
-        agbSelectionEnabled:
-          type: boolean
-          description: Indicates if the agbcode can be manually selected (=true)
-        cakDelivery:
-          type: boolean
-          description: Indicates if this FinanceType is eligible (=true) for the CAK delivery
-          deprecated: true
-        useWmoNumbering:
-          type: boolean
-          description: Indicates if this FinanceType has a beschikkingsnummer/aanvraagnummer/indicatie orgaan
-        zzpAllowed:
-          type: boolean
-          description: Indicates if this FinanceType is allowed to have ZZP products
-        shape:
-          allOf:
-          - $ref: '#/components/schemas/finance.Shape'
-          description: This is the shape of the icon used in Administration
-        colorHex:
-          type: string
-          description: This is color of the shape of the icon used in Administration
-        timeRange:
-          type: boolean
-          description: If this is true this finance type works with klassen otherwise this financetype works with a timerange
-        category:
-          type: integer
-          description: '<pre>
-
-            Possible values:
-
-            0 - Overig
-
-            1 - AWBZ extramuraal
-
-            2 - AWBZ intramuraal
-
-            3 - WMO
-
-            4 - PGB
-
-            5 - Onderaannemer
-
-            7 - Jeugdwet
-
-            9 - Eigen risico
-
-            10 - ZVW
-
-            11 - GGZ
-
-            </pre>'
-          format: int32
-      description: '{@link FinanceType} for which this profile is defined.'
-      example:
-        id: 1
-        externalCode: Dummy
-        description: Dummy
-        userIdentifier: Dummy
-        beginDate: '2015-01-01'
-        endDate: '2019-01-01'
-        systemDefined: true
-        covRequired: true
-        agbSelectionEnabled: true
-        cakDelivery: false
-        useWmoNumbering: false
-        zzpAllowed: false
-        shape: square
-        colorHex: '#FFFFFF'
-        timeRange: true
-        category: 2
-      xml:
-        name: financeType
-    finance.Shape:
-      type: string
-      oneOf:
-      - title: SQUARE
-        enum:
-        - square
-      - title: CIRCLE
-        enum:
-        - circle
-      - title: TRIANGLE
-        enum:
-        - triangle
-      description: This is the shape of the icon used in Administration
-      example: square
     capacity.CapacityExpertiseProfileAssignment:
       required:
       - expertiseProfileObjectId
@@ -501,6 +304,20 @@ components:
         updatedAt: '2018-01-01T12:00:00.000+01:00'
       xml:
         name: capacityExpertiseProfileAssignment
+    finance.Shape:
+      type: string
+      oneOf:
+      - title: SQUARE
+        enum:
+        - square
+      - title: CIRCLE
+        enum:
+        - circle
+      - title: TRIANGLE
+        enum:
+        - triangle
+      description: This is the shape of the icon used in Administration
+      example: square
     capacity.CapacityExpertiseGroupAssignment:
       required:
       - expertiseGroupObjectId
@@ -600,6 +417,195 @@ components:
           updatedAt: '2018-07-18T00:00:00.000+02:00'
       xml:
         name: capacityProfiles
+    finance.FinanceType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        externalCode:
+          type: string
+        description:
+          type: string
+        userIdentifier:
+          type: string
+          description: Short description
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        systemDefined:
+          type: boolean
+          description: Indicates if this FinanceType was created by Nedap (=true) or if this was manually created (=false)
+        covRequired:
+          type: boolean
+        agbSelectionEnabled:
+          type: boolean
+          description: Indicates if the agbcode can be manually selected (=true)
+        cakDelivery:
+          type: boolean
+          description: Indicates if this FinanceType is eligible (=true) for the CAK delivery
+          deprecated: true
+        useWmoNumbering:
+          type: boolean
+          description: Indicates if this FinanceType has a beschikkingsnummer/aanvraagnummer/indicatie orgaan
+        zzpAllowed:
+          type: boolean
+          description: Indicates if this FinanceType is allowed to have ZZP products
+        shape:
+          allOf:
+          - $ref: '#/components/schemas/finance.Shape'
+          description: This is the shape of the icon used in Administration
+        colorHex:
+          type: string
+          description: This is color of the shape of the icon used in Administration
+        timeRange:
+          type: boolean
+          description: If this is true this finance type works with klassen otherwise this financetype works with a timerange
+        category:
+          type: integer
+          description: '<pre>
+
+            Possible values:
+
+            0 - Overig
+
+            1 - AWBZ extramuraal
+
+            2 - AWBZ intramuraal
+
+            3 - WMO
+
+            4 - PGB
+
+            5 - Onderaannemer
+
+            7 - Jeugdwet
+
+            9 - Eigen risico
+
+            10 - ZVW
+
+            11 - GGZ
+
+            </pre>'
+          format: int32
+      description: '{@link FinanceType} for which this profile is defined.'
+      example:
+        id: 1
+        externalCode: Dummy
+        description: Dummy
+        userIdentifier: Dummy
+        beginDate: '2015-01-01'
+        endDate: '2019-01-01'
+        systemDefined: true
+        covRequired: true
+        agbSelectionEnabled: true
+        cakDelivery: false
+        useWmoNumbering: false
+        zzpAllowed: false
+        shape: square
+        colorHex: '#FFFFFF'
+        timeRange: true
+        category: 2
+      xml:
+        name: financeType
+    capacity.CapacityCategory:
+      required:
+      - name
+      - financeType
+      - productObjectId
+      - profileObjectId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        financeType:
+          allOf:
+          - $ref: '#/components/schemas/finance.FinanceType'
+          description: '{@link FinanceType} for which this profile is defined.'
+        productObjectId:
+          type: integer
+          description: The objectId of the {@link com.nedap.healthcare.domain.finance.Product} instance on which this category is based.
+          format: int64
+        capacityExpertiseProfileAssignments:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/capacity.CapacityExpertiseProfileAssignment'
+          description: Set of all {@link CapacityExpertiseProfileAssignment} instances this category contains.
+          xml:
+            wrapped: true
+        capacityExpertiseGroupAssignments:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/capacity.CapacityExpertiseGroupAssignment'
+          description: Set of all {@link CapacityExpertiseGroupAssignment} instances this category contains.
+          xml:
+            wrapped: true
+        profileObjectId:
+          type: integer
+          description: The objectId of the {@link CapacityProfile} that this category belongs to.
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: 'Every CapacityCategory is defined for a single {@link FinanceType}.
+
+        CapacityCategory is a category that can have multiple {@link CapacityExpertiseProfileAssignment} instances and multiple {@link CapacityExpertiseGroupAssignment} instances.
+
+        Each assignment specifies how many minutes the {@link com.nedap.healthcare.domain.ExpertiseProfile} or {@link com.nedap.healthcare.domain.ExpertiseGroup} is required for this category.'
+      example:
+        id: 1
+        name: Capacity category
+        financeType:
+          id: 1
+          externalCode: Dummy
+          description: Dummy
+          userIdentifier: Dummy
+          beginDate: '2015-01-01'
+          endDate: '2019-01-01'
+          systemDefined: true
+          covRequired: true
+          agbSelectionEnabled: true
+          cakDelivery: false
+          useWmoNumbering: false
+          zzpAllowed: false
+          shape: square
+          colorHex: '#FFFFFF'
+          timeRange: true
+          category: 2
+        productObjectId: 1
+        capacityExpertiseProfileAssignments:
+        - id: 1
+          expertiseProfileObjectId: 4
+          categoryObjectId: 3
+          minutes: 30
+          createdAt: '2018-01-01T12:00:00.000+01:00'
+          updatedAt: '2018-01-01T12:00:00.000+01:00'
+        capacityExpertiseGroupAssignments:
+        - id: 1
+          expertiseGroupObjectId: 3
+          categoryObjectId: 3
+          minutes: 60
+          createdAt: '2018-01-01T12:00:00.000+01:00'
+          updatedAt: '2018-01-01T12:00:00.000+01:00'
+        profileObjectId: 1
+        createdAt: '2018-01-01T12:00:00.000+01:00'
+        updatedAt: '2018-01-01T12:00:00.000+01:00'
+      xml:
+        name: capacityCategory
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

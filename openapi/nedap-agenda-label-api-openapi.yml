@@ -34,7 +34,7 @@ paths:
       - agenda.Label
       summary: Returns every Label available from the LabelAPI
       description: List appointment labels currently available
-      operationId: agenda.LabelAPI.all
+      operationId: getV0AgendaLabels
       responses:
         '200':
           description: No response was specified
@@ -45,10 +45,25 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/agenda/labels
+      x-operation-id-source: normalized
+      x-operation-id-original: agenda.LabelAPI.all
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    agenda.list.LabelList:
+      title: LabelList
+      type: object
+      properties:
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.Label'
+      description: LabelList model (no description)
+      example:
+        labels:
+        - id: 1
+          name: Telefonisch
     agenda.Label:
       title: Label
       type: object
@@ -63,19 +78,6 @@ components:
       example:
         id: 1
         name: Telefonisch
-    agenda.list.LabelList:
-      title: LabelList
-      type: object
-      properties:
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/agenda.Label'
-      description: LabelList model (no description)
-      example:
-        labels:
-        - id: 1
-          name: Telefonisch
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

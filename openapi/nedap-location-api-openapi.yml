@@ -290,7 +290,7 @@ paths:
       tags:
       - Location
       summary: Return the locations of a Client corresponding to the given id
-      operationId: LocationAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdClippedLocations
       parameters:
       - name: client_id
         in: path
@@ -320,6 +320,8 @@ paths:
                 $ref: '#/components/schemas/list.LocationList'
       x-replacement-for:
       - /t/clients/{client_id}/locations
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/main_location:
@@ -327,7 +329,7 @@ paths:
       tags:
       - Location
       description: Returns the main location of the client
-      operationId: LocationAPI.mainLocationByClientId
+      operationId: getV0AdministrationClientsByClientIdMainLocation
       parameters:
       - name: client_id
         in: path
@@ -354,6 +356,8 @@ paths:
       - /t/clients/{client_id}/main_location
       summary: Location API main location by client id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.mainLocationByClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/locations:
@@ -361,7 +365,7 @@ paths:
       tags:
       - Location
       summary: Returns every Location available from the LocationAPI
-      operationId: LocationAPI.all
+      operationId: getV0AdministrationLocations
       responses:
         '200':
           description: No response was specified
@@ -372,12 +376,14 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/locations
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.all
     post:
       tags:
       - Location
       summary: Create Location
       description: Creating a root location is not allowed
-      operationId: LocationAPI.create
+      operationId: postV0AdministrationLocations
       requestBody:
         description: Location to create
         content:
@@ -399,6 +405,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/locations
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/locations/{id}:
@@ -406,7 +414,7 @@ paths:
       tags:
       - Location
       summary: Return the Location corresponding to the given id
-      operationId: LocationAPI.byId
+      operationId: getV0AdministrationLocationsById
       parameters:
       - name: id
         in: path
@@ -427,11 +435,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/locations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.byId
     put:
       tags:
       - Location
       summary: Update Location
-      operationId: LocationAPI.update
+      operationId: putV0AdministrationLocationsById
       parameters:
       - name: id
         in: path
@@ -461,6 +471,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/locations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.update
     servers:
     - url: https://api-development.ons.io
   /v0/administration/locations/multiple:
@@ -468,7 +480,7 @@ paths:
       tags:
       - Location
       summary: Method used for requesting multiple Location objects using their ids
-      operationId: LocationAPI.multiple
+      operationId: getV0AdministrationLocationsMultiple
       parameters:
       - name: id
         in: query
@@ -489,6 +501,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/locations/multiple
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.multiple
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/locations/data:
@@ -496,7 +510,7 @@ paths:
       tags:
       - Location
       summary: Return all Location models in a streaming manner
-      operationId: LocationAPI.streamAll
+      operationId: getV0XstreamLocationsData
       responses:
         '200':
           description: No response was specified
@@ -516,6 +530,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/locations/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/locations/updates:
@@ -523,7 +539,7 @@ paths:
       tags:
       - Location
       summary: Return all Location models which where updated since the date given in the…
-      operationId: LocationAPI.streamUpdates
+      operationId: getV0XstreamLocationsUpdates
       parameters:
       - name: since
         in: query
@@ -551,10 +567,45 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/locations/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.LocationList:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+          xml:
+            name: location
+      description: LocationList model (no description)
+      example:
+        locations:
+        - id: 1
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-02T11:48:46.836+02:00'
+          identificationNo: '1'
+          name: Nedap Demo
+          agbCode: '75750535'
+          agbcodeId: 1
+          materializedPath: '1.2'
+          wzaCode: '690535'
+          intramuralLocation: false
+          locationType: Locatie
+          capacity: 0
+          costCenter: costCenter
+          roomType: '1'
+          parentObjectId: 0
+          icon: 0
+          registeredLocationNumber: '123456789012'
+          correspondenceName: Pretty correspondence name
+          hideCorrespondenceName: false
+      xml:
+        name: locations
     Location:
       type: object
       properties:
@@ -661,39 +712,6 @@ components:
         hideCorrespondenceName: false
       xml:
         name: location
-    list.LocationList:
-      type: object
-      properties:
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
-          xml:
-            name: location
-      description: LocationList model (no description)
-      example:
-        locations:
-        - id: 1
-          beginDate: '2012-08-02T11:48:46.836+02:00'
-          endDate: '2012-08-02T11:48:46.836+02:00'
-          identificationNo: '1'
-          name: Nedap Demo
-          agbCode: '75750535'
-          agbcodeId: 1
-          materializedPath: '1.2'
-          wzaCode: '690535'
-          intramuralLocation: false
-          locationType: Locatie
-          capacity: 0
-          costCenter: costCenter
-          roomType: '1'
-          parentObjectId: 0
-          icon: 0
-          registeredLocationNumber: '123456789012'
-          correspondenceName: Pretty correspondence name
-          hideCorrespondenceName: false
-      xml:
-        name: locations
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

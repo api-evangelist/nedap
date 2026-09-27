@@ -55,7 +55,7 @@ paths:
       - payroll.AccountTypeExpireStatistic
       summary: Retrieve all the AccountTypeExpireStatistic for an Employee calculated at the…
       description: Retrieve all the {@link AccountTypeExpireStatistic} for an {@link Employee} calculated at the given date
-      operationId: payroll.AccountTypeExpireStatisticAPI.byEmployeeAtDate
+      operationId: getV0AdministrationAccountTypeExpireStatisticsByEmployeeAtDateByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -87,10 +87,27 @@ paths:
                 $ref: '#/components/schemas/payroll.list.AccountTypeExpireStatisticList'
       x-replacement-for:
       - /t/payroll/account_type_expire_statistics/by_employee_at_date/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.AccountTypeExpireStatisticAPI.byEmployeeAtDate
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    payroll.list.AccountTypeExpireStatisticList:
+      type: object
+      properties:
+        accountTypeExpireStatistics:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.AccountTypeExpireStatistic'
+      description: AccountTypeExpireStatisticList model (no description)
+      example:
+        accountTypeExpireStatistics:
+        - accountTypeId: 3
+          minutes: 100
+          expirationDate: '2019-12-31'
+          year: 2019
+          description: test description
     payroll.AccountTypeExpireStatistic:
       type: object
       properties:
@@ -119,21 +136,6 @@ components:
         expirationDate: '2019-12-31'
         year: 2019
         description: test description
-    payroll.list.AccountTypeExpireStatisticList:
-      type: object
-      properties:
-        accountTypeExpireStatistics:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.AccountTypeExpireStatistic'
-      description: AccountTypeExpireStatisticList model (no description)
-      example:
-        accountTypeExpireStatistics:
-        - accountTypeId: 3
-          minutes: 100
-          expirationDate: '2019-12-31'
-          year: 2019
-          description: test description
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

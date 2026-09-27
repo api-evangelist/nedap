@@ -231,7 +231,7 @@ paths:
       tags:
       - ons_administration.WorkdayNormSettingsModel
       summary: Returns all workday norms settings for the given employee.
-      operationId: ons_administration.WorkdayNormSettingsModelAPI.getForEmployee
+      operationId: getV0AdministrationEmployeesByEmployeeObjectIdWorkdayNorms
       parameters:
       - name: employee_object_id
         in: path
@@ -250,11 +250,13 @@ paths:
           description: Employee not found
       x-replacement-for:
       - /t/employees/{employee_object_id}/workday_norms
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayNormSettingsModelAPI.getForEmployee
     post:
       tags:
       - ons_administration.WorkdayNormSettingsModel
       summary: Creates a new workday norm settings for the given employee
-      operationId: ons_administration.WorkdayNormSettingsModelAPI.createWorkdayNorm
+      operationId: postV0AdministrationEmployeesByEmployeeObjectIdWorkdayNorms
       parameters:
       - name: employee_object_id
         in: path
@@ -281,6 +283,8 @@ paths:
           description: Employee not found
       x-replacement-for:
       - /t/employees/{employee_object_id}/workday_norms
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayNormSettingsModelAPI.createWorkdayNorm
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_object_id}/workday_norms/{settings_object_id}:
@@ -288,7 +292,7 @@ paths:
       tags:
       - ons_administration.WorkdayNormSettingsModel
       summary: Returns the specified workday norm settings for the given employee
-      operationId: ons_administration.WorkdayNormSettingsModelAPI.getWorkdayNorm
+      operationId: getV0AdministrationEmployeesByEmployeeObjectIdWorkdayNormsBySettingsObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -313,11 +317,13 @@ paths:
           description: Employee or settings not found
       x-replacement-for:
       - /t/employees/{employee_object_id}/workday_norms/{settings_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayNormSettingsModelAPI.getWorkdayNorm
     put:
       tags:
       - ons_administration.WorkdayNormSettingsModel
       summary: Updates the specified workday norm settings for the given employee
-      operationId: ons_administration.WorkdayNormSettingsModelAPI.updateWorkdayNorm
+      operationId: putV0AdministrationEmployeesByEmployeeObjectIdWorkdayNormsBySettingsObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -350,11 +356,13 @@ paths:
           description: Employee or settings not found
       x-replacement-for:
       - /t/employees/{employee_object_id}/workday_norms/{settings_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayNormSettingsModelAPI.updateWorkdayNorm
     delete:
       tags:
       - ons_administration.WorkdayNormSettingsModel
       summary: Deletes the specified workday norm settings for the given employee
-      operationId: ons_administration.WorkdayNormSettingsModelAPI.deleteWorkdayNorm
+      operationId: deleteV0AdministrationEmployeesByEmployeeObjectIdWorkdayNormsBySettingsObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -377,6 +385,8 @@ paths:
           description: Employee or settings not found
       x-replacement-for:
       - /t/employees/{employee_object_id}/workday_norms/{settings_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayNormSettingsModelAPI.deleteWorkdayNorm
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/workday_norms:
@@ -384,7 +394,7 @@ paths:
       tags:
       - ons_administration.WorkdayNormSettingsModel
       summary: Returns the current and future workday norms settings for the given employees.
-      operationId: ons_administration.WorkdayNormSettingsModelAPI.getCurrentAndFutureForEmployees
+      operationId: getV0AdministrationEmployeesWorkdayNorms
       parameters:
       - name: id
         in: query
@@ -406,6 +416,8 @@ paths:
           description: One or more employees not found
       x-replacement-for:
       - /t/employees/workday_norms
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayNormSettingsModelAPI.getCurrentAndFutureForEmployees
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/workday_norms/from:
@@ -413,7 +425,7 @@ paths:
       tags:
       - ons_administration.WorkdayNormSettingsModel
       summary: Returns the workday norm settings for the given employees that were valid from…
-      operationId: ons_administration.WorkdayNormSettingsModelAPI.getForEmployeesFrom
+      operationId: getV0AdministrationEmployeesWorkdayNormsFrom
       parameters:
       - name: id
         in: query
@@ -435,6 +447,8 @@ paths:
           description: One or more employees not found
       x-replacement-for:
       - /t/employees/workday_norms/from
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayNormSettingsModelAPI.getForEmployeesFrom
     servers:
     - url: https://api-development.ons.io
 components:

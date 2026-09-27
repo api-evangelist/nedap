@@ -87,7 +87,7 @@ paths:
       tags:
       - finance.DebtorGroup
       summary: Returns every DebtorGroup available from the DebtorGroupAPI
-      operationId: finance.DebtorGroupAPI.all
+      operationId: getV0FinanceDebtorGroups
       responses:
         '200':
           description: No response was specified
@@ -98,6 +98,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/debtor_groups
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DebtorGroupAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/finance/debtorGroups/{id}:
@@ -105,7 +107,7 @@ paths:
       tags:
       - finance.DebtorGroup
       summary: Retrieve debtor group by id
-      operationId: finance.DebtorGroupAPI.byId
+      operationId: getV0FinanceDebtorGroupsById
       parameters:
       - name: id
         in: path
@@ -126,6 +128,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/debtor_groups/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DebtorGroupAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/finance/debtorGroups/byDebtorId/{debtor_id}:
@@ -133,7 +137,7 @@ paths:
       tags:
       - finance.DebtorGroup
       summary: Return a DebtorGroupsList for which holds that every DebtorGroup contains…
-      operationId: finance.DebtorGroupAPI.byDebtorId
+      operationId: getV0FinanceDebtorGroupsByDebtorIdByDebtorId
       parameters:
       - name: debtor_id
         in: path
@@ -151,6 +155,8 @@ paths:
                 $ref: '#/components/schemas/finance.list.DebtorGroupList'
       x-replacement-for:
       - /t/finance/debtor_groups/by_debtor_id/{debtor_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.DebtorGroupAPI.byDebtorId
     servers:
     - url: https://api-development.ons.io
 components:

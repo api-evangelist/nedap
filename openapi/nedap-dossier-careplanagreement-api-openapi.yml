@@ -46,7 +46,7 @@ paths:
       tags:
       - dossier.CarePlanAgreement
       summary: Find care plan agreement by id
-      operationId: dossier.CarePlanAgreementAPI.byId
+      operationId: getV0DossierBackChannelUnauthorizedCarePlanByIdAgreement
       parameters:
       - name: id
         in: path
@@ -71,29 +71,36 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/care_plan_agreements/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.CarePlanAgreementAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
+    AuditedBase:
+      title: AuditedBase
       type: object
       properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
       example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     ErrorResponseEntry:
       title: ErrorResponseEntry
       type: object
@@ -147,30 +154,25 @@ components:
         carePlanId: 12
         employeeId: 13
         clientId: 14
-    AuditedBase:
-      title: AuditedBase
+    ErrorResponse:
+      title: ErrorResponse
       type: object
       properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
       example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -31,7 +31,7 @@ paths:
       tags:
       - hermes.CareProviderSettings
       summary: Retrieves the CareProviderSettings
-      operationId: hermes.CareProviderSettingsAPI.get
+      operationId: getV0NotificationCareProviderSettings
       responses:
         '200':
           description: No response was specified
@@ -41,6 +41,8 @@ paths:
                 $ref: '#/components/schemas/hermes.CareProviderSettings'
       x-replacement-for:
       - /t/hermes/care_provider_settings
+      x-operation-id-source: normalized
+      x-operation-id-original: hermes.CareProviderSettingsAPI.get
     servers:
     - url: https://api-development.ons.io
 components:

@@ -59,7 +59,7 @@ paths:
       tags:
       - dossier.ReportWithActions
       summary: Returns ReportsWithActions that have actions created by user or for user's…
-      operationId: dossier.ReportWithActionsAPI.reportsWithActions
+      operationId: getV0DossierBackChannelAuthorizedClientsByClientIdReportsWithActions
       parameters:
       - name: client_id
         in: path
@@ -97,75 +97,96 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ReportWithActionsList'
       x-replacement-for:
       - /t/dossier/authorized/clients/{client_id}/reports_with_actions
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ReportWithActionsAPI.reportsWithActions
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.ReportAuthorizationsViewModel:
-      title: ReportAuthorizationsViewModel
-      required:
-      - profileAuthorizations
-      - groupAuthorizations
-      type: object
-      properties:
-        profileAuthorizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.ReportAuthorizationViewModel'
-          description: List of expertise profile authorizations.
-        groupAuthorizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.ReportAuthorizationViewModel'
-          description: List of expertise group authorizations.
-      description: 'Expertise profiles and groups that are allowed to view the report. Expertises are applied only if the report is
+    dossier.ReportStatus:
+      type: integer
+      oneOf:
+      - title: OPENED
+        enum:
+        - 0
+      - title: CLOSED
+        enum:
+        - 1
+      description: 'Status of the report, typically used in family communication reports with reactions, where the parent status is updated by the status of the reaction.
 
-        marked as `confidential`, otherwise the list of expertises is ignored.
+        - 0: opened
+
+        - 1: closed
 
         '
-      example:
-        profileAuthorizations:
-        - expertiseId: 77
-          expertiseName: Arts
-        groupAuthorizations:
-        - expertiseId: 77
-          expertiseName: Arts
-    dossier.CombinedReportActionReceiverType:
-      enum:
-      - ExpertiseProfile
-      - ExpertiseGroup
+      example: 0
+    dossier.ReportActionsStatus:
       type: string
-      description: The type of the receiver; expertise profile or group
-      example: ExpertiseProfile
-    dossier.ReportPhotoViewModel:
-      title: ReportPhotosViewModel
+      oneOf:
+      - title: NONE
+        enum:
+        - none
+      - title: FOR_ME
+        enum:
+        - for-me
+      - title: ALL_COMPLETE
+        enum:
+        - all-complete
+      - title: FOR_OTHERS
+        enum:
+        - for-others
+      description: 'Status of the report actions. It indicates if there are incomplete actions for my expertise profile or groups.
+
+        - none : there are no actions for this report
+
+        - for-me : there are incomplete actions for my expertise profile / expertise groups
+
+        - all-complete : all actions for this report are complete
+
+        - for-others : actions for my expertise are complete but there are some incomplete actions for expertise profiles / groups that are not complete
+
+        '
+      example: none
+    dossier.ReportGoalViewModel:
+      title: ReportGoalViewModel
       required:
-      - mimeType
-      - chironPhotoId
-      - defaultBlurred
+      - planElementCompositionId
+      - goalUid
+      - classificationName
+      - problemDescription
+      - goalDescription
       type: object
       properties:
-        mimeType:
-          type: string
-          description: MIME type of the photo file
-        chironPhotoId:
+        planElementCompositionId:
           type: integer
-          description: ID of the photo file stored in Chiron. Can be used to produce the file address.
+          description: ID of the Chiron plan element composition where this goal was originally recorded
           format: int64
-        comment:
-          type:
-          - string
-          - 'null'
-          description: Comment describing the photo
-        defaultBlurred:
-          type: boolean
-          description: Whether the photo should be blurred by default in a report timeline
-      description: Report photo view models
+        goalUid:
+          type: string
+          description: Persistent UID of the goal
+          format: uuid
+        classificationName:
+          type: string
+          description: Classification of the problem of this goal at the moment the report was created
+        problemDescription:
+          type: string
+          description: Description of the problem of this goal at the moment the report was created
+        goalDescription:
+          type: string
+          description: Description of the goal
+      description: Goal linked to this report
       example:
-        mimeType: image/jpeg
-        chironPhotoId: 1023
-        comment: palm
-        defaultBlurred: false
+        planElementCompositionId: 20
+        goalUid: e45cc577-bd8d-42d0-b5ea-aa2eb0de5721
+        classificationName: S
+        problemDescription: Hungry
+        goalDescription: Eat
+    dossier.ReportLinkType:
+      enum:
+      - NEXT_DOSSIER
+      type: string
+      description: ReportLinkType enum (no description)
+      example: NEXT_DOSSIER
     dossier.SoapViewModel:
       title: SoapViewModel
       required:
@@ -207,49 +228,6 @@ components:
           label: plan
           confidential: true
           visible: true
-    dossier.SoapPartViewModel:
-      title: SoapPartViewModel
-      required:
-      - label
-      - confidential
-      - visible
-      type: object
-      properties:
-        label:
-          type: string
-          description: Dutch or English language dependent name of the SOAP part
-        comment:
-          type:
-          - string
-          - 'null'
-          description: Text of the SOAP part. It is present only if the current employee is allowed to see this SOAP part.
-        visible:
-          type: boolean
-          description: 'Set to `true` if the employee is allowed to see this SOAP part.
-
-
-            If set to `false` then the `comment` attribute is empty but list of `authorizations` is still visible.
-
-
-            It means that an employee cannot see the comment but they still can see list of expertise profiles and groups who are
-
-            allowed to see the comment.
-
-            '
-        confidential:
-          type: boolean
-          description: 'When set to `true` then this report is not public and can only be seen by employees with proper level
-
-            of authorization (see the `authorizations` property in this model)
-
-            '
-        authorizations:
-          $ref: '#/components/schemas/dossier.ReportAuthorizationsViewModel'
-      description: Individual part of the SOAP report (subjective/objective/assessment/plan)
-      example:
-        label: subjectief
-        confidential: true
-        visible: true
     dossier.CombinedReportActionReceiverViewModel:
       title: CombinedReportActionReceiverViewModel
       required:
@@ -271,6 +249,20 @@ components:
         id: 1
         name: Arts
         type: ExpertiseProfile
+    dossier.ReportAuthorType:
+      enum:
+      - employee
+      - caren
+      - external
+      type: string
+      description: '- `employee` - author is an employee
+
+        - `caren` - author is a Caren user
+
+        - `external` - author is neither employee nor Caren user
+
+        '
+      example: employee
     dossier.MeasurementViewModel:
       title: MeasurementViewModel
       required:
@@ -309,28 +301,6 @@ components:
         value: 38.4
         unit: °C
         format: '%.1f'
-    dossier.ReportAuthorizationViewModel:
-      title: ReportAuthorizationViewModel
-      required:
-      - expertiseId
-      - expertiseName
-      type: object
-      properties:
-        expertiseId:
-          type: integer
-          description: ID of the expertise group or expertise profile.
-          format: int64
-        expertiseName:
-          type: string
-          description: Name of the expertise profile or group.
-      description: 'Authorization is referencing either expertise group or expertise profile. The type of the expertise is given by the context
-
-        of the owning object.
-
-        '
-      example:
-        expertiseId: 77
-        expertiseName: Arts
     dossier.MeasurementViewModelName:
       type: string
       oneOf:
@@ -361,33 +331,6 @@ components:
 
         '
       example: bmi
-    dossier.ReportActionsStatus:
-      type: string
-      oneOf:
-      - title: NONE
-        enum:
-        - none
-      - title: FOR_ME
-        enum:
-        - for-me
-      - title: ALL_COMPLETE
-        enum:
-        - all-complete
-      - title: FOR_OTHERS
-        enum:
-        - for-others
-      description: 'Status of the report actions. It indicates if there are incomplete actions for my expertise profile or groups.
-
-        - none : there are no actions for this report
-
-        - for-me : there are incomplete actions for my expertise profile / expertise groups
-
-        - all-complete : all actions for this report are complete
-
-        - for-others : actions for my expertise are complete but there are some incomplete actions for expertise profiles / groups that are not complete
-
-        '
-      example: none
     dossier.ReportWithActions:
       title: ReportWithActions
       required:
@@ -662,32 +605,6 @@ components:
           reportActions: []
         photos: []
         reactions: []
-    dossier.CombinedReportActionsViewModel:
-      title: CombinedReportActionsViewModel
-      required:
-      - status
-      - reportActions
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/dossier.ReportActionsStatus'
-        reportActions:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.CombinedReportActionViewModel'
-          description: List of report actions
-      description: List of report action view models
-      example:
-        status: none
-        reportActions:
-        - receivers:
-          - id: 77
-            name: Arts
-            type: ExpertiseProfile
-          completable: false
-          completed: true
-          completedAt: '2014-04-01T17:00:00.000+02:00'
-          completedByEmployeeId: 1
     dossier.CombinedReportActionViewModel:
       title: CombinedReportActionViewModel
       required:
@@ -733,116 +650,133 @@ components:
         completed: true
         completedAt: '2014-04-01T17:00:00.000+02:00'
         completedByEmployeeId: 1
-    dossier.list.ReportWithActionsList:
+    dossier.CombinedReportActionsViewModel:
+      title: CombinedReportActionsViewModel
+      required:
+      - status
+      - reportActions
       type: object
       properties:
-        reportsWithActions:
+        status:
+          $ref: '#/components/schemas/dossier.ReportActionsStatus'
+        reportActions:
           type: array
           items:
-            $ref: '#/components/schemas/dossier.ReportWithActions'
-      description: List of ReportWithActions
+            $ref: '#/components/schemas/dossier.CombinedReportActionViewModel'
+          description: List of report actions
+      description: List of report action view models
       example:
-        reportsWithActions:
-        - id: 1
-          reportedAt: '2014-11-14T00:00:00.000+01:00'
-          flagged: true
-          hidden: true
-          createdAt: '2014-11-14T00:00:00.000+01:00'
-          updatedAt: '2014-11-14T00:00:00.000+01:00'
-          status: 1
-          clientId: 1
-          reportTypeId: 1
-          reportTypeName: mbi
-          reportTypeIconName: dossier
-          authorName: Henk
-          authorType: employee
-          confidential: true
-          registrationCouplingUuid: abcd1234-ef56-7890-gh12-ijkl3456mnop
-          measurements:
-          - name: decimal
-            label: Temperatuur
-            value: 38.4
-            unit: °C
-            format: '%.1f'
-          authorizations:
-            profileAuthorizations: []
-            groupAuthorizations: []
-          photos: []
-          reactions: []
-          actions:
-            status: none
-            reportActions: []
-    dossier.ReportLinkType:
-      enum:
-      - NEXT_DOSSIER
-      type: string
-      description: ReportLinkType enum (no description)
-      example: NEXT_DOSSIER
-    dossier.ReportStatus:
-      type: integer
-      oneOf:
-      - title: OPENED
-        enum:
-        - 0
-      - title: CLOSED
-        enum:
-        - 1
-      description: 'Status of the report, typically used in family communication reports with reactions, where the parent status is updated by the status of the reaction.
-
-        - 0: opened
-
-        - 1: closed
-
-        '
-      example: 0
-    dossier.ReportAuthorType:
-      enum:
-      - employee
-      - caren
-      - external
-      type: string
-      description: '- `employee` - author is an employee
-
-        - `caren` - author is a Caren user
-
-        - `external` - author is neither employee nor Caren user
-
-        '
-      example: employee
-    dossier.ReportGoalViewModel:
-      title: ReportGoalViewModel
+        status: none
+        reportActions:
+        - receivers:
+          - id: 77
+            name: Arts
+            type: ExpertiseProfile
+          completable: false
+          completed: true
+          completedAt: '2014-04-01T17:00:00.000+02:00'
+          completedByEmployeeId: 1
+    dossier.ReportPhotoViewModel:
+      title: ReportPhotosViewModel
       required:
-      - planElementCompositionId
-      - goalUid
-      - classificationName
-      - problemDescription
-      - goalDescription
+      - mimeType
+      - chironPhotoId
+      - defaultBlurred
       type: object
       properties:
-        planElementCompositionId:
+        mimeType:
+          type: string
+          description: MIME type of the photo file
+        chironPhotoId:
           type: integer
-          description: ID of the Chiron plan element composition where this goal was originally recorded
+          description: ID of the photo file stored in Chiron. Can be used to produce the file address.
           format: int64
-        goalUid:
-          type: string
-          description: Persistent UID of the goal
-          format: uuid
-        classificationName:
-          type: string
-          description: Classification of the problem of this goal at the moment the report was created
-        problemDescription:
-          type: string
-          description: Description of the problem of this goal at the moment the report was created
-        goalDescription:
-          type: string
-          description: Description of the goal
-      description: Goal linked to this report
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Comment describing the photo
+        defaultBlurred:
+          type: boolean
+          description: Whether the photo should be blurred by default in a report timeline
+      description: Report photo view models
       example:
-        planElementCompositionId: 20
-        goalUid: e45cc577-bd8d-42d0-b5ea-aa2eb0de5721
-        classificationName: S
-        problemDescription: Hungry
-        goalDescription: Eat
+        mimeType: image/jpeg
+        chironPhotoId: 1023
+        comment: palm
+        defaultBlurred: false
+    dossier.SoapPartViewModel:
+      title: SoapPartViewModel
+      required:
+      - label
+      - confidential
+      - visible
+      type: object
+      properties:
+        label:
+          type: string
+          description: Dutch or English language dependent name of the SOAP part
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Text of the SOAP part. It is present only if the current employee is allowed to see this SOAP part.
+        visible:
+          type: boolean
+          description: 'Set to `true` if the employee is allowed to see this SOAP part.
+
+
+            If set to `false` then the `comment` attribute is empty but list of `authorizations` is still visible.
+
+
+            It means that an employee cannot see the comment but they still can see list of expertise profiles and groups who are
+
+            allowed to see the comment.
+
+            '
+        confidential:
+          type: boolean
+          description: 'When set to `true` then this report is not public and can only be seen by employees with proper level
+
+            of authorization (see the `authorizations` property in this model)
+
+            '
+        authorizations:
+          $ref: '#/components/schemas/dossier.ReportAuthorizationsViewModel'
+      description: Individual part of the SOAP report (subjective/objective/assessment/plan)
+      example:
+        label: subjectief
+        confidential: true
+        visible: true
+    dossier.ReportAuthorizationViewModel:
+      title: ReportAuthorizationViewModel
+      required:
+      - expertiseId
+      - expertiseName
+      type: object
+      properties:
+        expertiseId:
+          type: integer
+          description: ID of the expertise group or expertise profile.
+          format: int64
+        expertiseName:
+          type: string
+          description: Name of the expertise profile or group.
+      description: 'Authorization is referencing either expertise group or expertise profile. The type of the expertise is given by the context
+
+        of the owning object.
+
+        '
+      example:
+        expertiseId: 77
+        expertiseName: Arts
+    dossier.CombinedReportActionReceiverType:
+      enum:
+      - ExpertiseProfile
+      - ExpertiseGroup
+      type: string
+      description: The type of the receiver; expertise profile or group
+      example: ExpertiseProfile
     dossier.ReportReactionViewModel:
       title: ReportReactionViewModel
       required:
@@ -918,6 +852,74 @@ components:
         status: 1
         authorName: John
         authorType: employee
+    dossier.ReportAuthorizationsViewModel:
+      title: ReportAuthorizationsViewModel
+      required:
+      - profileAuthorizations
+      - groupAuthorizations
+      type: object
+      properties:
+        profileAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorizationViewModel'
+          description: List of expertise profile authorizations.
+        groupAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorizationViewModel'
+          description: List of expertise group authorizations.
+      description: 'Expertise profiles and groups that are allowed to view the report. Expertises are applied only if the report is
+
+        marked as `confidential`, otherwise the list of expertises is ignored.
+
+        '
+      example:
+        profileAuthorizations:
+        - expertiseId: 77
+          expertiseName: Arts
+        groupAuthorizations:
+        - expertiseId: 77
+          expertiseName: Arts
+    dossier.list.ReportWithActionsList:
+      type: object
+      properties:
+        reportsWithActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportWithActions'
+      description: List of ReportWithActions
+      example:
+        reportsWithActions:
+        - id: 1
+          reportedAt: '2014-11-14T00:00:00.000+01:00'
+          flagged: true
+          hidden: true
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          status: 1
+          clientId: 1
+          reportTypeId: 1
+          reportTypeName: mbi
+          reportTypeIconName: dossier
+          authorName: Henk
+          authorType: employee
+          confidential: true
+          registrationCouplingUuid: abcd1234-ef56-7890-gh12-ijkl3456mnop
+          measurements:
+          - name: decimal
+            label: Temperatuur
+            value: 38.4
+            unit: °C
+            format: '%.1f'
+          authorizations:
+            profileAuthorizations: []
+            groupAuthorizations: []
+          photos: []
+          reactions: []
+          actions:
+            status: none
+            reportActions: []
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

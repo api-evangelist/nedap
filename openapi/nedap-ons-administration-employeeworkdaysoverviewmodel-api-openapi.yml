@@ -56,7 +56,7 @@ paths:
       tags:
       - ons_administration.EmployeeWorkdaysOverviewModel
       summary: Returns the workdays for the given employees according to the workday norm…
-      operationId: ons_administration.EmployeeWorkdaysOverviewModelAPI.getWorkdaysForEmployees
+      operationId: getV0AdministrationEmployeesWorkdayNormsWorkdays
       parameters:
       - name: id
         in: query
@@ -91,10 +91,37 @@ paths:
           description: One or more employees not found
       x-replacement-for:
       - /t/employees/workday_norms/workdays
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.EmployeeWorkdaysOverviewModelAPI.getWorkdaysForEmployees
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ons_administration.list.EmployeeWorkdaysOverviewModelList:
+      type: object
+      properties:
+        employeeWorkdaysOverviewModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.EmployeeWorkdaysOverviewModel'
+      description: List of EmployeeWorkdaysOverviewModel
+      example:
+        employeeWorkdaysOverviewModels:
+        - employeeObjectId: 42
+          startDate: '2025-12-29'
+          endDate: '2026-01-04'
+          workdays:
+          - '2026-12-30'
+          - '2026-01-02'
+          - '2026-01-03'
+        - employeeObjectId: 43
+          startDate: '2025-12-29'
+          endDate: '2026-01-04'
+          workdays:
+          - '2026-12-29'
+          - '2026-01-30'
+          - '2026-01-03'
+          - '2026-01-04'
     ons_administration.EmployeeWorkdaysOverviewModel:
       type: object
       properties:
@@ -136,31 +163,6 @@ components:
         - '2026-12-30'
         - '2026-01-02'
         - '2026-01-03'
-    ons_administration.list.EmployeeWorkdaysOverviewModelList:
-      type: object
-      properties:
-        employeeWorkdaysOverviewModels:
-          type: array
-          items:
-            $ref: '#/components/schemas/ons_administration.EmployeeWorkdaysOverviewModel'
-      description: List of EmployeeWorkdaysOverviewModel
-      example:
-        employeeWorkdaysOverviewModels:
-        - employeeObjectId: 42
-          startDate: '2025-12-29'
-          endDate: '2026-01-04'
-          workdays:
-          - '2026-12-30'
-          - '2026-01-02'
-          - '2026-01-03'
-        - employeeObjectId: 43
-          startDate: '2025-12-29'
-          endDate: '2026-01-04'
-          workdays:
-          - '2026-12-29'
-          - '2026-01-30'
-          - '2026-01-03'
-          - '2026-01-04'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

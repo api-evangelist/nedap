@@ -41,7 +41,7 @@ paths:
       tags:
       - dossier.omaha.InterventionCategory
       summary: Returns every InterventionCategory available from the InterventionCategoryAPI
-      operationId: dossier.omaha.InterventionCategoryAPI.all
+      operationId: getV0AdministrationOmahaInterventionCategories
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -61,6 +61,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/omaha/intervention_categories
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.omaha.InterventionCategoryAPI.all
     servers:
     - url: https://api-development.ons.io
 components:

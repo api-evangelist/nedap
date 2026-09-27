@@ -50,7 +50,7 @@ paths:
       - moves.WorkingEmployeeReport
       summary: Return the list of Employee ids working within the specified period
       description: Working according to the planning.
-      operationId: moves.WorkingEmployeeReportAPI.between
+      operationId: getV0PlannenRoosterenWorkingEmployeeReport
       parameters:
       - name: start_datetime
         in: query
@@ -77,6 +77,8 @@ paths:
                 $ref: '#/components/schemas/moves.WorkingEmployeeReport'
       x-replacement-for:
       - /t/moves/working_employee_report
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.WorkingEmployeeReportAPI.between
     servers:
     - url: https://api-development.ons.io
 components:

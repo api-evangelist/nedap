@@ -94,7 +94,7 @@ paths:
       tags:
       - Agbcode
       summary: Returns every Agbcode available from the AgbcodeAPI
-      operationId: AgbcodeAPI.all
+      operationId: getV0AdministrationAgbcodes
       responses:
         '200':
           description: No response was specified
@@ -105,6 +105,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/agbcodes
+      x-operation-id-source: normalized
+      x-operation-id-original: AgbcodeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/agbcodes/{id}:
@@ -112,7 +114,7 @@ paths:
       tags:
       - Agbcode
       summary: Return the Agbcode corresponding to the given id
-      operationId: AgbcodeAPI.byId
+      operationId: getV0AdministrationAgbcodesById
       parameters:
       - name: id
         in: path
@@ -131,6 +133,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/agbcodes/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: AgbcodeAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/agbcodes/by_client_id/{id}/sorted:
@@ -139,7 +143,7 @@ paths:
       - Agbcode
       summary: Return a list of sorted agbcodes, using the tree depth of the location of given…
       description: if the agbcode of the location fails, return agbcode from the parent unit
-      operationId: AgbcodeAPI.sortedByClientId
+      operationId: getV0AdministrationAgbcodesByClientIdByIdSorted
       parameters:
       - name: id
         in: path
@@ -165,31 +169,12 @@ paths:
           description: Client ID is required
       x-replacement-for:
       - /t/agbcodes/by_client_id/{id}/sorted
+      x-operation-id-source: normalized
+      x-operation-id-original: AgbcodeAPI.sortedByClientId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    Agbcode:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        code:
-          type: string
-        vatNumber:
-          type: string
-      description: Agbcode model (no description)
-      example:
-        id: 1
-        name: Organization name
-        code: '75750535'
-        vatNumber: NL123456789B01
-      xml:
-        name: agbcode
     list.AgbcodeList:
       type: object
       properties:
@@ -212,6 +197,27 @@ components:
           vatNumber: NL123456789B02
       xml:
         name: agbcodes
+    Agbcode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        code:
+          type: string
+        vatNumber:
+          type: string
+      description: Agbcode model (no description)
+      example:
+        id: 1
+        name: Organization name
+        code: '75750535'
+        vatNumber: NL123456789B01
+      xml:
+        name: agbcode
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

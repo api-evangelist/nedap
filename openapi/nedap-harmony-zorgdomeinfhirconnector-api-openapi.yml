@@ -65,7 +65,7 @@ paths:
       - harmony.ZorgdomeinFhirConnector
       summary: Create BundleWrapper
       description: The bundle contains a single field `data` that contains serialized JSON. The response is an empty JSON object.
-      operationId: harmony.ZorgdomeinFhirConnectorAPI.create
+      operationId: postV0KetenverkeerFhirR3BundleWrapper
       requestBody:
         description: BundleWrapper to create
         content:
@@ -107,23 +107,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/harmony/zorgdomein/fhir/connector/bundle_wrapper
+      x-operation-id-source: normalized
+      x-operation-id-original: harmony.ZorgdomeinFhirConnectorAPI.create
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    harmony.ZorgdomeinFhirConnector:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          type: string
-          description: 'Data from original hl7 fhir dstu3 bundle
-
-            Contains JSON'
-      description: This object can be used to transport HL7 FHIR dstu3 bundle data to Ketenverkeer (Harmony).
-      example:
-        data: bundlejson
     harmony.JsonResponseDto:
       required:
       - status
@@ -138,6 +127,19 @@ components:
       example:
         details: Validation error
         status: 1
+    harmony.ZorgdomeinFhirConnector:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: string
+          description: 'Data from original hl7 fhir dstu3 bundle
+
+            Contains JSON'
+      description: This object can be used to transport HL7 FHIR dstu3 bundle data to Ketenverkeer (Harmony).
+      example:
+        data: bundlejson
     harmony.BundleWrapper:
       type: object
       allOf:

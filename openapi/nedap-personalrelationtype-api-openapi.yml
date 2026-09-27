@@ -74,7 +74,7 @@ paths:
       tags:
       - PersonalRelationType
       summary: Returns every PersonalRelationType available from the PersonalRelationTypeAPI
-      operationId: PersonalRelationTypeAPI.all
+      operationId: getV0AdministrationPersonalRelationTypes
       parameters:
       - name: offset
         in: query
@@ -98,6 +98,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/personal_relation_types
+      x-operation-id-source: normalized
+      x-operation-id-original: PersonalRelationTypeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/personal_relation_types/{id}:
@@ -105,7 +107,7 @@ paths:
       tags:
       - PersonalRelationType
       summary: Returns the PersonalRelationType corresponding to the given id
-      operationId: PersonalRelationTypeAPI.byId
+      operationId: getV0AdministrationPersonalRelationTypesById
       parameters:
       - name: id
         in: path
@@ -126,6 +128,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/personal_relation_types/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PersonalRelationTypeAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
@@ -154,33 +158,52 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    PersonalRelationType:
+    RelationCategory:
       type: object
       allOf:
-      - $ref: '#/components/schemas/RelationType'
-      description: PersonalRelationType model (no description)
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
       example:
-        id: 6
-        name: Father
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: true
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
         updatedAt: '2013-09-24T11:49:58.000+02:00'
         createdAt: '2013-09-24T11:49:58.000+02:00'
         createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+    list.PersonalRelationTypeList:
+      type: object
+      properties:
+        personalRelationTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonalRelationType'
+      description: PersonalRelationTypeList model (no description)
+      example:
+        personalRelationTypes:
+        - id: 6
+          name: Father
+          primary: true
+          exclusive: true
+          negative: false
+          active: true
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+            id: 7
+            name: Standard
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
     RelationType:
       type: object
       allOf:
@@ -243,52 +266,33 @@ components:
           createdBy: user
           id: 7
           name: Standard
-    list.PersonalRelationTypeList:
-      type: object
-      properties:
-        personalRelationTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonalRelationType'
-      description: PersonalRelationTypeList model (no description)
-      example:
-        personalRelationTypes:
-        - id: 6
-          name: Father
-          primary: true
-          exclusive: true
-          negative: false
-          active: true
-          vektisCode: 1
-          reference: 1
-          relationCategory:
-            updatedAt: '2013-09-24T11:49:58.000+02:00'
-            createdAt: '2013-09-24T11:49:58.000+02:00'
-            id: 7
-            name: Standard
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-    RelationCategory:
+    PersonalRelationType:
       type: object
       allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
+      - $ref: '#/components/schemas/RelationType'
+      description: PersonalRelationType model (no description)
       example:
+        id: 6
+        name: Father
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
         updatedAt: '2013-09-24T11:49:58.000+02:00'
         createdAt: '2013-09-24T11:49:58.000+02:00'
         createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

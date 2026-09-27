@@ -268,7 +268,7 @@ paths:
       - arrangement.Intent
       summary: Create Intent
       description: Deprecated due to potential overlap validation issues. Use createOrUpdateTimeline instead.
-      operationId: arrangement.IntentAPI.create
+      operationId: postV0AdministrationArrangementIntents
       requestBody:
         description: Intent to create
         content:
@@ -288,6 +288,8 @@ paths:
       x-deprecated-since: 19-01-2024
       x-replacement-for:
       - /t/arrangement/intents
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.IntentAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/intents/{uuid}:
@@ -296,7 +298,7 @@ paths:
       - arrangement.Intent
       summary: Updates the given Intent
       description: Deprecated due to potential overlap validation issues. Use createOrUpdateTimeline instead.
-      operationId: arrangement.IntentAPI.update
+      operationId: putV0AdministrationArrangementIntentsByUuid
       parameters:
       - name: uuid
         in: path
@@ -330,12 +332,14 @@ paths:
       x-deprecated-since: 19-01-2024
       x-replacement-for:
       - /t/arrangement/intents/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.IntentAPI.update
     delete:
       tags:
       - arrangement.Intent
       summary: Deletes the Intent with given uuid
       description: Deprecated due to potential overlap validation issues. Use deleteTimeline instead.
-      operationId: arrangement.IntentAPI.delete
+      operationId: deleteV0AdministrationArrangementIntentsByUuid
       parameters:
       - name: uuid
         in: path
@@ -360,6 +364,8 @@ paths:
       x-deprecated-since: 19-01-2024
       x-replacement-for:
       - /t/arrangement/intents/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.IntentAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/intents/by_client_period_plannable/{client_id}:
@@ -367,7 +373,7 @@ paths:
       tags:
       - arrangement.Intent
       summary: Gets all intents for a Client in a given period and whether they are plannable
-      operationId: arrangement.IntentAPI.byClientInPeriodPlannable
+      operationId: getV0AdministrationArrangementIntentsByClientPeriodPlannableByClientId
       parameters:
       - name: client_id
         in: path
@@ -405,6 +411,8 @@ paths:
                 $ref: '#/components/schemas/arrangement.list.IntentList'
       x-replacement-for:
       - /t/arrangement/intents/by_client_period_plannable/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.IntentAPI.byClientInPeriodPlannable
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/intents/by_employee/{employee_id}:
@@ -412,7 +420,7 @@ paths:
       tags:
       - arrangement.Intent
       summary: Gets all intents for an Employee
-      operationId: arrangement.IntentAPI.byEmployeeId
+      operationId: getV0AdministrationArrangementIntentsByEmployeeByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -454,6 +462,8 @@ paths:
                 $ref: '#/components/schemas/arrangement.list.IntentList'
       x-replacement-for:
       - /t/arrangement/intents/by_employee/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.IntentAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/intents/by_timeline/{timeline_uuid}:
@@ -461,7 +471,7 @@ paths:
       tags:
       - arrangement.Intent
       summary: Updates all intents for a timeline identified by a UUID
-      operationId: arrangement.IntentAPI.createOrUpdateTimeline
+      operationId: putV0AdministrationArrangementIntentsByTimelineByTimelineUuid
       parameters:
       - name: timeline_uuid
         in: path
@@ -490,11 +500,13 @@ paths:
           description: No intents found for the given timeline UUID
       x-replacement-for:
       - /t/arrangement/intents/by_timeline/{timeline_uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.IntentAPI.createOrUpdateTimeline
     delete:
       tags:
       - arrangement.Intent
       summary: Deletes all intents for a timeline identified by a UUID
-      operationId: arrangement.IntentAPI.deleteTimeline
+      operationId: deleteV0AdministrationArrangementIntentsByTimelineByTimelineUuid
       parameters:
       - name: timeline_uuid
         in: path
@@ -513,75 +525,12 @@ paths:
           description: Timeline not found
       x-replacement-for:
       - /t/arrangement/intents/by_timeline/{timeline_uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.IntentAPI.deleteTimeline
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    arrangement.RecurrenceType:
-      enum:
-      - HOUR
-      - DAY
-      - WEEK
-      - PERIOD
-      type: string
-      description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
-
-        Examples:
-
-        - 1, WEEK corresponds to ''every week''
-
-        - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
-      example: HOUR
-    arrangement.list.IntentList:
-      type: object
-      properties:
-        intents:
-          type: array
-          items:
-            $ref: '#/components/schemas/arrangement.Intent'
-      description: IntentList model (no description)
-      example:
-        intents:
-        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
-          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
-          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
-          clientId: 544
-          beginDate: '2022-01-01'
-          hourTypeId: 1
-          frequency: 3
-          quantityAmount: 4
-          quantityUnit: HOUR
-          recurrenceInterval: 1
-          recurrenceType: WEEK
-          sourceApp: PLANNING
-        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
-          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
-          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
-          clientId: 544
-          beginDate: '2022-01-01'
-          hourTypeId: 1
-          frequency: 3
-          quantityAmount: 4
-          quantityUnit: HOUR
-          recurrenceInterval: 1
-          recurrenceType: WEEK
-          sourceApp: PLANNING
-    arrangement.QuantityUnit:
-      enum:
-      - MINUTE
-      - HOUR
-      - DAY_PART
-      - DAY
-      - PIECE
-      type: string
-      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
-
-        quantity of th the care that is intended. For example:
-
-        - 2, HOUR means ''2 hours''
-
-        - 120, MINUTE means ''120 minutes'''
-      example: MINUTE
     arrangement.Intent:
       required:
       - uuid
@@ -702,6 +651,71 @@ components:
         plannable: true
       xml:
         name: intent
+    arrangement.QuantityUnit:
+      enum:
+      - MINUTE
+      - HOUR
+      - DAY_PART
+      - DAY
+      - PIECE
+      type: string
+      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+        quantity of th the care that is intended. For example:
+
+        - 2, HOUR means ''2 hours''
+
+        - 120, MINUTE means ''120 minutes'''
+      example: MINUTE
+    arrangement.RecurrenceType:
+      enum:
+      - HOUR
+      - DAY
+      - WEEK
+      - PERIOD
+      type: string
+      description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
+
+        Examples:
+
+        - 1, WEEK corresponds to ''every week''
+
+        - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
+      example: HOUR
+    arrangement.list.IntentList:
+      type: object
+      properties:
+        intents:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.Intent'
+      description: IntentList model (no description)
+      example:
+        intents:
+        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
+          clientId: 544
+          beginDate: '2022-01-01'
+          hourTypeId: 1
+          frequency: 3
+          quantityAmount: 4
+          quantityUnit: HOUR
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
+        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
+          clientId: 544
+          beginDate: '2022-01-01'
+          hourTypeId: 1
+          frequency: 3
+          quantityAmount: 4
+          quantityUnit: HOUR
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

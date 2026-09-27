@@ -115,7 +115,7 @@ paths:
       tags:
       - CareArrangement
       summary: Return the care arrangements of a Client corresponding to the given id
-      operationId: CareArrangementAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdCareArrangements
       parameters:
       - name: client_id
         in: path
@@ -145,6 +145,8 @@ paths:
                 $ref: '#/components/schemas/list.CareArrangementList'
       x-replacement-for:
       - /t/clients/{client_id}/care_arrangements
+      x-operation-id-source: normalized
+      x-operation-id-original: CareArrangementAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/care_arrangements/data:
@@ -152,7 +154,7 @@ paths:
       tags:
       - CareArrangement
       summary: Return all CareArrangement models in a streaming manner
-      operationId: CareArrangementAPI.streamAll
+      operationId: getV0XstreamCareArrangementsData
       responses:
         '200':
           description: No response was specified
@@ -172,6 +174,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_arrangements/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: CareArrangementAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/care_arrangements/updates:
@@ -179,7 +183,7 @@ paths:
       tags:
       - CareArrangement
       summary: Return all CareArrangement models which where updated since the date given in…
-      operationId: CareArrangementAPI.streamUpdates
+      operationId: getV0XstreamCareArrangementsUpdates
       parameters:
       - name: since
         in: query
@@ -207,39 +211,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_arrangements/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: CareArrangementAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.CareArrangementList:
-      type: object
-      properties:
-        careArrangements:
-          type: array
-          items:
-            $ref: '#/components/schemas/CareArrangement'
-          xml:
-            name: careArrangement
-      description: CareArrangementList model (no description)
-      example:
-        careArrangements:
-        - id: 1
-          clientObjectId: 7815
-          teamObjectId: 0
-          activityObjectId: 39
-          category: 1
-          beginDate: '2010-02-22T00:00:00.000+01:00'
-          endDate: '2010-05-21T23:59:59.000+02:00'
-          normMorning: 180
-          normAfternoon: 0
-          normEvening: 0
-          normNight: 0
-          mornings: 1 2 3 4 5
-          afternoons: ''
-          evenings: ''
-          nights: ''
-      xml:
-        name: careArrangements
     CareArrangement:
       type: object
       properties:
@@ -305,6 +282,35 @@ components:
         nights: 1 2 3 4 5
       xml:
         name: careArrangement
+    list.CareArrangementList:
+      type: object
+      properties:
+        careArrangements:
+          type: array
+          items:
+            $ref: '#/components/schemas/CareArrangement'
+          xml:
+            name: careArrangement
+      description: CareArrangementList model (no description)
+      example:
+        careArrangements:
+        - id: 1
+          clientObjectId: 7815
+          teamObjectId: 0
+          activityObjectId: 39
+          category: 1
+          beginDate: '2010-02-22T00:00:00.000+01:00'
+          endDate: '2010-05-21T23:59:59.000+02:00'
+          normMorning: 180
+          normAfternoon: 0
+          normEvening: 0
+          normNight: 0
+          mornings: 1 2 3 4 5
+          afternoons: ''
+          evenings: ''
+          nights: ''
+      xml:
+        name: careArrangements
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

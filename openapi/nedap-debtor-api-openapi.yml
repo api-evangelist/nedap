@@ -172,7 +172,7 @@ paths:
       tags:
       - Debtor
       summary: Return the debtors of a Client corresponding to the given id
-      operationId: DebtorAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdDebtors
       parameters:
       - name: client_id
         in: path
@@ -202,6 +202,8 @@ paths:
                 $ref: '#/components/schemas/list.DebtorList'
       x-replacement-for:
       - /t/clients/{client_id}/debtors
+      x-operation-id-source: normalized
+      x-operation-id-original: DebtorAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/debtors:
@@ -210,7 +212,7 @@ paths:
       - Debtor
       summary: Return a DebtorList containing all Debtors available from the DebtorAPI
       description: Filtered by Debtor type if one is provided.
-      operationId: DebtorAPI.all
+      operationId: getV0AdministrationDebtors
       parameters:
       - name: type
         in: query
@@ -229,6 +231,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/debtors
+      x-operation-id-source: normalized
+      x-operation-id-original: DebtorAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/debtors/{id}:
@@ -236,7 +240,7 @@ paths:
       tags:
       - Debtor
       summary: Return the Debtor corresponding to the given id
-      operationId: DebtorAPI.byId
+      operationId: getV0AdministrationDebtorsById
       parameters:
       - name: id
         in: path
@@ -257,6 +261,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/debtors/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: DebtorAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/debtors/data:
@@ -264,7 +270,7 @@ paths:
       tags:
       - Debtor
       summary: Return all Debtor models in a streaming manner
-      operationId: DebtorAPI.streamAll
+      operationId: getV0XstreamDebtorsData
       responses:
         '200':
           description: No response was specified
@@ -284,6 +290,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/debtors/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: DebtorAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/debtors/updates:
@@ -291,7 +299,7 @@ paths:
       tags:
       - Debtor
       summary: Return all Debtor models which where updated since the date given in the request
-      operationId: DebtorAPI.streamUpdates
+      operationId: getV0XstreamDebtorsUpdates
       parameters:
       - name: since
         in: query
@@ -319,6 +327,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/debtors/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: DebtorAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
@@ -449,6 +459,27 @@ components:
         updatedAt: '2012-08-02T11:48:46.836+02:00'
       xml:
         name: insurance
+    InsuranceType:
+      enum:
+      - BV
+      - AV
+      - TV
+      - HV
+      type: string
+      description: 'Insurance type. Possible values:
+
+        <pre>
+
+        BV (Basis Verzekering)
+
+        AV (Aanvullende Verzekering)
+
+        TV (Tand Verzekering)
+
+        HV (Hoofd Verzekering)
+
+        </pre>'
+      example: BV
     BankAccount:
       type: object
       properties:
@@ -491,73 +522,6 @@ components:
         updatedAt: '2016-01-01T12:00:00.000+01:00'
       xml:
         name: bankAccount
-    list.DebtorList:
-      type: object
-      properties:
-        debtors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Debtor'
-          xml:
-            name: debtor
-      description: DebtorList model (no description)
-      example:
-        debtors:
-        - id: 1
-          type: '2'
-          uzoviCode: '3'
-          beginDate: '2012-08-02T11:48:46.836+02:00'
-          endDate: '2012-08-02T11:48:46.836+02:00'
-          phone1: '4'
-          phone2: '5'
-          phone3: '6'
-          fax: '7'
-          email: '8'
-          gender: '9'
-          debtorNumber: '10'
-          organizationName: '11'
-          firstName: '12'
-          lastName: '13'
-          lastNameOwn: '13'
-          streetName: '14'
-          addressNumber: 15
-          addressNumberExt: '16'
-          zipCode: '17'
-          city: '18'
-          sourceType: '19'
-          clientObjectId: 20
-          bankAccount:
-            id: 21
-            number: NL27TRIO0207182531
-            nameOfOwner: Pietje Puk
-            cityOfOwner: Lutjebroek
-          paymentMethod: '26'
-          closedAt: '2012-08-02T11:48:46.836+02:00'
-          hidden: true
-          invoicePerEmail: false
-      xml:
-        name: debtors
-    InsuranceType:
-      enum:
-      - BV
-      - AV
-      - TV
-      - HV
-      type: string
-      description: 'Insurance type. Possible values:
-
-        <pre>
-
-        BV (Basis Verzekering)
-
-        AV (Aanvullende Verzekering)
-
-        TV (Tand Verzekering)
-
-        HV (Hoofd Verzekering)
-
-        </pre>'
-      example: BV
     Debtor:
       type: object
       properties:
@@ -775,6 +739,52 @@ components:
         creditOnToewijzingnummerChangeStartDate: '2015-08-02T11:48:46.836+02:00'
       xml:
         name: debtor
+    list.DebtorList:
+      type: object
+      properties:
+        debtors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Debtor'
+          xml:
+            name: debtor
+      description: DebtorList model (no description)
+      example:
+        debtors:
+        - id: 1
+          type: '2'
+          uzoviCode: '3'
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-02T11:48:46.836+02:00'
+          phone1: '4'
+          phone2: '5'
+          phone3: '6'
+          fax: '7'
+          email: '8'
+          gender: '9'
+          debtorNumber: '10'
+          organizationName: '11'
+          firstName: '12'
+          lastName: '13'
+          lastNameOwn: '13'
+          streetName: '14'
+          addressNumber: 15
+          addressNumberExt: '16'
+          zipCode: '17'
+          city: '18'
+          sourceType: '19'
+          clientObjectId: 20
+          bankAccount:
+            id: 21
+            number: NL27TRIO0207182531
+            nameOfOwner: Pietje Puk
+            cityOfOwner: Lutjebroek
+          paymentMethod: '26'
+          closedAt: '2012-08-02T11:48:46.836+02:00'
+          hidden: true
+          invoicePerEmail: false
+      xml:
+        name: debtors
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

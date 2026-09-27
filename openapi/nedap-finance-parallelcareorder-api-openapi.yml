@@ -57,7 +57,7 @@ paths:
     get:
       tags:
       - finance.ParallelCareOrder
-      operationId: finance.ParallelCareOrderAPI.byEmployeeAndClientAtDate
+      operationId: getV0AdministrationFinanceParallelCareOrdersByEmployeeAndClientAtDateByEmployeeObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -95,56 +95,83 @@ paths:
       - /t/finance/parallel_care_orders/by_employee_and_client_at_date/{employee_object_id}
       summary: Finance parallel care order API by employee and client at date
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.ParallelCareOrderAPI.byEmployeeAndClientAtDate
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    finance.list.ParallelCareOrderList:
+    finance.ParallelCareOrder:
       type: object
       properties:
-        parallelCareOrders:
+        careOrder:
+          $ref: '#/components/schemas/finance.CareOrder'
+        hourTypes:
           type: array
           items:
-            $ref: '#/components/schemas/finance.ParallelCareOrder'
-      description: ParallelCareOrderList model (no description)
+            $ref: '#/components/schemas/HourType'
+        productName:
+          type: string
+        totalRegisteredAmount:
+          type: integer
+          description: The total amount already registered
+          format: int32
+          default: 0
+        maxRegisteredAmount:
+          type: integer
+          description: The maximal allowed amount that is allowed to registered
+          format: int32
+          default: 0
+        registeredUnit:
+          allOf:
+          - $ref: '#/components/schemas/RegisteredUnit'
+          description: The unit of totalRegisteredAmount and maxRegisteredAmount
+        errorMessage:
+          type: string
+        referringDiagnosisCode:
+          type: string
+          description: The corresponding referring diagnosis code of an Paramedische Eerstelijnszorg Careorder
+      description: 'Model class holding
+
+
+        @Author joel.witteveen'
       example:
-        parallelCareOrders:
-        - careOrder:
-            id: 1
-            userIdentifier: Bggz-12345
-            clientIdentifier: '12345'
-            beschikkingsNummer: '321'
-            lawIdentification: '321'
-            indicatieorgaanCode: '0710'
-            aanvraagNummer: '123'
-            issueDate: '2014-12-29T00:00:00.000+01:00'
-            contactPerson: Dhr. Psycholoog
-            comments: Client kan agressief reageren op de kleur rood
-            beginDate: '2014-12-29T00:00:00.000+01:00'
-            endDate: '2014-12-29T00:00:00.000+01:00'
-            clientId: 1
-            financeTypeId: 1
-            debtorId: 1
-          hourTypes:
-          - id: 1
-            description: Activiteiten begeleiding - patiëntgebonden handelen
-            identificationNo: '194822'
-            activityGroupObjectId: 1
-            externalCode3: '3'
-            active: true
-            payrolling: true
-            direct: true
-            systemDefined: false
-            travelTime: false
-            activityType: Payrolling
-            groupCare: false
-            quantityBased: true
-          productName: bggzkort
-          totalRegisteredAmount: 5
-          maxRegisteredAmount: 10
-          registeredUnit: QUARTERS
-          errorMessage: ''
-          referringDiagnosisCode: '1234'
+        careOrder:
+          id: 1
+          userIdentifier: Bggz-12345
+          clientIdentifier: '12345'
+          beschikkingsNummer: '321'
+          lawIdentification: '321'
+          indicatieorgaanCode: '0710'
+          aanvraagNummer: '123'
+          issueDate: '2014-12-29T00:00:00.000+01:00'
+          contactPerson: Dhr. Psycholoog
+          comments: Client kan agressief reageren op de kleur rood
+          beginDate: '2014-12-29T00:00:00.000+01:00'
+          endDate: '2014-12-29T00:00:00.000+01:00'
+          clientId: 1
+          financeTypeId: 1
+          debtorId: 1
+        hourTypes:
+        - id: 1
+          description: Activiteiten begeleiding - patiëntgebonden handelen
+          identificationNo: '194822'
+          activityGroupObjectId: 1
+          externalCode3: '3'
+          active: true
+          payrolling: true
+          direct: true
+          systemDefined: false
+          travelTime: false
+          activityType: Payrolling
+          groupCare: false
+          quantityBased: true
+        productName: bggzkort
+        totalRegisteredAmount: 5
+        maxRegisteredAmount: 10
+        registeredUnit: QUARTERS
+        errorMessage: ''
+        referringDiagnosisCode: '1234'
     finance.CareOrderProduct:
       type: object
       properties:
@@ -249,95 +276,52 @@ components:
         clippedEndDate: '2014-12-29T00:00:00.000+01:00'
       xml:
         name: careOrderProduct
-    HourType:
+    finance.list.ParallelCareOrderList:
       type: object
       properties:
-        id:
-          type: integer
-          description: An unique ID of this hourtype
-          format: int64
-          x-cupido-id: true
-        description:
-          type: string
-          description: A description of this hourtype
-        identificationNo:
-          type: string
-        activityGroupObjectId:
-          type: integer
-          format: int64
-        externalCode3:
-          type: string
-        active:
-          type: boolean
-          description: Indicates if the hourtype is active and can be used in presencelogs
-        payrolling:
-          type: boolean
-        direct:
-          type: boolean
-          description: Indicates if the hourtype is for client time a.k.a. direct time
-        systemDefined:
-          type: boolean
-        travelTime:
-          type: boolean
-        activityType:
-          type: string
-        groupCare:
-          type: boolean
-          description: Indicates if the hourtype is meant for group care
-        transport:
-          type: boolean
-        quantityBased:
-          type: boolean
-        directAllowed:
-          type: boolean
-          description: Indicates it is allowed to write direct clienttime on a presence log with this hourtype
-        indirectAllowed:
-          type: boolean
-          description: Indicates it is allowed to write indirect clienttime on a presence log with this hourtype
-        travelAllowed:
-          type: boolean
-          description: Indicates it is allowed to write travel clienttime on a presence log with this hourtype
-        noShow:
-          type: boolean
-          description: Indicates if the hour type is a no show hourtype
-        snomedCode:
-          type: string
-          description: Corresponding snomed code used for data exchange with zibs
-        travelCalculationDisabled:
-          type: boolean
-          description: When set to true, this hourtype will not be used in travel calculations like travel time or distances
-        absenceAllowed:
-          type: boolean
-          description: Indicates if client(s) are allowed to be partially absent during an activity with this hourtype
-        splitHourtype:
-          type: boolean
-          description: When set to true, this hourtype will be divided in Administration
-      description: A.K.A. Activity.
+        parallelCareOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.ParallelCareOrder'
+      description: ParallelCareOrderList model (no description)
       example:
-        id: 1
-        description: Activiteiten begeleiding - patiëntgebonden handelen
-        identificationNo: '194822'
-        activityGroupObjectId: 1
-        externalCode3: '3'
-        active: true
-        payrolling: true
-        direct: true
-        systemDefined: false
-        travelTime: false
-        activityType: Payrolling
-        groupCare: false
-        transport: false
-        quantityBased: true
-        directAllowed: true
-        indirectAllowed: true
-        travelAllowed: true
-        noShow: true
-        snomedCode: '1234'
-        travelCalculationDisabled: false
-        absenceAllowed: false
-        splitHourtype: false
-      xml:
-        name: hourType
+        parallelCareOrders:
+        - careOrder:
+            id: 1
+            userIdentifier: Bggz-12345
+            clientIdentifier: '12345'
+            beschikkingsNummer: '321'
+            lawIdentification: '321'
+            indicatieorgaanCode: '0710'
+            aanvraagNummer: '123'
+            issueDate: '2014-12-29T00:00:00.000+01:00'
+            contactPerson: Dhr. Psycholoog
+            comments: Client kan agressief reageren op de kleur rood
+            beginDate: '2014-12-29T00:00:00.000+01:00'
+            endDate: '2014-12-29T00:00:00.000+01:00'
+            clientId: 1
+            financeTypeId: 1
+            debtorId: 1
+          hourTypes:
+          - id: 1
+            description: Activiteiten begeleiding - patiëntgebonden handelen
+            identificationNo: '194822'
+            activityGroupObjectId: 1
+            externalCode3: '3'
+            active: true
+            payrolling: true
+            direct: true
+            systemDefined: false
+            travelTime: false
+            activityType: Payrolling
+            groupCare: false
+            quantityBased: true
+          productName: bggzkort
+          totalRegisteredAmount: 5
+          maxRegisteredAmount: 10
+          registeredUnit: QUARTERS
+          errorMessage: ''
+          referringDiagnosisCode: '1234'
     finance.CareOrder:
       type: object
       properties:
@@ -439,6 +423,95 @@ components:
           clippedEndDate: '2014-12-29T00:00:00.000+01:00'
       xml:
         name: careOrder
+    HourType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: An unique ID of this hourtype
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+          description: A description of this hourtype
+        identificationNo:
+          type: string
+        activityGroupObjectId:
+          type: integer
+          format: int64
+        externalCode3:
+          type: string
+        active:
+          type: boolean
+          description: Indicates if the hourtype is active and can be used in presencelogs
+        payrolling:
+          type: boolean
+        direct:
+          type: boolean
+          description: Indicates if the hourtype is for client time a.k.a. direct time
+        systemDefined:
+          type: boolean
+        travelTime:
+          type: boolean
+        activityType:
+          type: string
+        groupCare:
+          type: boolean
+          description: Indicates if the hourtype is meant for group care
+        transport:
+          type: boolean
+        quantityBased:
+          type: boolean
+        directAllowed:
+          type: boolean
+          description: Indicates it is allowed to write direct clienttime on a presence log with this hourtype
+        indirectAllowed:
+          type: boolean
+          description: Indicates it is allowed to write indirect clienttime on a presence log with this hourtype
+        travelAllowed:
+          type: boolean
+          description: Indicates it is allowed to write travel clienttime on a presence log with this hourtype
+        noShow:
+          type: boolean
+          description: Indicates if the hour type is a no show hourtype
+        snomedCode:
+          type: string
+          description: Corresponding snomed code used for data exchange with zibs
+        travelCalculationDisabled:
+          type: boolean
+          description: When set to true, this hourtype will not be used in travel calculations like travel time or distances
+        absenceAllowed:
+          type: boolean
+          description: Indicates if client(s) are allowed to be partially absent during an activity with this hourtype
+        splitHourtype:
+          type: boolean
+          description: When set to true, this hourtype will be divided in Administration
+      description: A.K.A. Activity.
+      example:
+        id: 1
+        description: Activiteiten begeleiding - patiëntgebonden handelen
+        identificationNo: '194822'
+        activityGroupObjectId: 1
+        externalCode3: '3'
+        active: true
+        payrolling: true
+        direct: true
+        systemDefined: false
+        travelTime: false
+        activityType: Payrolling
+        groupCare: false
+        transport: false
+        quantityBased: true
+        directAllowed: true
+        indirectAllowed: true
+        travelAllowed: true
+        noShow: true
+        snomedCode: '1234'
+        travelCalculationDisabled: false
+        absenceAllowed: false
+        splitHourtype: false
+      xml:
+        name: hourType
     RegisteredUnit:
       enum:
       - PIECES
@@ -448,77 +521,6 @@ components:
       type: string
       description: The unit of totalRegisteredAmount and maxRegisteredAmount
       example: PIECES
-    finance.ParallelCareOrder:
-      type: object
-      properties:
-        careOrder:
-          $ref: '#/components/schemas/finance.CareOrder'
-        hourTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/HourType'
-        productName:
-          type: string
-        totalRegisteredAmount:
-          type: integer
-          description: The total amount already registered
-          format: int32
-          default: 0
-        maxRegisteredAmount:
-          type: integer
-          description: The maximal allowed amount that is allowed to registered
-          format: int32
-          default: 0
-        registeredUnit:
-          allOf:
-          - $ref: '#/components/schemas/RegisteredUnit'
-          description: The unit of totalRegisteredAmount and maxRegisteredAmount
-        errorMessage:
-          type: string
-        referringDiagnosisCode:
-          type: string
-          description: The corresponding referring diagnosis code of an Paramedische Eerstelijnszorg Careorder
-      description: 'Model class holding
-
-
-        @Author joel.witteveen'
-      example:
-        careOrder:
-          id: 1
-          userIdentifier: Bggz-12345
-          clientIdentifier: '12345'
-          beschikkingsNummer: '321'
-          lawIdentification: '321'
-          indicatieorgaanCode: '0710'
-          aanvraagNummer: '123'
-          issueDate: '2014-12-29T00:00:00.000+01:00'
-          contactPerson: Dhr. Psycholoog
-          comments: Client kan agressief reageren op de kleur rood
-          beginDate: '2014-12-29T00:00:00.000+01:00'
-          endDate: '2014-12-29T00:00:00.000+01:00'
-          clientId: 1
-          financeTypeId: 1
-          debtorId: 1
-        hourTypes:
-        - id: 1
-          description: Activiteiten begeleiding - patiëntgebonden handelen
-          identificationNo: '194822'
-          activityGroupObjectId: 1
-          externalCode3: '3'
-          active: true
-          payrolling: true
-          direct: true
-          systemDefined: false
-          travelTime: false
-          activityType: Payrolling
-          groupCare: false
-          quantityBased: true
-        productName: bggzkort
-        totalRegisteredAmount: 5
-        maxRegisteredAmount: 10
-        registeredUnit: QUARTERS
-        errorMessage: ''
-        referringDiagnosisCode: '1234'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

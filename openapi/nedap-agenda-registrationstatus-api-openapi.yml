@@ -65,7 +65,7 @@ paths:
       - agenda.RegistrationStatus
       summary: Return the agenda registrations status of a specific type corresponding to the…
       description: Return the agenda registrations status of a specific type corresponding to the given id.
-      operationId: agenda.RegistrationStatusAPI.byTypeIds
+      operationId: getV0AgendaAgendaRegistrationStatus
       parameters:
       - name: valid_from
         in: query
@@ -109,6 +109,8 @@ paths:
                 $ref: '#/components/schemas/agenda.list.RegistrationStatusList'
       x-replacement-for:
       - /t/agenda_registration_status
+      x-operation-id-source: normalized
+      x-operation-id-original: agenda.RegistrationStatusAPI.byTypeIds
     servers:
     - url: https://api-development.ons.io
 components:

@@ -116,7 +116,7 @@ paths:
       tags:
       - moves.Unit
       summary: Return all Unit models in a streaming manner
-      operationId: moves.UnitAPI.streamAll
+      operationId: getV0XstreamUnitsData
       responses:
         '200':
           description: No response was specified
@@ -136,6 +136,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/units/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.UnitAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/units/deletes:
@@ -146,7 +148,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted Unit models'
-      operationId: moves.UnitAPI.streamDeletes
+      operationId: getV0XstreamUnitsDeletes
       parameters:
       - name: since
         in: query
@@ -174,6 +176,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/units/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.UnitAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/units/updates:
@@ -181,7 +185,7 @@ paths:
       tags:
       - moves.Unit
       summary: Return all Unit models which where updated since the date given in the request
-      operationId: moves.UnitAPI.streamUpdates
+      operationId: getV0XstreamUnitsUpdates
       parameters:
       - name: since
         in: query
@@ -209,6 +213,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/units/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.UnitAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:

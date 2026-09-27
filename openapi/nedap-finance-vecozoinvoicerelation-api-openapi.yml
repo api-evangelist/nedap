@@ -77,7 +77,7 @@ paths:
       tags:
       - finance.VecozoInvoiceRelation
       summary: Return all VecozoInvoiceRelation models in a streaming manner
-      operationId: finance.VecozoInvoiceRelationAPI.streamAll
+      operationId: getV0XstreamVecozoInvoiceRelationsData
       responses:
         '200':
           description: No response was specified
@@ -97,6 +97,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/vecozo_invoice_relations/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.VecozoInvoiceRelationAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/vecozo_invoice_relations/updates:
@@ -104,7 +106,7 @@ paths:
       tags:
       - finance.VecozoInvoiceRelation
       summary: Return all VecozoInvoiceRelation models which where updated since the date…
-      operationId: finance.VecozoInvoiceRelationAPI.streamUpdates
+      operationId: getV0XstreamVecozoInvoiceRelationsUpdates
       parameters:
       - name: since
         in: query
@@ -132,10 +134,39 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/vecozo_invoice_relations/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.VecozoInvoiceRelationAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.VecozoInvoiceRelationList:
+      type: object
+      properties:
+        vecozoInvoiceRelationList:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/finance.VecozoInvoiceRelation'
+            xml:
+              name: vecozoInvoiceRelation
+          xml:
+            name: vecozoInvoiceRelation
+      description: VecozoInvoiceRelationList model (no description)
+      example:
+        vecozoInvoiceRelationList:
+        - id: 1
+          declarationId: skywalker
+          invoiceId: 123
+          createdAt: '2018-02-01T00:00:00.000+01:00'
+          updatedAt: '2018-02-07T00:00:00.000+01:00'
+        - id: 2
+          declarationId: chewbacca
+          invoiceId: 321
+          createdAt: '2018-04-29T00:00:00.000+02:00'
+          updatedAt: '2018-04-30T00:00:00.000+02:00'
+      xml:
+        name: vecozoInvoiceRelationList
     finance.VecozoInvoiceRelation:
       type: object
       properties:
@@ -165,33 +196,6 @@ components:
         updatedAt: '2016-02-07T00:00:00.000+01:00'
       xml:
         name: vecozoInvoiceRelation
-    finance.list.VecozoInvoiceRelationList:
-      type: object
-      properties:
-        vecozoInvoiceRelationList:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/finance.VecozoInvoiceRelation'
-            xml:
-              name: vecozoInvoiceRelation
-          xml:
-            name: vecozoInvoiceRelation
-      description: VecozoInvoiceRelationList model (no description)
-      example:
-        vecozoInvoiceRelationList:
-        - id: 1
-          declarationId: skywalker
-          invoiceId: 123
-          createdAt: '2018-02-01T00:00:00.000+01:00'
-          updatedAt: '2018-02-07T00:00:00.000+01:00'
-        - id: 2
-          declarationId: chewbacca
-          invoiceId: 321
-          createdAt: '2018-04-29T00:00:00.000+02:00'
-          updatedAt: '2018-04-30T00:00:00.000+02:00'
-      xml:
-        name: vecozoInvoiceRelationList
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -155,7 +155,7 @@ paths:
       tags:
       - PractitionerAgbCode
       summary: Return the AGB codes assigned to the employee corresponding to the provided id
-      operationId: PractitionerAgbCodeAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdAgbCodes
       parameters:
       - name: employee_id
         in: path
@@ -172,11 +172,13 @@ paths:
                 $ref: '#/components/schemas/list.PractitionerAgbCodeList'
       x-replacement-for:
       - /t/employees/{employee_id}/agb_codes
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerAgbCodeAPI.byEmployeeId
     post:
       tags:
       - PractitionerAgbCode
       summary: Creates the provided AGB code and assigns it to the employee corresponding to…
-      operationId: PractitionerAgbCodeAPI.createForEmployeeId
+      operationId: postV0AdministrationEmployeesByEmployeeIdAgbCodes
       parameters:
       - name: employee_id
         in: path
@@ -199,6 +201,8 @@ paths:
                 $ref: '#/components/schemas/PractitionerAgbCode'
       x-replacement-for:
       - /t/employees/{employee_id}/agb_codes
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerAgbCodeAPI.createForEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/agb_codes/{agb_code_id}:
@@ -206,7 +210,7 @@ paths:
       tags:
       - PractitionerAgbCode
       summary: Return the AGB code with the provided id assigned to the employee corresponding…
-      operationId: PractitionerAgbCodeAPI.byEmployeeIdAndAgbId
+      operationId: getV0AdministrationEmployeesByEmployeeIdAgbCodesByAgbCodeId
       parameters:
       - name: employee_id
         in: path
@@ -229,11 +233,13 @@ paths:
                 $ref: '#/components/schemas/PractitionerAgbCode'
       x-replacement-for:
       - /t/employees/{employee_id}/agb_codes/{agb_code_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerAgbCodeAPI.byEmployeeIdAndAgbId
     put:
       tags:
       - PractitionerAgbCode
       summary: Updates the provided AGB code assigned to the employee corresponding to the…
-      operationId: PractitionerAgbCodeAPI.updateForEmployeeId
+      operationId: putV0AdministrationEmployeesByEmployeeIdAgbCodesByAgbCodeId
       parameters:
       - name: employee_id
         in: path
@@ -262,11 +268,13 @@ paths:
                 $ref: '#/components/schemas/PractitionerAgbCode'
       x-replacement-for:
       - /t/employees/{employee_id}/agb_codes/{agb_code_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerAgbCodeAPI.updateForEmployeeId
     delete:
       tags:
       - PractitionerAgbCode
       summary: Deletes the AGB code with the provided id assigned to the employee…
-      operationId: PractitionerAgbCodeAPI.deleteForEmployeeId
+      operationId: deleteV0AdministrationEmployeesByEmployeeIdAgbCodesByAgbCodeId
       parameters:
       - name: employee_id
         in: path
@@ -285,10 +293,28 @@ paths:
           description: No response was specified
       x-replacement-for:
       - /t/employees/{employee_id}/agb_codes/{agb_code_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerAgbCodeAPI.deleteForEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.PractitionerAgbCodeList:
+      type: object
+      properties:
+        practitionerAgbCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerAgbCode'
+      description: PractitionerAgbCodeList model (no description)
+      example:
+        practitionerAgbCodes:
+        - id: 1
+          employeeObjectId: 1
+          code: '12345678'
+          beginDate: '2022-01-01'
+          endDate: '2022-12-31'
+          primary: true
     PractitionerAgbCode:
       type: object
       properties:
@@ -320,22 +346,6 @@ components:
         beginDate: '2022-01-01'
         endDate: '2022-12-31'
         primary: true
-    list.PractitionerAgbCodeList:
-      type: object
-      properties:
-        practitionerAgbCodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PractitionerAgbCode'
-      description: PractitionerAgbCodeList model (no description)
-      example:
-        practitionerAgbCodes:
-        - id: 1
-          employeeObjectId: 1
-          code: '12345678'
-          beginDate: '2022-01-01'
-          endDate: '2022-12-31'
-          primary: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

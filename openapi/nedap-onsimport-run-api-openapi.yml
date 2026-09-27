@@ -362,7 +362,7 @@ paths:
       tags:
       - onsimport.Run
       summary: Returns a list of all runs
-      operationId: onsimport.RunAPI.getAll
+      operationId: getV0ImportRun
       responses:
         '200':
           description: No response was specified
@@ -372,11 +372,13 @@ paths:
                 $ref: '#/components/schemas/onsimport.list.RunList'
       x-replacement-for:
       - /t/onsimport/runs
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.getAll
     post:
       tags:
       - onsimport.Run
       summary: Creates a new run
-      operationId: onsimport.RunAPI.create
+      operationId: postV0ImportRun
       requestBody:
         description: contains information about the new run.
         content:
@@ -394,6 +396,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/onsimport/runs
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/{run_id}:
@@ -404,7 +408,7 @@ paths:
       description: 'A run can only be deleted if no records have been
 
         successfully imported (status = SUCCESS).'
-      operationId: onsimport.RunAPI.delete
+      operationId: deleteV0ImportRunByRunId
       parameters:
       - name: run_id
         in: path
@@ -421,6 +425,8 @@ paths:
                 $ref: '#/components/schemas/onsimport.Run'
       x-replacement-for:
       - /t/onsimport/runs/{run_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/{run_id}/idlist:
@@ -429,7 +435,7 @@ paths:
       - onsimport.Run
       summary: Requests generating an ID list for a run
       description: As the ID list will be generated asynchronously, this call will return a RunReport containing a reportId. Use the reportId to download the report in a separate call.
-      operationId: onsimport.RunAPI.getIdList
+      operationId: getV0ImportRunByRunIdIdlist
       parameters:
       - name: run_id
         in: path
@@ -446,6 +452,8 @@ paths:
                 $ref: '#/components/schemas/onsimport.RunReport'
       x-replacement-for:
       - /t/onsimport/runs/{run_id}/idlist
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.getIdList
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/{run_id}/report:
@@ -458,7 +466,7 @@ paths:
         asynchronously, this call will return a RunReport containing a reportId.
 
         Use the reportId to download the report in a separate call.'
-      operationId: onsimport.RunAPI.getReport
+      operationId: getV0ImportRunByRunIdReport
       parameters:
       - name: run_id
         in: path
@@ -475,6 +483,8 @@ paths:
                 $ref: '#/components/schemas/onsimport.RunReport'
       x-replacement-for:
       - /t/onsimport/runs/{run_id}/report
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.getReport
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/{run_id}/report/{report_id}:
@@ -489,7 +499,7 @@ paths:
         wait and try again. Reports will be available for a limited time
 
         (2 hours) after generating.'
-      operationId: onsimport.RunAPI.getGeneratedReport
+      operationId: getV0ImportRunByRunIdReportByReportId
       parameters:
       - name: run_id
         in: path
@@ -512,6 +522,8 @@ paths:
                 $ref: '#/components/schemas/onsimport.RunReport'
       x-replacement-for:
       - /t/onsimport/runs/{run_id}/report/{report_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.getGeneratedReport
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/{run_id}/status:
@@ -519,7 +531,7 @@ paths:
       tags:
       - onsimport.Run
       summary: Returns status information about a run
-      operationId: onsimport.RunAPI.getStatus
+      operationId: getV0ImportRunByRunIdStatus
       parameters:
       - name: run_id
         in: path
@@ -536,6 +548,8 @@ paths:
                 $ref: '#/components/schemas/onsimport.RunStatus'
       x-replacement-for:
       - /t/onsimport/runs/{run_id}/status
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.getStatus
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/{run_id}/status/{upload_id}:
@@ -543,7 +557,7 @@ paths:
       tags:
       - onsimport.Run
       summary: Returns status information about a run, including any file validation messages…
-      operationId: onsimport.RunAPI.getStatusForUpload
+      operationId: getV0ImportRunByRunIdStatusByUploadId
       parameters:
       - name: run_id
         in: path
@@ -566,6 +580,8 @@ paths:
                 $ref: '#/components/schemas/onsimport.RunStatus'
       x-replacement-for:
       - /t/onsimport/runs/{run_id}/status/{upload_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.getStatusForUpload
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/{run_id}/uploads:
@@ -573,7 +589,7 @@ paths:
       tags:
       - onsimport.Run
       summary: Returns uploaded files for the specified run
-      operationId: onsimport.RunAPI.getUploads
+      operationId: getV0ImportRunByRunIdUploads
       parameters:
       - name: run_id
         in: path
@@ -590,6 +606,8 @@ paths:
                 $ref: '#/components/schemas/onsimport.list.UploadInfoList'
       x-replacement-for:
       - /t/onsimport/runs/{run_id}/uploads
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.getUploads
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/{run_id}/validations:
@@ -597,7 +615,7 @@ paths:
       tags:
       - onsimport.Run
       summary: Returns all validation messages for the specified run
-      operationId: onsimport.RunAPI.getValidations
+      operationId: getV0ImportRunByRunIdValidations
       parameters:
       - name: run_id
         in: path
@@ -626,6 +644,8 @@ paths:
                 $ref: '#/components/schemas/onsimport.list.ValidationList'
       x-replacement-for:
       - /t/onsimport/runs/{run_id}/validations
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.getValidations
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/binary:
@@ -640,7 +660,7 @@ paths:
         import. The upload will be processed asynchronously, so an
 
         uploadId is returned that can be used to poll for the status.'
-      operationId: onsimport.RunAPI.uploadBinaryFile
+      operationId: postV0ImportRunBinary
       requestBody:
         description: "a request object containing the run id and\n the binary file to be imported."
         content:
@@ -659,6 +679,8 @@ paths:
           description: Run not found
       x-replacement-for:
       - /t/onsimport/runs/binary
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.uploadBinaryFile
     servers:
     - url: https://api-development.ons.io
   /v0/import/run/xml:
@@ -673,7 +695,7 @@ paths:
         application. The upload will be processed asynchronously, so an
 
         uploadId is returned that can be used to poll for the status.'
-      operationId: onsimport.RunAPI.uploadXml
+      operationId: postV0ImportRunXml
       requestBody:
         description: "a request object containing the run id and\n the xml to be imported."
         content:
@@ -692,23 +714,12 @@ paths:
           description: Run not found
       x-replacement-for:
       - /t/onsimport/runs/xml
+      x-operation-id-source: normalized
+      x-operation-id-original: onsimport.RunAPI.uploadXml
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    onsimport.UploadResponse:
-      type: object
-      properties:
-        uploadId:
-          type: string
-          description: Unique id for requesting status info about the upload.
-      description: 'Contains a unique id by which information about an
-
-        upload can be retrieved.'
-      example:
-        uploadId: uploadid
-      xml:
-        name: uploadResponse
     AuditedBase:
       title: AuditedBase
       type: object
@@ -733,56 +744,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    onsimport.RunStatus:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Object identifier of the run, usually in the form of a UUID.
-        processing:
-          type: boolean
-          description: Indicates records are still being processed.
-        statuses:
-          type: object
-          description: 'Map of record status to number of records having that status.
-
-            Also contains an entry ALL with the total number of records.'
-        fileValidations:
-          type: array
-          items:
-            type: string
-          description: 'List of validation messages resulting from uploading XML.
-
-            These typically concern invalid XML or XSD violations.'
-      description: Contains status information about a run in Ons Import.
-      example:
-        runId: runwithme
-        processing: false
-        statuses:
-          all: '1'
-          success: '1'
-        fileValidations:
-        - failtorun
-    onsimport.BinaryFileRequest:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Object identifier of the run, usually in the form of a UUID.
-        fileName:
-          type: string
-          description: File name of the binary file, optionally including a path.
-        content:
-          type: string
-          description: Content of the binary file.
-          format: binary
-      description: Contains a binary file to be added to a run in Ons Import.
-      example:
-        runId: runwithme
-        fileName: runwithme.pdf
-        content: JVBERi1jb250ZW50JSVFT0Y=
-      xml:
-        name: binaryFileRequest
     onsimport.list.ValidationList:
       type: object
       properties:
@@ -815,56 +776,36 @@ components:
           recordStatus: INVALID
           domain: Run
           importId: '001'
-    onsimport.list.RunList:
+    onsimport.RunStatus:
       type: object
       properties:
-        runs:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        processing:
+          type: boolean
+          description: Indicates records are still being processed.
+        statuses:
+          type: object
+          description: 'Map of record status to number of records having that status.
+
+            Also contains an entry ALL with the total number of records.'
+        fileValidations:
           type: array
           items:
-            $ref: '#/components/schemas/onsimport.Run'
-          xml:
-            name: run
-      description: RunList model (no description)
+            type: string
+          description: 'List of validation messages resulting from uploading XML.
+
+            These typically concern invalid XML or XSD violations.'
+      description: Contains status information about a run in Ons Import.
       example:
-        runs:
-        - updatedAt: '2020-03-25T00:00:00.000+01:00'
-          createdAt: '2020-03-25T00:00:00.000+01:00'
-          createdBy: htaylor
-          id: runwithme
-          name: Run With Me
-          autoProcess: true
-          quickMatch: true
-      xml:
-        name: runs
-    onsimport.list.UploadInfoList:
-      type: object
-      properties:
-        uploads:
-          type: array
-          items:
-            $ref: '#/components/schemas/onsimport.UploadInfo'
-      description: Contains uploaded files for a run in Ons Import.
-      example:
-        uploads:
-        - runId: runwithme
-          runName: Run With Me
-          uploadId: uploadid
-          fileName: records.xml
-          createdAt: '2026-04-07T10:57:00.000+02:00'
-    onsimport.RunReport:
-      type: object
-      properties:
-        reportId:
-          type: string
-          description: Unique id for requesting the generated report.
-        report:
-          type: string
-          description: An Excel report for the run.
-          format: binary
-      description: Contains an Excel report for a run.
-      example:
-        reportId: reportid
-        report: QWxsIGhvcGUgaXMgbG9zdA==
+        runId: runwithme
+        processing: false
+        statuses:
+          all: '1'
+          success: '1'
+        fileValidations:
+        - failtorun
     onsimport.RecordsXmlRequest:
       type: object
       properties:
@@ -884,6 +825,93 @@ components:
         xml: <import></import>
       xml:
         name: recordsXmlRequest
+    onsimport.RunReport:
+      type: object
+      properties:
+        reportId:
+          type: string
+          description: Unique id for requesting the generated report.
+        report:
+          type: string
+          description: An Excel report for the run.
+          format: binary
+      description: Contains an Excel report for a run.
+      example:
+        reportId: reportid
+        report: QWxsIGhvcGUgaXMgbG9zdA==
+    onsimport.list.UploadInfoList:
+      type: object
+      properties:
+        uploads:
+          type: array
+          items:
+            $ref: '#/components/schemas/onsimport.UploadInfo'
+      description: Contains uploaded files for a run in Ons Import.
+      example:
+        uploads:
+        - runId: runwithme
+          runName: Run With Me
+          uploadId: uploadid
+          fileName: records.xml
+          createdAt: '2026-04-07T10:57:00.000+02:00'
+    onsimport.Run:
+      required:
+      - name
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+          x-cupido-id: true
+        name:
+          type: string
+          description: Name of the run.
+        autoProcess:
+          type: boolean
+          description: 'Indicates that records added to the run will be automatically
+
+            matched and synchronized.'
+          default: true
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        quickMatch:
+          type: boolean
+          description: 'Indicates that matching will be skipped for reference fields
+
+            already containing database IDs.'
+          default: false
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+      description: 'A collection of records to be imported via Ons Import.
+
+        Records can be added by uploading XML or binary files
+
+        via RunAPI.'
+      example:
+        updatedAt: '2020-03-25T00:00:00.000+01:00'
+        createdAt: '2020-03-25T00:00:00.000+01:00'
+        createdBy: htaylor
+        id: runwithme
+        name: Run With Me
+        autoProcess: true
+        quickMatch: true
+      xml:
+        name: run
+    onsimport.UploadResponse:
+      type: object
+      properties:
+        uploadId:
+          type: string
+          description: Unique id for requesting status info about the upload.
+      description: 'Contains a unique id by which information about an
+
+        upload can be retrieved.'
+      example:
+        uploadId: uploadid
+      xml:
+        name: uploadResponse
     onsimport.UploadInfo:
       type: object
       properties:
@@ -912,6 +940,27 @@ components:
         uploadId: uploadid
         fileName: records.xml
         createdAt: '2026-04-07T10:57:00.000+02:00'
+    onsimport.list.RunList:
+      type: object
+      properties:
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/onsimport.Run'
+          xml:
+            name: run
+      description: RunList model (no description)
+      example:
+        runs:
+        - updatedAt: '2020-03-25T00:00:00.000+01:00'
+          createdAt: '2020-03-25T00:00:00.000+01:00'
+          createdBy: htaylor
+          id: runwithme
+          name: Run With Me
+          autoProcess: true
+          quickMatch: true
+      xml:
+        name: runs
     onsimport.Validation:
       type: object
       allOf:
@@ -961,51 +1010,26 @@ components:
         recordStatus: INVALID
         domain: Run
         importId: '001'
-    onsimport.Run:
-      required:
-      - name
+    onsimport.BinaryFileRequest:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
       properties:
-        id:
+        runId:
           type: string
           description: Object identifier of the run, usually in the form of a UUID.
-          x-cupido-id: true
-        name:
+        fileName:
           type: string
-          description: Name of the run.
-        autoProcess:
-          type: boolean
-          description: 'Indicates that records added to the run will be automatically
-
-            matched and synchronized.'
-          default: true
-          deprecated: true
-          x-deprecated-since: 20-11-2023
-        quickMatch:
-          type: boolean
-          description: 'Indicates that matching will be skipped for reference fields
-
-            already containing database IDs.'
-          default: false
-          deprecated: true
-          x-deprecated-since: 20-11-2023
-      description: 'A collection of records to be imported via Ons Import.
-
-        Records can be added by uploading XML or binary files
-
-        via RunAPI.'
+          description: File name of the binary file, optionally including a path.
+        content:
+          type: string
+          description: Content of the binary file.
+          format: binary
+      description: Contains a binary file to be added to a run in Ons Import.
       example:
-        updatedAt: '2020-03-25T00:00:00.000+01:00'
-        createdAt: '2020-03-25T00:00:00.000+01:00'
-        createdBy: htaylor
-        id: runwithme
-        name: Run With Me
-        autoProcess: true
-        quickMatch: true
+        runId: runwithme
+        fileName: runwithme.pdf
+        content: JVBERi1jb250ZW50JSVFT0Y=
       xml:
-        name: run
+        name: binaryFileRequest
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

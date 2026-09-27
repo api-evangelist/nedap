@@ -131,7 +131,7 @@ paths:
       tags:
       - openehr.ItemTag
       summary: Creates an item tag for a spesific versioned composition and returns the…
-      operationId: openehr.ItemTagAPI.create
+      operationId: postV0OpenehrDossierBackChannelUnauthorizedCompositionWrappersByVersionedCompositionIdItemTags
       parameters:
       - name: versioned_composition_id
         in: path
@@ -182,6 +182,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/openehr/composition_wrappers/{versioned_composition_id}/item_tags
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.ItemTagAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/composition_wrappers/{versioned_composition_id}/item_tags/delete:
@@ -189,7 +191,7 @@ paths:
       tags:
       - openehr.ItemTag
       summary: Deletes item tag for a versioned composition
-      operationId: openehr.ItemTagAPI.delete
+      operationId: postV0OpenehrDossierBackChannelUnauthorizedCompositionWrappersByVersionedCompositionIdItemTagsDelete
       parameters:
       - name: versioned_composition_id
         in: path
@@ -240,29 +242,27 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/openehr/composition_wrappers/{versioned_composition_id}/item_tags/delete
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.ItemTagAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
       type: object
       properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
       example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
+        field: one
+        value: empty
+        message: field can not be empty
     openehr.ItemTag:
       required:
       - key
@@ -286,21 +286,25 @@ components:
         key: important
         value: value
         targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
+    ErrorResponse:
+      title: ErrorResponse
       type: object
       properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
       example:
-        field: one
-        value: empty
-        message: field can not be empty
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

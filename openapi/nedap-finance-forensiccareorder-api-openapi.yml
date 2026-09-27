@@ -164,7 +164,7 @@ paths:
       tags:
       - finance.ForensicCareOrder
       summary: Create ForensicCareOrder
-      operationId: finance.ForensicCareOrderAPI.create
+      operationId: postV0AdministrationFinanceForensicCareOrders
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -191,6 +191,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/forensic_care_orders
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.ForensicCareOrderAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/forensic_care_orders/{id}:
@@ -198,7 +200,7 @@ paths:
       tags:
       - finance.ForensicCareOrder
       summary: Return the Forensic Care Order corresponding to the given id
-      operationId: finance.ForensicCareOrderAPI.byId
+      operationId: getV0AdministrationFinanceForensicCareOrdersById
       parameters:
       - name: id
         in: path
@@ -225,12 +227,14 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/forensic_care_orders/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.ForensicCareOrderAPI.byId
     put:
       tags:
       - finance.ForensicCareOrder
       summary: Updates the given ForensicCareOrder
       description: Will create the object at the provided ID if it did not exist previously.
-      operationId: finance.ForensicCareOrderAPI.update
+      operationId: putV0AdministrationFinanceForensicCareOrdersById
       parameters:
       - name: id
         in: path
@@ -266,12 +270,14 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/forensic_care_orders/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.ForensicCareOrderAPI.update
     delete:
       tags:
       - finance.ForensicCareOrder
       summary: Deletes the ForensicCareOrder with given id
       description: Deleting a ForensicCareOrder may fail if other objects are still linked to it.
-      operationId: finance.ForensicCareOrderAPI.delete
+      operationId: deleteV0AdministrationFinanceForensicCareOrdersById
       parameters:
       - name: id
         in: path
@@ -304,6 +310,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/forensic_care_orders/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.ForensicCareOrderAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:

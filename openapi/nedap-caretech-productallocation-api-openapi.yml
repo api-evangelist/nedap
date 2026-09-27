@@ -39,7 +39,7 @@ paths:
       tags:
       - caretech.ProductAllocation
       summary: Create a product allocation, including a new product instance, for a client
-      operationId: caretech.ProductAllocationAPI.createProductAllocationServerGateway
+      operationId: postV0CaretechServerProductAllocations
       requestBody:
         content:
           application/json:
@@ -57,19 +57,79 @@ paths:
           description: Validation errors
       x-replacement-for:
       - /t/caretech/server/product_allocations
+      x-operation-id-source: normalized
+      x-operation-id-original: caretech.ProductAllocationAPI.createProductAllocationServerGateway
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    caretech.Status:
-      enum:
-      - REQUEST
-      - ACTIVE
-      - INACTIVE
-      - UNKNOWN
-      type: string
-      description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
-      example: ACTIVE
+    caretech.ProductAllocation:
+      required:
+      - clientId
+      - productInstance
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        employeeUuid:
+          type: string
+          format: uuid
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        productInstance:
+          $ref: '#/components/schemas/caretech.ProductInstanceDto'
+        requestDate:
+          type: string
+          format: date
+        startDate:
+          type: string
+          format: date
+        stopDate:
+          type: string
+          format: date
+        status:
+          allOf:
+          - $ref: '#/components/schemas/caretech.Status'
+          description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+          format: uuid
+      description: Caretech product which is allocated by a client
+      example:
+        clientId: 1
+        createdAt: '2017-10-02T21:10:43.000+02:00'
+        employeeUuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        id: 4
+        productInstance:
+          createdAt: '2017-10-02T21:10:43.000+02:00'
+          externalId: serial-12345678
+          id: 56
+          product:
+            createdAt: '2017-10-02T21:10:43.000+02:00'
+            id: 1
+            manufacturer: Nedap
+            name: Nedap Luna
+            updatedAt: '2017-10-02T21:10:43.000+02:00'
+            uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+          updatedAt: '2017-10-02T21:10:43.000+02:00'
+          uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        requestDate: '2024-03-10'
+        startDate: '2024-03-11'
+        stopDate: '2024-03-12'
+        status: INACTIVE
+        updatedAt: '2017-10-02T21:10:43.000+02:00'
+        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+      xml:
+        name: productAllocation
     caretech.ProductInstanceDto:
       required:
       - product
@@ -148,73 +208,15 @@ components:
         stopDate: '2024-04-17'
       xml:
         name: productDto
-    caretech.ProductAllocation:
-      required:
-      - clientId
-      - productInstance
-      type: object
-      properties:
-        clientId:
-          type: integer
-          format: int64
-        createdAt:
-          type: string
-          format: date-time
-        employeeUuid:
-          type: string
-          format: uuid
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        productInstance:
-          $ref: '#/components/schemas/caretech.ProductInstanceDto'
-        requestDate:
-          type: string
-          format: date
-        startDate:
-          type: string
-          format: date
-        stopDate:
-          type: string
-          format: date
-        status:
-          allOf:
-          - $ref: '#/components/schemas/caretech.Status'
-          description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
-        updatedAt:
-          type: string
-          format: date-time
-        uuid:
-          type: string
-          format: uuid
-      description: Caretech product which is allocated by a client
-      example:
-        clientId: 1
-        createdAt: '2017-10-02T21:10:43.000+02:00'
-        employeeUuid: 042f53df-37e5-4ad7-af77-16a212763bba
-        id: 4
-        productInstance:
-          createdAt: '2017-10-02T21:10:43.000+02:00'
-          externalId: serial-12345678
-          id: 56
-          product:
-            createdAt: '2017-10-02T21:10:43.000+02:00'
-            id: 1
-            manufacturer: Nedap
-            name: Nedap Luna
-            updatedAt: '2017-10-02T21:10:43.000+02:00'
-            uuid: 042f53df-37e5-4ad7-af77-16a212763bba
-          updatedAt: '2017-10-02T21:10:43.000+02:00'
-          uuid: 042f53df-37e5-4ad7-af77-16a212763bba
-        requestDate: '2024-03-10'
-        startDate: '2024-03-11'
-        stopDate: '2024-03-12'
-        status: INACTIVE
-        updatedAt: '2017-10-02T21:10:43.000+02:00'
-        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
-      xml:
-        name: productAllocation
+    caretech.Status:
+      enum:
+      - REQUEST
+      - ACTIVE
+      - INACTIVE
+      - UNKNOWN
+      type: string
+      description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
+      example: ACTIVE
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

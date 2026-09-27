@@ -86,7 +86,7 @@ paths:
       - kamino.KaminoSetting
       summary: Return the kamino setting of a employee corresponding to the given employee id
       description: Return the kamino setting of a employee corresponding to the given employee id.
-      operationId: kamino.KaminoSettingAPI.byEmployeeId
+      operationId: getV0BerichtenEmployeesByEmployeeIdSetting
       parameters:
       - name: employee_id
         in: path
@@ -116,12 +116,14 @@ paths:
                 $ref: '#/components/schemas/kamino.Error'
       x-replacement-for:
       - /t/employees/{employee_id}/kamino_setting
+      x-operation-id-source: normalized
+      x-operation-id-original: kamino.KaminoSettingAPI.byEmployeeId
     patch:
       tags:
       - kamino.KaminoSetting
       summary: Updates the kamino setting of the employee corresponding to the given employee…
       description: Updates the kamino setting of the employee corresponding to the given employee id.
-      operationId: kamino.KaminoSettingAPI.update
+      operationId: patchV0BerichtenEmployeesByEmployeeIdSetting
       parameters:
       - name: employee_id
         in: path
@@ -148,6 +150,8 @@ paths:
           content: {}
       x-replacement-for:
       - /t/employees/{employee_id}/kamino_setting
+      x-operation-id-source: normalized
+      x-operation-id-original: kamino.KaminoSettingAPI.update
     servers:
     - url: https://api-development.ons.io
 components:

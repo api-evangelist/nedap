@@ -186,7 +186,7 @@ paths:
       tags:
       - arrangement.Stakeholder
       summary: Create Stakeholder
-      operationId: arrangement.StakeholderAPI.create
+      operationId: postV0AdministrationArrangementStakeholders
       requestBody:
         description: Stakeholder to create
         content:
@@ -208,6 +208,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/arrangement/stakeholders
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.StakeholderAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/stakeholders/{uuid}:
@@ -215,7 +217,7 @@ paths:
       tags:
       - arrangement.Stakeholder
       summary: Gets an Stakeholder by UUID
-      operationId: arrangement.StakeholderAPI.byUuid
+      operationId: getV0AdministrationArrangementStakeholdersByUuid
       parameters:
       - name: uuid
         in: path
@@ -237,11 +239,13 @@ paths:
           description: Stakeholder not found
       x-replacement-for:
       - /t/arrangement/stakeholders/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.StakeholderAPI.byUuid
     put:
       tags:
       - arrangement.Stakeholder
       summary: Updates the given Stakeholder
-      operationId: arrangement.StakeholderAPI.update
+      operationId: putV0AdministrationArrangementStakeholdersByUuid
       parameters:
       - name: uuid
         in: path
@@ -271,11 +275,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/arrangement/stakeholders/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.StakeholderAPI.update
     delete:
       tags:
       - arrangement.Stakeholder
       summary: Deletes the Stakeholder with given uuid
-      operationId: arrangement.StakeholderAPI.delete
+      operationId: deleteV0AdministrationArrangementStakeholdersByUuid
       parameters:
       - name: uuid
         in: path
@@ -298,6 +304,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/arrangement/stakeholders/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.StakeholderAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/stakeholders/by_intent/{intent_uuid}:
@@ -305,7 +313,7 @@ paths:
       tags:
       - arrangement.Stakeholder
       summary: Gets the Stakeholders which belong to an Intent
-      operationId: arrangement.StakeholderAPI.byIntentUuid
+      operationId: getV0AdministrationArrangementStakeholdersByIntentByIntentUuid
       parameters:
       - name: intent_uuid
         in: path
@@ -322,6 +330,8 @@ paths:
                 $ref: '#/components/schemas/arrangement.list.StakeholderList'
       x-replacement-for:
       - /t/arrangement/stakeholders/by_intent/{intent_uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.StakeholderAPI.byIntentUuid
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/stakeholders/by_timeline/{timeline_uuid}:
@@ -329,7 +339,7 @@ paths:
       tags:
       - arrangement.Stakeholder
       summary: Gets the Stakeholders which belong to a Timeline
-      operationId: arrangement.StakeholderAPI.byTimelineUuid
+      operationId: getV0AdministrationArrangementStakeholdersByTimelineByTimelineUuid
       parameters:
       - name: timeline_uuid
         in: path
@@ -346,6 +356,8 @@ paths:
                 $ref: '#/components/schemas/arrangement.list.StakeholderList'
       x-replacement-for:
       - /t/arrangement/stakeholders/by_timeline/{timeline_uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.StakeholderAPI.byTimelineUuid
     servers:
     - url: https://api-development.ons.io
 components:

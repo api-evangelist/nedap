@@ -150,7 +150,7 @@ paths:
       tags:
       - dossier.Alert
       summary: Create an alert
-      operationId: dossier.AlertAPI.create
+      operationId: postV0DossierBackChannelAuthorizedAlerts
       requestBody:
         description: Alert to create
         content:
@@ -168,6 +168,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/alerts
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.AlertAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/alerts/{id}:
@@ -175,7 +177,7 @@ paths:
       tags:
       - dossier.Alert
       summary: Get a specific Alert
-      operationId: dossier.AlertAPI.byId
+      operationId: getV0DossierBackChannelAuthorizedAlertsById
       parameters:
       - name: id
         in: path
@@ -193,11 +195,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/alerts/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.AlertAPI.byId
     put:
       tags:
       - dossier.Alert
       summary: Update the given Alert
-      operationId: dossier.AlertAPI.update
+      operationId: putV0DossierBackChannelAuthorizedAlertsById
       parameters:
       - name: id
         in: path
@@ -223,6 +227,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/alerts/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.AlertAPI.update
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/unauthorized/alerts/{id}:
@@ -230,7 +236,7 @@ paths:
       tags:
       - dossier.Alert
       summary: Get a specific Alert
-      operationId: dossier.AlertAPI.unauthorizedById
+      operationId: getV0DossierBackChannelUnauthorizedAlertsById
       parameters:
       - name: id
         in: path
@@ -247,6 +253,8 @@ paths:
                 $ref: '#/components/schemas/dossier.Alert'
       x-replacement-for:
       - /t/dossier/unauthorized/alerts/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.AlertAPI.unauthorizedById
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/unauthorized/alerts/by_client_ids:
@@ -254,7 +262,7 @@ paths:
       tags:
       - dossier.Alert
       summary: Get a specific Alert
-      operationId: dossier.AlertAPI.unauthorizedByClientIds
+      operationId: getV0DossierBackChannelUnauthorizedAlertsByClientIds
       parameters:
       - name: ids[]
         in: query
@@ -277,33 +285,12 @@ paths:
                 $ref: '#/components/schemas/dossier.list.AlertList'
       x-replacement-for:
       - /t/dossier/unauthorized/alerts/by_client_ids
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.AlertAPI.unauthorizedByClientIds
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.FeederAuditTransferType:
-      enum:
-      - eoverdracht_nursing
-      - anw
-      - other
-      type: string
-      description: Type of the transfer containing this content (a.k.a. the use case)
-      example: eoverdracht_nursing
-    dossier.Encoding:
-      type: object
-      properties:
-        code:
-          type: string
-        codeSystem:
-          type: string
-        displayName:
-          type: string
-          description: The display name (or title) corresponding to the code in its code system
-      description: Encoding
-      example:
-        code: E10
-        codeSystem: ICD-10
-        displayName: Type 1-diabetes
     dossier.list.AlertList:
       type: object
       properties:
@@ -378,6 +365,14 @@ components:
           feederAuditContentId: abz123
           feederAuditSenderName: Some care organisation
           feederAuditTransferType: eoverdracht_nursing
+    dossier.FeederAuditTransferType:
+      enum:
+      - eoverdracht_nursing
+      - anw
+      - other
+      type: string
+      description: Type of the transfer containing this content (a.k.a. the use case)
+      example: eoverdracht_nursing
     dossier.Alert:
       type: object
       allOf:
@@ -533,6 +528,21 @@ components:
         updatedById: 1
         createdAt: '2014-11-10T00:00:00.000+01:00'
         updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.Encoding:
+      type: object
+      properties:
+        code:
+          type: string
+        codeSystem:
+          type: string
+        displayName:
+          type: string
+          description: The display name (or title) corresponding to the code in its code system
+      description: Encoding
+      example:
+        code: E10
+        codeSystem: ICD-10
+        displayName: Type 1-diabetes
     dossier.FeederAuditContentStoreType:
       enum:
       - ons_ketenverkeer

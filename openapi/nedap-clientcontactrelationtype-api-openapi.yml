@@ -74,7 +74,7 @@ paths:
       tags:
       - ClientContactRelationType
       summary: Returns every ClientContactRelationType available from the…
-      operationId: ClientContactRelationTypeAPI.all
+      operationId: getV0AdministrationClientContactRelationTypes
       parameters:
       - name: offset
         in: query
@@ -98,6 +98,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/client_contact_relation_types
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationTypeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/client_contact_relation_types/{id}:
@@ -105,7 +107,7 @@ paths:
       tags:
       - ClientContactRelationType
       summary: Returns the ClientContactRelationType corresponding to the given id
-      operationId: ClientContactRelationTypeAPI.byId
+      operationId: getV0AdministrationClientContactRelationTypesById
       parameters:
       - name: id
         in: path
@@ -126,6 +128,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/administration/client_contact_relation_types/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientContactRelationTypeAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
@@ -154,6 +158,54 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
+    RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+    ClientContactRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/RelationType'
+      description: ClientContactRelationType model (no description)
+      example:
+        id: 6
+        name: Curator
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
     RelationType:
       type: object
       allOf:
@@ -241,54 +293,6 @@ components:
             name: Standard
           updatedAt: '2013-09-24T11:49:58.000+02:00'
           createdAt: '2013-09-24T11:49:58.000+02:00'
-    RelationCategory:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
-    ClientContactRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/RelationType'
-      description: ClientContactRelationType model (no description)
-      example:
-        id: 6
-        name: Curator
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: true
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

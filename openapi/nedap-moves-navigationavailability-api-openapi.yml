@@ -39,7 +39,7 @@ paths:
       tags:
       - moves.NavigationAvailability
       summary: Return the navigation availabilities of an employee specified by id
-      operationId: moves.NavigationAvailabilityAPI.byEmployeeId
+      operationId: getV0PlannenRoosterenEmployeesByEmployeeIdNavigationAvailabilities
       parameters:
       - name: employee_id
         in: path
@@ -57,26 +57,12 @@ paths:
                 $ref: '#/components/schemas/moves.list.NavigationAvailabilityList'
       x-replacement-for:
       - /t/employees/{employee_id}/navigation_availabilities
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.NavigationAvailabilityAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.list.NavigationAvailabilityList:
-      type: object
-      properties:
-        navigationAvailabilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.NavigationAvailability'
-      description: List of navigation items with their availability
-      example:
-        navigationAvailabilities:
-        - key: PLANNING
-          state: AVAILABLE
-        - key: ROSTER
-          state: DISABLED
-        - key: SHIFT_TRANSFERS
-          state: UNAVAILABLE
     moves.NavigationAvailabilityKey:
       enum:
       - PLANNING
@@ -102,6 +88,22 @@ components:
       example:
         key: ROSTER
         state: AVAILABLE
+    moves.list.NavigationAvailabilityList:
+      type: object
+      properties:
+        navigationAvailabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.NavigationAvailability'
+      description: List of navigation items with their availability
+      example:
+        navigationAvailabilities:
+        - key: PLANNING
+          state: AVAILABLE
+        - key: ROSTER
+          state: DISABLED
+        - key: SHIFT_TRANSFERS
+          state: UNAVAILABLE
     moves.NavigationAvailabilityState:
       enum:
       - AVAILABLE

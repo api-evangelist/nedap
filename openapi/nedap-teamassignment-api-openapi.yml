@@ -302,7 +302,7 @@ paths:
       tags:
       - TeamAssignment
       summary: Return the team assignments of a Employee corresponding to the given id
-      operationId: TeamAssignmentAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdTeams
       parameters:
       - name: employee_id
         in: path
@@ -330,11 +330,13 @@ paths:
                 $ref: '#/components/schemas/list.TeamAssignmentList'
       x-replacement-for:
       - /t/employees/{employee_id}/team_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.byEmployeeId
     post:
       tags:
       - TeamAssignment
       summary: Create the provided team assignment and assign it to the employee corresponding…
-      operationId: TeamAssignmentAPI.createForEmployeeId
+      operationId: postV0AdministrationEmployeesByEmployeeIdTeams
       parameters:
       - name: employee_id
         in: path
@@ -358,6 +360,8 @@ paths:
                 $ref: '#/components/schemas/TeamAssignment'
       x-replacement-for:
       - /t/employees/{employee_id}/team_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.createForEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/teams/{team_assignment_id}:
@@ -365,7 +369,7 @@ paths:
       tags:
       - TeamAssignment
       summary: Update the team assignment with the provided id assigned to the employee…
-      operationId: TeamAssignmentAPI.byEmployeeIdAndAssignmentId
+      operationId: getV0AdministrationEmployeesByEmployeeIdTeamsByTeamAssignmentId
       parameters:
       - name: employee_id
         in: path
@@ -389,11 +393,13 @@ paths:
                 $ref: '#/components/schemas/TeamAssignment'
       x-replacement-for:
       - /t/employees/{employee_id}/team_assignments/{team_assignment_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.byEmployeeIdAndAssignmentId
     put:
       tags:
       - TeamAssignment
       summary: Update the team assignment with the provided id assigned to the employee…
-      operationId: TeamAssignmentAPI.updateForEmployeeId
+      operationId: putV0AdministrationEmployeesByEmployeeIdTeamsByTeamAssignmentId
       parameters:
       - name: employee_id
         in: path
@@ -423,11 +429,13 @@ paths:
                 $ref: '#/components/schemas/TeamAssignment'
       x-replacement-for:
       - /t/employees/{employee_id}/team_assignments/{team_assignment_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.updateForEmployeeId
     delete:
       tags:
       - TeamAssignment
       summary: Remove the team assignment with the provided id assigned to the employee…
-      operationId: TeamAssignmentAPI.removeForEmployeeId
+      operationId: deleteV0AdministrationEmployeesByEmployeeIdTeamsByTeamAssignmentId
       parameters:
       - name: employee_id
         in: path
@@ -447,6 +455,8 @@ paths:
           description: No response was specified
       x-replacement-for:
       - /t/employees/{employee_id}/team_assignments/{team_assignment_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.removeForEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/team_assignments/{id}:
@@ -454,7 +464,7 @@ paths:
       tags:
       - TeamAssignment
       summary: Return the team assignment with the given id
-      operationId: TeamAssignmentAPI.byId
+      operationId: getV0AdministrationTeamAssignmentsById
       parameters:
       - name: id
         in: path
@@ -475,6 +485,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/team_assignments/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/team_assignments/data:
@@ -482,7 +494,7 @@ paths:
       tags:
       - TeamAssignment
       summary: Return all TeamAssignment models in a streaming manner
-      operationId: TeamAssignmentAPI.streamAll
+      operationId: getV0XstreamTeamAssignmentsData
       responses:
         '200':
           description: No response was specified
@@ -502,6 +514,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/team_assignments/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/team_assignments/deletes:
@@ -512,7 +526,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted TeamAssignment models'
-      operationId: TeamAssignmentAPI.streamDeletes
+      operationId: getV0XstreamTeamAssignmentsDeletes
       parameters:
       - name: since
         in: query
@@ -540,6 +554,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/team_assignments/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/team_assignments/updates:
@@ -547,7 +563,7 @@ paths:
       tags:
       - TeamAssignment
       summary: Return all TeamAssignment models which where updated since the date given in…
-      operationId: TeamAssignmentAPI.streamUpdates
+      operationId: getV0XstreamTeamAssignmentsUpdates
       parameters:
       - name: since
         in: query
@@ -575,10 +591,31 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/team_assignments/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAssignmentAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.TeamAssignmentList:
+      type: object
+      properties:
+        teamAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamAssignment'
+          xml:
+            name: teamAssignment
+      description: TeamAssignmentList model (no description)
+      example:
+        teamAssignments:
+        - id: 1
+          beginDate: '2012-08-02'
+          endDate: '2012-08-02'
+          employeeObjectId: 8948
+          teamObjectId: 337
+      xml:
+        name: teamAssignments
     TeamAssignment:
       type: object
       properties:
@@ -607,25 +644,6 @@ components:
         teamObjectId: 337
       xml:
         name: teamAssignment
-    list.TeamAssignmentList:
-      type: object
-      properties:
-        teamAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamAssignment'
-          xml:
-            name: teamAssignment
-      description: TeamAssignmentList model (no description)
-      example:
-        teamAssignments:
-        - id: 1
-          beginDate: '2012-08-02'
-          endDate: '2012-08-02'
-          employeeObjectId: 8948
-          teamObjectId: 337
-      xml:
-        name: teamAssignments
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

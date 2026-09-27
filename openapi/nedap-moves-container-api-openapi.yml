@@ -49,7 +49,7 @@ paths:
       tags:
       - moves.Container
       summary: Return the active containers searched for within a specified period
-      operationId: moves.ContainerAPI.search
+      operationId: postV0PlannenRoosterenContainersSearch
       requestBody:
         content:
           application/json:
@@ -77,10 +77,63 @@ paths:
                 $ref: '#/components/schemas/moves.MovesRatelimitError'
       x-replacement-for:
       - /t/containers/search
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ContainerAPI.search
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.ContainerType:
+      enum:
+      - SHIFT
+      - EMPLOYEE
+      type: string
+      description: The type of container, either a Shift or an Employee.
+      example: SHIFT
+    moves.list.ContainerList:
+      title: ContainerList
+      required:
+      - containers
+      type: object
+      properties:
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Container'
+      description: A response body that contains a list of containers.
+      example:
+        containers:
+        - containerId: '|EMPLOYEE:1|UNIT:1|DAY:MONDAY|'
+          containerType: EMPLOYEE
+          containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+          unitId: 1
+          date: '2025-05-25'
+          startDateTime: '2025-05-25T09:30:00.000+02:00'
+          endDateTime: '2025-05-25T12:30:00.000+02:00'
+          timeBlocks:
+          - startDateTime: '2025-05-25T09:30:00.000+02:00'
+            endDateTime: '2025-05-25T12:30:00.000+02:00'
+            type: AVAILABLE
+            plannable: true
+    moves.MovesRatelimitError:
+      title: MovesRatelimitError
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of error raised
+        title:
+          type: string
+          description: The human readable title of the rate limit error
+        status:
+          type: integer
+          description: The HTTP status code being given
+          format: int64
+      description: An error describing a specific rate limit has been reached and that the client should wait to retry the response
+      example:
+        type: ratelimit-error
+        title: Rate-limit reached
+        status: 429
     moves.ContainerTimeBlock:
       title: ContainerTimeBlock
       required:
@@ -109,13 +162,6 @@ components:
         endDateTime: '2025-05-25T12:30:00.000+02:00'
         type: AVAILABLE
         plannable: true
-    moves.ContainerTimeBlockType:
-      enum:
-      - AVAILABLE
-      - UNAVAILABLE
-      type: string
-      description: Whether this availability marks an unavailability in which work cannot be planned, or an availability in which work can be planned.
-      example: AVAILABLE
     moves.ContainerSearchRequest:
       title: ContainerSearchRequest
       required:
@@ -164,31 +210,13 @@ components:
         - 2
         shiftTimelineIds: []
         employeeIds: []
-    moves.list.ContainerList:
-      title: ContainerList
-      required:
-      - containers
-      type: object
-      properties:
-        containers:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Container'
-      description: A response body that contains a list of containers.
-      example:
-        containers:
-        - containerId: '|EMPLOYEE:1|UNIT:1|DAY:MONDAY|'
-          containerType: EMPLOYEE
-          containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
-          unitId: 1
-          date: '2025-05-25'
-          startDateTime: '2025-05-25T09:30:00.000+02:00'
-          endDateTime: '2025-05-25T12:30:00.000+02:00'
-          timeBlocks:
-          - startDateTime: '2025-05-25T09:30:00.000+02:00'
-            endDateTime: '2025-05-25T12:30:00.000+02:00'
-            type: AVAILABLE
-            plannable: true
+    moves.ContainerTimeBlockType:
+      enum:
+      - AVAILABLE
+      - UNAVAILABLE
+      type: string
+      description: Whether this availability marks an unavailability in which work cannot be planned, or an availability in which work can be planned.
+      example: AVAILABLE
     moves.Container:
       title: Container
       required:
@@ -277,32 +305,6 @@ components:
           endDateTime: '2025-05-25T12:30:00.000+02:00'
           plannable: true
           type: AVAILABLE
-    moves.ContainerType:
-      enum:
-      - SHIFT
-      - EMPLOYEE
-      type: string
-      description: The type of container, either a Shift or an Employee.
-      example: SHIFT
-    moves.MovesRatelimitError:
-      title: MovesRatelimitError
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of error raised
-        title:
-          type: string
-          description: The human readable title of the rate limit error
-        status:
-          type: integer
-          description: The HTTP status code being given
-          format: int64
-      description: An error describing a specific rate limit has been reached and that the client should wait to retry the response
-      example:
-        type: ratelimit-error
-        title: Rate-limit reached
-        status: 429
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

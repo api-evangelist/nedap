@@ -212,7 +212,7 @@ paths:
       tags:
       - finance.CareOrderProduct
       summary: Create CareOrderProduct
-      operationId: finance.CareOrderProductAPI.create
+      operationId: postV0AdministrationFinanceCareOrderProducts
       requestBody:
         description: CareOrderProduct to create
         content:
@@ -230,6 +230,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/care_order_products
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.CareOrderProductAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/care_order_products/{id}:
@@ -237,7 +239,7 @@ paths:
       tags:
       - finance.CareOrderProduct
       summary: Return the CareOrderProduct corresponding to the given id
-      operationId: finance.CareOrderProductAPI.byId
+      operationId: getV0AdministrationFinanceCareOrderProductsById
       parameters:
       - name: id
         in: path
@@ -258,11 +260,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/care_order_products/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.CareOrderProductAPI.byId
     put:
       tags:
       - finance.CareOrderProduct
       summary: Updates the given CareOrderProduct
-      operationId: finance.CareOrderProductAPI.update
+      operationId: putV0AdministrationFinanceCareOrderProductsById
       parameters:
       - name: id
         in: path
@@ -290,11 +294,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/care_order_products/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.CareOrderProductAPI.update
     delete:
       tags:
       - finance.CareOrderProduct
       summary: Deletes the CareOrderProduct with given id
-      operationId: finance.CareOrderProductAPI.delete
+      operationId: deleteV0AdministrationFinanceCareOrderProductsById
       parameters:
       - name: id
         in: path
@@ -311,6 +317,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/care_order_products/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.CareOrderProductAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/care_orders/{care_order_id}/care_order_products:
@@ -318,7 +326,7 @@ paths:
       tags:
       - finance.CareOrderProduct
       summary: Return the CareOrderProducts of a CareOrder corresponding to the given id
-      operationId: finance.CareOrderProductAPI.byCareOrderId
+      operationId: getV0AdministrationFinanceCareOrdersByCareOrderIdCareOrderProducts
       parameters:
       - name: care_order_id
         in: path
@@ -335,6 +343,8 @@ paths:
                 $ref: '#/components/schemas/finance.list.CareOrderProductList'
       x-replacement-for:
       - /t/finance/care_orders/{care_order_id}/care_order_products
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.CareOrderProductAPI.byCareOrderId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/care_order_products/data:
@@ -342,7 +352,7 @@ paths:
       tags:
       - finance.CareOrderProduct
       summary: Return all CareOrderProduct models in a streaming manner
-      operationId: finance.CareOrderProductAPI.streamAll
+      operationId: getV0XstreamCareOrderProductsData
       responses:
         '200':
           description: No response was specified
@@ -362,6 +372,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/care_order_products/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.CareOrderProductAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/care_order_products/updates:
@@ -369,7 +381,7 @@ paths:
       tags:
       - finance.CareOrderProduct
       summary: Return all CareOrderProduct models which where updated since the date given in…
-      operationId: finance.CareOrderProductAPI.streamUpdates
+      operationId: getV0XstreamCareOrderProductsUpdates
       parameters:
       - name: since
         in: query
@@ -397,6 +409,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/care_order_products/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.CareOrderProductAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:

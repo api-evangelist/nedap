@@ -51,7 +51,7 @@ paths:
       tags:
       - groupcare.Occurrence
       summary: Return the groupcare agenda occurrences of a Client corresponding to the given…
-      operationId: groupcare.OccurrenceAPI.byClientId
+      operationId: getV0GroupcareClientsByClientIdOccurrences
       parameters:
       - name: client_id
         in: path
@@ -81,10 +81,36 @@ paths:
                 $ref: '#/components/schemas/groupcare.list.OccurrenceList'
       x-replacement-for:
       - /t/clients/{client_id}/groupcare_agenda_occurrences
+      x-operation-id-source: normalized
+      x-operation-id-original: groupcare.OccurrenceAPI.byClientId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    groupcare.list.OccurrenceList:
+      type: object
+      properties:
+        occurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/groupcare.Occurrence'
+      description: OccurrenceList model (no description)
+      example:
+        occurrences:
+        - id: 1@2016-02-01
+          date: '2016-02-01'
+          startTime: '2016-02-01T00:01:00.000+01:00'
+          endTime: '2016-02-01T00:02:00.000+01:00'
+          groupId: 1
+          groupName: Name of group
+          locationName: Name of location
+          locationId: 10
+          registration: present
+          employeeIds:
+          - 1
+          - 2
+          recurrenceType: single
+          recurrenceInterval: 1
     groupcare.Occurrence:
       type: object
       properties:
@@ -138,30 +164,6 @@ components:
         - 2
         recurrenceType: single
         recurrenceInterval: 1
-    groupcare.list.OccurrenceList:
-      type: object
-      properties:
-        occurrences:
-          type: array
-          items:
-            $ref: '#/components/schemas/groupcare.Occurrence'
-      description: OccurrenceList model (no description)
-      example:
-        occurrences:
-        - id: 1@2016-02-01
-          date: '2016-02-01'
-          startTime: '2016-02-01T00:01:00.000+01:00'
-          endTime: '2016-02-01T00:02:00.000+01:00'
-          groupId: 1
-          groupName: Name of group
-          locationName: Name of location
-          locationId: 10
-          registration: present
-          employeeIds:
-          - 1
-          - 2
-          recurrenceType: single
-          recurrenceInterval: 1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

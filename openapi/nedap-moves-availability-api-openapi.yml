@@ -116,7 +116,7 @@ paths:
       tags:
       - moves.Availability
       summary: Return all Availability models in a streaming manner
-      operationId: moves.AvailabilityAPI.streamAll
+      operationId: getV0XstreamAvailabilitiesData
       responses:
         '200':
           description: No response was specified
@@ -136,6 +136,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/availabilities/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.AvailabilityAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/availabilities/deletes:
@@ -146,7 +148,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted Availability models'
-      operationId: moves.AvailabilityAPI.streamDeletes
+      operationId: getV0XstreamAvailabilitiesDeletes
       parameters:
       - name: since
         in: query
@@ -174,6 +176,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/availabilities/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.AvailabilityAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/availabilities/updates:
@@ -181,7 +185,7 @@ paths:
       tags:
       - moves.Availability
       summary: Return all Availability models which where updated since the date given in the…
-      operationId: moves.AvailabilityAPI.streamUpdates
+      operationId: getV0XstreamAvailabilitiesUpdates
       parameters:
       - name: since
         in: query
@@ -209,41 +213,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/availabilities/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.AvailabilityAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.list.AvailabilityList:
-      type: object
-      properties:
-        availabilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Availability'
-          xml:
-            name: availability
-      description: AvailabilityList model (no description)
-      example:
-        availabilities:
-        - id: 1
-          containerId: 2891
-          start: '00:00:00.000'
-          stop: '00:00:00.000'
-          duration: 86400
-          validFrom: '2018-07-09'
-          validTo: '2018-07-09'
-          recurrenceType: incidental
-          cycleBase: '2018-07-23'
-          cycleInterval: 7
-          cycleOffset: 4
-          unitId: 1
-          availabilityTypeId: 2
-          dayPart: 2
-          comment: Comment
-          peopleType: Employee
-          peopleExternalId: 100
-      xml:
-        name: availabilities
     moves.Availability:
       type: object
       properties:
@@ -385,6 +360,37 @@ components:
         peopleExternalId: 100
       xml:
         name: availability
+    moves.list.AvailabilityList:
+      type: object
+      properties:
+        availabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Availability'
+          xml:
+            name: availability
+      description: AvailabilityList model (no description)
+      example:
+        availabilities:
+        - id: 1
+          containerId: 2891
+          start: '00:00:00.000'
+          stop: '00:00:00.000'
+          duration: 86400
+          validFrom: '2018-07-09'
+          validTo: '2018-07-09'
+          recurrenceType: incidental
+          cycleBase: '2018-07-23'
+          cycleInterval: 7
+          cycleOffset: 4
+          unitId: 1
+          availabilityTypeId: 2
+          dayPart: 2
+          comment: Comment
+          peopleType: Employee
+          peopleExternalId: 100
+      xml:
+        name: availabilities
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

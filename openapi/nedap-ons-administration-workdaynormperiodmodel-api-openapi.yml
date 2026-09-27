@@ -41,7 +41,7 @@ paths:
       tags:
       - ons_administration.WorkdayNormPeriodModel
       summary: Returns the workday norm periods for the given employees.
-      operationId: ons_administration.WorkdayNormPeriodModelAPI.getCurrentPeriodsByEmployee
+      operationId: getV0AdministrationEmployeesWorkdayNormsCurrent
       parameters:
       - name: id
         in: query
@@ -61,6 +61,8 @@ paths:
           description: Validation errors
       x-replacement-for:
       - /t/employees/workday_norms/current
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayNormPeriodModelAPI.getCurrentPeriodsByEmployee
     servers:
     - url: https://api-development.ons.io
 components:

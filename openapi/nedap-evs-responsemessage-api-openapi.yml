@@ -38,7 +38,7 @@ paths:
       tags:
       - evs.ResponseMessage
       summary: Send a response of an earlier sent message from FVC back to OA
-      operationId: evs.ResponseMessageAPI.send
+      operationId: putV0AdministrationEvsResponseMessage
       requestBody:
         description: Responsemessage to be sent to OA
         content:
@@ -55,6 +55,8 @@ paths:
                 $ref: '#/components/schemas/evs.ResponseMessage'
       x-replacement-for:
       - /t/evs/response_message
+      x-operation-id-source: normalized
+      x-operation-id-original: evs.ResponseMessageAPI.send
     servers:
     - url: https://api-development.ons.io
 components:

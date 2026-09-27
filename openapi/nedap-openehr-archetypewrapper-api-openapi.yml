@@ -187,7 +187,7 @@ paths:
       tags:
       - openehr.ArchetypeWrapper
       summary: Finds a list of all archetypeWrappers in the requested format, filtering by…
-      operationId: openehr.ArchetypeWrapperAPI.all
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedArchetypeWrappers
       parameters:
       - name: archetype_form
         in: query
@@ -210,6 +210,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/openehr/archetype_wrappers
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.ArchetypeWrapperAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/{id}:
@@ -217,7 +219,7 @@ paths:
       tags:
       - openehr.ArchetypeWrapper
       summary: Finds an archetypeWrapper by archetypeId in the requested format
-      operationId: openehr.ArchetypeWrapperAPI.byId
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedArchetypeWrappersById
       parameters:
       - name: id
         in: path
@@ -241,6 +243,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/openehr/archetype_wrappers/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.ArchetypeWrapperAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/creatable:
@@ -248,7 +252,7 @@ paths:
       tags:
       - openehr.ArchetypeWrapper
       summary: Finds a list of archetypeWrappers that are creatable
-      operationId: openehr.ArchetypeWrapperAPI.creatable
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedArchetypeWrappersCreatable
       parameters:
       - name: archetype_form
         in: query
@@ -277,6 +281,8 @@ paths:
                 $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
       x-replacement-for:
       - /t/openehr/archetype_wrappers/creatable
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.ArchetypeWrapperAPI.creatable
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/creatable/current_versions:
@@ -284,7 +290,7 @@ paths:
       tags:
       - openehr.ArchetypeWrapper
       summary: Finds a list of archetypeWrappers that are the creatable current versions
-      operationId: openehr.ArchetypeWrapperAPI.creatableCurrentVersions
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedArchetypeWrappersCreatableCurrentVersions
       parameters:
       - name: archetype_form
         in: query
@@ -313,6 +319,8 @@ paths:
                 $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
       x-replacement-for:
       - /t/openehr/archetype_wrappers/creatable/current_versions
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.ArchetypeWrapperAPI.creatableCurrentVersions
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/archetype_wrappers/for_client/{client_id}:
@@ -320,7 +328,7 @@ paths:
       tags:
       - openehr.ArchetypeWrapper
       summary: Finds a list of archetypeWrappers for a given client id
-      operationId: openehr.ArchetypeWrapperAPI.forClient
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedArchetypeWrappersForClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -355,46 +363,12 @@ paths:
                 $ref: '#/components/schemas/openehr.list.ArchetypeWrapperList'
       x-replacement-for:
       - /t/openehr/archetype_wrappers/for_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.ArchetypeWrapperAPI.forClient
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    openehr.ArchetypeForm:
-      enum:
-      - METADATA
-      - DIFFERENTIAL
-      - DIFFERENTIAL_STANDARDS_COMPLIANT_JSON
-      - FLAT
-      - FLAT_STANDARDS_COMPLIANT_JSON
-      - OPERATIONAL_TEMPLATE
-      - OPERATIONAL_TEMPLATE_STANDARDS_COMPLIANT_JSON
-      type: string
-      description: ArchetypeForm enum (no description)
-      example: METADATA
-    openehr.ArchetypeCategory:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-          description: 'Name of the archetype category.
-
-            Example: "GGZ".'
-      description: 'OpenEHR Archetype Category model.
-
-        Object to return an ArchetypeCategory.
-
-
-        This object includes additional information about Archetype Categories.
-
-
-        Created on 30/01/2022.'
-      example:
-        id: 1
-        name: GGZ
     AuditedBase:
       title: AuditedBase
       type: object
@@ -707,79 +681,30 @@ components:
         authorizedForCreate: true
         archetype: Dummy
         form: OPERATIONAL_TEMPLATE
-    openehr.list.ArchetypeWrapperList:
+    openehr.ArchetypeCategory:
       type: object
       properties:
-        archetypeWrappers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/openehr.ArchetypeWrapper'
-      description: ArchetypeWrapperList model (no description)
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: 'Name of the archetype category.
+
+            Example: "GGZ".'
+      description: 'OpenEHR Archetype Category model.
+
+        Object to return an ArchetypeCategory.
+
+
+        This object includes additional information about Archetype Categories.
+
+
+        Created on 30/01/2022.'
       example:
-        archetypeWrappers:
-        - updatedAt: '2018-06-28T00:00:00.000+02:00'
-          createdAt: '2018-06-28T00:00:00.000+02:00'
-          createdBy: Dummy
-          id: 1
-          archetypeId: openEHR-EHR-OBSERVATION.barthel.v2.0.0
-          archetypeClass: Dummy
-          rootNodeRmTypeName: Dummy
-          rootNodeText: Dummy
-          rootNodeDescription: Dummy
-          purpose: Dummy
-          use: Dummy
-          misuse: Dummy
-          copyright: Dummy
-          keywords: []
-          creatable: true
-          enabled: true
-          archetypeCategories:
-          - id: 1
-            name: GGZ
-          authorizedEmployeeGroupsForCreate:
-          - id: 1
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          authorizedEmployeeGroupsForRead: []
-          authorizedEmployeeGroupsForUpdate:
-          - id: 1
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          - id: 2
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          authorizedForCreate: true
-          archetype: Dummy
-          form: OPERATIONAL_TEMPLATE
-        - updatedAt: '2018-06-28T00:00:00.000+02:00'
-          createdAt: '2018-06-28T00:00:00.000+02:00'
-          createdBy: Dummy
-          id: 2
-          archetypeId: openEHR-EHR-OBSERVATION.laboratory_test_result.v1.1.2
-          archetypeClass: Dummy
-          rootNodeRmTypeName: Dummy
-          rootNodeText: Dummy
-          rootNodeDescription: Dummy
-          purpose: Dummy
-          use: Dummy
-          misuse: Dummy
-          copyright: Dummy
-          keywords: []
-          creatable: true
-          enabled: true
-          archetypeCategories:
-          - id: 2
-            name: VVT
-          authorizedEmployeeGroupsForCreate: []
-          authorizedEmployeeGroupsForRead: []
-          authorizedEmployeeGroupsForUpdate: []
-          archetype: Dummy
-          form: OPERATIONAL_TEMPLATE
+        id: 1
+        name: GGZ
     openehr.EmployeeGroup:
       title: EmployeeGroup
       type: object
@@ -879,6 +804,91 @@ components:
         beginDate: '2020-05-11'
         endDate: '2020-05-25'
         deleted: false
+    openehr.list.ArchetypeWrapperList:
+      type: object
+      properties:
+        archetypeWrappers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/openehr.ArchetypeWrapper'
+      description: ArchetypeWrapperList model (no description)
+      example:
+        archetypeWrappers:
+        - updatedAt: '2018-06-28T00:00:00.000+02:00'
+          createdAt: '2018-06-28T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 1
+          archetypeId: openEHR-EHR-OBSERVATION.barthel.v2.0.0
+          archetypeClass: Dummy
+          rootNodeRmTypeName: Dummy
+          rootNodeText: Dummy
+          rootNodeDescription: Dummy
+          purpose: Dummy
+          use: Dummy
+          misuse: Dummy
+          copyright: Dummy
+          keywords: []
+          creatable: true
+          enabled: true
+          archetypeCategories:
+          - id: 1
+            name: GGZ
+          authorizedEmployeeGroupsForCreate:
+          - id: 1
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          authorizedEmployeeGroupsForRead: []
+          authorizedEmployeeGroupsForUpdate:
+          - id: 1
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          - id: 2
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          authorizedForCreate: true
+          archetype: Dummy
+          form: OPERATIONAL_TEMPLATE
+        - updatedAt: '2018-06-28T00:00:00.000+02:00'
+          createdAt: '2018-06-28T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 2
+          archetypeId: openEHR-EHR-OBSERVATION.laboratory_test_result.v1.1.2
+          archetypeClass: Dummy
+          rootNodeRmTypeName: Dummy
+          rootNodeText: Dummy
+          rootNodeDescription: Dummy
+          purpose: Dummy
+          use: Dummy
+          misuse: Dummy
+          copyright: Dummy
+          keywords: []
+          creatable: true
+          enabled: true
+          archetypeCategories:
+          - id: 2
+            name: VVT
+          authorizedEmployeeGroupsForCreate: []
+          authorizedEmployeeGroupsForRead: []
+          authorizedEmployeeGroupsForUpdate: []
+          archetype: Dummy
+          form: OPERATIONAL_TEMPLATE
+    openehr.ArchetypeForm:
+      enum:
+      - METADATA
+      - DIFFERENTIAL
+      - DIFFERENTIAL_STANDARDS_COMPLIANT_JSON
+      - FLAT
+      - FLAT_STANDARDS_COMPLIANT_JSON
+      - OPERATIONAL_TEMPLATE
+      - OPERATIONAL_TEMPLATE_STANDARDS_COMPLIANT_JSON
+      type: string
+      description: ArchetypeForm enum (no description)
+      example: METADATA
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

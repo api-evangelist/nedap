@@ -232,7 +232,7 @@ paths:
       tags:
       - CareAllocation
       summary: Create a CareAllocation
-      operationId: CareAllocationAPI.create
+      operationId: postV0AdministrationCareallocations
       requestBody:
         description: CareAllocation to create
         content:
@@ -252,6 +252,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_allocations
+      x-operation-id-source: normalized
+      x-operation-id-original: CareAllocationAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/careallocations/{id}:
@@ -259,7 +261,7 @@ paths:
       tags:
       - CareAllocation
       summary: Return the Care Allocation corresponding to the given id
-      operationId: CareAllocationAPI.byId
+      operationId: getV0AdministrationCareallocationsById
       parameters:
       - name: id
         in: path
@@ -280,11 +282,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_allocations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: CareAllocationAPI.byId
     put:
       tags:
       - CareAllocation
       summary: Update the Care Allocation corresponding to the given id
-      operationId: CareAllocationAPI.updateCareAllocationById
+      operationId: putV0AdministrationCareallocationsById
       parameters:
       - name: id
         in: path
@@ -312,6 +316,8 @@ paths:
           description: The care allocation cannot be found
       x-replacement-for:
       - /t/care_allocations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: CareAllocationAPI.updateCareAllocationById
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/care_allocations:
@@ -319,7 +325,7 @@ paths:
       tags:
       - CareAllocation
       summary: Return the care providers of a Client corresponding to the given id
-      operationId: CareAllocationAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdCareAllocations
       parameters:
       - name: client_id
         in: path
@@ -337,6 +343,8 @@ paths:
                 $ref: '#/components/schemas/list.CareAllocationList'
       x-replacement-for:
       - /t/clients/{client_id}/care_allocations
+      x-operation-id-source: normalized
+      x-operation-id-original: CareAllocationAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/care_allocations/data:
@@ -344,7 +352,7 @@ paths:
       tags:
       - CareAllocation
       summary: Return all CareAllocation models in a streaming manner
-      operationId: CareAllocationAPI.streamAll
+      operationId: getV0XstreamCareAllocationsData
       responses:
         '200':
           description: No response was specified
@@ -364,6 +372,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_allocations/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: CareAllocationAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/care_allocations/deletes:
@@ -374,7 +384,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted CareAllocation models'
-      operationId: CareAllocationAPI.streamDeletes
+      operationId: getV0XstreamCareAllocationsDeletes
       parameters:
       - name: since
         in: query
@@ -402,6 +412,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_allocations/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: CareAllocationAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/care_allocations/updates:
@@ -409,7 +421,7 @@ paths:
       tags:
       - CareAllocation
       summary: Return all CareAllocation models which where updated since the date given in…
-      operationId: CareAllocationAPI.streamUpdates
+      operationId: getV0XstreamCareAllocationsUpdates
       parameters:
       - name: since
         in: query
@@ -437,10 +449,34 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_allocations/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: CareAllocationAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.CareAllocationList:
+      type: object
+      properties:
+        careAllocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CareAllocation'
+          xml:
+            name: careAllocation
+      description: CareAllocationList model (no description)
+      example:
+        careAllocations:
+        - id: 1
+          clientId: 544
+          beginDate: '2016-01-01'
+          endDate: '2020-01-01'
+          comments: niets te melden
+          destination: EIGEN_OMGEVING
+          reason: IN_CARE
+          reasonTemporary: VAKANTIEVERLOF
+      xml:
+        name: careAllocations
     CareAllocation:
       required:
       - clientId
@@ -542,28 +578,6 @@ components:
         careProviderId: 42
       xml:
         name: careAllocation
-    list.CareAllocationList:
-      type: object
-      properties:
-        careAllocations:
-          type: array
-          items:
-            $ref: '#/components/schemas/CareAllocation'
-          xml:
-            name: careAllocation
-      description: CareAllocationList model (no description)
-      example:
-        careAllocations:
-        - id: 1
-          clientId: 544
-          beginDate: '2016-01-01'
-          endDate: '2020-01-01'
-          comments: niets te melden
-          destination: EIGEN_OMGEVING
-          reason: IN_CARE
-          reasonTemporary: VAKANTIEVERLOF
-      xml:
-        name: careAllocations
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

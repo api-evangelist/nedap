@@ -39,7 +39,7 @@ paths:
       tags:
       - moves.EmployeeMovesProfile
       summary: Return the moves profile of an employee specified by id
-      operationId: moves.EmployeeMovesProfileAPI.byEmployeeId
+      operationId: getV0PlannenRoosterenEmployeesByEmployeeIdEmployeeMovesProfile
       parameters:
       - name: employee_id
         in: path
@@ -57,6 +57,8 @@ paths:
                 $ref: '#/components/schemas/moves.EmployeeMovesProfile'
       x-replacement-for:
       - /t/employees/{employee_id}/employee_moves_profile
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.EmployeeMovesProfileAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:

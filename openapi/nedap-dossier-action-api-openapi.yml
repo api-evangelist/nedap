@@ -265,7 +265,7 @@ paths:
       tags:
       - dossier.Action
       summary: Create Action
-      operationId: dossier.ActionAPI.create
+      operationId: postV0AdministrationDossierActions
       requestBody:
         description: Action to create
         content:
@@ -283,6 +283,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/actions
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/actions/{id}:
@@ -290,7 +292,7 @@ paths:
       tags:
       - dossier.Action
       summary: Get a resource by its ID
-      operationId: dossier.ActionAPI.byId
+      operationId: getV0AdministrationDossierActionsById
       parameters:
       - name: id
         in: path
@@ -319,11 +321,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/actions/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionAPI.byId
     put:
       tags:
       - dossier.Action
       summary: Updates the given Action
-      operationId: dossier.ActionAPI.update
+      operationId: putV0AdministrationDossierActionsById
       parameters:
       - name: id
         in: path
@@ -359,11 +363,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/actions/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionAPI.update
     delete:
       tags:
       - dossier.Action
       summary: Deletes the Action with given id
-      operationId: dossier.ActionAPI.delete
+      operationId: deleteV0AdministrationDossierActionsById
       parameters:
       - name: id
         in: path
@@ -388,6 +394,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/actions/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/actions/multiple:
@@ -395,7 +403,7 @@ paths:
       tags:
       - dossier.Action
       summary: Method used for requesting multiple Action objects using their ids
-      operationId: dossier.ActionAPI.multiple
+      operationId: getV0AdministrationDossierActionsMultiple
       parameters:
       - name: id
         in: query
@@ -424,6 +432,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/actions/multiple
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionAPI.multiple
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/actions/search:
@@ -431,7 +441,7 @@ paths:
       tags:
       - dossier.Action
       summary: Returns the Actions which meet the search criteria
-      operationId: dossier.ActionAPI.search
+      operationId: getV0AdministrationDossierActionsSearch
       parameters:
       - name: keyword
         in: query
@@ -454,6 +464,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ActionList'
       x-replacement-for:
       - /t/dossier/actions/search
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionAPI.search
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/domains/{domain_id}/actions:
@@ -461,7 +473,7 @@ paths:
       tags:
       - dossier.Action
       summary: Return the Actions of a Domain corresponding to the given id
-      operationId: dossier.ActionAPI.byDomainId
+      operationId: getV0AdministrationDossierDomainsByDomainIdActions
       parameters:
       - name: domain_id
         in: path
@@ -478,6 +490,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ActionList'
       x-replacement-for:
       - /t/dossier/domains/{domain_id}/actions
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionAPI.byDomainId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/goals/{goal_id}/actions:
@@ -485,7 +499,7 @@ paths:
       tags:
       - dossier.Action
       summary: Return the Actions of a Goal corresponding to the given id
-      operationId: dossier.ActionAPI.byGoalId
+      operationId: getV0AdministrationDossierGoalsByGoalIdActions
       parameters:
       - name: goal_id
         in: path
@@ -502,6 +516,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ActionList'
       x-replacement-for:
       - /t/dossier/goals/{goal_id}/actions
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActionAPI.byGoalId
     servers:
     - url: https://api-development.ons.io
 components:
@@ -530,168 +546,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    dossier.Action:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        domain:
-          $ref: '#/components/schemas/dossier.Domain'
-        domainId:
-          type: integer
-          format: int64
-        goal:
-          $ref: '#/components/schemas/dossier.Goal'
-        goalId:
-          type: integer
-          format: int64
-        definition:
-          type: string
-        instructionUrl:
-          type: string
-        allowTitleOverride:
-          type: boolean
-          default: false
-        allowComment:
-          type: boolean
-          default: false
-        hidden:
-          type: boolean
-          default: false
-        classificationId:
-          type: string
-      description: Zorgplan "actie"
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        domain:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          name: example
-          hidden: true
-          classificationId: example
-        domainId: 2
-        goal:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          domain:
-            updatedAt: '2014-12-29T00:00:00.000+01:00'
-            createdAt: '2014-12-29T00:00:00.000+01:00'
-            createdBy: example
-            id: 1
-            name: example
-            hidden: true
-            classificationId: example
-          domainId: 1
-          demandId: 1
-          definition: example
-          allowTitleOverride: true
-          allowComment: true
-          reportProgress: true
-          hidden: true
-          classificationId: example
-        goalId: 3
-        definition: Een definitie
-        instructionUrl: http://www.nedap.com/
-        allowTitleOverride: true
-        allowComment: true
-        hidden: false
-        classificationId: intervention.target.bowel_care
-      xml:
-        name: action
-    dossier.Goal:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        domain:
-          $ref: '#/components/schemas/dossier.Domain'
-        domainId:
-          type: integer
-          format: int64
-        demandId:
-          type: integer
-          format: int64
-        definition:
-          type: string
-        allowTitleOverride:
-          type: boolean
-          default: false
-        allowComment:
-          type: boolean
-          default: false
-        reportProgress:
-          type: boolean
-          default: false
-        hidden:
-          type: boolean
-          default: false
-        classificationId:
-          type: string
-      description: Zorgplan "doel"
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        domain:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          name: example
-          hidden: true
-          classificationId: example
-        domainId: 2
-        demandId: 3
-        definition: Target definition
-        allowTitleOverride: true
-        allowComment: true
-        reportProgress: false
-        hidden: false
-        classificationId: intervention.category.case_management
-      xml:
-        name: goal
-    dossier.Domain:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit domein
-        hidden:
-          type: boolean
-          default: false
-        classificationId:
-          type: string
-      description: Zorgplan "domein"
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        name: Domein naam
-        hidden: false
-        classificationId: classification.domain.health
     dossier.list.ActionList:
       type: object
       properties:
@@ -1590,6 +1444,168 @@ components:
           hidden: false
       xml:
         name: actions
+    dossier.Action:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        goal:
+          $ref: '#/components/schemas/dossier.Goal'
+        goalId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        instructionUrl:
+          type: string
+        allowTitleOverride:
+          type: boolean
+          default: false
+        allowComment:
+          type: boolean
+          default: false
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "actie"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        goal:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          demandId: 1
+          definition: example
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: true
+          hidden: true
+          classificationId: example
+        goalId: 3
+        definition: Een definitie
+        instructionUrl: http://www.nedap.com/
+        allowTitleOverride: true
+        allowComment: true
+        hidden: false
+        classificationId: intervention.target.bowel_care
+      xml:
+        name: action
+    dossier.Goal:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        demandId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        allowTitleOverride:
+          type: boolean
+          default: false
+        allowComment:
+          type: boolean
+          default: false
+        reportProgress:
+          type: boolean
+          default: false
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "doel"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        demandId: 3
+        definition: Target definition
+        allowTitleOverride: true
+        allowComment: true
+        reportProgress: false
+        hidden: false
+        classificationId: intervention.category.case_management
+      xml:
+        name: goal
+    dossier.Domain:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

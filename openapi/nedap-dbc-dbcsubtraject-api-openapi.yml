@@ -120,7 +120,7 @@ paths:
       tags:
       - dbc.DBCSubTraject
       summary: Return the specific dbcsubtraject as specified by the id
-      operationId: dbc.DBCSubTrajectAPI.byId
+      operationId: getV0AdministrationDbcDbcSubTrajectsById
       parameters:
       - name: id
         in: path
@@ -155,6 +155,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dbc/dbc_sub_trajects/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dbc.DBCSubTrajectAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dbc/dbc_sub_trajects/in_period:
@@ -162,7 +164,7 @@ paths:
       tags:
       - dbc.DBCSubTraject
       summary: Return all dbc subtrajects that have been active at any time in the requested…
-      operationId: dbc.DBCSubTrajectAPI.byPeriod
+      operationId: getV0AdministrationDbcDbcSubTrajectsInPeriod
       parameters:
       - name: valid_from
         in: query
@@ -193,6 +195,8 @@ paths:
                 $ref: '#/components/schemas/dbc.list.DBCSubTrajectList'
       x-replacement-for:
       - /t/dbc/dbc_sub_trajects/in_period
+      x-operation-id-source: normalized
+      x-operation-id-original: dbc.DBCSubTrajectAPI.byPeriod
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dbc/dbc_trajects/{dbc_traject_id}/dbc_sub_trajects:
@@ -200,7 +204,7 @@ paths:
       tags:
       - dbc.DBCSubTraject
       summary: Return the DBCSubTrajects of a DBCTraject corresponding to the given id
-      operationId: dbc.DBCSubTrajectAPI.byDBCTrajectId
+      operationId: getV0AdministrationDbcDbcTrajectsByDbcTrajectIdDbcSubTrajects
       parameters:
       - name: dbc_traject_id
         in: path
@@ -217,10 +221,36 @@ paths:
                 $ref: '#/components/schemas/dbc.list.DBCSubTrajectList'
       x-replacement-for:
       - /t/dbc/dbc_trajects/{dbc_traject_id}/dbc_sub_trajects
+      x-operation-id-source: normalized
+      x-operation-id-original: dbc.DBCSubTrajectAPI.byDBCTrajectId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     dbc.list.DBCSubTrajectList:
       type: object
       properties:
@@ -357,30 +387,6 @@ components:
         dbcTrajectId: 1
       xml:
         name: dbcSubTraject
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

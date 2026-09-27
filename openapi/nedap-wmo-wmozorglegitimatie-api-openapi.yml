@@ -96,7 +96,7 @@ paths:
       tags:
       - wmo.WmoZorglegitimatie
       summary: Create WmoZorglegitimatie
-      operationId: wmo.WmoZorglegitimatieAPI.create
+      operationId: postV0AdministrationWmoZorglegitimaties
       requestBody:
         description: WmoZorglegitimatie to create
         content:
@@ -116,6 +116,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/wmo/zorglegitimaties
+      x-operation-id-source: normalized
+      x-operation-id-original: wmo.WmoZorglegitimatieAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/wmo/zorglegitimaties/{id}:
@@ -123,7 +125,7 @@ paths:
       tags:
       - wmo.WmoZorglegitimatie
       summary: Return the WmoZorgLegitimatie corresponding to the given id
-      operationId: wmo.WmoZorglegitimatieAPI.byId
+      operationId: getV0AdministrationWmoZorglegitimatiesById
       parameters:
       - name: id
         in: path
@@ -144,11 +146,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/wmo/zorglegitimaties/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: wmo.WmoZorglegitimatieAPI.byId
     delete:
       tags:
       - wmo.WmoZorglegitimatie
       summary: Delete a WmoZorglegitimatie
-      operationId: wmo.WmoZorglegitimatieAPI.delete
+      operationId: deleteV0AdministrationWmoZorglegitimatiesById
       parameters:
       - name: id
         in: path
@@ -169,10 +173,27 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/wmo/zorglegitimaties/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: wmo.WmoZorglegitimatieAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    lz.Bericht:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: string
+          description: 'The content of the messages, surrounded with CDATA tags.
+
+            The content needs to be a valid AW33 / AW35 or AW39 message.'
+      description: Bericht model (no description)
+      example:
+        content: Dummy
+      xml:
+        name: bericht
     wmo.WmoZorglegitimatie:
       required:
       - id
@@ -207,21 +228,6 @@ components:
         - content: test
       xml:
         name: wmoZorglegitimatie
-    lz.Bericht:
-      required:
-      - content
-      type: object
-      properties:
-        content:
-          type: string
-          description: 'The content of the messages, surrounded with CDATA tags.
-
-            The content needs to be a valid AW33 / AW35 or AW39 message.'
-      description: Bericht model (no description)
-      example:
-        content: Dummy
-      xml:
-        name: bericht
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

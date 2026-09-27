@@ -32,7 +32,7 @@ paths:
       tags:
       - tasque.CareTaskGroupStatus
       summary: Returns every CareTaskGroupStatus available from the CareTaskGroupStatusAPI
-      operationId: tasque.CareTaskGroupStatusAPI.all
+      operationId: getV0TakenCareTaskGroupStatuses
       responses:
         '200':
           description: No response was specified
@@ -43,6 +43,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/tasque/care_task_group_statuses
+      x-operation-id-source: normalized
+      x-operation-id-original: tasque.CareTaskGroupStatusAPI.all
     servers:
     - url: https://api-development.ons.io
 components:

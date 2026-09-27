@@ -45,7 +45,7 @@ paths:
       - moves.FlexSignup
       summary: Creates a flex signup for an employee on a flex request
       description: 'Signs up an employee for a specific flex request. If the employee already has a flex signup for the same shift timeline and date, the flex request will be added to the existing signup only if the request properties match those of the other request(s). The matching properties are: shift timeline ID, date, start time, end time, break start time, break end time, and expertise profile ID.'
-      operationId: moves.FlexSignupAPI.create
+      operationId: postV0PlannenRoosterenFlexSignups
       requestBody:
         description: The employee ID and flex request ID to create a signup
         content:
@@ -67,30 +67,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/flex_signups
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.FlexSignupAPI.create
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.FlexSignupRequest:
-      title: moves.FlexSignupRequest
-      required:
-      - employeeId
-      - flexRequestId
-      type: object
-      properties:
-        employeeId:
-          type: string
-          description: The external ID of the employee
-          example: EMP123
-        flexRequestId:
-          type: integer
-          description: The ID of the flex request to sign up for
-          format: int64
-          example: 456
-      description: FlexSignupRequest model (no description)
-      example:
-        employeeId: EMP123
-        flexRequestId: 456
     moves.FlexSignup:
       type: object
       properties:
@@ -125,6 +107,26 @@ components:
         employeeId: 1
         employeeLeadingName: Jan Henk
         employeeName: Jan Henk Heilersig
+    moves.FlexSignupRequest:
+      title: moves.FlexSignupRequest
+      required:
+      - employeeId
+      - flexRequestId
+      type: object
+      properties:
+        employeeId:
+          type: string
+          description: The external ID of the employee
+          example: EMP123
+        flexRequestId:
+          type: integer
+          description: The ID of the flex request to sign up for
+          format: int64
+          example: 456
+      description: FlexSignupRequest model (no description)
+      example:
+        employeeId: EMP123
+        flexRequestId: 456
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

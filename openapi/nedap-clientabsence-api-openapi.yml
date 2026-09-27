@@ -247,7 +247,7 @@ paths:
       tags:
       - ClientAbsence
       summary: Create ClientAbsence
-      operationId: ClientAbsenceAPI.create
+      operationId: postV0AdministrationClientAbsences
       requestBody:
         description: ClientAbsence to create
         content:
@@ -267,6 +267,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_absences
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAbsenceAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clientAbsences/{id}:
@@ -274,7 +276,7 @@ paths:
       tags:
       - ClientAbsence
       summary: Get the Client Absence corresponding to the given id
-      operationId: ClientAbsenceAPI.byId
+      operationId: getV0AdministrationClientAbsencesById
       parameters:
       - name: id
         in: path
@@ -295,11 +297,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_absences/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAbsenceAPI.byId
     put:
       tags:
       - ClientAbsence
       summary: Updates the given ClientAbsence
-      operationId: ClientAbsenceAPI.update
+      operationId: putV0AdministrationClientAbsencesById
       parameters:
       - name: id
         in: path
@@ -329,11 +333,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_absences/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAbsenceAPI.update
     delete:
       tags:
       - ClientAbsence
       summary: Deletes the ClientAbsence with given id
-      operationId: ClientAbsenceAPI.delete
+      operationId: deleteV0AdministrationClientAbsencesById
       parameters:
       - name: id
         in: path
@@ -348,6 +354,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_absences/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAbsenceAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clientAbsences/search_by_client:
@@ -355,7 +363,7 @@ paths:
       tags:
       - ClientAbsence
       summary: Return the client absences of a Client corresponding to the given id
-      operationId: ClientAbsenceAPI.byClientId
+      operationId: getV0AdministrationClientAbsencesSearchByClient
       parameters:
       - name: client_id
         in: query
@@ -393,6 +401,8 @@ paths:
           description: Client not found
       x-replacement-for:
       - /t/clients/{client_id}/client_absences
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAbsenceAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clientAbsences/search_by_client_and_type:
@@ -400,7 +410,7 @@ paths:
       tags:
       - ClientAbsence
       summary: Return the type-specific client absences for a Client corresponding to the…
-      operationId: ClientAbsenceAPI.byClientIdAndType
+      operationId: getV0AdministrationClientAbsencesSearchByClientAndType
       parameters:
       - name: client_id
         in: query
@@ -444,6 +454,8 @@ paths:
           description: Client not found
       x-replacement-for:
       - /t/clients/{client_id}/client_absences_by_type
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAbsenceAPI.byClientIdAndType
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/client_absences/data:
@@ -451,7 +463,7 @@ paths:
       tags:
       - ClientAbsence
       summary: Return all ClientAbsences models in a streaming manner
-      operationId: ClientAbsenceAPI.streamAll
+      operationId: getV0XstreamClientAbsencesData
       responses:
         '200':
           description: No response was specified
@@ -471,29 +483,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_absences/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAbsenceAPI.streamAll
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ClientAbsenceReason:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        reason:
-          type: string
-        active:
-          type: boolean
-          default: false
-      description: ClientAbsenceReason domain model used by Cupido system.
-      example:
-        id: 42
-        reason: aap
-        active: true
-      xml:
-        name: clientAbsenceReason
     list.ClientAbsenceList:
       type: object
       properties:
@@ -572,6 +567,25 @@ components:
         sourceId: 900
       xml:
         name: clientAbsence
+    ClientAbsenceReason:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        reason:
+          type: string
+        active:
+          type: boolean
+          default: false
+      description: ClientAbsenceReason domain model used by Cupido system.
+      example:
+        id: 42
+        reason: aap
+        active: true
+      xml:
+        name: clientAbsenceReason
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

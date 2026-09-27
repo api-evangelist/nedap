@@ -66,7 +66,7 @@ paths:
     get:
       tags:
       - payroll.CollectiveAgreementRule
-      operationId: payroll.CollectiveAgreementRuleAPI.byId
+      operationId: getV0AdministrationCollectiveAgreementRulesById
       parameters:
       - name: id
         in: path
@@ -87,6 +87,8 @@ paths:
       - /t/payroll/collective_agreement_rules/{id}
       summary: Payroll collective agreement rule API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.CollectiveAgreementRuleAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/collective_agreement_rules/by_collective_agreement_id/{collective_agreement_id}:
@@ -94,7 +96,7 @@ paths:
       tags:
       - payroll.CollectiveAgreementRule
       summary: Return the CollectiveAgreementRules of an employee corresponding to the given id
-      operationId: payroll.CollectiveAgreementRuleAPI.byCollectiveAgreementId
+      operationId: getV0AdministrationCollectiveAgreementRulesByCollectiveAgreementIdByCollectiveAgreementId
       parameters:
       - name: collective_agreement_id
         in: path
@@ -112,6 +114,8 @@ paths:
                 $ref: '#/components/schemas/payroll.list.CollectiveAgreementRuleList'
       x-replacement-for:
       - /t/payroll/collective_agreements/{collective_agreement_id}/collective_agreement_rules
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.CollectiveAgreementRuleAPI.byCollectiveAgreementId
     servers:
     - url: https://api-development.ons.io
 components:

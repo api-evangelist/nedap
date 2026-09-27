@@ -31,7 +31,7 @@ paths:
       tags:
       - ons_ehr.Setting
       summary: Return all settings from OnsEhr
-      operationId: ons_ehr.SettingAPI.getAllSettings
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedSettings
       responses:
         '200':
           description: No response was specified
@@ -41,10 +41,25 @@ paths:
                 $ref: '#/components/schemas/ons_ehr.list.SettingList'
       x-replacement-for:
       - /t/ons_ehr/settings
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_ehr.SettingAPI.getAllSettings
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ons_ehr.Setting:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the setting
+        value:
+          type: string
+          description: The value of the setting
+      description: A setting from OnsEhr
+      example:
+        name: XPilot
+        value: 'true'
     ons_ehr.list.SettingList:
       type: object
       properties:
@@ -59,19 +74,6 @@ components:
           value: Abc
         - name: Setting2
           value: 'true'
-    ons_ehr.Setting:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the setting
-        value:
-          type: string
-          description: The value of the setting
-      description: A setting from OnsEhr
-      example:
-        name: XPilot
-        value: 'true'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

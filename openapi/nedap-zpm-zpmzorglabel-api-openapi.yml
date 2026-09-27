@@ -31,7 +31,7 @@ paths:
       tags:
       - zpm.ZpmZorglabel
       summary: Returns a list of all ZPM zorglabels
-      operationId: zpm.ZpmZorglabelAPI.getAll
+      operationId: getV0AdministrationZpmZorglabels
       responses:
         '200':
           description: No response was specified
@@ -41,10 +41,36 @@ paths:
                 $ref: '#/components/schemas/zpm.list.ZpmZorglabelList'
       x-replacement-for:
       - /t/zpm/zorglabels
+      x-operation-id-source: normalized
+      x-operation-id-original: zpm.ZpmZorglabelAPI.getAll
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     zpm.list.ZpmZorglabelList:
       type: object
       properties:
@@ -141,30 +167,6 @@ components:
         endDate: '2022-12-31'
       xml:
         name: zpmZorglabel
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

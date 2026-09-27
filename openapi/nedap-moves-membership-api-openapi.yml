@@ -116,7 +116,7 @@ paths:
       tags:
       - moves.Membership
       summary: Return all Membership models in a streaming manner
-      operationId: moves.MembershipAPI.streamAll
+      operationId: getV0XstreamMembershipsData
       responses:
         '200':
           description: No response was specified
@@ -136,6 +136,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/memberships/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.MembershipAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/memberships/deletes:
@@ -146,7 +148,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted Membership models'
-      operationId: moves.MembershipAPI.streamDeletes
+      operationId: getV0XstreamMembershipsDeletes
       parameters:
       - name: since
         in: query
@@ -174,6 +176,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/memberships/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.MembershipAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/memberships/updates:
@@ -181,7 +185,7 @@ paths:
       tags:
       - moves.Membership
       summary: Return all Membership models which where updated since the date given in the…
-      operationId: moves.MembershipAPI.streamUpdates
+      operationId: getV0XstreamMembershipsUpdates
       parameters:
       - name: since
         in: query
@@ -209,6 +213,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/moves/memberships/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.MembershipAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:

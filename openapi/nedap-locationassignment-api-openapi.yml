@@ -260,7 +260,7 @@ paths:
       tags:
       - LocationAssignment
       summary: Return the location assignments of a Client corresponding to the given id
-      operationId: LocationAssignmentAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdLocations
       parameters:
       - name: client_id
         in: path
@@ -288,6 +288,8 @@ paths:
                 $ref: '#/components/schemas/list.LocationAssignmentList'
       x-replacement-for:
       - /t/clients/{client_id}/location_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/main_location_assignment:
@@ -295,7 +297,7 @@ paths:
       tags:
       - LocationAssignment
       description: Returns the main location assignment of the client
-      operationId: LocationAssignmentAPI.mainLocationAssignmentByClientId
+      operationId: getV0AdministrationClientsByClientIdMainLocationAssignment
       parameters:
       - name: client_id
         in: path
@@ -322,6 +324,8 @@ paths:
       - /t/clients/{client_id}/main_location_assignment
       summary: Location assignment API main location assignment by client id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentAPI.mainLocationAssignmentByClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/location_assignments:
@@ -329,7 +333,7 @@ paths:
       tags:
       - LocationAssignment
       summary: Create LocationAssignment
-      operationId: LocationAssignmentAPI.create
+      operationId: postV0AdministrationLocationAssignments
       requestBody:
         description: LocationAssignment to create
         content:
@@ -349,6 +353,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/location_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/location_assignments/{id}:
@@ -356,7 +362,7 @@ paths:
       tags:
       - LocationAssignment
       summary: Return the Location Assignment corresponding to the given id
-      operationId: LocationAssignmentAPI.byId
+      operationId: getV0AdministrationLocationAssignmentsById
       parameters:
       - name: id
         in: path
@@ -377,11 +383,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/location_assignments/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentAPI.byId
     put:
       tags:
       - LocationAssignment
       summary: Updates the given LocationAssignment
-      operationId: LocationAssignmentAPI.update
+      operationId: putV0AdministrationLocationAssignmentsById
       parameters:
       - name: id
         in: path
@@ -407,11 +415,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/location_assignments/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentAPI.update
     delete:
       tags:
       - LocationAssignment
       summary: Deletes the LocationAssignment with given id
-      operationId: LocationAssignmentAPI.delete
+      operationId: deleteV0AdministrationLocationAssignmentsById
       parameters:
       - name: id
         in: path
@@ -430,6 +440,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/location_assignments/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/location_assignments/data:
@@ -437,7 +449,7 @@ paths:
       tags:
       - LocationAssignment
       summary: Return all LocationAssignment models in a streaming manner
-      operationId: LocationAssignmentAPI.streamAll
+      operationId: getV0XstreamLocationAssignmentsData
       responses:
         '200':
           description: No response was specified
@@ -457,6 +469,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/location_assignments/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/location_assignments/updates:
@@ -464,7 +478,7 @@ paths:
       tags:
       - LocationAssignment
       summary: Return all LocationAssignment models which where updated since the date given…
-      operationId: LocationAssignmentAPI.streamUpdates
+      operationId: getV0XstreamLocationAssignmentsUpdates
       parameters:
       - name: since
         in: query
@@ -492,6 +506,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/location_assignments/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
@@ -515,16 +531,6 @@ components:
           mainLocation: true
       xml:
         name: locationAssignments
-    LocationAssignmentType:
-      enum:
-      - STANDARD
-      - MAIN
-      - MEDICINE
-      - GGZ
-      - WAITING_LIST
-      type: string
-      description: LocationAssignmentType enum (no description)
-      example: STANDARD
     LocationAssignment:
       type: object
       properties:
@@ -582,6 +588,16 @@ components:
         medicineLocation: false
       xml:
         name: locationAssignment
+    LocationAssignmentType:
+      enum:
+      - STANDARD
+      - MAIN
+      - MEDICINE
+      - GGZ
+      - WAITING_LIST
+      type: string
+      description: LocationAssignmentType enum (no description)
+      example: STANDARD
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

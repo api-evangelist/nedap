@@ -41,7 +41,7 @@ paths:
       tags:
       - FreeFieldCategory
       summary: Retrieve all entries for free_field_categories
-      operationId: FreeFieldCategoryAPI.streamAll
+      operationId: getV0XstreamFreeFieldCategoriesData
       responses:
         '200':
           description: No response was specified
@@ -61,6 +61,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/free_field_categories/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: FreeFieldCategoryAPI.streamAll
     servers:
     - url: https://api-development.ons.io
 components:
@@ -84,6 +86,20 @@ components:
         name: EMPLOYEE
       xml:
         name: FreeFieldCategory
+    CarrierType:
+      type: integer
+      oneOf:
+      - title: ACTIVITY
+        enum:
+        - 0
+      - title: EMPLOYEE
+        enum:
+        - 1
+      - title: CLIENT
+        enum:
+        - 2
+      description: 'Specifies the type of the carrier. Possible values: 0 = ACTIVITY, 1 = EMPLOYEE, 2 = CLIENT.'
+      example: 0
     list.FreeFieldCategoryList:
       type: object
       properties:
@@ -101,20 +117,6 @@ components:
           name: Employee
       xml:
         name: freeFieldCategories
-    CarrierType:
-      type: integer
-      oneOf:
-      - title: ACTIVITY
-        enum:
-        - 0
-      - title: EMPLOYEE
-        enum:
-        - 1
-      - title: CLIENT
-        enum:
-        - 2
-      description: 'Specifies the type of the carrier. Possible values: 0 = ACTIVITY, 1 = EMPLOYEE, 2 = CLIENT.'
-      example: 0
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

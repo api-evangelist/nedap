@@ -64,7 +64,7 @@ paths:
         The changes can be seen in the Ons Autorisatie UI if you navigate to the specific user. The added roles are listed in the role overview. All the roles added by a specific connector are marked as such.
 
         More explanation can be found here: https://ons-api.nl/support/Shield.html'
-      operationId: authorization.provisioning.UserAPI.update
+      operationId: putV0AuthorizationProvisioningUsersByUserUuid
       parameters:
       - name: user_uuid
         in: path
@@ -91,6 +91,8 @@ paths:
       x-deprecated-since: 11-11-2025
       x-replacement-for:
       - /t/authorization/provisioning/users/{user_uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: authorization.provisioning.UserAPI.update
     servers:
     - url: https://api-development.ons.io
 components:

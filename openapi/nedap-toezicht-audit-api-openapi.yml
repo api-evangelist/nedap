@@ -104,7 +104,7 @@ paths:
       - toezicht.Audit
       summary: Export audits for a given time period
       description: Exports audits for a given time period. Returns JSON data.
-      operationId: toezicht.AuditAPI.streamExport
+      operationId: getV0AuditingExport
       parameters:
       - name: date_from
         in: query
@@ -195,59 +195,12 @@ paths:
                 $ref: '#/components/schemas/toezicht.list.AuditList'
       x-replacement-for:
       - /t/auditing/export
+      x-operation-id-source: normalized
+      x-operation-id-original: toezicht.AuditAPI.streamExport
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    toezicht.AuditReferences:
-      type: object
-      properties:
-        clients:
-          type: array
-          items:
-            type: integer
-      description: References linked to an exported Audit
-      example:
-        clients:
-        - 10
-        - 12
-    toezicht.list.AuditList:
-      required:
-      - audits
-      type: object
-      properties:
-        audits:
-          type: array
-          items:
-            $ref: '#/components/schemas/toezicht.Audit'
-      description: List of exported audits.
-      example:
-        audits:
-        - activeIdentity:
-            employeeId: 10
-            userName: administrator
-          createdAt: '2024-01-01T01:35:19.498+01:00'
-          deploymentType: PlanningDeployment
-          description: Sync Notes.
-          failed: false
-          name: SyncClient::NotesSyncJob
-          references:
-            clients:
-            - 10
-            - 12
-          title: Overnemen cliëntnotities uit Ons Dossier
-    toezicht.AuditIdentity:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          description: Some audits store the employee_id captured when the audit event was created. For audits without a stored employee_id, this value is resolved from other ONS data sources at the moment of export. It may not be available in all cases. If the user is removed from Administration, the employee_id may no longer be available for audits of some types.
-        userName:
-          type: string
-      description: Identity linked to an exported Audit
-      example:
-        employeeId: 10
-        userName: administrator
     toezicht.Audit:
       required:
       - createdAt
@@ -284,6 +237,55 @@ components:
           - 10
           - 12
         title: Overnemen cliëntnotities uit Ons Dossier
+    toezicht.list.AuditList:
+      required:
+      - audits
+      type: object
+      properties:
+        audits:
+          type: array
+          items:
+            $ref: '#/components/schemas/toezicht.Audit'
+      description: List of exported audits.
+      example:
+        audits:
+        - activeIdentity:
+            employeeId: 10
+            userName: administrator
+          createdAt: '2024-01-01T01:35:19.498+01:00'
+          deploymentType: PlanningDeployment
+          description: Sync Notes.
+          failed: false
+          name: SyncClient::NotesSyncJob
+          references:
+            clients:
+            - 10
+            - 12
+          title: Overnemen cliëntnotities uit Ons Dossier
+    toezicht.AuditReferences:
+      type: object
+      properties:
+        clients:
+          type: array
+          items:
+            type: integer
+      description: References linked to an exported Audit
+      example:
+        clients:
+        - 10
+        - 12
+    toezicht.AuditIdentity:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          description: Some audits store the employee_id captured when the audit event was created. For audits without a stored employee_id, this value is resolved from other ONS data sources at the moment of export. It may not be available in all cases. If the user is removed from Administration, the employee_id may no longer be available for audits of some types.
+        userName:
+          type: string
+      description: Identity linked to an exported Audit
+      example:
+        employeeId: 10
+        userName: administrator
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

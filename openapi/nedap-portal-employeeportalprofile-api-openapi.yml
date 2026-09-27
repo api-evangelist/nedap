@@ -39,7 +39,7 @@ paths:
       tags:
       - portal.EmployeePortalProfile
       summary: Return the employee portal profile of a employee corresponding to the given…
-      operationId: portal.EmployeePortalProfileAPI.byEmployeeId
+      operationId: getV0MedewerkerportaalEmployeesByEmployeeIdEmployeePortalProfile
       parameters:
       - name: employee_id
         in: path
@@ -57,6 +57,8 @@ paths:
                 $ref: '#/components/schemas/portal.EmployeePortalProfile'
       x-replacement-for:
       - /t/employees/{employee_id}/employee_portal_profile
+      x-operation-id-source: normalized
+      x-operation-id-original: portal.EmployeePortalProfileAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:

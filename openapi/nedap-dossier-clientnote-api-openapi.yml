@@ -225,7 +225,7 @@ paths:
       tags:
       - dossier.ClientNote
       summary: Returns every ClientNote available from the ClientNote API
-      operationId: dossier.ClientNoteAPI.all
+      operationId: getV0AdministrationDossierClientNotes
       parameters:
       - name: updatedSince
         in: query
@@ -252,11 +252,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/client_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ClientNoteAPI.all
     post:
       tags:
       - dossier.ClientNote
       summary: Create ClientNote
-      operationId: dossier.ClientNoteAPI.create
+      operationId: postV0AdministrationDossierClientNotes
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -283,13 +285,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/client_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ClientNoteAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/client_notes/{id}:
     get:
       tags:
       - dossier.ClientNote
-      operationId: dossier.ClientNoteAPI.byId
+      operationId: getV0AdministrationDossierClientNotesById
       parameters:
       - name: id
         in: path
@@ -326,11 +330,13 @@ paths:
       - /t/dossier/client_notes/{id}
       summary: Dossier client note API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ClientNoteAPI.byId
     put:
       tags:
       - dossier.ClientNote
       summary: Updates the given ClientNote
-      operationId: dossier.ClientNoteAPI.update
+      operationId: putV0AdministrationDossierClientNotesById
       parameters:
       - name: id
         in: path
@@ -368,11 +374,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/client_notes/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ClientNoteAPI.update
     delete:
       tags:
       - dossier.ClientNote
       summary: Deletes the ClientNote with given id
-      operationId: dossier.ClientNoteAPI.delete
+      operationId: deleteV0AdministrationDossierClientNotesById
       parameters:
       - name: id
         in: path
@@ -401,6 +409,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/client_notes/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ClientNoteAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/client_notes/by_client/{client_id}:
@@ -408,7 +418,7 @@ paths:
       tags:
       - dossier.ClientNote
       summary: Return the client notes of a Client corresponding to the given id
-      operationId: dossier.ClientNoteAPI.byClientId
+      operationId: getV0AdministrationDossierClientNotesByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -426,34 +436,36 @@ paths:
                 $ref: '#/components/schemas/dossier.list.ClientNoteList'
       x-replacement-for:
       - /t/clients/{client_id}/client_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ClientNoteAPI.byClientId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    AuditedBase:
-      title: AuditedBase
+    dossier.ClientNote:
       type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.BaseNote'
       properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
+        clientId:
+          type: integer
+          format: int64
+      description: ClientNote model (no description)
       example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
+        id: 1
+        content: Dummy
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-06-16'
+        endDate: '2014-06-16'
+        updatedByAuthorId: 1
+        authorId: 1
+        updatedAt: '2014-06-16T02:00:00.000+02:00'
+        createdAt: '2014-06-16T02:00:00.000+02:00'
+        createdBy: Dummy
+        clientId: 1
+      xml:
+        name: clientNote
     dossier.BaseNote:
       type: object
       allOf:
@@ -494,30 +506,6 @@ components:
         endDate: '2014-12-29'
         updatedByAuthorId: 1
         authorId: 1
-    dossier.ClientNote:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.BaseNote'
-      properties:
-        clientId:
-          type: integer
-          format: int64
-      description: ClientNote model (no description)
-      example:
-        id: 1
-        content: Dummy
-        visibleOnWorksheet: true
-        deleted: true
-        startDate: '2014-06-16'
-        endDate: '2014-06-16'
-        updatedByAuthorId: 1
-        authorId: 1
-        updatedAt: '2014-06-16T02:00:00.000+02:00'
-        createdAt: '2014-06-16T02:00:00.000+02:00'
-        createdBy: Dummy
-        clientId: 1
-      xml:
-        name: clientNote
     dossier.list.ClientNoteList:
       type: object
       properties:
@@ -552,6 +540,30 @@ components:
           createdAt: '2014-06-16T02:00:00.000+02:00'
           createdBy: Dummy
           clientId: 2
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

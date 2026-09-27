@@ -134,7 +134,7 @@ paths:
       tags:
       - LocationAssignmentWaitingList
       summary: Return the waiting list location assignments of a Client corresponding to the…
-      operationId: LocationAssignmentWaitingListAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdWaitingListLocations
       parameters:
       - name: client_id
         in: path
@@ -162,6 +162,8 @@ paths:
                 $ref: '#/components/schemas/list.LocationAssignmentWaitingListList'
       x-replacement-for:
       - /t/clients/{client_id}/waiting_list_location_assignments
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentWaitingListAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/location_assignment_waiting_lists:
@@ -169,7 +171,7 @@ paths:
       tags:
       - LocationAssignmentWaitingList
       summary: Create LocationAssignmentWaitingList
-      operationId: LocationAssignmentWaitingListAPI.create
+      operationId: postV0AdministrationLocationAssignmentWaitingLists
       requestBody:
         description: LocationAssignmentWaitingList to create
         content:
@@ -187,13 +189,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/location_assignment_waiting_lists
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentWaitingListAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/location_assignment_waiting_lists/{id}:
     get:
       tags:
       - LocationAssignmentWaitingList
-      operationId: LocationAssignmentWaitingListAPI.byId
+      operationId: getV0AdministrationLocationAssignmentWaitingListsById
       parameters:
       - name: id
         in: path
@@ -214,11 +218,13 @@ paths:
       - /t/location_assignment_waiting_lists/{id}
       summary: Location assignment waiting list API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentWaitingListAPI.byId
     put:
       tags:
       - LocationAssignmentWaitingList
       summary: Updates the given LocationAssignmentWaitingList
-      operationId: LocationAssignmentWaitingListAPI.update
+      operationId: putV0AdministrationLocationAssignmentWaitingListsById
       parameters:
       - name: id
         in: path
@@ -244,6 +250,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/location_assignment_waiting_lists/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: LocationAssignmentWaitingListAPI.update
     servers:
     - url: https://api-development.ons.io
 components:

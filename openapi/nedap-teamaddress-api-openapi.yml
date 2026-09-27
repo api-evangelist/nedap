@@ -128,7 +128,7 @@ paths:
       tags:
       - TeamAddress
       summary: Create TeamAddress
-      operationId: TeamAddressAPI.create
+      operationId: postV0AdministrationTeamAddresses
       requestBody:
         description: TeamAddress to create
         content:
@@ -150,6 +150,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/team_addresses
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAddressAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/team_addresses/{id}:
@@ -157,7 +159,7 @@ paths:
       tags:
       - TeamAddress
       summary: Return the Team Address corresponding to the given id
-      operationId: TeamAddressAPI.byId
+      operationId: getV0AdministrationTeamAddressesById
       parameters:
       - name: id
         in: path
@@ -178,11 +180,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/team_addresses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAddressAPI.byId
     put:
       tags:
       - TeamAddress
       summary: Updates the given TeamAddress
-      operationId: TeamAddressAPI.updateById
+      operationId: putV0AdministrationTeamAddressesById
       parameters:
       - name: id
         in: path
@@ -211,11 +215,13 @@ paths:
           description: TeamAddress not found
       x-replacement-for:
       - /t/team_addresses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAddressAPI.updateById
     delete:
       tags:
       - TeamAddress
       summary: Used to delete TeamAddress by a given id
-      operationId: TeamAddressAPI.delete
+      operationId: deleteV0AdministrationTeamAddressesById
       parameters:
       - name: id
         in: path
@@ -232,6 +238,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/team_addresses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAddressAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:

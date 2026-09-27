@@ -193,7 +193,7 @@ paths:
       tags:
       - payroll.Contract
       summary: Create a new Contract
-      operationId: payroll.ContractAPI.create
+      operationId: postV0AdministrationContracts
       requestBody:
         content:
           application/json:
@@ -212,6 +212,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/contracts
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.ContractAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/contracts/{id}:
@@ -219,7 +221,7 @@ paths:
       tags:
       - payroll.Contract
       summary: Return the Contract corresponding to the given id
-      operationId: payroll.ContractAPI.byId
+      operationId: getV0AdministrationContractsById
       parameters:
       - name: id
         in: path
@@ -240,11 +242,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/contracts/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.ContractAPI.byId
     put:
       tags:
       - payroll.Contract
       summary: Update an existing Contract
-      operationId: payroll.ContractAPI.update
+      operationId: putV0AdministrationContractsById
       parameters:
       - name: id
         in: path
@@ -273,6 +277,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/contracts/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.ContractAPI.update
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/contracts:
@@ -280,7 +286,7 @@ paths:
       tags:
       - payroll.Contract
       summary: Return the contracts of an Employee corresponding to the given id
-      operationId: payroll.ContractAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdContracts
       parameters:
       - name: employee_id
         in: path
@@ -298,6 +304,8 @@ paths:
                 $ref: '#/components/schemas/payroll.list.ContractList'
       x-replacement-for:
       - /t/employees/{employee_id}/contracts
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.ContractAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/contracts/data:
@@ -305,7 +313,7 @@ paths:
       tags:
       - payroll.Contract
       summary: Return all Contract models in a streaming manner
-      operationId: payroll.ContractAPI.streamAll
+      operationId: getV0XstreamContractsData
       responses:
         '200':
           description: No response was specified
@@ -325,6 +333,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/contracts/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.ContractAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/contracts/updates:
@@ -332,7 +342,7 @@ paths:
       tags:
       - payroll.Contract
       summary: Return all Contract models which where updated since the date given in the…
-      operationId: payroll.ContractAPI.streamUpdates
+      operationId: getV0XstreamContractsUpdates
       parameters:
       - name: since
         in: query
@@ -360,10 +370,33 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/contracts/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.ContractAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    payroll.list.ContractList:
+      type: object
+      properties:
+        contracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.Contract'
+          xml:
+            name: contract
+      description: ContractList model (no description)
+      example:
+        contracts:
+        - id: 1
+          employeeId: 1
+          fixed: 1.234
+          var: 1.234
+          contractTypeId: 1
+          beginDate: '2015-01-01'
+          endDate: '2020-01-01'
+      xml:
+        name: contracts
     payroll.Contract:
       type: object
       properties:
@@ -403,27 +436,6 @@ components:
         endDate: '2020-01-01'
       xml:
         name: contract
-    payroll.list.ContractList:
-      type: object
-      properties:
-        contracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.Contract'
-          xml:
-            name: contract
-      description: ContractList model (no description)
-      example:
-        contracts:
-        - id: 1
-          employeeId: 1
-          fixed: 1.234
-          var: 1.234
-          contractTypeId: 1
-          beginDate: '2015-01-01'
-          endDate: '2020-01-01'
-      xml:
-        name: contracts
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

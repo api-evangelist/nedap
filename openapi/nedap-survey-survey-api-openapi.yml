@@ -162,7 +162,7 @@ paths:
       tags:
       - survey.Survey
       summary: Returns every Survey available from the SurveyAPI
-      operationId: survey.SurveyAPI.all
+      operationId: getV0AdministrationSurveySurveys
       responses:
         '200':
           description: No response was specified
@@ -173,11 +173,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/survey/surveys
+      x-operation-id-source: normalized
+      x-operation-id-original: survey.SurveyAPI.all
     post:
       tags:
       - survey.Survey
       summary: Create Survey
-      operationId: survey.SurveyAPI.create
+      operationId: postV0AdministrationSurveySurveys
       requestBody:
         description: Survey to create
         content:
@@ -195,13 +197,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/survey/surveys
+      x-operation-id-source: normalized
+      x-operation-id-original: survey.SurveyAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/survey/surveys/{id}:
     get:
       tags:
       - survey.Survey
-      operationId: survey.SurveyAPI.byId
+      operationId: getV0AdministrationSurveySurveysById
       parameters:
       - name: id
         in: path
@@ -222,11 +226,13 @@ paths:
       - /t/survey/surveys/{id}
       summary: Survey survey API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: survey.SurveyAPI.byId
     put:
       tags:
       - survey.Survey
       summary: Updates the given Survey
-      operationId: survey.SurveyAPI.update
+      operationId: putV0AdministrationSurveySurveysById
       parameters:
       - name: id
         in: path
@@ -252,12 +258,14 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/survey/surveys/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: survey.SurveyAPI.update
     delete:
       tags:
       - survey.Survey
       summary: Deletes the Survey with given id
       description: It's not possible to delete a survey that has results.
-      operationId: survey.SurveyAPI.delete
+      operationId: deleteV0AdministrationSurveySurveysById
       parameters:
       - name: id
         in: path
@@ -272,6 +280,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/survey/surveys/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: survey.SurveyAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/survey/surveys/creatable_surveys_by_employee/{employee_id}:
@@ -279,7 +289,7 @@ paths:
       tags:
       - survey.Survey
       summary: Return the creatable Surveys for the Employee corresponding to the given id
-      operationId: survey.SurveyAPI.creatableSurveysByEmployee
+      operationId: getV0AdministrationSurveySurveysCreatableSurveysByEmployeeByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -298,6 +308,8 @@ paths:
           description: No surveys found for employee
       x-replacement-for:
       - /t/survey/surveys/creatable_surveys_by_employee/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: survey.SurveyAPI.creatableSurveysByEmployee
     servers:
     - url: https://api-development.ons.io
 components:
@@ -340,6 +352,232 @@ components:
         surveyId: 1
       xml:
         name: category
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    survey.Group:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        maxScore:
+          type: integer
+          format: int32
+        thresholdScore:
+          type: integer
+          format: int32
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Question'
+          xml:
+            wrapped: true
+        demandDefinitionId:
+          type: integer
+          format: int64
+        classificationId:
+          type: string
+      description: Group model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        description: beschrijving
+        sequenceNumber: 1
+        maxScore: 10
+        thresholdScore: 5
+        questions: []
+        demandDefinitionId: 1
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: group
+    survey.list.SurveyList:
+      type: object
+      properties:
+        surveys:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Survey'
+          xml:
+            name: survey
+      description: SurveyList model (no description)
+      example:
+        surveys:
+        - createdAt: '2012-08-02T11:48:46.836+02:00'
+          createdBy: jan-willem mooij
+          id: 11
+          description: vragenlijst omschr
+          title: intake
+          active: true
+          useWorkflow: true
+          useStrictEditAuthorization: true
+          copyingAllowed: true
+          signalNonClosed: true
+          signalTitle: let op niet afgehandeld
+      xml:
+        name: surveys
+    survey.SurveyResult:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyObjectId:
+          type: integer
+          format: int64
+        clientObjectId:
+          type: integer
+          format: int64
+        employeeObjectId:
+          type: integer
+          format: int64
+        status:
+          $ref: '#/components/schemas/survey.SurveyResultStatus'
+        version:
+          type: integer
+          format: int64
+        title:
+          type: string
+        linkedToActiveCarePlan:
+          type: boolean
+        isAnyCarePlanUsingThisResult:
+          type: boolean
+        duplicateSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        editSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        statusBumpSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        viewSurveyResultAbility:
+          $ref: '#/components/schemas/Ability'
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        groupAnswers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.GroupAnswer'
+          xml:
+            wrapped: true
+        completedAt:
+          type: string
+          format: date-time
+      description: SurveyResult model (no description)
+      example:
+        id: 111
+        surveyObjectId: 555
+        clientObjectId: 333
+        employeeObjectId: 444
+        version: 1
+        linkedToActiveCarePlan: true
+        isAnyCarePlanUsingThisResult: true
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        completedAt: '2012-08-02T13:48:46.836+02:00'
+        status: Draft
+        title: test
+        duplicateSurveyResultAbility:
+          enabled: true
+          possible: true
+        editSurveyResultAbility:
+          enabled: true
+          possible: true
+        statusBumpSurveyResultAbility:
+          enabled: true
+          possible: true
+        viewSurveyResultAbility:
+          enabled: true
+          possible: true
+        answers: []
+        groupAnswers: []
+      xml:
+        name: surveyResult
+    survey.AnswerDefinition:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        definition:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        hasInput:
+          type: boolean
+        active:
+          type: boolean
+        score:
+          type: integer
+          format: int32
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+        answerDefinitionGroupId:
+          type: integer
+          format: int32
+      description: AnswerDefinition model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        definition: heel oud
+        sequenceNumber: 1
+        hasInput: false
+        active: false
+        score: 12
+        answers: []
+        classificationId: classification.reach_modifier.individual
+        answerDefinitionGroupId: 1
+      xml:
+        name: answerDefinition
     survey.Question:
       type: object
       allOf:
@@ -405,201 +643,6 @@ components:
           readOnly: false
       xml:
         name: question
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-    survey.list.SurveyList:
-      type: object
-      properties:
-        surveys:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.Survey'
-          xml:
-            name: survey
-      description: SurveyList model (no description)
-      example:
-        surveys:
-        - createdAt: '2012-08-02T11:48:46.836+02:00'
-          createdBy: jan-willem mooij
-          id: 11
-          description: vragenlijst omschr
-          title: intake
-          active: true
-          useWorkflow: true
-          useStrictEditAuthorization: true
-          copyingAllowed: true
-          signalNonClosed: true
-          signalTitle: let op niet afgehandeld
-      xml:
-        name: surveys
-    survey.SurveyResultStatus:
-      type: string
-      oneOf:
-      - title: New
-        enum:
-        - New
-      - title: Draft
-        enum:
-        - Draft
-      - title: Review
-        enum:
-        - Review
-      - title: Current
-        enum:
-        - Current
-      - title: Archived
-        enum:
-        - Archived
-      description: SurveyResultStatus model (no description)
-      example: New
-    survey.GroupAnswer:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        groupId:
-          type: integer
-          format: int64
-        surveyResultId:
-          type: integer
-          format: int64
-        score:
-          type: integer
-          format: int32
-        importantForCareplan:
-          type: boolean
-      description: GroupAnswer model (no description)
-      example:
-        id: 1
-        surveyResultId: 1
-        groupId: 1
-        score: 7
-        createdAt: '2012-08-02T13:48:46.836+02:00'
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdBy: user
-        importantForCareplan: true
-      xml:
-        name: groupAnswer
-    survey.Group:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        description:
-          type: string
-        sequenceNumber:
-          type: integer
-          format: int32
-        maxScore:
-          type: integer
-          format: int32
-        thresholdScore:
-          type: integer
-          format: int32
-        questions:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.Question'
-          xml:
-            wrapped: true
-        demandDefinitionId:
-          type: integer
-          format: int64
-        classificationId:
-          type: string
-      description: Group model (no description)
-      example:
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdAt: '2012-08-02T13:48:46.836+02:00'
-        createdBy: user
-        id: 1
-        description: beschrijving
-        sequenceNumber: 1
-        maxScore: 10
-        thresholdScore: 5
-        questions: []
-        demandDefinitionId: 1
-        classificationId: classification.problem.health.nutrition
-      xml:
-        name: group
-    survey.AnswerDefinition:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        definition:
-          type: string
-        sequenceNumber:
-          type: integer
-          format: int32
-        hasInput:
-          type: boolean
-        active:
-          type: boolean
-        score:
-          type: integer
-          format: int32
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.Answer'
-          xml:
-            wrapped: true
-        classificationId:
-          type: string
-        answerDefinitionGroupId:
-          type: integer
-          format: int32
-      description: AnswerDefinition model (no description)
-      example:
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdAt: '2012-08-02T13:48:46.836+02:00'
-        createdBy: user
-        id: 1
-        definition: heel oud
-        sequenceNumber: 1
-        hasInput: false
-        active: false
-        score: 12
-        answers: []
-        classificationId: classification.reach_modifier.individual
-        answerDefinitionGroupId: 1
-      xml:
-        name: answerDefinition
     survey.Survey:
       type: object
       allOf:
@@ -913,141 +956,6 @@ components:
           allowDossierConfidential: false
       xml:
         name: survey
-    survey.SurveyResult:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        surveyObjectId:
-          type: integer
-          format: int64
-        clientObjectId:
-          type: integer
-          format: int64
-        employeeObjectId:
-          type: integer
-          format: int64
-        status:
-          $ref: '#/components/schemas/survey.SurveyResultStatus'
-        version:
-          type: integer
-          format: int64
-        title:
-          type: string
-        linkedToActiveCarePlan:
-          type: boolean
-        isAnyCarePlanUsingThisResult:
-          type: boolean
-        duplicateSurveyResultAbility:
-          $ref: '#/components/schemas/Ability'
-        editSurveyResultAbility:
-          $ref: '#/components/schemas/Ability'
-        statusBumpSurveyResultAbility:
-          $ref: '#/components/schemas/Ability'
-        viewSurveyResultAbility:
-          $ref: '#/components/schemas/Ability'
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.Answer'
-          xml:
-            wrapped: true
-        groupAnswers:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.GroupAnswer'
-          xml:
-            wrapped: true
-        completedAt:
-          type: string
-          format: date-time
-      description: SurveyResult model (no description)
-      example:
-        id: 111
-        surveyObjectId: 555
-        clientObjectId: 333
-        employeeObjectId: 444
-        version: 1
-        linkedToActiveCarePlan: true
-        isAnyCarePlanUsingThisResult: true
-        createdAt: '2012-08-02T13:48:46.836+02:00'
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdBy: user
-        completedAt: '2012-08-02T13:48:46.836+02:00'
-        status: Draft
-        title: test
-        duplicateSurveyResultAbility:
-          enabled: true
-          possible: true
-        editSurveyResultAbility:
-          enabled: true
-          possible: true
-        statusBumpSurveyResultAbility:
-          enabled: true
-          possible: true
-        viewSurveyResultAbility:
-          enabled: true
-          possible: true
-        answers: []
-        groupAnswers: []
-      xml:
-        name: surveyResult
-    Ability:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        possible:
-          type: boolean
-        message:
-          type: string
-      description: Ability model (no description)
-      example:
-        enabled: true
-        possible: false
-        message: message
-    survey.Answer:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        surveyResultObjectId:
-          type: integer
-          format: int64
-        questionObjectId:
-          type: integer
-          format: int64
-        answerDefinitionObjectId:
-          type: integer
-          format: int64
-        text:
-          type: string
-        important:
-          type: boolean
-        booleanAnswer:
-          type: boolean
-      description: Answer model (no description)
-      example:
-        id: 1
-        surveyResultObjectId: 1
-        questionObjectId: 1
-        text: heeeeel oud
-        answerDefinitionObjectId: 1
-        important: false
-        booleanAnswer: false
-        createdAt: '2012-08-02T13:48:46.836+02:00'
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdBy: user
-      xml:
-        name: answer
     ExpertiseProfile:
       type: object
       properties:
@@ -1099,6 +1007,58 @@ components:
         - 1
         - 2
         - 3
+    survey.GroupAnswer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        groupId:
+          type: integer
+          format: int64
+        surveyResultId:
+          type: integer
+          format: int64
+        score:
+          type: integer
+          format: int32
+        importantForCareplan:
+          type: boolean
+      description: GroupAnswer model (no description)
+      example:
+        id: 1
+        surveyResultId: 1
+        groupId: 1
+        score: 7
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        importantForCareplan: true
+      xml:
+        name: groupAnswer
+    survey.SurveyResultStatus:
+      type: string
+      oneOf:
+      - title: New
+        enum:
+        - New
+      - title: Draft
+        enum:
+        - Draft
+      - title: Review
+        enum:
+        - Review
+      - title: Current
+        enum:
+        - Current
+      - title: Archived
+        enum:
+        - Archived
+      description: SurveyResultStatus model (no description)
+      example: New
     survey.AnswerDefinitionGroup:
       type: object
       allOf:
@@ -1169,6 +1129,58 @@ components:
         classificationId: classification.problem.health.nutrition
       xml:
         name: answerDefinitionGroup
+    survey.Answer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyResultObjectId:
+          type: integer
+          format: int64
+        questionObjectId:
+          type: integer
+          format: int64
+        answerDefinitionObjectId:
+          type: integer
+          format: int64
+        text:
+          type: string
+        important:
+          type: boolean
+        booleanAnswer:
+          type: boolean
+      description: Answer model (no description)
+      example:
+        id: 1
+        surveyResultObjectId: 1
+        questionObjectId: 1
+        text: heeeeel oud
+        answerDefinitionObjectId: 1
+        important: false
+        booleanAnswer: false
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+      xml:
+        name: answer
+    Ability:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        possible:
+          type: boolean
+        message:
+          type: string
+      description: Ability model (no description)
+      example:
+        enabled: true
+        possible: false
+        message: message
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

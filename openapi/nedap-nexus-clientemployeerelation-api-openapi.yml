@@ -273,7 +273,7 @@ paths:
       tags:
       - nexus.ClientEmployeeRelation
       summary: Deprecated. Please use `/administration/client_employee_relations` instead
-      operationId: nexus.ClientEmployeeRelationAPI.create
+      operationId: postV0OnsNexusClientEmployeeRelations
       requestBody:
         description: ClientEmployeeRelation to create
         content:
@@ -293,6 +293,8 @@ paths:
       x-deprecated-since: 12-05-2026
       x-replacement-for:
       - /t/nexus/client_employee_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/ons_nexus/client_employee_relations/{id}:
@@ -300,7 +302,7 @@ paths:
       tags:
       - nexus.ClientEmployeeRelation
       summary: Deprecated. Please use `/administration/client_employee_relations/{id}` instead
-      operationId: nexus.ClientEmployeeRelationAPI.byId
+      operationId: getV0OnsNexusClientEmployeeRelationsById
       parameters:
       - name: id
         in: path
@@ -321,11 +323,13 @@ paths:
       x-deprecated-since: 12-05-2026
       x-replacement-for:
       - /t/nexus/client_employee_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationAPI.byId
     put:
       tags:
       - nexus.ClientEmployeeRelation
       summary: Deprecated. Please use `/administration/client_employee_relations/{id}` instead
-      operationId: nexus.ClientEmployeeRelationAPI.update
+      operationId: putV0OnsNexusClientEmployeeRelationsById
       parameters:
       - name: id
         in: path
@@ -353,11 +357,13 @@ paths:
       x-deprecated-since: 12-05-2026
       x-replacement-for:
       - /t/nexus/client_employee_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationAPI.update
     delete:
       tags:
       - nexus.ClientEmployeeRelation
       summary: Deprecated. Please use `/administration/client_employee_relations/{id}` instead
-      operationId: nexus.ClientEmployeeRelationAPI.delete
+      operationId: deleteV0OnsNexusClientEmployeeRelationsById
       parameters:
       - name: id
         in: path
@@ -374,6 +380,8 @@ paths:
       x-deprecated-since: 12-05-2026
       x-replacement-for:
       - /t/nexus/client_employee_relations/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/ons_nexus/clients/{client_id}/client_employee_relations:
@@ -381,7 +389,7 @@ paths:
       tags:
       - nexus.ClientEmployeeRelation
       summary: Deprecated.
-      operationId: nexus.ClientEmployeeRelationAPI.byClientId
+      operationId: getV0OnsNexusClientsByClientIdClientEmployeeRelations
       parameters:
       - name: client_id
         in: path
@@ -421,6 +429,8 @@ paths:
       x-deprecated-since: 12-05-2026
       x-replacement-for:
       - /t/clients/{client_id}/client_employee_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/ons_nexus/employees/{employee_id}/client_employee_relations:
@@ -428,7 +438,7 @@ paths:
       tags:
       - nexus.ClientEmployeeRelation
       summary: Deprecated.
-      operationId: nexus.ClientEmployeeRelationAPI.byEmployeeId
+      operationId: getV0OnsNexusEmployeesByEmployeeIdClientEmployeeRelations
       parameters:
       - name: employee_id
         in: path
@@ -468,6 +478,8 @@ paths:
       x-deprecated-since: 12-05-2026
       x-replacement-for:
       - /t/employees/{employee_id}/client_employee_relations
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/client_employee_relations/data:
@@ -475,7 +487,7 @@ paths:
       tags:
       - nexus.ClientEmployeeRelation
       summary: Return all ClientEmployeeRelation models in a streaming manner
-      operationId: nexus.ClientEmployeeRelationAPI.streamAll
+      operationId: getV0XstreamClientEmployeeRelationsData
       responses:
         '200':
           description: No response was specified
@@ -495,6 +507,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/nexus/client_employee_relations/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/client_employee_relations/updates:
@@ -502,7 +516,7 @@ paths:
       tags:
       - nexus.ClientEmployeeRelation
       summary: Return all ClientEmployeeRelation models which where updated since the date…
-      operationId: nexus.ClientEmployeeRelationAPI.streamUpdates
+      operationId: getV0XstreamClientEmployeeRelationsUpdates
       parameters:
       - name: since
         in: query
@@ -530,6 +544,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/nexus/client_employee_relations/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: nexus.ClientEmployeeRelationAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
@@ -558,69 +574,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    nexus.RelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        tag:
-          type: string
-        primary:
-          type: boolean
-        exclusive:
-          type: boolean
-        relevant:
-          type: boolean
-        negative:
-          type: boolean
-        active:
-          type: boolean
-        legal:
-          type: boolean
-        vbmResponsible:
-          type: boolean
-        vektisCode:
-          type: integer
-          description: See https://www.vektis.nl/standaardisatie/codelijsten/COD821-VEKT
-          format: int64
-        reference:
-          type: integer
-          description: Only available during transitional period.
-          format: int64
-          deprecated: true
-        relationCategory:
-          $ref: '#/components/schemas/nexus.RelationCategory'
-      description: RelationType model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 6
-        name: Coach
-        tag: coach
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: false
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-      deprecated: true
-      x-deprecated-since: 03-10-2014
     nexus.ClientEmployeeRelationType:
       type: object
       allOf:
@@ -735,6 +688,69 @@ components:
         employeeId: 12
       xml:
         name: clientEmployeeRelation
+    nexus.RelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        tag:
+          type: string
+        primary:
+          type: boolean
+        exclusive:
+          type: boolean
+        relevant:
+          type: boolean
+        negative:
+          type: boolean
+        active:
+          type: boolean
+        legal:
+          type: boolean
+        vbmResponsible:
+          type: boolean
+        vektisCode:
+          type: integer
+          description: See https://www.vektis.nl/standaardisatie/codelijsten/COD821-VEKT
+          format: int64
+        reference:
+          type: integer
+          description: Only available during transitional period.
+          format: int64
+          deprecated: true
+        relationCategory:
+          $ref: '#/components/schemas/nexus.RelationCategory'
+      description: RelationType model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 6
+        name: Coach
+        tag: coach
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+      deprecated: true
+      x-deprecated-since: 03-10-2014
     nexus.list.ClientEmployeeRelationList:
       type: object
       properties:

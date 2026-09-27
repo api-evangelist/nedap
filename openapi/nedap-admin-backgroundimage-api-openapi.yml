@@ -31,7 +31,7 @@ paths:
       tags:
       - admin.BackgroundImage
       summary: Retrieves the BackgroundImage
-      operationId: admin.BackgroundImageAPI.get
+      operationId: getV0AdministrationAdminBackgroundImage
       responses:
         '200':
           description: No response was specified
@@ -41,6 +41,8 @@ paths:
                 $ref: '#/components/schemas/admin.BackgroundImage'
       x-replacement-for:
       - /t/admin/background_image
+      x-operation-id-source: normalized
+      x-operation-id-original: admin.BackgroundImageAPI.get
     servers:
     - url: https://api-development.ons.io
 components:

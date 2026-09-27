@@ -88,7 +88,7 @@ paths:
       tags:
       - HourTypeCategory
       summary: Returns every HourTypeCategory available from the HourTypeCategoryAPI
-      operationId: HourTypeCategoryAPI.all
+      operationId: getV0AdministrationHourTypeCategories
       responses:
         '200':
           description: No response was specified
@@ -99,6 +99,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/hour_type_categories
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeCategoryAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/hour_type_categories/{id}:
@@ -106,7 +108,7 @@ paths:
       tags:
       - HourTypeCategory
       summary: Get the Hour Type Category corresponding to the given id
-      operationId: HourTypeCategoryAPI.byId
+      operationId: getV0AdministrationHourTypeCategoriesById
       parameters:
       - name: id
         in: path
@@ -127,6 +129,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/hour_type_categories/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeCategoryAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/hour_type_categories/by_name/{name}:
@@ -134,7 +138,7 @@ paths:
       tags:
       - HourTypeCategory
       summary: Return the hour type category corresponding to the given name
-      operationId: HourTypeCategoryAPI.byName
+      operationId: getV0AdministrationHourTypeCategoriesByNameByName
       parameters:
       - name: name
         in: path
@@ -153,6 +157,8 @@ paths:
           description: Hour type category not found
       x-replacement-for:
       - /t/hour_type_categories/by_name/{name}
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeCategoryAPI.byName
     servers:
     - url: https://api-development.ons.io
 components:

@@ -111,7 +111,7 @@ paths:
       tags:
       - Referral
       summary: Create Referral
-      operationId: ReferralAPI.create
+      operationId: postV0AdministrationReferrals
       requestBody:
         description: Referral to create
         content:
@@ -129,6 +129,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/referrals
+      x-operation-id-source: normalized
+      x-operation-id-original: ReferralAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/referrals/{id}:
@@ -136,7 +138,7 @@ paths:
       tags:
       - Referral
       summary: Return the Referral corresponding to the given id
-      operationId: ReferralAPI.byId
+      operationId: getV0AdministrationReferralsById
       parameters:
       - name: id
         in: path
@@ -157,6 +159,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/referrals/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ReferralAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/referrals/by_client/{client_id}:
@@ -164,7 +168,7 @@ paths:
       tags:
       - Referral
       summary: Returns the referrals of the client corresponding to the given client id
-      operationId: ReferralAPI.byClient
+      operationId: getV0AdministrationReferralsByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -181,6 +185,8 @@ paths:
                 $ref: '#/components/schemas/list.ReferralList'
       x-replacement-for:
       - /t/referrals/by_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ReferralAPI.byClient
     servers:
     - url: https://api-development.ons.io
   /v0/administration/referrals/categories:
@@ -188,7 +194,7 @@ paths:
       tags:
       - Referral
       summary: Fetch all available ReferrerCategories accompanied by their available referrer…
-      operationId: ReferralAPI.getAllReferrerCategories
+      operationId: getV0AdministrationReferralsCategories
       responses:
         '200':
           description: No response was specified
@@ -198,80 +204,32 @@ paths:
                 $ref: '#/components/schemas/list.ReferrerCategoryList'
       x-replacement-for:
       - /t/referrals/categories
+      x-operation-id-source: normalized
+      x-operation-id-original: ReferralAPI.getAllReferrerCategories
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    Referral:
+    list.ReferralList:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        clientId:
-          type: integer
-          format: int64
-        documentId:
-          type: integer
-          format: int64
-        date:
-          type: string
-          format: date
-        referrerType:
-          type: string
-        referrerCategory:
-          type: string
-        agbCode:
-          type: string
-        referrer:
-          type: string
-        specialism:
-          type: string
-        institution:
-          type: integer
-          description: 'Institution type for the referral. Can be
-
-            <ul>
-
-            <li>0 - institution</li>
-
-            <li>1 - practice</li>
-
-            <li>2 - care giver</li>
-
-            <li>or null</li>
-
-            </ul>'
-          format: int32
-      description: Referral model (no description)
+        referrals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Referral'
+      description: ReferralList model (no description)
       example:
-        id: 1
-        clientId: 2
-        documentId: 1
-        date: '2017-01-01'
-        referrerType: '01'
-        referrerCategory: '02'
-        agbCode: '12345678'
-        referrer: naam
-        specialism: '0100'
-        institution: 2
-      xml:
-        name: referral
-    ReferrerType:
-      type: object
-      properties:
-        code:
-          type: string
-          x-cupido-id: true
-        description:
-          type: string
-      description: ReferrerType model (no description)
-      example:
-        code: '01'
-        description: Verwezen patiënt vanuit de eerste lijn
-      xml:
-        name: referrerType
+        referrals:
+        - id: 1
+          clientId: 2
+          documentId: 1
+          date: '2017-01-01'
+          referrerType: '01'
+          referrerCategory: '02'
+          agbCode: '12345678'
+          referrer: naam
+          specialism: '0100'
+          institution: 2
     list.ReferrerCategoryList:
       type: object
       properties:
@@ -362,6 +320,20 @@ components:
             description: Eigen patiënt
       xml:
         name: referrerCategories
+    ReferrerType:
+      type: object
+      properties:
+        code:
+          type: string
+          x-cupido-id: true
+        description:
+          type: string
+      description: ReferrerType model (no description)
+      example:
+        code: '01'
+        description: Verwezen patiënt vanuit de eerste lijn
+      xml:
+        name: referrerType
     ReferrerCategory:
       type: object
       properties:
@@ -403,26 +375,62 @@ components:
           description: Verwijzing langdurige GGZ
       xml:
         name: referrerCategory
-    list.ReferralList:
+    Referral:
       type: object
       properties:
-        referrals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Referral'
-      description: ReferralList model (no description)
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        documentId:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        referrerType:
+          type: string
+        referrerCategory:
+          type: string
+        agbCode:
+          type: string
+        referrer:
+          type: string
+        specialism:
+          type: string
+        institution:
+          type: integer
+          description: 'Institution type for the referral. Can be
+
+            <ul>
+
+            <li>0 - institution</li>
+
+            <li>1 - practice</li>
+
+            <li>2 - care giver</li>
+
+            <li>or null</li>
+
+            </ul>'
+          format: int32
+      description: Referral model (no description)
       example:
-        referrals:
-        - id: 1
-          clientId: 2
-          documentId: 1
-          date: '2017-01-01'
-          referrerType: '01'
-          referrerCategory: '02'
-          agbCode: '12345678'
-          referrer: naam
-          specialism: '0100'
-          institution: 2
+        id: 1
+        clientId: 2
+        documentId: 1
+        date: '2017-01-01'
+        referrerType: '01'
+        referrerCategory: '02'
+        agbCode: '12345678'
+        referrer: naam
+        specialism: '0100'
+        institution: 2
+      xml:
+        name: referral
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

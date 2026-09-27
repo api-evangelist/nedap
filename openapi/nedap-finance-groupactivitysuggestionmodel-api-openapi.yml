@@ -74,7 +74,7 @@ paths:
       tags:
       - finance.GroupActivitySuggestionModel
       summary: Get all group activities
-      operationId: finance.GroupActivitySuggestionModelAPI.getAllGroupActivities
+      operationId: getV0AdministrationFinanceActivitySuggestions
       responses:
         '200':
           description: Success
@@ -84,6 +84,8 @@ paths:
                 $ref: '#/components/schemas/finance.list.GroupActivityModelList'
       x-replacement-for:
       - /t/finance/activity_suggestions
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.GroupActivitySuggestionModelAPI.getAllGroupActivities
     servers:
     - url: https://api-development.ons.io
   /v0/administration/finance/activity_suggestions/{group_activity_object_id}:
@@ -91,7 +93,7 @@ paths:
       tags:
       - finance.GroupActivitySuggestionModel
       summary: Get activities for a group activity and clients at a given date
-      operationId: finance.GroupActivitySuggestionModelAPI.activityByClientAndGroupActivity
+      operationId: getV0AdministrationFinanceActivitySuggestionsByGroupActivityObjectId
       parameters:
       - name: group_activity_object_id
         in: path
@@ -126,6 +128,8 @@ paths:
           description: No suggestion found
       x-replacement-for:
       - /t/finance/activity_suggestions/{group_activity_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.GroupActivitySuggestionModelAPI.activityByClientAndGroupActivity
     servers:
     - url: https://api-development.ons.io
 components:
@@ -201,6 +205,21 @@ components:
         surchargeActivityObjectIds:
         - 300
         - 301
+    finance.list.GroupActivitySuggestionModelList:
+      type: object
+      properties:
+        groupActivitySuggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.GroupActivitySuggestionModel'
+      description: List of group activity suggestions
+      example:
+        groupActivitySuggestions:
+        - activityObjectId: 10
+          clientObjectId: 200
+          surchargeActivityObjectIds:
+          - 100
+          - 101
     finance.list.GroupActivityModelList:
       type: object
       properties:
@@ -217,21 +236,6 @@ components:
         - id: 2345
           name: Another Group Activity
           distinctFinanceTypeCount: 0
-    finance.list.GroupActivitySuggestionModelList:
-      type: object
-      properties:
-        groupActivitySuggestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.GroupActivitySuggestionModel'
-      description: List of group activity suggestions
-      example:
-        groupActivitySuggestions:
-        - activityObjectId: 10
-          clientObjectId: 200
-          surchargeActivityObjectIds:
-          - 100
-          - 101
     finance.NamedItemModel:
       required:
       - id

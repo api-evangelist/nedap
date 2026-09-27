@@ -132,7 +132,7 @@ paths:
       tags:
       - dossier.admin.alerts.Topic
       summary: Get every topic
-      operationId: dossier.admin.alerts.TopicAPI.all
+      operationId: getV0DossierBackChannelAuthorizedAdminAlertsTopics
       responses:
         '200':
           description: No response was specified
@@ -143,11 +143,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/admin/alerts/topics
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.admin.alerts.TopicAPI.all
     post:
       tags:
       - dossier.admin.alerts.Topic
       summary: Create an alert topic
-      operationId: dossier.admin.alerts.TopicAPI.create
+      operationId: postV0DossierBackChannelAuthorizedAdminAlertsTopics
       requestBody:
         description: Topic to create
         content:
@@ -165,6 +167,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/admin/alerts/topics
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.admin.alerts.TopicAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/authorized/admin/alerts/topics/{id}:
@@ -172,7 +176,7 @@ paths:
       tags:
       - dossier.admin.alerts.Topic
       summary: Get a specific topic
-      operationId: dossier.admin.alerts.TopicAPI.byId
+      operationId: getV0DossierBackChannelAuthorizedAdminAlertsTopicsById
       parameters:
       - name: id
         in: path
@@ -190,11 +194,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/admin/alerts/topics/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.admin.alerts.TopicAPI.byId
     put:
       tags:
       - dossier.admin.alerts.Topic
       summary: Update the given Topic
-      operationId: dossier.admin.alerts.TopicAPI.update
+      operationId: putV0DossierBackChannelAuthorizedAdminAlertsTopicsById
       parameters:
       - name: id
         in: path
@@ -220,11 +226,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/admin/alerts/topics/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.admin.alerts.TopicAPI.update
     delete:
       tags:
       - dossier.admin.alerts.Topic
       summary: Deletes the Topic with given id
-      operationId: dossier.admin.alerts.TopicAPI.delete
+      operationId: deleteV0DossierBackChannelAuthorizedAdminAlertsTopicsById
       parameters:
       - name: id
         in: path
@@ -239,6 +247,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/admin/alerts/topics/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.admin.alerts.TopicAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:

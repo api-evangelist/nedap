@@ -328,7 +328,7 @@ paths:
       tags:
       - Team
       summary: Return the teams of a Employee corresponding to the given id between 2 dates
-      operationId: TeamAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdClippedTeams
       parameters:
       - name: employee_id
         in: path
@@ -356,6 +356,8 @@ paths:
                 $ref: '#/components/schemas/list.TeamList'
       x-replacement-for:
       - /t/employees/{employee_id}/teams
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/teams:
@@ -363,7 +365,7 @@ paths:
       tags:
       - Team
       summary: Return all teams
-      operationId: TeamAPI.all
+      operationId: getV0AdministrationTeams
       responses:
         '200':
           description: No response was specified
@@ -374,6 +376,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/teams
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/teams/{id}:
@@ -381,7 +385,7 @@ paths:
       tags:
       - Team
       summary: Return the Team corresponding to the given id
-      operationId: TeamAPI.byId
+      operationId: getV0AdministrationTeamsById
       parameters:
       - name: id
         in: path
@@ -402,6 +406,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/teams/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/teams/by_code/{code}:
@@ -409,7 +415,7 @@ paths:
       tags:
       - Team
       summary: Return the code of a Team corresponding to the given id
-      operationId: TeamAPI.byCode
+      operationId: getV0AdministrationTeamsByCodeByCode
       parameters:
       - name: code
         in: path
@@ -427,6 +433,8 @@ paths:
           description: Team not found
       x-replacement-for:
       - /t/teams/by_code/{code}
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.byCode
     servers:
     - url: https://api-development.ons.io
   /v0/administration/teams/multiple:
@@ -434,7 +442,7 @@ paths:
       tags:
       - Team
       summary: Method used for requesting multiple Team objects using their ids
-      operationId: TeamAPI.multiple
+      operationId: getV0AdministrationTeamsMultiple
       parameters:
       - name: id
         in: query
@@ -456,6 +464,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/teams/multiple
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.multiple
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{user_id}/last_visited_teams:
@@ -463,7 +473,7 @@ paths:
       tags:
       - Team
       summary: Return the last visited Teams of a User corresponding to the given id
-      operationId: TeamAPI.lastVisitedByUserId
+      operationId: getV0AdministrationUsersByUserIdLastVisitedTeams
       parameters:
       - name: user_id
         in: path
@@ -481,6 +491,8 @@ paths:
                 $ref: '#/components/schemas/list.TeamList'
       x-replacement-for:
       - /t/users/{user_id}/last_visited_teams
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.lastVisitedByUserId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/users/{user_id}/scoped_teams:
@@ -489,7 +501,7 @@ paths:
       - Team
       summary: Return the scoped Teams of a User corresponding to the given id
       description: use Shield. See https://github.com/nedap/shield/issues/3207#issuecomment-635947346
-      operationId: TeamAPI.scopedByUserId
+      operationId: getV0AdministrationUsersByUserIdScopedTeams
       parameters:
       - name: user_id
         in: path
@@ -509,6 +521,8 @@ paths:
       x-deprecated-since: 11-11-2019
       x-replacement-for:
       - /t/users/{user_id}/scoped_teams
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.scopedByUserId
     servers:
     - url: https://api-development.ons.io
   /v0/agenda/teams:
@@ -517,7 +531,7 @@ paths:
       - Team
       summary: Check whether agenda is enabled
       description: Returns all agenda-enabled teams
-      operationId: TeamAPI.agendaEnabled
+      operationId: getV0AgendaTeams
       responses:
         '200':
           description: No response was specified
@@ -527,6 +541,8 @@ paths:
                 $ref: '#/components/schemas/list.TeamList'
       x-replacement-for:
       - /t/teams/agenda_enabled
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.agendaEnabled
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/teams/data:
@@ -534,7 +550,7 @@ paths:
       tags:
       - Team
       summary: Return all Team models in a streaming manner
-      operationId: TeamAPI.streamAll
+      operationId: getV0XstreamTeamsData
       responses:
         '200':
           description: No response was specified
@@ -554,6 +570,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/teams/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/teams/deletes:
@@ -564,7 +582,7 @@ paths:
       description: 'If no date is
 
         given it will return all deleted Team models'
-      operationId: TeamAPI.streamDeletes
+      operationId: getV0XstreamTeamsDeletes
       parameters:
       - name: since
         in: query
@@ -592,6 +610,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/teams/x-stream-connect/deletes
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.streamDeletes
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/teams/updates:
@@ -599,7 +619,7 @@ paths:
       tags:
       - Team
       summary: Return all Team models which where updated since the date given in the request
-      operationId: TeamAPI.streamUpdates
+      operationId: getV0XstreamTeamsUpdates
       parameters:
       - name: since
         in: query
@@ -627,6 +647,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/teams/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: TeamAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
@@ -674,91 +696,6 @@ components:
         residenceAccessInfo: Test
       xml:
         name: teamAddress
-    list.TeamList:
-      type: object
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-          xml:
-            name: team
-      description: TeamList model (no description)
-      example:
-        teams:
-        - id: 1
-          beginDate: '1999-12-31T23:00:00.000+01:00'
-          externCode: ''
-          identificationNo: '0001'
-          name: Nedap Demo
-          poolTeam: false
-          costCenterNumber: '0001'
-          parentObjectId: 0
-      xml:
-        name: teams
-    Team:
-      title: Team
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        beginDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        externCode:
-          type:
-          - string
-          - 'null'
-        identificationNo:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        poolTeam:
-          type:
-          - boolean
-          - 'null'
-        costCenterNumber:
-          type:
-          - string
-          - 'null'
-        parentObjectId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TeamAddress'
-      description: Team (Cluster)
-      example:
-        id: 1
-        beginDate: '2000-01-01T00:00:00.000+01:00'
-        endDate: '2001-01-01T00:00:00.000+01:00'
-        externCode: agb
-        identificationNo: '0001'
-        name: Nedap Demo
-        poolTeam: false
-        costCenterNumber: '0001'
-        parentObjectId: 0
-        addresses: []
-      xml:
-        name: team
     Address:
       type: object
       properties:
@@ -922,6 +859,91 @@ components:
         longitude: 6.9
         situationDescription: Woont bij ex
         residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
+    Team:
+      title: Team
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        externCode:
+          type:
+          - string
+          - 'null'
+        identificationNo:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        poolTeam:
+          type:
+          - boolean
+          - 'null'
+        costCenterNumber:
+          type:
+          - string
+          - 'null'
+        parentObjectId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TeamAddress'
+      description: Team (Cluster)
+      example:
+        id: 1
+        beginDate: '2000-01-01T00:00:00.000+01:00'
+        endDate: '2001-01-01T00:00:00.000+01:00'
+        externCode: agb
+        identificationNo: '0001'
+        name: Nedap Demo
+        poolTeam: false
+        costCenterNumber: '0001'
+        parentObjectId: 0
+        addresses: []
+      xml:
+        name: team
+    list.TeamList:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+          xml:
+            name: team
+      description: TeamList model (no description)
+      example:
+        teams:
+        - id: 1
+          beginDate: '1999-12-31T23:00:00.000+01:00'
+          externCode: ''
+          identificationNo: '0001'
+          name: Nedap Demo
+          poolTeam: false
+          costCenterNumber: '0001'
+          parentObjectId: 0
+      xml:
+        name: teams
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

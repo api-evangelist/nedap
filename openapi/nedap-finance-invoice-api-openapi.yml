@@ -77,7 +77,7 @@ paths:
       tags:
       - finance.Invoice
       summary: Return all Invoice models in a streaming manner
-      operationId: finance.InvoiceAPI.streamAll
+      operationId: getV0XstreamInvoicesData
       responses:
         '200':
           description: No response was specified
@@ -97,6 +97,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/invoices/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.InvoiceAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/invoices/updates:
@@ -104,7 +106,7 @@ paths:
       tags:
       - finance.Invoice
       summary: Return all Invoice models which where updated since the date given in the…
-      operationId: finance.InvoiceAPI.streamUpdates
+      operationId: getV0XstreamInvoicesUpdates
       parameters:
       - name: since
         in: query
@@ -132,6 +134,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/finance/invoices/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: finance.InvoiceAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:

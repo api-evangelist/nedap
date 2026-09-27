@@ -32,7 +32,7 @@ paths:
       tags:
       - ons_ehr.GgzPlanStatistics
       summary: Retrieves plan statistics for the mental healthcare plan
-      operationId: ons_ehr.GgzPlanStatisticsAPI.all
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedPlanStatisticsGgz
       responses:
         '200':
           description: No response was specified
@@ -43,6 +43,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/ons_ehr/plan_statistics/ggz
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_ehr.GgzPlanStatisticsAPI.all
     servers:
     - url: https://api-development.ons.io
 components:

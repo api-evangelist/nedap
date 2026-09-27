@@ -46,7 +46,7 @@ paths:
       - payroll.WorkLoad
       summary: Retrieves the workload for the given year and employee
       description: When the work load is requested for the current year, the result will be given until last Sunday.
-      operationId: payroll.WorkLoadAPI.byEmployeeInYear
+      operationId: getV0AdministrationWorkLoadByEmployeeInYearByEmployeeObjectId
       parameters:
       - name: employee_object_id
         in: path
@@ -69,6 +69,8 @@ paths:
                 $ref: '#/components/schemas/payroll.WorkLoad'
       x-replacement-for:
       - /t/payroll/work_load/by_employee_in_year/{employee_object_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.WorkLoadAPI.byEmployeeInYear
     servers:
     - url: https://api-development.ons.io
 components:

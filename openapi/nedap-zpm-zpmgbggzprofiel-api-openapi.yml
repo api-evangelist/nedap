@@ -31,7 +31,7 @@ paths:
       tags:
       - zpm.ZpmGbggzProfiel
       summary: Returns a list of all ZPM GB-ggz profielen
-      operationId: zpm.ZpmGbggzProfielAPI.getAll
+      operationId: getV0AdministrationZpmGbggzProfielen
       responses:
         '200':
           description: No response was specified
@@ -41,10 +41,61 @@ paths:
                 $ref: '#/components/schemas/zpm.list.ZpmGbggzProfielList'
       x-replacement-for:
       - /t/zpm/gbggz_profielen
+      x-operation-id-source: normalized
+      x-operation-id-original: zpm.ZpmGbggzProfielAPI.getAll
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    zpm.list.ZpmGbggzProfielList:
+      type: object
+      properties:
+        zpmGbggzProfielen:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/zpm.ZpmGbggzProfiel'
+            xml:
+              name: zpmGbggzProfiel
+          xml:
+            name: zpmGbggzProfiel
+      description: ZpmGbggzProfielList model (no description)
+      example:
+        zpmGbggzProfielen:
+        - updatedAt: '2021-08-05T14:23:23.000+02:00'
+          createdAt: '2021-08-05T14:23:23.000+02:00'
+          createdBy: user
+          id: 1
+          code: GBG01
+          name: Onvolledig behandeltraject
+          beginDate: '2021-01-01'
+          endDate: '2022-12-31'
+      xml:
+        name: zpmGbggzProfielen
     zpm.ZpmGbggzProfiel:
       required:
       - code
@@ -85,55 +136,6 @@ components:
         endDate: '2022-12-31'
       xml:
         name: zpmGbggzProfiel
-    zpm.list.ZpmGbggzProfielList:
-      type: object
-      properties:
-        zpmGbggzProfielen:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/zpm.ZpmGbggzProfiel'
-            xml:
-              name: zpmGbggzProfiel
-          xml:
-            name: zpmGbggzProfiel
-      description: ZpmGbggzProfielList model (no description)
-      example:
-        zpmGbggzProfielen:
-        - updatedAt: '2021-08-05T14:23:23.000+02:00'
-          createdAt: '2021-08-05T14:23:23.000+02:00'
-          createdBy: user
-          id: 1
-          code: GBG01
-          name: Onvolledig behandeltraject
-          beginDate: '2021-01-01'
-          endDate: '2022-12-31'
-      xml:
-        name: zpmGbggzProfielen
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

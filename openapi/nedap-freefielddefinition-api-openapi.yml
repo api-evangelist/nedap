@@ -41,7 +41,7 @@ paths:
       tags:
       - FreeFieldDefinition
       summary: Retrieve all entries for free_field_definitions
-      operationId: FreeFieldDefinitionAPI.streamAll
+      operationId: getV0XstreamFreeFieldDefinitionsData
       responses:
         '200':
           description: No response was specified
@@ -61,33 +61,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/free_field_definitions/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: FreeFieldDefinitionAPI.streamAll
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    FreeFieldType:
-      type: integer
-      oneOf:
-      - title: STRING
-        enum:
-        - 0
-      - title: NUMBER
-        enum:
-        - 1
-      - title: BOOLEAN
-        enum:
-        - 2
-      - title: DATE
-        enum:
-        - 3
-      - title: TIME
-        enum:
-        - 4
-      - title: DATETIME
-        enum:
-        - 5
-      description: 'Specifies the type of the free field. Possible values: 0 = STRING, 1 = NUMBER, 2 = BOOLEAN, 3 = DATE, 4 = TIME, 5 = DATETIME.'
-      example: 0
     FreeFieldDefinition:
       type: object
       properties:
@@ -150,6 +129,29 @@ components:
           sequenceNumber: 1
       xml:
         name: freeFieldDefinitions
+    FreeFieldType:
+      type: integer
+      oneOf:
+      - title: STRING
+        enum:
+        - 0
+      - title: NUMBER
+        enum:
+        - 1
+      - title: BOOLEAN
+        enum:
+        - 2
+      - title: DATE
+        enum:
+        - 3
+      - title: TIME
+        enum:
+        - 4
+      - title: DATETIME
+        enum:
+        - 5
+      description: 'Specifies the type of the free field. Possible values: 0 = STRING, 1 = NUMBER, 2 = BOOLEAN, 3 = DATE, 4 = TIME, 5 = DATETIME.'
+      example: 0
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

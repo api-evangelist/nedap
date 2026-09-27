@@ -55,7 +55,7 @@ paths:
         As this API is idempotent, the state provided in the last call is the final state. Any teams previously added but not specified in the body will be removed.
 
         This endpoint together with /my_locations and /scope_settings are replacements for the PUT /users/{user_uuid}/scopes endpoint.'
-      operationId: authorization.provisioning.MyTeamsAPI.set
+      operationId: putV0AuthorizationProvisioningUsersByUserUuidMyTeams
       parameters:
       - name: user_uuid
         in: path
@@ -79,6 +79,8 @@ paths:
                 $ref: '#/components/schemas/authorization.provisioning.MyTeams'
       x-replacement-for:
       - /t/authorization/provisioning/users/{user_uuid}/my_teams
+      x-operation-id-source: normalized
+      x-operation-id-original: authorization.provisioning.MyTeamsAPI.set
     servers:
     - url: https://api-development.ons.io
 components:

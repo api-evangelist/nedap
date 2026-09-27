@@ -176,7 +176,7 @@ paths:
       tags:
       - ClientAddress
       summary: Create ClientAddress
-      operationId: ClientAddressAPI.create
+      operationId: postV0AdministrationClientAddresses
       requestBody:
         description: ClientAddress to create
         content:
@@ -198,6 +198,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_addresses
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAddressAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/client_addresses/{id}:
@@ -205,7 +207,7 @@ paths:
       tags:
       - ClientAddress
       summary: Return the Client Address corresponding to the given id
-      operationId: ClientAddressAPI.byId
+      operationId: getV0AdministrationClientAddressesById
       parameters:
       - name: id
         in: path
@@ -231,11 +233,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_addresses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAddressAPI.byId
     put:
       tags:
       - ClientAddress
       summary: Update ClientAddress
-      operationId: ClientAddressAPI.update
+      operationId: putV0AdministrationClientAddressesById
       parameters:
       - name: id
         in: path
@@ -265,6 +269,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_addresses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAddressAPI.update
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/client_addresses/data:
@@ -272,7 +278,7 @@ paths:
       tags:
       - ClientAddress
       summary: Return all ClientAddress models in a streaming manner
-      operationId: ClientAddressAPI.streamAll
+      operationId: getV0XstreamClientAddressesData
       responses:
         '200':
           description: No response was specified
@@ -292,6 +298,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_addresses/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAddressAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/client_addresses/updates:
@@ -299,7 +307,7 @@ paths:
       tags:
       - ClientAddress
       summary: Return all ClientAddress models which where updated since the date given in the…
-      operationId: ClientAddressAPI.streamUpdates
+      operationId: getV0XstreamClientAddressesUpdates
       parameters:
       - name: since
         in: query
@@ -327,97 +335,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/client_addresses/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: ClientAddressAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.ClientAddressList:
-      type: object
-      properties:
-        clientAddresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientAddress'
-          xml:
-            name: clientAddress
-      description: ClientAddressList model (no description)
-      example:
-        clientAddresses:
-        - id: 1
-          beginDate: '2010-02-16'
-          endDate: '2010-02-17'
-          homeNumber: 4
-          homeNumberExtension: a
-          poBoxNumber: 123a
-          street: Parallelweg
-          city: Enschede
-          zipcode: 7513KC
-          municipality: Enschede
-          country: Netherlands
-          telephoneNumber: 053-1234567
-          telephoneCountryCode: '+31'
-          telephoneNumber2: 053-1234567
-          telephoneCountryCode2: '+31'
-          faxNumber: 053-1234567
-          email: mike.wazowski@nedap.com
-          type: residence address
-          typeString: local
-          residentType: '0'
-          personType: '1'
-          personTypeString: client
-          roomNumber: '1'
-          locationDescription: Afdeling noord
-          updatedAt: '2016-01-01T12:00:00.000+01:00'
-          createdAt: '2016-01-01T12:00:00.000+01:00'
-          latitude: 52.1
-          longitude: 6.9
-          clientId: 2
-          situationDescription: Test
-      xml:
-        name: clientAddresses
-    ClientAddress:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Address'
-      properties:
-        clientId:
-          type: integer
-          format: int64
-      description: ClientAddress model (no description)
-      example:
-        id: 1
-        beginDate: '2010-02-16'
-        endDate: '2010-02-17'
-        homeNumber: 4
-        homeNumberExtension: a
-        poBoxNumber: 123a
-        street: Parallelweg
-        city: Enschede
-        zipcode: 7513KC
-        municipality: Enschede
-        country: Netherlands
-        telephoneNumber: 053-1234567
-        telephoneCountryCode: '+31'
-        telephoneNumber2: 053-1234567
-        telephoneCountryCode2: '+31'
-        faxNumber: 053-1234567
-        email: mike.wazowski@nedap.com
-        type: residence address
-        typeString: local
-        residentType: '0'
-        personType: '1'
-        personTypeString: client
-        roomNumber: '1'
-        locationDescription: Afdeling noord
-        updatedAt: '2016-01-01T12:00:00.000+01:00'
-        createdAt: '2016-01-01T12:00:00.000+01:00'
-        latitude: 52.1
-        longitude: 6.9
-        clientId: 2
-        situationDescription: Test
-        residenceAccessInfo: Test
-      xml:
-        name: clientAddress
     Address:
       type: object
       properties:
@@ -581,6 +504,93 @@ components:
         longitude: 6.9
         situationDescription: Woont bij ex
         residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
+    list.ClientAddressList:
+      type: object
+      properties:
+        clientAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientAddress'
+          xml:
+            name: clientAddress
+      description: ClientAddressList model (no description)
+      example:
+        clientAddresses:
+        - id: 1
+          beginDate: '2010-02-16'
+          endDate: '2010-02-17'
+          homeNumber: 4
+          homeNumberExtension: a
+          poBoxNumber: 123a
+          street: Parallelweg
+          city: Enschede
+          zipcode: 7513KC
+          municipality: Enschede
+          country: Netherlands
+          telephoneNumber: 053-1234567
+          telephoneCountryCode: '+31'
+          telephoneNumber2: 053-1234567
+          telephoneCountryCode2: '+31'
+          faxNumber: 053-1234567
+          email: mike.wazowski@nedap.com
+          type: residence address
+          typeString: local
+          residentType: '0'
+          personType: '1'
+          personTypeString: client
+          roomNumber: '1'
+          locationDescription: Afdeling noord
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          latitude: 52.1
+          longitude: 6.9
+          clientId: 2
+          situationDescription: Test
+      xml:
+        name: clientAddresses
+    ClientAddress:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Address'
+      properties:
+        clientId:
+          type: integer
+          format: int64
+      description: ClientAddress model (no description)
+      example:
+        id: 1
+        beginDate: '2010-02-16'
+        endDate: '2010-02-17'
+        homeNumber: 4
+        homeNumberExtension: a
+        poBoxNumber: 123a
+        street: Parallelweg
+        city: Enschede
+        zipcode: 7513KC
+        municipality: Enschede
+        country: Netherlands
+        telephoneNumber: 053-1234567
+        telephoneCountryCode: '+31'
+        telephoneNumber2: 053-1234567
+        telephoneCountryCode2: '+31'
+        faxNumber: 053-1234567
+        email: mike.wazowski@nedap.com
+        type: residence address
+        typeString: local
+        residentType: '0'
+        personType: '1'
+        personTypeString: client
+        roomNumber: '1'
+        locationDescription: Afdeling noord
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        latitude: 52.1
+        longitude: 6.9
+        clientId: 2
+        situationDescription: Test
+        residenceAccessInfo: Test
+      xml:
+        name: clientAddress
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

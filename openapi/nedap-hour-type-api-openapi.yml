@@ -118,7 +118,7 @@ paths:
       tags:
       - Hour Type
       summary: Return the hour type of a ExpertiseProfiles corresponding to the given id
-      operationId: HourTypeAPI.byExpertiseProfileId
+      operationId: getV0AdministrationExpertiseProfilesByExpertiseProfilesIdHourTypes
       parameters:
       - name: expertise_profiles_id
         in: path
@@ -136,6 +136,8 @@ paths:
                 $ref: '#/components/schemas/list.HourTypeList'
       x-replacement-for:
       - /t/expertise_profiles/{expertise_profiles_id}/hour_types
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeAPI.byExpertiseProfileId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/hour_types:
@@ -143,7 +145,7 @@ paths:
       tags:
       - Hour Type
       summary: Returns every HourType available from the HourTypeAPI
-      operationId: HourTypeAPI.all
+      operationId: getV0AdministrationHourTypes
       responses:
         '200':
           description: No response was specified
@@ -156,6 +158,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/hour_types
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/hour_types/{id}:
@@ -163,7 +167,7 @@ paths:
       tags:
       - Hour Type
       summary: Get the Hour Type corresponding to the given id
-      operationId: HourTypeAPI.byId
+      operationId: getV0AdministrationHourTypesById
       parameters:
       - name: id
         in: path
@@ -184,6 +188,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/hour_types/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/hour_types/multiple:
@@ -191,7 +197,7 @@ paths:
       tags:
       - Hour Type
       summary: Method used for requesting multiple HourType objects using their ids
-      operationId: HourTypeAPI.multiple
+      operationId: getV0AdministrationHourTypesMultiple
       parameters:
       - name: id
         in: query
@@ -212,6 +218,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/hour_types/multiple
+      x-operation-id-source: normalized
+      x-operation-id-original: HourTypeAPI.multiple
     servers:
     - url: https://api-development.ons.io
 components:

@@ -72,7 +72,7 @@ paths:
       tags:
       - CareProviderAddress
       summary: Create CareProviderAddress
-      operationId: CareProviderAddressAPI.create
+      operationId: postV0AdministrationCareProviderAddresses
       requestBody:
         description: CareProviderAddress to create
         content:
@@ -94,6 +94,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_provider_addresses
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAddressAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/care_provider_addresses/{id}:
@@ -101,7 +103,7 @@ paths:
       tags:
       - CareProviderAddress
       summary: Return the address of a Careprovider corresponding to the given id
-      operationId: CareProviderAddressAPI.byId
+      operationId: getV0AdministrationCareProviderAddressesById
       parameters:
       - name: id
         in: path
@@ -122,6 +124,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/care_provider_addresses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAddressAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:

@@ -150,7 +150,7 @@ paths:
       tags:
       - dossier.medical.involuntary_care.Incompetence
       summary: Create Incompetence
-      operationId: dossier.medical.involuntary_care.IncompetenceAPI.create
+      operationId: postV0DossierBackChannelUnauthorizedMedicalInvoluntaryCareIncompetences
       requestBody:
         description: Incompetence to create
         content:
@@ -168,6 +168,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/involuntary_care/incompetences
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.involuntary_care.IncompetenceAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/dossier/back_channel/unauthorized/medical/involuntary_care/incompetences/{id}:
@@ -175,7 +177,7 @@ paths:
       tags:
       - dossier.medical.involuntary_care.Incompetence
       summary: Gets a Incompetence by specified identifier
-      operationId: dossier.medical.involuntary_care.IncompetenceAPI.byId
+      operationId: getV0DossierBackChannelUnauthorizedMedicalInvoluntaryCareIncompetencesById
       parameters:
       - name: id
         in: path
@@ -194,11 +196,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/involuntary_care/incompetences/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.involuntary_care.IncompetenceAPI.byId
     put:
       tags:
       - dossier.medical.involuntary_care.Incompetence
       summary: Updates the given Incompetence
-      operationId: dossier.medical.involuntary_care.IncompetenceAPI.update
+      operationId: putV0DossierBackChannelUnauthorizedMedicalInvoluntaryCareIncompetencesById
       parameters:
       - name: id
         in: path
@@ -224,11 +228,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/involuntary_care/incompetences/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.involuntary_care.IncompetenceAPI.update
     delete:
       tags:
       - dossier.medical.involuntary_care.Incompetence
       summary: Deletes the Incompetence with given id
-      operationId: dossier.medical.involuntary_care.IncompetenceAPI.delete
+      operationId: deleteV0DossierBackChannelUnauthorizedMedicalInvoluntaryCareIncompetencesById
       parameters:
       - name: id
         in: path
@@ -247,11 +253,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/involuntary_care/incompetences/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.involuntary_care.IncompetenceAPI.delete
     patch:
       tags:
       - dossier.medical.involuntary_care.Incompetence
       summary: Patches Incompetence with given id
-      operationId: dossier.medical.involuntary_care.IncompetenceAPI.patch
+      operationId: patchV0DossierBackChannelUnauthorizedMedicalInvoluntaryCareIncompetencesById
       parameters:
       - name: id
         in: path
@@ -275,10 +283,28 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/involuntary_care/incompetences/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.involuntary_care.IncompetenceAPI.patch
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.medical.DecisionBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      properties:
+        outcome:
+          type: string
+          description: 'The outcome that should be set on the decision
+
+            Should be a valid outcome code within the system that is set on this builder'
+      description: DecisionBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 61420007 | Tube feeding |
+        name: Sondevoeding
+        outcome: 373067005 | no |
     dossier.medical.RelationshipBuilder:
       type: object
       properties:
@@ -307,22 +333,53 @@ components:
         system: Dummy
         query: Dummy
         name: Dummy
-    dossier.medical.DecisionBuilder:
+    dossier.medical.MedicalBase:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
       properties:
-        outcome:
-          type: string
-          description: 'The outcome that should be set on the decision
-
-            Should be a valid outcome code within the system that is set on this builder'
-      description: DecisionBuilder model (no description)
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
       example:
-        system: SNOMED
-        query: 61420007 | Tube feeding |
-        name: Sondevoeding
-        outcome: 373067005 | no |
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
     dossier.medical.involuntary_care.Incompetence:
       type: object
       allOf:
@@ -372,53 +429,6 @@ components:
           name: example
           outcome: example
         decision: Uitvoeren van gastroscopie
-    dossier.medical.MedicalBase:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        uuid:
-          type:
-          - string
-          - 'null'
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        updatedById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      description: MedicalBase model (no description)
-      example:
-        id: 1
-        uuid: Dummy
-        clientId: 1
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T00:00:00.000+01:00'
-        updatedAt: '2014-11-10T00:00:00.000+01:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

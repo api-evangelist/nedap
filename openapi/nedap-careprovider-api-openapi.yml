@@ -245,7 +245,7 @@ paths:
       tags:
       - CareProvider
       summary: Create CareProvider
-      operationId: CareProviderAPI.create
+      operationId: postV0AdministrationCareproviders
       requestBody:
         description: CareProvider to create
         content:
@@ -265,6 +265,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/external_care_providers
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/careproviders/{care_provider_id}/assign_to_client/{client_id}:
@@ -273,7 +275,7 @@ paths:
       - CareProvider
       summary: Assigns an external care provider to a client
       description: After doing this, that care provider will be returned when calling /clients/{id}/care_providers
-      operationId: CareProviderAPI.assignCareProviderToClient
+      operationId: postV0AdministrationCareprovidersByCareProviderIdAssignToClientByClientId
       parameters:
       - name: care_provider_id
         in: path
@@ -294,6 +296,8 @@ paths:
           description: External care provider assigned
       x-replacement-for:
       - /t/external_care_providers/{care_provider_id}/assign_to_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAPI.assignCareProviderToClient
     servers:
     - url: https://api-development.ons.io
   /v0/administration/careproviders/{care_provider_id}/unassign_from_client/{client_id}:
@@ -302,7 +306,7 @@ paths:
       - CareProvider
       summary: Unassigns an external care provider from a client
       description: After doing this, that care provider will no longer be returned when calling /clients/{id}/care_providers
-      operationId: CareProviderAPI.unassignCareProviderFromClient
+      operationId: deleteV0AdministrationCareprovidersByCareProviderIdUnassignFromClientByClientId
       parameters:
       - name: care_provider_id
         in: path
@@ -323,6 +327,8 @@ paths:
           description: External care provider unassigned
       x-replacement-for:
       - /t/external_care_providers/{care_provider_id}/unassign_from_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAPI.unassignCareProviderFromClient
     servers:
     - url: https://api-development.ons.io
   /v0/administration/careproviders/{id}:
@@ -330,7 +336,7 @@ paths:
       tags:
       - CareProvider
       summary: Return the Care Provider corresponding to the given id
-      operationId: CareProviderAPI.byId
+      operationId: getV0AdministrationCareprovidersById
       parameters:
       - name: id
         in: path
@@ -351,13 +357,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/external_care_providers/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/careproviders/category/{category_id}/{identification}:
     get:
       tags:
       - CareProvider
-      operationId: CareProviderAPI.byCategoryAndIdentification
+      operationId: getV0AdministrationCareprovidersCategoryByCategoryIdByIdentification
       parameters:
       - name: category_id
         in: path
@@ -383,6 +391,8 @@ paths:
       - /t/external_care_providers/category/{category_id}/{identification}
       summary: Care provider API by category and identification
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAPI.byCategoryAndIdentification
     servers:
     - url: https://api-development.ons.io
   /v0/administration/careproviders/identification/{identification}:
@@ -390,7 +400,7 @@ paths:
       tags:
       - CareProvider
       summary: Return the Care Provider corresponding to the given identification
-      operationId: CareProviderAPI.byIdentification
+      operationId: getV0AdministrationCareprovidersIdentificationByIdentification
       parameters:
       - name: identification
         in: path
@@ -409,6 +419,8 @@ paths:
           description: Care provider not found
       x-replacement-for:
       - /t/external_care_providers/identification/{identification}
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAPI.byIdentification
     servers:
     - url: https://api-development.ons.io
   /v0/administration/careproviders/ura/{ura_number}:
@@ -416,7 +428,7 @@ paths:
       tags:
       - CareProvider
       summary: Return the Care Providers corresponding to the given URA number
-      operationId: CareProviderAPI.byUraNumber
+      operationId: getV0AdministrationCareprovidersUraByUraNumber
       parameters:
       - name: ura_number
         in: path
@@ -437,6 +449,8 @@ paths:
           description: Invalid URA number. Must consist of exactly 8 digits.
       x-replacement-for:
       - /t/external_care_providers/ura/{ura_number}
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAPI.byUraNumber
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/careproviders:
@@ -444,7 +458,7 @@ paths:
       tags:
       - CareProvider
       summary: Return the care providers of a Client corresponding to the given id
-      operationId: CareProviderAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdCareproviders
       parameters:
       - name: client_id
         in: path
@@ -462,6 +476,8 @@ paths:
                 $ref: '#/components/schemas/list.CareProviderList'
       x-replacement-for:
       - /t/clients/{client_id}/care_providers
+      x-operation-id-source: normalized
+      x-operation-id-original: CareProviderAPI.byClientId
     servers:
     - url: https://api-development.ons.io
 components:

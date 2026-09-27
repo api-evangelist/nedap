@@ -72,7 +72,7 @@ paths:
       tags:
       - hermes.ContactMethod
       summary: Return the hermes contact method of a Client corresponding to the given id
-      operationId: hermes.ContactMethodAPI.byClientId
+      operationId: getV0NotificationClientsByClientIdContactMethod
       parameters:
       - name: client_id
         in: path
@@ -90,6 +90,8 @@ paths:
                 $ref: '#/components/schemas/hermes.ContactMethod'
       x-replacement-for:
       - /t/clients/{client_id}/contact_method
+      x-operation-id-source: normalized
+      x-operation-id-original: hermes.ContactMethodAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/notification/clients/{client_id}/contact_methods/set_primary_type:
@@ -97,7 +99,7 @@ paths:
       tags:
       - hermes.ContactMethod
       summary: Set primary contact method for client by given contact method type and…
-      operationId: hermes.ContactMethodAPI.setPrimaryType
+      operationId: postV0NotificationClientsByClientIdContactMethodsSetPrimaryType
       parameters:
       - name: client_id
         in: path
@@ -122,30 +124,39 @@ paths:
                 $ref: '#/components/schemas/hermes.ContactMethod'
       x-replacement-for:
       - /t/clients/{client_id}/contact_methods/set_primary_type
+      x-operation-id-source: normalized
+      x-operation-id-original: hermes.ContactMethodAPI.setPrimaryType
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    hermes.CareProviderSettings:
+    hermes.ContactMethodConfig:
+      required:
+      - type
+      - allowNotifications
       type: object
       properties:
-        enabled:
-          type:
-          - boolean
-          - 'null'
-        defaultTemplateSet:
-          type:
-          - string
-          - 'null'
-        defaultContactMethod:
-          type:
-          - string
-          - 'null'
-      description: CareProviderSettings model (no description)
+        type:
+          type: string
+          description: 'Type of contact method, e.g. email or sms
+
+
+            <pre>
+
+            Possible values:
+
+            SMS
+
+            Email
+
+            </pre>'
+        allowNotifications:
+          type: boolean
+          description: Allows Ons Notificaties to send notifications for this type of contact method
+      description: This class is used to update notification settings for Clients.
       example:
-        enabled: true
-        defaultTemplateSet: junior
-        defaultContactMethod: Email
+        type: SMS
+        allowNotifications: true
     hermes.ContactMethod:
       type: object
       properties:
@@ -183,6 +194,26 @@ components:
         value: '0600123456'
         status: validated
         templateSet: adult
+    hermes.CareProviderSettings:
+      type: object
+      properties:
+        enabled:
+          type:
+          - boolean
+          - 'null'
+        defaultTemplateSet:
+          type:
+          - string
+          - 'null'
+        defaultContactMethod:
+          type:
+          - string
+          - 'null'
+      description: CareProviderSettings model (no description)
+      example:
+        enabled: true
+        defaultTemplateSet: junior
+        defaultContactMethod: Email
     hermes.Recipient:
       type:
       - object
@@ -207,33 +238,6 @@ components:
         clientId: 1
         clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
         employeeId: 1
-    hermes.ContactMethodConfig:
-      required:
-      - type
-      - allowNotifications
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'Type of contact method, e.g. email or sms
-
-
-            <pre>
-
-            Possible values:
-
-            SMS
-
-            Email
-
-            </pre>'
-        allowNotifications:
-          type: boolean
-          description: Allows Ons Notificaties to send notifications for this type of contact method
-      description: This class is used to update notification settings for Clients.
-      example:
-        type: SMS
-        allowNotifications: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

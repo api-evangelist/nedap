@@ -190,7 +190,7 @@ paths:
       tags:
       - ExpertiseProfile
       summary: Return the expertise profiles of a Employee corresponding to the given id…
-      operationId: ExpertiseProfileAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdExpertiseProfiles
       parameters:
       - name: employee_id
         in: path
@@ -218,6 +218,8 @@ paths:
                 $ref: '#/components/schemas/list.ExpertiseProfileList'
       x-replacement-for:
       - /t/employees/{employee_id}/expertise_profiles
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expertise_profiles:
@@ -225,7 +227,7 @@ paths:
       tags:
       - ExpertiseProfile
       summary: Returns every ExpertiseProfile available from the ExpertiseProfileAPI
-      operationId: ExpertiseProfileAPI.all
+      operationId: getV0AdministrationExpertiseProfiles
       responses:
         '200':
           description: No response was specified
@@ -236,6 +238,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profiles
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expertise_profiles/{id}:
@@ -243,7 +247,7 @@ paths:
       tags:
       - ExpertiseProfile
       summary: Return the Expertise Profile corresponding to the given id
-      operationId: ExpertiseProfileAPI.byId
+      operationId: getV0AdministrationExpertiseProfilesById
       parameters:
       - name: id
         in: path
@@ -264,6 +268,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profiles/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expertise_profiles/multiple:
@@ -271,7 +277,7 @@ paths:
       tags:
       - ExpertiseProfile
       summary: Method used for requesting multiple ExpertiseProfile objects using their ids
-      operationId: ExpertiseProfileAPI.multiple
+      operationId: getV0AdministrationExpertiseProfilesMultiple
       parameters:
       - name: id
         in: query
@@ -292,6 +298,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profiles/multiple
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAPI.multiple
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/educations/data:
@@ -299,7 +307,7 @@ paths:
       tags:
       - ExpertiseProfile
       summary: Return all ExpertiseProfile models in a streaming manner
-      operationId: ExpertiseProfileAPI.streamAll
+      operationId: getV0XstreamEducationsData
       responses:
         '200':
           description: No response was specified
@@ -319,6 +327,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profiles/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/educations/updates:
@@ -326,7 +336,7 @@ paths:
       tags:
       - ExpertiseProfile
       summary: Return all ExpertiseProfile models which where updated since the date given in…
-      operationId: ExpertiseProfileAPI.streamUpdates
+      operationId: getV0XstreamEducationsUpdates
       parameters:
       - name: since
         in: query
@@ -354,10 +364,29 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expertise_profiles/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: ExpertiseProfileAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.ExpertiseProfileList:
+      type: object
+      properties:
+        expertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfile'
+          xml:
+            name: expertiseProfile
+      description: ExpertiseProfileList model (no description)
+      example:
+        expertiseProfiles:
+        - id: 5
+          description: Helpenden
+          visible: true
+      xml:
+        name: expertiseProfiles
     ExpertiseProfile:
       type: object
       properties:
@@ -409,23 +438,6 @@ components:
         - 1
         - 2
         - 3
-    list.ExpertiseProfileList:
-      type: object
-      properties:
-        expertiseProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpertiseProfile'
-          xml:
-            name: expertiseProfile
-      description: ExpertiseProfileList model (no description)
-      example:
-        expertiseProfiles:
-        - id: 5
-          description: Helpenden
-          visible: true
-      xml:
-        name: expertiseProfiles
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

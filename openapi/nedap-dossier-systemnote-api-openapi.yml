@@ -199,7 +199,7 @@ paths:
       tags:
       - dossier.SystemNote
       summary: Returns every SystemNote available from the SystemNoteAPI
-      operationId: dossier.SystemNoteAPI.all
+      operationId: getV0AdministrationDossierSystemNotes
       parameters:
       - name: updatedSince
         in: query
@@ -226,11 +226,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/system_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.SystemNoteAPI.all
     post:
       tags:
       - dossier.SystemNote
       summary: Create SystemNote
-      operationId: dossier.SystemNoteAPI.create
+      operationId: postV0AdministrationDossierSystemNotes
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -257,13 +259,15 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/system_notes
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.SystemNoteAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/system_notes/{id}:
     get:
       tags:
       - dossier.SystemNote
-      operationId: dossier.SystemNoteAPI.byId
+      operationId: getV0AdministrationDossierSystemNotesById
       parameters:
       - name: id
         in: path
@@ -300,11 +304,13 @@ paths:
       - /t/dossier/system_notes/{id}
       summary: Dossier system note API by id
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.SystemNoteAPI.byId
     put:
       tags:
       - dossier.SystemNote
       summary: Updates the given SystemNote
-      operationId: dossier.SystemNoteAPI.update
+      operationId: putV0AdministrationDossierSystemNotesById
       parameters:
       - name: id
         in: path
@@ -342,11 +348,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/system_notes/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.SystemNoteAPI.update
     delete:
       tags:
       - dossier.SystemNote
       summary: Deletes the SystemNote with given id
-      operationId: dossier.SystemNoteAPI.delete
+      operationId: deleteV0AdministrationDossierSystemNotesById
       parameters:
       - name: id
         in: path
@@ -375,42 +383,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/system_notes/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.SystemNoteAPI.delete
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.list.SystemNoteList:
-      type: object
-      properties:
-        systemNotes:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.SystemNote'
-      description: SystemNoteList model (no description)
-      example:
-        systemNotes:
-        - id: 1
-          content: Dummy
-          visibleOnWorksheet: true
-          deleted: true
-          startDate: '2014-06-16'
-          endDate: '2014-06-16'
-          updatedByAuthorId: 1
-          authorId: 1
-          updatedAt: '2014-06-16T02:00:00.000+02:00'
-          createdAt: '2014-06-16T02:00:00.000+02:00'
-          createdBy: Dummy
-        - id: 1
-          content: Dummy
-          visibleOnWorksheet: true
-          deleted: true
-          startDate: '2014-06-16'
-          endDate: '2014-06-16'
-          updatedByAuthorId: 1
-          authorId: 2
-          updatedAt: '2014-06-16T02:00:00.000+02:00'
-          createdAt: '2014-06-16T02:00:00.000+02:00'
-          createdBy: Dummy
     dossier.BaseNote:
       type: object
       allOf:
@@ -451,6 +429,55 @@ components:
         endDate: '2014-12-29'
         updatedByAuthorId: 1
         authorId: 1
+    dossier.list.SystemNoteList:
+      type: object
+      properties:
+        systemNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.SystemNote'
+      description: SystemNoteList model (no description)
+      example:
+        systemNotes:
+        - id: 1
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 1
+          authorId: 1
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+        - id: 1
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 1
+          authorId: 2
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+    dossier.SystemNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.BaseNote'
+      description: SystemNote model (no description)
+      example:
+        id: 1
+        content: Dummy
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-06-16'
+        endDate: '2014-06-16'
+        updatedByAuthorId: 1
+        authorId: 1
+        updatedAt: '2014-06-16T02:00:00.000+02:00'
+        createdAt: '2014-06-16T02:00:00.000+02:00'
+        createdBy: Dummy
     AuditedBase:
       title: AuditedBase
       type: object
@@ -475,23 +502,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    dossier.SystemNote:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.BaseNote'
-      description: SystemNote model (no description)
-      example:
-        id: 1
-        content: Dummy
-        visibleOnWorksheet: true
-        deleted: true
-        startDate: '2014-06-16'
-        endDate: '2014-06-16'
-        updatedByAuthorId: 1
-        authorId: 1
-        updatedAt: '2014-06-16T02:00:00.000+02:00'
-        createdAt: '2014-06-16T02:00:00.000+02:00'
-        createdBy: Dummy
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

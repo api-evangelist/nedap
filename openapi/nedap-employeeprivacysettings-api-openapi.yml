@@ -44,7 +44,7 @@ paths:
       tags:
       - EmployeePrivacySettings
       summary: Update the employee privacy settings corresponding to the given id
-      operationId: EmployeePrivacySettingsAPI.updateByEmployeeId
+      operationId: putV0AdministrationEmployeesByEmployeeIdPrivacySettings
       parameters:
       - name: employee_id
         in: path
@@ -67,6 +67,8 @@ paths:
                 $ref: '#/components/schemas/EmployeePrivacySettings'
       x-replacement-for:
       - /t/employees/{employee_id}/privacy_settings
+      x-operation-id-source: normalized
+      x-operation-id-original: EmployeePrivacySettingsAPI.updateByEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:

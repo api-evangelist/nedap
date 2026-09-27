@@ -61,7 +61,7 @@ paths:
       tags:
       - expense.ExpenseType
       summary: Returns every ExpenseType available from the ExpenseTypeAPI
-      operationId: expense.ExpenseTypeAPI.all
+      operationId: getV0AdministrationExpenseTypes
       responses:
         '200':
           description: No response was specified
@@ -72,6 +72,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expense/expense_types
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseTypeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expense_types/{id}:
@@ -79,7 +81,7 @@ paths:
       tags:
       - expense.ExpenseType
       summary: Return the Expense Type corresponding to the given id
-      operationId: expense.ExpenseTypeAPI.byId
+      operationId: getV0AdministrationExpenseTypesById
       parameters:
       - name: id
         in: path
@@ -100,10 +102,40 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expense/expense_types/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseTypeAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    expense.list.ExpenseTypeList:
+      type: object
+      properties:
+        expenseTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense.ExpenseType'
+          xml:
+            name: expenseType
+      description: ExpenseTypeList model (no description)
+      example:
+        expenseTypes:
+        - id: 1
+          name: Kilometers
+          unit: KM
+          inputType: Value
+          format: Float
+          icon: Walk
+          exportCode: KMP
+          exportCodeGreaterThanTen: KMD
+          compensationInCents: 777
+          compensationInCentsGreaterThanTen: 888
+          removed: true
+          travelCalculationEnabled: true
+          beginDate: '1973-12-20T17:00:00.000+01:00'
+          endDate: '2015-12-20T17:00:00.000+01:00'
+      xml:
+        name: expenseTypes
     expense.ExpenseType:
       type: object
       properties:
@@ -201,34 +233,6 @@ components:
         alternativeToTravelCalc: true
       xml:
         name: expenseType
-    expense.list.ExpenseTypeList:
-      type: object
-      properties:
-        expenseTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/expense.ExpenseType'
-          xml:
-            name: expenseType
-      description: ExpenseTypeList model (no description)
-      example:
-        expenseTypes:
-        - id: 1
-          name: Kilometers
-          unit: KM
-          inputType: Value
-          format: Float
-          icon: Walk
-          exportCode: KMP
-          exportCodeGreaterThanTen: KMD
-          compensationInCents: 777
-          compensationInCentsGreaterThanTen: 888
-          removed: true
-          travelCalculationEnabled: true
-          beginDate: '1973-12-20T17:00:00.000+01:00'
-          endDate: '2015-12-20T17:00:00.000+01:00'
-      xml:
-        name: expenseTypes
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

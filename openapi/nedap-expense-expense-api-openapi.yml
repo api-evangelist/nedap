@@ -273,7 +273,7 @@ paths:
       tags:
       - expense.Expense
       summary: Create Expense
-      operationId: expense.ExpenseAPI.create
+      operationId: postV0AdministrationExpenses
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -302,6 +302,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expense/expenses
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expenses/{id}:
@@ -309,7 +311,7 @@ paths:
       tags:
       - expense.Expense
       summary: Return the Expense corresponding to the given id
-      operationId: expense.ExpenseAPI.byId
+      operationId: getV0AdministrationExpensesById
       parameters:
       - name: id
         in: path
@@ -340,11 +342,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expense/expenses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAPI.byId
     put:
       tags:
       - expense.Expense
       summary: Updates the given Expense
-      operationId: expense.ExpenseAPI.update
+      operationId: putV0AdministrationExpensesById
       parameters:
       - name: id
         in: path
@@ -382,11 +386,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expense/expenses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAPI.update
     delete:
       tags:
       - expense.Expense
       summary: Deletes the Expense with given id
-      operationId: expense.ExpenseAPI.delete
+      operationId: deleteV0AdministrationExpensesById
       parameters:
       - name: id
         in: path
@@ -417,6 +423,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/expense/expenses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expenses/employees/{employee_id}:
@@ -425,7 +433,7 @@ paths:
       - expense.Expense
       summary: Retrieve all expenses for the employee corresponding to the given employee id
       description: At least one of the valid_to and valid_from query parameters need to be set. When neither are provided, they will both default to "today". Since valid_to is non-inclusive, this leads to an empty response
-      operationId: expense.ExpenseAPI.searchByEmployeeId
+      operationId: getV0AdministrationExpensesEmployeesByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -455,6 +463,8 @@ paths:
                 $ref: '#/components/schemas/expense.list.ExpenseList'
       x-replacement-for:
       - /t/expense/expenses/search_by/employees/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAPI.searchByEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expenses/expensedistance/{expense_distance_id}:
@@ -462,7 +472,7 @@ paths:
       tags:
       - expense.Expense
       summary: Updates an expense distance position with a new position value
-      operationId: expense.ExpenseAPI.updatePositionForExpenseDistance
+      operationId: putV0AdministrationExpensesExpensedistanceByExpenseDistanceId
       parameters:
       - name: expense_distance_id
         in: path
@@ -485,6 +495,8 @@ paths:
                 $ref: '#/components/schemas/expense.Expense'
       x-replacement-for:
       - /t/expense/expenses/expensedistance/{expense_distance_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAPI.updatePositionForExpenseDistance
     servers:
     - url: https://api-development.ons.io
   /v0/administration/expenses/preview:
@@ -492,7 +504,7 @@ paths:
       tags:
       - expense.Expense
       summary: Used to get created Expense Route Without saving the expense
-      operationId: expense.ExpenseAPI.previewExpense
+      operationId: postV0AdministrationExpensesPreview
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -519,6 +531,8 @@ paths:
           description: Validation errors, or expense already exists
       x-replacement-for:
       - /t/expense/expenses/preview
+      x-operation-id-source: normalized
+      x-operation-id-original: expense.ExpenseAPI.previewExpense
     servers:
     - url: https://api-development.ons.io
 components:
@@ -585,6 +599,83 @@ components:
         usedGoogleAddress: Bovenlaan 5, 6521YH Enschede, Netherlands
       xml:
         name: position
+    expense.list.ExpenseList:
+      type: object
+      properties:
+        expenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense.Expense'
+          xml:
+            name: expense
+      description: ExpenseList model (no description)
+      example:
+        expenses:
+        - id: 1
+          expenseDate: '2015-09-15'
+          verifyDate: '2015-10-15'
+          expenseTypeObjectId: 1
+          employeeObjectId: 1
+          amount: 11.23
+          calculatedAmount: 1.23
+          deviation: 10.5
+          description: The bridge was open
+        - id: 1
+          expenseDate: '2015-09-15'
+          verifyDate: '2015-10-15'
+          expenseTypeObjectId: 1
+          employeeObjectId: 1
+          amount: 11.23
+          calculatedAmount: 1.23
+          deviation: 10.5
+          description: The bridge was open
+      xml:
+        name: expenses
+    expense.ExpenseDistance:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+          description: Description relevant to this distance, e.g. "Home" or client name
+        commute:
+          type: boolean
+          description: Is this distance part of commute traffic, i.e. was the previous address 'home', or is the next?
+        distance:
+          type: number
+          description: 'The distance traveled to get to this {@link #position}. The unit is kilometers.'
+          format: double
+        originalDistance:
+          type:
+          - number
+          - 'null'
+          description: The original distance traveled in kilometers. In case of commute km, the expense type may set a maximum and this field contains the amount when that maximum is exceeded.
+          format: double
+        position:
+          allOf:
+          - $ref: '#/components/schemas/registration.Position'
+          description: The position of this expense distance. For example a client's home.
+      description: An expense distance is the distance traveled to a location (position).
+      example:
+        id: 1
+        description: Mw. Pia Jansen
+        commute: true
+        distance: 12.5
+        originalDistance: 27.5
+        position:
+          city: Enschede
+          homeNumber: 5
+          homeNumberExtension: ''
+          street: Bomenlaan
+          zipCode: 6521YH
+          country: NL
+          longitude: 52.665171
+          latitude: 5.215021
+      xml:
+        name: expenseDistance
     expense.Expense:
       type: object
       properties:
@@ -715,83 +806,6 @@ components:
         departureClusterObjectId: 1
       xml:
         name: expense
-    expense.ExpenseDistance:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        description:
-          type: string
-          description: Description relevant to this distance, e.g. "Home" or client name
-        commute:
-          type: boolean
-          description: Is this distance part of commute traffic, i.e. was the previous address 'home', or is the next?
-        distance:
-          type: number
-          description: 'The distance traveled to get to this {@link #position}. The unit is kilometers.'
-          format: double
-        originalDistance:
-          type:
-          - number
-          - 'null'
-          description: The original distance traveled in kilometers. In case of commute km, the expense type may set a maximum and this field contains the amount when that maximum is exceeded.
-          format: double
-        position:
-          allOf:
-          - $ref: '#/components/schemas/registration.Position'
-          description: The position of this expense distance. For example a client's home.
-      description: An expense distance is the distance traveled to a location (position).
-      example:
-        id: 1
-        description: Mw. Pia Jansen
-        commute: true
-        distance: 12.5
-        originalDistance: 27.5
-        position:
-          city: Enschede
-          homeNumber: 5
-          homeNumberExtension: ''
-          street: Bomenlaan
-          zipCode: 6521YH
-          country: NL
-          longitude: 52.665171
-          latitude: 5.215021
-      xml:
-        name: expenseDistance
-    expense.list.ExpenseList:
-      type: object
-      properties:
-        expenses:
-          type: array
-          items:
-            $ref: '#/components/schemas/expense.Expense'
-          xml:
-            name: expense
-      description: ExpenseList model (no description)
-      example:
-        expenses:
-        - id: 1
-          expenseDate: '2015-09-15'
-          verifyDate: '2015-10-15'
-          expenseTypeObjectId: 1
-          employeeObjectId: 1
-          amount: 11.23
-          calculatedAmount: 1.23
-          deviation: 10.5
-          description: The bridge was open
-        - id: 1
-          expenseDate: '2015-09-15'
-          verifyDate: '2015-10-15'
-          expenseTypeObjectId: 1
-          employeeObjectId: 1
-          amount: 11.23
-          calculatedAmount: 1.23
-          deviation: 10.5
-          description: The bridge was open
-      xml:
-        name: expenses
     DepartureLocation:
       enum:
       - HOME

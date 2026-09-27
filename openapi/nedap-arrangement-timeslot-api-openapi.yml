@@ -218,7 +218,7 @@ paths:
       tags:
       - arrangement.TimeSlot
       summary: Create TimeSlot
-      operationId: arrangement.TimeSlotAPI.create
+      operationId: postV0AdministrationArrangementTimeSlots
       requestBody:
         description: TimeSlot to create
         content:
@@ -238,6 +238,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/arrangement/time_slots
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.TimeSlotAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/time_slots/{uuid}:
@@ -245,7 +247,7 @@ paths:
       tags:
       - arrangement.TimeSlot
       summary: Gets a time slot by UUID
-      operationId: arrangement.TimeSlotAPI.byUuid
+      operationId: getV0AdministrationArrangementTimeSlotsByUuid
       parameters:
       - name: uuid
         in: path
@@ -265,11 +267,13 @@ paths:
           description: No time slot specified
       x-replacement-for:
       - /t/arrangement/time_slots/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.TimeSlotAPI.byUuid
     put:
       tags:
       - arrangement.TimeSlot
       summary: Updates the given TimeSlot
-      operationId: arrangement.TimeSlotAPI.update
+      operationId: putV0AdministrationArrangementTimeSlotsByUuid
       parameters:
       - name: uuid
         in: path
@@ -301,11 +305,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/arrangement/time_slots/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.TimeSlotAPI.update
     delete:
       tags:
       - arrangement.TimeSlot
       summary: Deletes the TimeSlot with given uuid
-      operationId: arrangement.TimeSlotAPI.delete
+      operationId: deleteV0AdministrationArrangementTimeSlotsByUuid
       parameters:
       - name: uuid
         in: path
@@ -328,6 +334,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/arrangement/time_slots/{uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.TimeSlotAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/time_slots/all_for_client/{client_uuid}:
@@ -335,7 +343,7 @@ paths:
       tags:
       - arrangement.TimeSlot
       summary: Gets the time slots that have been specified for a client
-      operationId: arrangement.TimeSlotAPI.allForClient
+      operationId: getV0AdministrationArrangementTimeSlotsAllForClientByClientUuid
       parameters:
       - name: client_uuid
         in: path
@@ -355,6 +363,8 @@ paths:
           description: Client not found
       x-replacement-for:
       - /t/arrangement/time_slots/all_for_client/{client_uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.TimeSlotAPI.allForClient
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/time_slots/all_for_intent/{intent_uuid}:
@@ -363,7 +373,7 @@ paths:
       - arrangement.TimeSlot
       summary: Gets the time slots for an intent, i.e
       description: the slots that are connected via IntentPreference records.
-      operationId: arrangement.TimeSlotAPI.allForIntent
+      operationId: getV0AdministrationArrangementTimeSlotsAllForIntentByIntentUuid
       parameters:
       - name: intent_uuid
         in: path
@@ -383,6 +393,8 @@ paths:
           description: Intent not found
       x-replacement-for:
       - /t/arrangement/time_slots/all_for_intent/{intent_uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.TimeSlotAPI.allForIntent
     servers:
     - url: https://api-development.ons.io
   /v0/administration/arrangement/time_slots/generic_for_client/{client_uuid}:
@@ -390,7 +402,7 @@ paths:
       tags:
       - arrangement.TimeSlot
       summary: Gets all time slots that are generic to a client (have no connection to Intents…
-      operationId: arrangement.TimeSlotAPI.genericForClient
+      operationId: getV0AdministrationArrangementTimeSlotsGenericForClientByClientUuid
       parameters:
       - name: client_uuid
         in: path
@@ -409,36 +421,12 @@ paths:
           description: Client not found
       x-replacement-for:
       - /t/arrangement/time_slots/generic_for_client/{client_uuid}
+      x-operation-id-source: normalized
+      x-operation-id-original: arrangement.TimeSlotAPI.genericForClient
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    arrangement.list.TimeSlotList:
-      type: object
-      properties:
-        timeSlots:
-          type: array
-          items:
-            $ref: '#/components/schemas/arrangement.TimeSlot'
-          xml:
-            name: timeSlot
-      description: TimeSlotList model (no description)
-      example:
-        timeSlots:
-        - uuid: TIME_SLOT_UUID
-          clientId: 1
-          clientUuid: CLIENT_UUID
-          dayOfWeek: 1
-          beginAfter: '12:00:00.000'
-          endBefore: '14:00:00.000'
-        - uuid: TIME_SLOT_UUID
-          clientId: 1
-          clientUuid: CLIENT_UUID
-          dayOfWeek: 2
-          beginAfter: '12:00:00.000'
-          endBefore: '14:00:00.000'
-      xml:
-        name: timeSlots
     arrangement.TimeSlot:
       required:
       - uuid
@@ -485,6 +473,32 @@ components:
         endBefore: '00:00:00.000'
       xml:
         name: timeSlot
+    arrangement.list.TimeSlotList:
+      type: object
+      properties:
+        timeSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.TimeSlot'
+          xml:
+            name: timeSlot
+      description: TimeSlotList model (no description)
+      example:
+        timeSlots:
+        - uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 1
+          beginAfter: '12:00:00.000'
+          endBefore: '14:00:00.000'
+        - uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 2
+          beginAfter: '12:00:00.000'
+          endBefore: '14:00:00.000'
+      xml:
+        name: timeSlots
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

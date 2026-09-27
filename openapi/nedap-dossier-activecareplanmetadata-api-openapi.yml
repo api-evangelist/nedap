@@ -42,7 +42,7 @@ paths:
       tags:
       - dossier.ActiveCarePlanMetadata
       summary: Returns active care plan metadata given the client ids
-      operationId: dossier.ActiveCarePlanMetadataAPI.byClientIds
+      operationId: getV0DossierBackChannelAuthorizedActiveCarePlanMetadata
       parameters:
       - name: client_ids[]
         in: query
@@ -65,10 +65,31 @@ paths:
                 $ref: '#/components/schemas/dossier.ActiveCarePlanMetadata'
       x-replacement-for:
       - /t/active_care_plan_metadata
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.ActiveCarePlanMetadataAPI.byClientIds
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.CarePlanMetadata:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          description: Begin date of this care plan
+          format: date
+        endDate:
+          type: string
+          description: End date of this care plan
+          format: date
+      description: CarePlanMetadata model (no description)
+      example:
+        clientId: 1
+        beginDate: '2021-01-01'
+        endDate: '2021-02-06'
     dossier.CarePlanName:
       enum:
       - CARE_PLAN
@@ -94,25 +115,6 @@ components:
           beginDate: '2021-01-01'
           endDate: '2021-02-06'
         carePlanName: PLAN
-    dossier.CarePlanMetadata:
-      type: object
-      properties:
-        clientId:
-          type: integer
-          format: int64
-        beginDate:
-          type: string
-          description: Begin date of this care plan
-          format: date
-        endDate:
-          type: string
-          description: End date of this care plan
-          format: date
-      description: CarePlanMetadata model (no description)
-      example:
-        clientId: 1
-        beginDate: '2021-01-01'
-        endDate: '2021-02-06'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

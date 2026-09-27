@@ -52,7 +52,7 @@ paths:
       tags:
       - CostCenterSelectionOption
       summary: Returns every CostCenterSelectionOption for the selection from the…
-      operationId: CostCenterSelectionOptionAPI.costCenterSelectionOptions
+      operationId: getV0AdministrationCostCentersCostCenterSelectionOptions
       parameters:
       - name: date
         in: query
@@ -83,35 +83,12 @@ paths:
                 $ref: '#/components/schemas/list.CostCenterSelectionOptionList'
       x-replacement-for:
       - /t/cost_centers
+      x-operation-id-source: normalized
+      x-operation-id-original: CostCenterSelectionOptionAPI.costCenterSelectionOptions
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    CostCenterSelectionOption:
-      type: object
-      properties:
-        clusterObjectId:
-          type: integer
-          format: int32
-          x-cupido-id: true
-        category:
-          allOf:
-          - $ref: '#/components/schemas/CostCenterSelectionOptionCategory'
-          description: A category about the cost center; can be COMMON/OWN_TEAM/CLIENT_COSTCENTER/OTHER.
-        name:
-          type: string
-          description: Name
-        identificationNumber:
-          type: string
-          description: Identification number
-      description: CostCenterSelectionOption model (no description)
-      example:
-        clusterObjectId: 5000
-        category: OWN_TEAM
-        name: Carstens Team
-        identificationNumber: AB12
-      xml:
-        name: costCenterSelectionOption
     list.CostCenterSelectionOptionList:
       type: object
       properties:
@@ -142,6 +119,31 @@ components:
           identificationNumber: XZ78
       xml:
         name: costCenterSelectionOptions
+    CostCenterSelectionOption:
+      type: object
+      properties:
+        clusterObjectId:
+          type: integer
+          format: int32
+          x-cupido-id: true
+        category:
+          allOf:
+          - $ref: '#/components/schemas/CostCenterSelectionOptionCategory'
+          description: A category about the cost center; can be COMMON/OWN_TEAM/CLIENT_COSTCENTER/OTHER.
+        name:
+          type: string
+          description: Name
+        identificationNumber:
+          type: string
+          description: Identification number
+      description: CostCenterSelectionOption model (no description)
+      example:
+        clusterObjectId: 5000
+        category: OWN_TEAM
+        name: Carstens Team
+        identificationNumber: AB12
+      xml:
+        name: costCenterSelectionOption
     CostCenterSelectionOptionCategory:
       enum:
       - COMMON

@@ -238,7 +238,7 @@ paths:
       tags:
       - Address
       summary: Find address by id
-      operationId: AddressAPI.byId
+      operationId: getV0AdministrationAddressesById
       parameters:
       - name: id
         in: path
@@ -259,6 +259,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/addresses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: AddressAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/careproviders/{care_provider_id}/addresses:
@@ -266,7 +268,7 @@ paths:
       tags:
       - Address
       summary: Return the addresses of a CareProvider corresponding to the given id
-      operationId: AddressAPI.byCareProviderId
+      operationId: getV0AdministrationCareprovidersByCareProviderIdAddresses
       parameters:
       - name: care_provider_id
         in: path
@@ -284,6 +286,8 @@ paths:
                 $ref: '#/components/schemas/list.AddressList'
       x-replacement-for:
       - /t/external_care_providers/{care_provider_id}/addresses
+      x-operation-id-source: normalized
+      x-operation-id-original: AddressAPI.byCareProviderId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/client_contact_relations/{relation_id}/addresses:
@@ -291,7 +295,7 @@ paths:
       tags:
       - Address
       summary: Return the addresses of a ClientContactRelation corresponding to the given id
-      operationId: AddressAPI.byClientContactRelationId
+      operationId: getV0AdministrationClientContactRelationsByRelationIdAddresses
       parameters:
       - name: relation_id
         in: path
@@ -310,6 +314,8 @@ paths:
       x-replacement-for:
       - /t/client_contact_relations/{relation_id}/addresses
       - /t/client_contact_relations/{relation_id}/client_contact_relation_addresses
+      x-operation-id-source: normalized
+      x-operation-id-original: AddressAPI.byClientContactRelationId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/addresses:
@@ -317,7 +323,7 @@ paths:
       tags:
       - Address
       summary: Return the addresses of a Client corresponding to the given id
-      operationId: AddressAPI.byClientId
+      operationId: getV0AdministrationClientsByClientIdAddresses
       parameters:
       - name: client_id
         in: path
@@ -340,6 +346,8 @@ paths:
                 $ref: '#/components/schemas/list.AddressList'
       x-replacement-for:
       - /t/clients/{client_id}/addresses
+      x-operation-id-source: normalized
+      x-operation-id-original: AddressAPI.byClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/clients/{client_id}/primary_address:
@@ -352,7 +360,7 @@ paths:
         Returns the address where the client currently resides. Not to be used to retrieve the legal address.
 
         Sorts the currently active addresses by type, and returns the first one it finds. It uses the following order: temporary, residence, legal (GBA), correspondence, unknown, other, invoice, key address.'
-      operationId: AddressAPI.mainAddressByClientId
+      operationId: getV0AdministrationClientsByClientIdPrimaryAddress
       parameters:
       - name: client_id
         in: path
@@ -370,6 +378,8 @@ paths:
                 $ref: '#/components/schemas/Address'
       x-replacement-for:
       - /t/clients/{client_id}/main_address
+      x-operation-id-source: normalized
+      x-operation-id-original: AddressAPI.mainAddressByClientId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/addresses:
@@ -377,7 +387,7 @@ paths:
       tags:
       - Address
       summary: Return the addresses of an Employee corresponding to the given id
-      operationId: AddressAPI.byEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdAddresses
       parameters:
       - name: employee_id
         in: path
@@ -395,6 +405,8 @@ paths:
                 $ref: '#/components/schemas/list.AddressList'
       x-replacement-for:
       - /t/employees/{employee_id}/addresses
+      x-operation-id-source: normalized
+      x-operation-id-original: AddressAPI.byEmployeeId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employees/{employee_id}/primary_address:
@@ -405,7 +417,7 @@ paths:
       description: 'Returns the currently active main address of the employee corresponding to the given id. The search order corresponds to the order shown when searching for employees.
 
         This can be configured in the application - but this can be set by Nedap only. It defaults to the legal address search order.'
-      operationId: AddressAPI.mainAddressByEmployeeId
+      operationId: getV0AdministrationEmployeesByEmployeeIdPrimaryAddress
       parameters:
       - name: employee_id
         in: path
@@ -423,78 +435,12 @@ paths:
                 $ref: '#/components/schemas/Address'
       x-replacement-for:
       - /t/employees/{employee_id}/main_address
+      x-operation-id-source: normalized
+      x-operation-id-original: AddressAPI.mainAddressByEmployeeId
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.AddressList:
-      type: object
-      properties:
-        addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-      description: AddressList model (no description)
-      example:
-        addresses:
-        - id: 1
-          beginDate: '2010-02-16'
-          endDate: '2010-02-17'
-          homeNumber: 4
-          homeNumberExtension: a
-          poBoxNumber: 123a
-          street: Parallelweg
-          city: Groenlo
-          zipcode: 7513KC
-          municipality: Enschede
-          country: Netherlands
-          telephoneNumber: 053-1234567
-          telephoneCountryCode: '+31'
-          telephoneNumber2: 053-1234567
-          telephoneCountryCode2: '+31'
-          faxNumber: 053-1234567
-          email: mike.wazowski@nedap.com
-          type: '3'
-          typeString: residence address
-          residentType: '?'
-          personType: '1'
-          personTypeString: client
-          roomNumber: '1'
-          locationDescription: Afdeling noord
-          updatedAt: '2016-01-01T12:00:00.000+01:00'
-          createdAt: '2016-01-01T12:00:00.000+01:00'
-          latitude: 52.1
-          longitude: 6.9
-          situationDescription: Woont bij ex
-        - id: 1
-          beginDate: '2010-02-16'
-          endDate: '2010-02-17'
-          homeNumber: 4
-          homeNumberExtension: b
-          poBoxNumber: 123a
-          street: Parallelweg
-          city: Groenlo
-          zipcode: 7513KC
-          municipality: Enschede
-          country: Netherlands
-          telephoneNumber: 053-1234567
-          telephoneCountryCode: '+31'
-          telephoneNumber2: 053-1234567
-          telephoneCountryCode2: '+31'
-          faxNumber: 053-1234567
-          email: mike.wazowski@nedap.com
-          type: '3'
-          typeString: residence address
-          residentType: '?'
-          personType: '1'
-          personTypeString: client
-          roomNumber: '1'
-          locationDescription: Afdeling noord
-          updatedAt: '2016-01-01T12:00:00.000+01:00'
-          createdAt: '2016-01-01T12:00:00.000+01:00'
-          latitude: 52.1
-          longitude: 6.9
-          situationDescription: Sleutel bij buurman
     Address:
       type: object
       properties:
@@ -658,6 +604,74 @@ components:
         longitude: 6.9
         situationDescription: Woont bij ex
         residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
+    list.AddressList:
+      type: object
+      properties:
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+      description: AddressList model (no description)
+      example:
+        addresses:
+        - id: 1
+          beginDate: '2010-02-16'
+          endDate: '2010-02-17'
+          homeNumber: 4
+          homeNumberExtension: a
+          poBoxNumber: 123a
+          street: Parallelweg
+          city: Groenlo
+          zipcode: 7513KC
+          municipality: Enschede
+          country: Netherlands
+          telephoneNumber: 053-1234567
+          telephoneCountryCode: '+31'
+          telephoneNumber2: 053-1234567
+          telephoneCountryCode2: '+31'
+          faxNumber: 053-1234567
+          email: mike.wazowski@nedap.com
+          type: '3'
+          typeString: residence address
+          residentType: '?'
+          personType: '1'
+          personTypeString: client
+          roomNumber: '1'
+          locationDescription: Afdeling noord
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          latitude: 52.1
+          longitude: 6.9
+          situationDescription: Woont bij ex
+        - id: 1
+          beginDate: '2010-02-16'
+          endDate: '2010-02-17'
+          homeNumber: 4
+          homeNumberExtension: b
+          poBoxNumber: 123a
+          street: Parallelweg
+          city: Groenlo
+          zipcode: 7513KC
+          municipality: Enschede
+          country: Netherlands
+          telephoneNumber: 053-1234567
+          telephoneCountryCode: '+31'
+          telephoneNumber2: 053-1234567
+          telephoneCountryCode2: '+31'
+          faxNumber: 053-1234567
+          email: mike.wazowski@nedap.com
+          type: '3'
+          typeString: residence address
+          residentType: '?'
+          personType: '1'
+          personTypeString: client
+          roomNumber: '1'
+          locationDescription: Afdeling noord
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          latitude: 52.1
+          longitude: 6.9
+          situationDescription: Sleutel bij buurman
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

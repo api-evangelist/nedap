@@ -80,7 +80,7 @@ paths:
       tags:
       - payroll.AccountType
       summary: Returns every AccountType available from the AccountTypeAPI
-      operationId: payroll.AccountTypeAPI.all
+      operationId: getV0AdministrationAccountTypes
       parameters:
       - name: X-Cupido-User-Name
         in: header
@@ -100,6 +100,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/account_types
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.AccountTypeAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/administration/account_types/{id}:
@@ -107,7 +109,7 @@ paths:
       tags:
       - payroll.AccountType
       summary: Return the AccountType corresponding to the given id
-      operationId: payroll.AccountTypeAPI.byId
+      operationId: getV0AdministrationAccountTypesById
       parameters:
       - name: id
         in: path
@@ -138,6 +140,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/payroll/account_types/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: payroll.AccountTypeAPI.byId
     servers:
     - url: https://api-development.ons.io
 components:
@@ -159,38 +163,6 @@ components:
         - special leave
       description: SubType model (no description)
       example: none
-    payroll.list.AccountTypeList:
-      type: object
-      properties:
-        accountTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.AccountType'
-          xml:
-            name: accountType
-      description: AccountTypeList model (no description)
-      example:
-        accountTypes:
-        - id: 1
-          name: Test account type
-          importCode: test importcode
-          type: Vacation
-          subType: lfb
-          priority: 1
-          expirationMonths: 12
-          startDate: '2016-01-01'
-          endDate: '2016-12-31'
-        - id: 666
-          name: Bovenwettelijke uren
-          importCode: bovenwettelijk
-          type: Vacation
-          subType: none
-          priority: 2
-          expirationMonths: 18
-          startDate: '2015-01-01'
-          endDate: '2015-12-31'
-      xml:
-        name: accountTypes
     payroll.AccountType:
       type: object
       properties:
@@ -231,6 +203,38 @@ components:
         endDate: '2016-12-31'
       xml:
         name: accountType
+    payroll.list.AccountTypeList:
+      type: object
+      properties:
+        accountTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.AccountType'
+          xml:
+            name: accountType
+      description: AccountTypeList model (no description)
+      example:
+        accountTypes:
+        - id: 1
+          name: Test account type
+          importCode: test importcode
+          type: Vacation
+          subType: lfb
+          priority: 1
+          expirationMonths: 12
+          startDate: '2016-01-01'
+          endDate: '2016-12-31'
+        - id: 666
+          name: Bovenwettelijke uren
+          importCode: bovenwettelijk
+          type: Vacation
+          subType: none
+          priority: 2
+          expirationMonths: 18
+          startDate: '2015-01-01'
+          endDate: '2015-12-31'
+      xml:
+        name: accountTypes
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

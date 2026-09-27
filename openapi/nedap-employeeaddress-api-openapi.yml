@@ -136,7 +136,7 @@ paths:
       tags:
       - EmployeeAddress
       summary: Create EmployeeAddress
-      operationId: EmployeeAddressAPI.create
+      operationId: postV0AdministrationEmployeeAddresses
       requestBody:
         description: EmployeeAddress to create
         content:
@@ -158,6 +158,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/employee_addresses
+      x-operation-id-source: normalized
+      x-operation-id-original: EmployeeAddressAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/employee_addresses/{id}:
@@ -165,7 +167,7 @@ paths:
       tags:
       - EmployeeAddress
       summary: Return the Employee Address corresponding to the given
-      operationId: EmployeeAddressAPI.byId
+      operationId: getV0AdministrationEmployeeAddressesById
       parameters:
       - name: id
         in: path
@@ -186,6 +188,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/employee_addresses/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: EmployeeAddressAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/employee_addresses/data:
@@ -193,7 +197,7 @@ paths:
       tags:
       - EmployeeAddress
       summary: Return all EmployeeAddress models in a streaming manner
-      operationId: EmployeeAddressAPI.streamAll
+      operationId: getV0XstreamEmployeeAddressesData
       responses:
         '200':
           description: No response was specified
@@ -213,6 +217,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/employee_addresses/x-stream-connect/data
+      x-operation-id-source: normalized
+      x-operation-id-original: EmployeeAddressAPI.streamAll
     servers:
     - url: https://api-development.ons.io
   /v0/xstream/employee_addresses/updates:
@@ -220,7 +226,7 @@ paths:
       tags:
       - EmployeeAddress
       summary: Return all EmployeeAddress models which where updated since the date given in…
-      operationId: EmployeeAddressAPI.streamUpdates
+      operationId: getV0XstreamEmployeeAddressesUpdates
       parameters:
       - name: since
         in: query
@@ -248,6 +254,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/employee_addresses/x-stream-connect/updates
+      x-operation-id-source: normalized
+      x-operation-id-original: EmployeeAddressAPI.streamUpdates
     servers:
     - url: https://api-development.ons.io
 components:
@@ -296,49 +304,6 @@ components:
           situationDescription: Test
       xml:
         name: employeeAddresses
-    EmployeeAddress:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Address'
-      properties:
-        employeeId:
-          type: integer
-          format: int64
-      description: EmployeeAddress model (no description)
-      example:
-        id: 1
-        beginDate: '2010-02-16'
-        endDate: '2010-02-17'
-        homeNumber: 4
-        homeNumberExtension: a
-        poBoxNumber: 123a
-        street: Parallelweg
-        city: Enschede
-        zipcode: 7513KC
-        municipality: Enschede
-        country: Netherlands
-        telephoneNumber: 053-1234567
-        telephoneCountryCode: '+31'
-        telephoneNumber2: 053-1234567
-        telephoneCountryCode2: '+31'
-        faxNumber: 053-1234567
-        email: mike.wazowski@nedap.com
-        type: residence address
-        typeString: temporary
-        residentType: '0'
-        personType: client
-        personTypeString: birthname
-        roomNumber: '1'
-        locationDescription: Afdeling noord
-        updatedAt: '2016-01-01T12:00:00.000+01:00'
-        createdAt: '2016-01-01T12:00:00.000+01:00'
-        latitude: 52.1
-        longitude: 6.9
-        employeeId: 2
-        situationDescription: Test
-        residenceAccessInfo: Test
-      xml:
-        name: employeeAddress
     Address:
       type: object
       properties:
@@ -502,6 +467,49 @@ components:
         longitude: 6.9
         situationDescription: Woont bij ex
         residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
+    EmployeeAddress:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Address'
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+      description: EmployeeAddress model (no description)
+      example:
+        id: 1
+        beginDate: '2010-02-16'
+        endDate: '2010-02-17'
+        homeNumber: 4
+        homeNumberExtension: a
+        poBoxNumber: 123a
+        street: Parallelweg
+        city: Enschede
+        zipcode: 7513KC
+        municipality: Enschede
+        country: Netherlands
+        telephoneNumber: 053-1234567
+        telephoneCountryCode: '+31'
+        telephoneNumber2: 053-1234567
+        telephoneCountryCode2: '+31'
+        faxNumber: 053-1234567
+        email: mike.wazowski@nedap.com
+        type: residence address
+        typeString: temporary
+        residentType: '0'
+        personType: client
+        personTypeString: birthname
+        roomNumber: '1'
+        locationDescription: Afdeling noord
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        latitude: 52.1
+        longitude: 6.9
+        employeeId: 2
+        situationDescription: Test
+        residenceAccessInfo: Test
+      xml:
+        name: employeeAddress
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

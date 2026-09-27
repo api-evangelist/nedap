@@ -107,7 +107,7 @@ paths:
       tags:
       - Practitioner
       summary: Return the practitioner based on the given agbcode
-      operationId: PractitionerAPI.byAgb
+      operationId: getV0AdministrationPractitionersByAgbByAgbcode
       parameters:
       - name: agbcode
         in: path
@@ -124,6 +124,8 @@ paths:
                 $ref: '#/components/schemas/Practitioner'
       x-replacement-for:
       - /t/practitioners/by_agb/{agbcode}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerAPI.byAgb
     servers:
     - url: https://api-development.ons.io
   /v0/administration/practitioners/by_employee/{employee_id}:
@@ -131,7 +133,7 @@ paths:
       tags:
       - Practitioner
       summary: Return the practitioner based on the given id of an employee
-      operationId: PractitionerAPI.byEmployee
+      operationId: getV0AdministrationPractitionersByEmployeeByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -149,6 +151,8 @@ paths:
                 $ref: '#/components/schemas/Practitioner'
       x-replacement-for:
       - /t/practitioners/by_employee/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerAPI.byEmployee
     servers:
     - url: https://api-development.ons.io
   /v0/administration/practitioners/search:
@@ -156,7 +160,7 @@ paths:
       tags:
       - Practitioner
       summary: Return the practitioners based on the given search query
-      operationId: PractitionerAPI.search
+      operationId: getV0AdministrationPractitionersSearch
       parameters:
       - name: query
         in: query
@@ -191,213 +195,12 @@ paths:
                 $ref: '#/components/schemas/list.PractitionerList'
       x-replacement-for:
       - /t/practitioners/search
+      x-operation-id-source: normalized
+      x-operation-id-original: PractitionerAPI.search
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    Practitioner:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Person'
-      properties:
-        agbCodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PractitionerAgbCode'
-          description: The personal AGB registration(s) for an employee
-          xml:
-            wrapped: true
-        bigCodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PractitionerBigCode'
-          description: The personal BIG registration(s) for an employee
-          xml:
-            wrapped: true
-        skjCodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PractitionerSkjCode'
-          description: The personal SKJ registration(s) for an employee
-        professions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PractitionerProfession'
-          description: 'The profession(s) for an employee.
-
-            The available professions to ''choose'' from is a predefined list'
-          xml:
-            wrapped: true
-      description: 'A practitioner is an employee with some extra attributes
-
-        Those attributes are used to give extra meaning to an employee in a certain context.
-
-
-        For instance: In the mental healthcare domain,
-
-        some employees need and agbcode and/or a BIG registration to perform treatments on clients.'
-      example:
-        id: 1
-        firstName: Henny
-        name: Bosbes
-        identificationNo: '12345'
-        dateOfBirth: '1982-03-28'
-        preferredNameType: '0'
-        lastName: Bosbes
-        birthName: Bosbes
-        partnerName: Knaak
-        initials: H
-        prefix: ir
-        birthNamePrefix: de
-        partnerNamePrefix: de
-        gender: M
-        emailAddress: hennybosbes@example.com
-        mobilePhone: 06123456789
-        freeField1: Free field 1 description
-        freeField2: Free field 2 description
-        freeField3: Free field 3 description
-        freeField4: Free field 4 description
-        updatedAt: '2017-05-09T00:00:00.000+02:00'
-        createdAt: '2017-05-09T00:00:00.000+02:00'
-        agbCodes:
-        - employeeObjectId: 1
-          code: '12345678'
-        bigCodes:
-        - employeeObjectId: 1
-          code: '12345678'
-        skjCodes: []
-        professions:
-        - employeeObjectId: 1
-          code: '9992'
-          name: VK.OB.overig
-          info: Overig
-          type: COD878_GZ_BEROEPZORGVERLENER
-          beginDate: '2022-01-01'
-      xml:
-        name: practitioner
-    PractitionerAgbCode:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        employeeObjectId:
-          type: integer
-          format: int64
-        code:
-          type: string
-        beginDate:
-          type: string
-          description: The date at which the agbcode is beginning
-          format: date
-        endDate:
-          type: string
-          description: The date at which the agbcode is ending. Null means no ending.
-          format: date
-        primary:
-          type: boolean
-          description: Indicates if this is the primary agbcode for the employee
-      description: PractitionerAgbCode model (no description)
-      example:
-        id: 1
-        employeeObjectId: 1
-        code: '12345678'
-        beginDate: '2022-01-01'
-        endDate: '2022-12-31'
-        primary: true
-    list.PractitionerList:
-      type: object
-      properties:
-        practitioners:
-          type: array
-          items:
-            $ref: '#/components/schemas/Practitioner'
-          xml:
-            name: practitioner
-      description: PractitionerList model (no description)
-      example:
-        practitioners:
-        - id: 1
-          firstName: Henny
-          name: Bosbes
-          identificationNo: '12345'
-          dateOfBirth: '1982-03-28'
-          preferredNameType: '0'
-          lastName: Bosbes
-          birthName: Bosbes
-          partnerName: Knaak
-          initials: H
-          prefix: ir
-          birthNamePrefix: de
-          partnerNamePrefix: de
-          gender: M
-          emailAddress: hennybosbes@example.com
-          mobilePhone: 06123456789
-          updatedAt: '2017-05-09T00:00:00.000+02:00'
-          createdAt: '2017-05-09T00:00:00.000+02:00'
-          agbCodes:
-          - employeeObjectId: 1
-            code: '12345678'
-          bigCodes:
-          - employeeObjectId: 1
-            code: '12345678'
-          professions:
-          - employeeObjectId: 1
-            code: '9992'
-            name: VK.OB.overig
-            info: Overig
-            type: COD878_GZ_BEROEPZORGVERLENER
-            beginDate: '2022-01-01'
-      xml:
-        name: practitioners
-    PractitionerProfessionType:
-      type: integer
-      oneOf:
-      - title: COD878_GZ_BEROEPZORGVERLENER
-        enum:
-        - 0
-      - title: COD016_PEZ_GRZ_SUBBEROEPSGROEP
-        enum:
-        - 1
-      - title: ZPM_BEROEP
-        enum:
-        - 2
-      description: Indicates the codelist this profession orginates from
-      example: 0
-    PractitionerSkjCode:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        employeeObjectId:
-          type: integer
-          format: int64
-        code:
-          type: string
-          description: This is a unique code, registred at skjeugd.nl
-        firstRegistrationDate:
-          type: string
-          description: The date at which the skj code is first registered
-          format: date
-        beginDate:
-          type: string
-          description: The date at which the skj code is beginning
-          format: date
-        endDate:
-          type: string
-          description: The date at which the skj code is ending. Null means no ending.
-          format: date
-      description: An SKJ registration is a registration at Kwaliteitsregister Jeugd
-      example:
-        id: 1
-        employeeObjectId: 1
-        code: '12345678'
-        firstRegistrationDate: '2024-01-01'
-        beginDate: '2024-01-01'
-        endDate: '2024-12-31'
     PractitionerProfession:
       required:
       - beginDate
@@ -452,23 +255,20 @@ components:
         professionType: 0
         beginDate: '2018-01-01'
         endDate: '2018-12-31'
-    PractitionerBigCode:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        employeeObjectId:
-          type: integer
-          format: int64
-        code:
-          type: string
-      description: PractitionerBigCode model (no description)
-      example:
-        id: 1
-        employeeObjectId: 1
-        code: '12345678'
+    PractitionerProfessionType:
+      type: integer
+      oneOf:
+      - title: COD878_GZ_BEROEPZORGVERLENER
+        enum:
+        - 0
+      - title: COD016_PEZ_GRZ_SUBBEROEPSGROEP
+        enum:
+        - 1
+      - title: ZPM_BEROEP
+        enum:
+        - 2
+      description: Indicates the codelist this profession orginates from
+      example: 0
     Person:
       type: object
       properties:
@@ -576,6 +376,212 @@ components:
         freeField4: Free field 4 description
         updatedAt: '2016-01-01T12:00:00.000+01:00'
         createdAt: '2016-01-01T12:00:00.000+01:00'
+    PractitionerBigCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+      description: PractitionerBigCode model (no description)
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+    PractitionerAgbCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+        beginDate:
+          type: string
+          description: The date at which the agbcode is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the agbcode is ending. Null means no ending.
+          format: date
+        primary:
+          type: boolean
+          description: Indicates if this is the primary agbcode for the employee
+      description: PractitionerAgbCode model (no description)
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+        beginDate: '2022-01-01'
+        endDate: '2022-12-31'
+        primary: true
+    list.PractitionerList:
+      type: object
+      properties:
+        practitioners:
+          type: array
+          items:
+            $ref: '#/components/schemas/Practitioner'
+          xml:
+            name: practitioner
+      description: PractitionerList model (no description)
+      example:
+        practitioners:
+        - id: 1
+          firstName: Henny
+          name: Bosbes
+          identificationNo: '12345'
+          dateOfBirth: '1982-03-28'
+          preferredNameType: '0'
+          lastName: Bosbes
+          birthName: Bosbes
+          partnerName: Knaak
+          initials: H
+          prefix: ir
+          birthNamePrefix: de
+          partnerNamePrefix: de
+          gender: M
+          emailAddress: hennybosbes@example.com
+          mobilePhone: 06123456789
+          updatedAt: '2017-05-09T00:00:00.000+02:00'
+          createdAt: '2017-05-09T00:00:00.000+02:00'
+          agbCodes:
+          - employeeObjectId: 1
+            code: '12345678'
+          bigCodes:
+          - employeeObjectId: 1
+            code: '12345678'
+          professions:
+          - employeeObjectId: 1
+            code: '9992'
+            name: VK.OB.overig
+            info: Overig
+            type: COD878_GZ_BEROEPZORGVERLENER
+            beginDate: '2022-01-01'
+      xml:
+        name: practitioners
+    PractitionerSkjCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+          description: This is a unique code, registred at skjeugd.nl
+        firstRegistrationDate:
+          type: string
+          description: The date at which the skj code is first registered
+          format: date
+        beginDate:
+          type: string
+          description: The date at which the skj code is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the skj code is ending. Null means no ending.
+          format: date
+      description: An SKJ registration is a registration at Kwaliteitsregister Jeugd
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+        firstRegistrationDate: '2024-01-01'
+        beginDate: '2024-01-01'
+        endDate: '2024-12-31'
+    Practitioner:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Person'
+      properties:
+        agbCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerAgbCode'
+          description: The personal AGB registration(s) for an employee
+          xml:
+            wrapped: true
+        bigCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerBigCode'
+          description: The personal BIG registration(s) for an employee
+          xml:
+            wrapped: true
+        skjCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerSkjCode'
+          description: The personal SKJ registration(s) for an employee
+        professions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerProfession'
+          description: 'The profession(s) for an employee.
+
+            The available professions to ''choose'' from is a predefined list'
+          xml:
+            wrapped: true
+      description: 'A practitioner is an employee with some extra attributes
+
+        Those attributes are used to give extra meaning to an employee in a certain context.
+
+
+        For instance: In the mental healthcare domain,
+
+        some employees need and agbcode and/or a BIG registration to perform treatments on clients.'
+      example:
+        id: 1
+        firstName: Henny
+        name: Bosbes
+        identificationNo: '12345'
+        dateOfBirth: '1982-03-28'
+        preferredNameType: '0'
+        lastName: Bosbes
+        birthName: Bosbes
+        partnerName: Knaak
+        initials: H
+        prefix: ir
+        birthNamePrefix: de
+        partnerNamePrefix: de
+        gender: M
+        emailAddress: hennybosbes@example.com
+        mobilePhone: 06123456789
+        freeField1: Free field 1 description
+        freeField2: Free field 2 description
+        freeField3: Free field 3 description
+        freeField4: Free field 4 description
+        updatedAt: '2017-05-09T00:00:00.000+02:00'
+        createdAt: '2017-05-09T00:00:00.000+02:00'
+        agbCodes:
+        - employeeObjectId: 1
+          code: '12345678'
+        bigCodes:
+        - employeeObjectId: 1
+          code: '12345678'
+        skjCodes: []
+        professions:
+        - employeeObjectId: 1
+          code: '9992'
+          name: VK.OB.overig
+          info: Overig
+          type: COD878_GZ_BEROEPZORGVERLENER
+          beginDate: '2022-01-01'
+      xml:
+        name: practitioner
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

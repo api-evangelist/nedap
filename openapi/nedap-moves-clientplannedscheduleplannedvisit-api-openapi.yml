@@ -46,7 +46,7 @@ paths:
       tags:
       - moves.ClientPlannedSchedulePlannedVisit
       summary: Return the client planning filters of a Client within a specified period
-      operationId: moves.ClientPlannedSchedulePlannedVisitAPI.plannedSchedule
+      operationId: getV0PlannenRoosterenClientsByClientIdPlannedSchedule
       parameters:
       - name: client_id
         in: path
@@ -71,6 +71,8 @@ paths:
                 $ref: '#/components/schemas/moves.list.ClientPlannedSchedulePlannedVisitList'
       x-replacement-for:
       - /t/clients/{client_id}/planned_schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ClientPlannedSchedulePlannedVisitAPI.plannedSchedule
     servers:
     - url: https://api-development.ons.io
 components:

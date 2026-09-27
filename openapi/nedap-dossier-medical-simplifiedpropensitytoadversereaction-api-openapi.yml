@@ -62,7 +62,7 @@ paths:
       tags:
       - dossier.medical.SimplifiedPropensityToAdverseReaction
       summary: Updates the given SimplifiedPropensityToAdverseReaction
-      operationId: dossier.medical.SimplifiedPropensityToAdverseReactionAPI.update
+      operationId: putV0DossierBackChannelUnauthorizedMedicalSimplifiedPropensitiesToAdverseReaction
       requestBody:
         description: SimplifiedPropensityToAdverseReaction to update
         content:
@@ -80,11 +80,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/simplified_propensity_to_adverse_reaction
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.SimplifiedPropensityToAdverseReactionAPI.update
     post:
       tags:
       - dossier.medical.SimplifiedPropensityToAdverseReaction
       summary: Create SimplifiedPropensityToAdverseReaction
-      operationId: dossier.medical.SimplifiedPropensityToAdverseReactionAPI.create
+      operationId: postV0DossierBackChannelUnauthorizedMedicalSimplifiedPropensitiesToAdverseReaction
       requestBody:
         description: SimplifiedPropensityToAdverseReaction to create
         content:
@@ -102,10 +104,76 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/medical/simplified_propensity_to_adverse_reaction
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.medical.SimplifiedPropensityToAdverseReactionAPI.create
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.medical.SimplifiedPropensityToAdverseReaction:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        causeBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.CauseBuilder'
+        causes:
+          type: array
+          items:
+            type: string
+        immutable:
+          type: boolean
+          description: Whether or not the propensity to adverse reaction is immutable
+      description: SimplifiedPropensityToAdverseReaction model (no description)
+      example:
+        id: 5
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 4
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T12:00:00.000+01:00'
+        updatedAt: '2014-11-10T12:00:00.000+01:00'
+        causeBuilders:
+        - system: CUSTOM
+          query: Stofmijt
+        - system: SNOMED
+          query: 256259004 | pollen |
+          name: Pollen
+        causes:
+        - Diarree
+        - Misselijkheid
+        - Duizeligheid
+        immutable: true
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
     dossier.medical.CauseBuilder:
       type: object
       allOf:
@@ -162,70 +230,6 @@ components:
         updatedById: 1
         createdAt: '2014-11-10T00:00:00.000+01:00'
         updatedAt: '2014-11-10T00:00:00.000+01:00'
-    dossier.medical.RelationshipBuilder:
-      type: object
-      properties:
-        system:
-          type:
-          - string
-          - 'null'
-          description: 'Which code system this builder should query
-
-            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
-        query:
-          type:
-          - string
-          - 'null'
-          description: 'Query used to build the correct concept within the given code system.
-
-            Will use the first concept within the code system that matches the query,
-
-            for the best results your query should be as close as possible to a complete code from the system'
-        name:
-          type:
-          - string
-          - 'null'
-      description: RelationshipBuilder model (no description)
-      example:
-        system: Dummy
-        query: Dummy
-        name: Dummy
-    dossier.medical.SimplifiedPropensityToAdverseReaction:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        causeBuilders:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.CauseBuilder'
-        causes:
-          type: array
-          items:
-            type: string
-        immutable:
-          type: boolean
-          description: Whether or not the propensity to adverse reaction is immutable
-      description: SimplifiedPropensityToAdverseReaction model (no description)
-      example:
-        id: 5
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 4
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T12:00:00.000+01:00'
-        updatedAt: '2014-11-10T12:00:00.000+01:00'
-        causeBuilders:
-        - system: CUSTOM
-          query: Stofmijt
-        - system: SNOMED
-          query: 256259004 | pollen |
-          name: Pollen
-        causes:
-        - Diarree
-        - Misselijkheid
-        - Duizeligheid
-        immutable: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

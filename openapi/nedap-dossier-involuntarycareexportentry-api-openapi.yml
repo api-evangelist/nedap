@@ -50,7 +50,7 @@ paths:
       tags:
       - dossier.InvoluntaryCareExportEntry
       summary: Get the involuntary care export entries for given parameters
-      operationId: dossier.InvoluntaryCareExportEntryAPI.entries
+      operationId: getV0DossierBackChannelUnauthorizedInvoluntaryCareExportEntries
       parameters:
       - name: law
         in: query
@@ -79,10 +79,54 @@ paths:
                 $ref: '#/components/schemas/dossier.list.InvoluntaryCareExportEntryList'
       x-replacement-for:
       - /t/dossier/involuntary_care_export/entries
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.InvoluntaryCareExportEntryAPI.entries
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.list.InvoluntaryCareExportEntryList:
+      type: object
+      properties:
+        involuntaryCareExportEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.InvoluntaryCareExportEntry'
+      description: InvoluntaryCareExportEntryList model (no description)
+      example:
+        involuntaryCareExportEntries:
+        - sourceId: 1
+          sourceType: registration
+          clientExternalId: 2
+          locationId: 3
+          locationNumber: '03030303'
+          careType: 1
+          interventionType: '010101'
+          legalSituation: RM
+          beginSelfBinding: '2021-01-01'
+          endSelfBinding: '2021-12-31'
+          beginDate: '2021-02-01T01:01:00.000+01:00'
+          endDate: '2021-03-01T02:02:00.000+01:00'
+          durationAmount: 4
+          frequencyAmount: 5
+          frequencyUnit: 1
+          ambulatory: false
+        - sourceId: 1
+          sourceType: registration
+          clientExternalId: 2
+          locationId: 3
+          locationNumber: '03030303'
+          careType: 1
+          interventionType: '010101'
+          legalSituation: RM
+          beginSelfBinding: '2021-01-01'
+          endSelfBinding: '2021-12-31'
+          beginDate: '2021-02-01T01:01:00.000+01:00'
+          endDate: '2021-03-01T02:02:00.000+01:00'
+          durationAmount: 4
+          frequencyAmount: 5
+          frequencyUnit: 1
+          ambulatory: false
     dossier.InvoluntaryCareExportEntry:
       type: object
       properties:
@@ -194,48 +238,6 @@ components:
         frequencyAmount: 5
         frequencyUnit: 1
         ambulatory: false
-    dossier.list.InvoluntaryCareExportEntryList:
-      type: object
-      properties:
-        involuntaryCareExportEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.InvoluntaryCareExportEntry'
-      description: InvoluntaryCareExportEntryList model (no description)
-      example:
-        involuntaryCareExportEntries:
-        - sourceId: 1
-          sourceType: registration
-          clientExternalId: 2
-          locationId: 3
-          locationNumber: '03030303'
-          careType: 1
-          interventionType: '010101'
-          legalSituation: RM
-          beginSelfBinding: '2021-01-01'
-          endSelfBinding: '2021-12-31'
-          beginDate: '2021-02-01T01:01:00.000+01:00'
-          endDate: '2021-03-01T02:02:00.000+01:00'
-          durationAmount: 4
-          frequencyAmount: 5
-          frequencyUnit: 1
-          ambulatory: false
-        - sourceId: 1
-          sourceType: registration
-          clientExternalId: 2
-          locationId: 3
-          locationNumber: '03030303'
-          careType: 1
-          interventionType: '010101'
-          legalSituation: RM
-          beginSelfBinding: '2021-01-01'
-          endSelfBinding: '2021-12-31'
-          beginDate: '2021-02-01T01:01:00.000+01:00'
-          endDate: '2021-03-01T02:02:00.000+01:00'
-          durationAmount: 4
-          frequencyAmount: 5
-          frequencyUnit: 1
-          ambulatory: false
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

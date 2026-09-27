@@ -54,7 +54,7 @@ paths:
       tags:
       - admin.TimesheetConfig
       summary: Retrieves the TimesheetConfig
-      operationId: admin.TimesheetConfigAPI.get
+      operationId: getV0AdministrationAdminTimesheetconfig
       responses:
         '200':
           description: No response was specified
@@ -64,11 +64,13 @@ paths:
                 $ref: '#/components/schemas/admin.TimesheetConfig'
       x-replacement-for:
       - /t/timesheet_config
+      x-operation-id-source: normalized
+      x-operation-id-original: admin.TimesheetConfigAPI.get
     put:
       tags:
       - admin.TimesheetConfig
       summary: Updates the given TimesheetConfig
-      operationId: admin.TimesheetConfigAPI.update
+      operationId: putV0AdministrationAdminTimesheetconfig
       requestBody:
         description: TimesheetConfig to update
         content:
@@ -86,6 +88,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/timesheet_config
+      x-operation-id-source: normalized
+      x-operation-id-original: admin.TimesheetConfigAPI.update
     servers:
     - url: https://api-development.ons.io
 components:

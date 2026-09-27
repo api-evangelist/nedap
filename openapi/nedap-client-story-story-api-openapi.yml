@@ -213,7 +213,7 @@ paths:
       tags:
       - client_story.Story
       summary: Authorized api Return a base64 encoded string of the image that is identified…
-      operationId: client_story.StoryAPI.authorizedImageByClientIdAndReference
+      operationId: getV0ClientStoryAuthorizedClientsByClientIdClientStoryImages
       parameters:
       - name: client_id
         in: path
@@ -238,6 +238,8 @@ paths:
                 type: string
       x-replacement-for:
       - /t/client_story/authorized/images/by_client_id_and_reference
+      x-operation-id-source: normalized
+      x-operation-id-original: client_story.StoryAPI.authorizedImageByClientIdAndReference
     servers:
     - url: https://api-development.ons.io
   /v0/client_story/authorized/stories/full_by_client/{client_id}:
@@ -246,7 +248,7 @@ paths:
       - client_story.Story
       summary: Return the full client story for the given client id
       description: Checks the ClientStoryOverview right and generates an audit.
-      operationId: client_story.StoryAPI.authorizedFullByClient
+      operationId: getV0ClientStoryAuthorizedStoriesFullByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -264,6 +266,8 @@ paths:
                 $ref: '#/components/schemas/client_story.Story'
       x-replacement-for:
       - /t/client_story/authorized_stories/full_by_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: client_story.StoryAPI.authorizedFullByClient
     servers:
     - url: https://api-development.ons.io
   /v0/client_story/care_relations/request_for_client/{client_id}:
@@ -271,7 +275,7 @@ paths:
       tags:
       - client_story.Story
       summary: Get permission for the current careprovider to view the client story
-      operationId: client_story.StoryAPI.createPermission
+      operationId: postV0ClientStoryCareRelationsRequestForClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -289,6 +293,8 @@ paths:
                 type: string
       x-replacement-for:
       - /t/client_story/care_relations/request_for_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: client_story.StoryAPI.createPermission
     servers:
     - url: https://api-development.ons.io
   /v0/client_story/clients/{client_id}/client_story/images:
@@ -296,7 +302,7 @@ paths:
       tags:
       - client_story.Story
       summary: Return a base64 encoded string of the image that is identified by the given…
-      operationId: client_story.StoryAPI.imageByClientIdAndReference
+      operationId: getV0ClientStoryClientsByClientIdClientStoryImages
       parameters:
       - name: client_id
         in: path
@@ -321,6 +327,8 @@ paths:
                 type: string
       x-replacement-for:
       - /t/client_story/images/by_client_id_and_reference
+      x-operation-id-source: normalized
+      x-operation-id-original: client_story.StoryAPI.imageByClientIdAndReference
     servers:
     - url: https://api-development.ons.io
   /v0/client_story/stories/by_client/{client_id}:
@@ -328,7 +336,7 @@ paths:
       tags:
       - client_story.Story
       summary: Save updates to the story of the client incrementally
-      operationId: client_story.StoryAPI.saveAnswer
+      operationId: putV0ClientStoryStoriesByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -353,6 +361,8 @@ paths:
                 $ref: '#/components/schemas/client_story.Story'
       x-replacement-for:
       - /t/client_story/stories/by_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: client_story.StoryAPI.saveAnswer
     servers:
     - url: https://api-development.ons.io
   /v0/client_story/stories/full_by_client/{client_id}:
@@ -360,7 +370,7 @@ paths:
       tags:
       - client_story.Story
       summary: Return the full client story for the given client id
-      operationId: client_story.StoryAPI.fullByClient
+      operationId: getV0ClientStoryStoriesFullByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -378,6 +388,8 @@ paths:
                 $ref: '#/components/schemas/client_story.Story'
       x-replacement-for:
       - /t/client_story/stories/full_by_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: client_story.StoryAPI.fullByClient
     servers:
     - url: https://api-development.ons.io
   /v0/client_story/stories/single_answer_full_by_client/{client_id}:
@@ -385,7 +397,7 @@ paths:
       tags:
       - client_story.Story
       summary: Return the full client story for the given client id Collapses the full json…
-      operationId: client_story.StoryAPI.singleAnswerFullByClient
+      operationId: getV0ClientStoryStoriesSingleAnswerFullByClientByClientId
       parameters:
       - name: client_id
         in: path
@@ -403,10 +415,54 @@ paths:
                 $ref: '#/components/schemas/client_story.Story'
       x-replacement-for:
       - /t/client_story/stories/single_answer_full_by_client/{client_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: client_story.StoryAPI.singleAnswerFullByClient
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    client_story.Story:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/client_story.Category'
+          description: A list of categories in this client story
+        accessLevel:
+          allOf:
+          - $ref: '#/components/schemas/client_story.AccessLevel'
+          description: The access level of the story, can be NONE, READ_ONLY, or READ_WRITE
+        updatedAt:
+          type: string
+          description: When this story was last updated
+          format: date-time
+        updatedSource:
+          type: string
+          description: The deployment that last updated this story
+        updatedBy:
+          type: integer
+          description: Who the story was last updated by
+          format: int64
+      description: Story model (no description)
+      example:
+        id: 1
+        categories:
+        - id: 1
+          definition: Interesses
+          description: Interesses van de client
+          answers:
+          - id: 1
+            schema: '{"type":"object","properties":{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":{"title":"Mijn favoriete gerecht is","description":"","type":"string"}}}'
+            data: '{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":"Spare ribs"}'
+        accessLevel: READ_ONLY
+        updatedAt: '2019-05-09T00:00:00.000+02:00'
+        updatedSource: CarenDeployment
+        updatedBy: 1
     client_story.Category:
       type: object
       properties:
@@ -460,48 +516,6 @@ components:
         id: 1
         schema: '{"type":"object","properties":{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":{"title":"Mijn favoriete gerecht is","description":"","type":"string"}}}'
         data: '{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":"Spare ribs"}'
-    client_story.Story:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/client_story.Category'
-          description: A list of categories in this client story
-        accessLevel:
-          allOf:
-          - $ref: '#/components/schemas/client_story.AccessLevel'
-          description: The access level of the story, can be NONE, READ_ONLY, or READ_WRITE
-        updatedAt:
-          type: string
-          description: When this story was last updated
-          format: date-time
-        updatedSource:
-          type: string
-          description: The deployment that last updated this story
-        updatedBy:
-          type: integer
-          description: Who the story was last updated by
-          format: int64
-      description: Story model (no description)
-      example:
-        id: 1
-        categories:
-        - id: 1
-          definition: Interesses
-          description: Interesses van de client
-          answers:
-          - id: 1
-            schema: '{"type":"object","properties":{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":{"title":"Mijn favoriete gerecht is","description":"","type":"string"}}}'
-            data: '{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":"Spare ribs"}'
-        accessLevel: READ_ONLY
-        updatedAt: '2019-05-09T00:00:00.000+02:00'
-        updatedSource: CarenDeployment
-        updatedBy: 1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

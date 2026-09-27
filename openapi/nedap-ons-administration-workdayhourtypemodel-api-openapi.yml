@@ -33,7 +33,7 @@ paths:
       tags:
       - ons_administration.WorkdayHourTypeModel
       summary: Returns all workday hour types (activities) with their validity periods.
-      operationId: ons_administration.WorkdayHourTypeModelAPI.getWorkdayHourTypes
+      operationId: getV0AdministrationHourTypesWorkdays
       responses:
         '200':
           description: Success
@@ -45,10 +45,27 @@ paths:
           description: Internal server error
       x-replacement-for:
       - /t/hour_types/workdays
+      x-operation-id-source: normalized
+      x-operation-id-original: ons_administration.WorkdayHourTypeModelAPI.getWorkdayHourTypes
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          description: Starting time with inclusive boundary
+          format: date
+        end:
+          type: string
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+      example:
+        start: '2018-03-26'
+        end: '2018-04-02'
     ons_administration.WorkdayHourTypeModel:
       required:
       - hourTypeObjectId
@@ -72,21 +89,6 @@ components:
         - start: '2025-12-29'
           end: '2026-12-27'
         - start: '2027-12-27'
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          description: Starting time with inclusive boundary
-          format: date
-        end:
-          type: string
-          description: End time with inclusive boundary, if not ongoing
-          format: date
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
-      example:
-        start: '2018-03-26'
-        end: '2018-04-02'
     ons_administration.list.WorkdayHourTypeModelList:
       type: object
       properties:

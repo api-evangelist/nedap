@@ -32,7 +32,7 @@ paths:
       tags:
       - admin.License
       summary: Returns every License available from the LicenseAPI
-      operationId: admin.LicenseAPI.all
+      operationId: getV0AdministrationAdminLicenses
       responses:
         '200':
           description: No response was specified
@@ -43,27 +43,12 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/admin/licenses
+      x-operation-id-source: normalized
+      x-operation-id-original: admin.LicenseAPI.all
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
-    admin.list.LicenseList:
-      type: object
-      properties:
-        licenses:
-          type: array
-          items:
-            $ref: '#/components/schemas/admin.License'
-          xml:
-            name: license
-      description: LicenseList model (no description)
-      example:
-        licenses:
-        - id: 1
-          module: FORENSIC_CARE
-          active: true
-      xml:
-        name: licenses
     admin.License:
       type: object
       properties:
@@ -84,6 +69,23 @@ components:
         active: true
       xml:
         name: license
+    admin.list.LicenseList:
+      type: object
+      properties:
+        licenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/admin.License'
+          xml:
+            name: license
+      description: LicenseList model (no description)
+      example:
+        licenses:
+        - id: 1
+          module: FORENSIC_CARE
+          active: true
+      xml:
+        name: licenses
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

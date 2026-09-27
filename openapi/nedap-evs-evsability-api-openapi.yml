@@ -47,7 +47,7 @@ paths:
     get:
       tags:
       - evs.EvsAbility
-      operationId: evs.EvsAbilityAPI.ableTo
+      operationId: getV0AdministrationEvsabilitiesByAction
       parameters:
       - name: action
         in: path
@@ -75,6 +75,8 @@ paths:
       - /t/evs/evs_abilities/{action}
       summary: Evs evs ability API able to
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: evs.EvsAbilityAPI.ableTo
     servers:
     - url: https://api-development.ons.io
 components:

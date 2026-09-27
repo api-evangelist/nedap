@@ -103,7 +103,7 @@ paths:
       tags:
       - openehr.EmployeeGroup
       summary: Returns the employee group corresponding to the given id, including direct…
-      operationId: openehr.EmployeeGroupAPI.byId
+      operationId: getV0OpenehrDbUnauthorizedCupidoEmployeeGroupsById
       parameters:
       - name: id
         in: path
@@ -128,6 +128,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/openehr/employee_groups/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.EmployeeGroupAPI.byId
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/employee_groups:
@@ -135,7 +137,7 @@ paths:
       tags:
       - openehr.EmployeeGroup
       summary: Returns every EmployeeGroup available from the EmployeeGroupAPI
-      operationId: openehr.EmployeeGroupAPI.all
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedEmployeeGroups
       responses:
         '200':
           description: No response was specified
@@ -146,6 +148,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/openehr/employee_groups
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.EmployeeGroupAPI.all
     servers:
     - url: https://api-development.ons.io
   /v0/openehr_dossier/back_channel/unauthorized/employee_groups/by_employee/{employee_id}:
@@ -153,7 +157,7 @@ paths:
       tags:
       - openehr.EmployeeGroup
       summary: Returns employee groups that an employee is or was a member of
-      operationId: openehr.EmployeeGroupAPI.byEmployee
+      operationId: getV0OpenehrDossierBackChannelUnauthorizedEmployeeGroupsByEmployeeByEmployeeId
       parameters:
       - name: employee_id
         in: path
@@ -183,10 +187,27 @@ paths:
                 $ref: '#/components/schemas/openehr.list.EmployeeGroupList'
       x-replacement-for:
       - /t/openehr/employee_groups/by_employee/{employee_id}
+      x-operation-id-source: normalized
+      x-operation-id-original: openehr.EmployeeGroupAPI.byEmployee
     servers:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -206,21 +227,6 @@ components:
         - field: two
           value: a
           message: too short
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
-      example:
-        field: one
-        value: empty
-        message: field can not be empty
     openehr.list.EmployeeGroupList:
       type: object
       properties:

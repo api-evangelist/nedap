@@ -265,7 +265,7 @@ paths:
       tags:
       - dossier.Goal
       summary: Return the Goals of a Demand corresponding to the given id
-      operationId: dossier.GoalAPI.byDemandId
+      operationId: getV0AdministrationDossierDemandsByDemandIdGoals
       parameters:
       - name: demand_id
         in: path
@@ -282,6 +282,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.GoalList'
       x-replacement-for:
       - /t/dossier/demands/{demand_id}/goals
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.GoalAPI.byDemandId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/domains/{domain_id}/goals:
@@ -289,7 +291,7 @@ paths:
       tags:
       - dossier.Goal
       summary: Return the Goals of a Domain corresponding to the given id
-      operationId: dossier.GoalAPI.byDomainId
+      operationId: getV0AdministrationDossierDomainsByDomainIdGoals
       parameters:
       - name: domain_id
         in: path
@@ -306,6 +308,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.GoalList'
       x-replacement-for:
       - /t/dossier/domains/{domain_id}/goals
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.GoalAPI.byDomainId
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/goals:
@@ -313,7 +317,7 @@ paths:
       tags:
       - dossier.Goal
       summary: Create Goal
-      operationId: dossier.GoalAPI.create
+      operationId: postV0AdministrationDossierGoals
       requestBody:
         description: Goal to create
         content:
@@ -331,6 +335,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/goals
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.GoalAPI.create
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/goals/{id}:
@@ -338,7 +344,7 @@ paths:
       tags:
       - dossier.Goal
       summary: Get a resource by its ID
-      operationId: dossier.GoalAPI.byId
+      operationId: getV0AdministrationDossierGoalsById
       parameters:
       - name: id
         in: path
@@ -367,11 +373,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/goals/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.GoalAPI.byId
     put:
       tags:
       - dossier.Goal
       summary: Updates the given Goal
-      operationId: dossier.GoalAPI.update
+      operationId: putV0AdministrationDossierGoalsById
       parameters:
       - name: id
         in: path
@@ -407,11 +415,13 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/goals/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.GoalAPI.update
     delete:
       tags:
       - dossier.Goal
       summary: Deletes the Goal with given id
-      operationId: dossier.GoalAPI.delete
+      operationId: deleteV0AdministrationDossierGoalsById
       parameters:
       - name: id
         in: path
@@ -436,6 +446,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/goals/{id}
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.GoalAPI.delete
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/goals/multiple:
@@ -443,7 +455,7 @@ paths:
       tags:
       - dossier.Goal
       summary: Method used for requesting multiple Goal objects using their ids
-      operationId: dossier.GoalAPI.multiple
+      operationId: getV0AdministrationDossierGoalsMultiple
       parameters:
       - name: id
         in: query
@@ -472,6 +484,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/dossier/goals/multiple
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.GoalAPI.multiple
     servers:
     - url: https://api-development.ons.io
   /v0/administration/dossier/goals/search:
@@ -479,7 +493,7 @@ paths:
       tags:
       - dossier.Goal
       summary: Returns the Goals which meet the search criteria
-      operationId: dossier.GoalAPI.search
+      operationId: getV0AdministrationDossierGoalsSearch
       parameters:
       - name: keyword
         in: query
@@ -502,6 +516,8 @@ paths:
                 $ref: '#/components/schemas/dossier.list.GoalList'
       x-replacement-for:
       - /t/dossier/goals/search
+      x-operation-id-source: normalized
+      x-operation-id-original: dossier.GoalAPI.search
     servers:
     - url: https://api-development.ons.io
 components:
@@ -563,56 +579,6 @@ components:
         classificationId: intervention.category.case_management
       xml:
         name: goal
-    dossier.Domain:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit domein
-        hidden:
-          type: boolean
-          default: false
-        classificationId:
-          type: string
-      description: Zorgplan "domein"
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        name: Domein naam
-        hidden: false
-        classificationId: classification.domain.health
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     dossier.list.GoalList:
       type: object
       properties:
@@ -937,6 +903,56 @@ components:
           hidden: false
       xml:
         name: goals
+    dossier.Domain:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

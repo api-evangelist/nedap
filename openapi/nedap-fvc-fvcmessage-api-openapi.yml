@@ -40,7 +40,7 @@ paths:
       tags:
       - fvc.FvcMessage
       summary: Send a message to FVC
-      operationId: fvc.FvcMessageAPI.send
+      operationId: postV0FarmedVisieMessage
       requestBody:
         description: Message to be sent to FVC
         content:
@@ -59,6 +59,8 @@ paths:
           description: Message could not be processed
       x-replacement-for:
       - /t/fvc/message
+      x-operation-id-source: normalized
+      x-operation-id-original: fvc.FvcMessageAPI.send
     servers:
     - url: https://api-development.ons.io
 components:

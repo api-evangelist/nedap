@@ -79,7 +79,7 @@ paths:
       - moves.ShiftAssignment
       summary: Return the first upcoming shift assignment of an Employee specified by id
       description: The response is a list of shift assignments of length 1
-      operationId: moves.ShiftAssignmentAPI.upcomingForEmployee
+      operationId: getV0PlannenRoosterenEmployeesByEmployeeIdShiftAssignmentsUpcoming
       parameters:
       - name: employee_id
         in: path
@@ -97,6 +97,8 @@ paths:
                 $ref: '#/components/schemas/moves.list.ShiftAssignmentList'
       x-replacement-for:
       - /t/moves/employees/{employee_id}/shift_assignments/upcoming
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ShiftAssignmentAPI.upcomingForEmployee
     servers:
     - url: https://api-development.ons.io
   /v0/plannen_roosteren/shift_assignments/starting_between:
@@ -105,7 +107,7 @@ paths:
       - moves.ShiftAssignment
       summary: Return all the shift assignments starting within the specified period
       description: The requested period must be 1 hour or less
-      operationId: moves.ShiftAssignmentAPI.startingBetween
+      operationId: getV0PlannenRoosterenShiftAssignmentsStartingBetween
       parameters:
       - name: start_datetime
         in: query
@@ -134,6 +136,8 @@ paths:
           description: Invalid period, or parsing errors
       x-replacement-for:
       - /t/moves/shift_assignments/starting_between
+      x-operation-id-source: normalized
+      x-operation-id-original: moves.ShiftAssignmentAPI.startingBetween
     servers:
     - url: https://api-development.ons.io
 components:

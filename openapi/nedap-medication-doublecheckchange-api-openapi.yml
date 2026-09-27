@@ -39,7 +39,7 @@ paths:
       tags:
       - medication.DoubleCheckChange
       summary: Create DoubleCheckChange
-      operationId: medication.DoubleCheckChangeAPI.create
+      operationId: postV0MedicatieLegacyDoubleCheckChanges
       requestBody:
         description: DoubleCheckChange to create
         content:
@@ -57,6 +57,8 @@ paths:
       x-cupido-common-method: true
       x-replacement-for:
       - /t/medication/double_check_changes
+      x-operation-id-source: normalized
+      x-operation-id-original: medication.DoubleCheckChangeAPI.create
     servers:
     - url: https://api-development.ons.io
 components:
