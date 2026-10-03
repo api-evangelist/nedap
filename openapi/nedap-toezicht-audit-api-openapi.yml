@@ -201,6 +201,30 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    toezicht.AuditIdentity:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          description: Some audits store the employee_id captured when the audit event was created. For audits without a stored employee_id, this value is resolved from other ONS data sources at the moment of export. It may not be available in all cases. If the user is removed from Administration, the employee_id may no longer be available for audits of some types.
+        userName:
+          type: string
+      description: Identity linked to an exported Audit
+      example:
+        employeeId: 10
+        userName: administrator
+    toezicht.AuditReferences:
+      type: object
+      properties:
+        clients:
+          type: array
+          items:
+            type: integer
+      description: References linked to an exported Audit
+      example:
+        clients:
+        - 10
+        - 12
     toezicht.Audit:
       required:
       - createdAt
@@ -262,30 +286,6 @@ components:
             - 10
             - 12
           title: Overnemen cliëntnotities uit Ons Dossier
-    toezicht.AuditReferences:
-      type: object
-      properties:
-        clients:
-          type: array
-          items:
-            type: integer
-      description: References linked to an exported Audit
-      example:
-        clients:
-        - 10
-        - 12
-    toezicht.AuditIdentity:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          description: Some audits store the employee_id captured when the audit event was created. For audits without a stored employee_id, this value is resolved from other ONS data sources at the moment of export. It may not be available in all cases. If the user is removed from Administration, the employee_id may no longer be available for audits of some types.
-        userName:
-          type: string
-      description: Identity linked to an exported Audit
-      example:
-        employeeId: 10
-        userName: administrator
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

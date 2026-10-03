@@ -65,21 +65,55 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    Period:
+    drugstore.Medication:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CodeableConcept'
+      properties:
+        requiresDoubleCheck:
+          type: boolean
+          description: 'Set to true if medication is present on the KNMP list to double check.
+
+            https://www.knmp.nl/downloads/dubbel-te-controleren-lijst.pdf
+
+            Not part of FHIR profile.'
+      description: 'Nictiz Medicatieproces
+
+        Based on https://simplifier.net/NictizSTU3-Zib2017/ZIB-Product'
+      example:
+        codings:
+        - system: urn:oid:2.16.840.1.113883.2.4.4.8
+          code: '14292998'
+          display: Carbasalaatcalcium Sandoz 600 30 sac
+        text: Carbasalaatcalcium Sandoz 600 30 sac
+        requiresDoubleCheck: true
+    Quantity:
       type: object
       properties:
-        start:
+        value:
           type: string
-          description: Starting time with inclusive boundary
-          format: date
-        end:
+          description: 'Numerical value (with implicit precision)
+
+            The precision is implied from the value, so ''0.10'' is different from ''0.1''
+
+            ''.'' is used as the expected decimal separator'
+        unit:
           type: string
-          description: End time with inclusive boundary, if not ongoing
-          format: date
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+          description: Unit representation (e.g. 'capsules' or 'mg/L')
+        system:
+          type: string
+          description: System that defines coded unit form (e.g. 'http://unitsofmeasure.org')
+        code:
+          type: string
+          description: Coded form of the unit (e.g. 'ug' or 's')
+      description: 'A measured or measurable amount
+
+        Based on http://hl7.org/fhir/STU3/datatypes-examples.html#Quantity'
       example:
-        start: '2018-03-26'
-        end: '2018-04-02'
+        value: '1.00'
+        unit: capsules
+        system: http://snomed.info/sct
+        code: '385049006'
     drugstore.AdministrationAgreement:
       type: object
       properties:
@@ -180,23 +214,125 @@ components:
         distributedAsUnitDose: false
         updatedAt: '2018-03-25T01:59:59.000+01:00'
         entityTag: 634d9ac28f1b949e73f50e67321619d97f506ba612d449f8a9a331de647314b5
-    Coding:
+    Period:
       type: object
       properties:
-        system:
+        start:
           type: string
-          description: Identity of the terminology system (URI)
-        code:
+          description: Starting time with inclusive boundary
+          format: date
+        end:
           type: string
-          description: Symbol in syntax defined by the system
-        display:
-          type: string
-          description: Representation defined by the system
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#Coding
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
       example:
-        system: http://snomed.info/sct
-        code: '25064002'
-        display: Headache
+        start: '2018-03-26'
+        end: '2018-04-02'
+    drugstore.Dosage:
+      type: object
+      properties:
+        text:
+          type: string
+          description: 'Textual description of the complete dosage instructions.
+
+            This includes the doseAndRate, and all additionalInstructions and patientInstructions.'
+        doseAndRate:
+          type: string
+          description: Textual description of the amount and frequency of administration.
+        additionalInstructions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodeableConcept'
+          description: Coded instructions and warnings about how to take the medication.
+        patientInstructions:
+          type: array
+          items:
+            type: string
+          description: Free-text supplemental instructions and warnings about how to take the medication.
+        route:
+          allOf:
+          - $ref: '#/components/schemas/CodeableConcept'
+          description: The route through which the medication is administered (oral, nasal, intravenous, etc.)
+        asNeeded:
+          type: boolean
+          description: 'As needed means that the dose is only to be administered under certain conditions.
+
+            The condition for administering medication can be:
+
+            - a physiological measurement value (plasma glucose concentration, body temperature, blood pressure);
+
+            - a symptom or other circumstance (in the event of a headache, or itch).'
+        moments:
+          type: array
+          items:
+            type: string
+          description: Please use 'scheduled_administrations' instead.
+          deprecated: true
+        scheduledAdministrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/drugstore.ScheduledAdministration'
+          description: A list of ScheduledAdministrations
+      description: 'Nictic Medicatieproces
+
+        Based on https://simplifier.net/NictizSTU3-Zib2017/ZIB-InstructionsForUse'
+      example:
+        text: '3 x PER DAG 1 CAPSULE
+
+          Felle zon en UVlamp op de huid vermijden
+
+          Kuur afmaken
+
+          Zittend of staand innemen met veel water
+
+          1 uur voor of 2 uur na het eten innemen
+
+          Niet met zuivel innemen, zie bijsluiter'
+        doseAndRate: 3 x PER DAG 1 CAPSULE
+        additionalInstructions:
+        - codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.5
+            code: '7'
+            display: Felle zon en UVlamp op de huid vermijden
+          text: Felle zon en UVlamp op de huid vermijden
+        - codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.5
+            code: '12'
+            display: Kuur afmaken
+          text: Kuur afmaken
+        - codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.5
+            code: '17'
+            display: Zittend of staand innemen met veel water
+          text: Zittend of staand innemen met veel water
+        patientInstructions:
+        - 1 uur voor of 2 uur na het eten innemen
+        - Niet met zuivel innemen, zie bijsluiter
+        route:
+          codings:
+          - system: urn:oid:2.16.840.1.113883.2.4.4.9
+            code: '2'
+            display: IM
+          text: INTRAMUSCULAIR
+        asNeeded: false
+        moments:
+        - 08:00
+        - '12:00'
+        - '18:15'
+        scheduledAdministrations:
+        - time: 08:00:00
+          quantity:
+            value: '1.00'
+            unit: capsules
+        - time: '12:00:00'
+          quantity:
+            value: '1.00'
+            unit: capsules
+        - time: '18:15:00'
+          quantity:
+            value: '1.00'
+            unit: capsules
     medication.DoubleCheck:
       type: object
       properties:
@@ -357,6 +493,43 @@ components:
         createdAt: '2018-09-27T00:00:00.000+02:00'
         decision: verified
         decisionAt: '2018-09-27T00:00:00.000+02:00'
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+          description: Identity of the terminology system (URI)
+        code:
+          type: string
+          description: Symbol in syntax defined by the system
+        display:
+          type: string
+          description: Representation defined by the system
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#Coding
+      example:
+        system: http://snomed.info/sct
+        code: '25064002'
+        display: Headache
+    CodeableConcept:
+      type: object
+      properties:
+        codings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+          description: List of Codings defined by a terminology system
+        text:
+          type: string
+          description: Plain text representation of the concept
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#codeableconcept
+      example:
+        codings:
+        - system: http://hl7.org/fhir/sid/icd-10
+          code: R51
+        - system: http://snomed.info/sct
+          code: '25064002'
+          display: Headache
+        text: general headache
     drugstore.ScheduledAdministration:
       type: object
       properties:
@@ -387,179 +560,6 @@ components:
           unit: capsules
           system: http://snomed.info/sct
           code: '385049006'
-    drugstore.Dosage:
-      type: object
-      properties:
-        text:
-          type: string
-          description: 'Textual description of the complete dosage instructions.
-
-            This includes the doseAndRate, and all additionalInstructions and patientInstructions.'
-        doseAndRate:
-          type: string
-          description: Textual description of the amount and frequency of administration.
-        additionalInstructions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CodeableConcept'
-          description: Coded instructions and warnings about how to take the medication.
-        patientInstructions:
-          type: array
-          items:
-            type: string
-          description: Free-text supplemental instructions and warnings about how to take the medication.
-        route:
-          allOf:
-          - $ref: '#/components/schemas/CodeableConcept'
-          description: The route through which the medication is administered (oral, nasal, intravenous, etc.)
-        asNeeded:
-          type: boolean
-          description: 'As needed means that the dose is only to be administered under certain conditions.
-
-            The condition for administering medication can be:
-
-            - a physiological measurement value (plasma glucose concentration, body temperature, blood pressure);
-
-            - a symptom or other circumstance (in the event of a headache, or itch).'
-        moments:
-          type: array
-          items:
-            type: string
-          description: Please use 'scheduled_administrations' instead.
-          deprecated: true
-        scheduledAdministrations:
-          type: array
-          items:
-            $ref: '#/components/schemas/drugstore.ScheduledAdministration'
-          description: A list of ScheduledAdministrations
-      description: 'Nictic Medicatieproces
-
-        Based on https://simplifier.net/NictizSTU3-Zib2017/ZIB-InstructionsForUse'
-      example:
-        text: '3 x PER DAG 1 CAPSULE
-
-          Felle zon en UVlamp op de huid vermijden
-
-          Kuur afmaken
-
-          Zittend of staand innemen met veel water
-
-          1 uur voor of 2 uur na het eten innemen
-
-          Niet met zuivel innemen, zie bijsluiter'
-        doseAndRate: 3 x PER DAG 1 CAPSULE
-        additionalInstructions:
-        - codings:
-          - system: urn:oid:2.16.840.1.113883.2.4.4.5
-            code: '7'
-            display: Felle zon en UVlamp op de huid vermijden
-          text: Felle zon en UVlamp op de huid vermijden
-        - codings:
-          - system: urn:oid:2.16.840.1.113883.2.4.4.5
-            code: '12'
-            display: Kuur afmaken
-          text: Kuur afmaken
-        - codings:
-          - system: urn:oid:2.16.840.1.113883.2.4.4.5
-            code: '17'
-            display: Zittend of staand innemen met veel water
-          text: Zittend of staand innemen met veel water
-        patientInstructions:
-        - 1 uur voor of 2 uur na het eten innemen
-        - Niet met zuivel innemen, zie bijsluiter
-        route:
-          codings:
-          - system: urn:oid:2.16.840.1.113883.2.4.4.9
-            code: '2'
-            display: IM
-          text: INTRAMUSCULAIR
-        asNeeded: false
-        moments:
-        - 08:00
-        - '12:00'
-        - '18:15'
-        scheduledAdministrations:
-        - time: 08:00:00
-          quantity:
-            value: '1.00'
-            unit: capsules
-        - time: '12:00:00'
-          quantity:
-            value: '1.00'
-            unit: capsules
-        - time: '18:15:00'
-          quantity:
-            value: '1.00'
-            unit: capsules
-    drugstore.Medication:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/CodeableConcept'
-      properties:
-        requiresDoubleCheck:
-          type: boolean
-          description: 'Set to true if medication is present on the KNMP list to double check.
-
-            https://www.knmp.nl/downloads/dubbel-te-controleren-lijst.pdf
-
-            Not part of FHIR profile.'
-      description: 'Nictiz Medicatieproces
-
-        Based on https://simplifier.net/NictizSTU3-Zib2017/ZIB-Product'
-      example:
-        codings:
-        - system: urn:oid:2.16.840.1.113883.2.4.4.8
-          code: '14292998'
-          display: Carbasalaatcalcium Sandoz 600 30 sac
-        text: Carbasalaatcalcium Sandoz 600 30 sac
-        requiresDoubleCheck: true
-    Quantity:
-      type: object
-      properties:
-        value:
-          type: string
-          description: 'Numerical value (with implicit precision)
-
-            The precision is implied from the value, so ''0.10'' is different from ''0.1''
-
-            ''.'' is used as the expected decimal separator'
-        unit:
-          type: string
-          description: Unit representation (e.g. 'capsules' or 'mg/L')
-        system:
-          type: string
-          description: System that defines coded unit form (e.g. 'http://unitsofmeasure.org')
-        code:
-          type: string
-          description: Coded form of the unit (e.g. 'ug' or 's')
-      description: 'A measured or measurable amount
-
-        Based on http://hl7.org/fhir/STU3/datatypes-examples.html#Quantity'
-      example:
-        value: '1.00'
-        unit: capsules
-        system: http://snomed.info/sct
-        code: '385049006'
-    CodeableConcept:
-      type: object
-      properties:
-        codings:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-          description: List of Codings defined by a terminology system
-        text:
-          type: string
-          description: Plain text representation of the concept
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#codeableconcept
-      example:
-        codings:
-        - system: http://hl7.org/fhir/sid/icd-10
-          code: R51
-        - system: http://snomed.info/sct
-          code: '25064002'
-          display: Headache
-        text: general headache
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -77,6 +77,63 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    dossier.CarePlanAgreement:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        carePlanId:
+          type:
+          - integer
+          - 'null'
+          description: The care plan this agreement belongs to
+          format: int64
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          description: The employee that created the agreement
+          format: int64
+        clientId:
+          type:
+          - integer
+          - 'null'
+          description: The client the care plan belongs to
+          format: int64
+      description: CarePlanAgreement model (no description)
+      example:
+        updatedAt: '2016-09-05T12:59:26.000+02:00'
+        createdAt: '2016-09-05T12:59:26.000+02:00'
+        createdBy: administrator
+        id: 3
+        carePlanId: 12
+        employeeId: 13
+        clientId: 14
     AuditedBase:
       title: AuditedBase
       type: object
@@ -116,63 +173,6 @@ components:
         field: one
         value: empty
         message: field can not be empty
-    dossier.CarePlanAgreement:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        carePlanId:
-          type:
-          - integer
-          - 'null'
-          description: The care plan this agreement belongs to
-          format: int64
-        employeeId:
-          type:
-          - integer
-          - 'null'
-          description: The employee that created the agreement
-          format: int64
-        clientId:
-          type:
-          - integer
-          - 'null'
-          description: The client the care plan belongs to
-          format: int64
-      description: CarePlanAgreement model (no description)
-      example:
-        updatedAt: '2016-09-05T12:59:26.000+02:00'
-        createdAt: '2016-09-05T12:59:26.000+02:00'
-        createdBy: administrator
-        id: 3
-        carePlanId: 12
-        employeeId: 13
-        clientId: 14
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

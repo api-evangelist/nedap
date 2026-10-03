@@ -205,6 +205,27 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ProblemResponseReason:
+      required:
+      - code
+      - pointer
+      type: object
+      properties:
+        code:
+          type: string
+          description: 'Code identifying the error. ValidationType.java in ioserver defines the following, it is suggested to try and reuse these when possible: DUPLICATE_KEY, MISSING_FIELD, INVALID_FORMAT, INVALID_STATE, NOT_FOUND, TIME_CONFLICT'
+        detail:
+          type: string
+          description: A human-readable explanation specific to this reason.
+        pointer:
+          type: string
+          description: A JSON pointer to locate the problem within the request's content using a JSON Pointer
+          example: '#/profile/color'
+      description: Reasons for a problem response, lists attributes of the main or nested object sent
+      example:
+        code: MISSING_FIELD
+        detail: Name can't be blank
+        pointer: '#/name'
     ProblemResponse:
       required:
       - type
@@ -277,6 +298,51 @@ components:
 
         '
       example: Z
+    moves.AbsenceUpsert:
+      title: AbsenceUpsert
+      required:
+      - remoteId
+      type: object
+      properties:
+        remoteId:
+          type: string
+          description: The unique identifier of the absence in the remote system
+        employeeNumber:
+          type: string
+          description: The employee number of the employee this absence belongs to
+        employmentNumber:
+          type:
+          - integer
+          - 'null'
+          description: The employment number, used when an employee has multiple employments
+          format: int64
+        beginDateTime:
+          type: string
+          description: The date and time the absence started
+          format: date-time
+        expectedEndDateTime:
+          type:
+          - string
+          - 'null'
+          description: The expected date and time the absence will end
+          format: date-time
+        actualEndDateTime:
+          type:
+          - string
+          - 'null'
+          description: The actual date and time the absence ended
+          format: date-time
+        absenceType:
+          $ref: '#/components/schemas/moves.AbsenceType'
+      description: Experimental API. An absence to be processed as a signal from a remote system. Absences created through this API are not shown in the UI yet.
+      example:
+        remoteId: '12345'
+        employeeNumber: EMP001
+        employmentNumber: 1
+        beginDateTime: '2024-01-15T08:00:00.000+01:00'
+        expectedEndDateTime: '2024-01-22T08:00:00.000+01:00'
+        actualEndDateTime: '2024-01-22T08:00:00.000+01:00'
+        absenceType: Z
     moves.Absence:
       title: Absence
       required:
@@ -317,72 +383,6 @@ components:
         absenceType:
           $ref: '#/components/schemas/moves.AbsenceType'
       description: An absence to be processed as a signal from a remote system
-      example:
-        remoteId: '12345'
-        employeeNumber: EMP001
-        employmentNumber: 1
-        beginDateTime: '2024-01-15T08:00:00.000+01:00'
-        expectedEndDateTime: '2024-01-22T08:00:00.000+01:00'
-        actualEndDateTime: '2024-01-22T08:00:00.000+01:00'
-        absenceType: Z
-    ProblemResponseReason:
-      required:
-      - code
-      - pointer
-      type: object
-      properties:
-        code:
-          type: string
-          description: 'Code identifying the error. ValidationType.java in ioserver defines the following, it is suggested to try and reuse these when possible: DUPLICATE_KEY, MISSING_FIELD, INVALID_FORMAT, INVALID_STATE, NOT_FOUND, TIME_CONFLICT'
-        detail:
-          type: string
-          description: A human-readable explanation specific to this reason.
-        pointer:
-          type: string
-          description: A JSON pointer to locate the problem within the request's content using a JSON Pointer
-          example: '#/profile/color'
-      description: Reasons for a problem response, lists attributes of the main or nested object sent
-      example:
-        code: MISSING_FIELD
-        detail: Name can't be blank
-        pointer: '#/name'
-    moves.AbsenceUpsert:
-      title: AbsenceUpsert
-      required:
-      - remoteId
-      type: object
-      properties:
-        remoteId:
-          type: string
-          description: The unique identifier of the absence in the remote system
-        employeeNumber:
-          type: string
-          description: The employee number of the employee this absence belongs to
-        employmentNumber:
-          type:
-          - integer
-          - 'null'
-          description: The employment number, used when an employee has multiple employments
-          format: int64
-        beginDateTime:
-          type: string
-          description: The date and time the absence started
-          format: date-time
-        expectedEndDateTime:
-          type:
-          - string
-          - 'null'
-          description: The expected date and time the absence will end
-          format: date-time
-        actualEndDateTime:
-          type:
-          - string
-          - 'null'
-          description: The actual date and time the absence ended
-          format: date-time
-        absenceType:
-          $ref: '#/components/schemas/moves.AbsenceType'
-      description: Experimental API. An absence to be processed as a signal from a remote system. Absences created through this API are not shown in the UI yet.
       example:
         remoteId: '12345'
         employeeNumber: EMP001

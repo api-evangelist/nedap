@@ -77,6 +77,29 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.ClientPlannedSchedulePlannedVisit:
+      type: object
+      properties:
+        description:
+          type: string
+        duration:
+          type: integer
+          format: int64
+        time:
+          type: string
+          format: date-time
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ClientPlannedSchedulePlannedVisitEmployee'
+      description: A single visit in the planned schedule of a client
+      example:
+        description: Verzorging niveau 5
+        duration: 2700
+        time: '2021-07-21T21:11:00.000+02:00'
+        employees:
+        - externalId: 123
+          name: Dhr. Bakker
     moves.list.ClientPlannedSchedulePlannedVisitList:
       type: object
       properties:
@@ -109,29 +132,6 @@ components:
       example:
         externalId: 123
         name: Dhr. Bakker
-    moves.ClientPlannedSchedulePlannedVisit:
-      type: object
-      properties:
-        description:
-          type: string
-        duration:
-          type: integer
-          format: int64
-        time:
-          type: string
-          format: date-time
-        employees:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.ClientPlannedSchedulePlannedVisitEmployee'
-      description: A single visit in the planned schedule of a client
-      example:
-        description: Verzorging niveau 5
-        duration: 2700
-        time: '2021-07-21T21:11:00.000+02:00'
-        employees:
-        - externalId: 123
-          name: Dhr. Bakker
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

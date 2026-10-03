@@ -512,25 +512,16 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.LocationAssignmentList:
-      type: object
-      properties:
-        locationAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationAssignment'
-          xml:
-            name: locationAssignment
-      description: LocationAssignmentList model (no description)
-      example:
-        locationAssignments:
-        - id: 1
-          beginDate: '2012-08-02'
-          endDate: '2012-08-02'
-          locationAssignmentType: MAIN
-          mainLocation: true
-      xml:
-        name: locationAssignments
+    LocationAssignmentType:
+      enum:
+      - STANDARD
+      - MAIN
+      - MEDICINE
+      - GGZ
+      - WAITING_LIST
+      type: string
+      description: LocationAssignmentType enum (no description)
+      example: STANDARD
     LocationAssignment:
       type: object
       properties:
@@ -588,16 +579,25 @@ components:
         medicineLocation: false
       xml:
         name: locationAssignment
-    LocationAssignmentType:
-      enum:
-      - STANDARD
-      - MAIN
-      - MEDICINE
-      - GGZ
-      - WAITING_LIST
-      type: string
-      description: LocationAssignmentType enum (no description)
-      example: STANDARD
+    list.LocationAssignmentList:
+      type: object
+      properties:
+        locationAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAssignment'
+          xml:
+            name: locationAssignment
+      description: LocationAssignmentList model (no description)
+      example:
+        locationAssignments:
+        - id: 1
+          beginDate: '2012-08-02'
+          endDate: '2012-08-02'
+          locationAssignmentType: MAIN
+          mainLocation: true
+      xml:
+        name: locationAssignments
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

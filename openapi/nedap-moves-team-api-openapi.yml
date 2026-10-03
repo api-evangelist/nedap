@@ -183,52 +183,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.list.ClientList:
-      type: object
-      properties:
-        clients:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Client'
-      description: List of Clients
-      example:
-        clients:
-        - id: 5678
-          externalId: 5678
-    moves.list.TeamList:
-      type: object
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Team'
-      description: List of teams ( also named units ) for planning and rostering purposes
-      example:
-        teams:
-        - unitId: 1234
-          name: Nedap VnV
-          parentUnitId: 1233
-          teamId: 4321
-          validFrom: '2019-11-19'
-          validTo: '2038-01-19'
-          coreUnitId: 0
-          flexUnitId: 1
-          isFlexTeam: true
-          isCoreTeam: false
-          active: true
-          teamType: Extramuraal
-          useBlockplanning: false
-          useSelfRostering: true
-          selfRosteringStartDate: '2000-01-01'
-          rosterPublicationDate: '2025-08-30'
-    moves.FlexSignupVisibility:
-      enum:
-      - hide_signups
-      - show_anonymous
-      - show_names
-      type: string
-      description: How flex request signups of colleagues are shown to employees
-      example: show_names
     moves.Team:
       type: object
       properties:
@@ -386,6 +340,18 @@ components:
         allowFlexSignup: true
         flexSignupVisibility: show_names
         whoMakesFlexAssignments: primary_flex_unit
+    moves.list.ClientList:
+      type: object
+      properties:
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Client'
+      description: List of Clients
+      example:
+        clients:
+        - id: 5678
+          externalId: 5678
     moves.Client:
       required:
       - id
@@ -415,6 +381,14 @@ components:
       type: string
       description: Which unit assigns employees to flex requests
       example: primary_flex_unit
+    moves.FlexSignupVisibility:
+      enum:
+      - hide_signups
+      - show_anonymous
+      - show_names
+      type: string
+      description: How flex request signups of colleagues are shown to employees
+      example: show_names
     moves.UnitType:
       enum:
       - Extramuraal
@@ -423,6 +397,32 @@ components:
       type: string
       description: Type of the unit
       example: Intramuraal
+    moves.list.TeamList:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Team'
+      description: List of teams ( also named units ) for planning and rostering purposes
+      example:
+        teams:
+        - unitId: 1234
+          name: Nedap VnV
+          parentUnitId: 1233
+          teamId: 4321
+          validFrom: '2019-11-19'
+          validTo: '2038-01-19'
+          coreUnitId: 0
+          flexUnitId: 1
+          isFlexTeam: true
+          isCoreTeam: false
+          active: true
+          teamType: Extramuraal
+          useBlockplanning: false
+          useSelfRostering: true
+          selfRosteringStartDate: '2000-01-01'
+          rosterPublicationDate: '2025-08-30'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

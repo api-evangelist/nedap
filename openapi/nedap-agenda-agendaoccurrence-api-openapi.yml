@@ -743,135 +743,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    agenda.list.AgendaOccurrenceList:
-      title: EventOccurrenceList
-      type: object
-      properties:
-        agendaOccurrences:
-          type: array
-          items:
-            $ref: '#/components/schemas/agenda.AgendaOccurrence'
-      description: AgendaOccurrenceList model (no description)
-      example:
-        agendaOccurrences:
-        - id: 2@2012-08-02
-          occurrenceDate: '2012-08-02'
-          uuid: abca58ed-0138-4aec-87c6-5d391e98161b
-          name: fysio
-          comment: no comment
-          validFrom: '2012-08-02'
-          validTo: '2012-08-03'
-          startTime: '08:10:00.000'
-          endTime: '08:20:00.000'
-          startsAt: '2022-08-02T08:10:00.000+02:00'
-          endsAt: '2022-08-02T08:20:00.000+02:00'
-          duration: 0
-          recurrenceType: single
-          cycleInterval: 1
-    agenda.AgendaClientInvitation:
-      title: ClientInvitation
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/agenda.AgendaInvitation'
-      properties:
-        hourTypeId:
-          type:
-          - integer
-          - 'null'
-          description: 'Identifier of Hour Type
-
-
-            When _not_ using the per-client product selection (part of _uitgebreide workflow_), use the `hourTypeId` field  in the appointment instead'
-          format: int64
-        careOrderId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        surchargeIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-      description: Agenda client invitation domain model used by Cupido system.
-      example:
-        clientId: 1
-        employeeId: 2
-        locationId: 4
-        teamId: 3
-        groupId: 12
-        accepted: true
-        hourTypeId: 52
-        careOrderId: 2
-        surchargeIds:
-        - 9
-        - 10
-    RecurrenceType:
-      title: RecurrenceType
-      type:
-      - string
-      - 'null'
-      oneOf:
-      - title: SINGLE
-        enum:
-        - single
-      - title: DAILY
-        enum:
-        - daily
-      - title: WEEKLY
-        enum:
-        - weekly
-      - title: MONTHLY_ON_DAY
-        enum:
-        - monthly_on_day
-      - title: MONTHLY_ON_WEEK
-        enum:
-        - monthly_on_week
-      - title: YEARLY
-        enum:
-        - yearly
-      description: Frequency of the recurrence
-      default: single
-      example: single
-    agenda.AgendaInvitation:
-      title: Invitation
-      type: object
-      properties:
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        employeeId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        locationId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        teamId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        accepted:
-          type:
-          - boolean
-          - 'null'
-        groupId:
-          type: integer
-          format: int64
-      description: Agenda invitation domain model used by Cupido system.
-      example:
-        clientId: 1
-        employeeId: 2
-        locationId: 4
-        teamId: 3
-        groupId: 12
-        accepted: true
     agenda.AgendaOccurrence:
       title: EventOccurrence
       type: object
@@ -1136,6 +1007,135 @@ components:
         clientPresent: true
         private: false
         labels: []
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    agenda.AgendaInvitation:
+      title: Invitation
+      type: object
+      properties:
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        accepted:
+          type:
+          - boolean
+          - 'null'
+        groupId:
+          type: integer
+          format: int64
+      description: Agenda invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
+    agenda.AgendaClientInvitation:
+      title: ClientInvitation
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/agenda.AgendaInvitation'
+      properties:
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Identifier of Hour Type
+
+
+            When _not_ using the per-client product selection (part of _uitgebreide workflow_), use the `hourTypeId` field  in the appointment instead'
+          format: int64
+        careOrderId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        surchargeIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+      description: Agenda client invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
+        hourTypeId: 52
+        careOrderId: 2
+        surchargeIds:
+        - 9
+        - 10
+    agenda.list.AgendaOccurrenceList:
+      title: EventOccurrenceList
+      type: object
+      properties:
+        agendaOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      description: AgendaOccurrenceList model (no description)
+      example:
+        agendaOccurrences:
+        - id: 2@2012-08-02
+          occurrenceDate: '2012-08-02'
+          uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+          name: fysio
+          comment: no comment
+          validFrom: '2012-08-02'
+          validTo: '2012-08-03'
+          startTime: '08:10:00.000'
+          endTime: '08:20:00.000'
+          startsAt: '2022-08-02T08:10:00.000+02:00'
+          endsAt: '2022-08-02T08:20:00.000+02:00'
+          duration: 0
+          recurrenceType: single
+          cycleInterval: 1
     agenda.Label:
       title: Label
       type: object

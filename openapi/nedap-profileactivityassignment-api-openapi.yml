@@ -367,6 +367,103 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    expense.ExpenseType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: The name of this expenseType
+        unit:
+          type: string
+          description: The unit in which this expensetype is calculated (km or days)
+        inputType:
+          type: string
+          description: 'The type of input used to input expenses made with this unit;
+
+            an input field in case of kilometers or a checkbox in case of days'
+        format:
+          type: string
+          description: 'the format of the value in which an expense is stored in the database:
+
+            0 for decimal, 1 for float'
+        icon:
+          type: string
+          description: The path to the icon used for this expensetype.
+        exportCode:
+          type: string
+          description: The exportcode for this expenseType
+        exportCodeGreaterThanTen:
+          type: string
+          description: The exportcode for this expenseType used in case there are more than 10km a day
+        compensationInCents:
+          type: integer
+          description: 'The compensation per km for this expensetype in Eurocents.
+
+            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
+          format: int64
+        compensationInCentsGreaterThanTen:
+          type: integer
+          description: 'The compensation per km for this expensetype in Eurocents used in case there are more than 10km a day.
+
+            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
+          format: int64
+        commuteCode:
+          type: string
+          description: The exportcode for this expenseType used for commute km
+        commuteCompensationInCents:
+          type: integer
+          description: 'The compensation per km for this expensetype in Eurocents used for commute km.
+
+            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
+          format: int64
+        commuteMaxKm:
+          type: integer
+          description: The maximum number of commute km for this expenseType
+          format: int64
+        removed:
+          type: boolean
+          description: A field denoting whether or not this expenseType has been removed
+        travelCalculationEnabled:
+          type: boolean
+          description: A field denoting whether or not travel distances should be calculated automatically
+        beginDate:
+          type: string
+          description: The begindate for this expenseType
+          format: date-time
+        endDate:
+          type: string
+          description: The enddate for this expenseType
+          format: date-time
+        alternativeToTravelCalc:
+          type: boolean
+      description: 'ExpenseType domain model used by Cupido system.
+
+        An Expensetype is a type of expense for which an employee may be compensated.'
+      example:
+        id: 1
+        name: Kilometers
+        unit: KM
+        inputType: Value
+        format: Float
+        icon: Walk
+        exportCode: KMP
+        exportCodeGreaterThanTen: KMD
+        compensationInCents: 777
+        compensationInCentsGreaterThanTen: 888
+        commuteCode: WW
+        commuteCompensationInCents: 555
+        commuteMaxKm: 30
+        removed: true
+        travelCalculationEnabled: true
+        beginDate: '1973-12-20T17:00:00.000+01:00'
+        endDate: '2015-12-20T17:00:00.000+01:00'
+        alternativeToTravelCalc: true
+      xml:
+        name: expenseType
     HourType:
       type: object
       properties:
@@ -526,103 +623,6 @@ components:
           travelCalculationEnabled: true
           beginDate: '1973-12-20T17:00:00.000+01:00'
           endDate: '2015-12-20T17:00:00.000+01:00'
-    expense.ExpenseType:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-          description: The name of this expenseType
-        unit:
-          type: string
-          description: The unit in which this expensetype is calculated (km or days)
-        inputType:
-          type: string
-          description: 'The type of input used to input expenses made with this unit;
-
-            an input field in case of kilometers or a checkbox in case of days'
-        format:
-          type: string
-          description: 'the format of the value in which an expense is stored in the database:
-
-            0 for decimal, 1 for float'
-        icon:
-          type: string
-          description: The path to the icon used for this expensetype.
-        exportCode:
-          type: string
-          description: The exportcode for this expenseType
-        exportCodeGreaterThanTen:
-          type: string
-          description: The exportcode for this expenseType used in case there are more than 10km a day
-        compensationInCents:
-          type: integer
-          description: 'The compensation per km for this expensetype in Eurocents.
-
-            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
-          format: int64
-        compensationInCentsGreaterThanTen:
-          type: integer
-          description: 'The compensation per km for this expensetype in Eurocents used in case there are more than 10km a day.
-
-            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
-          format: int64
-        commuteCode:
-          type: string
-          description: The exportcode for this expenseType used for commute km
-        commuteCompensationInCents:
-          type: integer
-          description: 'The compensation per km for this expensetype in Eurocents used for commute km.
-
-            Unless the EMIS export is used, the compensation in cents fields are for future use and have no effect'
-          format: int64
-        commuteMaxKm:
-          type: integer
-          description: The maximum number of commute km for this expenseType
-          format: int64
-        removed:
-          type: boolean
-          description: A field denoting whether or not this expenseType has been removed
-        travelCalculationEnabled:
-          type: boolean
-          description: A field denoting whether or not travel distances should be calculated automatically
-        beginDate:
-          type: string
-          description: The begindate for this expenseType
-          format: date-time
-        endDate:
-          type: string
-          description: The enddate for this expenseType
-          format: date-time
-        alternativeToTravelCalc:
-          type: boolean
-      description: 'ExpenseType domain model used by Cupido system.
-
-        An Expensetype is a type of expense for which an employee may be compensated.'
-      example:
-        id: 1
-        name: Kilometers
-        unit: KM
-        inputType: Value
-        format: Float
-        icon: Walk
-        exportCode: KMP
-        exportCodeGreaterThanTen: KMD
-        compensationInCents: 777
-        compensationInCentsGreaterThanTen: 888
-        commuteCode: WW
-        commuteCompensationInCents: 555
-        commuteMaxKm: 30
-        removed: true
-        travelCalculationEnabled: true
-        beginDate: '1973-12-20T17:00:00.000+01:00'
-        endDate: '2015-12-20T17:00:00.000+01:00'
-        alternativeToTravelCalc: true
-      xml:
-        name: expenseType
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -404,185 +404,97 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.list.RestrictiveMeasureCarePlanEntryList:
-      type: object
-      properties:
-        restrictiveMeasureCarePlanEntries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
-      description: RestrictiveMeasureCarePlanEntryList model (no description)
-      example:
-        restrictiveMeasureCarePlanEntries:
-        - id: 1
-          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-          clientId: 1
-          createdById: 1
-          updatedById: 1
-          createdAt: '2014-11-14T00:00:00.000+01:00'
-          updatedAt: '2014-11-14T00:00:00.000+01:00'
-          situation: in careplan
-          typeCompetent: true
-          typeAgreement: true
-          typeResistant: true
-          decisionNarrative: Decision narrative
-          inspectionReportDate: '2015-09-17'
-          status: active
-          problemNarrative: Problem narrative
-          goalNarrative: Problem narrative
-          beginDate: '2015-09-17'
-          endDate: '2015-09-17'
-          nextEvaluationDate: '2015-09-17'
-          risksNarrative: Risks narrative
-          guaranteeNarrative: Guarantee narrative
-          reductionNarrative: Reduction narrative
-          proportionality: Proportionality
-          subsidiarity: Subsidiarity
-          effectiveness: Effectiveness
-          secondOpinion: Second opinion
-          reasonNarrative: Reason narrative
-          researchDate: '2015-10-17'
-          safety: Safety
-          gdConferDate: '2015-10-16'
-          combinedConditions: Combined conditions
-          evaluationNote: Evaluation note
-        - id: 1
-          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-          clientId: 1
-          createdById: 1
-          updatedById: 1
-          createdAt: '2014-11-14T00:00:00.000+01:00'
-          updatedAt: '2014-11-14T00:00:00.000+01:00'
-          situation: in careplan
-          typeCompetent: true
-          typeAgreement: true
-          typeResistant: true
-          decisionNarrative: Decision narrative
-          inspectionReportDate: '2015-09-17'
-          status: active
-          problemNarrative: Problem narrative
-          goalNarrative: Problem narrative
-          beginDate: '2015-09-17'
-          endDate: '2015-09-17'
-          nextEvaluationDate: '2015-09-17'
-          risksNarrative: Risks narrative
-          guaranteeNarrative: Guarantee narrative
-          reductionNarrative: Reduction narrative
-          proportionality: Proportionality
-          subsidiarity: Subsidiarity
-          effectiveness: Effectiveness
-          secondOpinion: Second opinion
-          reasonNarrative: Reason narrative
-          researchDate: '2015-10-17'
-          safety: Safety
-          gdConferDate: '2015-10-16'
-          combinedConditions: Combined conditions
-          evaluationNote: Evaluation note
-    dossier.medical.Device:
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          description: The unique ID of the device
-          format: int64
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the device
-      description: Optional device that was used as a restrictive measure
-      example:
-        id: 1
-        name: Bedrails
-    dossier.medical.RelationshipBuilder:
-      type: object
-      properties:
-        system:
-          type:
-          - string
-          - 'null'
-          description: 'Which code system this builder should query
-
-            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
-        query:
-          type:
-          - string
-          - 'null'
-          description: 'Query used to build the correct concept within the given code system.
-
-            Will use the first concept within the code system that matches the query,
-
-            for the best results your query should be as close as possible to a complete code from the system'
-        name:
-          type:
-          - string
-          - 'null'
-      description: RelationshipBuilder model (no description)
-      example:
-        system: Dummy
-        query: Dummy
-        name: Dummy
-    dossier.RestrictiveMeasureCarePlanEntryProblemNarrative:
+    dossier.RestrictiveMeasureCarePlanEntryJudgement:
       type: object
       properties:
         id:
-          type:
-          - integer
-          - 'null'
-          description: The problem narrative's ID.
+          type: integer
+          description: The id of this judgement
           format: int64
           x-cupido-id: true
-        tag:
+        restrictiveMeasureCarePlanEntryId:
+          type: integer
+          description: The id of the restrictive measure care plan entry this judgement is linked to
+          format: int64
+        status:
+          type: integer
+          description: 'The status of the status
+
+            - 0 draft
+
+            - 1 rejected
+
+            - 2 approved'
+          format: int32
+        text:
           type:
           - string
           - 'null'
-          description: 'The problem narrative description. Possible values and their Dutch translations:
-
-
-            WZD-labels:
-
-            <ul>
-
-            <li>mortal_danger_self_others: levensgevaar voor de cliënt of iemand anders</li>
-
-            <li>bodily_harm: ernstig lichamelijk letsel voor de cliënt of iemand anders</li>
-
-            <li>damage_self_others: ernstige psychische, materiële, immateriële of financiële schade voor de cliënt of iemand anders</li>
-
-            <li>severe_neglect: ernstige verwaarlozing of maatschappelijke teloorgang van de cliënt of iemand anders</li>
-
-            <li>disturbed_development: ernstig verstoorde ontwikkeling van de cliënt of iemand anders</li>
-
-            <li>safety_client: bedreiging van de veiligheid van de cliënt al dan niet doordat hij onder invloed van een ander raakt</li>
-
-            <li>aggression_others: de situatie dat de cliënt met hinderlijk gedrag agressie van anderen oproept</li>
-
-            <li>general_safety: de situatie dat de algemene veiligheid van personen of goederen in gevaar is</li>
-
-            </ul>
-
-
-            WZD-FZ-labels:
-
-            <ul>
-
-            <li>danger_order_safety: gevaar voor de orde en veiligheid afwenden</li>
-
-            <li>risk_for_felony: het risico op een ernstig strafbaar feit afwenden</li>
-
-            <li>health_client: ernstige nadelige gevolgen voor de gezondheidstoestand van de cliënt afwenden</li>
-
-            </ul>'
-      description: A problem narrative for a {@link RestrictiveMeasureCarePlanEntry}.
+          description: The text of the judgement
+        clientExternalId:
+          type: integer
+          description: The id of the client this judgement is linked to
+          format: int64
+        reviewerUserId:
+          type:
+          - integer
+          - 'null'
+          description: The id of the user who reviewed this judgement
+          format: int64
+        reviewedAt:
+          type:
+          - string
+          - 'null'
+          description: The date and time when this judgement was reviewed
+          format: date-time
+        createdById:
+          type: integer
+          description: The id of the user who created this judgement
+          format: int64
+        updatedById:
+          type: integer
+          description: The id of the user who last updated this judgement
+          format: int64
+        createdAt:
+          type: string
+          description: The date and time when this judgement was created
+          format: date-time
+        updatedAt:
+          type: string
+          description: The date and time when this judgement was last updated
+          format: date-time
+      description: RestrictiveMeasureCarePlanEntryJudgement model (no description)
       example:
         id: 1
-        tag: general_safety
+        restrictiveMeasureCarePlanEntryId: 2
+        status: 1
+        text: text
+        clientExternalId: 3
+        reviewerUserId: 4
+        reviewedAt: '2021-01-01T00:00:00.000+01:00'
+        createdById: 5
+        updatedById: 6
+        createdAt: '2021-01-01T00:00:00.000+01:00'
+        updatedAt: '2021-01-01T00:00:00.000+01:00'
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
     dossier.RestrictiveMeasureEntry:
       type: object
       allOf:
@@ -1218,78 +1130,108 @@ components:
           updatedById: 6
           createdAt: '2021-01-01T00:00:00.000+01:00'
           updatedAt: '2021-01-01T00:00:00.000+01:00'
-    dossier.RestrictiveMeasureCarePlanEntryJudgement:
+    dossier.medical.MedicalBase:
       type: object
       properties:
         id:
-          type: integer
-          description: The id of this judgement
-          format: int64
-          x-cupido-id: true
-        restrictiveMeasureCarePlanEntryId:
-          type: integer
-          description: The id of the restrictive measure care plan entry this judgement is linked to
-          format: int64
-        status:
-          type: integer
-          description: 'The status of the status
-
-            - 0 draft
-
-            - 1 rejected
-
-            - 2 approved'
-          format: int32
-        text:
-          type:
-          - string
-          - 'null'
-          description: The text of the judgement
-        clientExternalId:
-          type: integer
-          description: The id of the client this judgement is linked to
-          format: int64
-        reviewerUserId:
           type:
           - integer
           - 'null'
-          description: The id of the user who reviewed this judgement
           format: int64
-        reviewedAt:
+          x-cupido-id: true
+        uuid:
           type:
           - string
           - 'null'
-          description: The date and time when this judgement was reviewed
-          format: date-time
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
         createdById:
-          type: integer
-          description: The id of the user who created this judgement
+          type:
+          - integer
+          - 'null'
           format: int64
         updatedById:
-          type: integer
-          description: The id of the user who last updated this judgement
+          type:
+          - integer
+          - 'null'
           format: int64
         createdAt:
-          type: string
-          description: The date and time when this judgement was created
+          type:
+          - string
+          - 'null'
           format: date-time
         updatedAt:
-          type: string
-          description: The date and time when this judgement was last updated
+          type:
+          - string
+          - 'null'
           format: date-time
-      description: RestrictiveMeasureCarePlanEntryJudgement model (no description)
+      description: MedicalBase model (no description)
       example:
         id: 1
-        restrictiveMeasureCarePlanEntryId: 2
-        status: 1
-        text: text
-        clientExternalId: 3
-        reviewerUserId: 4
-        reviewedAt: '2021-01-01T00:00:00.000+01:00'
-        createdById: 5
-        updatedById: 6
-        createdAt: '2021-01-01T00:00:00.000+01:00'
-        updatedAt: '2021-01-01T00:00:00.000+01:00'
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.RestrictiveMeasureCarePlanEntryProblemNarrative:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The problem narrative's ID.
+          format: int64
+          x-cupido-id: true
+        tag:
+          type:
+          - string
+          - 'null'
+          description: 'The problem narrative description. Possible values and their Dutch translations:
+
+
+            WZD-labels:
+
+            <ul>
+
+            <li>mortal_danger_self_others: levensgevaar voor de cliënt of iemand anders</li>
+
+            <li>bodily_harm: ernstig lichamelijk letsel voor de cliënt of iemand anders</li>
+
+            <li>damage_self_others: ernstige psychische, materiële, immateriële of financiële schade voor de cliënt of iemand anders</li>
+
+            <li>severe_neglect: ernstige verwaarlozing of maatschappelijke teloorgang van de cliënt of iemand anders</li>
+
+            <li>disturbed_development: ernstig verstoorde ontwikkeling van de cliënt of iemand anders</li>
+
+            <li>safety_client: bedreiging van de veiligheid van de cliënt al dan niet doordat hij onder invloed van een ander raakt</li>
+
+            <li>aggression_others: de situatie dat de cliënt met hinderlijk gedrag agressie van anderen oproept</li>
+
+            <li>general_safety: de situatie dat de algemene veiligheid van personen of goederen in gevaar is</li>
+
+            </ul>
+
+
+            WZD-FZ-labels:
+
+            <ul>
+
+            <li>danger_order_safety: gevaar voor de orde en veiligheid afwenden</li>
+
+            <li>risk_for_felony: het risico op een ernstig strafbaar feit afwenden</li>
+
+            <li>health_client: ernstige nadelige gevolgen voor de gezondheidstoestand van de cliënt afwenden</li>
+
+            </ul>'
+      description: A problem narrative for a {@link RestrictiveMeasureCarePlanEntry}.
+      example:
+        id: 1
+        tag: general_safety
     dossier.RestrictiveMeasureCarePlanEntryReason:
       type: object
       properties:
@@ -1340,53 +1282,6 @@ components:
       example:
         id: 1
         tag: prevent_crisis
-    dossier.medical.MedicalBase:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        uuid:
-          type:
-          - string
-          - 'null'
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        updatedById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      description: MedicalBase model (no description)
-      example:
-        id: 1
-        uuid: Dummy
-        clientId: 1
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T00:00:00.000+01:00'
-        updatedAt: '2014-11-10T00:00:00.000+01:00'
     dossier.medical.DeviceBuilder:
       type: object
       allOf:
@@ -1411,6 +1306,34 @@ components:
         field: one
         value: empty
         message: field can not be empty
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
     dossier.RestrictiveMeasureEvaluation:
       type: object
       allOf:
@@ -1438,25 +1361,102 @@ components:
         updatedAt: '2014-11-14T00:00:00.000+01:00'
         evaluationText: Evaluation text
         evaluationDate: '2014-11-14'
-    ErrorResponse:
-      title: ErrorResponse
+    dossier.list.RestrictiveMeasureCarePlanEntryList:
       type: object
       properties:
-        errorResponseEntries:
-          type: array
+        restrictiveMeasureCarePlanEntries:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureCarePlanEntry'
+      description: RestrictiveMeasureCarePlanEntryList model (no description)
       example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
+        restrictiveMeasureCarePlanEntries:
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 1
+          createdById: 1
+          updatedById: 1
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          situation: in careplan
+          typeCompetent: true
+          typeAgreement: true
+          typeResistant: true
+          decisionNarrative: Decision narrative
+          inspectionReportDate: '2015-09-17'
+          status: active
+          problemNarrative: Problem narrative
+          goalNarrative: Problem narrative
+          beginDate: '2015-09-17'
+          endDate: '2015-09-17'
+          nextEvaluationDate: '2015-09-17'
+          risksNarrative: Risks narrative
+          guaranteeNarrative: Guarantee narrative
+          reductionNarrative: Reduction narrative
+          proportionality: Proportionality
+          subsidiarity: Subsidiarity
+          effectiveness: Effectiveness
+          secondOpinion: Second opinion
+          reasonNarrative: Reason narrative
+          researchDate: '2015-10-17'
+          safety: Safety
+          gdConferDate: '2015-10-16'
+          combinedConditions: Combined conditions
+          evaluationNote: Evaluation note
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 1
+          createdById: 1
+          updatedById: 1
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          situation: in careplan
+          typeCompetent: true
+          typeAgreement: true
+          typeResistant: true
+          decisionNarrative: Decision narrative
+          inspectionReportDate: '2015-09-17'
+          status: active
+          problemNarrative: Problem narrative
+          goalNarrative: Problem narrative
+          beginDate: '2015-09-17'
+          endDate: '2015-09-17'
+          nextEvaluationDate: '2015-09-17'
+          risksNarrative: Risks narrative
+          guaranteeNarrative: Guarantee narrative
+          reductionNarrative: Reduction narrative
+          proportionality: Proportionality
+          subsidiarity: Subsidiarity
+          effectiveness: Effectiveness
+          secondOpinion: Second opinion
+          reasonNarrative: Reason narrative
+          researchDate: '2015-10-17'
+          safety: Safety
+          gdConferDate: '2015-10-16'
+          combinedConditions: Combined conditions
+          evaluationNote: Evaluation note
+    dossier.medical.Device:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The unique ID of the device
+          format: int64
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the device
+      description: Optional device that was used as a restrictive measure
+      example:
+        id: 1
+        name: Bedrails
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

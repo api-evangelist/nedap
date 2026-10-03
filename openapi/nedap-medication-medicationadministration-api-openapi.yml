@@ -246,6 +246,111 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    medication.MedicationAdministrationStatus:
+      title: MedicationAdministrationStatus
+      enum:
+      - administered
+      - handed
+      - prepared
+      - failed
+      - none_scheduled
+      - self_managed
+      type: string
+      description: A recorded status of a medication administration by a care worker.
+      example: administered
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    CodeableConcept:
+      type: object
+      properties:
+        codings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+          description: List of Codings defined by a terminology system
+        text:
+          type: string
+          description: Plain text representation of the concept
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#codeableconcept
+      example:
+        codings:
+        - system: http://hl7.org/fhir/sid/icd-10
+          code: R51
+        - system: http://snomed.info/sct
+          code: '25064002'
+          display: Headache
+        text: general headache
+    medication.list.MedicationAdministrationList:
+      type: object
+      properties:
+        medicationAdministrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/medication.MedicationAdministration'
+      description: MedicationAdministrationList model (no description)
+      example:
+        medicationAdministrations:
+        - id: 92332
+          superseded: false
+          clientId: 23976
+          employeeId: 3972
+          exempt: false
+          scheduledDuringClientAbsence: false
+          status: administered
+          medication:
+            text: FENTANYL MAT AUR 100MCG/UUR
+            codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.8
+              code: '16746422'
+          dosage:
+            dose:
+              value: '1.0'
+              unit: pleister
+            route:
+              text: TRANSDERMAAL
+              codings:
+              - system: urn:oid:2.16.840.1.113883.2.4.4.9
+                code: '58'
+                display: TRANSDERMAAL
+          agreedDateTime: '2026-05-12T08:00:00.000+02:00'
+          effectiveDateTime: '2026-05-12T08:00:00.000+02:00'
+          registrationDateTime: '2026-05-12T08:05:00.000+02:00'
+          reasonForDeviation:
+            text: Overig
+            codings:
+            - system: http://terminology.hl7.org/CodeSystem/v3-NullFlavor
+              code: OTH
+              display: Overig
+          injectionPatchSite:
+            site:
+              text: structuur van onderste gedeelte van lumbale regio van wand van abdomen
+              codings:
+              - system: http://snomed.info/sct
+                code: '160481000146106'
+                display: structuur van onderste gedeelte van lumbale regio van wand van abdomen
+            laterality:
+              text: links
+              codings:
+              - system: http://snomed.info/sct
+                code: '7771000'
+                display: links
     medication.MedicationAdministration:
       title: MedicationAdministration
       required:
@@ -379,77 +484,6 @@ components:
               code: '7771000'
               display: links
         note: Cliënt sliep en kon niet gewekt worden
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-          description: Identity of the terminology system (URI)
-        code:
-          type: string
-          description: Symbol in syntax defined by the system
-        display:
-          type: string
-          description: Representation defined by the system
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#Coding
-      example:
-        system: http://snomed.info/sct
-        code: '25064002'
-        display: Headache
-    medication.list.MedicationAdministrationList:
-      type: object
-      properties:
-        medicationAdministrations:
-          type: array
-          items:
-            $ref: '#/components/schemas/medication.MedicationAdministration'
-      description: MedicationAdministrationList model (no description)
-      example:
-        medicationAdministrations:
-        - id: 92332
-          superseded: false
-          clientId: 23976
-          employeeId: 3972
-          exempt: false
-          scheduledDuringClientAbsence: false
-          status: administered
-          medication:
-            text: FENTANYL MAT AUR 100MCG/UUR
-            codings:
-            - system: urn:oid:2.16.840.1.113883.2.4.4.8
-              code: '16746422'
-          dosage:
-            dose:
-              value: '1.0'
-              unit: pleister
-            route:
-              text: TRANSDERMAAL
-              codings:
-              - system: urn:oid:2.16.840.1.113883.2.4.4.9
-                code: '58'
-                display: TRANSDERMAAL
-          agreedDateTime: '2026-05-12T08:00:00.000+02:00'
-          effectiveDateTime: '2026-05-12T08:00:00.000+02:00'
-          registrationDateTime: '2026-05-12T08:05:00.000+02:00'
-          reasonForDeviation:
-            text: Overig
-            codings:
-            - system: http://terminology.hl7.org/CodeSystem/v3-NullFlavor
-              code: OTH
-              display: Overig
-          injectionPatchSite:
-            site:
-              text: structuur van onderste gedeelte van lumbale regio van wand van abdomen
-              codings:
-              - system: http://snomed.info/sct
-                code: '160481000146106'
-                display: structuur van onderste gedeelte van lumbale regio van wand van abdomen
-            laterality:
-              text: links
-              codings:
-              - system: http://snomed.info/sct
-                code: '7771000'
-                display: links
     medication.Dosage:
       type: object
       properties:
@@ -476,38 +510,6 @@ components:
           - system: urn:oid:2.16.840.1.113883.2.4.4.9
             code: '58'
             display: TRANSDERMAAL
-    medication.MedicationAdministrationStatus:
-      title: MedicationAdministrationStatus
-      enum:
-      - administered
-      - handed
-      - prepared
-      - failed
-      - none_scheduled
-      - self_managed
-      type: string
-      description: A recorded status of a medication administration by a care worker.
-      example: administered
-    CodeableConcept:
-      type: object
-      properties:
-        codings:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-          description: List of Codings defined by a terminology system
-        text:
-          type: string
-          description: Plain text representation of the concept
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#codeableconcept
-      example:
-        codings:
-        - system: http://hl7.org/fhir/sid/icd-10
-          code: R51
-        - system: http://snomed.info/sct
-          code: '25064002'
-          display: Headache
-        text: general headache
     Quantity:
       type: object
       properties:
@@ -584,25 +586,23 @@ components:
           - system: http://snomed.info/sct
             code: '7771000'
             display: links
-    ErrorResponse:
-      title: ErrorResponse
+    Coding:
       type: object
       properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
+        system:
+          type: string
+          description: Identity of the terminology system (URI)
+        code:
+          type: string
+          description: Symbol in syntax defined by the system
+        display:
+          type: string
+          description: Representation defined by the system
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#Coding
       example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
+        system: http://snomed.info/sct
+        code: '25064002'
+        display: Headache
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

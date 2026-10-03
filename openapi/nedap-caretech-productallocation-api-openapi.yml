@@ -63,6 +63,15 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    caretech.Status:
+      enum:
+      - REQUEST
+      - ACTIVE
+      - INACTIVE
+      - UNKNOWN
+      type: string
+      description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
+      example: ACTIVE
     caretech.ProductAllocation:
       required:
       - clientId
@@ -208,15 +217,6 @@ components:
         stopDate: '2024-04-17'
       xml:
         name: productDto
-    caretech.Status:
-      enum:
-      - REQUEST
-      - ACTIVE
-      - INACTIVE
-      - UNKNOWN
-      type: string
-      description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
-      example: ACTIVE
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -249,30 +249,49 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    export.list.ExportPresenceLogList:
+    export.ExportStatus:
       type: object
       properties:
-        exportPresenceLogs:
+        exportUuid:
+          $ref: '#/components/schemas/export.ExportUuid'
+        exportStatusType:
+          $ref: '#/components/schemas/export.ExportStatusType'
+        exportSettings:
           type: array
           items:
-            $ref: '#/components/schemas/export.ExportPresenceLog'
+            $ref: '#/components/schemas/export.ExportSetting'
           xml:
-            name: exportPresenceLog
-      description: ExportPresenceLogList model (no description)
+            wrapped: true
+      description: Export Status entry returned from Cupido.
       example:
-        exportPresenceLogs:
-        - clientId: 234
-          employeeId: 123
-          teamId: 345
-          locationId: 456
-          employeeContractId: '567'
-          productName: name
-          isDuration: true
-          beginDate: '1973-12-20T17:00:00.000+01:00'
-          endDate: '2015-12-20T17:23:59.999+01:00'
-          duration: true
+        exportUuid:
+          uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
+        exportStatusType: RUNNING
+        exportSettings:
+        - key: start date
+          value: '2015-12-20T17:23:59.999+01:00'
       xml:
-        name: exportPresenceLogs
+        name: exportStatus
+    export.ExportStatusType:
+      enum:
+      - STARTED
+      - RUNNING
+      - FINISHED
+      - ERROR
+      - UNKNOWN
+      type: string
+      description: ExportStatusType enum (no description)
+      example: STARTED
+    export.ExportUuid:
+      type: object
+      properties:
+        uuid:
+          type: string
+      description: Export Status entry returned from Cupido.
+      example:
+        uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
+      xml:
+        name: exportUuid
     export.ExportPresenceLog:
       type: object
       properties:
@@ -319,39 +338,6 @@ components:
         duration: true
       xml:
         name: exportPresenceLog
-    export.ExportStatus:
-      type: object
-      properties:
-        exportUuid:
-          $ref: '#/components/schemas/export.ExportUuid'
-        exportStatusType:
-          $ref: '#/components/schemas/export.ExportStatusType'
-        exportSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/export.ExportSetting'
-          xml:
-            wrapped: true
-      description: Export Status entry returned from Cupido.
-      example:
-        exportUuid:
-          uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
-        exportStatusType: RUNNING
-        exportSettings:
-        - key: start date
-          value: '2015-12-20T17:23:59.999+01:00'
-      xml:
-        name: exportStatus
-    export.ExportUuid:
-      type: object
-      properties:
-        uuid:
-          type: string
-      description: Export Status entry returned from Cupido.
-      example:
-        uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
-      xml:
-        name: exportUuid
     export.ExportSetting:
       type: object
       properties:
@@ -365,16 +351,30 @@ components:
         value: '2015-12-20T17:23:59.999+01:00'
       xml:
         name: exportSetting
-    export.ExportStatusType:
-      enum:
-      - STARTED
-      - RUNNING
-      - FINISHED
-      - ERROR
-      - UNKNOWN
-      type: string
-      description: ExportStatusType enum (no description)
-      example: STARTED
+    export.list.ExportPresenceLogList:
+      type: object
+      properties:
+        exportPresenceLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/export.ExportPresenceLog'
+          xml:
+            name: exportPresenceLog
+      description: ExportPresenceLogList model (no description)
+      example:
+        exportPresenceLogs:
+        - clientId: 234
+          employeeId: 123
+          teamId: 345
+          locationId: 456
+          employeeContractId: '567'
+          productName: name
+          isDuration: true
+          beginDate: '1973-12-20T17:00:00.000+01:00'
+          endDate: '2015-12-20T17:23:59.999+01:00'
+          duration: true
+      xml:
+        name: exportPresenceLogs
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -2018,6 +2018,73 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.ClientSearchResultList:
+      type: object
+      properties:
+        clientSearchResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientSearchResult'
+          xml:
+            name: clientSearchResult
+      description: ClientSearchResultList model (no description)
+      example:
+        clientSearchResults:
+        - id: 1929
+          identificationNo: '7777777'
+          name: Dhr. PJ Paulusma
+          firstName: Pieter Johan
+          lastName: Paulusma
+          givenName: Piet
+          gender: M
+          dateOfBirth: '1956-12-31'
+          secretClient: false
+          addressString: Dorpstraat 1, Het Dorp
+          birthName: Paulusma
+          partnerName: none
+          birthNamePrefix: none
+          partnerNamePrefix: none
+          initials: PJ
+          preferredNameType: birthname
+          group: UNGROUPED
+      xml:
+        name: clientSearchResults
+    list.ClientObjectIdList:
+      type: object
+      properties:
+        clientObjectIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientObjectId'
+      description: List of clientObjectIds
+      example:
+        clientObjectIds:
+        - value: 54321
+        - value: 42
+      xml:
+        name: clientObjectIds
+    GenderIdentityType:
+      enum:
+      - MALE
+      - FEMALE
+      - NON_BINARY
+      type: string
+      description: 'Predefined type of gender identity. MALE: ''man'', FEMALE: ''vrouw'', NON_BINARY: ''non-binair'''
+      example: NON_BINARY
+    Pronouns:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/PronounsType'
+        description:
+          type: string
+          description: Translated description of the pronouns.
+      description: The usage of this schema is deprecated and has been replaced by PronounsType.
+      example:
+        type: WHO_THEIR
+        description: die/diens
+      deprecated: true
+      x-deprecated-since: 21-08-2026
     ClientSearchResultGroup:
       type: string
       oneOf:
@@ -2043,6 +2110,26 @@ components:
 
         This is only set after calling the ''searchGrouped'' API.'
       example: UNGROUPED
+    list.ClientList:
+      type: object
+      properties:
+        clients:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Client'
+          xml:
+            name: client
+      description: ClientList model (no description)
+      example:
+        clients:
+        - id: 1
+          firstName: Mike
+          dateOfBirth: '2012-08-02'
+          birthName: Wazowski
+      xml:
+        name: clients
     Person:
       type: object
       properties:
@@ -2150,37 +2237,96 @@ components:
         freeField4: Free field 4 description
         updatedAt: '2016-01-01T12:00:00.000+01:00'
         createdAt: '2016-01-01T12:00:00.000+01:00'
-    list.ClientSearchResultList:
+    ClientSearchResult:
       type: object
       properties:
-        clientSearchResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientSearchResult'
-          xml:
-            name: clientSearchResult
-      description: ClientSearchResultList model (no description)
+        id:
+          type: integer
+          description: the id of this object
+          format: int64
+          x-cupido-id: true
+        identificationNo:
+          type: string
+          description: The client number for this Client; e.g. "234567"
+        name:
+          type: string
+          description: The full name of this client; e.g. "Petrus Johannes Paulusma"
+        firstName:
+          type: string
+          description: This Client's first name; e.g. "Petrus Johannes"
+        lastName:
+          type: string
+          description: This Client's last name; e.g. "Paulusma"
+        givenName:
+          type: string
+          description: This Client's given name; e.g. "Piet"
+        gender:
+          type: string
+          description: This Client's gender; can be male, female or unknown
+        pronouns:
+          type: string
+          description: 'This Client''s pronouns; e.g. "zij/haar", "hij/zijn" etc. '
+        preferredName:
+          type: string
+          description: Preferred name of this client. In case a client prefers a different name over the official name; e.g. "Petra Paulusma"
+        dateOfBirth:
+          type: string
+          description: Date of birth, formatted yyyy-mm-dd
+          format: date
+        secretClient:
+          type: boolean
+          description: Boolean for celebrities
+        addressString:
+          type: string
+          description: This Client's address; e.g. "Parallelweg 2, 7141 DC, Groenlo"
+        birthName:
+          type: string
+          description: This Client's surname at birth
+        partnerName:
+          type: string
+          description: This Client's partner's surname at birth
+        birthNamePrefix:
+          type: string
+          description: This Client's prefix; e.g. "van"
+        partnerNamePrefix:
+          type: string
+          description: This client's partner's prefix; e.g. "van de"
+        initials:
+          type: string
+          description: This Client's initials; e.g. "PJ"
+        preferredNameType:
+          type: string
+          description: This Client's preferred name type; e.g. "partnerName"
+        group:
+          allOf:
+          - $ref: '#/components/schemas/ClientSearchResultGroup'
+          description: 'The group to which this result belongs.
+
+            This is only set after calling the ''searchGrouped'' API.'
+          default: UNGROUPED
+      description: Search Result after querying OnsAdmin
       example:
-        clientSearchResults:
-        - id: 1929
-          identificationNo: '7777777'
-          name: Dhr. PJ Paulusma
-          firstName: Pieter Johan
-          lastName: Paulusma
-          givenName: Piet
-          gender: M
-          dateOfBirth: '1956-12-31'
-          secretClient: false
-          addressString: Dorpstraat 1, Het Dorp
-          birthName: Paulusma
-          partnerName: none
-          birthNamePrefix: none
-          partnerNamePrefix: none
-          initials: PJ
-          preferredNameType: birthname
-          group: UNGROUPED
+        id: 1
+        identificationNo: '12345'
+        name: Dhr. PJ Paulusma
+        firstName: Pieter Johan
+        lastName: Paulusma
+        givenName: Piet
+        gender: M
+        pronouns: zij/haar
+        preferredName: Petra Paulusma
+        dateOfBirth: '1956-12-31'
+        secretClient: false
+        addressString: Dorpstraat 1, Het Dorp
+        birthName: Paulusma
+        partnerName: none
+        birthNamePrefix: none
+        partnerNamePrefix: none
+        initials: PJ
+        preferredNameType: '0'
+        group: WAITINGLIST
       xml:
-        name: clientSearchResults
+        name: clientSearchResult
     ClientObjectId:
       required:
       - value
@@ -2192,14 +2338,116 @@ components:
       description: id of a Client object
       example:
         value: 54321
-    GenderIdentityType:
+    PronounsType:
       enum:
-      - MALE
-      - FEMALE
-      - NON_BINARY
+      - SHE_HER
+      - HE_HIS
+      - WHO_THEIR
+      - THEM_THEIRS
       type: string
-      description: 'Predefined type of gender identity. MALE: ''man'', FEMALE: ''vrouw'', NON_BINARY: ''non-binair'''
-      example: NON_BINARY
+      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
+      example: WHO_THEIR
+    CareAllocation:
+      required:
+      - clientId
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        comments:
+          type: string
+        destination:
+          type: string
+          description: 'NVT: N.v.t.
+
+            EIGEN_OMGEVING: Eigen omgeving
+
+            EIGEN_OMGEVING_DAGBEHANDELING: Eigen omgeving met dagbehandeling
+
+            INSTELLING_WLZ: Instelling (WLZ) of ziekenhuis
+
+            INSTELLING_NIET_WLZ: Instelling (niet-WLZ)'
+        reason:
+          type: string
+          description: 'REJECTED: Afgekeurd
+
+            CLASS_CHANGED: Klasse is aangepast
+
+            REVOKE_MUT: Intrekking MUT
+
+            REVOKE_MAZ: Intrekking MAZ
+
+            IN_CARE: N.v.t.
+
+            DISMISS: Ontslag (intramuraal)
+
+            DEATH: Overlijden
+
+            TEMP_GONE: Tijdelijke afwezigheid
+
+            REFUSED_BY_PROVIDER: Aanbieder weigert functie
+
+            REFUSED_BY_CLIENT: Cliënt weigert functie
+
+            RESUME: Onderbroken functie hervat
+
+            END_OF_CARE: Beëindiging zorg
+
+            TRANSFER: Overplaatsing
+
+            END_OF_CARE_CLOSE_FUNCTION: Einde zorg (functies intrekken)
+
+            END_OF_CARE_OPEN_FUNCTION: Einde zorg (functies openlaten)
+
+            TRANSFER_NO_MAZ: Overplaatsing (er is geen Maz)
+
+            REQUEST_CUSTOM_CARE_ORDER: Aanvraag aangepaste zorgtoewijzing
+
+            END_OF_CARE_AFTER_INTAKE: Beëindiging zorg na intake
+
+            DEATH_BY_SUICIDE: Overlijden door suïcide'
+        reasonTemporary:
+          type: string
+          description: 'NVT: N.v.t.
+
+            VAKANTIEVERLOF: Vakantieverlof
+
+            ZIEKENHUISOPNAME: Ziekenhuisopname
+
+            KORTE_VERBLIJFPLAATSING: Korte verblijfplaatsing in WLZ-erkende instelling
+
+            TIJDELIJK_THUIS: Tijdelijk thuis
+
+            PANDEMIE: Pandemie'
+        careProviderId:
+          type: integer
+          description: Care provider id, required when reason is TRANSFER and destination is INSTELLING_WLZ
+          format: int64
+      description: CareAllocation model (no description)
+      example:
+        id: 1
+        clientId: 10
+        beginDate: '2016-01-01'
+        endDate: '2020-01-01'
+        comments: niets te melden
+        destination: EIGEN_OMGEVING
+        reason: IN_CARE
+        reasonTemporary: VAKANTIEVERLOF
+        careProviderId: 42
+      xml:
+        name: careAllocation
     Client:
       type: object
       allOf:
@@ -2429,254 +2677,6 @@ components:
         genderIdentityType: NON_BINARY
       xml:
         name: client
-    list.ClientList:
-      type: object
-      properties:
-        clients:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Client'
-          xml:
-            name: client
-      description: ClientList model (no description)
-      example:
-        clients:
-        - id: 1
-          firstName: Mike
-          dateOfBirth: '2012-08-02'
-          birthName: Wazowski
-      xml:
-        name: clients
-    CareAllocation:
-      required:
-      - clientId
-      - beginDate
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        clientId:
-          type: integer
-          format: int64
-        beginDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        comments:
-          type: string
-        destination:
-          type: string
-          description: 'NVT: N.v.t.
-
-            EIGEN_OMGEVING: Eigen omgeving
-
-            EIGEN_OMGEVING_DAGBEHANDELING: Eigen omgeving met dagbehandeling
-
-            INSTELLING_WLZ: Instelling (WLZ) of ziekenhuis
-
-            INSTELLING_NIET_WLZ: Instelling (niet-WLZ)'
-        reason:
-          type: string
-          description: 'REJECTED: Afgekeurd
-
-            CLASS_CHANGED: Klasse is aangepast
-
-            REVOKE_MUT: Intrekking MUT
-
-            REVOKE_MAZ: Intrekking MAZ
-
-            IN_CARE: N.v.t.
-
-            DISMISS: Ontslag (intramuraal)
-
-            DEATH: Overlijden
-
-            TEMP_GONE: Tijdelijke afwezigheid
-
-            REFUSED_BY_PROVIDER: Aanbieder weigert functie
-
-            REFUSED_BY_CLIENT: Cliënt weigert functie
-
-            RESUME: Onderbroken functie hervat
-
-            END_OF_CARE: Beëindiging zorg
-
-            TRANSFER: Overplaatsing
-
-            END_OF_CARE_CLOSE_FUNCTION: Einde zorg (functies intrekken)
-
-            END_OF_CARE_OPEN_FUNCTION: Einde zorg (functies openlaten)
-
-            TRANSFER_NO_MAZ: Overplaatsing (er is geen Maz)
-
-            REQUEST_CUSTOM_CARE_ORDER: Aanvraag aangepaste zorgtoewijzing
-
-            END_OF_CARE_AFTER_INTAKE: Beëindiging zorg na intake
-
-            DEATH_BY_SUICIDE: Overlijden door suïcide'
-        reasonTemporary:
-          type: string
-          description: 'NVT: N.v.t.
-
-            VAKANTIEVERLOF: Vakantieverlof
-
-            ZIEKENHUISOPNAME: Ziekenhuisopname
-
-            KORTE_VERBLIJFPLAATSING: Korte verblijfplaatsing in WLZ-erkende instelling
-
-            TIJDELIJK_THUIS: Tijdelijk thuis
-
-            PANDEMIE: Pandemie'
-        careProviderId:
-          type: integer
-          description: Care provider id, required when reason is TRANSFER and destination is INSTELLING_WLZ
-          format: int64
-      description: CareAllocation model (no description)
-      example:
-        id: 1
-        clientId: 10
-        beginDate: '2016-01-01'
-        endDate: '2020-01-01'
-        comments: niets te melden
-        destination: EIGEN_OMGEVING
-        reason: IN_CARE
-        reasonTemporary: VAKANTIEVERLOF
-        careProviderId: 42
-      xml:
-        name: careAllocation
-    Pronouns:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/PronounsType'
-        description:
-          type: string
-          description: Translated description of the pronouns.
-      description: The usage of this schema is deprecated and has been replaced by PronounsType.
-      example:
-        type: WHO_THEIR
-        description: die/diens
-      deprecated: true
-      x-deprecated-since: 21-08-2026
-    ClientSearchResult:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: the id of this object
-          format: int64
-          x-cupido-id: true
-        identificationNo:
-          type: string
-          description: The client number for this Client; e.g. "234567"
-        name:
-          type: string
-          description: The full name of this client; e.g. "Petrus Johannes Paulusma"
-        firstName:
-          type: string
-          description: This Client's first name; e.g. "Petrus Johannes"
-        lastName:
-          type: string
-          description: This Client's last name; e.g. "Paulusma"
-        givenName:
-          type: string
-          description: This Client's given name; e.g. "Piet"
-        gender:
-          type: string
-          description: This Client's gender; can be male, female or unknown
-        pronouns:
-          type: string
-          description: 'This Client''s pronouns; e.g. "zij/haar", "hij/zijn" etc. '
-        preferredName:
-          type: string
-          description: Preferred name of this client. In case a client prefers a different name over the official name; e.g. "Petra Paulusma"
-        dateOfBirth:
-          type: string
-          description: Date of birth, formatted yyyy-mm-dd
-          format: date
-        secretClient:
-          type: boolean
-          description: Boolean for celebrities
-        addressString:
-          type: string
-          description: This Client's address; e.g. "Parallelweg 2, 7141 DC, Groenlo"
-        birthName:
-          type: string
-          description: This Client's surname at birth
-        partnerName:
-          type: string
-          description: This Client's partner's surname at birth
-        birthNamePrefix:
-          type: string
-          description: This Client's prefix; e.g. "van"
-        partnerNamePrefix:
-          type: string
-          description: This client's partner's prefix; e.g. "van de"
-        initials:
-          type: string
-          description: This Client's initials; e.g. "PJ"
-        preferredNameType:
-          type: string
-          description: This Client's preferred name type; e.g. "partnerName"
-        group:
-          allOf:
-          - $ref: '#/components/schemas/ClientSearchResultGroup'
-          description: 'The group to which this result belongs.
-
-            This is only set after calling the ''searchGrouped'' API.'
-          default: UNGROUPED
-      description: Search Result after querying OnsAdmin
-      example:
-        id: 1
-        identificationNo: '12345'
-        name: Dhr. PJ Paulusma
-        firstName: Pieter Johan
-        lastName: Paulusma
-        givenName: Piet
-        gender: M
-        pronouns: zij/haar
-        preferredName: Petra Paulusma
-        dateOfBirth: '1956-12-31'
-        secretClient: false
-        addressString: Dorpstraat 1, Het Dorp
-        birthName: Paulusma
-        partnerName: none
-        birthNamePrefix: none
-        partnerNamePrefix: none
-        initials: PJ
-        preferredNameType: '0'
-        group: WAITINGLIST
-      xml:
-        name: clientSearchResult
-    PronounsType:
-      enum:
-      - SHE_HER
-      - HE_HIS
-      - WHO_THEIR
-      - THEM_THEIRS
-      type: string
-      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
-      example: WHO_THEIR
-    list.ClientObjectIdList:
-      type: object
-      properties:
-        clientObjectIds:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientObjectId'
-      description: List of clientObjectIds
-      example:
-        clientObjectIds:
-        - value: 54321
-        - value: 42
-      xml:
-        name: clientObjectIds
     GenderIdentity:
       type: object
       properties:

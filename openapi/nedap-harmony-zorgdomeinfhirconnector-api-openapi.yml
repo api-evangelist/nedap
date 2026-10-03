@@ -113,20 +113,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    harmony.JsonResponseDto:
-      required:
-      - status
-      type: object
-      properties:
-        details:
-          type: string
-        status:
-          type: integer
-          format: int32
-      description: harmony.JsonResponseDto model (no description)
-      example:
-        details: Validation error
-        status: 1
     harmony.ZorgdomeinFhirConnector:
       required:
       - data
@@ -147,6 +133,20 @@ components:
       description: BundleWrapper model (no description)
       example:
         data: bundlejson
+    harmony.JsonResponseDto:
+      required:
+      - status
+      type: object
+      properties:
+        details:
+          type: string
+        status:
+          type: integer
+          format: int32
+      description: harmony.JsonResponseDto model (no description)
+      example:
+        details: Validation error
+        status: 1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

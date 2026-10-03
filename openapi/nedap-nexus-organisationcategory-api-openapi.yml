@@ -132,6 +132,22 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    nexus.list.OrganisationCategoryList:
+      type: object
+      properties:
+        organisationCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/nexus.OrganisationCategory'
+      description: OrganisationCategoryList model (no description)
+      example:
+        organisationCategories:
+        - updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          id: 7
+          name: Dentists
+          azr: false
+          reference: 1
     AuditedBase:
       title: AuditedBase
       type: object
@@ -190,22 +206,6 @@ components:
         active: false
         vektisCode: 2
         reference: 1
-    nexus.list.OrganisationCategoryList:
-      type: object
-      properties:
-        organisationCategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/nexus.OrganisationCategory'
-      description: OrganisationCategoryList model (no description)
-      example:
-        organisationCategories:
-        - updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          id: 7
-          name: Dentists
-          azr: false
-          reference: 1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

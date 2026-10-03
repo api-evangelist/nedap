@@ -146,23 +146,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    payroll.SubType:
-      type: string
-      oneOf:
-      - title: NONE
-        enum:
-        - none
-      - title: PLB
-        enum:
-        - plb
-      - title: LFB
-        enum:
-        - lfb
-      - title: SPECIAL_LEAVE
-        enum:
-        - special leave
-      description: SubType model (no description)
-      example: none
     payroll.AccountType:
       type: object
       properties:
@@ -203,6 +186,23 @@ components:
         endDate: '2016-12-31'
       xml:
         name: accountType
+    payroll.SubType:
+      type: string
+      oneOf:
+      - title: NONE
+        enum:
+        - none
+      - title: PLB
+        enum:
+        - plb
+      - title: LFB
+        enum:
+        - lfb
+      - title: SPECIAL_LEAVE
+        enum:
+        - special leave
+      description: SubType model (no description)
+      example: none
     payroll.list.AccountTypeList:
       type: object
       properties:

@@ -285,6 +285,104 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
+    dossier.medical.advance_directives.list.ContextList:
+      type: object
+      properties:
+        contexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.advance_directives.Context'
+      description: ContextList model (no description)
+      example:
+        contexts:
+        - id: 3
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 1
+          createdById: 2
+          updatedById: 4
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          narrative: Thats what I want
+          snomedExpressionValue: Dummy
+          date: '2014-11-14'
+          employeeId: 1337
+          status: Discussed with patient
+          immutable: true
     dossier.medical.advance_directives.Context:
       type: object
       allOf:
@@ -375,57 +473,6 @@ components:
         query: 61420007 | Tube feeding |
         name: Sondevoeding
         outcome: 373067005 | no |
-    dossier.medical.advance_directives.list.ContextList:
-      type: object
-      properties:
-        contexts:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.advance_directives.Context'
-      description: ContextList model (no description)
-      example:
-        contexts:
-        - id: 3
-          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-          clientId: 1
-          createdById: 2
-          updatedById: 4
-          createdAt: '2014-11-14T00:00:00.000+01:00'
-          updatedAt: '2014-11-14T00:00:00.000+01:00'
-          narrative: Thats what I want
-          snomedExpressionValue: Dummy
-          date: '2014-11-14'
-          employeeId: 1337
-          status: Discussed with patient
-          immutable: true
-    dossier.medical.RelationshipBuilder:
-      type: object
-      properties:
-        system:
-          type:
-          - string
-          - 'null'
-          description: 'Which code system this builder should query
-
-            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
-        query:
-          type:
-          - string
-          - 'null'
-          description: 'Query used to build the correct concept within the given code system.
-
-            Will use the first concept within the code system that matches the query,
-
-            for the best results your query should be as close as possible to a complete code from the system'
-        name:
-          type:
-          - string
-          - 'null'
-      description: RelationshipBuilder model (no description)
-      example:
-        system: Dummy
-        query: Dummy
-        name: Dummy
     dossier.medical.advance_directives.Decision:
       type: object
       properties:
@@ -443,53 +490,6 @@ components:
         name: Resuscitation
         outcome: 'Yes'
         snomedExpressionValue: '363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |'
-    dossier.medical.MedicalBase:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        uuid:
-          type:
-          - string
-          - 'null'
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        updatedById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      description: MedicalBase model (no description)
-      example:
-        id: 1
-        uuid: Dummy
-        clientId: 1
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T00:00:00.000+01:00'
-        updatedAt: '2014-11-10T00:00:00.000+01:00'
     dossier.medical.advance_directives.context.StatusKey:
       enum:
       - ACTIVE

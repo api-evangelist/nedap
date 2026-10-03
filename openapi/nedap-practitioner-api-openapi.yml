@@ -201,9 +201,7 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    PractitionerProfession:
-      required:
-      - beginDate
+    PractitionerSkjCode:
       type: object
       properties:
         id:
@@ -212,49 +210,61 @@ components:
           x-cupido-id: true
         employeeObjectId:
           type: integer
-          description: Id referring to the Employee object
           format: int64
         code:
           type: string
-          description: Profession code from the code list indicated in typeCode.
-        name:
+          description: This is a unique code, registred at skjeugd.nl
+        firstRegistrationDate:
           type: string
-          description: Abbreviated name for the profession
-        info:
-          type: string
-          description: Full description for the profession
-        type:
-          type: string
-          description: 'Indicates the codelist this profession orginates from
-
-            Please use #professionType instead'
-          deprecated: true
-        professionType:
-          allOf:
-          - $ref: '#/components/schemas/PractitionerProfessionType'
-          description: Indicates the codelist this profession orginates from
+          description: The date at which the skj code is first registered
+          format: date
         beginDate:
           type: string
-          description: The date at which the profession is beginning
+          description: The date at which the skj code is beginning
           format: date
         endDate:
           type: string
-          description: The date at which the profession is ending. Null means no ending.
+          description: The date at which the skj code is ending. Null means no ending.
           format: date
-      description: 'Practioner profession returned from Cupido for an Employee.
-
-
-        When PUT-ing or POST-ing PractitionerProfessions, the combination of code and professionType is used to uniquely identify the profession.'
+      description: An SKJ registration is a registration at Kwaliteitsregister Jeugd
       example:
         id: 1
         employeeObjectId: 1
-        code: '9992'
-        name: VK.OB.overig
-        info: Overig
-        type: COD878_GZ_BEROEPZORGVERLENER
-        professionType: 0
-        beginDate: '2018-01-01'
-        endDate: '2018-12-31'
+        code: '12345678'
+        firstRegistrationDate: '2024-01-01'
+        beginDate: '2024-01-01'
+        endDate: '2024-12-31'
+    PractitionerAgbCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          format: int64
+        code:
+          type: string
+        beginDate:
+          type: string
+          description: The date at which the agbcode is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the agbcode is ending. Null means no ending.
+          format: date
+        primary:
+          type: boolean
+          description: Indicates if this is the primary agbcode for the employee
+      description: PractitionerAgbCode model (no description)
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '12345678'
+        beginDate: '2022-01-01'
+        endDate: '2022-12-31'
+        primary: true
     PractitionerProfessionType:
       type: integer
       oneOf:
@@ -393,115 +403,6 @@ components:
         id: 1
         employeeObjectId: 1
         code: '12345678'
-    PractitionerAgbCode:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        employeeObjectId:
-          type: integer
-          format: int64
-        code:
-          type: string
-        beginDate:
-          type: string
-          description: The date at which the agbcode is beginning
-          format: date
-        endDate:
-          type: string
-          description: The date at which the agbcode is ending. Null means no ending.
-          format: date
-        primary:
-          type: boolean
-          description: Indicates if this is the primary agbcode for the employee
-      description: PractitionerAgbCode model (no description)
-      example:
-        id: 1
-        employeeObjectId: 1
-        code: '12345678'
-        beginDate: '2022-01-01'
-        endDate: '2022-12-31'
-        primary: true
-    list.PractitionerList:
-      type: object
-      properties:
-        practitioners:
-          type: array
-          items:
-            $ref: '#/components/schemas/Practitioner'
-          xml:
-            name: practitioner
-      description: PractitionerList model (no description)
-      example:
-        practitioners:
-        - id: 1
-          firstName: Henny
-          name: Bosbes
-          identificationNo: '12345'
-          dateOfBirth: '1982-03-28'
-          preferredNameType: '0'
-          lastName: Bosbes
-          birthName: Bosbes
-          partnerName: Knaak
-          initials: H
-          prefix: ir
-          birthNamePrefix: de
-          partnerNamePrefix: de
-          gender: M
-          emailAddress: hennybosbes@example.com
-          mobilePhone: 06123456789
-          updatedAt: '2017-05-09T00:00:00.000+02:00'
-          createdAt: '2017-05-09T00:00:00.000+02:00'
-          agbCodes:
-          - employeeObjectId: 1
-            code: '12345678'
-          bigCodes:
-          - employeeObjectId: 1
-            code: '12345678'
-          professions:
-          - employeeObjectId: 1
-            code: '9992'
-            name: VK.OB.overig
-            info: Overig
-            type: COD878_GZ_BEROEPZORGVERLENER
-            beginDate: '2022-01-01'
-      xml:
-        name: practitioners
-    PractitionerSkjCode:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        employeeObjectId:
-          type: integer
-          format: int64
-        code:
-          type: string
-          description: This is a unique code, registred at skjeugd.nl
-        firstRegistrationDate:
-          type: string
-          description: The date at which the skj code is first registered
-          format: date
-        beginDate:
-          type: string
-          description: The date at which the skj code is beginning
-          format: date
-        endDate:
-          type: string
-          description: The date at which the skj code is ending. Null means no ending.
-          format: date
-      description: An SKJ registration is a registration at Kwaliteitsregister Jeugd
-      example:
-        id: 1
-        employeeObjectId: 1
-        code: '12345678'
-        firstRegistrationDate: '2024-01-01'
-        beginDate: '2024-01-01'
-        endDate: '2024-12-31'
     Practitioner:
       type: object
       allOf:
@@ -582,6 +483,105 @@ components:
           beginDate: '2022-01-01'
       xml:
         name: practitioner
+    PractitionerProfession:
+      required:
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type: integer
+          description: Id referring to the Employee object
+          format: int64
+        code:
+          type: string
+          description: Profession code from the code list indicated in typeCode.
+        name:
+          type: string
+          description: Abbreviated name for the profession
+        info:
+          type: string
+          description: Full description for the profession
+        type:
+          type: string
+          description: 'Indicates the codelist this profession orginates from
+
+            Please use #professionType instead'
+          deprecated: true
+        professionType:
+          allOf:
+          - $ref: '#/components/schemas/PractitionerProfessionType'
+          description: Indicates the codelist this profession orginates from
+        beginDate:
+          type: string
+          description: The date at which the profession is beginning
+          format: date
+        endDate:
+          type: string
+          description: The date at which the profession is ending. Null means no ending.
+          format: date
+      description: 'Practioner profession returned from Cupido for an Employee.
+
+
+        When PUT-ing or POST-ing PractitionerProfessions, the combination of code and professionType is used to uniquely identify the profession.'
+      example:
+        id: 1
+        employeeObjectId: 1
+        code: '9992'
+        name: VK.OB.overig
+        info: Overig
+        type: COD878_GZ_BEROEPZORGVERLENER
+        professionType: 0
+        beginDate: '2018-01-01'
+        endDate: '2018-12-31'
+    list.PractitionerList:
+      type: object
+      properties:
+        practitioners:
+          type: array
+          items:
+            $ref: '#/components/schemas/Practitioner'
+          xml:
+            name: practitioner
+      description: PractitionerList model (no description)
+      example:
+        practitioners:
+        - id: 1
+          firstName: Henny
+          name: Bosbes
+          identificationNo: '12345'
+          dateOfBirth: '1982-03-28'
+          preferredNameType: '0'
+          lastName: Bosbes
+          birthName: Bosbes
+          partnerName: Knaak
+          initials: H
+          prefix: ir
+          birthNamePrefix: de
+          partnerNamePrefix: de
+          gender: M
+          emailAddress: hennybosbes@example.com
+          mobilePhone: 06123456789
+          updatedAt: '2017-05-09T00:00:00.000+02:00'
+          createdAt: '2017-05-09T00:00:00.000+02:00'
+          agbCodes:
+          - employeeObjectId: 1
+            code: '12345678'
+          bigCodes:
+          - employeeObjectId: 1
+            code: '12345678'
+          professions:
+          - employeeObjectId: 1
+            code: '9992'
+            name: VK.OB.overig
+            info: Overig
+            type: COD878_GZ_BEROEPZORGVERLENER
+            beginDate: '2022-01-01'
+      xml:
+        name: practitioners
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

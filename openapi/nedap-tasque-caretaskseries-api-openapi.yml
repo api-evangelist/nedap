@@ -69,6 +69,58 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    tasque.Executor:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        locationId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
+        expertiseProfileId:
+          type: integer
+          format: int64
+        expertiseGroupId:
+          type: integer
+          format: int64
+      description: Executor model (no description)
+      example:
+        employeeId: 1
+        locationId: 1
+        teamId: 1
+        expertiseProfileId: 1
+        expertiseGroupId: 1
     tasque.CareTaskSeries:
       type: object
       properties:
@@ -293,58 +345,6 @@ components:
         rights:
         - client_overview
         hideExpiredSubject: true
-    tasque.Executor:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          format: int64
-        locationId:
-          type: integer
-          format: int64
-        teamId:
-          type: integer
-          format: int64
-        expertiseProfileId:
-          type: integer
-          format: int64
-        expertiseGroupId:
-          type: integer
-          format: int64
-      description: Executor model (no description)
-      example:
-        employeeId: 1
-        locationId: 1
-        teamId: 1
-        expertiseProfileId: 1
-        expertiseGroupId: 1
-    RecurrenceType:
-      title: RecurrenceType
-      type:
-      - string
-      - 'null'
-      oneOf:
-      - title: SINGLE
-        enum:
-        - single
-      - title: DAILY
-        enum:
-        - daily
-      - title: WEEKLY
-        enum:
-        - weekly
-      - title: MONTHLY_ON_DAY
-        enum:
-        - monthly_on_day
-      - title: MONTHLY_ON_WEEK
-        enum:
-        - monthly_on_week
-      - title: YEARLY
-        enum:
-        - yearly
-      description: Frequency of the recurrence
-      default: single
-      example: single
     tasque.CareTaskGroup:
       required:
       - namedPath

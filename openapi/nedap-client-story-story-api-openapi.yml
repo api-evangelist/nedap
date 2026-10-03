@@ -421,6 +421,41 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    client_story.Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        definition:
+          type: string
+          description: A short description of this category
+        description:
+          type: string
+          description: A longer description of this category
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/client_story.Answer'
+          description: A list of answers in this category
+      description: Category model (no description)
+      example:
+        id: 1
+        definition: Interesses
+        description: Interesses van de client
+        answers:
+        - id: 1
+          schema: '{"type":"object","properties":{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":{"title":"Mijn favoriete gerecht is","description":"","type":"string"}}}'
+          data: '{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":"Spare ribs"}'
+    client_story.AccessLevel:
+      enum:
+      - NONE
+      - READ_ONLY
+      - READ_WRITE
+      type: string
+      description: The access level of the story, can be NONE, READ_ONLY, or READ_WRITE
+      example: NONE
     client_story.Story:
       type: object
       properties:
@@ -463,41 +498,6 @@ components:
         updatedAt: '2019-05-09T00:00:00.000+02:00'
         updatedSource: CarenDeployment
         updatedBy: 1
-    client_story.Category:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        definition:
-          type: string
-          description: A short description of this category
-        description:
-          type: string
-          description: A longer description of this category
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/client_story.Answer'
-          description: A list of answers in this category
-      description: Category model (no description)
-      example:
-        id: 1
-        definition: Interesses
-        description: Interesses van de client
-        answers:
-        - id: 1
-          schema: '{"type":"object","properties":{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":{"title":"Mijn favoriete gerecht is","description":"","type":"string"}}}'
-          data: '{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":"Spare ribs"}'
-    client_story.AccessLevel:
-      enum:
-      - NONE
-      - READ_ONLY
-      - READ_WRITE
-      type: string
-      description: The access level of the story, can be NONE, READ_ONLY, or READ_WRITE
-      example: NONE
     client_story.Answer:
       type: object
       properties:

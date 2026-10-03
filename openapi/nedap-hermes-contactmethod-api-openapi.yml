@@ -130,33 +130,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    hermes.ContactMethodConfig:
-      required:
-      - type
-      - allowNotifications
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'Type of contact method, e.g. email or sms
-
-
-            <pre>
-
-            Possible values:
-
-            SMS
-
-            Email
-
-            </pre>'
-        allowNotifications:
-          type: boolean
-          description: Allows Ons Notificaties to send notifications for this type of contact method
-      description: This class is used to update notification settings for Clients.
-      example:
-        type: SMS
-        allowNotifications: true
     hermes.ContactMethod:
       type: object
       properties:
@@ -194,6 +167,33 @@ components:
         value: '0600123456'
         status: validated
         templateSet: adult
+    hermes.ContactMethodConfig:
+      required:
+      - type
+      - allowNotifications
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Type of contact method, e.g. email or sms
+
+
+            <pre>
+
+            Possible values:
+
+            SMS
+
+            Email
+
+            </pre>'
+        allowNotifications:
+          type: boolean
+          description: Allows Ons Notificaties to send notifications for this type of contact method
+      description: This class is used to update notification settings for Clients.
+      example:
+        type: SMS
+        allowNotifications: true
     hermes.CareProviderSettings:
       type: object
       properties:

@@ -134,6 +134,31 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    nexus.list.ClientContactRelationTypeList:
+      type: object
+      properties:
+        clientContactRelationTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/nexus.ClientContactRelationType'
+      description: ClientContactRelationTypeList model (no description)
+      example:
+        clientContactRelationTypes:
+        - id: 6
+          name: Curator
+          primary: true
+          exclusive: true
+          negative: false
+          active: true
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+            id: 7
+            name: Standard
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
     AuditedBase:
       title: AuditedBase
       type: object
@@ -158,56 +183,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    nexus.ClientContactRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/nexus.RelationType'
-      description: Vektiscode
-      example:
-        id: 6
-        name: Curator
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: true
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-    nexus.RelationCategory:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
-      xml:
-        name: relationCategory
     nexus.RelationType:
       type: object
       allOf:
@@ -271,31 +246,56 @@ components:
           name: Standard
       deprecated: true
       x-deprecated-since: 03-10-2014
-    nexus.list.ClientContactRelationTypeList:
+    nexus.ClientContactRelationType:
       type: object
-      properties:
-        clientContactRelationTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/nexus.ClientContactRelationType'
-      description: ClientContactRelationTypeList model (no description)
+      allOf:
+      - $ref: '#/components/schemas/nexus.RelationType'
+      description: Vektiscode
       example:
-        clientContactRelationTypes:
-        - id: 6
-          name: Curator
-          primary: true
-          exclusive: true
-          negative: false
-          active: true
-          vektisCode: 1
-          reference: 1
-          relationCategory:
-            updatedAt: '2013-09-24T11:49:58.000+02:00'
-            createdAt: '2013-09-24T11:49:58.000+02:00'
-            id: 7
-            name: Standard
+        id: 6
+        name: Curator
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
           updatedAt: '2013-09-24T11:49:58.000+02:00'
           createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    nexus.RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+      xml:
+        name: relationCategory
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -183,6 +183,72 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    agenda.AgendaInvitation:
+      title: Invitation
+      type: object
+      properties:
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        accepted:
+          type:
+          - boolean
+          - 'null'
+        groupId:
+          type: integer
+          format: int64
+      description: Agenda invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
     agenda.AgendaClientInvitation:
       title: ClientInvitation
       type: object
@@ -221,33 +287,6 @@ components:
         surchargeIds:
         - 9
         - 10
-    RecurrenceType:
-      title: RecurrenceType
-      type:
-      - string
-      - 'null'
-      oneOf:
-      - title: SINGLE
-        enum:
-        - single
-      - title: DAILY
-        enum:
-        - daily
-      - title: WEEKLY
-        enum:
-        - weekly
-      - title: MONTHLY_ON_DAY
-        enum:
-        - monthly_on_day
-      - title: MONTHLY_ON_WEEK
-        enum:
-        - monthly_on_week
-      - title: YEARLY
-        enum:
-        - yearly
-      description: Frequency of the recurrence
-      default: single
-      example: single
     agenda.AgendaSeries:
       title: EventSeries
       required:
@@ -506,45 +545,6 @@ components:
         travelTimeBefore: 15
         travelTimeAfter: 35
         labels: []
-    agenda.AgendaInvitation:
-      title: Invitation
-      type: object
-      properties:
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        employeeId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        locationId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        teamId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        accepted:
-          type:
-          - boolean
-          - 'null'
-        groupId:
-          type: integer
-          format: int64
-      description: Agenda invitation domain model used by Cupido system.
-      example:
-        clientId: 1
-        employeeId: 2
-        locationId: 4
-        teamId: 3
-        groupId: 12
-        accepted: true
     agenda.Label:
       title: Label
       type: object

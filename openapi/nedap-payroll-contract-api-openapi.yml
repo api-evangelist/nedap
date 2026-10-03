@@ -376,27 +376,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    payroll.list.ContractList:
-      type: object
-      properties:
-        contracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.Contract'
-          xml:
-            name: contract
-      description: ContractList model (no description)
-      example:
-        contracts:
-        - id: 1
-          employeeId: 1
-          fixed: 1.234
-          var: 1.234
-          contractTypeId: 1
-          beginDate: '2015-01-01'
-          endDate: '2020-01-01'
-      xml:
-        name: contracts
     payroll.Contract:
       type: object
       properties:
@@ -436,6 +415,27 @@ components:
         endDate: '2020-01-01'
       xml:
         name: contract
+    payroll.list.ContractList:
+      type: object
+      properties:
+        contracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.Contract'
+          xml:
+            name: contract
+      description: ContractList model (no description)
+      example:
+        contracts:
+        - id: 1
+          employeeId: 1
+          fixed: 1.234
+          var: 1.234
+          contractTypeId: 1
+          beginDate: '2015-01-01'
+          endDate: '2020-01-01'
+      xml:
+        name: contracts
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

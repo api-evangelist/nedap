@@ -47,19 +47,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ons_ehr.Setting:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the setting
-        value:
-          type: string
-          description: The value of the setting
-      description: A setting from OnsEhr
-      example:
-        name: XPilot
-        value: 'true'
     ons_ehr.list.SettingList:
       type: object
       properties:
@@ -74,6 +61,19 @@ components:
           value: Abc
         - name: Setting2
           value: 'true'
+    ons_ehr.Setting:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the setting
+        value:
+          type: string
+          description: The value of the setting
+      description: A setting from OnsEhr
+      example:
+        name: XPilot
+        value: 'true'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -47,6 +47,18 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    status.ApplicationStatus:
+      type: object
+      properties:
+        anonymizeType:
+          allOf:
+          - $ref: '#/components/schemas/status.AnonymizeType'
+          description: the {@link com.nedap.healthcare.domain.status.AnonymizeType} to this application status
+      description: ApplicationStatus model (no description)
+      example:
+        anonymizeType: fully_anonymized
+      xml:
+        name: applicationStatus
     status.AnonymizeType:
       type: string
       oneOf:
@@ -61,18 +73,6 @@ components:
         - fully_anonymized
       description: the {@link com.nedap.healthcare.domain.status.AnonymizeType} to this application status
       example: not_anonymized
-    status.ApplicationStatus:
-      type: object
-      properties:
-        anonymizeType:
-          allOf:
-          - $ref: '#/components/schemas/status.AnonymizeType'
-          description: the {@link com.nedap.healthcare.domain.status.AnonymizeType} to this application status
-      description: ApplicationStatus model (no description)
-      example:
-        anonymizeType: fully_anonymized
-      xml:
-        name: applicationStatus
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

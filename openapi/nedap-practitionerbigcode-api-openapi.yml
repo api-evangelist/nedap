@@ -299,6 +299,19 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.PractitionerBigCodeList:
+      type: object
+      properties:
+        practitionerBigCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerBigCode'
+      description: PractitionerBigCodeList model (no description)
+      example:
+        practitionerBigCodes:
+        - id: 1
+          employeeObjectId: 1
+          code: '12345678'
     PractitionerBigCode:
       type: object
       properties:
@@ -316,19 +329,6 @@ components:
         id: 1
         employeeObjectId: 1
         code: '12345678'
-    list.PractitionerBigCodeList:
-      type: object
-      properties:
-        practitionerBigCodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PractitionerBigCode'
-      description: PractitionerBigCodeList model (no description)
-      example:
-        practitionerBigCodes:
-        - id: 1
-          employeeObjectId: 1
-          code: '12345678'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

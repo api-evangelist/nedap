@@ -219,6 +219,37 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.list.AvailabilityList:
+      type: object
+      properties:
+        availabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Availability'
+          xml:
+            name: availability
+      description: AvailabilityList model (no description)
+      example:
+        availabilities:
+        - id: 1
+          containerId: 2891
+          start: '00:00:00.000'
+          stop: '00:00:00.000'
+          duration: 86400
+          validFrom: '2018-07-09'
+          validTo: '2018-07-09'
+          recurrenceType: incidental
+          cycleBase: '2018-07-23'
+          cycleInterval: 7
+          cycleOffset: 4
+          unitId: 1
+          availabilityTypeId: 2
+          dayPart: 2
+          comment: Comment
+          peopleType: Employee
+          peopleExternalId: 100
+      xml:
+        name: availabilities
     moves.Availability:
       type: object
       properties:
@@ -360,37 +391,6 @@ components:
         peopleExternalId: 100
       xml:
         name: availability
-    moves.list.AvailabilityList:
-      type: object
-      properties:
-        availabilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Availability'
-          xml:
-            name: availability
-      description: AvailabilityList model (no description)
-      example:
-        availabilities:
-        - id: 1
-          containerId: 2891
-          start: '00:00:00.000'
-          stop: '00:00:00.000'
-          duration: 86400
-          validFrom: '2018-07-09'
-          validTo: '2018-07-09'
-          recurrenceType: incidental
-          cycleBase: '2018-07-23'
-          cycleInterval: 7
-          cycleOffset: 4
-          unitId: 1
-          availabilityTypeId: 2
-          dayPart: 2
-          comment: Comment
-          peopleType: Employee
-          peopleExternalId: 100
-      xml:
-        name: availabilities
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

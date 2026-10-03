@@ -427,6 +427,32 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    arrangement.list.TimeSlotList:
+      type: object
+      properties:
+        timeSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.TimeSlot'
+          xml:
+            name: timeSlot
+      description: TimeSlotList model (no description)
+      example:
+        timeSlots:
+        - uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 1
+          beginAfter: '12:00:00.000'
+          endBefore: '14:00:00.000'
+        - uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 2
+          beginAfter: '12:00:00.000'
+          endBefore: '14:00:00.000'
+      xml:
+        name: timeSlots
     arrangement.TimeSlot:
       required:
       - uuid
@@ -473,32 +499,6 @@ components:
         endBefore: '00:00:00.000'
       xml:
         name: timeSlot
-    arrangement.list.TimeSlotList:
-      type: object
-      properties:
-        timeSlots:
-          type: array
-          items:
-            $ref: '#/components/schemas/arrangement.TimeSlot'
-          xml:
-            name: timeSlot
-      description: TimeSlotList model (no description)
-      example:
-        timeSlots:
-        - uuid: TIME_SLOT_UUID
-          clientId: 1
-          clientUuid: CLIENT_UUID
-          dayOfWeek: 1
-          beginAfter: '12:00:00.000'
-          endBefore: '14:00:00.000'
-        - uuid: TIME_SLOT_UUID
-          clientId: 1
-          clientUuid: CLIENT_UUID
-          dayOfWeek: 2
-          beginAfter: '12:00:00.000'
-          endBefore: '14:00:00.000'
-      xml:
-        name: timeSlots
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -47,6 +47,46 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    zpm.ZpmGbggzProfiel:
+      required:
+      - code
+      - name
+      - beginDate
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object identifier.
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: Profiel code.
+        name:
+          type: string
+          description: Profiel name.
+        beginDate:
+          type: string
+          description: Validity begin date.
+          format: date
+        endDate:
+          type: string
+          description: Validity end date.
+          format: date
+      description: Generalistische basis ggz (gb-ggz) patientprofiel.
+      example:
+        updatedAt: '2021-08-05T14:23:23.000+02:00'
+        createdAt: '2021-08-05T14:23:23.000+02:00'
+        createdBy: user
+        id: 1
+        code: GBG01
+        name: Onvolledig behandeltraject
+        beginDate: '2021-01-01'
+        endDate: '2022-12-31'
+      xml:
+        name: zpmGbggzProfiel
     AuditedBase:
       title: AuditedBase
       type: object
@@ -96,46 +136,6 @@ components:
           endDate: '2022-12-31'
       xml:
         name: zpmGbggzProfielen
-    zpm.ZpmGbggzProfiel:
-      required:
-      - code
-      - name
-      - beginDate
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          description: Object identifier.
-          format: int64
-          x-cupido-id: true
-        code:
-          type: string
-          description: Profiel code.
-        name:
-          type: string
-          description: Profiel name.
-        beginDate:
-          type: string
-          description: Validity begin date.
-          format: date
-        endDate:
-          type: string
-          description: Validity end date.
-          format: date
-      description: Generalistische basis ggz (gb-ggz) patientprofiel.
-      example:
-        updatedAt: '2021-08-05T14:23:23.000+02:00'
-        createdAt: '2021-08-05T14:23:23.000+02:00'
-        createdBy: user
-        id: 1
-        code: GBG01
-        name: Onvolledig behandeltraject
-        beginDate: '2021-01-01'
-        endDate: '2022-12-31'
-      xml:
-        name: zpmGbggzProfiel
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

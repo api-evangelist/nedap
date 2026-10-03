@@ -597,25 +597,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.TeamAssignmentList:
-      type: object
-      properties:
-        teamAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamAssignment'
-          xml:
-            name: teamAssignment
-      description: TeamAssignmentList model (no description)
-      example:
-        teamAssignments:
-        - id: 1
-          beginDate: '2012-08-02'
-          endDate: '2012-08-02'
-          employeeObjectId: 8948
-          teamObjectId: 337
-      xml:
-        name: teamAssignments
     TeamAssignment:
       type: object
       properties:
@@ -644,6 +625,25 @@ components:
         teamObjectId: 337
       xml:
         name: teamAssignment
+    list.TeamAssignmentList:
+      type: object
+      properties:
+        teamAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamAssignment'
+          xml:
+            name: teamAssignment
+      description: TeamAssignmentList model (no description)
+      example:
+        teamAssignments:
+        - id: 1
+          beginDate: '2012-08-02'
+          endDate: '2012-08-02'
+          employeeObjectId: 8948
+          teamObjectId: 337
+      xml:
+        name: teamAssignments
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

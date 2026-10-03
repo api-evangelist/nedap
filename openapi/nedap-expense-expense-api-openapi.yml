@@ -537,6 +537,38 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    expense.list.ExpenseList:
+      type: object
+      properties:
+        expenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense.Expense'
+          xml:
+            name: expense
+      description: ExpenseList model (no description)
+      example:
+        expenses:
+        - id: 1
+          expenseDate: '2015-09-15'
+          verifyDate: '2015-10-15'
+          expenseTypeObjectId: 1
+          employeeObjectId: 1
+          amount: 11.23
+          calculatedAmount: 1.23
+          deviation: 10.5
+          description: The bridge was open
+        - id: 1
+          expenseDate: '2015-09-15'
+          verifyDate: '2015-10-15'
+          expenseTypeObjectId: 1
+          employeeObjectId: 1
+          amount: 11.23
+          calculatedAmount: 1.23
+          deviation: 10.5
+          description: The bridge was open
+      xml:
+        name: expenses
     registration.Position:
       title: Position
       type: object
@@ -599,38 +631,6 @@ components:
         usedGoogleAddress: Bovenlaan 5, 6521YH Enschede, Netherlands
       xml:
         name: position
-    expense.list.ExpenseList:
-      type: object
-      properties:
-        expenses:
-          type: array
-          items:
-            $ref: '#/components/schemas/expense.Expense'
-          xml:
-            name: expense
-      description: ExpenseList model (no description)
-      example:
-        expenses:
-        - id: 1
-          expenseDate: '2015-09-15'
-          verifyDate: '2015-10-15'
-          expenseTypeObjectId: 1
-          employeeObjectId: 1
-          amount: 11.23
-          calculatedAmount: 1.23
-          deviation: 10.5
-          description: The bridge was open
-        - id: 1
-          expenseDate: '2015-09-15'
-          verifyDate: '2015-10-15'
-          expenseTypeObjectId: 1
-          employeeObjectId: 1
-          amount: 11.23
-          calculatedAmount: 1.23
-          deviation: 10.5
-          description: The bridge was open
-      xml:
-        name: expenses
     expense.ExpenseDistance:
       type: object
       properties:
@@ -676,6 +676,13 @@ components:
           latitude: 5.215021
       xml:
         name: expenseDistance
+    DepartureLocation:
+      enum:
+      - HOME
+      - OFFICE
+      type: string
+      description: DepartureLocation which is used to determine which address should be used for the automated travel calculations
+      example: HOME
     expense.Expense:
       type: object
       properties:
@@ -806,13 +813,6 @@ components:
         departureClusterObjectId: 1
       xml:
         name: expense
-    DepartureLocation:
-      enum:
-      - HOME
-      - OFFICE
-      type: string
-      description: DepartureLocation which is used to determine which address should be used for the automated travel calculations
-      example: HOME
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

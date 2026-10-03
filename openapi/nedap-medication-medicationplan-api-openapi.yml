@@ -357,6 +357,36 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    medication.list.MedicationPlanList:
+      type: object
+      properties:
+        medicationPlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/medication.MedicationPlan'
+      description: MedicationPlanList model (no description)
+      example:
+        medicationPlans:
+        - documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
     medication.MedicationPlan:
       required:
       - documentUrl
@@ -383,36 +413,6 @@ components:
         field: one
         value: empty
         message: field can not be empty
-    medication.list.MedicationPlanList:
-      type: object
-      properties:
-        medicationPlans:
-          type: array
-          items:
-            $ref: '#/components/schemas/medication.MedicationPlan'
-      description: MedicationPlanList model (no description)
-      example:
-        medicationPlans:
-        - documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

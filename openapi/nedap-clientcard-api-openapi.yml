@@ -119,6 +119,23 @@ components:
         number: '12345'
         status: free
         statusFromDate: '2012-02-01T12:48:46.836+01:00'
+    list.ClientCardList:
+      type: object
+      properties:
+        clientCards:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientCard'
+      description: ClientCardList model (no description)
+      example:
+        clientCards:
+        - id: 3
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-05T11:48:46.836+02:00'
+          lastRead: '2012-09-04T11:48:46.836+02:00'
+          number: '12345'
+          status: free
+          statusFromDate: '2012-02-01T11:48:46.836+01:00'
     TokenStatus:
       type: string
       oneOf:
@@ -142,23 +159,6 @@ components:
         - lost
       description: TokenStatus model (no description)
       example: unknown
-    list.ClientCardList:
-      type: object
-      properties:
-        clientCards:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientCard'
-      description: ClientCardList model (no description)
-      example:
-        clientCards:
-        - id: 3
-          beginDate: '2012-08-02T11:48:46.836+02:00'
-          endDate: '2012-08-05T11:48:46.836+02:00'
-          lastRead: '2012-09-04T11:48:46.836+02:00'
-          number: '12345'
-          status: free
-          statusFromDate: '2012-02-01T11:48:46.836+01:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

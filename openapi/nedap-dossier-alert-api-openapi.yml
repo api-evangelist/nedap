@@ -291,80 +291,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.list.AlertList:
-      type: object
-      properties:
-        alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Alert'
-      description: List of Alerts
-      example:
-        alerts:
-        - id: 1
-          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-          clientId: 4
-          createdById: 1
-          updatedById: 1
-          createdAt: '2020-11-10T12:00:00.000+01:00'
-          updatedAt: '2020-11-10T12:00:00.000+01:00'
-          name: MRSA
-          type: Agressie
-          icon: virus
-          iconUrl: http://www.example.com
-          iconPngUrl: http://www.example.com
-          protocol: http://www.example.com
-          description: Some additional text
-          beginDate: '2021-01-01'
-          endDate: '2021-02-06'
-          active: true
-          topicId: 1
-          authorizedExpertiseProfileIds:
-          - 1
-          - 2
-          authorizedExpertiseGroupIds:
-          - 3
-          - 4
-          encodings:
-          - code: '61372001'
-            codeSystem: SNOMED CT
-            displayName: aggression
-          feederAuditContentStore: ons_ketenverkeer
-          feederAuditContentId: abz123
-          feederAuditSenderName: Some care organisation
-          feederAuditTransferType: eoverdracht_nursing
-        - id: 2
-          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-          clientId: 4
-          createdById: 1
-          updatedById: 1
-          createdAt: '2020-11-10T12:00:00.000+01:00'
-          updatedAt: '2020-11-10T12:00:00.000+01:00'
-          name: MRSA
-          type: Agressie
-          icon: virus
-          iconUrl: http://www.example.com
-          iconPngUrl: http://www.example.com
-          protocol: http://www.example.com
-          description: Some additional text
-          beginDate: '2021-01-01'
-          endDate: '2021-02-06'
-          active: true
-          topicId: 1
-          authorizedExpertiseProfileIds:
-          - 1
-          - 2
-          authorizedExpertiseGroupIds:
-          - 3
-          - 4
-          encodings:
-          - code: '61372001'
-            codeSystem: SNOMED CT
-            displayName: aggression
-          feederAuditContentStore: ons_ketenverkeer
-          feederAuditContentId: abz123
-          feederAuditSenderName: Some care organisation
-          feederAuditTransferType: eoverdracht_nursing
     dossier.FeederAuditTransferType:
       enum:
       - eoverdracht_nursing
@@ -373,6 +299,75 @@ components:
       type: string
       description: Type of the transfer containing this content (a.k.a. the use case)
       example: eoverdracht_nursing
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.FeederAuditContentStoreType:
+      enum:
+      - ons_ketenverkeer
+      - other
+      type: string
+      description: Identifier of the content store that is providing this content
+      example: ons_ketenverkeer
+    dossier.Encoding:
+      type: object
+      properties:
+        code:
+          type: string
+        codeSystem:
+          type: string
+        displayName:
+          type: string
+          description: The display name (or title) corresponding to the code in its code system
+      description: Encoding
+      example:
+        code: E10
+        codeSystem: ICD-10
+        displayName: Type 1-diabetes
     dossier.Alert:
       type: object
       allOf:
@@ -481,75 +476,80 @@ components:
         feederAuditContentId: abz123
         feederAuditSenderName: Some care organisation
         feederAuditTransferType: eoverdracht_nursing
-    dossier.medical.MedicalBase:
+    dossier.list.AlertList:
       type: object
       properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        uuid:
-          type:
-          - string
-          - 'null'
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        updatedById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      description: MedicalBase model (no description)
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Alert'
+      description: List of Alerts
       example:
-        id: 1
-        uuid: Dummy
-        clientId: 1
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T00:00:00.000+01:00'
-        updatedAt: '2014-11-10T00:00:00.000+01:00'
-    dossier.Encoding:
-      type: object
-      properties:
-        code:
-          type: string
-        codeSystem:
-          type: string
-        displayName:
-          type: string
-          description: The display name (or title) corresponding to the code in its code system
-      description: Encoding
-      example:
-        code: E10
-        codeSystem: ICD-10
-        displayName: Type 1-diabetes
-    dossier.FeederAuditContentStoreType:
-      enum:
-      - ons_ketenverkeer
-      - other
-      type: string
-      description: Identifier of the content store that is providing this content
-      example: ons_ketenverkeer
+        alerts:
+        - id: 1
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 4
+          createdById: 1
+          updatedById: 1
+          createdAt: '2020-11-10T12:00:00.000+01:00'
+          updatedAt: '2020-11-10T12:00:00.000+01:00'
+          name: MRSA
+          type: Agressie
+          icon: virus
+          iconUrl: http://www.example.com
+          iconPngUrl: http://www.example.com
+          protocol: http://www.example.com
+          description: Some additional text
+          beginDate: '2021-01-01'
+          endDate: '2021-02-06'
+          active: true
+          topicId: 1
+          authorizedExpertiseProfileIds:
+          - 1
+          - 2
+          authorizedExpertiseGroupIds:
+          - 3
+          - 4
+          encodings:
+          - code: '61372001'
+            codeSystem: SNOMED CT
+            displayName: aggression
+          feederAuditContentStore: ons_ketenverkeer
+          feederAuditContentId: abz123
+          feederAuditSenderName: Some care organisation
+          feederAuditTransferType: eoverdracht_nursing
+        - id: 2
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 4
+          createdById: 1
+          updatedById: 1
+          createdAt: '2020-11-10T12:00:00.000+01:00'
+          updatedAt: '2020-11-10T12:00:00.000+01:00'
+          name: MRSA
+          type: Agressie
+          icon: virus
+          iconUrl: http://www.example.com
+          iconPngUrl: http://www.example.com
+          protocol: http://www.example.com
+          description: Some additional text
+          beginDate: '2021-01-01'
+          endDate: '2021-02-06'
+          active: true
+          topicId: 1
+          authorizedExpertiseProfileIds:
+          - 1
+          - 2
+          authorizedExpertiseGroupIds:
+          - 3
+          - 4
+          encodings:
+          - code: '61372001'
+            codeSystem: SNOMED CT
+            displayName: aggression
+          feederAuditContentStore: ons_ketenverkeer
+          feederAuditContentId: abz123
+          feederAuditSenderName: Some care organisation
+          feederAuditTransferType: eoverdracht_nursing
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

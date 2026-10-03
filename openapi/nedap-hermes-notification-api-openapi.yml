@@ -244,6 +244,30 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    hermes.Recipient:
+      type:
+      - object
+      - 'null'
+      properties:
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        clientUuid:
+          type:
+          - string
+          - 'null'
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      description: The  method belongs to a recipient
+      example:
+        clientId: 1
+        clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
+        employeeId: 1
     hermes.Notification:
       type: object
       properties:
@@ -404,30 +428,6 @@ components:
           read: true
       xml:
         name: hermesNotifications
-    hermes.Recipient:
-      type:
-      - object
-      - 'null'
-      properties:
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        clientUuid:
-          type:
-          - string
-          - 'null'
-        employeeId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-      description: The  method belongs to a recipient
-      example:
-        clientId: 1
-        clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
-        employeeId: 1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -248,21 +248,25 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
+    ErrorResponse:
+      title: ErrorResponse
       type: object
       properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
       example:
-        field: one
-        value: empty
-        message: field can not be empty
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
     openehr.ItemTag:
       required:
       - key
@@ -286,25 +290,21 @@ components:
         key: important
         value: value
         targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
-    ErrorResponse:
-      title: ErrorResponse
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
       type: object
       properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
       example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
+        field: one
+        value: empty
+        message: field can not be empty
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -101,77 +101,15 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    finance.ParallelCareOrder:
-      type: object
-      properties:
-        careOrder:
-          $ref: '#/components/schemas/finance.CareOrder'
-        hourTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/HourType'
-        productName:
-          type: string
-        totalRegisteredAmount:
-          type: integer
-          description: The total amount already registered
-          format: int32
-          default: 0
-        maxRegisteredAmount:
-          type: integer
-          description: The maximal allowed amount that is allowed to registered
-          format: int32
-          default: 0
-        registeredUnit:
-          allOf:
-          - $ref: '#/components/schemas/RegisteredUnit'
-          description: The unit of totalRegisteredAmount and maxRegisteredAmount
-        errorMessage:
-          type: string
-        referringDiagnosisCode:
-          type: string
-          description: The corresponding referring diagnosis code of an Paramedische Eerstelijnszorg Careorder
-      description: 'Model class holding
-
-
-        @Author joel.witteveen'
-      example:
-        careOrder:
-          id: 1
-          userIdentifier: Bggz-12345
-          clientIdentifier: '12345'
-          beschikkingsNummer: '321'
-          lawIdentification: '321'
-          indicatieorgaanCode: '0710'
-          aanvraagNummer: '123'
-          issueDate: '2014-12-29T00:00:00.000+01:00'
-          contactPerson: Dhr. Psycholoog
-          comments: Client kan agressief reageren op de kleur rood
-          beginDate: '2014-12-29T00:00:00.000+01:00'
-          endDate: '2014-12-29T00:00:00.000+01:00'
-          clientId: 1
-          financeTypeId: 1
-          debtorId: 1
-        hourTypes:
-        - id: 1
-          description: Activiteiten begeleiding - patiëntgebonden handelen
-          identificationNo: '194822'
-          activityGroupObjectId: 1
-          externalCode3: '3'
-          active: true
-          payrolling: true
-          direct: true
-          systemDefined: false
-          travelTime: false
-          activityType: Payrolling
-          groupCare: false
-          quantityBased: true
-        productName: bggzkort
-        totalRegisteredAmount: 5
-        maxRegisteredAmount: 10
-        registeredUnit: QUARTERS
-        errorMessage: ''
-        referringDiagnosisCode: '1234'
+    RegisteredUnit:
+      enum:
+      - PIECES
+      - MINUTES
+      - QUARTERS
+      - HOURS
+      type: string
+      description: The unit of totalRegisteredAmount and maxRegisteredAmount
+      example: PIECES
     finance.CareOrderProduct:
       type: object
       properties:
@@ -276,52 +214,6 @@ components:
         clippedEndDate: '2014-12-29T00:00:00.000+01:00'
       xml:
         name: careOrderProduct
-    finance.list.ParallelCareOrderList:
-      type: object
-      properties:
-        parallelCareOrders:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.ParallelCareOrder'
-      description: ParallelCareOrderList model (no description)
-      example:
-        parallelCareOrders:
-        - careOrder:
-            id: 1
-            userIdentifier: Bggz-12345
-            clientIdentifier: '12345'
-            beschikkingsNummer: '321'
-            lawIdentification: '321'
-            indicatieorgaanCode: '0710'
-            aanvraagNummer: '123'
-            issueDate: '2014-12-29T00:00:00.000+01:00'
-            contactPerson: Dhr. Psycholoog
-            comments: Client kan agressief reageren op de kleur rood
-            beginDate: '2014-12-29T00:00:00.000+01:00'
-            endDate: '2014-12-29T00:00:00.000+01:00'
-            clientId: 1
-            financeTypeId: 1
-            debtorId: 1
-          hourTypes:
-          - id: 1
-            description: Activiteiten begeleiding - patiëntgebonden handelen
-            identificationNo: '194822'
-            activityGroupObjectId: 1
-            externalCode3: '3'
-            active: true
-            payrolling: true
-            direct: true
-            systemDefined: false
-            travelTime: false
-            activityType: Payrolling
-            groupCare: false
-            quantityBased: true
-          productName: bggzkort
-          totalRegisteredAmount: 5
-          maxRegisteredAmount: 10
-          registeredUnit: QUARTERS
-          errorMessage: ''
-          referringDiagnosisCode: '1234'
     finance.CareOrder:
       type: object
       properties:
@@ -423,6 +315,77 @@ components:
           clippedEndDate: '2014-12-29T00:00:00.000+01:00'
       xml:
         name: careOrder
+    finance.ParallelCareOrder:
+      type: object
+      properties:
+        careOrder:
+          $ref: '#/components/schemas/finance.CareOrder'
+        hourTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HourType'
+        productName:
+          type: string
+        totalRegisteredAmount:
+          type: integer
+          description: The total amount already registered
+          format: int32
+          default: 0
+        maxRegisteredAmount:
+          type: integer
+          description: The maximal allowed amount that is allowed to registered
+          format: int32
+          default: 0
+        registeredUnit:
+          allOf:
+          - $ref: '#/components/schemas/RegisteredUnit'
+          description: The unit of totalRegisteredAmount and maxRegisteredAmount
+        errorMessage:
+          type: string
+        referringDiagnosisCode:
+          type: string
+          description: The corresponding referring diagnosis code of an Paramedische Eerstelijnszorg Careorder
+      description: 'Model class holding
+
+
+        @Author joel.witteveen'
+      example:
+        careOrder:
+          id: 1
+          userIdentifier: Bggz-12345
+          clientIdentifier: '12345'
+          beschikkingsNummer: '321'
+          lawIdentification: '321'
+          indicatieorgaanCode: '0710'
+          aanvraagNummer: '123'
+          issueDate: '2014-12-29T00:00:00.000+01:00'
+          contactPerson: Dhr. Psycholoog
+          comments: Client kan agressief reageren op de kleur rood
+          beginDate: '2014-12-29T00:00:00.000+01:00'
+          endDate: '2014-12-29T00:00:00.000+01:00'
+          clientId: 1
+          financeTypeId: 1
+          debtorId: 1
+        hourTypes:
+        - id: 1
+          description: Activiteiten begeleiding - patiëntgebonden handelen
+          identificationNo: '194822'
+          activityGroupObjectId: 1
+          externalCode3: '3'
+          active: true
+          payrolling: true
+          direct: true
+          systemDefined: false
+          travelTime: false
+          activityType: Payrolling
+          groupCare: false
+          quantityBased: true
+        productName: bggzkort
+        totalRegisteredAmount: 5
+        maxRegisteredAmount: 10
+        registeredUnit: QUARTERS
+        errorMessage: ''
+        referringDiagnosisCode: '1234'
     HourType:
       type: object
       properties:
@@ -512,15 +475,52 @@ components:
         splitHourtype: false
       xml:
         name: hourType
-    RegisteredUnit:
-      enum:
-      - PIECES
-      - MINUTES
-      - QUARTERS
-      - HOURS
-      type: string
-      description: The unit of totalRegisteredAmount and maxRegisteredAmount
-      example: PIECES
+    finance.list.ParallelCareOrderList:
+      type: object
+      properties:
+        parallelCareOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.ParallelCareOrder'
+      description: ParallelCareOrderList model (no description)
+      example:
+        parallelCareOrders:
+        - careOrder:
+            id: 1
+            userIdentifier: Bggz-12345
+            clientIdentifier: '12345'
+            beschikkingsNummer: '321'
+            lawIdentification: '321'
+            indicatieorgaanCode: '0710'
+            aanvraagNummer: '123'
+            issueDate: '2014-12-29T00:00:00.000+01:00'
+            contactPerson: Dhr. Psycholoog
+            comments: Client kan agressief reageren op de kleur rood
+            beginDate: '2014-12-29T00:00:00.000+01:00'
+            endDate: '2014-12-29T00:00:00.000+01:00'
+            clientId: 1
+            financeTypeId: 1
+            debtorId: 1
+          hourTypes:
+          - id: 1
+            description: Activiteiten begeleiding - patiëntgebonden handelen
+            identificationNo: '194822'
+            activityGroupObjectId: 1
+            externalCode3: '3'
+            active: true
+            payrolling: true
+            direct: true
+            systemDefined: false
+            travelTime: false
+            activityType: Payrolling
+            groupCare: false
+            quantityBased: true
+          productName: bggzkort
+          totalRegisteredAmount: 5
+          maxRegisteredAmount: 10
+          registeredUnit: QUARTERS
+          errorMessage: ''
+          referringDiagnosisCode: '1234'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

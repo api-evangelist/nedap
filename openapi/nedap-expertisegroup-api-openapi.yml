@@ -345,39 +345,6 @@ components:
           allowDossierConfidential: false
       xml:
         name: expertiseGroup
-    list.ExpertiseGroupList:
-      type: object
-      properties:
-        expertiseGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpertiseGroup'
-          xml:
-            name: expertiseGroup
-      description: ExpertiseGroupList model (no description)
-      example:
-        expertiseGroups:
-        - id: 1
-          name: Alphahulp
-          beginDate: '2016-01-01'
-          endDate: '2021-12-31'
-          expertiseProfiles:
-          - id: 5
-            description: Helpenden A
-            visible: true
-            beginDate: '2015-01-01T12:00:00.000+01:00'
-            endDate: '2020-01-01T12:00:00.000+01:00'
-            allowDossierActions: true
-            allowDossierConfidential: false
-          - id: 6
-            description: Helpenden B
-            visible: true
-            beginDate: '2015-01-01T12:00:00.000+01:00'
-            endDate: '2020-01-01T12:00:00.000+01:00'
-            allowDossierActions: true
-            allowDossierConfidential: false
-      xml:
-        name: expertiseGroups
     ExpertiseProfile:
       type: object
       properties:
@@ -429,6 +396,39 @@ components:
         - 1
         - 2
         - 3
+    list.ExpertiseGroupList:
+      type: object
+      properties:
+        expertiseGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseGroup'
+          xml:
+            name: expertiseGroup
+      description: ExpertiseGroupList model (no description)
+      example:
+        expertiseGroups:
+        - id: 1
+          name: Alphahulp
+          beginDate: '2016-01-01'
+          endDate: '2021-12-31'
+          expertiseProfiles:
+          - id: 5
+            description: Helpenden A
+            visible: true
+            beginDate: '2015-01-01T12:00:00.000+01:00'
+            endDate: '2020-01-01T12:00:00.000+01:00'
+            allowDossierActions: true
+            allowDossierConfidential: false
+          - id: 6
+            description: Helpenden B
+            visible: true
+            beginDate: '2015-01-01T12:00:00.000+01:00'
+            endDate: '2020-01-01T12:00:00.000+01:00'
+            allowDossierActions: true
+            allowDossierConfidential: false
+      xml:
+        name: expertiseGroups
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

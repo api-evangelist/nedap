@@ -73,6 +73,13 @@ components:
         recorder: OnsSpraak
         recordingMode: Bulk
         speechToTextActive: true
+    whismur.RecordingMode:
+      enum:
+      - Bulk
+      - Streaming
+      type: string
+      description: Recording mode to use.
+      example: Bulk
     whismur.Provider:
       enum:
       - NONE
@@ -82,13 +89,6 @@ components:
       type: string
       description: The speech to text provider configured for this care organization.
       example: ATTENDI
-    whismur.RecordingMode:
-      enum:
-      - Bulk
-      - Streaming
-      type: string
-      description: Recording mode to use.
-      example: Bulk
     whismur.Recorder:
       enum:
       - OnsSpraak

@@ -106,22 +106,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    payroll.list.CollectiveAgreementList:
-      type: object
-      properties:
-        collectiveAgreements:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.CollectiveAgreement'
-          xml:
-            name: collectiveAgreement
-      description: CollectiveAgreementList model (no description)
-      example:
-        collectiveAgreements:
-        - id: 1
-          name: Thuiszorg (extramuraal) - 2014
-      xml:
-        name: collectiveAgreements
     payroll.CollectiveAgreement:
       type: object
       properties:
@@ -140,6 +124,22 @@ components:
         name: Thuiszorg (extramuraal) - 2014
       xml:
         name: collectiveAgreement
+    payroll.list.CollectiveAgreementList:
+      type: object
+      properties:
+        collectiveAgreements:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.CollectiveAgreement'
+          xml:
+            name: collectiveAgreement
+      description: CollectiveAgreementList model (no description)
+      example:
+        collectiveAgreements:
+        - id: 1
+          name: Thuiszorg (extramuraal) - 2014
+      xml:
+        name: collectiveAgreements
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

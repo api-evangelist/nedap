@@ -140,6 +140,26 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.FreeFieldAssignmentList:
+      type: object
+      properties:
+        freeFieldAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/FreeFieldAssignment'
+          xml:
+            name: freeFieldAssignment
+      description: FreeFieldAssignmentList model (no description)
+      example:
+        freeFieldAssignments:
+        - id: 1
+          carrierObjectId: 2
+          freeFieldDefinitionObjectId: 3
+          value: Geen opmerkingen
+          createdAt: '2014-04-17'
+          updatedAt: '2014-04-17'
+      xml:
+        name: freeFieldAssignments
     FreeFieldAssignment:
       type: object
       properties:
@@ -174,26 +194,6 @@ components:
         updatedAt: '2014-04-17'
       xml:
         name: freeFieldAssignment
-    list.FreeFieldAssignmentList:
-      type: object
-      properties:
-        freeFieldAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/FreeFieldAssignment'
-          xml:
-            name: freeFieldAssignment
-      description: FreeFieldAssignmentList model (no description)
-      example:
-        freeFieldAssignments:
-        - id: 1
-          carrierObjectId: 2
-          freeFieldDefinitionObjectId: 3
-          value: Geen opmerkingen
-          createdAt: '2014-04-17'
-          updatedAt: '2014-04-17'
-      xml:
-        name: freeFieldAssignments
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

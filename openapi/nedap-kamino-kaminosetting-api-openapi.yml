@@ -156,6 +156,26 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    kamino.ErrorParam:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-parseable error code.
+          example: missing_field
+        field:
+          type: string
+          description: The field in which the error occurred.
+          example: body
+        resource:
+          type: string
+          description: The resource on which the error occurred.
+          example: Message
+      description: Kamino ErrorParam model (no description)
+      example:
+        code: missing_field
+        field: body
+        resource: Message
     kamino.Error:
       required:
       - error
@@ -224,26 +244,6 @@ components:
         notifyForTeamMessages: true
       xml:
         name: kaminoSetting
-    kamino.ErrorParam:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Machine-parseable error code.
-          example: missing_field
-        field:
-          type: string
-          description: The field in which the error occurred.
-          example: body
-        resource:
-          type: string
-          description: The resource on which the error occurred.
-          example: Message
-      description: Kamino ErrorParam model (no description)
-      example:
-        code: missing_field
-        field: body
-        resource: Message
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

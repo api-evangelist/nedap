@@ -433,21 +433,22 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    Period:
+    BooleanWithReason:
+      required:
+      - result
       type: object
       properties:
-        start:
+        result:
+          type: boolean
+          description: Answer to the question
+        reason:
           type: string
-          description: Starting time with inclusive boundary
-          format: date
-        end:
-          type: string
-          description: End time with inclusive boundary, if not ongoing
-          format: date
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+      description: This class is used to answer a simple true/false question with an optional reason.
       example:
-        start: '2018-03-26'
-        end: '2018-04-02'
+        result: true
+        reason: Just Because!
+      xml:
+        name: booleanWithReason
     finance.list.DeclarationRuleList:
       type: object
       properties:
@@ -492,34 +493,21 @@ components:
             end: '2017-06-06'
       xml:
         name: declarationRules
-    BooleanWithReason:
-      required:
-      - result
+    Period:
       type: object
       properties:
-        result:
-          type: boolean
-          description: Answer to the question
-        reason:
+        start:
           type: string
-      description: This class is used to answer a simple true/false question with an optional reason.
-      example:
-        result: true
-        reason: Just Because!
-      xml:
-        name: booleanWithReason
-    DateWrapper:
-      type: object
-      properties:
-        date:
-          type: string
-          description: The wrapped date
+          description: Starting time with inclusive boundary
           format: date
-      description: 'DateWrapper can be used to return date''s from API calls. '
+        end:
+          type: string
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
       example:
-        date: '2018-03-26'
-      xml:
-        name: dateWrapper
+        start: '2018-03-26'
+        end: '2018-04-02'
     finance.DeclarationRule:
       type: object
       properties:
@@ -685,6 +673,18 @@ components:
           end: '2017-06-06'
       xml:
         name: declarationRule
+    DateWrapper:
+      type: object
+      properties:
+        date:
+          type: string
+          description: The wrapped date
+          format: date
+      description: 'DateWrapper can be used to return date''s from API calls. '
+      example:
+        date: '2018-03-26'
+      xml:
+        name: dateWrapper
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

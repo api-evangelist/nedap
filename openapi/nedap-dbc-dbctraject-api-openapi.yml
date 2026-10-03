@@ -150,6 +150,31 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dbc.list.DBCTrajectList:
+      type: object
+      properties:
+        dbcTrajects:
+          type: array
+          items:
+            $ref: '#/components/schemas/dbc.DBCTraject'
+      description: DBCTrajectList model (no description)
+      example:
+        dbcTrajects:
+        - id: 1
+          clientId: 1
+          dbcIdentifier: Dummy
+          clientIdentifier: Dummy
+          startDate: '2014-09-17T00:00:00.000+02:00'
+          endDate: '2014-09-17T00:00:00.000+02:00'
+          koppelNummer: Dummy
+          parentDBCTraject: Dummy
+          referringDBCTraject: Dummy
+          verwijzendSpecialismeCode: Dummy
+          verwijzendZorgtrajectnummer: Dummy
+          hospitalName: Dummy
+          hospitalAgbCode: Dummy
+          specialistName: Dummy
+          specialistAgbCode: Dummy
     AuditedBase:
       title: AuditedBase
       type: object
@@ -236,31 +261,6 @@ components:
         specialistAgbCode: Dummy
       xml:
         name: dbcTraject
-    dbc.list.DBCTrajectList:
-      type: object
-      properties:
-        dbcTrajects:
-          type: array
-          items:
-            $ref: '#/components/schemas/dbc.DBCTraject'
-      description: DBCTrajectList model (no description)
-      example:
-        dbcTrajects:
-        - id: 1
-          clientId: 1
-          dbcIdentifier: Dummy
-          clientIdentifier: Dummy
-          startDate: '2014-09-17T00:00:00.000+02:00'
-          endDate: '2014-09-17T00:00:00.000+02:00'
-          koppelNummer: Dummy
-          parentDBCTraject: Dummy
-          referringDBCTraject: Dummy
-          verwijzendSpecialismeCode: Dummy
-          verwijzendZorgtrajectnummer: Dummy
-          hospitalName: Dummy
-          hospitalAgbCode: Dummy
-          specialistName: Dummy
-          specialistAgbCode: Dummy
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

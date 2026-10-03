@@ -247,13 +247,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    DepartureLocation:
-      enum:
-      - HOME
-      - OFFICE
-      type: string
-      description: DepartureLocation which is used to determine which address should be used for the automated travel calculations
-      example: HOME
     expense.ExpenseAddressModel:
       type: object
       properties:
@@ -277,6 +270,13 @@ components:
         beginDate: '2020-01-01'
         departureLocation: HOME
         endDate: '2020-01-31'
+    DepartureLocation:
+      enum:
+      - HOME
+      - OFFICE
+      type: string
+      description: DepartureLocation which is used to determine which address should be used for the automated travel calculations
+      example: HOME
     expense.list.ExpenseAddressModelList:
       type: object
       properties:

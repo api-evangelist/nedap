@@ -138,6 +138,25 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
     ErrorResponseEntry:
       title: ErrorResponseEntry
       type: object
@@ -214,25 +233,6 @@ components:
         - Module
       xml:
         name: carePath
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

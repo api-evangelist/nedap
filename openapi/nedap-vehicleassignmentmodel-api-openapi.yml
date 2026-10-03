@@ -269,6 +269,22 @@ components:
           isCompanyVehicle: false
           employeeObjectid: 123456
           vehicle: CAR_EV
+    WpmVehicle:
+      enum:
+      - CAR_GASOLINE
+      - CAR_DIESEL
+      - CAR_PHEV
+      - CAR_EV
+      - CAR_OTHER
+      - MOTORCYCLE_GASOLINE
+      - MOTORCYCLE_EV
+      - SCOOTER_GASOLINE
+      - SCOOTER_EV
+      - BIKE_WALK
+      - PUBLIC_TRANSPORT
+      type: string
+      description: The vehicle used for travel by the employee stated in the WPM legislation
+      example: CAR_EV
     VehicleAssignmentModel:
       type: object
       properties:
@@ -329,22 +345,6 @@ components:
         vehicle: CAR_EV
       xml:
         name: vehicleAssignmentModel
-    WpmVehicle:
-      enum:
-      - CAR_GASOLINE
-      - CAR_DIESEL
-      - CAR_PHEV
-      - CAR_EV
-      - CAR_OTHER
-      - MOTORCYCLE_GASOLINE
-      - MOTORCYCLE_EV
-      - SCOOTER_GASOLINE
-      - SCOOTER_EV
-      - BIKE_WALK
-      - PUBLIC_TRANSPORT
-      type: string
-      description: The vehicle used for travel by the employee stated in the WPM legislation
-      example: CAR_EV
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

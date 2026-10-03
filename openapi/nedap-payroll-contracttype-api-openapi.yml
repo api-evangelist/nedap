@@ -126,6 +126,25 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    payroll.list.ContractTypeList:
+      type: object
+      properties:
+        contractTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.ContractType'
+          xml:
+            name: contractType
+      description: ContractTypeList model (no description)
+      example:
+        contractTypes:
+        - id: 1
+          name: Dummy
+          importCode: Dummy
+          payHoursDirectly: true
+          removed: true
+      xml:
+        name: contractTypes
     payroll.ContractType:
       type: object
       properties:
@@ -153,25 +172,6 @@ components:
         removed: true
       xml:
         name: contractType
-    payroll.list.ContractTypeList:
-      type: object
-      properties:
-        contractTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.ContractType'
-          xml:
-            name: contractType
-      description: ContractTypeList model (no description)
-      example:
-        contractTypes:
-        - id: 1
-          name: Dummy
-          importCode: Dummy
-          payHoursDirectly: true
-          removed: true
-      xml:
-        name: contractTypes
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

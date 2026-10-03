@@ -71,6 +71,24 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.ActiveCarePlanMetadata:
+      type: object
+      properties:
+        carePlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.CarePlanMetadata'
+        carePlanName:
+          allOf:
+          - $ref: '#/components/schemas/dossier.CarePlanName'
+          description: Care plan name set by the customer
+      description: ActiveCarePlanMetadata list model (no description)
+      example:
+        carePlans:
+        - clientId: 1
+          beginDate: '2021-01-01'
+          endDate: '2021-02-06'
+        carePlanName: PLAN
     dossier.CarePlanMetadata:
       type: object
       properties:
@@ -97,24 +115,6 @@ components:
       type: string
       description: Care plan name set by the customer
       example: PLAN
-    dossier.ActiveCarePlanMetadata:
-      type: object
-      properties:
-        carePlans:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.CarePlanMetadata'
-        carePlanName:
-          allOf:
-          - $ref: '#/components/schemas/dossier.CarePlanName'
-          description: Care plan name set by the customer
-      description: ActiveCarePlanMetadata list model (no description)
-      example:
-        carePlans:
-        - clientId: 1
-          beginDate: '2021-01-01'
-          endDate: '2021-02-06'
-        carePlanName: PLAN
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

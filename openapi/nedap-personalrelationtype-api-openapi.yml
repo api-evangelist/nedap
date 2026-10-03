@@ -158,52 +158,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    RelationCategory:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
-    list.PersonalRelationTypeList:
-      type: object
-      properties:
-        personalRelationTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonalRelationType'
-      description: PersonalRelationTypeList model (no description)
-      example:
-        personalRelationTypes:
-        - id: 6
-          name: Father
-          primary: true
-          exclusive: true
-          negative: false
-          active: true
-          vektisCode: 1
-          reference: 1
-          relationCategory:
-            updatedAt: '2013-09-24T11:49:58.000+02:00'
-            createdAt: '2013-09-24T11:49:58.000+02:00'
-            id: 7
-            name: Standard
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
     RelationType:
       type: object
       allOf:
@@ -293,6 +247,52 @@ components:
         updatedAt: '2013-09-24T11:49:58.000+02:00'
         createdAt: '2013-09-24T11:49:58.000+02:00'
         createdBy: user
+    list.PersonalRelationTypeList:
+      type: object
+      properties:
+        personalRelationTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonalRelationType'
+      description: PersonalRelationTypeList model (no description)
+      example:
+        personalRelationTypes:
+        - id: 6
+          name: Father
+          primary: true
+          exclusive: true
+          negative: false
+          active: true
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+            id: 7
+            name: Standard
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+    RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

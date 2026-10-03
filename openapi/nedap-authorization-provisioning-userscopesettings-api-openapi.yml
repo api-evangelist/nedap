@@ -85,6 +85,17 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    authorization.provisioning.UserScopeSettings:
+      type: object
+      properties:
+        legacyAuthScopingOptions:
+          $ref: '#/components/schemas/authorization.provisioning.UserLegacyAuthScopingOptions'
+      description: ''
+      example:
+        legacyAuthScopingOptions:
+          myself: true
+          allEmployees: true
+          allClients: true
     authorization.provisioning.UserLegacyAuthScopingOptions:
       type: object
       properties:
@@ -99,17 +110,6 @@ components:
         myself: true
         allEmployees: true
         allClients: true
-    authorization.provisioning.UserScopeSettings:
-      type: object
-      properties:
-        legacyAuthScopingOptions:
-          $ref: '#/components/schemas/authorization.provisioning.UserLegacyAuthScopingOptions'
-      description: ''
-      example:
-        legacyAuthScopingOptions:
-          myself: true
-          allEmployees: true
-          allClients: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

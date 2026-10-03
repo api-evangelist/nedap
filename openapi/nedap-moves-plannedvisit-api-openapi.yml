@@ -268,6 +268,318 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.PlannedAddress:
+      type:
+      - object
+      - 'null'
+      properties:
+        latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        city:
+          type:
+          - string
+          - 'null'
+        street:
+          type:
+          - string
+          - 'null'
+        zipcode:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        numberPostfix:
+          type:
+          - string
+          - 'null'
+        residenceAccessInfo:
+          type:
+          - string
+          - 'null'
+        roomNumber:
+          type:
+          - string
+          - 'null'
+      description: 'Address where {@link PlannedVisit}s are planned.
+
+
+        Moves has it''s own Address model, and plancards can be
+
+        planned tp addresses not known in other systems.'
+      example:
+        latitude: 52.038398
+        longitude: 6.624163
+        city: Groenlo
+        street: Parallelweg
+        zipcode: 7141DC
+        number: '31'
+        numberPostfix: a
+        residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
+        roomNumber: '1'
+    moves.PlannedVisit:
+      type:
+      - object
+      - 'null'
+      properties:
+        date:
+          type:
+          - string
+          - 'null'
+          format: date
+        calculatedStart:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        totalDuration:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        travelTimeBefore:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        gapTimeBefore:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        firstAfterMidnight:
+          type: boolean
+          description: 'This visit is the first after midnight, and a visual indication
+
+            should be shown to the user (e.g. the new date or a 🌙 icon).'
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        plancards:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/moves.Plancard'
+        plannedAddress:
+          $ref: '#/components/schemas/moves.PlannedAddress'
+        shiftTimelineId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        shiftName:
+          type:
+          - string
+          - 'null'
+        shiftCode:
+          type:
+          - string
+          - 'null'
+        teamId:
+          type:
+          - integer
+          - 'null'
+          description: Linked to the Ons Administratie team, can be null if the Moves planning team (unit) is a sub-team from the OA team
+          format: int64
+        teamUuid:
+          type:
+          - string
+          - 'null'
+        unitId:
+          type:
+          - integer
+          - 'null'
+          description: Linked to the Moves planning team (unit)
+          format: int64
+        teamName:
+          type:
+          - string
+          - 'null'
+        teamCode:
+          type:
+          - string
+          - 'null'
+        teamBlockplanned:
+          type:
+          - boolean
+          - 'null'
+          description: 'Indicates if the Team uses the blockplanscreen (clients planned to
+
+            employees directly) instead of the route-based planscreen.'
+        authorizesForLocationId:
+          type:
+          - integer
+          - 'null'
+          description: 'Being planned as Employee for the Team or Shift
+
+            implies authorization for this Location.'
+          format: int64
+          deprecated: true
+        locationAuthorizations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/moves.LocationAuthorization'
+          description: 'Being assigned as Employee for the Team or Shift
+
+            implies authorization for these Locations.'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        clientUuid:
+          type:
+          - string
+          - 'null'
+        clientCode:
+          type:
+          - string
+          - 'null'
+        clientName:
+          type:
+          - string
+          - 'null'
+        clientGender:
+          type:
+          - string
+          - 'null'
+        clientIsDummy:
+          type:
+          - boolean
+          - 'null'
+        clientBirthDate:
+          type:
+          - string
+          - 'null'
+          format: date
+        clientPreferredName:
+          type:
+          - string
+          - 'null'
+        clientPronouns:
+          x-deprecated-since: 21-08-2026
+          $ref: '#/components/schemas/Pronouns'
+          description: This field is no longer used and has been replaced by clientPronounsType.
+          deprecated: true
+        clientPronounsType:
+          $ref: '#/components/schemas/PronounsType'
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeUuid:
+          type:
+          - string
+          - 'null'
+        employeeCode:
+          type:
+          - string
+          - 'null'
+        employeeName:
+          type:
+          - string
+          - 'null'
+        employeeGender:
+          type:
+          - string
+          - 'null'
+        employeeIsDummy:
+          type:
+          - boolean
+          - 'null'
+      description: A Visit from an {@Employee} to a {@Client}.
+      example:
+        date: '2013-12-06'
+        calculatedStart: '2013-12-06T12:51:00.000+01:00'
+        totalDuration: -1386330660
+        travelTimeBefore: 3600
+        gapTimeBefore: 0
+        firstAfterMidnight: false
+        notes: []
+        plancards: []
+        plannedAddress:
+          latitude: 0.5
+          longitude: 0.5
+          city: example
+          street: example
+          zipcode: example
+          number: example
+          numberPostfix: example
+        shiftTimelineId: 6
+        shiftName: Middag De Terp PV
+        shiftCode: MDT
+        teamId: 328
+        teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
+        unitId: 1090
+        teamName: V&V De Terp
+        teamCode: '1410'
+        teamBlockplanned: false
+        authorizesForLocationId: 12
+        locationAuthorizations:
+        - locationId: 12
+        clientId: 14947
+        clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
+        clientCode: '05645'
+        clientName: A Radstaak - de Doring
+        clientGender: F
+        clientIsDummy: false
+        clientBirthDate: '1932-05-23'
+        clientPreferredName: Arie
+        clientPronouns:
+          description: zij/haar
+          type: SHE_HER
+        clientPronounsType: SHE_HER
+        employeeId: 1
+        employeeUuid: '1234567890'
+        employeeCode: code
+        employeeName: employee
+        employeeGender: m
+        employeeIsDummy: true
+    Pronouns:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/PronounsType'
+        description:
+          type: string
+          description: Translated description of the pronouns.
+      description: The usage of this schema is deprecated and has been replaced by PronounsType.
+      example:
+        type: WHO_THEIR
+        description: die/diens
+      deprecated: true
+      x-deprecated-since: 21-08-2026
+    moves.LocationAuthorization:
+      type: object
+      properties:
+        locationId:
+          type:
+          - integer
+          - 'null'
+          description: 'The location this LocationAuthorization grants access to.
+
+            Reference to Cupido::Location.'
+          format: int64
+      description: LocationAuthorization model (no description)
+      example:
+        locationId: 1
     moves.list.PlannedVisitList:
       type: object
       properties:
@@ -588,79 +900,6 @@ components:
           clientGender: F
           clientIsDummy: false
           clientBirthDate: '1932-05-23'
-    moves.LocationAuthorization:
-      type: object
-      properties:
-        locationId:
-          type:
-          - integer
-          - 'null'
-          description: 'The location this LocationAuthorization grants access to.
-
-            Reference to Cupido::Location.'
-          format: int64
-      description: LocationAuthorization model (no description)
-      example:
-        locationId: 1
-    moves.PlannedAddress:
-      type:
-      - object
-      - 'null'
-      properties:
-        latitude:
-          type:
-          - number
-          - 'null'
-          format: double
-        longitude:
-          type:
-          - number
-          - 'null'
-          format: double
-        city:
-          type:
-          - string
-          - 'null'
-        street:
-          type:
-          - string
-          - 'null'
-        zipcode:
-          type:
-          - string
-          - 'null'
-        number:
-          type:
-          - string
-          - 'null'
-        numberPostfix:
-          type:
-          - string
-          - 'null'
-        residenceAccessInfo:
-          type:
-          - string
-          - 'null'
-        roomNumber:
-          type:
-          - string
-          - 'null'
-      description: 'Address where {@link PlannedVisit}s are planned.
-
-
-        Moves has it''s own Address model, and plancards can be
-
-        planned tp addresses not known in other systems.'
-      example:
-        latitude: 52.038398
-        longitude: 6.624163
-        city: Groenlo
-        street: Parallelweg
-        zipcode: 7141DC
-        number: '31'
-        numberPostfix: a
-        residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
-        roomNumber: '1'
     moves.Plancard:
       type: object
       properties:
@@ -775,245 +1014,6 @@ components:
         instanceOfId: 16
         kind: arrangement
         exportable: true
-    Pronouns:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/PronounsType'
-        description:
-          type: string
-          description: Translated description of the pronouns.
-      description: The usage of this schema is deprecated and has been replaced by PronounsType.
-      example:
-        type: WHO_THEIR
-        description: die/diens
-      deprecated: true
-      x-deprecated-since: 21-08-2026
-    moves.PlannedVisit:
-      type:
-      - object
-      - 'null'
-      properties:
-        date:
-          type:
-          - string
-          - 'null'
-          format: date
-        calculatedStart:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        totalDuration:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        travelTimeBefore:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        gapTimeBefore:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        firstAfterMidnight:
-          type: boolean
-          description: 'This visit is the first after midnight, and a visual indication
-
-            should be shown to the user (e.g. the new date or a 🌙 icon).'
-        notes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        plancards:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/moves.Plancard'
-        plannedAddress:
-          $ref: '#/components/schemas/moves.PlannedAddress'
-        shiftTimelineId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        shiftName:
-          type:
-          - string
-          - 'null'
-        shiftCode:
-          type:
-          - string
-          - 'null'
-        teamId:
-          type:
-          - integer
-          - 'null'
-          description: Linked to the Ons Administratie team, can be null if the Moves planning team (unit) is a sub-team from the OA team
-          format: int64
-        teamUuid:
-          type:
-          - string
-          - 'null'
-        unitId:
-          type:
-          - integer
-          - 'null'
-          description: Linked to the Moves planning team (unit)
-          format: int64
-        teamName:
-          type:
-          - string
-          - 'null'
-        teamCode:
-          type:
-          - string
-          - 'null'
-        teamBlockplanned:
-          type:
-          - boolean
-          - 'null'
-          description: 'Indicates if the Team uses the blockplanscreen (clients planned to
-
-            employees directly) instead of the route-based planscreen.'
-        authorizesForLocationId:
-          type:
-          - integer
-          - 'null'
-          description: 'Being planned as Employee for the Team or Shift
-
-            implies authorization for this Location.'
-          format: int64
-          deprecated: true
-        locationAuthorizations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/moves.LocationAuthorization'
-          description: 'Being assigned as Employee for the Team or Shift
-
-            implies authorization for these Locations.'
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        clientUuid:
-          type:
-          - string
-          - 'null'
-        clientCode:
-          type:
-          - string
-          - 'null'
-        clientName:
-          type:
-          - string
-          - 'null'
-        clientGender:
-          type:
-          - string
-          - 'null'
-        clientIsDummy:
-          type:
-          - boolean
-          - 'null'
-        clientBirthDate:
-          type:
-          - string
-          - 'null'
-          format: date
-        clientPreferredName:
-          type:
-          - string
-          - 'null'
-        clientPronouns:
-          x-deprecated-since: 21-08-2026
-          $ref: '#/components/schemas/Pronouns'
-          description: This field is no longer used and has been replaced by clientPronounsType.
-          deprecated: true
-        clientPronounsType:
-          $ref: '#/components/schemas/PronounsType'
-        employeeId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        employeeUuid:
-          type:
-          - string
-          - 'null'
-        employeeCode:
-          type:
-          - string
-          - 'null'
-        employeeName:
-          type:
-          - string
-          - 'null'
-        employeeGender:
-          type:
-          - string
-          - 'null'
-        employeeIsDummy:
-          type:
-          - boolean
-          - 'null'
-      description: A Visit from an {@Employee} to a {@Client}.
-      example:
-        date: '2013-12-06'
-        calculatedStart: '2013-12-06T12:51:00.000+01:00'
-        totalDuration: -1386330660
-        travelTimeBefore: 3600
-        gapTimeBefore: 0
-        firstAfterMidnight: false
-        notes: []
-        plancards: []
-        plannedAddress:
-          latitude: 0.5
-          longitude: 0.5
-          city: example
-          street: example
-          zipcode: example
-          number: example
-          numberPostfix: example
-        shiftTimelineId: 6
-        shiftName: Middag De Terp PV
-        shiftCode: MDT
-        teamId: 328
-        teamUuid: 8978eec1-55c8-4c2f-bf63-4d9ae599263c
-        unitId: 1090
-        teamName: V&V De Terp
-        teamCode: '1410'
-        teamBlockplanned: false
-        authorizesForLocationId: 12
-        locationAuthorizations:
-        - locationId: 12
-        clientId: 14947
-        clientUuid: 3c18790a-145a-4281-b5bd-0d7e0013ce5d
-        clientCode: '05645'
-        clientName: A Radstaak - de Doring
-        clientGender: F
-        clientIsDummy: false
-        clientBirthDate: '1932-05-23'
-        clientPreferredName: Arie
-        clientPronouns:
-          description: zij/haar
-          type: SHE_HER
-        clientPronounsType: SHE_HER
-        employeeId: 1
-        employeeUuid: '1234567890'
-        employeeCode: code
-        employeeName: employee
-        employeeGender: m
-        employeeIsDummy: true
     PronounsType:
       enum:
       - SHE_HER

@@ -1329,6 +1329,58 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    tasque.Executor:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        locationId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
+        expertiseProfileId:
+          type: integer
+          format: int64
+        expertiseGroupId:
+          type: integer
+          format: int64
+      description: Executor model (no description)
+      example:
+        employeeId: 1
+        locationId: 1
+        teamId: 1
+        expertiseProfileId: 1
+        expertiseGroupId: 1
     tasque.list.CareTaskOccurrenceList:
       type: object
       properties:
@@ -1370,58 +1422,61 @@ components:
           creatorId: 12
           finishDate: '2012-08-03'
           finisherId: 12
-    tasque.Executor:
+    tasque.CareTaskGroup:
+      required:
+      - namedPath
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: ID of task group provided by source
+          readOnly: true
+          x-cupido-id: true
+        namedPath:
+          type: string
+          description: Name of the task group including hierarchy when nesting via '/'
+        active:
+          type:
+          - boolean
+          - 'null'
+          description: True if task group is active globally
+        qualityTask:
+          type: boolean
+          description: True if task group is active and tasks are visible in Kwaliteitsmonitor
+        rights:
+          type: array
+          items:
+            type: string
+          description: A list of rights
+      description: Group of tasks with the same subtype
+      example:
+        id: care_plan_renew
+        namedPath: Dossier/Care plan/renewal
+        active: true
+        qualityTask: true
+        rights:
+        - client_overview
+    tasque.list.ClientIdBySubTypeList:
       type: object
       properties:
-        employeeId:
-          type: integer
-          format: int64
-        locationId:
-          type: integer
-          format: int64
-        teamId:
-          type: integer
-          format: int64
-        expertiseProfileId:
-          type: integer
-          format: int64
-        expertiseGroupId:
-          type: integer
-          format: int64
-      description: Executor model (no description)
+        clientIdsBySubType:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/tasque.ClientIdBySubType'
+            xml:
+              name: clientIdBySubType
+      description: ClientIdBySubTypeList model (no description)
       example:
-        employeeId: 1
-        locationId: 1
-        teamId: 1
-        expertiseProfileId: 1
-        expertiseGroupId: 1
-    RecurrenceType:
-      title: RecurrenceType
-      type:
-      - string
-      - 'null'
-      oneOf:
-      - title: SINGLE
-        enum:
-        - single
-      - title: DAILY
-        enum:
-        - daily
-      - title: WEEKLY
-        enum:
-        - weekly
-      - title: MONTHLY_ON_DAY
-        enum:
-        - monthly_on_day
-      - title: MONTHLY_ON_WEEK
-        enum:
-        - monthly_on_week
-      - title: YEARLY
-        enum:
-        - yearly
-      description: Frequency of the recurrence
-      default: single
-      example: single
+        clientIdsBySubType:
+        - subType: test_task_group_16
+          subTypeId: '1'
+          clientId: 2
+        - subType: test_task_group_16
+          subTypeId: '1'
+          clientId: 4
     tasque.CareTaskOccurrence:
       type: object
       properties:
@@ -1651,78 +1706,6 @@ components:
         rights:
         - client_overview
         hideExpiredSubject: true
-    tasque.ClientIdBySubType:
-      type: object
-      properties:
-        subType:
-          type: string
-          description: sub type of task
-        subTypeId:
-          type: string
-          description: id of sub type of task
-        clientId:
-          type: integer
-          description: client id
-      description: ClientIdBySubType model (no description)
-      example:
-        subType: test_task_group_16
-        subTypeId: '1'
-        clientId: 2
-    tasque.list.ClientIdBySubTypeList:
-      type: object
-      properties:
-        clientIdsBySubType:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/tasque.ClientIdBySubType'
-            xml:
-              name: clientIdBySubType
-      description: ClientIdBySubTypeList model (no description)
-      example:
-        clientIdsBySubType:
-        - subType: test_task_group_16
-          subTypeId: '1'
-          clientId: 2
-        - subType: test_task_group_16
-          subTypeId: '1'
-          clientId: 4
-    tasque.CareTaskGroup:
-      required:
-      - namedPath
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
-          type: string
-          description: ID of task group provided by source
-          readOnly: true
-          x-cupido-id: true
-        namedPath:
-          type: string
-          description: Name of the task group including hierarchy when nesting via '/'
-        active:
-          type:
-          - boolean
-          - 'null'
-          description: True if task group is active globally
-        qualityTask:
-          type: boolean
-          description: True if task group is active and tasks are visible in Kwaliteitsmonitor
-        rights:
-          type: array
-          items:
-            type: string
-          description: A list of rights
-      description: Group of tasks with the same subtype
-      example:
-        id: care_plan_renew
-        namedPath: Dossier/Care plan/renewal
-        active: true
-        qualityTask: true
-        rights:
-        - client_overview
     tasque.Subject:
       type: object
       properties:
@@ -1744,6 +1727,23 @@ components:
         employeeId: 1
         locationId: 1
         teamId: 1
+    tasque.ClientIdBySubType:
+      type: object
+      properties:
+        subType:
+          type: string
+          description: sub type of task
+        subTypeId:
+          type: string
+          description: id of sub type of task
+        clientId:
+          type: integer
+          description: client id
+      description: ClientIdBySubType model (no description)
+      example:
+        subType: test_task_group_16
+        subTypeId: '1'
+        clientId: 2
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -489,6 +489,25 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ClientAbsenceReason:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        reason:
+          type: string
+        active:
+          type: boolean
+          default: false
+      description: ClientAbsenceReason domain model used by Cupido system.
+      example:
+        id: 42
+        reason: aap
+        active: true
+      xml:
+        name: clientAbsenceReason
     list.ClientAbsenceList:
       type: object
       properties:
@@ -567,25 +586,6 @@ components:
         sourceId: 900
       xml:
         name: clientAbsence
-    ClientAbsenceReason:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        reason:
-          type: string
-        active:
-          type: boolean
-          default: false
-      description: ClientAbsenceReason domain model used by Cupido system.
-      example:
-        id: 42
-        reason: aap
-        active: true
-      xml:
-        name: clientAbsenceReason
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

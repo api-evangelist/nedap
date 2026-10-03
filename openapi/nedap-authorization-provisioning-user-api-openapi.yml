@@ -97,52 +97,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    authorization.provisioning.User:
-      type: object
-      properties:
-        userUuid:
-          type: string
-          x-cupido-id: true
-        source:
-          type: string
-        duties:
-          type: array
-          items:
-            $ref: '#/components/schemas/authorization.provisioning.Duty'
-        defaultScopedDuties:
-          type: array
-          items:
-            $ref: '#/components/schemas/authorization.provisioning.Duty'
-        roleScopedDuties:
-          type: array
-          items:
-            $ref: '#/components/schemas/authorization.provisioning.Duty'
-      description: User model (no description)
-      example:
-        userUuid: 1b9243a9-83b5-4edf-ab93-507f88fdcb01
-        source: Koppelingnaam
-        duties:
-        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
-          locationIds:
-          - 1
-          - 2
-          - 3
-          teamIds:
-          - 4
-          - 5
-          - 6
-          myself: true
-          allEmployees: true
-          myPlanning: true
-          myRoster: true
-          clientEmployeeRelationTypeIds:
-          - 7
-          - 8
-          - 9
-        defaultScopedDuties:
-        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
-        roleScopedDuties:
-        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
     authorization.provisioning.Duty:
       type: object
       properties:
@@ -204,6 +158,52 @@ components:
         - 7
         - 8
         - 9
+    authorization.provisioning.User:
+      type: object
+      properties:
+        userUuid:
+          type: string
+          x-cupido-id: true
+        source:
+          type: string
+        duties:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization.provisioning.Duty'
+        defaultScopedDuties:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization.provisioning.Duty'
+        roleScopedDuties:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization.provisioning.Duty'
+      description: User model (no description)
+      example:
+        userUuid: 1b9243a9-83b5-4edf-ab93-507f88fdcb01
+        source: Koppelingnaam
+        duties:
+        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
+          locationIds:
+          - 1
+          - 2
+          - 3
+          teamIds:
+          - 4
+          - 5
+          - 6
+          myself: true
+          allEmployees: true
+          myPlanning: true
+          myRoster: true
+          clientEmployeeRelationTypeIds:
+          - 7
+          - 8
+          - 9
+        defaultScopedDuties:
+        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
+        roleScopedDuties:
+        - roleUuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

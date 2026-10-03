@@ -252,6 +252,69 @@ components:
       type: string
       description: LocationAssignmentType enum (no description)
       example: STANDARD
+    LocationAssignmentResidence:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/LocationAssignment'
+      properties:
+        careOrderObjectId:
+          type: integer
+          description: 'The careorder where this locationassignment belongs to.
+
+            This is needed to be able to create a declaration based on locationassignments'
+          format: int64
+        hourTypeObjectId:
+          type: integer
+          description: 'The kind of care that is given using this locationassignment. Example: GGZ verblijf licht
+
+            This is needed to be able to create a declaration based on locationassignments'
+          format: int64
+        productObjectId:
+          type: integer
+          description: 'Deprecated since: 14-03-2019 - use hourTypeObjectId instead.'
+          format: int64
+          deprecated: true
+      description: LocationAssignmentResidence model (no description)
+      example:
+        id: 1
+        beginDate: '2012-08-02'
+        beginTime: '10:11:00.000'
+        endDate: '2012-08-02'
+        endTime: '12:13:00.000'
+        clientObjectId: 1
+        locationObjectId: 1
+        moveDate: '2012-08-02'
+        locationAssignmentType: MAIN
+        residence: false
+        mainLocation: true
+        medicineLocation: true
+        careOrderObjectId: 1
+        hourTypeObjectId: 1
+        productObjectId: 1
+      xml:
+        name: locationAssignmentResidence
+    list.LocationAssignmentResidenceList:
+      type: object
+      properties:
+        locationAssignmentResidences:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAssignmentResidence'
+      description: LocationAssignmentResidenceList model (no description)
+      example:
+        locationAssignmentResidences:
+        - id: 1
+          beginDate: '2012-08-02'
+          beginTime: '10:11:00.000'
+          endDate: '2012-08-02'
+          endTime: '12:13:00.000'
+          clientObjectId: 2
+          locationObjectId: 3
+          moveDate: '2012-08-02'
+          locationAssignmentType: MAIN
+          residence: false
+          mainLocation: true
+          medicineLocation: false
     LocationAssignment:
       type: object
       properties:
@@ -309,69 +372,6 @@ components:
         medicineLocation: false
       xml:
         name: locationAssignment
-    list.LocationAssignmentResidenceList:
-      type: object
-      properties:
-        locationAssignmentResidences:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationAssignmentResidence'
-      description: LocationAssignmentResidenceList model (no description)
-      example:
-        locationAssignmentResidences:
-        - id: 1
-          beginDate: '2012-08-02'
-          beginTime: '10:11:00.000'
-          endDate: '2012-08-02'
-          endTime: '12:13:00.000'
-          clientObjectId: 2
-          locationObjectId: 3
-          moveDate: '2012-08-02'
-          locationAssignmentType: MAIN
-          residence: false
-          mainLocation: true
-          medicineLocation: false
-    LocationAssignmentResidence:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/LocationAssignment'
-      properties:
-        careOrderObjectId:
-          type: integer
-          description: 'The careorder where this locationassignment belongs to.
-
-            This is needed to be able to create a declaration based on locationassignments'
-          format: int64
-        hourTypeObjectId:
-          type: integer
-          description: 'The kind of care that is given using this locationassignment. Example: GGZ verblijf licht
-
-            This is needed to be able to create a declaration based on locationassignments'
-          format: int64
-        productObjectId:
-          type: integer
-          description: 'Deprecated since: 14-03-2019 - use hourTypeObjectId instead.'
-          format: int64
-          deprecated: true
-      description: LocationAssignmentResidence model (no description)
-      example:
-        id: 1
-        beginDate: '2012-08-02'
-        beginTime: '10:11:00.000'
-        endDate: '2012-08-02'
-        endTime: '12:13:00.000'
-        clientObjectId: 1
-        locationObjectId: 1
-        moveDate: '2012-08-02'
-        locationAssignmentType: MAIN
-        residence: false
-        mainLocation: true
-        medicineLocation: true
-        careOrderObjectId: 1
-        hourTypeObjectId: 1
-        productObjectId: 1
-      xml:
-        name: locationAssignmentResidence
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

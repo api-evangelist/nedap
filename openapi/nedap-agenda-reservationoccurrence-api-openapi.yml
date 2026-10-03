@@ -398,50 +398,6 @@ components:
         labels:
         - id: 1
           name: Telefonisch
-    agenda.RecurrenceType:
-      enum:
-      - single
-      - daily
-      - weekly
-      - monthly_on_day
-      - monthly_on_week
-      - yearly
-      type: string
-      description: 'When no value is supplied, it defaults to single. Specifies the recurrence rule:
-
-
-        * single: The entry only occurs a single time, no recurrence is used.
-
-        * daily: The entry occurs every day.
-
-        * weekly: The entry occurs every week on the days supplied in the ''weekdays'' field.
-
-        * monthly_on_day: The entry occurs every month on the given date. I.e. on the 10th every month.
-
-        * monthly_on_week: The entry occurs every month on the same day of the month. I.e. on the
-
-        first Tuesday every month.
-
-        * yearly: The entry occurs every year on the given date.'
-      default: single
-      example: single
-    agenda.ReservationOccurrenceResponse:
-      title: ReservationOccurrenceResponse
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/agenda.ReservationOccurrence'
-      description: Response wrapping a list of reservation occurrences.
-      example:
-        data:
-        - occurrenceId: 07ea6051
-          startsAt: '2025-06-05T08:10:00.000+02:00'
-          endsAt: '2025-06-05T08:20:00.000+02:00'
-          labels:
-          - id: 1
-            name: Telefonisch
     agenda.RecurrenceRule:
       title: AgendaRecurrenceRule
       required:
@@ -481,6 +437,23 @@ components:
         - 1
         - 3
         repeatUntil: '2015-08-02'
+    agenda.ReservationOccurrenceResponse:
+      title: ReservationOccurrenceResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.ReservationOccurrence'
+      description: Response wrapping a list of reservation occurrences.
+      example:
+        data:
+        - occurrenceId: 07ea6051
+          startsAt: '2025-06-05T08:10:00.000+02:00'
+          endsAt: '2025-06-05T08:20:00.000+02:00'
+          labels:
+          - id: 1
+            name: Telefonisch
     agenda.Label:
       title: Label
       type: object
@@ -495,6 +468,33 @@ components:
       example:
         id: 1
         name: Telefonisch
+    agenda.RecurrenceType:
+      enum:
+      - single
+      - daily
+      - weekly
+      - monthly_on_day
+      - monthly_on_week
+      - yearly
+      type: string
+      description: 'When no value is supplied, it defaults to single. Specifies the recurrence rule:
+
+
+        * single: The entry only occurs a single time, no recurrence is used.
+
+        * daily: The entry occurs every day.
+
+        * weekly: The entry occurs every week on the days supplied in the ''weekdays'' field.
+
+        * monthly_on_day: The entry occurs every month on the given date. I.e. on the 10th every month.
+
+        * monthly_on_week: The entry occurs every month on the same day of the month. I.e. on the
+
+        first Tuesday every month.
+
+        * yearly: The entry occurs every year on the given date.'
+      default: single
+      example: single
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

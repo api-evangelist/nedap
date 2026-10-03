@@ -142,33 +142,69 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    RecurrenceType:
-      title: RecurrenceType
+    agenda.ClientAbsenceStatus:
+      enum:
+      - CREATED
+      - UPDATED
+      - DELETED
       type:
       - string
       - 'null'
-      oneOf:
-      - title: SINGLE
-        enum:
-        - single
-      - title: DAILY
-        enum:
-        - daily
-      - title: WEEKLY
-        enum:
-        - weekly
-      - title: MONTHLY_ON_DAY
-        enum:
-        - monthly_on_day
-      - title: MONTHLY_ON_WEEK
-        enum:
-        - monthly_on_week
-      - title: YEARLY
-        enum:
-        - yearly
-      description: Frequency of the recurrence
-      default: single
-      example: single
+      description: A status about the absence; can be created/updated/deleted.
+      example: CREATED
+    agenda.list.ClientAbsenceOccurrenceList:
+      title: ClientAbsenceOccurrenceList
+      type: object
+      properties:
+        clientAbsenceOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.ClientAbsenceOccurrence'
+      description: ClientAbsenceOccurrenceList model (no description)
+      example:
+        clientAbsenceOccurrences:
+        - id: 07e4618393
+          startDate: '2020-06-24'
+          endDate: '2020-07-24'
+          startTime: '08:10:00.000'
+          endTime: '08:20:00.000'
+          recurrenceType: single
+          cycleInterval: 1
+          validFrom: '2020-06-24'
+          validTo: '2020-12-24'
+          timelineId: 42
+          note: Omdat het kan
+          status: CREATED
+          monday: true
+          tuesday: false
+          wednesday: true
+          thursday: true
+          friday: false
+          saturday: true
+          sunday: false
+          clientAbsenceReasonId: 1
+          clientId: 142
+        - id: 07e4618394
+          startDate: '2020-06-25'
+          endDate: '2020-07-25'
+          startTime: '08:10:00.000'
+          endTime: '08:20:00.000'
+          recurrenceType: single
+          cycleInterval: 1
+          validFrom: '2020-06-25'
+          validTo: '2020-12-25'
+          timelineId: 42
+          note: Omdat het kan 2
+          status: CREATED
+          monday: true
+          tuesday: false
+          wednesday: true
+          thursday: true
+          friday: false
+          saturday: true
+          sunday: false
+          clientAbsenceReasonId: 1
+          clientId: 142
     agenda.ClientAbsenceOccurrence:
       title: ClientAbsenceOccurrence
       type: object
@@ -312,69 +348,33 @@ components:
         sunday: false
         clientAbsenceReasonId: 1
         clientId: 142
-    agenda.ClientAbsenceStatus:
-      enum:
-      - CREATED
-      - UPDATED
-      - DELETED
+    RecurrenceType:
+      title: RecurrenceType
       type:
       - string
       - 'null'
-      description: A status about the absence; can be created/updated/deleted.
-      example: CREATED
-    agenda.list.ClientAbsenceOccurrenceList:
-      title: ClientAbsenceOccurrenceList
-      type: object
-      properties:
-        clientAbsenceOccurrences:
-          type: array
-          items:
-            $ref: '#/components/schemas/agenda.ClientAbsenceOccurrence'
-      description: ClientAbsenceOccurrenceList model (no description)
-      example:
-        clientAbsenceOccurrences:
-        - id: 07e4618393
-          startDate: '2020-06-24'
-          endDate: '2020-07-24'
-          startTime: '08:10:00.000'
-          endTime: '08:20:00.000'
-          recurrenceType: single
-          cycleInterval: 1
-          validFrom: '2020-06-24'
-          validTo: '2020-12-24'
-          timelineId: 42
-          note: Omdat het kan
-          status: CREATED
-          monday: true
-          tuesday: false
-          wednesday: true
-          thursday: true
-          friday: false
-          saturday: true
-          sunday: false
-          clientAbsenceReasonId: 1
-          clientId: 142
-        - id: 07e4618394
-          startDate: '2020-06-25'
-          endDate: '2020-07-25'
-          startTime: '08:10:00.000'
-          endTime: '08:20:00.000'
-          recurrenceType: single
-          cycleInterval: 1
-          validFrom: '2020-06-25'
-          validTo: '2020-12-25'
-          timelineId: 42
-          note: Omdat het kan 2
-          status: CREATED
-          monday: true
-          tuesday: false
-          wednesday: true
-          thursday: true
-          friday: false
-          saturday: true
-          sunday: false
-          clientAbsenceReasonId: 1
-          clientId: 142
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

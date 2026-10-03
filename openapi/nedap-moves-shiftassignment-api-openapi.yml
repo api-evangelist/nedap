@@ -142,61 +142,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.list.ShiftAssignmentList:
-      title: ShiftAssignmentList
-      type: object
-      properties:
-        shiftAssignments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/moves.ShiftAssignment'
-          xml:
-            name: shiftAssignment
-      description: ShiftAssignmentList model (no description)
-      example:
-        shiftAssignments:
-        - id: 1
-          date: '1999-12-31'
-          beginTime: '1999-12-31T22:00:00.000+01:00'
-          endTime: '1999-12-31T23:00:00.000+01:00'
-          externalExpertiseProfileId: 1
-          expertiseProfileName: Verpleegkundige
-          shiftId: 1@2014-03-28
-          employeeId: 1
-          employeeLeadingName: Jan Henk
-          employeeName: Jan Henk Heilersig
-          onCall: true
-          timelineShiftId: 1654
-          unitId: 5
-          breakDuration: 15
-          incidental: true
-          order: 0
-          startBreakTime: '1999-12-31T22:15:00.000+01:00'
-          stopBreakTime: '1999-12-31T23:29:00.000+01:00'
-          discardedAt: '2000-12-31T23:29:00.000+01:00'
-        - id: 2
-          date: '1999-12-31'
-          beginTime: '1999-12-31T22:00:00.000+01:00'
-          endTime: '1999-12-31T23:00:00.000+01:00'
-          externalExpertiseProfileId: 1
-          expertiseProfileName: Verpleegkundige
-          shiftId: 2@2014-03-28
-          employeeId: 2
-          employeeLeadingName: Jan Hendrik
-          employeeName: Jan Hendrik Croockewit
-          onCall: false
-          timelineShiftId: 1754
-          unitId: 6
-          breakDuration: 16
-          incidental: true
-          order: 0
-          startBreakTime: '1999-12-31T22:15:00.000+01:00'
-          stopBreakTime: '1999-12-31T23:29:00.000+01:00'
-          discardedAt: '2000-12-31T23:29:00.000+01:00'
-      xml:
-        name: shiftAssignments
     moves.ShiftAssignment:
       title: ShiftAssignment
       type: object
@@ -349,6 +294,61 @@ components:
         exportable: true
       xml:
         name: shiftAssignment
+    moves.list.ShiftAssignmentList:
+      title: ShiftAssignmentList
+      type: object
+      properties:
+        shiftAssignments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/moves.ShiftAssignment'
+          xml:
+            name: shiftAssignment
+      description: ShiftAssignmentList model (no description)
+      example:
+        shiftAssignments:
+        - id: 1
+          date: '1999-12-31'
+          beginTime: '1999-12-31T22:00:00.000+01:00'
+          endTime: '1999-12-31T23:00:00.000+01:00'
+          externalExpertiseProfileId: 1
+          expertiseProfileName: Verpleegkundige
+          shiftId: 1@2014-03-28
+          employeeId: 1
+          employeeLeadingName: Jan Henk
+          employeeName: Jan Henk Heilersig
+          onCall: true
+          timelineShiftId: 1654
+          unitId: 5
+          breakDuration: 15
+          incidental: true
+          order: 0
+          startBreakTime: '1999-12-31T22:15:00.000+01:00'
+          stopBreakTime: '1999-12-31T23:29:00.000+01:00'
+          discardedAt: '2000-12-31T23:29:00.000+01:00'
+        - id: 2
+          date: '1999-12-31'
+          beginTime: '1999-12-31T22:00:00.000+01:00'
+          endTime: '1999-12-31T23:00:00.000+01:00'
+          externalExpertiseProfileId: 1
+          expertiseProfileName: Verpleegkundige
+          shiftId: 2@2014-03-28
+          employeeId: 2
+          employeeLeadingName: Jan Hendrik
+          employeeName: Jan Hendrik Croockewit
+          onCall: false
+          timelineShiftId: 1754
+          unitId: 6
+          breakDuration: 16
+          incidental: true
+          order: 0
+          startBreakTime: '1999-12-31T22:15:00.000+01:00'
+          stopBreakTime: '1999-12-31T23:29:00.000+01:00'
+          discardedAt: '2000-12-31T23:29:00.000+01:00'
+      xml:
+        name: shiftAssignments
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

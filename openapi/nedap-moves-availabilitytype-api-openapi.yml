@@ -67,33 +67,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.list.AvailabilityTypeList:
-      type: object
-      properties:
-        availabilityTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.AvailabilityType'
-          xml:
-            name: availabilityType
-      description: AvailabilityTypeList model (no description)
-      example:
-        availabilityTypes:
-        - id: 1
-          name: Ziek
-          abbreviation: Z
-          key: sick
-          available: false
-          forEmployees: true
-          forClients: true
-          hourTypeId: 198
-          externalHourTypeId: 298
-          movesHourTypeId: 398
-          defaultPayrollingType: SickLeave
-          isPublic: true
-          isSynthetic: false
-      xml:
-        name: availabilityTypes
     moves.AvailabilityType:
       type: object
       properties:
@@ -158,6 +131,33 @@ components:
         isSynthetic: false
       xml:
         name: availabilityType
+    moves.list.AvailabilityTypeList:
+      type: object
+      properties:
+        availabilityTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.AvailabilityType'
+          xml:
+            name: availabilityType
+      description: AvailabilityTypeList model (no description)
+      example:
+        availabilityTypes:
+        - id: 1
+          name: Ziek
+          abbreviation: Z
+          key: sick
+          available: false
+          forEmployees: true
+          forClients: true
+          hourTypeId: 198
+          externalHourTypeId: 298
+          movesHourTypeId: 398
+          defaultPayrollingType: SickLeave
+          isPublic: true
+          isSynthetic: false
+      xml:
+        name: availabilityTypes
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

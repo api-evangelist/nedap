@@ -175,6 +175,27 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    Agbcode:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        code:
+          type: string
+        vatNumber:
+          type: string
+      description: Agbcode model (no description)
+      example:
+        id: 1
+        name: Organization name
+        code: '75750535'
+        vatNumber: NL123456789B01
+      xml:
+        name: agbcode
     list.AgbcodeList:
       type: object
       properties:
@@ -197,27 +218,6 @@ components:
           vatNumber: NL123456789B02
       xml:
         name: agbcodes
-    Agbcode:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        code:
-          type: string
-        vatNumber:
-          type: string
-      description: Agbcode model (no description)
-      example:
-        id: 1
-        name: Organization name
-        code: '75750535'
-        vatNumber: NL123456789B01
-      xml:
-        name: agbcode
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -455,28 +455,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.CareAllocationList:
-      type: object
-      properties:
-        careAllocations:
-          type: array
-          items:
-            $ref: '#/components/schemas/CareAllocation'
-          xml:
-            name: careAllocation
-      description: CareAllocationList model (no description)
-      example:
-        careAllocations:
-        - id: 1
-          clientId: 544
-          beginDate: '2016-01-01'
-          endDate: '2020-01-01'
-          comments: niets te melden
-          destination: EIGEN_OMGEVING
-          reason: IN_CARE
-          reasonTemporary: VAKANTIEVERLOF
-      xml:
-        name: careAllocations
     CareAllocation:
       required:
       - clientId
@@ -578,6 +556,28 @@ components:
         careProviderId: 42
       xml:
         name: careAllocation
+    list.CareAllocationList:
+      type: object
+      properties:
+        careAllocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CareAllocation'
+          xml:
+            name: careAllocation
+      description: CareAllocationList model (no description)
+      example:
+        careAllocations:
+        - id: 1
+          clientId: 544
+          beginDate: '2016-01-01'
+          endDate: '2020-01-01'
+          comments: niets te melden
+          destination: EIGEN_OMGEVING
+          reason: IN_CARE
+          reasonTemporary: VAKANTIEVERLOF
+      xml:
+        name: careAllocations
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

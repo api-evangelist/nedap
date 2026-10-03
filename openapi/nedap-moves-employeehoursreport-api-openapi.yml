@@ -63,6 +63,53 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.EmployeeHoursReportSegment:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.EmployeeHoursReportCategory'
+      description: Describes a segment of the worked and leave hours of an employee. E.g. 'current' or 'future'
+      example:
+        name: current
+        label: Nu
+        categories:
+        - name: worked_hours
+          label: Gewerke uren
+          minutes: 60
+          link: https://example.com
+          description: Aantal gewerkte uren deze week
+    moves.EmployeeHoursReportCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        minutes:
+          type: integer
+          format: int64
+        link:
+          type: string
+        description:
+          type: string
+        subCategory:
+          $ref: '#/components/schemas/moves.EmployeeHoursReportSubCategory'
+      description: Describes a category of the worked and leave hours of an employee. E.g. 'worked_hours' or 'compensation'
+      example:
+        name: compensation
+        label: Compensatie
+        minutes: 480
+        link: https://example.com
+        description: Compensatiesaldo tot publicatiedatum
+        subCategory:
+          name: until_publication_date
+          label: Tot aan publicatiedatum (25-3-2024)
     moves.EmployeeHoursReport:
       type: object
       properties:
@@ -114,27 +161,6 @@ components:
             subCategory:
               name: expected_end_of_year
               label: Verwacht eind 2024
-    moves.EmployeeHoursReportSegment:
-      type: object
-      properties:
-        name:
-          type: string
-        label:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.EmployeeHoursReportCategory'
-      description: Describes a segment of the worked and leave hours of an employee. E.g. 'current' or 'future'
-      example:
-        name: current
-        label: Nu
-        categories:
-        - name: worked_hours
-          label: Gewerke uren
-          minutes: 60
-          link: https://example.com
-          description: Aantal gewerkte uren deze week
     moves.EmployeeHoursReportSubCategory:
       type: object
       properties:
@@ -146,32 +172,6 @@ components:
       example:
         name: until_publication_date
         label: Tot aan publicatiedatum (25-3-2024)
-    moves.EmployeeHoursReportCategory:
-      type: object
-      properties:
-        name:
-          type: string
-        label:
-          type: string
-        minutes:
-          type: integer
-          format: int64
-        link:
-          type: string
-        description:
-          type: string
-        subCategory:
-          $ref: '#/components/schemas/moves.EmployeeHoursReportSubCategory'
-      description: Describes a category of the worked and leave hours of an employee. E.g. 'worked_hours' or 'compensation'
-      example:
-        name: compensation
-        label: Compensatie
-        minutes: 480
-        link: https://example.com
-        description: Compensatiesaldo tot publicatiedatum
-        subCategory:
-          name: until_publication_date
-          label: Tot aan publicatiedatum (25-3-2024)
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

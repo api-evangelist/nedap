@@ -67,6 +67,28 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.FreeFieldDefinitionList:
+      type: object
+      properties:
+        freeFieldDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FreeFieldDefinition'
+          xml:
+            name: FreeFieldDefinition
+      description: FreeFieldDefinitionList model (no description)
+      example:
+        freeFieldDefinitions:
+        - id: 1
+          categoryObjectId: 1
+          freeFieldType: 0
+          length: 40
+          name: Vrij veld 1
+          readOnly: true
+          required: true
+          sequenceNumber: 1
+      xml:
+        name: freeFieldDefinitions
     FreeFieldDefinition:
       type: object
       properties:
@@ -107,28 +129,6 @@ components:
         sequenceNumber: 1
       xml:
         name: FreeFieldDefinition
-    list.FreeFieldDefinitionList:
-      type: object
-      properties:
-        freeFieldDefinitions:
-          type: array
-          items:
-            $ref: '#/components/schemas/FreeFieldDefinition'
-          xml:
-            name: FreeFieldDefinition
-      description: FreeFieldDefinitionList model (no description)
-      example:
-        freeFieldDefinitions:
-        - id: 1
-          categoryObjectId: 1
-          freeFieldType: 0
-          length: 40
-          name: Vrij veld 1
-          readOnly: true
-          required: true
-          sequenceNumber: 1
-      xml:
-        name: freeFieldDefinitions
     FreeFieldType:
       type: integer
       oneOf:

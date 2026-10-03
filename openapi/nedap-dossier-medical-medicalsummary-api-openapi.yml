@@ -147,57 +147,26 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.episodes.SubGoal:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          description: Object id of this sub goal
-          format: int64
-          x-cupido-id: true
-        title:
-          type: string
-          description: Title of this sub goal
-        episodeId:
-          type: integer
-          description: Object id of the parent episode of this sub goal
-          format: int64
-        archived:
-          type: boolean
-          description: Archived status of this sub goal
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.episodes.Action'
-          description: Actions on this sub goal
-      description: SubGoal model (no description)
-      example:
-        updatedAt: '2017-11-27T00:00:00.000+01:00'
-        createdAt: '2017-11-27T00:00:00.000+01:00'
-        createdBy: Dummy
-        id: 2
-        title: Some sub goal
-        episodeId: 1
-        archived: false
-        actions:
-        - updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          title: example
-          subGoalId: 1
-          showInCarePlan: true
-          archived: true
-        - updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          title: example
-          subGoalId: 1
-          showInCarePlan: true
-          archived: true
+    survey.SurveyResultStatus:
+      type: string
+      oneOf:
+      - title: New
+        enum:
+        - New
+      - title: Draft
+        enum:
+        - Draft
+      - title: Review
+        enum:
+        - Review
+      - title: Current
+        enum:
+        - Current
+      - title: Archived
+        enum:
+        - Archived
+      description: SurveyResultStatus model (no description)
+      example: New
     dossier.MedicalNote:
       type: object
       allOf:
@@ -222,15 +191,6 @@ components:
         clientId: 1
       xml:
         name: medicalNote
-    dossier.medical.CauseBuilder:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
-      description: CauseBuilder model (no description)
-      example:
-        system: SNOMED
-        query: 256259004 | pollen |
-        name: Pollen
     dossier.medical.MedicalBase:
       type: object
       properties:
@@ -278,71 +238,6 @@ components:
         updatedById: 1
         createdAt: '2014-11-10T00:00:00.000+01:00'
         updatedAt: '2014-11-10T00:00:00.000+01:00'
-    dossier.episodes.EpisodeDocument:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        fileName:
-          type: string
-          deprecated: true
-          x-deprecated-since: 01-04-2026
-      description: EpisodeDocument model
-      example:
-        id: 1233
-        fileName: file.pdf
-    dossier.medical.advance_directives.ResuscitationDecision:
-      type: integer
-      oneOf:
-      - title: 'NO'
-        enum:
-        - 0
-      - title: 'YES'
-        enum:
-        - 1
-      - title: UNKNOWN
-        enum:
-        - 2
-      description: 'The current resuscitation decision for the client
-
-        <pre>
-
-        Possible values:
-
-        0 = NO
-
-        1 = YES
-
-        2 = UNKNOWN
-
-        </pre>'
-      example: 0
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     survey.SurveyResult:
       type: object
       allOf:
@@ -426,6 +321,987 @@ components:
         groupAnswers: []
       xml:
         name: surveyResult
+    dossier.episodes.SubGoal:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object id of this sub goal
+          format: int64
+          x-cupido-id: true
+        title:
+          type: string
+          description: Title of this sub goal
+        episodeId:
+          type: integer
+          description: Object id of the parent episode of this sub goal
+          format: int64
+        archived:
+          type: boolean
+          description: Archived status of this sub goal
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.episodes.Action'
+          description: Actions on this sub goal
+      description: SubGoal model (no description)
+      example:
+        updatedAt: '2017-11-27T00:00:00.000+01:00'
+        createdAt: '2017-11-27T00:00:00.000+01:00'
+        createdBy: Dummy
+        id: 2
+        title: Some sub goal
+        episodeId: 1
+        archived: false
+        actions:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          title: example
+          subGoalId: 1
+          showInCarePlan: true
+          archived: true
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          title: example
+          subGoalId: 1
+          showInCarePlan: true
+          archived: true
+    dossier.episodes.Episode:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object id of this episode
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: Client object id this episode belongs too
+          format: int64
+        startDate:
+          type: string
+          description: Start date of this episode
+          format: date
+        endDate:
+          type: string
+          description: End date of this episode
+          format: date
+        evaluationDate:
+          type: string
+          description: Evaluation date of this episode
+          format: date
+        goal:
+          type: string
+          description: Goal description of this episode
+        title:
+          type: string
+          description: Title of this episode
+        important:
+          type: boolean
+          description: Marked as important
+        marked:
+          type: boolean
+          description: Marked as relevant
+        subGoals:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.episodes.SubGoal'
+          description: Sub goals of this episode
+        problemIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Medical problems that are linked to this episode
+        surveyResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.SurveyResult'
+          description: Object ids of the survey results that are linked to this episode
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.episodes.EpisodeDocument'
+          description: Object ids of the documents that are linked to this episode
+        expertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Only users with these expertise profiles are allowed to access this episode; authorzationIds
+          deprecated: true
+        authorizedExpertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Only users with these expertise profiles are allowed to access this episode
+        authorizedExpertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Only users with these expertise groups are allowed to access this episode
+        linkedExpertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Users with these linked expertise profiles are connected to this episode
+        linkedExpertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Users with these linked expertise groups are connected to this episode
+      description: Episode model (no description)
+      example:
+        updatedAt: '2017-11-27T00:00:00.000+01:00'
+        createdAt: '2017-11-27T00:00:00.000+01:00'
+        createdBy: Some Employee
+        id: 1
+        clientId: 1
+        startDate: '2017-11-27'
+        endDate: '2017-11-27'
+        evaluationDate: '2017-11-27'
+        goal: Some Goal
+        title: awesome episode
+        important: false
+        marked: false
+        subGoals:
+        - updatedAt: '2017-11-27T00:00:00.000+01:00'
+          createdAt: '2017-11-27T00:00:00.000+01:00'
+          createdBy: Dummy
+          id: 2
+          title: Some sub goal
+          episodeId: 1
+          archived: false
+        problemIds:
+        - 1
+        - 2
+        surveyResults:
+        - updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          createdBy: user
+          id: 111
+          surveyObjectId: 555
+          clientObjectId: 333
+          employeeObjectId: 444
+          status: Draft
+          version: 1
+          title: test
+          linkedToActiveCarePlan: true
+          isAnyCarePlanUsingThisResult: true
+          duplicateSurveyResultAbility:
+            enabled: true
+            possible: true
+          editSurveyResultAbility:
+            enabled: true
+            possible: true
+          statusBumpSurveyResultAbility:
+            enabled: true
+            possible: true
+          viewSurveyResultAbility:
+            enabled: true
+            possible: true
+          answers: []
+          groupAnswers: []
+          completedAt: '2012-08-02T13:48:46.836+02:00'
+        documents:
+        - id: 1233
+          fileName: file.pdf
+        expertiseProfileIds:
+        - 1
+        - 1
+        authorizedExpertiseProfileIds:
+        - 1
+        - 2
+        authorizedExpertiseGroupIds:
+        - 1
+        linkedExpertiseProfileIds:
+        - 1
+        - 2
+        linkedExpertiseGroupIds:
+        - 1
+    dossier.medical.DecisionBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      properties:
+        outcome:
+          type: string
+          description: 'The outcome that should be set on the decision
+
+            Should be a valid outcome code within the system that is set on this builder'
+      description: DecisionBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 61420007 | Tube feeding |
+        name: Sondevoeding
+        outcome: 373067005 | no |
+    dossier.medical.advance_directives.context.StatusKey:
+      enum:
+      - ACTIVE
+      - DISCUSSED_WITH_PATIENT
+      - DISCUSSED_WITH_RELATIVE
+      type: string
+      description: The status of the AdvanceDirective Context.
+      example: DISCUSSED_WITH_PATIENT
+    dossier.Alert:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        name:
+          type: string
+          description: Name of this alert
+        type:
+          type: string
+          description: The type of alert
+        icon:
+          type: string
+          description: Name of Ivy icon to show for this alert
+        iconUrl:
+          type: string
+          description: The URL for the icon for this alert
+        iconPngUrl:
+          type: string
+          description: The PNG URL for the icon for this alert
+        protocol:
+          type: string
+          description: Protocol for this alert
+        description:
+          type: string
+          description: Description of this alert
+        beginDate:
+          type: string
+          description: Begin date of this alert
+          format: date
+        endDate:
+          type: string
+          description: End date of this alert
+          format: date
+        active:
+          type: boolean
+          description: 'Whether or not the alert is currently active
+
+            An alert is active when the day of retrieval falls between the begin and end dates'
+        topicId:
+          type: integer
+          description: The ID of the topic this alert is linked to
+          format: int64
+        authorizedExpertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Only users with these expertise profiles are allowed to access this alert
+        authorizedExpertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Only users with these expertise groups are allowed to access this alert
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Encoding'
+          description: The encodings of this alert
+        feederAuditContentStore:
+          allOf:
+          - $ref: '#/components/schemas/dossier.FeederAuditContentStoreType'
+          description: Identifier of the content store that is providing this content
+        feederAuditContentId:
+          type: string
+          description: Identifier referencing the original content in the feederAuditContentStore
+        feederAuditSenderName:
+          type: string
+          description: Name of the sender of the original content
+        feederAuditTransferType:
+          allOf:
+          - $ref: '#/components/schemas/dossier.FeederAuditTransferType'
+          description: Type of the transfer containing this content (a.k.a. the use case)
+      description: Alert model (no description)
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 4
+        createdById: 1
+        updatedById: 1
+        createdAt: '2020-11-10T12:00:00.000+01:00'
+        updatedAt: '2020-11-10T12:00:00.000+01:00'
+        name: MRSA
+        type: Agressie
+        icon: virus
+        iconUrl: http://www.example.com
+        iconPngUrl: http://www.example.com
+        protocol: http://www.example.com
+        description: Some additional text
+        beginDate: '2021-01-01'
+        endDate: '2021-02-06'
+        active: true
+        topicId: 1
+        authorizedExpertiseProfileIds:
+        - 1
+        - 2
+        authorizedExpertiseGroupIds:
+        - 3
+        - 4
+        encodings:
+        - code: '61372001'
+          codeSystem: SNOMED CT
+          displayName: aggression
+        feederAuditContentStore: ons_ketenverkeer
+        feederAuditContentId: abz123
+        feederAuditSenderName: Some care organisation
+        feederAuditTransferType: eoverdracht_nursing
+    dossier.medical.Diagnosis:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+          description: 'Deprecated since: 01-12-2021 - use encodings instead
+
+            (the `code` field of all encodings is equivalent to this stringified array of codes)'
+          deprecated: true
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Encoding'
+      description: Diagnosis model (no description)
+      example:
+        name: Type 1-diabetes
+        code: E10
+        encodings:
+        - code: E10
+          codeSystem: ICD-10
+          displayName: Type 1-diabetes
+    dossier.FeederAuditTransferType:
+      enum:
+      - eoverdracht_nursing
+      - anw
+      - other
+      type: string
+      description: Type of the transfer containing this content (a.k.a. the use case)
+      example: eoverdracht_nursing
+    dossier.episodes.Action:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object id of this episode action
+          format: int64
+          x-cupido-id: true
+        title:
+          type: string
+          description: Title of this episode action
+        subGoalId:
+          type: integer
+          description: Object id of the parent episode sub goal
+          format: int64
+        showInCarePlan:
+          type: boolean
+          description: Show this action in the care plan
+        archived:
+          type: boolean
+          description: Archive status of this action
+      description: Action model (no description)
+      example:
+        updatedAt: '2017-11-27T00:00:00.000+01:00'
+        createdAt: '2017-11-27T00:00:00.000+01:00'
+        createdBy: Dummy
+        id: 3
+        title: Some action
+        subGoalId: 2
+        showInCarePlan: true
+        archived: false
+    dossier.medical.SimplifiedPropensityToAdverseReaction:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        causeBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.CauseBuilder'
+        causes:
+          type: array
+          items:
+            type: string
+        immutable:
+          type: boolean
+          description: Whether or not the propensity to adverse reaction is immutable
+      description: SimplifiedPropensityToAdverseReaction model (no description)
+      example:
+        id: 5
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 4
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T12:00:00.000+01:00'
+        updatedAt: '2014-11-10T12:00:00.000+01:00'
+        causeBuilders:
+        - system: CUSTOM
+          query: Stofmijt
+        - system: SNOMED
+          query: 256259004 | pollen |
+          name: Pollen
+        causes:
+        - Diarree
+        - Misselijkheid
+        - Duizeligheid
+        immutable: true
+    dossier.FeederAuditContentStoreType:
+      enum:
+      - ons_ketenverkeer
+      - other
+      type: string
+      description: Identifier of the content store that is providing this content
+      example: ons_ketenverkeer
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
+    dossier.episodes.EpisodeDocument:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        fileName:
+          type: string
+          deprecated: true
+          x-deprecated-since: 01-04-2026
+      description: EpisodeDocument model
+      example:
+        id: 1233
+        fileName: file.pdf
+    dossier.medical.involuntary_care.Incompetence:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        narrative:
+          type: string
+          description: Extra comments relating to this incompetence
+        startDate:
+          type: string
+          description: The start date of the incompetence.
+          format: date
+        endDate:
+          type: string
+          description: The end date of the incompetence. If this is in the past, the incompetence is no longer active
+          format: date
+        snomedExpressionValue:
+          type: string
+          description: The snomed expression of the incompetence decision
+        decisionBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
+          description: The decision builder to build the medical relation
+        decision:
+          type: string
+      description: An incompetence of a client
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        narrative: I can't do this
+        startDate: '2015-09-17'
+        endDate: '2015-09-27'
+        snomedExpressionValue: 285033005 | ability to manage medication |
+        decisionBuilders:
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        decision: Uitvoeren van gastroscopie
+    dossier.medical.advance_directives.Context:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        narrative:
+          type: string
+        snomedExpressionValue:
+          type: string
+        date:
+          type: string
+          format: date
+        employeeId:
+          type: integer
+          format: int64
+        status:
+          type: string
+          description: The human readable status of the AdvanceDirective Context.
+        statusKey:
+          allOf:
+          - $ref: '#/components/schemas/dossier.medical.advance_directives.context.StatusKey'
+          description: The status of the AdvanceDirective Context.
+        documentId:
+          type: integer
+          format: int32
+        documentName:
+          type: string
+          deprecated: true
+          x-deprecated-since: 01-04-2026
+        decisionBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
+          description: 'Used by the update and create api''s to build the Decisions of this AdvanceDirective
+
+            Both the update and create api will only look at the builders and not at the decision list.'
+        decisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.advance_directives.Decision'
+          description: The decisions of the AdvanceDirective Context.
+        immutable:
+          type: boolean
+          description: Whether or not the context is immutable
+      description: The current medical policy of the client
+      example:
+        id: 3
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 1
+        createdById: 2
+        updatedById: 4
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        narrative: Thats what I want
+        snomedExpressionValue: Dummy
+        date: '2014-11-14'
+        employeeId: 1337
+        status: Discussed with patient
+        statusKey: DISCUSSED_WITH_PATIENT
+        documentId: 1
+        documentName: Document
+        decisionBuilders:
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        decisions:
+        - name: Resuscitation
+          outcome: 'Yes'
+        immutable: true
+    dossier.medical.advance_directives.Decision:
+      type: object
+      properties:
+        name:
+          type: string
+        outcome:
+          type: string
+        snomedExpressionValue:
+          type: string
+          description: 'snomedexpression of the whole decision.
+
+            Example: "363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |"'
+      description: Decision model (no description)
+      example:
+        name: Resuscitation
+        outcome: 'Yes'
+        snomedExpressionValue: '363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |'
+    Ability:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        possible:
+          type: boolean
+        message:
+          type: string
+      description: Ability model (no description)
+      example:
+        enabled: true
+        possible: false
+        message: message
+    dossier.medical.involuntary_care.LegalStatus:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        status:
+          type: string
+          description: "The type of legal status. Currently supported types in Dossier are:\n- Vrijwillige opname\n- Artikel 60 Bopz-indicatie\n- Rechterlijke machtiging (RM)\n- Inbewaringstelling (IBS)\n\nIn 2020 Wzd and Wvggz take effect and dossier supports the following additional legal status types:\n- Ondertoezichtstelling (OTS)\n- Zorgmachtiging (ZM)\n- Crisismaatregel (CM)\n- Voortgezette crisismaatregel (VCM)\n- Terbeschikkingstelling (TBS)\n- Plaatsing Inrichting Jeugdigen (PIJ)\n- Artikel 21 Wzd-indicatie\n- Zelfbindingsverklaring\n- Wfz 2.3 Schakel-artikel\n- Voorwaardelijke machtiging voor jongvolwassenen met een verstandelijke beperking (VMM)\nIn 2022, dossier supports Jeugd law and the following additional legal status types:\n- Voorlopige onder toezichtstelling (VOTS)\n- Machtiging uithuisplaatsing (MUHP)\n- Gezagsbeëindigende maatregel\n- Voogdijmaatregel\n- Tijdelijke voogdij\n- Voorlopige voogdij (VoVo)\n- Jeugdreclassering\n- Machtiging gesloten jeugdhulp (MGJ) \n- Voorwaardelijke machtiging gesloten jeugdhulp (VMGJ) \n- Voorwaardelijke PIJ (Art. 77x lid 2) \n- Onvoorwaardelijke PIJ (Art. 77s) \n- Verlenging onvoorwaardelijke PIJ (Art. 77t) \n- Voorwaardelijke (beëindiging) PIJ, met algemene voorwaarden (Art. 77s) \n- Verlenging voorwaardelijke beëindiging PIJ (Art. 77z) \n- Gedragsbeïnvloedende maatregel (Art. 77w) \n- Voorwaardelijke veroordeling (Art. 77x) \n- Jeugddetentie (Art. 77i) \n- Spoedmachtiging gesloten jeugdhulp (Art. 6.1.3 Jw)"
+        code:
+          allOf:
+          - $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusTypeCode'
+          description: Unique code that identifies the legal status type
+        beginDate:
+          type: string
+          description: The start date of the legal status. May be empty if the client is in voluntary care (Vrijwillige opname)
+          format: date
+        endDate:
+          type: string
+          description: The end date of the legal status. If this is in the past, the described legal status is no longer valid
+          format: date
+        expirationDate:
+          type: string
+          description: The expiration date of the legal status
+          format: date
+        comments:
+          type: string
+          description: Extra comments relating to this legal status
+        endingReason:
+          type: string
+          description: The reason to end the legal status
+        documentId:
+          type: integer
+          description: The ID of the document linked to this legal status
+          format: int32
+          deprecated: true
+        documentName:
+          type: string
+          description: The name of the document linked to this legal status
+          deprecated: true
+        archived:
+          type: boolean
+          description: The archived status
+        request:
+          type: boolean
+          description: The request status
+        legalStatusDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusDocument'
+          description: A list of documents
+        legalStatusSuspensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusSuspension'
+          description: A list of suspensions
+        legalGrounds:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalGround'
+          description: A list of legal grounds
+      description: The legal status of a client.
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        status: Artikel 60 Bopz-indicatie
+        code: sapc
+        beginDate: '2015-09-17'
+        endDate: '2015-09-27'
+        expirationDate: '2015-09-28'
+        comments: 5 weeks until renewal
+        endingReason: Client is better again
+        documentId: 1
+        documentName: artikel60.pdf
+        archived: false
+        request: false
+        legalStatusDocuments:
+        - documentId: 1
+          documentName: artikel60.pdf
+        legalStatusSuspensions:
+        - id: 1
+          beginDate: '2021-09-01'
+          endDate: '2021-09-02'
+          comments: What the judge told
+          type: withdraw_involuntary_care
+          createdById: 1
+          updatedById: 1
+          createdAt: '2020-11-14T00:00:00.000+01:00'
+          updatedAt: '2020-11-14T00:00:00.000+01:00'
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
+        legalGrounds:
+        - beginDate: '2015-09-25'
+          endDate: '2015-09-26'
+          comments: Important side node
+          categoryCode: wvggz_inclosure_other
+    dossier.medical.involuntary_care.LegalStatusSuspension:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          description: The start date of the suspension
+          format: date
+        endDate:
+          type: string
+          description: The end date of the suspension
+          format: date
+        comments:
+          type: string
+          description: Extra comments relating to this legal status
+        type:
+          type: string
+          description: 'The type of suspension
+
+            Can consist of:
+
+            - withdraw_involuntary_care (Onttrekken Verplichte Zorg)
+
+            - transfer_involuntary_care (Overplaatsing met Verplichte Zorg)
+
+            - temporary_suspension_involuntary_care (Tijdelijke onderbreking Verplichte Zorg)
+
+            - termination_involuntary_care_with_conditions (Beëindiging Verplichte Zorg met voorwaarden)'
+        createdById:
+          type: integer
+          description: The identifier of the employee that created the suspension
+          format: int64
+        updatedById:
+          type: integer
+          description: The identifier of the employee that last updated the suspension
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+      description: LegalStatusSuspension model (no description)
+      example:
+        id: 1
+        beginDate: '2021-09-01'
+        endDate: '2021-09-02'
+        comments: What the judge told
+        type: withdraw_involuntary_care
+        createdById: 1
+        updatedById: 1
+        createdAt: '2020-11-14T00:00:00.000+01:00'
+        updatedAt: '2020-11-14T00:00:00.000+01:00'
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.medical.PropensityToAdverseReaction:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        causeBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.CauseBuilder'
+        cause:
+          type: string
+          description: 'Deprecated since: 22-02-2022 - use causative_agent instead
+
+            ( the `name` field of causative_agent is equivalent to the name of this cause(.destination.name) )'
+          deprecated: true
+        causativeAgent:
+          $ref: '#/components/schemas/dossier.medical.encoded_concepts.CausativeAgent'
+        manifestations:
+          type: array
+          items:
+            type: string
+        active:
+          type: boolean
+        specification:
+          type: string
+        narrative:
+          type: string
+        certainty:
+          type: string
+        severity:
+          type: string
+        course:
+          type: string
+        onsetPeriodOfLife:
+          type: string
+        onsetApproximateDate:
+          type: string
+        diagnosis:
+          $ref: '#/components/schemas/dossier.snomed.ClinicalFinding'
+        feederAuditContentStore:
+          allOf:
+          - $ref: '#/components/schemas/dossier.FeederAuditContentStoreType'
+          description: Identifier of the content store that is providing this content
+        feederAuditContentId:
+          type: string
+          description: Identifier referencing the original content in the feederAuditContentStore
+        feederAuditSenderName:
+          type: string
+          description: Name of the sender of the original content
+        feederAuditTransferType:
+          allOf:
+          - $ref: '#/components/schemas/dossier.FeederAuditTransferType'
+          description: Type of the transfer containing this content (a.k.a. the use case)
+        immutable:
+          type: boolean
+          description: Whether or not the propensity to adverse reaction is immutable
+      description: PropensityToAdverseReaction model (no description)
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 4
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T12:00:00.000+01:00'
+        updatedAt: '2014-11-10T12:00:00.000+01:00'
+        causeBuilders:
+        - system: CUSTOM
+          query: Stofmijt
+        - system: SNOMED
+          query: 256259004 | pollen |
+          name: Pollen
+        cause: Haar van dieren
+        causativeAgent:
+          name: Haar/schilfers van dieren
+          encodings:
+          - code: '264287008'
+            codeSystem: SNOMED CT
+            displayName: animal dander
+        manifestations:
+        - Diarree
+        - Misselijkheid
+        - Duizeligheid
+        active: true
+        specification: Specificatie
+        narrative: Het doet zeer
+        certainty: Ik ben er niet zo zeker van
+        severity: Niet levensbedreigend
+        course: De afgelopen twee weken
+        onsetPeriodOfLife: Vanaf kleuterperiode
+        onsetApproximateDate: '2014'
+        diagnosis: allergy
+        feederAuditContentStore: ons_ketenverkeer
+        feederAuditContentId: abz123
+        feederAuditSenderName: Some care organisation
+        feederAuditTransferType: eoverdracht_nursing
+        immutable: true
+    dossier.medical.MedicalSummaryMetadata:
+      type: object
+      properties:
+        medicalPoliciesPath:
+          type: string
+          description: The path for more details for medical policies. Empty if user is not authorized to access this path
+      description: Metadata for the medical summary
+      example:
+        medicalPoliciesPath: /clients/1/medical/medical_policies
+    dossier.medical.encoded_concepts.CausativeAgent:
+      type: object
+      properties:
+        name:
+          type: string
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Encoding'
+      description: CausativeAgent model (no description)
+      example:
+        name: Aardbeien
+        encodings:
+        - code: '102261002'
+          codeSystem: SNOMED CT
+          displayName: strawberry
+    survey.GroupAnswer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        groupId:
+          type: integer
+          format: int64
+        surveyResultId:
+          type: integer
+          format: int64
+        score:
+          type: integer
+          format: int32
+        importantForCareplan:
+          type: boolean
+      description: GroupAnswer model (no description)
+      example:
+        id: 1
+        surveyResultId: 1
+        groupId: 1
+        score: 7
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        importantForCareplan: true
+      xml:
+        name: groupAnswer
     dossier.medical.involuntary_care.LegalStatusTypeCode:
       enum:
       - voluntary_admission
@@ -463,30 +1339,32 @@ components:
       type: string
       description: Unique code that identifies the legal status type
       example: sapc
-    dossier.medical.DecisionBuilder:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
-      properties:
-        outcome:
-          type: string
-          description: 'The outcome that should be set on the decision
+    dossier.medical.advance_directives.ResuscitationDecision:
+      type: integer
+      oneOf:
+      - title: 'NO'
+        enum:
+        - 0
+      - title: 'YES'
+        enum:
+        - 1
+      - title: UNKNOWN
+        enum:
+        - 2
+      description: 'The current resuscitation decision for the client
 
-            Should be a valid outcome code within the system that is set on this builder'
-      description: DecisionBuilder model (no description)
-      example:
-        system: SNOMED
-        query: 61420007 | Tube feeding |
-        name: Sondevoeding
-        outcome: 373067005 | no |
-    dossier.FeederAuditTransferType:
-      enum:
-      - eoverdracht_nursing
-      - anw
-      - other
-      type: string
-      description: Type of the transfer containing this content (a.k.a. the use case)
-      example: eoverdracht_nursing
+        <pre>
+
+        Possible values:
+
+        0 = NO
+
+        1 = YES
+
+        2 = UNKNOWN
+
+        </pre>'
+      example: 0
     dossier.medical.Problem:
       type: object
       allOf:
@@ -633,6 +1511,55 @@ components:
         feederAuditContentId: abz123
         feederAuditSenderName: Some care organisation
         feederAuditTransferType: eoverdracht_nursing
+    dossier.medical.DiagnosisBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      description: DiagnosisBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 22298006 | Myocardial infarction (disorder) |
+        name: Hartinfarct
+    dossier.BaseNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        content:
+          type: string
+        visibleOnWorksheet:
+          type: boolean
+        deleted:
+          type: boolean
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        updatedByAuthorId:
+          type: integer
+          format: int64
+        authorId:
+          type: integer
+          format: int64
+      description: BaseNote model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+        id: 1
+        content: example
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-12-29'
+        endDate: '2014-12-29'
+        updatedByAuthorId: 1
+        authorId: 1
     dossier.Encoding:
       type: object
       properties:
@@ -648,26 +1575,6 @@ components:
         code: E10
         codeSystem: ICD-10
         displayName: Type 1-diabetes
-    survey.SurveyResultStatus:
-      type: string
-      oneOf:
-      - title: New
-        enum:
-        - New
-      - title: Draft
-        enum:
-        - Draft
-      - title: Review
-        enum:
-        - Review
-      - title: Current
-        enum:
-        - Current
-      - title: Archived
-        enum:
-        - Archived
-      description: SurveyResultStatus model (no description)
-      example: New
     survey.Answer:
       type: object
       allOf:
@@ -706,120 +1613,143 @@ components:
         createdBy: user
       xml:
         name: answer
-    dossier.medical.DiagnosisBuilder:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
-      description: DiagnosisBuilder model (no description)
-      example:
-        system: SNOMED
-        query: 22298006 | Myocardial infarction (disorder) |
-        name: Hartinfarct
-    dossier.medical.MedicalSummaryMetadata:
+    dossier.medical.list.MedicalSummaryList:
       type: object
       properties:
-        medicalPoliciesPath:
-          type: string
-          description: The path for more details for medical policies. Empty if user is not authorized to access this path
-      description: Metadata for the medical summary
-      example:
-        medicalPoliciesPath: /clients/1/medical/medical_policies
-    dossier.medical.advance_directives.Context:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        narrative:
-          type: string
-        snomedExpressionValue:
-          type: string
-        date:
-          type: string
-          format: date
-        employeeId:
-          type: integer
-          format: int64
-        status:
-          type: string
-          description: The human readable status of the AdvanceDirective Context.
-        statusKey:
-          allOf:
-          - $ref: '#/components/schemas/dossier.medical.advance_directives.context.StatusKey'
-          description: The status of the AdvanceDirective Context.
-        documentId:
-          type: integer
-          format: int32
-        documentName:
-          type: string
-          deprecated: true
-          x-deprecated-since: 01-04-2026
-        decisionBuilders:
+        medicalSummaries:
           type: array
           items:
-            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
-          description: 'Used by the update and create api''s to build the Decisions of this AdvanceDirective
-
-            Both the update and create api will only look at the builders and not at the decision list.'
-        decisions:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.advance_directives.Decision'
-          description: The decisions of the AdvanceDirective Context.
-        immutable:
-          type: boolean
-          description: Whether or not the context is immutable
-      description: The current medical policy of the client
+            $ref: '#/components/schemas/dossier.medical.MedicalSummary'
+      description: MedicalSummaryList model (no description)
       example:
-        id: 3
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 1
-        createdById: 2
-        updatedById: 4
-        createdAt: '2014-11-14T00:00:00.000+01:00'
-        updatedAt: '2014-11-14T00:00:00.000+01:00'
-        narrative: Thats what I want
-        snomedExpressionValue: Dummy
-        date: '2014-11-14'
-        employeeId: 1337
-        status: Discussed with patient
-        statusKey: DISCUSSED_WITH_PATIENT
-        documentId: 1
-        documentName: Document
-        decisionBuilders:
-        - system: example
-          query: example
-          name: example
-          outcome: example
-        - system: example
-          query: example
-          name: example
-          outcome: example
-        decisions:
-        - name: Resuscitation
-          outcome: 'Yes'
-        immutable: true
-    dossier.medical.involuntary_care.LegalStatusDocument:
-      type: object
-      properties:
-        documentId:
-          type: integer
-          format: int32
-        documentName:
-          type: string
-          deprecated: true
-          x-deprecated-since: 01-04-2026
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      description: LegalStatusDocument model (no description)
-      example:
-        documentId: 1
-        documentName: Important.pdf
-        createdAt: '2020-11-15T00:00:00.000+01:00'
-        updatedAt: '2020-11-15T00:00:00.000+01:00'
+        medicalSummaries:
+        - clientId: 200
+          legalStatus:
+            id: 1
+            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+            clientId: 2
+            createdById: 1
+            updatedById: 1
+            createdAt: '2014-11-14T00:00:00.000+01:00'
+            updatedAt: '2014-11-14T00:00:00.000+01:00'
+            status: Artikel 60 Bopz-indicatie
+            code: sapc
+            beginDate: '2015-09-17'
+            endDate: '2015-09-27'
+            comments: 5 weeks until renewal
+            documentId: 1
+            documentName: artikel60.pdf
+            archived: false
+            request: false
+            legalStatusDocuments:
+            - documentId: 1
+              documentName: artikel60.pdf
+          legalStatuses:
+          - id: 1
+            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+            clientId: 2
+            createdById: 1
+            updatedById: 1
+            createdAt: '2014-11-14T00:00:00.000+01:00'
+            updatedAt: '2014-11-14T00:00:00.000+01:00'
+            status: Artikel 60 Bopz-indicatie
+            code: sapc
+            beginDate: '2015-09-17'
+            endDate: '2015-09-27'
+            expirationDate: '2015-09-28'
+            comments: 5 weeks until renewal
+            endingReason: Client is better again
+            documentId: 1
+            documentName: artikel60.pdf
+            archived: false
+            request: false
+            legalStatusDocuments:
+            - documentId: 1
+              documentName: artikel60.pdf
+            legalStatusSuspensions:
+            - id: 1
+              beginDate: '2021-09-01'
+              endDate: '2021-09-02'
+              comments: What the judge told
+              type: withdraw_involuntary_care
+              createdById: 1
+              updatedById: 1
+              createdAt: '2020-11-14T00:00:00.000+01:00'
+              updatedAt: '2020-11-14T00:00:00.000+01:00'
+              uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
+            legalGrounds:
+            - beginDate: '2015-09-25'
+              endDate: '2015-09-26'
+              comments: Important side node
+              categoryCode: wvggz_inclosure_other
+          medicalNotes:
+          - id: 10
+            clientId: 1337
+            authorId: 10
+            updatedByAuthorId: 10
+            content: Medical note
+            visibleOnWorksheet: false
+            deleted: false
+            updatedAt: '2024-08-04T11:11:11.000+02:00'
+            createdAt: '2022-12-02T09:50:57.779+01:00'
+        - clientId: 300
+          legalStatus:
+            id: 1
+            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+            clientId: 2
+            createdById: 1
+            updatedById: 1
+            createdAt: '2014-11-14T00:00:00.000+01:00'
+            updatedAt: '2014-11-14T00:00:00.000+01:00'
+            status: Artikel 60 Bopz-indicatie
+            code: sapc
+            beginDate: '2015-09-17'
+            endDate: '2015-09-27'
+            comments: 5 weeks until renewal
+            documentId: 1
+            documentName: bopz.pdf
+            archived: false
+            legalStatusDocuments:
+            - documentId: 1
+              documentName: artikel60.pdf
+          legalStatuses:
+          - id: 1
+            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+            clientId: 2
+            createdById: 1
+            updatedById: 1
+            createdAt: '2014-11-14T00:00:00.000+01:00'
+            updatedAt: '2014-11-14T00:00:00.000+01:00'
+            status: Artikel 60 Bopz-indicatie
+            code: sapc
+            beginDate: '2015-09-17'
+            endDate: '2015-09-27'
+            expirationDate: '2015-09-28'
+            comments: 5 weeks until renewal
+            endingReason: Client is better again
+            documentId: 1
+            documentName: artikel60.pdf
+            archived: false
+            request: false
+            legalStatusDocuments:
+            - documentId: 1
+              documentName: artikel60.pdf
+            legalStatusSuspensions:
+            - id: 1
+              beginDate: '2021-09-01'
+              endDate: '2021-09-02'
+              comments: What the judge told
+              type: withdraw_involuntary_care
+              createdById: 1
+              updatedById: 1
+              createdAt: '2020-11-14T00:00:00.000+01:00'
+              updatedAt: '2020-11-14T00:00:00.000+01:00'
+              uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
+            legalGrounds:
+            - beginDate: '2015-09-25'
+              endDate: '2015-09-26'
+              comments: Important side node
+              categoryCode: wvggz_inclosure_other
     dossier.medical.involuntary_care.LegalGround:
       type: object
       properties:
@@ -934,256 +1864,28 @@ components:
         createdAt: '2020-11-14T00:00:00.000+01:00'
         updatedAt: '2020-11-14T00:00:00.000+01:00'
         uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51c
-    dossier.snomed.ClinicalFinding:
-      enum:
-      - allergy
-      - adverse_reaction
-      type: string
-      description: ClinicalFinding enum (no description)
-      example: allergy
-    dossier.medical.involuntary_care.Incompetence:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        narrative:
-          type: string
-          description: Extra comments relating to this incompetence
-        startDate:
-          type: string
-          description: The start date of the incompetence.
-          format: date
-        endDate:
-          type: string
-          description: The end date of the incompetence. If this is in the past, the incompetence is no longer active
-          format: date
-        snomedExpressionValue:
-          type: string
-          description: The snomed expression of the incompetence decision
-        decisionBuilders:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
-          description: The decision builder to build the medical relation
-        decision:
-          type: string
-      description: An incompetence of a client
-      example:
-        id: 1
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 2
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-14T00:00:00.000+01:00'
-        updatedAt: '2014-11-14T00:00:00.000+01:00'
-        narrative: I can't do this
-        startDate: '2015-09-17'
-        endDate: '2015-09-27'
-        snomedExpressionValue: 285033005 | ability to manage medication |
-        decisionBuilders:
-        - system: example
-          query: example
-          name: example
-          outcome: example
-        - system: example
-          query: example
-          name: example
-          outcome: example
-        decision: Uitvoeren van gastroscopie
-    dossier.medical.SimplifiedPropensityToAdverseReaction:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        causeBuilders:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.CauseBuilder'
-        causes:
-          type: array
-          items:
-            type: string
-        immutable:
-          type: boolean
-          description: Whether or not the propensity to adverse reaction is immutable
-      description: SimplifiedPropensityToAdverseReaction model (no description)
-      example:
-        id: 5
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 4
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T12:00:00.000+01:00'
-        updatedAt: '2014-11-10T12:00:00.000+01:00'
-        causeBuilders:
-        - system: CUSTOM
-          query: Stofmijt
-        - system: SNOMED
-          query: 256259004 | pollen |
-          name: Pollen
-        causes:
-        - Diarree
-        - Misselijkheid
-        - Duizeligheid
-        immutable: true
-    dossier.medical.advance_directives.Decision:
+    dossier.medical.involuntary_care.LegalStatusDocument:
       type: object
       properties:
-        name:
-          type: string
-        outcome:
-          type: string
-        snomedExpressionValue:
-          type: string
-          description: 'snomedexpression of the whole decision.
-
-            Example: "363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |"'
-      description: Decision model (no description)
-      example:
-        name: Resuscitation
-        outcome: 'Yes'
-        snomedExpressionValue: '363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |'
-    dossier.Alert:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        name:
-          type: string
-          description: Name of this alert
-        type:
-          type: string
-          description: The type of alert
-        icon:
-          type: string
-          description: Name of Ivy icon to show for this alert
-        iconUrl:
-          type: string
-          description: The URL for the icon for this alert
-        iconPngUrl:
-          type: string
-          description: The PNG URL for the icon for this alert
-        protocol:
-          type: string
-          description: Protocol for this alert
-        description:
-          type: string
-          description: Description of this alert
-        beginDate:
-          type: string
-          description: Begin date of this alert
-          format: date
-        endDate:
-          type: string
-          description: End date of this alert
-          format: date
-        active:
-          type: boolean
-          description: 'Whether or not the alert is currently active
-
-            An alert is active when the day of retrieval falls between the begin and end dates'
-        topicId:
+        documentId:
           type: integer
-          description: The ID of the topic this alert is linked to
-          format: int64
-        authorizedExpertiseProfileIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Only users with these expertise profiles are allowed to access this alert
-        authorizedExpertiseGroupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Only users with these expertise groups are allowed to access this alert
-        encodings:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Encoding'
-          description: The encodings of this alert
-        feederAuditContentStore:
-          allOf:
-          - $ref: '#/components/schemas/dossier.FeederAuditContentStoreType'
-          description: Identifier of the content store that is providing this content
-        feederAuditContentId:
+          format: int32
+        documentName:
           type: string
-          description: Identifier referencing the original content in the feederAuditContentStore
-        feederAuditSenderName:
+          deprecated: true
+          x-deprecated-since: 01-04-2026
+        createdAt:
           type: string
-          description: Name of the sender of the original content
-        feederAuditTransferType:
-          allOf:
-          - $ref: '#/components/schemas/dossier.FeederAuditTransferType'
-          description: Type of the transfer containing this content (a.k.a. the use case)
-      description: Alert model (no description)
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: LegalStatusDocument model (no description)
       example:
-        id: 1
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 4
-        createdById: 1
-        updatedById: 1
-        createdAt: '2020-11-10T12:00:00.000+01:00'
-        updatedAt: '2020-11-10T12:00:00.000+01:00'
-        name: MRSA
-        type: Agressie
-        icon: virus
-        iconUrl: http://www.example.com
-        iconPngUrl: http://www.example.com
-        protocol: http://www.example.com
-        description: Some additional text
-        beginDate: '2021-01-01'
-        endDate: '2021-02-06'
-        active: true
-        topicId: 1
-        authorizedExpertiseProfileIds:
-        - 1
-        - 2
-        authorizedExpertiseGroupIds:
-        - 3
-        - 4
-        encodings:
-        - code: '61372001'
-          codeSystem: SNOMED CT
-          displayName: aggression
-        feederAuditContentStore: ons_ketenverkeer
-        feederAuditContentId: abz123
-        feederAuditSenderName: Some care organisation
-        feederAuditTransferType: eoverdracht_nursing
-    dossier.episodes.Action:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          description: Object id of this episode action
-          format: int64
-          x-cupido-id: true
-        title:
-          type: string
-          description: Title of this episode action
-        subGoalId:
-          type: integer
-          description: Object id of the parent episode sub goal
-          format: int64
-        showInCarePlan:
-          type: boolean
-          description: Show this action in the care plan
-        archived:
-          type: boolean
-          description: Archive status of this action
-      description: Action model (no description)
-      example:
-        updatedAt: '2017-11-27T00:00:00.000+01:00'
-        createdAt: '2017-11-27T00:00:00.000+01:00'
-        createdBy: Dummy
-        id: 3
-        title: Some action
-        subGoalId: 2
-        showInCarePlan: true
-        archived: false
+        documentId: 1
+        documentName: Important.pdf
+        createdAt: '2020-11-15T00:00:00.000+01:00'
+        updatedAt: '2020-11-15T00:00:00.000+01:00'
     dossier.medical.MedicalSummary:
       type: object
       properties:
@@ -1929,724 +2631,22 @@ components:
           createdAt: '2022-12-02T09:50:57.779+01:00'
         metadata:
           medicalPoliciesPath: /clients/1/medical/medical_policies
-    dossier.FeederAuditContentStoreType:
+    dossier.medical.CauseBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      description: CauseBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 256259004 | pollen |
+        name: Pollen
+    dossier.snomed.ClinicalFinding:
       enum:
-      - ons_ketenverkeer
-      - other
+      - allergy
+      - adverse_reaction
       type: string
-      description: Identifier of the content store that is providing this content
-      example: ons_ketenverkeer
-    dossier.medical.involuntary_care.LegalStatus:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        status:
-          type: string
-          description: "The type of legal status. Currently supported types in Dossier are:\n- Vrijwillige opname\n- Artikel 60 Bopz-indicatie\n- Rechterlijke machtiging (RM)\n- Inbewaringstelling (IBS)\n\nIn 2020 Wzd and Wvggz take effect and dossier supports the following additional legal status types:\n- Ondertoezichtstelling (OTS)\n- Zorgmachtiging (ZM)\n- Crisismaatregel (CM)\n- Voortgezette crisismaatregel (VCM)\n- Terbeschikkingstelling (TBS)\n- Plaatsing Inrichting Jeugdigen (PIJ)\n- Artikel 21 Wzd-indicatie\n- Zelfbindingsverklaring\n- Wfz 2.3 Schakel-artikel\n- Voorwaardelijke machtiging voor jongvolwassenen met een verstandelijke beperking (VMM)\nIn 2022, dossier supports Jeugd law and the following additional legal status types:\n- Voorlopige onder toezichtstelling (VOTS)\n- Machtiging uithuisplaatsing (MUHP)\n- Gezagsbeëindigende maatregel\n- Voogdijmaatregel\n- Tijdelijke voogdij\n- Voorlopige voogdij (VoVo)\n- Jeugdreclassering\n- Machtiging gesloten jeugdhulp (MGJ) \n- Voorwaardelijke machtiging gesloten jeugdhulp (VMGJ) \n- Voorwaardelijke PIJ (Art. 77x lid 2) \n- Onvoorwaardelijke PIJ (Art. 77s) \n- Verlenging onvoorwaardelijke PIJ (Art. 77t) \n- Voorwaardelijke (beëindiging) PIJ, met algemene voorwaarden (Art. 77s) \n- Verlenging voorwaardelijke beëindiging PIJ (Art. 77z) \n- Gedragsbeïnvloedende maatregel (Art. 77w) \n- Voorwaardelijke veroordeling (Art. 77x) \n- Jeugddetentie (Art. 77i) \n- Spoedmachtiging gesloten jeugdhulp (Art. 6.1.3 Jw)"
-        code:
-          allOf:
-          - $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusTypeCode'
-          description: Unique code that identifies the legal status type
-        beginDate:
-          type: string
-          description: The start date of the legal status. May be empty if the client is in voluntary care (Vrijwillige opname)
-          format: date
-        endDate:
-          type: string
-          description: The end date of the legal status. If this is in the past, the described legal status is no longer valid
-          format: date
-        expirationDate:
-          type: string
-          description: The expiration date of the legal status
-          format: date
-        comments:
-          type: string
-          description: Extra comments relating to this legal status
-        endingReason:
-          type: string
-          description: The reason to end the legal status
-        documentId:
-          type: integer
-          description: The ID of the document linked to this legal status
-          format: int32
-          deprecated: true
-        documentName:
-          type: string
-          description: The name of the document linked to this legal status
-          deprecated: true
-        archived:
-          type: boolean
-          description: The archived status
-        request:
-          type: boolean
-          description: The request status
-        legalStatusDocuments:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusDocument'
-          description: A list of documents
-        legalStatusSuspensions:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalStatusSuspension'
-          description: A list of suspensions
-        legalGrounds:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.involuntary_care.LegalGround'
-          description: A list of legal grounds
-      description: The legal status of a client.
-      example:
-        id: 1
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 2
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-14T00:00:00.000+01:00'
-        updatedAt: '2014-11-14T00:00:00.000+01:00'
-        status: Artikel 60 Bopz-indicatie
-        code: sapc
-        beginDate: '2015-09-17'
-        endDate: '2015-09-27'
-        expirationDate: '2015-09-28'
-        comments: 5 weeks until renewal
-        endingReason: Client is better again
-        documentId: 1
-        documentName: artikel60.pdf
-        archived: false
-        request: false
-        legalStatusDocuments:
-        - documentId: 1
-          documentName: artikel60.pdf
-        legalStatusSuspensions:
-        - id: 1
-          beginDate: '2021-09-01'
-          endDate: '2021-09-02'
-          comments: What the judge told
-          type: withdraw_involuntary_care
-          createdById: 1
-          updatedById: 1
-          createdAt: '2020-11-14T00:00:00.000+01:00'
-          updatedAt: '2020-11-14T00:00:00.000+01:00'
-          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
-        legalGrounds:
-        - beginDate: '2015-09-25'
-          endDate: '2015-09-26'
-          comments: Important side node
-          categoryCode: wvggz_inclosure_other
-    dossier.medical.encoded_concepts.CausativeAgent:
-      type: object
-      properties:
-        name:
-          type: string
-        encodings:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Encoding'
-      description: CausativeAgent model (no description)
-      example:
-        name: Aardbeien
-        encodings:
-        - code: '102261002'
-          codeSystem: SNOMED CT
-          displayName: strawberry
-    dossier.medical.involuntary_care.LegalStatusSuspension:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        beginDate:
-          type: string
-          description: The start date of the suspension
-          format: date
-        endDate:
-          type: string
-          description: The end date of the suspension
-          format: date
-        comments:
-          type: string
-          description: Extra comments relating to this legal status
-        type:
-          type: string
-          description: 'The type of suspension
-
-            Can consist of:
-
-            - withdraw_involuntary_care (Onttrekken Verplichte Zorg)
-
-            - transfer_involuntary_care (Overplaatsing met Verplichte Zorg)
-
-            - temporary_suspension_involuntary_care (Tijdelijke onderbreking Verplichte Zorg)
-
-            - termination_involuntary_care_with_conditions (Beëindiging Verplichte Zorg met voorwaarden)'
-        createdById:
-          type: integer
-          description: The identifier of the employee that created the suspension
-          format: int64
-        updatedById:
-          type: integer
-          description: The identifier of the employee that last updated the suspension
-          format: int64
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        uuid:
-          type: string
-      description: LegalStatusSuspension model (no description)
-      example:
-        id: 1
-        beginDate: '2021-09-01'
-        endDate: '2021-09-02'
-        comments: What the judge told
-        type: withdraw_involuntary_care
-        createdById: 1
-        updatedById: 1
-        createdAt: '2020-11-14T00:00:00.000+01:00'
-        updatedAt: '2020-11-14T00:00:00.000+01:00'
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
-    dossier.BaseNote:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        content:
-          type: string
-        visibleOnWorksheet:
-          type: boolean
-        deleted:
-          type: boolean
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        updatedByAuthorId:
-          type: integer
-          format: int64
-        authorId:
-          type: integer
-          format: int64
-      description: BaseNote model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-        id: 1
-        content: example
-        visibleOnWorksheet: true
-        deleted: true
-        startDate: '2014-12-29'
-        endDate: '2014-12-29'
-        updatedByAuthorId: 1
-        authorId: 1
-    dossier.medical.RelationshipBuilder:
-      type: object
-      properties:
-        system:
-          type:
-          - string
-          - 'null'
-          description: 'Which code system this builder should query
-
-            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
-        query:
-          type:
-          - string
-          - 'null'
-          description: 'Query used to build the correct concept within the given code system.
-
-            Will use the first concept within the code system that matches the query,
-
-            for the best results your query should be as close as possible to a complete code from the system'
-        name:
-          type:
-          - string
-          - 'null'
-      description: RelationshipBuilder model (no description)
-      example:
-        system: Dummy
-        query: Dummy
-        name: Dummy
-    dossier.medical.PropensityToAdverseReaction:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        causeBuilders:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.CauseBuilder'
-        cause:
-          type: string
-          description: 'Deprecated since: 22-02-2022 - use causative_agent instead
-
-            ( the `name` field of causative_agent is equivalent to the name of this cause(.destination.name) )'
-          deprecated: true
-        causativeAgent:
-          $ref: '#/components/schemas/dossier.medical.encoded_concepts.CausativeAgent'
-        manifestations:
-          type: array
-          items:
-            type: string
-        active:
-          type: boolean
-        specification:
-          type: string
-        narrative:
-          type: string
-        certainty:
-          type: string
-        severity:
-          type: string
-        course:
-          type: string
-        onsetPeriodOfLife:
-          type: string
-        onsetApproximateDate:
-          type: string
-        diagnosis:
-          $ref: '#/components/schemas/dossier.snomed.ClinicalFinding'
-        feederAuditContentStore:
-          allOf:
-          - $ref: '#/components/schemas/dossier.FeederAuditContentStoreType'
-          description: Identifier of the content store that is providing this content
-        feederAuditContentId:
-          type: string
-          description: Identifier referencing the original content in the feederAuditContentStore
-        feederAuditSenderName:
-          type: string
-          description: Name of the sender of the original content
-        feederAuditTransferType:
-          allOf:
-          - $ref: '#/components/schemas/dossier.FeederAuditTransferType'
-          description: Type of the transfer containing this content (a.k.a. the use case)
-        immutable:
-          type: boolean
-          description: Whether or not the propensity to adverse reaction is immutable
-      description: PropensityToAdverseReaction model (no description)
-      example:
-        id: 1
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 4
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T12:00:00.000+01:00'
-        updatedAt: '2014-11-10T12:00:00.000+01:00'
-        causeBuilders:
-        - system: CUSTOM
-          query: Stofmijt
-        - system: SNOMED
-          query: 256259004 | pollen |
-          name: Pollen
-        cause: Haar van dieren
-        causativeAgent:
-          name: Haar/schilfers van dieren
-          encodings:
-          - code: '264287008'
-            codeSystem: SNOMED CT
-            displayName: animal dander
-        manifestations:
-        - Diarree
-        - Misselijkheid
-        - Duizeligheid
-        active: true
-        specification: Specificatie
-        narrative: Het doet zeer
-        certainty: Ik ben er niet zo zeker van
-        severity: Niet levensbedreigend
-        course: De afgelopen twee weken
-        onsetPeriodOfLife: Vanaf kleuterperiode
-        onsetApproximateDate: '2014'
-        diagnosis: allergy
-        feederAuditContentStore: ons_ketenverkeer
-        feederAuditContentId: abz123
-        feederAuditSenderName: Some care organisation
-        feederAuditTransferType: eoverdracht_nursing
-        immutable: true
-    survey.GroupAnswer:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        groupId:
-          type: integer
-          format: int64
-        surveyResultId:
-          type: integer
-          format: int64
-        score:
-          type: integer
-          format: int32
-        importantForCareplan:
-          type: boolean
-      description: GroupAnswer model (no description)
-      example:
-        id: 1
-        surveyResultId: 1
-        groupId: 1
-        score: 7
-        createdAt: '2012-08-02T13:48:46.836+02:00'
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdBy: user
-        importantForCareplan: true
-      xml:
-        name: groupAnswer
-    dossier.medical.Diagnosis:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: string
-          description: 'Deprecated since: 01-12-2021 - use encodings instead
-
-            (the `code` field of all encodings is equivalent to this stringified array of codes)'
-          deprecated: true
-        encodings:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Encoding'
-      description: Diagnosis model (no description)
-      example:
-        name: Type 1-diabetes
-        code: E10
-        encodings:
-        - code: E10
-          codeSystem: ICD-10
-          displayName: Type 1-diabetes
-    dossier.medical.advance_directives.context.StatusKey:
-      enum:
-      - ACTIVE
-      - DISCUSSED_WITH_PATIENT
-      - DISCUSSED_WITH_RELATIVE
-      type: string
-      description: The status of the AdvanceDirective Context.
-      example: DISCUSSED_WITH_PATIENT
-    dossier.medical.list.MedicalSummaryList:
-      type: object
-      properties:
-        medicalSummaries:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.MedicalSummary'
-      description: MedicalSummaryList model (no description)
-      example:
-        medicalSummaries:
-        - clientId: 200
-          legalStatus:
-            id: 1
-            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-            clientId: 2
-            createdById: 1
-            updatedById: 1
-            createdAt: '2014-11-14T00:00:00.000+01:00'
-            updatedAt: '2014-11-14T00:00:00.000+01:00'
-            status: Artikel 60 Bopz-indicatie
-            code: sapc
-            beginDate: '2015-09-17'
-            endDate: '2015-09-27'
-            comments: 5 weeks until renewal
-            documentId: 1
-            documentName: artikel60.pdf
-            archived: false
-            request: false
-            legalStatusDocuments:
-            - documentId: 1
-              documentName: artikel60.pdf
-          legalStatuses:
-          - id: 1
-            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-            clientId: 2
-            createdById: 1
-            updatedById: 1
-            createdAt: '2014-11-14T00:00:00.000+01:00'
-            updatedAt: '2014-11-14T00:00:00.000+01:00'
-            status: Artikel 60 Bopz-indicatie
-            code: sapc
-            beginDate: '2015-09-17'
-            endDate: '2015-09-27'
-            expirationDate: '2015-09-28'
-            comments: 5 weeks until renewal
-            endingReason: Client is better again
-            documentId: 1
-            documentName: artikel60.pdf
-            archived: false
-            request: false
-            legalStatusDocuments:
-            - documentId: 1
-              documentName: artikel60.pdf
-            legalStatusSuspensions:
-            - id: 1
-              beginDate: '2021-09-01'
-              endDate: '2021-09-02'
-              comments: What the judge told
-              type: withdraw_involuntary_care
-              createdById: 1
-              updatedById: 1
-              createdAt: '2020-11-14T00:00:00.000+01:00'
-              updatedAt: '2020-11-14T00:00:00.000+01:00'
-              uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
-            legalGrounds:
-            - beginDate: '2015-09-25'
-              endDate: '2015-09-26'
-              comments: Important side node
-              categoryCode: wvggz_inclosure_other
-          medicalNotes:
-          - id: 10
-            clientId: 1337
-            authorId: 10
-            updatedByAuthorId: 10
-            content: Medical note
-            visibleOnWorksheet: false
-            deleted: false
-            updatedAt: '2024-08-04T11:11:11.000+02:00'
-            createdAt: '2022-12-02T09:50:57.779+01:00'
-        - clientId: 300
-          legalStatus:
-            id: 1
-            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-            clientId: 2
-            createdById: 1
-            updatedById: 1
-            createdAt: '2014-11-14T00:00:00.000+01:00'
-            updatedAt: '2014-11-14T00:00:00.000+01:00'
-            status: Artikel 60 Bopz-indicatie
-            code: sapc
-            beginDate: '2015-09-17'
-            endDate: '2015-09-27'
-            comments: 5 weeks until renewal
-            documentId: 1
-            documentName: bopz.pdf
-            archived: false
-            legalStatusDocuments:
-            - documentId: 1
-              documentName: artikel60.pdf
-          legalStatuses:
-          - id: 1
-            uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-            clientId: 2
-            createdById: 1
-            updatedById: 1
-            createdAt: '2014-11-14T00:00:00.000+01:00'
-            updatedAt: '2014-11-14T00:00:00.000+01:00'
-            status: Artikel 60 Bopz-indicatie
-            code: sapc
-            beginDate: '2015-09-17'
-            endDate: '2015-09-27'
-            expirationDate: '2015-09-28'
-            comments: 5 weeks until renewal
-            endingReason: Client is better again
-            documentId: 1
-            documentName: artikel60.pdf
-            archived: false
-            request: false
-            legalStatusDocuments:
-            - documentId: 1
-              documentName: artikel60.pdf
-            legalStatusSuspensions:
-            - id: 1
-              beginDate: '2021-09-01'
-              endDate: '2021-09-02'
-              comments: What the judge told
-              type: withdraw_involuntary_care
-              createdById: 1
-              updatedById: 1
-              createdAt: '2020-11-14T00:00:00.000+01:00'
-              updatedAt: '2020-11-14T00:00:00.000+01:00'
-              uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51d
-            legalGrounds:
-            - beginDate: '2015-09-25'
-              endDate: '2015-09-26'
-              comments: Important side node
-              categoryCode: wvggz_inclosure_other
-    dossier.episodes.Episode:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          description: Object id of this episode
-          format: int64
-          x-cupido-id: true
-        clientId:
-          type: integer
-          description: Client object id this episode belongs too
-          format: int64
-        startDate:
-          type: string
-          description: Start date of this episode
-          format: date
-        endDate:
-          type: string
-          description: End date of this episode
-          format: date
-        evaluationDate:
-          type: string
-          description: Evaluation date of this episode
-          format: date
-        goal:
-          type: string
-          description: Goal description of this episode
-        title:
-          type: string
-          description: Title of this episode
-        important:
-          type: boolean
-          description: Marked as important
-        marked:
-          type: boolean
-          description: Marked as relevant
-        subGoals:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.episodes.SubGoal'
-          description: Sub goals of this episode
-        problemIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Medical problems that are linked to this episode
-        surveyResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.SurveyResult'
-          description: Object ids of the survey results that are linked to this episode
-        documents:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.episodes.EpisodeDocument'
-          description: Object ids of the documents that are linked to this episode
-        expertiseProfileIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Only users with these expertise profiles are allowed to access this episode; authorzationIds
-          deprecated: true
-        authorizedExpertiseProfileIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Only users with these expertise profiles are allowed to access this episode
-        authorizedExpertiseGroupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Only users with these expertise groups are allowed to access this episode
-        linkedExpertiseProfileIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Users with these linked expertise profiles are connected to this episode
-        linkedExpertiseGroupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: Users with these linked expertise groups are connected to this episode
-      description: Episode model (no description)
-      example:
-        updatedAt: '2017-11-27T00:00:00.000+01:00'
-        createdAt: '2017-11-27T00:00:00.000+01:00'
-        createdBy: Some Employee
-        id: 1
-        clientId: 1
-        startDate: '2017-11-27'
-        endDate: '2017-11-27'
-        evaluationDate: '2017-11-27'
-        goal: Some Goal
-        title: awesome episode
-        important: false
-        marked: false
-        subGoals:
-        - updatedAt: '2017-11-27T00:00:00.000+01:00'
-          createdAt: '2017-11-27T00:00:00.000+01:00'
-          createdBy: Dummy
-          id: 2
-          title: Some sub goal
-          episodeId: 1
-          archived: false
-        problemIds:
-        - 1
-        - 2
-        surveyResults:
-        - updatedAt: '2012-08-02T13:48:46.836+02:00'
-          createdAt: '2012-08-02T13:48:46.836+02:00'
-          createdBy: user
-          id: 111
-          surveyObjectId: 555
-          clientObjectId: 333
-          employeeObjectId: 444
-          status: Draft
-          version: 1
-          title: test
-          linkedToActiveCarePlan: true
-          isAnyCarePlanUsingThisResult: true
-          duplicateSurveyResultAbility:
-            enabled: true
-            possible: true
-          editSurveyResultAbility:
-            enabled: true
-            possible: true
-          statusBumpSurveyResultAbility:
-            enabled: true
-            possible: true
-          viewSurveyResultAbility:
-            enabled: true
-            possible: true
-          answers: []
-          groupAnswers: []
-          completedAt: '2012-08-02T13:48:46.836+02:00'
-        documents:
-        - id: 1233
-          fileName: file.pdf
-        expertiseProfileIds:
-        - 1
-        - 1
-        authorizedExpertiseProfileIds:
-        - 1
-        - 2
-        authorizedExpertiseGroupIds:
-        - 1
-        linkedExpertiseProfileIds:
-        - 1
-        - 2
-        linkedExpertiseGroupIds:
-        - 1
-    Ability:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        possible:
-          type: boolean
-        message:
-          type: string
-      description: Ability model (no description)
-      example:
-        enabled: true
-        possible: false
-        message: message
+      description: ClinicalFinding enum (no description)
+      example: allergy
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

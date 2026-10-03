@@ -51,21 +51,24 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    Period:
+    ons_administration.list.WorkdayHourTypeModelList:
       type: object
       properties:
-        start:
-          type: string
-          description: Starting time with inclusive boundary
-          format: date
-        end:
-          type: string
-          description: End time with inclusive boundary, if not ongoing
-          format: date
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+        workdayHourTypeModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.WorkdayHourTypeModel'
+      description: List of WorkdayHourTypeModels
       example:
-        start: '2018-03-26'
-        end: '2018-04-02'
+        workdayHourTypeModels:
+        - hourTypeObjectId: 13
+          validPeriods:
+          - start: '2025-12-29'
+        - hourTypeObjectId: 42
+          validPeriods:
+          - start: '2025-12-29'
+            end: '2026-06-28'
+          - start: '2026-12-27'
     ons_administration.WorkdayHourTypeModel:
       required:
       - hourTypeObjectId
@@ -89,24 +92,21 @@ components:
         - start: '2025-12-29'
           end: '2026-12-27'
         - start: '2027-12-27'
-    ons_administration.list.WorkdayHourTypeModelList:
+    Period:
       type: object
       properties:
-        workdayHourTypeModels:
-          type: array
-          items:
-            $ref: '#/components/schemas/ons_administration.WorkdayHourTypeModel'
-      description: List of WorkdayHourTypeModels
+        start:
+          type: string
+          description: Starting time with inclusive boundary
+          format: date
+        end:
+          type: string
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
       example:
-        workdayHourTypeModels:
-        - hourTypeObjectId: 13
-          validPeriods:
-          - start: '2025-12-29'
-        - hourTypeObjectId: 42
-          validPeriods:
-          - start: '2025-12-29'
-            end: '2026-06-28'
-          - start: '2026-12-27'
+        start: '2018-03-26'
+        end: '2018-04-02'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

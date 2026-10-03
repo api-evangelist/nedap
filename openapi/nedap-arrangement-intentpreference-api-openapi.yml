@@ -353,6 +353,37 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    arrangement.QuantityUnit:
+      enum:
+      - MINUTE
+      - HOUR
+      - DAY_PART
+      - DAY
+      - PIECE
+      type: string
+      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+        quantity of th the care that is intended. For example:
+
+        - 2, HOUR means ''2 hours''
+
+        - 120, MINUTE means ''120 minutes'''
+      example: MINUTE
+    arrangement.RecurrenceType:
+      enum:
+      - HOUR
+      - DAY
+      - WEEK
+      - PERIOD
+      type: string
+      description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
+
+        Examples:
+
+        - 1, WEEK corresponds to ''every week''
+
+        - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
+      example: HOUR
     arrangement.Intent:
       required:
       - uuid
@@ -473,82 +504,6 @@ components:
         plannable: true
       xml:
         name: intent
-    arrangement.IntentPreference:
-      required:
-      - intent
-      - timeSlot
-      type: object
-      properties:
-        intent:
-          allOf:
-          - $ref: '#/components/schemas/arrangement.Intent'
-          description: Intent of the preference
-        timeSlot:
-          allOf:
-          - $ref: '#/components/schemas/arrangement.TimeSlot'
-          description: TimeSlot of the preference
-      description: IntentPreference model (no description)
-      example:
-        intent:
-          uuid: '12345'
-          timelineUuid: '12344'
-          clientUuid: CLIENT_UUID
-          clientId: 24
-          beginDate: '2018-06-14'
-          endDate: '2018-05-20'
-          hourTypeId: 12
-          frequency: 3
-          quantityAmount: 1
-          quantityUnit: DAY_PART
-          recurrenceInterval: 1
-          recurrenceType: WEEK
-          sourceApp: PLANNING
-          sourceReference: planning/123
-          sourceDescription: for someone
-          splittable: true
-        timeSlot:
-          uuid: TIME_SLOT_UUID
-          clientId: 1
-          clientUuid: CLIENT_UUID
-          dayOfWeek: 1
-          beginAfter: '00:00:00.000'
-          endBefore: '00:00:00.000'
-      xml:
-        name: intentPreference
-    arrangement.QuantityUnit:
-      enum:
-      - MINUTE
-      - HOUR
-      - DAY_PART
-      - DAY
-      - PIECE
-      type: string
-      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
-
-        quantity of th the care that is intended. For example:
-
-        - 2, HOUR means ''2 hours''
-
-        - 120, MINUTE means ''120 minutes'''
-      example: MINUTE
-    arrangement.UuidList:
-      type: object
-      properties:
-        uuids:
-          type: array
-          items:
-            type: string
-            xml:
-              name: uuid
-          xml:
-            wrapped: true
-      description: UuidList model (no description)
-      example:
-        uuids:
-        - UUID
-        - UUID
-      xml:
-        name: uuidList
     arrangement.list.IntentPreferenceList:
       type: object
       properties:
@@ -611,6 +566,48 @@ components:
             endBefore: '00:00:00.000'
       xml:
         name: intentPreferences
+    arrangement.IntentPreference:
+      required:
+      - intent
+      - timeSlot
+      type: object
+      properties:
+        intent:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.Intent'
+          description: Intent of the preference
+        timeSlot:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.TimeSlot'
+          description: TimeSlot of the preference
+      description: IntentPreference model (no description)
+      example:
+        intent:
+          uuid: '12345'
+          timelineUuid: '12344'
+          clientUuid: CLIENT_UUID
+          clientId: 24
+          beginDate: '2018-06-14'
+          endDate: '2018-05-20'
+          hourTypeId: 12
+          frequency: 3
+          quantityAmount: 1
+          quantityUnit: DAY_PART
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
+          sourceReference: planning/123
+          sourceDescription: for someone
+          splittable: true
+        timeSlot:
+          uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 1
+          beginAfter: '00:00:00.000'
+          endBefore: '00:00:00.000'
+      xml:
+        name: intentPreference
     arrangement.TimeSlot:
       required:
       - uuid
@@ -657,21 +654,24 @@ components:
         endBefore: '00:00:00.000'
       xml:
         name: timeSlot
-    arrangement.RecurrenceType:
-      enum:
-      - HOUR
-      - DAY
-      - WEEK
-      - PERIOD
-      type: string
-      description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
-
-        Examples:
-
-        - 1, WEEK corresponds to ''every week''
-
-        - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
-      example: HOUR
+    arrangement.UuidList:
+      type: object
+      properties:
+        uuids:
+          type: array
+          items:
+            type: string
+            xml:
+              name: uuid
+          xml:
+            wrapped: true
+      description: UuidList model (no description)
+      example:
+        uuids:
+        - UUID
+        - UUID
+      xml:
+        name: uuidList
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -984,6 +984,164 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          x-cupido-id: true
+        name:
+          type: string
+      description: Role model (no description)
+      example:
+        id: 24
+        name: iO Me gebruiker
+      xml:
+        name: role
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        identificationNo:
+          type: string
+        name:
+          type: string
+        agbCode:
+          type: string
+          description: 'Deprecated since: 14-03-2019 - nationally issued unique identifying code for organisations and persons that have a registration in the agb register'
+          deprecated: true
+        agbcodeId:
+          type: integer
+          format: int64
+        materializedPath:
+          type: string
+          description: automatically calculated field
+        wzaCode:
+          type: string
+          description: unique identifying code. Used by municipalities
+        intramuralLocation:
+          type: boolean
+        locationType:
+          type: string
+        capacity:
+          type: integer
+          format: int32
+          default: 0
+        costCenter:
+          type: string
+        roomType:
+          type: string
+        parentObjectId:
+          type: integer
+          description: location objectid of the parent where this location belongs to
+          format: int64
+        icon:
+          type: integer
+          format: int32
+          default: 0
+        medicineAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a medication location
+        ggzAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a mental healthcare residence location
+        waitingListAllowed:
+          type: boolean
+          description: Indication whether this location can be used as a waiting list
+        registeredLocationNumber:
+          type: string
+          description: The location as registered for Wzd / Wvggz purposes
+        correspondenceName:
+          type: string
+          description: Correspondence name for use in mail correspondence when location name is not fit for mail correspondence (e.g. 'K PS fys 03'). Default correspondence name is the location name, unless set otherwise
+        hideCorrespondenceName:
+          type: boolean
+          description: Whether the correspondence name should be hidden
+        addressObjectId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Location model (no description)
+      example:
+        id: 1
+        beginDate: '2012-08-02T11:48:46.836+02:00'
+        endDate: '2012-08-02T11:48:46.836+02:00'
+        identificationNo: '1'
+        name: Nedap Demo
+        agbCode: '75750535'
+        agbcodeId: 1
+        materializedPath: '1.2'
+        wzaCode: '690535'
+        intramuralLocation: false
+        locationType: Locatie
+        capacity: 0
+        costCenter: costCenter
+        roomType: '1'
+        parentObjectId: 0
+        medicineAllowed: true
+        ggzAllowed: true
+        waitingListAllowed: true
+        addressObjectId: 1
+        registeredLocationNumber: '123456789012'
+        updatedAt: '2012-08-02T11:48:46.836+02:00'
+        createdAt: '2012-08-02T11:48:46.836+02:00'
+        icon: 1
+        correspondenceName: Pretty correspondence name
+        hideCorrespondenceName: false
+      xml:
+        name: location
+    UserStatus:
+      type: object
+      properties:
+        userLoginAllowed:
+          type: boolean
+          description: true if the user is allowed to log in
+        loginDescription:
+          type: string
+          description: describes why the user can (not) log in
+        type:
+          type: string
+          description: 'describes the state as enum name
+
+            - APPLICATION_LOCK_DOWN
+
+            - CONTRACT_REQUIRED_USER_NEEDS_NO_CONTRACT
+
+            - CONTRACT_REQUIRED_USER_HAS_ACTIVE_CONTRACT
+
+            - CONTRACT_REQUIRED_USER_HAS_ACTIVE_CONTRACT_IN_NEAR_FUTURE
+
+            - CONTRACT_REQUIRED_USER_HAS_NO_ACTIVE_CONTRACT_IN_NEAR_FUTURE
+
+            - CONTRACT_REQUIRED_USER_HAS_NO_CONTRACTS
+
+            - CONTRACT_NOT_REQUIRED_USER_HAS_CONTRACT_WITH_NO_ENDDATE
+
+            - CONTRACT_NOT_REQUIRED_USER_HAS_NO_CONTRACTS
+
+            - CONTRACT_NOT_REQUIRED_USER_HAS_ACTIVE_CONTRACT
+
+            - CONTRACT_NOT_REQUIRED_USER_HAS_NO_ACTIVE_CONTRACT'
+      description: UserStatus model (no description)
+      example:
+        userLoginAllowed: true
+        loginDescription: User can log in
+        type: CONTRACT_REQUIRED_USER_NEEDS_NO_CONTRACT
     list.UserList:
       type: object
       properties:
@@ -1005,6 +1163,39 @@ components:
           contractRequiredAtLogin: true
       xml:
         name: users
+    list.LocationList:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+          xml:
+            name: location
+      description: LocationList model (no description)
+      example:
+        locations:
+        - id: 1
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-02T11:48:46.836+02:00'
+          identificationNo: '1'
+          name: Nedap Demo
+          agbCode: '75750535'
+          agbcodeId: 1
+          materializedPath: '1.2'
+          wzaCode: '690535'
+          intramuralLocation: false
+          locationType: Locatie
+          capacity: 0
+          costCenter: costCenter
+          roomType: '1'
+          parentObjectId: 0
+          icon: 0
+          registeredLocationNumber: '123456789012'
+          correspondenceName: Pretty correspondence name
+          hideCorrespondenceName: false
+      xml:
+        name: locations
     User:
       type: object
       properties:
@@ -1139,43 +1330,6 @@ components:
         dashboardProfileObjectId: 1
       xml:
         name: user
-    UserStatus:
-      type: object
-      properties:
-        userLoginAllowed:
-          type: boolean
-          description: true if the user is allowed to log in
-        loginDescription:
-          type: string
-          description: describes why the user can (not) log in
-        type:
-          type: string
-          description: 'describes the state as enum name
-
-            - APPLICATION_LOCK_DOWN
-
-            - CONTRACT_REQUIRED_USER_NEEDS_NO_CONTRACT
-
-            - CONTRACT_REQUIRED_USER_HAS_ACTIVE_CONTRACT
-
-            - CONTRACT_REQUIRED_USER_HAS_ACTIVE_CONTRACT_IN_NEAR_FUTURE
-
-            - CONTRACT_REQUIRED_USER_HAS_NO_ACTIVE_CONTRACT_IN_NEAR_FUTURE
-
-            - CONTRACT_REQUIRED_USER_HAS_NO_CONTRACTS
-
-            - CONTRACT_NOT_REQUIRED_USER_HAS_CONTRACT_WITH_NO_ENDDATE
-
-            - CONTRACT_NOT_REQUIRED_USER_HAS_NO_CONTRACTS
-
-            - CONTRACT_NOT_REQUIRED_USER_HAS_ACTIVE_CONTRACT
-
-            - CONTRACT_NOT_REQUIRED_USER_HAS_NO_ACTIVE_CONTRACT'
-      description: UserStatus model (no description)
-      example:
-        userLoginAllowed: true
-        loginDescription: User can log in
-        type: CONTRACT_REQUIRED_USER_NEEDS_NO_CONTRACT
     PasswordChange:
       type: object
       properties:
@@ -1188,160 +1342,6 @@ components:
       example:
         userId: 1
         newPassword: newPassword
-    Location:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        beginDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        identificationNo:
-          type: string
-        name:
-          type: string
-        agbCode:
-          type: string
-          description: 'Deprecated since: 14-03-2019 - nationally issued unique identifying code for organisations and persons that have a registration in the agb register'
-          deprecated: true
-        agbcodeId:
-          type: integer
-          format: int64
-        materializedPath:
-          type: string
-          description: automatically calculated field
-        wzaCode:
-          type: string
-          description: unique identifying code. Used by municipalities
-        intramuralLocation:
-          type: boolean
-        locationType:
-          type: string
-        capacity:
-          type: integer
-          format: int32
-          default: 0
-        costCenter:
-          type: string
-        roomType:
-          type: string
-        parentObjectId:
-          type: integer
-          description: location objectid of the parent where this location belongs to
-          format: int64
-        icon:
-          type: integer
-          format: int32
-          default: 0
-        medicineAllowed:
-          type: boolean
-          description: Indication whether this location can be used as a medication location
-        ggzAllowed:
-          type: boolean
-          description: Indication whether this location can be used as a mental healthcare residence location
-        waitingListAllowed:
-          type: boolean
-          description: Indication whether this location can be used as a waiting list
-        registeredLocationNumber:
-          type: string
-          description: The location as registered for Wzd / Wvggz purposes
-        correspondenceName:
-          type: string
-          description: Correspondence name for use in mail correspondence when location name is not fit for mail correspondence (e.g. 'K PS fys 03'). Default correspondence name is the location name, unless set otherwise
-        hideCorrespondenceName:
-          type: boolean
-          description: Whether the correspondence name should be hidden
-        addressObjectId:
-          type: integer
-          format: int64
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      description: Location model (no description)
-      example:
-        id: 1
-        beginDate: '2012-08-02T11:48:46.836+02:00'
-        endDate: '2012-08-02T11:48:46.836+02:00'
-        identificationNo: '1'
-        name: Nedap Demo
-        agbCode: '75750535'
-        agbcodeId: 1
-        materializedPath: '1.2'
-        wzaCode: '690535'
-        intramuralLocation: false
-        locationType: Locatie
-        capacity: 0
-        costCenter: costCenter
-        roomType: '1'
-        parentObjectId: 0
-        medicineAllowed: true
-        ggzAllowed: true
-        waitingListAllowed: true
-        addressObjectId: 1
-        registeredLocationNumber: '123456789012'
-        updatedAt: '2012-08-02T11:48:46.836+02:00'
-        createdAt: '2012-08-02T11:48:46.836+02:00'
-        icon: 1
-        correspondenceName: Pretty correspondence name
-        hideCorrespondenceName: false
-      xml:
-        name: location
-    list.LocationList:
-      type: object
-      properties:
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
-          xml:
-            name: location
-      description: LocationList model (no description)
-      example:
-        locations:
-        - id: 1
-          beginDate: '2012-08-02T11:48:46.836+02:00'
-          endDate: '2012-08-02T11:48:46.836+02:00'
-          identificationNo: '1'
-          name: Nedap Demo
-          agbCode: '75750535'
-          agbcodeId: 1
-          materializedPath: '1.2'
-          wzaCode: '690535'
-          intramuralLocation: false
-          locationType: Locatie
-          capacity: 0
-          costCenter: costCenter
-          roomType: '1'
-          parentObjectId: 0
-          icon: 0
-          registeredLocationNumber: '123456789012'
-          correspondenceName: Pretty correspondence name
-          hideCorrespondenceName: false
-      xml:
-        name: locations
-    Role:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          x-cupido-id: true
-        name:
-          type: string
-      description: Role model (no description)
-      example:
-        id: 24
-        name: iO Me gebruiker
-      xml:
-        name: role
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

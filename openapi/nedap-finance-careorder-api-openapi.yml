@@ -539,110 +539,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    finance.CareOrderProduct:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        careOrderId:
-          type: integer
-          description: ID of the care order this care order product belongs to.
-          format: int64
-        userIdentifier:
-          type: string
-        quantity:
-          type: integer
-          description: 'Deprecated since: 14-03-2019'
-          format: int32
-          deprecated: true
-        quantityUnit:
-          type: string
-          description: 'Deprecated since: 14-03-2019'
-          deprecated: true
-        magnitudeQuantityValue:
-          type: integer
-          description: 'Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].
-
-            For example 30 * 1 minute per week. This value represents the quantityValue part and is mandatory.'
-          format: int32
-        magnitudeUnitQuantity:
-          type: integer
-          description: 'Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].
-
-            For example 30 * 1 minute per week. This value represents the unitQuantity part and it can be omitted.
-
-            In most cases this is 1.'
-          format: int32
-        magnitudeUnitType:
-          type: string
-          description: "Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].\nFor example 30 * 1 minute per week. This value represents the unitType part and it can be omitted.\nThe following values are supported:\n  - EURO_CENT\n  - PIECE\n  - MINUTE\n  - HOUR"
-        magnitudeFrequency:
-          type: string
-          description: "Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].\nFor example 30 * 1 minute per week. This value represents the frequency part and it can be omitted.\nThe following values are supported:\n  - PER_DAG\n  - PER_WEEK\n  - PER_VIER_WEKEN\n  - PER_MAAND\n  - PER_JAAR\n  - PER_TRAJECT"
-        comments:
-          type: string
-          description: Comments, generally only used by old pre-2015 AWBZ care order products.
-        productId:
-          type: integer
-          description: ID of the product that this care order product is for
-          format: int64
-        financeTypeId:
-          type: integer
-          description: ID of the finance type this care order product belongs to.
-          format: int64
-        instellingsCode:
-          type: string
-          description: AGB code of the care provider responsible for handling this care order product
-        functietype:
-          type: string
-          description: 'Deprecated: field was never set.'
-          deprecated: true
-          x-deprecated-since: 14-10-2021
-        debtorId:
-          type: integer
-          description: ID of the debtor that this care order product belongs to.
-          format: int64
-        beginDate:
-          type: string
-          description: Original begin date of the care order product, the time component is ignored, and considered to be 00:00:00.
-          format: date-time
-        endDate:
-          type: string
-          description: Original end date of the care order product, the time component is ignored, and considered to be 23:59:59.
-          format: date-time
-        clippedBeginDate:
-          type: string
-          description: Begin date of the care order product after clipping (vegen), the time component is ignored, and considered to be 00:00:00.
-          format: date-time
-        clippedEndDate:
-          type: string
-          description: End date of the care order product after clipping (vegen), the time component is ignored, and considered to be 23:59:59.
-          format: date-time
-      description: CareOrderProduct model (no description)
-      example:
-        id: 1
-        careOrderId: 1
-        userIdentifier: '1'
-        quantity: 1
-        quantityUnit: MinutesPerWeek
-        magnitudeQuantityValue: 1
-        magnitudeUnitQuantity: 1
-        magnitudeUnitType: MINUTE
-        magnitudeFrequency: PER_WEEK
-        comments: comments
-        productId: 1
-        financeTypeId: 1
-        instellingsCode: ABCD
-        functietype: ZZP
-        debtorId: 1
-        beginDate: '2014-12-29T00:00:00.000+01:00'
-        endDate: '2014-12-29T00:00:00.000+01:00'
-        clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
-        clippedEndDate: '2014-12-29T00:00:00.000+01:00'
-      xml:
-        name: careOrderProduct
     finance.CareOrder:
       type: object
       properties:
@@ -812,6 +708,110 @@ components:
             clippedEndDate: '2014-12-29T00:00:00.000+01:00'
       xml:
         name: careOrders
+    finance.CareOrderProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        careOrderId:
+          type: integer
+          description: ID of the care order this care order product belongs to.
+          format: int64
+        userIdentifier:
+          type: string
+        quantity:
+          type: integer
+          description: 'Deprecated since: 14-03-2019'
+          format: int32
+          deprecated: true
+        quantityUnit:
+          type: string
+          description: 'Deprecated since: 14-03-2019'
+          deprecated: true
+        magnitudeQuantityValue:
+          type: integer
+          description: 'Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].
+
+            For example 30 * 1 minute per week. This value represents the quantityValue part and is mandatory.'
+          format: int32
+        magnitudeUnitQuantity:
+          type: integer
+          description: 'Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].
+
+            For example 30 * 1 minute per week. This value represents the unitQuantity part and it can be omitted.
+
+            In most cases this is 1.'
+          format: int32
+        magnitudeUnitType:
+          type: string
+          description: "Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].\nFor example 30 * 1 minute per week. This value represents the unitType part and it can be omitted.\nThe following values are supported:\n  - EURO_CENT\n  - PIECE\n  - MINUTE\n  - HOUR"
+        magnitudeFrequency:
+          type: string
+          description: "Care order products have a magnitude of the form: [quantityValue] of [unitQuantity] [unitType] per [frequency].\nFor example 30 * 1 minute per week. This value represents the frequency part and it can be omitted.\nThe following values are supported:\n  - PER_DAG\n  - PER_WEEK\n  - PER_VIER_WEKEN\n  - PER_MAAND\n  - PER_JAAR\n  - PER_TRAJECT"
+        comments:
+          type: string
+          description: Comments, generally only used by old pre-2015 AWBZ care order products.
+        productId:
+          type: integer
+          description: ID of the product that this care order product is for
+          format: int64
+        financeTypeId:
+          type: integer
+          description: ID of the finance type this care order product belongs to.
+          format: int64
+        instellingsCode:
+          type: string
+          description: AGB code of the care provider responsible for handling this care order product
+        functietype:
+          type: string
+          description: 'Deprecated: field was never set.'
+          deprecated: true
+          x-deprecated-since: 14-10-2021
+        debtorId:
+          type: integer
+          description: ID of the debtor that this care order product belongs to.
+          format: int64
+        beginDate:
+          type: string
+          description: Original begin date of the care order product, the time component is ignored, and considered to be 00:00:00.
+          format: date-time
+        endDate:
+          type: string
+          description: Original end date of the care order product, the time component is ignored, and considered to be 23:59:59.
+          format: date-time
+        clippedBeginDate:
+          type: string
+          description: Begin date of the care order product after clipping (vegen), the time component is ignored, and considered to be 00:00:00.
+          format: date-time
+        clippedEndDate:
+          type: string
+          description: End date of the care order product after clipping (vegen), the time component is ignored, and considered to be 23:59:59.
+          format: date-time
+      description: CareOrderProduct model (no description)
+      example:
+        id: 1
+        careOrderId: 1
+        userIdentifier: '1'
+        quantity: 1
+        quantityUnit: MinutesPerWeek
+        magnitudeQuantityValue: 1
+        magnitudeUnitQuantity: 1
+        magnitudeUnitType: MINUTE
+        magnitudeFrequency: PER_WEEK
+        comments: comments
+        productId: 1
+        financeTypeId: 1
+        instellingsCode: ABCD
+        functietype: ZZP
+        debtorId: 1
+        beginDate: '2014-12-29T00:00:00.000+01:00'
+        endDate: '2014-12-29T00:00:00.000+01:00'
+        clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+        clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+      xml:
+        name: careOrderProduct
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

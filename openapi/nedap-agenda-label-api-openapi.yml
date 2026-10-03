@@ -51,19 +51,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    agenda.list.LabelList:
-      title: LabelList
-      type: object
-      properties:
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/agenda.Label'
-      description: LabelList model (no description)
-      example:
-        labels:
-        - id: 1
-          name: Telefonisch
     agenda.Label:
       title: Label
       type: object
@@ -78,6 +65,19 @@ components:
       example:
         id: 1
         name: Telefonisch
+    agenda.list.LabelList:
+      title: LabelList
+      type: object
+      properties:
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.Label'
+      description: LabelList model (no description)
+      example:
+        labels:
+        - id: 1
+          name: Telefonisch
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

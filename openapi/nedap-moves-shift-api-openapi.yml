@@ -276,6 +276,77 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.list.ShiftList:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Shift'
+          xml:
+            name: shift
+      description: ShiftList model (no description)
+      example:
+        shifts:
+        - id: 200@2014-04-11
+          code: O1
+          description: Ochtend 1
+          expertiseProfileId: 1
+          teamId: 1
+          createdById: 1
+          updatedById: 1
+          deletedById: 1
+          validFrom: '2014-01-01'
+          validTo: '2014-01-01'
+          transportationMethodId: 1
+          monday: true
+          tuesday: true
+          wednesday: false
+          thursday: true
+          friday: true
+          saturday: false
+          sunday: false
+          startTimes: '---
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00
+
+            - 2000-01-01 08:00:00.000000000 +01:00'
+          stopTimes: '---
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00
+
+            - 2000-01-01 12:00:00.000000000 +01:00'
+          breakType: 0
+          startBreakTimes: '[null,null,null,null,null,null,null]'
+          stopBreakTimes: '[null,null,null,null,null,null,null]'
+          dayPart: 1
+          number: 2
+          timelineId: 1
+          exportAssignments: false
+          exportHourTypeId: 1
+          exportGroupCare: false
+      xml:
+        name: shifts
     moves.Shift:
       title: Shift
       type: object
@@ -501,77 +572,6 @@ components:
         exportGroupCare: false
       xml:
         name: shift
-    moves.list.ShiftList:
-      type: object
-      properties:
-        shifts:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Shift'
-          xml:
-            name: shift
-      description: ShiftList model (no description)
-      example:
-        shifts:
-        - id: 200@2014-04-11
-          code: O1
-          description: Ochtend 1
-          expertiseProfileId: 1
-          teamId: 1
-          createdById: 1
-          updatedById: 1
-          deletedById: 1
-          validFrom: '2014-01-01'
-          validTo: '2014-01-01'
-          transportationMethodId: 1
-          monday: true
-          tuesday: true
-          wednesday: false
-          thursday: true
-          friday: true
-          saturday: false
-          sunday: false
-          startTimes: '---
-
-            - 2000-01-01 08:00:00.000000000 +01:00
-
-            - 2000-01-01 08:00:00.000000000 +01:00
-
-            - 2000-01-01 08:00:00.000000000 +01:00
-
-            - 2000-01-01 08:00:00.000000000 +01:00
-
-            - 2000-01-01 08:00:00.000000000 +01:00
-
-            - 2000-01-01 08:00:00.000000000 +01:00
-
-            - 2000-01-01 08:00:00.000000000 +01:00'
-          stopTimes: '---
-
-            - 2000-01-01 12:00:00.000000000 +01:00
-
-            - 2000-01-01 12:00:00.000000000 +01:00
-
-            - 2000-01-01 12:00:00.000000000 +01:00
-
-            - 2000-01-01 12:00:00.000000000 +01:00
-
-            - 2000-01-01 12:00:00.000000000 +01:00
-
-            - 2000-01-01 12:00:00.000000000 +01:00
-
-            - 2000-01-01 12:00:00.000000000 +01:00'
-          breakType: 0
-          startBreakTimes: '[null,null,null,null,null,null,null]'
-          stopBreakTimes: '[null,null,null,null,null,null,null]'
-          dayPart: 1
-          number: 2
-          timelineId: 1
-          exportAssignments: false
-          exportHourTypeId: 1
-          exportGroupCare: false
-      xml:
-        name: shifts
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

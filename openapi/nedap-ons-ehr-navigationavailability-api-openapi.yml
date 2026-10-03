@@ -63,28 +63,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ons_ehr.NavigationAvailability:
-      required:
-      - key
-      - state
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/ons_ehr.NavigationAvailabilityKey'
-        state:
-          $ref: '#/components/schemas/ons_ehr.NavigationAvailabilityState'
-      description: A navigation item with its availability
-      example:
-        key: PLAN
-        state: AVAILABLE
-    ons_ehr.NavigationAvailabilityState:
-      enum:
-      - AVAILABLE
-      - DISABLED
-      - UNAVAILABLE
-      type: string
-      description: State of the navigation availability
-      example: AVAILABLE
     ons_ehr.NavigationAvailabilityKey:
       enum:
       - PLAN
@@ -109,6 +87,28 @@ components:
           state: UNAVAILABLE
         - key: DISCUSS_CLIENT
           state: AVAILABLE
+    ons_ehr.NavigationAvailabilityState:
+      enum:
+      - AVAILABLE
+      - DISABLED
+      - UNAVAILABLE
+      type: string
+      description: State of the navigation availability
+      example: AVAILABLE
+    ons_ehr.NavigationAvailability:
+      required:
+      - key
+      - state
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/ons_ehr.NavigationAvailabilityKey'
+        state:
+          $ref: '#/components/schemas/ons_ehr.NavigationAvailabilityState'
+      description: A navigation item with its availability
+      example:
+        key: PLAN
+        state: AVAILABLE
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

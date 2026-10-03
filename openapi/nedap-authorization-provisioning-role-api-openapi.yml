@@ -49,18 +49,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    authorization.provisioning.list.RoleList:
-      type: object
-      properties:
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/authorization.provisioning.Role'
-      description: RoleList model (no description)
-      example:
-        roles:
-        - uuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
-          name: Rol naam
     authorization.provisioning.Role:
       type: object
       properties:
@@ -73,6 +61,18 @@ components:
       example:
         uuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
         name: Rol naam
+    authorization.provisioning.list.RoleList:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization.provisioning.Role'
+      description: RoleList model (no description)
+      example:
+        roles:
+        - uuid: ea9e0f20-2232-4087-9a43-8f894e79b6f0
+          name: Rol naam
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

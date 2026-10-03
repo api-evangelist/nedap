@@ -453,6 +453,29 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ons_administration.list.WorkdayNormSettingsModelList:
+      type: object
+      properties:
+        workdayNormSettingsModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
+      description: List of WorkdayNormSettingsModels
+      example:
+        workdayNormSettingsModels:
+        - id: 7
+          employeeObjectId: 42
+          startDate: '2025-12-29'
+          endDate: '2026-12-27'
+          workdayNormTotal: 20
+          normPeriod: 4
+          optOut: false
+        - id: 8
+          employeeObjectId: 42
+          startDate: '2026-12-28'
+          workdayNormTotal: 8
+          normPeriod: 2
+          optOut: false
     ons_administration.WorkdayNormSettingsModel:
       required:
       - employeeObjectId
@@ -509,29 +532,6 @@ components:
         workdayNormTotal: 20
         normPeriod: 4
         optOut: false
-    ons_administration.list.WorkdayNormSettingsModelList:
-      type: object
-      properties:
-        workdayNormSettingsModels:
-          type: array
-          items:
-            $ref: '#/components/schemas/ons_administration.WorkdayNormSettingsModel'
-      description: List of WorkdayNormSettingsModels
-      example:
-        workdayNormSettingsModels:
-        - id: 7
-          employeeObjectId: 42
-          startDate: '2025-12-29'
-          endDate: '2026-12-27'
-          workdayNormTotal: 20
-          normPeriod: 4
-          optOut: false
-        - id: 8
-          employeeObjectId: 42
-          startDate: '2026-12-28'
-          workdayNormTotal: 8
-          normPeriod: 2
-          optOut: false
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

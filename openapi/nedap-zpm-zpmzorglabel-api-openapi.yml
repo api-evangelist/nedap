@@ -47,53 +47,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-    zpm.list.ZpmZorglabelList:
-      type: object
-      properties:
-        zpmZorglabels:
-          type: array
-          items:
-            $ref: '#/components/schemas/zpm.ZpmZorglabel'
-          xml:
-            name: zpmZorglabel
-      description: ZpmZorglabelList model (no description)
-      example:
-        zpmZorglabels:
-        - updatedAt: '2021-08-09T10:52:25.000+02:00'
-          createdAt: '2021-08-09T10:52:25.000+02:00'
-          id: 4
-          code: N04
-          name: Toeslag inzet tolk
-          valueEditable: true
-          allowedValues: Talentolk;Gebarentolk
-          branchIndication: 0
-          beginDate: '2022-01-01'
-      xml:
-        name: zpmZorglabels
     zpm.ZpmZorglabel:
       required:
       - code
@@ -167,6 +120,53 @@ components:
         endDate: '2022-12-31'
       xml:
         name: zpmZorglabel
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    zpm.list.ZpmZorglabelList:
+      type: object
+      properties:
+        zpmZorglabels:
+          type: array
+          items:
+            $ref: '#/components/schemas/zpm.ZpmZorglabel'
+          xml:
+            name: zpmZorglabel
+      description: ZpmZorglabelList model (no description)
+      example:
+        zpmZorglabels:
+        - updatedAt: '2021-08-09T10:52:25.000+02:00'
+          createdAt: '2021-08-09T10:52:25.000+02:00'
+          id: 4
+          code: N04
+          name: Toeslag inzet tolk
+          valueEditable: true
+          allowedValues: Talentolk;Gebarentolk
+          branchIndication: 0
+          beginDate: '2022-01-01'
+      xml:
+        name: zpmZorglabels
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

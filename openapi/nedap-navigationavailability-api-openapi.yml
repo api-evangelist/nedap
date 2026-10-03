@@ -65,20 +65,22 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    NavigationAvailabilityKey:
-      enum:
-      - VERIFY_DECLARATION_RULES
-      type: string
-      description: Item for navigation availability request
-      example: VERIFY_DECLARATION_RULES
-    NavigationAvailabilityState:
-      enum:
-      - AVAILABLE
-      - DISABLED
-      - UNAVAILABLE
-      type: string
-      description: Item for navigation availability request
-      example: AVAILABLE
+    list.NavigationAvailabilityList:
+      type: object
+      properties:
+        navigationAvailabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/NavigationAvailability'
+          xml:
+            name: navigationAvailability
+      description: List of navigation items with their availability
+      example:
+        navigationAvailabilities:
+        - key: VERIFY_DECLARATION_RULES
+          value: AVAILABLE
+      xml:
+        name: navigationAvailabilities
     NavigationAvailability:
       type: object
       properties:
@@ -96,22 +98,20 @@ components:
         value: AVAILABLE
       xml:
         name: navigationAvailability
-    list.NavigationAvailabilityList:
-      type: object
-      properties:
-        navigationAvailabilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/NavigationAvailability'
-          xml:
-            name: navigationAvailability
-      description: List of navigation items with their availability
-      example:
-        navigationAvailabilities:
-        - key: VERIFY_DECLARATION_RULES
-          value: AVAILABLE
-      xml:
-        name: navigationAvailabilities
+    NavigationAvailabilityKey:
+      enum:
+      - VERIFY_DECLARATION_RULES
+      type: string
+      description: Item for navigation availability request
+      example: VERIFY_DECLARATION_RULES
+    NavigationAvailabilityState:
+      enum:
+      - AVAILABLE
+      - DISABLED
+      - UNAVAILABLE
+      type: string
+      description: Item for navigation availability request
+      example: AVAILABLE
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

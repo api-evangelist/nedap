@@ -466,6 +466,64 @@ components:
         clientId: 1
       xml:
         name: clientNote
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.list.ClientNoteList:
+      type: object
+      properties:
+        clientNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ClientNote'
+      description: ClientNoteList model (no description)
+      example:
+        clientNotes:
+        - id: 1
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 1
+          authorId: 1
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+          clientId: 1
+        - id: 2
+          content: Dummy
+          visibleOnWorksheet: true
+          deleted: true
+          startDate: '2014-06-16'
+          endDate: '2014-06-16'
+          updatedByAuthorId: 2
+          authorId: 2
+          updatedAt: '2014-06-16T02:00:00.000+02:00'
+          createdAt: '2014-06-16T02:00:00.000+02:00'
+          createdBy: Dummy
+          clientId: 2
     dossier.BaseNote:
       type: object
       allOf:
@@ -506,64 +564,6 @@ components:
         endDate: '2014-12-29'
         updatedByAuthorId: 1
         authorId: 1
-    dossier.list.ClientNoteList:
-      type: object
-      properties:
-        clientNotes:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.ClientNote'
-      description: ClientNoteList model (no description)
-      example:
-        clientNotes:
-        - id: 1
-          content: Dummy
-          visibleOnWorksheet: true
-          deleted: true
-          startDate: '2014-06-16'
-          endDate: '2014-06-16'
-          updatedByAuthorId: 1
-          authorId: 1
-          updatedAt: '2014-06-16T02:00:00.000+02:00'
-          createdAt: '2014-06-16T02:00:00.000+02:00'
-          createdBy: Dummy
-          clientId: 1
-        - id: 2
-          content: Dummy
-          visibleOnWorksheet: true
-          deleted: true
-          startDate: '2014-06-16'
-          endDate: '2014-06-16'
-          updatedByAuthorId: 2
-          authorId: 2
-          updatedAt: '2014-06-16T02:00:00.000+02:00'
-          createdAt: '2014-06-16T02:00:00.000+02:00'
-          createdBy: Dummy
-          clientId: 2
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -120,21 +120,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    payroll.list.CollectiveAgreementRuleList:
-      type: object
-      properties:
-        collectiveAgreementRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.CollectiveAgreementRule'
-      description: CollectiveAgreementRuleList model (no description)
-      example:
-        collectiveAgreementRules:
-        - id: 1
-          collectiveAgreementId: 1
-          beginDate: '2015-01-01'
-          endDate: '2020-01-01'
-          calculateTravelTime: true
     payroll.CollectiveAgreementRule:
       type: object
       properties:
@@ -165,6 +150,21 @@ components:
         calculateTravelTime: true
       xml:
         name: collectiveAgreementRule
+    payroll.list.CollectiveAgreementRuleList:
+      type: object
+      properties:
+        collectiveAgreementRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.CollectiveAgreementRule'
+      description: CollectiveAgreementRuleList model (no description)
+      example:
+        collectiveAgreementRules:
+        - id: 1
+          collectiveAgreementId: 1
+          beginDate: '2015-01-01'
+          endDate: '2020-01-01'
+          calculateTravelTime: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

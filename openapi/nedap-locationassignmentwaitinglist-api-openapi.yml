@@ -256,6 +256,37 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.LocationAssignmentWaitingListList:
+      type: object
+      properties:
+        locationAssignmentWaitingLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAssignmentWaitingList'
+          xml:
+            name: locationAssignmentWaitingList
+      description: LocationAssignmentWaitingListList model (no description)
+      example:
+        locationAssignmentWaitingLists:
+        - id: 1
+          beginDate: '2012-08-02'
+          beginTime: '10:11:00.000'
+          endDate: '2012-08-02'
+          endTime: '12:13:00.000'
+          clientObjectId: 2
+          locationObjectId: 3
+          moveDate: '2012-08-02'
+          locationAssignmentType: WAITING_LIST
+          residence: false
+          mainLocation: false
+          medicineLocation: false
+          waitingFor: BESCHIKBARE_PLEK
+          status: ACTIEF_PLAATSEN
+          description: Client wacht met smart. Contact direct met client, niet via ouders.
+          classification: DREIGENDE_CRISIS_THUIS
+          closingReason: GEPLAATST
+      xml:
+        name: locationAssignmentWaitingLists
     LocationAssignmentType:
       enum:
       - STANDARD
@@ -376,37 +407,6 @@ components:
         closingReason: GEPLAATST
       xml:
         name: locationAssignmentWaitingList
-    list.LocationAssignmentWaitingListList:
-      type: object
-      properties:
-        locationAssignmentWaitingLists:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationAssignmentWaitingList'
-          xml:
-            name: locationAssignmentWaitingList
-      description: LocationAssignmentWaitingListList model (no description)
-      example:
-        locationAssignmentWaitingLists:
-        - id: 1
-          beginDate: '2012-08-02'
-          beginTime: '10:11:00.000'
-          endDate: '2012-08-02'
-          endTime: '12:13:00.000'
-          clientObjectId: 2
-          locationObjectId: 3
-          moveDate: '2012-08-02'
-          locationAssignmentType: WAITING_LIST
-          residence: false
-          mainLocation: false
-          medicineLocation: false
-          waitingFor: BESCHIKBARE_PLEK
-          status: ACTIEF_PLAATSEN
-          description: Client wacht met smart. Contact direct met client, niet via ouders.
-          classification: DREIGENDE_CRISIS_THUIS
-          closingReason: GEPLAATST
-      xml:
-        name: locationAssignmentWaitingLists
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

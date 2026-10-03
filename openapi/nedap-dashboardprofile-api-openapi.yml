@@ -49,20 +49,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.DashboardProfileList:
-      type: object
-      properties:
-        dashboardProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardProfile'
-      description: List of dashboard profiles
-      example:
-        dashboardProfiles:
-        - id: 1
-          name: Intramuraal
-      xml:
-        name: dashboardProfiles
     DashboardProfile:
       type: object
       properties:
@@ -80,6 +66,20 @@ components:
         name: Intramuraal
       xml:
         name: dashboardProfile
+    list.DashboardProfileList:
+      type: object
+      properties:
+        dashboardProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardProfile'
+      description: List of dashboard profiles
+      example:
+        dashboardProfiles:
+        - id: 1
+          name: Intramuraal
+      xml:
+        name: dashboardProfiles
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -260,50 +260,49 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.EmployeeAddressList:
+    EmployeeAddress:
       type: object
+      allOf:
+      - $ref: '#/components/schemas/Address'
       properties:
-        employeeAddresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeAddress'
-          xml:
-            name: employeeAddress
-      description: EmployeeAddressList model (no description)
+        employeeId:
+          type: integer
+          format: int64
+      description: EmployeeAddress model (no description)
       example:
-        employeeAddresses:
-        - id: 1
-          beginDate: '2010-02-16'
-          endDate: '2010-02-17'
-          homeNumber: 4
-          homeNumberExtension: a
-          poBoxNumber: 123a
-          street: Parallelweg
-          city: Enschede
-          zipcode: 7513KC
-          municipality: Enschede
-          country: Netherlands
-          telephoneNumber: 053-1234567
-          telephoneCountryCode: '+31'
-          telephoneNumber2: 053-1234567
-          telephoneCountryCode2: '+31'
-          faxNumber: 053-1234567
-          email: mike.wazowski@nedap.com
-          type: residence address
-          typeString: temporary
-          residentType: '0'
-          personType: client
-          personTypeString: birthname
-          roomNumber: '1'
-          locationDescription: Afdeling noord
-          updatedAt: '2016-01-01T12:00:00.000+01:00'
-          createdAt: '2016-01-01T12:00:00.000+01:00'
-          latitude: 52.1
-          longitude: 6.9
-          employeeId: 2
-          situationDescription: Test
+        id: 1
+        beginDate: '2010-02-16'
+        endDate: '2010-02-17'
+        homeNumber: 4
+        homeNumberExtension: a
+        poBoxNumber: 123a
+        street: Parallelweg
+        city: Enschede
+        zipcode: 7513KC
+        municipality: Enschede
+        country: Netherlands
+        telephoneNumber: 053-1234567
+        telephoneCountryCode: '+31'
+        telephoneNumber2: 053-1234567
+        telephoneCountryCode2: '+31'
+        faxNumber: 053-1234567
+        email: mike.wazowski@nedap.com
+        type: residence address
+        typeString: temporary
+        residentType: '0'
+        personType: client
+        personTypeString: birthname
+        roomNumber: '1'
+        locationDescription: Afdeling noord
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        latitude: 52.1
+        longitude: 6.9
+        employeeId: 2
+        situationDescription: Test
+        residenceAccessInfo: Test
       xml:
-        name: employeeAddresses
+        name: employeeAddress
     Address:
       type: object
       properties:
@@ -467,49 +466,50 @@ components:
         longitude: 6.9
         situationDescription: Woont bij ex
         residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
-    EmployeeAddress:
+    list.EmployeeAddressList:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/Address'
       properties:
-        employeeId:
-          type: integer
-          format: int64
-      description: EmployeeAddress model (no description)
+        employeeAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeAddress'
+          xml:
+            name: employeeAddress
+      description: EmployeeAddressList model (no description)
       example:
-        id: 1
-        beginDate: '2010-02-16'
-        endDate: '2010-02-17'
-        homeNumber: 4
-        homeNumberExtension: a
-        poBoxNumber: 123a
-        street: Parallelweg
-        city: Enschede
-        zipcode: 7513KC
-        municipality: Enschede
-        country: Netherlands
-        telephoneNumber: 053-1234567
-        telephoneCountryCode: '+31'
-        telephoneNumber2: 053-1234567
-        telephoneCountryCode2: '+31'
-        faxNumber: 053-1234567
-        email: mike.wazowski@nedap.com
-        type: residence address
-        typeString: temporary
-        residentType: '0'
-        personType: client
-        personTypeString: birthname
-        roomNumber: '1'
-        locationDescription: Afdeling noord
-        updatedAt: '2016-01-01T12:00:00.000+01:00'
-        createdAt: '2016-01-01T12:00:00.000+01:00'
-        latitude: 52.1
-        longitude: 6.9
-        employeeId: 2
-        situationDescription: Test
-        residenceAccessInfo: Test
+        employeeAddresses:
+        - id: 1
+          beginDate: '2010-02-16'
+          endDate: '2010-02-17'
+          homeNumber: 4
+          homeNumberExtension: a
+          poBoxNumber: 123a
+          street: Parallelweg
+          city: Enschede
+          zipcode: 7513KC
+          municipality: Enschede
+          country: Netherlands
+          telephoneNumber: 053-1234567
+          telephoneCountryCode: '+31'
+          telephoneNumber2: 053-1234567
+          telephoneCountryCode2: '+31'
+          faxNumber: 053-1234567
+          email: mike.wazowski@nedap.com
+          type: residence address
+          typeString: temporary
+          residentType: '0'
+          personType: client
+          personTypeString: birthname
+          roomNumber: '1'
+          locationDescription: Afdeling noord
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          latitude: 52.1
+          longitude: 6.9
+          employeeId: 2
+          situationDescription: Test
       xml:
-        name: employeeAddress
+        name: employeeAddresses
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json
