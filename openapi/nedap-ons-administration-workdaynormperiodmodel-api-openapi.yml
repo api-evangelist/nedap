@@ -67,35 +67,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ons_administration.list.WorkdayNormPeriodModelList:
-      type: object
-      properties:
-        workdayNormPeriodModels:
-          type: array
-          items:
-            $ref: '#/components/schemas/ons_administration.WorkdayNormPeriodModel'
-      description: List of WorkdayNormPeriodModels
-      example:
-        workdayNormPeriodModels:
-        - employeeObjectId: 7
-          startDate: '2025-12-01'
-          endDate: '2025-12-28'
-          normPeriod: 4
-          optOut: false
-          workdayNorm: 4
-          workdays:
-          - '2025-12-03'
-          - '2025-12-04'
-        - employeeObjectId: 9
-          startDate: '2025-12-01'
-          endDate: '2025-12-07'
-          normPeriod: 1
-          optOut: true
-          workdayNorm: 1
-          workdays:
-          - '2025-12-03'
-          - '2025-12-04'
-          - '2025-12-05'
     ons_administration.WorkdayNormPeriodModel:
       type: object
       properties:
@@ -153,6 +124,35 @@ components:
         workdays:
         - '2025-12-03'
         - '2025-12-04'
+    ons_administration.list.WorkdayNormPeriodModelList:
+      type: object
+      properties:
+        workdayNormPeriodModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.WorkdayNormPeriodModel'
+      description: List of WorkdayNormPeriodModels
+      example:
+        workdayNormPeriodModels:
+        - employeeObjectId: 7
+          startDate: '2025-12-01'
+          endDate: '2025-12-28'
+          normPeriod: 4
+          optOut: false
+          workdayNorm: 4
+          workdays:
+          - '2025-12-03'
+          - '2025-12-04'
+        - employeeObjectId: 9
+          startDate: '2025-12-01'
+          endDate: '2025-12-07'
+          normPeriod: 1
+          optOut: true
+          workdayNorm: 1
+          workdays:
+          - '2025-12-03'
+          - '2025-12-04'
+          - '2025-12-05'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

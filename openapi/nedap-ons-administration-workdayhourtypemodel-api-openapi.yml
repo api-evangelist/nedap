@@ -51,24 +51,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ons_administration.list.WorkdayHourTypeModelList:
-      type: object
-      properties:
-        workdayHourTypeModels:
-          type: array
-          items:
-            $ref: '#/components/schemas/ons_administration.WorkdayHourTypeModel'
-      description: List of WorkdayHourTypeModels
-      example:
-        workdayHourTypeModels:
-        - hourTypeObjectId: 13
-          validPeriods:
-          - start: '2025-12-29'
-        - hourTypeObjectId: 42
-          validPeriods:
-          - start: '2025-12-29'
-            end: '2026-06-28'
-          - start: '2026-12-27'
     ons_administration.WorkdayHourTypeModel:
       required:
       - hourTypeObjectId
@@ -107,6 +89,24 @@ components:
       example:
         start: '2018-03-26'
         end: '2018-04-02'
+    ons_administration.list.WorkdayHourTypeModelList:
+      type: object
+      properties:
+        workdayHourTypeModels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_administration.WorkdayHourTypeModel'
+      description: List of WorkdayHourTypeModels
+      example:
+        workdayHourTypeModels:
+        - hourTypeObjectId: 13
+          validPeriods:
+          - start: '2025-12-29'
+        - hourTypeObjectId: 42
+          validPeriods:
+          - start: '2025-12-29'
+            end: '2026-06-28'
+          - start: '2026-12-27'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

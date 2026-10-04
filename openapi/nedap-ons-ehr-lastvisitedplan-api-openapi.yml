@@ -63,14 +63,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ons_ehr.LastVisitedPlanType:
-      enum:
-      - ggz_plan
-      - sfmpc_plan
-      - care_plan
-      type: string
-      description: Unique code that identifies the visited plan type
-      example: sfmpc_plan
     ons_ehr.LastVisitedPlan:
       type: object
       properties:
@@ -87,6 +79,14 @@ components:
       example:
         planType: care_plan
         employeeId: 123
+    ons_ehr.LastVisitedPlanType:
+      enum:
+      - ggz_plan
+      - sfmpc_plan
+      - care_plan
+      type: string
+      description: Unique code that identifies the visited plan type
+      example: sfmpc_plan
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

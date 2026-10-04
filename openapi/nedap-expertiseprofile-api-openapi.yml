@@ -370,23 +370,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.ExpertiseProfileList:
-      type: object
-      properties:
-        expertiseProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpertiseProfile'
-          xml:
-            name: expertiseProfile
-      description: ExpertiseProfileList model (no description)
-      example:
-        expertiseProfiles:
-        - id: 5
-          description: Helpenden
-          visible: true
-      xml:
-        name: expertiseProfiles
     ExpertiseProfile:
       type: object
       properties:
@@ -438,6 +421,23 @@ components:
         - 1
         - 2
         - 3
+    list.ExpertiseProfileList:
+      type: object
+      properties:
+        expertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfile'
+          xml:
+            name: expertiseProfile
+      description: ExpertiseProfileList model (no description)
+      example:
+        expertiseProfiles:
+        - id: 5
+          description: Helpenden
+          visible: true
+      xml:
+        name: expertiseProfiles
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

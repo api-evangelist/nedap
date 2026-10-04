@@ -126,13 +126,6 @@ components:
       description: This object can be used to transport HL7 FHIR dstu3 bundle data to Ketenverkeer (Harmony).
       example:
         data: bundlejson
-    harmony.BundleWrapper:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/harmony.ZorgdomeinFhirConnector'
-      description: BundleWrapper model (no description)
-      example:
-        data: bundlejson
     harmony.JsonResponseDto:
       required:
       - status
@@ -147,6 +140,13 @@ components:
       example:
         details: Validation error
         status: 1
+    harmony.BundleWrapper:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/harmony.ZorgdomeinFhirConnector'
+      description: BundleWrapper model (no description)
+      example:
+        data: bundlejson
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

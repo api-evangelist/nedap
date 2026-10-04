@@ -336,56 +336,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    openehr.MultimediaFile:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        ehrId:
-          type:
-          - integer
-          - 'null'
-          description: Integer containing the ehrId.
-          format: int64
-        clientId:
-          type:
-          - integer
-          - 'null'
-          description: 'Integer containing the clientId. This might be empty, since a multimedia file is primarily linked to an
-
-            EHR. An EHR might not have a link to a Cupido client, for example if a client is not known in Ons Administratie.'
-          format: int64
-        committerEmployeeId:
-          type:
-          - integer
-          - 'null'
-          description: 'Integer containing the employeeId in Ons Administratie of the committer. This can be empty when the committer
-
-            is not known in Ons Administratie. The name of the committer is recorded in the createdBy field.
-
-            Note: The committer is not always the same person as the person who composes the object.'
-          format: int64
-        mediaType:
-          type:
-          - string
-          - 'null'
-          description: The IANA Media Type of the file associated with this MultimediaFile
-      description: A JSON object with metadata of the multimedia file
-      example:
-        updatedAt: '2019-06-17T00:00:00.000+02:00'
-        createdAt: '2019-06-17T00:00:00.000+02:00'
-        createdBy: Henk
-        id: 1
-        ehrId: 2
-        clientId: 3
-        committerEmployeeId: 4
-        mediaType: image/jpeg
     openehr.Scale:
       enum:
       - SMALL
@@ -443,6 +393,56 @@ components:
           committerEmployeeId: 4
           mediaType: image/jpeg
         attachment: ''
+    openehr.MultimediaFile:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        ehrId:
+          type:
+          - integer
+          - 'null'
+          description: Integer containing the ehrId.
+          format: int64
+        clientId:
+          type:
+          - integer
+          - 'null'
+          description: 'Integer containing the clientId. This might be empty, since a multimedia file is primarily linked to an
+
+            EHR. An EHR might not have a link to a Cupido client, for example if a client is not known in Ons Administratie.'
+          format: int64
+        committerEmployeeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Integer containing the employeeId in Ons Administratie of the committer. This can be empty when the committer
+
+            is not known in Ons Administratie. The name of the committer is recorded in the createdBy field.
+
+            Note: The committer is not always the same person as the person who composes the object.'
+          format: int64
+        mediaType:
+          type:
+          - string
+          - 'null'
+          description: The IANA Media Type of the file associated with this MultimediaFile
+      description: A JSON object with metadata of the multimedia file
+      example:
+        updatedAt: '2019-06-17T00:00:00.000+02:00'
+        createdAt: '2019-06-17T00:00:00.000+02:00'
+        createdBy: Henk
+        id: 1
+        ehrId: 2
+        clientId: 3
+        committerEmployeeId: 4
+        mediaType: image/jpeg
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

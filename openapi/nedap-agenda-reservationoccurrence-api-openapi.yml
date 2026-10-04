@@ -370,34 +370,23 @@ components:
           - 1
           - 3
           repeatUntil: '2025-08-02'
-    agenda.ReservationOccurrence:
-      title: ReservationOccurrence
+    agenda.ReservationOccurrenceResponse:
+      title: ReservationOccurrenceResponse
       type: object
       properties:
-        occurrenceId:
-          type: string
-          description: Id of the occurrence
-        startsAt:
-          type: string
-          description: Start moment of reservation. Must be on same day as endsAt.
-          format: date-time
-        endsAt:
-          type: string
-          description: End moment (exclusive) of reservation. Must be on same day as startsAt.
-          format: date-time
-        labels:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/agenda.Label'
-          description: List of labels assigned to this reservation
-      description: ''
+            $ref: '#/components/schemas/agenda.ReservationOccurrence'
+      description: Response wrapping a list of reservation occurrences.
       example:
-        occurrenceId: 07ea6051
-        startsAt: '2025-06-05T08:10:00.000+02:00'
-        endsAt: '2025-06-05T08:20:00.000+02:00'
-        labels:
-        - id: 1
-          name: Telefonisch
+        data:
+        - occurrenceId: 07ea6051
+          startsAt: '2025-06-05T08:10:00.000+02:00'
+          endsAt: '2025-06-05T08:20:00.000+02:00'
+          labels:
+          - id: 1
+            name: Telefonisch
     agenda.RecurrenceRule:
       title: AgendaRecurrenceRule
       required:
@@ -437,23 +426,6 @@ components:
         - 1
         - 3
         repeatUntil: '2015-08-02'
-    agenda.ReservationOccurrenceResponse:
-      title: ReservationOccurrenceResponse
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/agenda.ReservationOccurrence'
-      description: Response wrapping a list of reservation occurrences.
-      example:
-        data:
-        - occurrenceId: 07ea6051
-          startsAt: '2025-06-05T08:10:00.000+02:00'
-          endsAt: '2025-06-05T08:20:00.000+02:00'
-          labels:
-          - id: 1
-            name: Telefonisch
     agenda.Label:
       title: Label
       type: object
@@ -495,6 +467,34 @@ components:
         * yearly: The entry occurs every year on the given date.'
       default: single
       example: single
+    agenda.ReservationOccurrence:
+      title: ReservationOccurrence
+      type: object
+      properties:
+        occurrenceId:
+          type: string
+          description: Id of the occurrence
+        startsAt:
+          type: string
+          description: Start moment of reservation. Must be on same day as endsAt.
+          format: date-time
+        endsAt:
+          type: string
+          description: End moment (exclusive) of reservation. Must be on same day as startsAt.
+          format: date-time
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.Label'
+          description: List of labels assigned to this reservation
+      description: ''
+      example:
+        occurrenceId: 07ea6051
+        startsAt: '2025-06-05T08:10:00.000+02:00'
+        endsAt: '2025-06-05T08:20:00.000+02:00'
+        labels:
+        - id: 1
+          name: Telefonisch
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

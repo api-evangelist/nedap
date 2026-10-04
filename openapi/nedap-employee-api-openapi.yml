@@ -1060,6 +1060,24 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.EmployeeList:
+      type: object
+      properties:
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee'
+          xml:
+            name: employee
+      description: EmployeeList model (no description)
+      example:
+        employees:
+        - id: 1
+          firstName: Mike
+          dateOfBirth: '2012-08-02'
+          birthName: Wazowski
+      xml:
+        name: employees
     Employee:
       type: object
       allOf:
@@ -1279,24 +1297,30 @@ components:
         freeField4: Free field 4 description
         updatedAt: '2016-01-01T12:00:00.000+01:00'
         createdAt: '2016-01-01T12:00:00.000+01:00'
-    list.EmployeeList:
+    EmployeePrivacySettings:
       type: object
       properties:
-        employees:
-          type: array
-          items:
-            $ref: '#/components/schemas/Employee'
-          xml:
-            name: employee
-      description: EmployeeList model (no description)
+        employeeObjectId:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        shareBirthDay:
+          type: boolean
+        sharePrivateEmailAddress:
+          type: boolean
+        sharePrivateTelephoneNumber:
+          type: boolean
+        shareResidence:
+          type: boolean
+      description: EmployeePrivacySettings model (no description)
       example:
-        employees:
-        - id: 1
-          firstName: Mike
-          dateOfBirth: '2012-08-02'
-          birthName: Wazowski
+        employeeObjectId: 1
+        shareBirthDay: true
+        sharePrivateEmailAddress: true
+        sharePrivateTelephoneNumber: true
+        shareResidence: true
       xml:
-        name: employees
+        name: employeePrivacySettings
     BankAccount:
       type: object
       properties:
@@ -1339,30 +1363,6 @@ components:
         updatedAt: '2016-01-01T12:00:00.000+01:00'
       xml:
         name: bankAccount
-    EmployeePrivacySettings:
-      type: object
-      properties:
-        employeeObjectId:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        shareBirthDay:
-          type: boolean
-        sharePrivateEmailAddress:
-          type: boolean
-        sharePrivateTelephoneNumber:
-          type: boolean
-        shareResidence:
-          type: boolean
-      description: EmployeePrivacySettings model (no description)
-      example:
-        employeeObjectId: 1
-        shareBirthDay: true
-        sharePrivateEmailAddress: true
-        sharePrivateTelephoneNumber: true
-        shareResidence: true
-      xml:
-        name: employeePrivacySettings
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

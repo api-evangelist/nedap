@@ -633,76 +633,131 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    bsn.BsnSource:
-      type: integer
-      oneOf:
-      - title: UNKNOWN
-        enum:
-        - -1
-      - title: OWN_ADMINISTRATION
-        enum:
-        - 0
-      - title: SBVZ
-        enum:
-        - 1
-      - title: GBA
-        enum:
-        - 2
-      - title: OTHER_BSN_USER
-        enum:
-        - 3
-      description: BsnSource model (no description)
-      example: -1
-    list.ClientContactRelationList:
+    nexus.PersonalRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/nexus.RelationType'
+      description: Vektiscode
+      example:
+        id: 6
+        name: Father
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    nexus.ClientContactRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/nexus.RelationType'
+      description: Vektiscode
+      example:
+        id: 6
+        name: Curator
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: true
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    Bsn:
       type: object
       properties:
-        clientContactRelations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientContactRelation'
-          xml:
-            name: clientContactRelation
-      description: ClientContactRelationList model (no description)
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        clientId:
+          type: integer
+          format: int64
+        number:
+          type: string
+        sourceVerified:
+          type: boolean
+        idVerified:
+          type: boolean
+        idNumber:
+          type: string
+        idType:
+          type: string
+        source:
+          type: string
+        idVerifiedType:
+          type: string
+        idVerifiedDate:
+          type: string
+          format: date-time
+        bsnUnknown:
+          type: boolean
+        reasonBsnUnknown:
+          type: string
+        idValidUntil:
+          type: string
+          format: date
+        bsnVerifiedDate:
+          type: string
+          format: date
+        widVerified:
+          type: boolean
+        verifiedByEmployeeId:
+          type: integer
+          format: int64
+        bsnDocumentType:
+          $ref: '#/components/schemas/bsn.BsnDocumentType'
+        bsnSource:
+          $ref: '#/components/schemas/bsn.BsnSource'
+        bsnIdVerifiedType:
+          $ref: '#/components/schemas/bsn.BsnIdVerifiedType'
+      description: Bsn model (no description)
       example:
-        clientContactRelations:
-        - updatedAt: '2014-04-17T16:04:36.000+02:00'
-          createdAt: '2014-04-17T16:04:36.000+02:00'
-          id: 10310
-          firstName: ''
-          name: Mw. MMT 05-11-86
-          identificationNo: ''
-          preferredNameType: '0'
-          lastName: 05-11-86-Niemeijer
-          birthName: 05-11-86
-          partnerName: Niemeijer
-          initials: MMT
-          prefix: ''
-          birthNamePrefix: ''
-          partnerNamePrefix: ''
-          gender: F
-          clientObjectId: 30259
-          inCaseOfEmergency: false
-          comments: Casemanager komt 1 keer per maand
-        - updatedAt: '2014-04-17T14:05:26.000+02:00'
-          createdAt: '2014-04-17T14:05:26.000+02:00'
-          id: 10303
-          firstName: ''
-          name: Dhr. AA Groothuis
-          identificationNo: ''
-          preferredNameType: '0'
-          lastName: Groothuis
-          birthName: Groothuis
-          partnerName: ''
-          initials: AA
-          prefix: ''
-          birthNamePrefix: ''
-          partnerNamePrefix: ''
-          gender: M
-          clientObjectId: 30258
-          inCaseOfEmergency: true
-          comments: ''
+        id: 42
+        clientId: 200
+        number: 0123456789
+        sourceVerified: true
+        idVerified: false
+        idNumber: asd234
+        idType: Paspoort
+        source: OwnAdministration
+        idVerifiedType: Geen
+        idVerifiedDate: '2010-03-15T00:00:00.000+01:00'
+        bsnUnknown: false
+        reasonBsnUnknown: Illegaal
+        idValidUntil: '2010-03-15'
+        bsnVerifiedDate: '2010-03-15'
+        widVerified: false
+        verifiedByEmployeeId: 100
+        bsnDocumentType: 1
+        bsnSource: -1
+        bsnIdVerifiedType: 2
       xml:
-        name: clientContactRelations
+        name: bsn
     ClientContactRelation:
       type: object
       allOf:
@@ -880,6 +935,96 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
+    nexus.RelationCategory:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+        type:
+          type: string
+      description: RelationCategory model (no description)
+      example:
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+        id: 7
+        name: Standard
+        type: SOCIAL
+      xml:
+        name: relationCategory
+    list.ClientContactRelationList:
+      type: object
+      properties:
+        clientContactRelations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientContactRelation'
+          xml:
+            name: clientContactRelation
+      description: ClientContactRelationList model (no description)
+      example:
+        clientContactRelations:
+        - updatedAt: '2014-04-17T16:04:36.000+02:00'
+          createdAt: '2014-04-17T16:04:36.000+02:00'
+          id: 10310
+          firstName: ''
+          name: Mw. MMT 05-11-86
+          identificationNo: ''
+          preferredNameType: '0'
+          lastName: 05-11-86-Niemeijer
+          birthName: 05-11-86
+          partnerName: Niemeijer
+          initials: MMT
+          prefix: ''
+          birthNamePrefix: ''
+          partnerNamePrefix: ''
+          gender: F
+          clientObjectId: 30259
+          inCaseOfEmergency: false
+          comments: Casemanager komt 1 keer per maand
+        - updatedAt: '2014-04-17T14:05:26.000+02:00'
+          createdAt: '2014-04-17T14:05:26.000+02:00'
+          id: 10303
+          firstName: ''
+          name: Dhr. AA Groothuis
+          identificationNo: ''
+          preferredNameType: '0'
+          lastName: Groothuis
+          birthName: Groothuis
+          partnerName: ''
+          initials: AA
+          prefix: ''
+          birthNamePrefix: ''
+          partnerNamePrefix: ''
+          gender: M
+          clientObjectId: 30258
+          inCaseOfEmergency: true
+          comments: ''
+      xml:
+        name: clientContactRelations
+    bsn.BsnDocumentType:
+      type: integer
+      oneOf:
+      - title: PASPOORT
+        enum:
+        - 0
+      - title: ID
+        enum:
+        - 1
+      - title: RIJBEWIJS
+        enum:
+        - 2
+      - title: VREEMDELINGENDOCUMENT
+        enum:
+        - 3
+      description: BsnDocumentType model (no description)
+      example: 0
     nexus.RelationType:
       type: object
       allOf:
@@ -943,131 +1088,26 @@ components:
           name: Standard
       deprecated: true
       x-deprecated-since: 03-10-2014
-    nexus.ClientContactRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/nexus.RelationType'
-      description: Vektiscode
-      example:
-        id: 6
-        name: Curator
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: true
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-    Bsn:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        clientId:
-          type: integer
-          format: int64
-        number:
-          type: string
-        sourceVerified:
-          type: boolean
-        idVerified:
-          type: boolean
-        idNumber:
-          type: string
-        idType:
-          type: string
-        source:
-          type: string
-        idVerifiedType:
-          type: string
-        idVerifiedDate:
-          type: string
-          format: date-time
-        bsnUnknown:
-          type: boolean
-        reasonBsnUnknown:
-          type: string
-        idValidUntil:
-          type: string
-          format: date
-        bsnVerifiedDate:
-          type: string
-          format: date
-        widVerified:
-          type: boolean
-        verifiedByEmployeeId:
-          type: integer
-          format: int64
-        bsnDocumentType:
-          $ref: '#/components/schemas/bsn.BsnDocumentType'
-        bsnSource:
-          $ref: '#/components/schemas/bsn.BsnSource'
-        bsnIdVerifiedType:
-          $ref: '#/components/schemas/bsn.BsnIdVerifiedType'
-      description: Bsn model (no description)
-      example:
-        id: 42
-        clientId: 200
-        number: 0123456789
-        sourceVerified: true
-        idVerified: false
-        idNumber: asd234
-        idType: Paspoort
-        source: OwnAdministration
-        idVerifiedType: Geen
-        idVerifiedDate: '2010-03-15T00:00:00.000+01:00'
-        bsnUnknown: false
-        reasonBsnUnknown: Illegaal
-        idValidUntil: '2010-03-15'
-        bsnVerifiedDate: '2010-03-15'
-        widVerified: false
-        verifiedByEmployeeId: 100
-        bsnDocumentType: 1
-        bsnSource: -1
-        bsnIdVerifiedType: 2
-      xml:
-        name: bsn
-    nexus.PersonalRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/nexus.RelationType'
-      description: Vektiscode
-      example:
-        id: 6
-        name: Father
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: true
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
+    bsn.BsnSource:
+      type: integer
+      oneOf:
+      - title: UNKNOWN
+        enum:
+        - -1
+      - title: OWN_ADMINISTRATION
+        enum:
+        - 0
+      - title: SBVZ
+        enum:
+        - 1
+      - title: GBA
+        enum:
+        - 2
+      - title: OTHER_BSN_USER
+        enum:
+        - 3
+      description: BsnSource model (no description)
+      example: -1
     bsn.BsnIdVerifiedType:
       type: integer
       oneOf:
@@ -1082,46 +1122,6 @@ components:
         - 2
       description: BsnIdVerifiedType model (no description)
       example: 0
-    bsn.BsnDocumentType:
-      type: integer
-      oneOf:
-      - title: PASPOORT
-        enum:
-        - 0
-      - title: ID
-        enum:
-        - 1
-      - title: RIJBEWIJS
-        enum:
-        - 2
-      - title: VREEMDELINGENDOCUMENT
-        enum:
-        - 3
-      description: BsnDocumentType model (no description)
-      example: 0
-    nexus.RelationCategory:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-        type:
-          type: string
-      description: RelationCategory model (no description)
-      example:
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-        id: 7
-        name: Standard
-        type: SOCIAL
-      xml:
-        name: relationCategory
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

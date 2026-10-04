@@ -89,6 +89,15 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    CostCenterSelectionOptionCategory:
+      enum:
+      - COMMON
+      - OWN_TEAM
+      - CLIENT_COSTCENTER
+      - OTHER
+      type: string
+      description: A category about the cost center; can be COMMON/OWN_TEAM/CLIENT_COSTCENTER/OTHER.
+      example: OTHER
     list.CostCenterSelectionOptionList:
       type: object
       properties:
@@ -144,15 +153,6 @@ components:
         identificationNumber: AB12
       xml:
         name: costCenterSelectionOption
-    CostCenterSelectionOptionCategory:
-      enum:
-      - COMMON
-      - OWN_TEAM
-      - CLIENT_COSTCENTER
-      - OTHER
-      type: string
-      description: A category about the cost center; can be COMMON/OWN_TEAM/CLIENT_COSTCENTER/OTHER.
-      example: OTHER
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

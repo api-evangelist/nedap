@@ -250,6 +250,30 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.ProductList:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.Product'
+          xml:
+            name: product
+      description: ProductList model (no description)
+      example:
+        products:
+        - id: 1
+          productCode: Dummy
+          code: Dummy
+          userIdentifier: Dummy
+          type: 1
+          description: Dummy
+          financeTypeId: 1
+          beginDate: '2016-01-28'
+          endDate: '2016-01-29'
+          declarable: true
+      xml:
+        name: products
     finance.Product:
       type: object
       properties:
@@ -318,30 +342,6 @@ components:
         declarable: true
       xml:
         name: product
-    finance.list.ProductList:
-      type: object
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.Product'
-          xml:
-            name: product
-      description: ProductList model (no description)
-      example:
-        products:
-        - id: 1
-          productCode: Dummy
-          code: Dummy
-          userIdentifier: Dummy
-          type: 1
-          description: Dummy
-          financeTypeId: 1
-          beginDate: '2016-01-28'
-          endDate: '2016-01-29'
-          declarable: true
-      xml:
-        name: products
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -840,55 +840,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    RightSelection:
-      enum:
-      - Me
-      - Group
-      - Education
-      - All
-      - Nobody
-      type: string
-      description: RightSelection enum (no description)
-      example: Me
-    list.DocumentList:
-      type: object
-      properties:
-        documents:
-          type: array
-          items:
-            $ref: '#/components/schemas/Document'
-          xml:
-            name: document
-      description: DocumentList model (no description)
-      example:
-        documents:
-        - id: 88
-          employeeObjectId: 10
-          clientObjectId: 2
-          description: Dit is een test
-          rightSelection: Group
-          expertiseProfiles:
-          - id: 1
-          - id: 2
-          expertiseGroups:
-          - id: 1
-          tags:
-          - test
-          - Een tweede tag
-        - id: 162
-          employeeObjectId: 11
-          clientObjectId: 2
-          description: Dit is een test
-          rightSelection: Group
-          expertiseProfiles:
-          - id: 1
-          - id: 4
-          expertiseGroups:
-          - id: 1
-          tags:
-          - Een tweede tag
-      xml:
-        name: documents
     ExpertiseGroup:
       type: object
       properties:
@@ -1073,6 +1024,55 @@ components:
         - 1
         - 2
         - 3
+    RightSelection:
+      enum:
+      - Me
+      - Group
+      - Education
+      - All
+      - Nobody
+      type: string
+      description: RightSelection enum (no description)
+      example: Me
+    list.DocumentList:
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+          xml:
+            name: document
+      description: DocumentList model (no description)
+      example:
+        documents:
+        - id: 88
+          employeeObjectId: 10
+          clientObjectId: 2
+          description: Dit is een test
+          rightSelection: Group
+          expertiseProfiles:
+          - id: 1
+          - id: 2
+          expertiseGroups:
+          - id: 1
+          tags:
+          - test
+          - Een tweede tag
+        - id: 162
+          employeeObjectId: 11
+          clientObjectId: 2
+          description: Dit is een test
+          rightSelection: Group
+          expertiseProfiles:
+          - id: 1
+          - id: 4
+          expertiseGroups:
+          - id: 1
+          tags:
+          - Een tweede tag
+      xml:
+        name: documents
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

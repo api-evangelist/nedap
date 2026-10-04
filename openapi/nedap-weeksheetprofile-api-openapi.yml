@@ -308,23 +308,6 @@ components:
         allowDeleteVisitPlanning: true
       xml:
         name: weeksheetProfile
-    list.WeeksheetProfileList:
-      type: object
-      properties:
-        weeksheetProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/WeeksheetProfile'
-      description: WeeksheetprofileList model (no description)
-      example:
-        weeksheetProfiles:
-        - id: 10
-          description: Klinisch Verpleegkundige
-          registrationActivities: true
-          registrationWithDossierReport: true
-          registrationIndirectActivitiesInFutureAllowed: true
-          allowCreateBeforeVerifyDate: false
-          timeWindowDate: '2012-08-02T13:48:46.836+02:00'
     ProfilePolicy:
       type: object
       properties:
@@ -393,6 +376,23 @@ components:
         deleteMoves: true
         deleteOnsAgenda: true
         deleteOnsVandaag: true
+    list.WeeksheetProfileList:
+      type: object
+      properties:
+        weeksheetProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/WeeksheetProfile'
+      description: WeeksheetprofileList model (no description)
+      example:
+        weeksheetProfiles:
+        - id: 10
+          description: Klinisch Verpleegkundige
+          registrationActivities: true
+          registrationWithDossierReport: true
+          registrationIndirectActivitiesInFutureAllowed: true
+          allowCreateBeforeVerifyDate: false
+          timeWindowDate: '2012-08-02T13:48:46.836+02:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

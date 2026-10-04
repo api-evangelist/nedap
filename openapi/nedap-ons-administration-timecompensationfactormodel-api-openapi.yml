@@ -91,6 +91,16 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ons_administration.TimeCompensationFactorStatus:
+      enum:
+      - COMPENSATION_IN_TIME
+      - COMPENSATION_IN_MONEY
+      - COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE
+      - DEFAULT_COMPENSATION_IN_MONEY
+      - DEFAULT_COMPENSATION_IN_TIME
+      type: string
+      description: 'Information on the factor computation: COMPENSATION_IN_TIME, COMPENSATION_IN_MONEY, COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE, DEFAULT_COMPENSATION_IN_MONEY, DEFAULT_COMPENSATION_IN_TIME'
+      example: COMPENSATION_IN_TIME
     ons_administration.TimeCompensationFactorModel:
       type: object
       properties:
@@ -125,16 +135,6 @@ components:
         endDate: '2026-03-15'
         factor: 0.16715909090909092
         status: COMPENSATION_IN_TIME
-    ons_administration.TimeCompensationFactorStatus:
-      enum:
-      - COMPENSATION_IN_TIME
-      - COMPENSATION_IN_MONEY
-      - COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE
-      - DEFAULT_COMPENSATION_IN_MONEY
-      - DEFAULT_COMPENSATION_IN_TIME
-      type: string
-      description: 'Information on the factor computation: COMPENSATION_IN_TIME, COMPENSATION_IN_MONEY, COMPENSATION_IN_TIME_WITH_MISSING_HOURLY_WAGE, DEFAULT_COMPENSATION_IN_MONEY, DEFAULT_COMPENSATION_IN_TIME'
-      example: COMPENSATION_IN_TIME
     ons_administration.list.TimeCompensationFactorModelList:
       type: object
       properties:

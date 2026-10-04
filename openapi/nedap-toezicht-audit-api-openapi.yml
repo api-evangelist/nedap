@@ -213,6 +213,31 @@ components:
       example:
         employeeId: 10
         userName: administrator
+    toezicht.list.AuditList:
+      required:
+      - audits
+      type: object
+      properties:
+        audits:
+          type: array
+          items:
+            $ref: '#/components/schemas/toezicht.Audit'
+      description: List of exported audits.
+      example:
+        audits:
+        - activeIdentity:
+            employeeId: 10
+            userName: administrator
+          createdAt: '2024-01-01T01:35:19.498+01:00'
+          deploymentType: PlanningDeployment
+          description: Sync Notes.
+          failed: false
+          name: SyncClient::NotesSyncJob
+          references:
+            clients:
+            - 10
+            - 12
+          title: Overnemen cliëntnotities uit Ons Dossier
     toezicht.AuditReferences:
       type: object
       properties:
@@ -261,31 +286,6 @@ components:
           - 10
           - 12
         title: Overnemen cliëntnotities uit Ons Dossier
-    toezicht.list.AuditList:
-      required:
-      - audits
-      type: object
-      properties:
-        audits:
-          type: array
-          items:
-            $ref: '#/components/schemas/toezicht.Audit'
-      description: List of exported audits.
-      example:
-        audits:
-        - activeIdentity:
-            employeeId: 10
-            userName: administrator
-          createdAt: '2024-01-01T01:35:19.498+01:00'
-          deploymentType: PlanningDeployment
-          description: Sync Notes.
-          failed: false
-          name: SyncClient::NotesSyncJob
-          references:
-            clients:
-            - 10
-            - 12
-          title: Overnemen cliëntnotities uit Ons Dossier
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

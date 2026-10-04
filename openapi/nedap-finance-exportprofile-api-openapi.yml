@@ -140,6 +140,42 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.ExportProfileList:
+      type: object
+      properties:
+        exportProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.ExportProfile'
+          xml:
+            name: exportProfile
+      description: ExportProfileList model (no description)
+      example:
+        exportProfiles:
+        - id: 1
+          beginDate: '2016-01-28T00:00:00.000+01:00'
+          name: exportProfile1
+          type: exportProfileType1
+          filterId: 123
+          invoiceProfileId: 23
+          active: true
+          exportJournaling: true
+          exportRetourJournaling: true
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+        - id: 2
+          beginDate: '2016-01-28T00:00:00.000+01:00'
+          name: exportProfile2
+          type: exportProfileType2
+          filterId: 124
+          invoiceProfileId: 24
+          active: false
+          exportJournaling: true
+          exportRetourJournaling: true
+          createdAt: '2016-02-02T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: exportProfiles
     finance.ExportProfile:
       type: object
       properties:
@@ -190,42 +226,6 @@ components:
         updatedAt: '2016-02-07T00:00:00.000+01:00'
       xml:
         name: exportProfile
-    finance.list.ExportProfileList:
-      type: object
-      properties:
-        exportProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.ExportProfile'
-          xml:
-            name: exportProfile
-      description: ExportProfileList model (no description)
-      example:
-        exportProfiles:
-        - id: 1
-          beginDate: '2016-01-28T00:00:00.000+01:00'
-          name: exportProfile1
-          type: exportProfileType1
-          filterId: 123
-          invoiceProfileId: 23
-          active: true
-          exportJournaling: true
-          exportRetourJournaling: true
-          createdAt: '2016-02-01T00:00:00.000+01:00'
-          updatedAt: '2016-02-07T00:00:00.000+01:00'
-        - id: 2
-          beginDate: '2016-01-28T00:00:00.000+01:00'
-          name: exportProfile2
-          type: exportProfileType2
-          filterId: 124
-          invoiceProfileId: 24
-          active: false
-          exportJournaling: true
-          exportRetourJournaling: true
-          createdAt: '2016-02-02T00:00:00.000+01:00'
-          updatedAt: '2016-02-07T00:00:00.000+01:00'
-      xml:
-        name: exportProfiles
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

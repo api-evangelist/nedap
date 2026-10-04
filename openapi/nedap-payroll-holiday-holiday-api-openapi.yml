@@ -150,6 +150,28 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    payroll.holiday.list.HolidayList:
+      type: object
+      properties:
+        holidays:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.holiday.Holiday'
+          xml:
+            name: holiday
+      description: HolidayList model (no description)
+      example:
+        holidays:
+        - id: 1
+          name: Nieuwjaarsdag
+          compensationMinutes: 250
+          date: '2016-01-01'
+        - id: 1234
+          name: Geen EK voor nederland dag
+          compensationMinutes: 125
+          date: '2016-06-01'
+      xml:
+        name: holidays
     payroll.holiday.Holiday:
       type: object
       properties:
@@ -174,28 +196,6 @@ components:
         date: '2016-01-01'
       xml:
         name: holiday
-    payroll.holiday.list.HolidayList:
-      type: object
-      properties:
-        holidays:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.holiday.Holiday'
-          xml:
-            name: holiday
-      description: HolidayList model (no description)
-      example:
-        holidays:
-        - id: 1
-          name: Nieuwjaarsdag
-          compensationMinutes: 250
-          date: '2016-01-01'
-        - id: 1234
-          name: Geen EK voor nederland dag
-          compensationMinutes: 125
-          date: '2016-06-01'
-      xml:
-        name: holidays
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

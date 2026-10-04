@@ -134,6 +134,89 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.GroupActivityModelList:
+      type: object
+      properties:
+        groupActivities:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.GroupActivityModel'
+      description: List of group activity models
+      example:
+        groupActivities:
+        - id: 1234
+          name: Group Activity Name
+          distinctFinanceTypeCount: 5
+        - id: 2345
+          name: Another Group Activity
+          distinctFinanceTypeCount: 0
+    finance.NamedItemModel:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique object identifier for the referenced entity. Required when referencing an existing item.
+          format: int64
+          example: 123
+        name:
+          type: string
+          description: Human-friendly name or label for the referenced entity. Required.
+          example: Item name
+      description: Simple reference model used for small id+name pairs across the finance API. Use `NamedItemModel` when an API needs to reference another entity by its identifier and display label.
+      example:
+        id: 123
+        name: Item name
+    finance.list.GroupActivitySuggestionModelList:
+      type: object
+      properties:
+        groupActivitySuggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.GroupActivitySuggestionModel'
+      description: List of group activity suggestions
+      example:
+        groupActivitySuggestions:
+        - activityObjectId: 10
+          clientObjectId: 200
+          surchargeActivityObjectIds:
+          - 100
+          - 101
+    finance.GroupActivitySuggestionModel:
+      required:
+      - clientObjectId
+      - surchargeActivityObjectIds
+      type: object
+      properties:
+        activityObjectId:
+          type: integer
+          description: Optional selected activity object id recommended for the client. May be null to indicate 'no suggestion'.
+          format: int64
+          example: 101
+        clientObjectId:
+          type: integer
+          description: Client object id for which the suggestion applies. Required.
+          format: int64
+          example: 200
+        surchargeActivityObjectIds:
+          type: array
+          items:
+            type: integer
+            description: List of surcharge activity object ids associated with the suggestion. Required (empty list if none).
+            format: int64
+          description: List of surcharge activity object ids associated with the suggestion. Required (empty list if none).
+          example:
+          - 300
+          - 301
+      description: Request model for proposing or storing a suggestion for a client. Contains the target client, optional chosen activity and zero-or-more surcharge activity ids.
+      example:
+        clientObjectId: 200
+        activityObjectId: 101
+        surchargeActivityObjectIds:
+        - 300
+        - 301
     finance.GroupActivityModel:
       required:
       - name
@@ -172,89 +255,6 @@ components:
           name: Finance Type A
         - id: 2
           name: Finance Type B
-    finance.GroupActivitySuggestionModel:
-      required:
-      - clientObjectId
-      - surchargeActivityObjectIds
-      type: object
-      properties:
-        activityObjectId:
-          type: integer
-          description: Optional selected activity object id recommended for the client. May be null to indicate 'no suggestion'.
-          format: int64
-          example: 101
-        clientObjectId:
-          type: integer
-          description: Client object id for which the suggestion applies. Required.
-          format: int64
-          example: 200
-        surchargeActivityObjectIds:
-          type: array
-          items:
-            type: integer
-            description: List of surcharge activity object ids associated with the suggestion. Required (empty list if none).
-            format: int64
-          description: List of surcharge activity object ids associated with the suggestion. Required (empty list if none).
-          example:
-          - 300
-          - 301
-      description: Request model for proposing or storing a suggestion for a client. Contains the target client, optional chosen activity and zero-or-more surcharge activity ids.
-      example:
-        clientObjectId: 200
-        activityObjectId: 101
-        surchargeActivityObjectIds:
-        - 300
-        - 301
-    finance.NamedItemModel:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique object identifier for the referenced entity. Required when referencing an existing item.
-          format: int64
-          example: 123
-        name:
-          type: string
-          description: Human-friendly name or label for the referenced entity. Required.
-          example: Item name
-      description: Simple reference model used for small id+name pairs across the finance API. Use `NamedItemModel` when an API needs to reference another entity by its identifier and display label.
-      example:
-        id: 123
-        name: Item name
-    finance.list.GroupActivitySuggestionModelList:
-      type: object
-      properties:
-        groupActivitySuggestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.GroupActivitySuggestionModel'
-      description: List of group activity suggestions
-      example:
-        groupActivitySuggestions:
-        - activityObjectId: 10
-          clientObjectId: 200
-          surchargeActivityObjectIds:
-          - 100
-          - 101
-    finance.list.GroupActivityModelList:
-      type: object
-      properties:
-        groupActivities:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.GroupActivityModel'
-      description: List of group activity models
-      example:
-        groupActivities:
-        - id: 1234
-          name: Group Activity Name
-          distinctFinanceTypeCount: 5
-        - id: 2345
-          name: Another Group Activity
-          distinctFinanceTypeCount: 0
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

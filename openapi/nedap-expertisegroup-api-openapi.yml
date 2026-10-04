@@ -297,54 +297,39 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ExpertiseGroup:
+    list.ExpertiseGroupList:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        parentObjectid:
-          type: integer
-          format: int64
-        name:
-          type: string
-        beginDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        expertiseProfiles:
+        expertiseGroups:
           type: array
           items:
-            $ref: '#/components/schemas/ExpertiseProfile'
+            $ref: '#/components/schemas/ExpertiseGroup'
           xml:
-            wrapped: true
-      description: Model is used to group {@link ExpertiseProfile}'s, with possibly other {@link ExpertiseGroup}'s as parent/children.
+            name: expertiseGroup
+      description: ExpertiseGroupList model (no description)
       example:
-        id: 2
-        parentObjectid: 1
-        name: Alle helpenden
-        beginDate: '2016-01-01'
-        endDate: '2021-12-31'
-        expertiseProfiles:
-        - id: 5
-          description: Helpenden A
-          visible: true
-          beginDate: '2015-01-01T12:00:00.000+01:00'
-          endDate: '2020-01-01T12:00:00.000+01:00'
-          allowDossierActions: true
-          allowDossierConfidential: false
-        - id: 6
-          description: Helpenden B
-          visible: true
-          beginDate: '2015-01-01T12:00:00.000+01:00'
-          endDate: '2020-01-01T12:00:00.000+01:00'
-          allowDossierActions: true
-          allowDossierConfidential: false
+        expertiseGroups:
+        - id: 1
+          name: Alphahulp
+          beginDate: '2016-01-01'
+          endDate: '2021-12-31'
+          expertiseProfiles:
+          - id: 5
+            description: Helpenden A
+            visible: true
+            beginDate: '2015-01-01T12:00:00.000+01:00'
+            endDate: '2020-01-01T12:00:00.000+01:00'
+            allowDossierActions: true
+            allowDossierConfidential: false
+          - id: 6
+            description: Helpenden B
+            visible: true
+            beginDate: '2015-01-01T12:00:00.000+01:00'
+            endDate: '2020-01-01T12:00:00.000+01:00'
+            allowDossierActions: true
+            allowDossierConfidential: false
       xml:
-        name: expertiseGroup
+        name: expertiseGroups
     ExpertiseProfile:
       type: object
       properties:
@@ -396,39 +381,54 @@ components:
         - 1
         - 2
         - 3
-    list.ExpertiseGroupList:
+    ExpertiseGroup:
       type: object
       properties:
-        expertiseGroups:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        parentObjectid:
+          type: integer
+          format: int64
+        name:
+          type: string
+        beginDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        expertiseProfiles:
           type: array
           items:
-            $ref: '#/components/schemas/ExpertiseGroup'
+            $ref: '#/components/schemas/ExpertiseProfile'
           xml:
-            name: expertiseGroup
-      description: ExpertiseGroupList model (no description)
+            wrapped: true
+      description: Model is used to group {@link ExpertiseProfile}'s, with possibly other {@link ExpertiseGroup}'s as parent/children.
       example:
-        expertiseGroups:
-        - id: 1
-          name: Alphahulp
-          beginDate: '2016-01-01'
-          endDate: '2021-12-31'
-          expertiseProfiles:
-          - id: 5
-            description: Helpenden A
-            visible: true
-            beginDate: '2015-01-01T12:00:00.000+01:00'
-            endDate: '2020-01-01T12:00:00.000+01:00'
-            allowDossierActions: true
-            allowDossierConfidential: false
-          - id: 6
-            description: Helpenden B
-            visible: true
-            beginDate: '2015-01-01T12:00:00.000+01:00'
-            endDate: '2020-01-01T12:00:00.000+01:00'
-            allowDossierActions: true
-            allowDossierConfidential: false
+        id: 2
+        parentObjectid: 1
+        name: Alle helpenden
+        beginDate: '2016-01-01'
+        endDate: '2021-12-31'
+        expertiseProfiles:
+        - id: 5
+          description: Helpenden A
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
+        - id: 6
+          description: Helpenden B
+          visible: true
+          beginDate: '2015-01-01T12:00:00.000+01:00'
+          endDate: '2020-01-01T12:00:00.000+01:00'
+          allowDossierActions: true
+          allowDossierConfidential: false
       xml:
-        name: expertiseGroups
+        name: expertiseGroup
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

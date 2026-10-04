@@ -220,29 +220,6 @@ components:
         endDate: '2018-01-31'
       xml:
         name: financedProduct
-    finance.list.ClientFinancedProductList:
-      type: object
-      properties:
-        clientFinancedProducts:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.ClientFinancedProduct'
-          xml:
-            name: clientFinancedProduct
-      description: ClientFinancedProductList model (no description)
-      example:
-        clientFinancedProducts:
-        - clientObjectId: 1
-          financeTypeObjectId: 2
-          financedProducts:
-          - productObjectId: 2
-            startDate: '2018-01-01'
-            endDate: '2018-01-31'
-          - productObjectId: 3
-            startDate: '2018-02-01'
-            endDate: '2018-03-01'
-      xml:
-        name: clientFinancedProducts
     finance.ClientFinancedProduct:
       type: object
       properties:
@@ -273,6 +250,29 @@ components:
           endDate: '2018-03-01'
       xml:
         name: clientFinancedProduct
+    finance.list.ClientFinancedProductList:
+      type: object
+      properties:
+        clientFinancedProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.ClientFinancedProduct'
+          xml:
+            name: clientFinancedProduct
+      description: ClientFinancedProductList model (no description)
+      example:
+        clientFinancedProducts:
+        - clientObjectId: 1
+          financeTypeObjectId: 2
+          financedProducts:
+          - productObjectId: 2
+            startDate: '2018-01-01'
+            endDate: '2018-01-31'
+          - productObjectId: 3
+            startDate: '2018-02-01'
+            endDate: '2018-03-01'
+      xml:
+        name: clientFinancedProducts
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

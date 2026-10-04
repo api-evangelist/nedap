@@ -219,21 +219,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.list.ExpertiseProfileList:
-      type: object
-      properties:
-        expertiseProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.ExpertiseProfile'
-      description: ExpertiseProfileList model (no description)
-      example:
-        expertiseProfiles:
-        - id: 1
-          externalId: 2
-          name: Verpleegkundige
-          hidden: false
-          parent: 10
     moves.ExpertiseProfile:
       type: object
       properties:
@@ -258,6 +243,21 @@ components:
         name: Verpleegkundige
         hidden: false
         parent: 10
+    moves.list.ExpertiseProfileList:
+      type: object
+      properties:
+        expertiseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.ExpertiseProfile'
+      description: ExpertiseProfileList model (no description)
+      example:
+        expertiseProfiles:
+        - id: 1
+          externalId: 2
+          name: Verpleegkundige
+          hidden: false
+          parent: 10
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

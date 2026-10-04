@@ -531,22 +531,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    arrangement.QuantityUnit:
-      enum:
-      - MINUTE
-      - HOUR
-      - DAY_PART
-      - DAY
-      - PIECE
-      type: string
-      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
-
-        quantity of th the care that is intended. For example:
-
-        - 2, HOUR means ''2 hours''
-
-        - 120, MINUTE means ''120 minutes'''
-      example: MINUTE
     arrangement.RecurrenceType:
       enum:
       - HOUR
@@ -562,40 +546,6 @@ components:
 
         - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
       example: HOUR
-    arrangement.list.IntentList:
-      type: object
-      properties:
-        intents:
-          type: array
-          items:
-            $ref: '#/components/schemas/arrangement.Intent'
-      description: IntentList model (no description)
-      example:
-        intents:
-        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
-          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
-          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
-          clientId: 544
-          beginDate: '2022-01-01'
-          hourTypeId: 1
-          frequency: 3
-          quantityAmount: 4
-          quantityUnit: HOUR
-          recurrenceInterval: 1
-          recurrenceType: WEEK
-          sourceApp: PLANNING
-        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
-          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
-          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
-          clientId: 544
-          beginDate: '2022-01-01'
-          hourTypeId: 1
-          frequency: 3
-          quantityAmount: 4
-          quantityUnit: HOUR
-          recurrenceInterval: 1
-          recurrenceType: WEEK
-          sourceApp: PLANNING
     arrangement.Intent:
       required:
       - uuid
@@ -716,6 +666,56 @@ components:
         plannable: true
       xml:
         name: intent
+    arrangement.QuantityUnit:
+      enum:
+      - MINUTE
+      - HOUR
+      - DAY_PART
+      - DAY
+      - PIECE
+      type: string
+      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+        quantity of th the care that is intended. For example:
+
+        - 2, HOUR means ''2 hours''
+
+        - 120, MINUTE means ''120 minutes'''
+      example: MINUTE
+    arrangement.list.IntentList:
+      type: object
+      properties:
+        intents:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.Intent'
+      description: IntentList model (no description)
+      example:
+        intents:
+        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
+          clientId: 544
+          beginDate: '2022-01-01'
+          hourTypeId: 1
+          frequency: 3
+          quantityAmount: 4
+          quantityUnit: HOUR
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
+        - uuid: 4dc4ee6a-6b09-4245-8dd1-7aa192178280
+          timelineUuid: 1c7acb14-6d31-4b67-a999-3ed68fcbbf14
+          clientUuid: 1b481755-bada-4a28-9d9e-b1bf77943814
+          clientId: 544
+          beginDate: '2022-01-01'
+          hourTypeId: 1
+          frequency: 3
+          quantityAmount: 4
+          quantityUnit: HOUR
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

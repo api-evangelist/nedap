@@ -408,74 +408,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-    dossier.list.DemandList:
-      type: object
-      properties:
-        demands:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Demand'
-          xml:
-            name: demand
-      description: DemandList model (no description)
-      example:
-        demands:
-        - updatedAt: '2010-12-08T12:32:42.000+01:00'
-          createdAt: '2010-12-08T12:32:42.000+01:00'
-          id: 2131
-          domainId: 2052
-          definition: 'Woonruimte en zich thuis voelen: Opgeruimd en schoon'
-          hidden: false
-        - updatedAt: '2012-03-14T14:08:08.000+01:00'
-          createdAt: '2010-12-08T12:32:42.000+01:00'
-          id: 2132
-          domainId: 2052
-          definition: 'Bewegingsmogelijkheden, mobiliteit: U heeft aanpassingen en speciale hulpmiddelen nodig om zelfstandig te kunnen lopen'
-          hidden: false
-        - updatedAt: '2010-12-08T12:32:43.000+01:00'
-          createdAt: '2010-12-08T12:32:43.000+01:00'
-          id: 2133
-          domainId: 2052
-          definition: 'Woonruimte en zich thuis voelen: De woning en woonomgeving'
-          hidden: false
-        - updatedAt: '2010-12-08T16:14:43.000+01:00'
-          createdAt: '2010-12-08T16:14:43.000+01:00'
-          id: 2930
-          domainId: 2052
-          definition: 'Woonruimte en zich thuis voelen: Levenssfeer en privacy'
-          hidden: false
-        - updatedAt: '2012-08-13T10:14:41.000+02:00'
-          createdAt: '2012-08-13T10:14:41.000+02:00'
-          id: 25500
-          domainId: 2052
-          definition: Woonomgeving status
-          hidden: false
-      xml:
-        name: demands
     dossier.Demand:
       type: object
       allOf:
@@ -520,6 +452,74 @@ components:
         classificationId: classification.problem.health.nutrition
       xml:
         name: demand
+    dossier.list.DemandList:
+      type: object
+      properties:
+        demands:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Demand'
+          xml:
+            name: demand
+      description: DemandList model (no description)
+      example:
+        demands:
+        - updatedAt: '2010-12-08T12:32:42.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2131
+          domainId: 2052
+          definition: 'Woonruimte en zich thuis voelen: Opgeruimd en schoon'
+          hidden: false
+        - updatedAt: '2012-03-14T14:08:08.000+01:00'
+          createdAt: '2010-12-08T12:32:42.000+01:00'
+          id: 2132
+          domainId: 2052
+          definition: 'Bewegingsmogelijkheden, mobiliteit: U heeft aanpassingen en speciale hulpmiddelen nodig om zelfstandig te kunnen lopen'
+          hidden: false
+        - updatedAt: '2010-12-08T12:32:43.000+01:00'
+          createdAt: '2010-12-08T12:32:43.000+01:00'
+          id: 2133
+          domainId: 2052
+          definition: 'Woonruimte en zich thuis voelen: De woning en woonomgeving'
+          hidden: false
+        - updatedAt: '2010-12-08T16:14:43.000+01:00'
+          createdAt: '2010-12-08T16:14:43.000+01:00'
+          id: 2930
+          domainId: 2052
+          definition: 'Woonruimte en zich thuis voelen: Levenssfeer en privacy'
+          hidden: false
+        - updatedAt: '2012-08-13T10:14:41.000+02:00'
+          createdAt: '2012-08-13T10:14:41.000+02:00'
+          id: 25500
+          domainId: 2052
+          definition: Woonomgeving status
+          hidden: false
+      xml:
+        name: demands
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     dossier.Domain:
       type: object
       allOf:

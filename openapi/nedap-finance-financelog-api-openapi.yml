@@ -140,6 +140,58 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.FinanceLogList:
+      type: object
+      properties:
+        financeLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.FinanceLog'
+          xml:
+            name: financeLog
+      description: FinanceLogList model (no description)
+      example:
+        financeLogs:
+        - id: 1
+          clientId: 1
+          employeeId: 1
+          teamId: 1
+          careOrderProductId: 1
+          locationId: 1
+          date: '2015-01-28T00:00:00.000+01:00'
+          productId: 1
+          unit: 1
+          tarief: 1
+          amount: 1
+          issue: 1
+          tariefUnit: 1
+          provider: Dummy
+          vat: 1.234
+          debtorId: 1
+          source: ExportPresenceLog
+          costCenter: '12345678'
+          originalProductId: 1
+        - id: 1
+          clientId: 1
+          employeeId: 1
+          teamId: 1
+          careOrderProductId: 1
+          locationId: 1
+          date: '2015-01-28T00:00:00.000+01:00'
+          productId: 1
+          unit: 1
+          tarief: 1
+          amount: 1
+          issue: 1
+          tariefUnit: 1
+          provider: Dummy
+          vat: 1.234
+          debtorId: 1
+          source: ExportPresenceLog
+          costCenter: '12345678'
+          originalProductId: 1
+      xml:
+        name: financeLogs
     finance.FinanceLog:
       type: object
       properties:
@@ -229,58 +281,6 @@ components:
         updatedAt: '2015-01-28T00:00:00.000+01:00'
       xml:
         name: financeLog
-    finance.list.FinanceLogList:
-      type: object
-      properties:
-        financeLogs:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.FinanceLog'
-          xml:
-            name: financeLog
-      description: FinanceLogList model (no description)
-      example:
-        financeLogs:
-        - id: 1
-          clientId: 1
-          employeeId: 1
-          teamId: 1
-          careOrderProductId: 1
-          locationId: 1
-          date: '2015-01-28T00:00:00.000+01:00'
-          productId: 1
-          unit: 1
-          tarief: 1
-          amount: 1
-          issue: 1
-          tariefUnit: 1
-          provider: Dummy
-          vat: 1.234
-          debtorId: 1
-          source: ExportPresenceLog
-          costCenter: '12345678'
-          originalProductId: 1
-        - id: 1
-          clientId: 1
-          employeeId: 1
-          teamId: 1
-          careOrderProductId: 1
-          locationId: 1
-          date: '2015-01-28T00:00:00.000+01:00'
-          productId: 1
-          unit: 1
-          tarief: 1
-          amount: 1
-          issue: 1
-          tariefUnit: 1
-          provider: Dummy
-          vat: 1.234
-          debtorId: 1
-          source: ExportPresenceLog
-          costCenter: '12345678'
-          originalProductId: 1
-      xml:
-        name: financeLogs
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

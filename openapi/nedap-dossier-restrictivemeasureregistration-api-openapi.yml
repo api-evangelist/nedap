@@ -234,42 +234,6 @@ components:
         - field: two
           value: a
           message: too short
-    dossier.list.RestrictiveMeasureRegistrationList:
-      type: object
-      properties:
-        restrictiveMeasureRegistrations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
-      description: RestrictiveMeasureRegistrationList model (no description)
-      example:
-        restrictiveMeasureRegistrations:
-        - id: 1
-          restrictiveMeasureEntryId: 2
-          restrictiveMeasureId: 3
-          law: 1
-          narrative: narrative
-          resistant: false
-          clientExternalId: 4
-          legalTitle: crisis_measure
-          startTime: '2021-01-01T00:00:00.000+01:00'
-          endTime: '2021-01-02T00:00:00.000+01:00'
-          createdAt: '2014-11-14T00:00:00.000+01:00'
-          updatedAt: '2014-11-14T00:00:00.000+01:00'
-        - id: 1
-          restrictiveMeasureEntryId: 2
-          restrictiveMeasureId: 3
-          law: 1
-          narrative: narrative
-          resistant: false
-          clientExternalId: 4
-          legalTitle: crisis_measure
-          startTime: '2021-01-01T00:00:00.000+01:00'
-          endTime: '2021-01-02T00:00:00.000+01:00'
-          createdAt: '2014-11-14T00:00:00.000+01:00'
-          updatedAt: '2014-11-14T00:00:00.000+01:00'
     dossier.RestrictiveMeasureRegistration:
       type: object
       properties:
@@ -403,6 +367,42 @@ components:
         field: one
         value: empty
         message: field can not be empty
+    dossier.list.RestrictiveMeasureRegistrationList:
+      type: object
+      properties:
+        restrictiveMeasureRegistrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.RestrictiveMeasureRegistration'
+      description: RestrictiveMeasureRegistrationList model (no description)
+      example:
+        restrictiveMeasureRegistrations:
+        - id: 1
+          restrictiveMeasureEntryId: 2
+          restrictiveMeasureId: 3
+          law: 1
+          narrative: narrative
+          resistant: false
+          clientExternalId: 4
+          legalTitle: crisis_measure
+          startTime: '2021-01-01T00:00:00.000+01:00'
+          endTime: '2021-01-02T00:00:00.000+01:00'
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+        - id: 1
+          restrictiveMeasureEntryId: 2
+          restrictiveMeasureId: 3
+          law: 1
+          narrative: narrative
+          resistant: false
+          clientExternalId: 4
+          legalTitle: crisis_measure
+          startTime: '2021-01-01T00:00:00.000+01:00'
+          endTime: '2021-01-02T00:00:00.000+01:00'
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

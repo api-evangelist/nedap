@@ -158,7 +158,31 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.EmployeeRosterDayAvailability:
+    moves.EmployeePlanning:
+      type: object
+      properties:
+        eventGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.EmployeePlanningEventGroup'
+      description: The employee planning
+      example:
+        eventGroups:
+        - startsAt: '2023-11-24T13:29:00.000+01:00'
+          duration: 1234
+          client:
+            externalId: 123
+            identificationNo: abc123
+            name: Koning, F.C.
+            address: Groeneweg 25, Groenlo
+            gender: M
+          notes:
+          - sleutel onder de mat
+          planCards:
+          - startsAt: '2023-11-24T16:39:00.000+01:00'
+            duration: 1337
+            description: (O4) Ochtenddienst 4
+    moves.EmployeeRosterDayShiftAssignment:
       type: object
       properties:
         startTime:
@@ -169,11 +193,11 @@ components:
           format: date-time
         name:
           type: string
-      description: Employee roster availability
+      description: Employee roster shift assignment
       example:
         startTime: '2023-11-25T07:00:00.000+01:00'
         stopTime: '2023-11-25T11:00:00.000+01:00'
-        name: Hallo
+        name: Ochtenddienst 4
     moves.EmployeePlanningPlanCard:
       type: object
       properties:
@@ -211,30 +235,22 @@ components:
         name: Koning, F.C.
         address: Groeneweg 25, Groenlo
         gender: M
-    moves.EmployeePlanning:
+    moves.EmployeeRosterDayAvailability:
       type: object
       properties:
-        eventGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.EmployeePlanningEventGroup'
-      description: The employee planning
+        startTime:
+          type: string
+          format: date-time
+        stopTime:
+          type: string
+          format: date-time
+        name:
+          type: string
+      description: Employee roster availability
       example:
-        eventGroups:
-        - startsAt: '2023-11-24T13:29:00.000+01:00'
-          duration: 1234
-          client:
-            externalId: 123
-            identificationNo: abc123
-            name: Koning, F.C.
-            address: Groeneweg 25, Groenlo
-            gender: M
-          notes:
-          - sleutel onder de mat
-          planCards:
-          - startsAt: '2023-11-24T16:39:00.000+01:00'
-            duration: 1337
-            description: (O4) Ochtenddienst 4
+        startTime: '2023-11-25T07:00:00.000+01:00'
+        stopTime: '2023-11-25T11:00:00.000+01:00'
+        name: Hallo
     moves.EmployeeRosterDay:
       type: object
       properties:
@@ -260,6 +276,25 @@ components:
         - startTime: '2023-11-25T07:00:00.000+01:00'
           stopTime: '2023-11-25T11:00:00.000+01:00'
           name: Ochtenddienst 4
+    moves.list.EmployeeRosterDayList:
+      type: object
+      properties:
+        employeeRosterDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.EmployeeRosterDay'
+      description: Employee roster day list
+      example:
+        employeeRosterDays:
+        - date: '2023-11-25'
+          availabilities:
+          - startTime: '2023-11-25T07:00:00.000+01:00'
+            stopTime: '2023-11-25T11:00:00.000+01:00'
+            name: Hallo
+          shiftAssignments:
+          - startTime: '2023-11-25T07:00:00.000+01:00'
+            stopTime: '2023-11-25T11:00:00.000+01:00'
+            name: Ochtenddienst 4
     moves.EmployeePlanningEventGroup:
       type: object
       properties:
@@ -295,41 +330,6 @@ components:
         - startsAt: '2023-11-24T16:39:00.000+01:00'
           duration: 1337
           description: (O4) Ochtenddienst 4
-    moves.list.EmployeeRosterDayList:
-      type: object
-      properties:
-        employeeRosterDays:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.EmployeeRosterDay'
-      description: Employee roster day list
-      example:
-        employeeRosterDays:
-        - date: '2023-11-25'
-          availabilities:
-          - startTime: '2023-11-25T07:00:00.000+01:00'
-            stopTime: '2023-11-25T11:00:00.000+01:00'
-            name: Hallo
-          shiftAssignments:
-          - startTime: '2023-11-25T07:00:00.000+01:00'
-            stopTime: '2023-11-25T11:00:00.000+01:00'
-            name: Ochtenddienst 4
-    moves.EmployeeRosterDayShiftAssignment:
-      type: object
-      properties:
-        startTime:
-          type: string
-          format: date-time
-        stopTime:
-          type: string
-          format: date-time
-        name:
-          type: string
-      description: Employee roster shift assignment
-      example:
-        startTime: '2023-11-25T07:00:00.000+01:00'
-        stopTime: '2023-11-25T11:00:00.000+01:00'
-        name: Ochtenddienst 4
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

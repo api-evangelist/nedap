@@ -299,22 +299,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.PractitionerAgbCodeList:
-      type: object
-      properties:
-        practitionerAgbCodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PractitionerAgbCode'
-      description: PractitionerAgbCodeList model (no description)
-      example:
-        practitionerAgbCodes:
-        - id: 1
-          employeeObjectId: 1
-          code: '12345678'
-          beginDate: '2022-01-01'
-          endDate: '2022-12-31'
-          primary: true
     PractitionerAgbCode:
       type: object
       properties:
@@ -346,6 +330,22 @@ components:
         beginDate: '2022-01-01'
         endDate: '2022-12-31'
         primary: true
+    list.PractitionerAgbCodeList:
+      type: object
+      properties:
+        practitionerAgbCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PractitionerAgbCode'
+      description: PractitionerAgbCodeList model (no description)
+      example:
+        practitionerAgbCodes:
+        - id: 1
+          employeeObjectId: 1
+          code: '12345678'
+          beginDate: '2022-01-01'
+          endDate: '2022-12-31'
+          primary: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

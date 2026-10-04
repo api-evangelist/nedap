@@ -393,258 +393,6 @@ components:
       example:
         id: 1
         name: GGZ
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-    openehr.EmployeeGroup:
-      title: EmployeeGroup
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        employeeGroupType:
-          type:
-          - string
-          - 'null'
-          description: Type of employee group, e.g. EXPERTISE_PROFILE or EXPERTISE_GROUP.
-        originatingSystemId:
-          type:
-          - string
-          - 'null'
-          description: Originating system of the employee group, e.g. Administratie.
-        originatingSystemItemId:
-          type: string
-          description: Id of the employee group in the originating system.
-        parentGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.EmployeeGroup'
-          description: List of direct parents of the employee group.
-        childGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.EmployeeGroup'
-          description: List of direct children of the employee group.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the employee group.
-        beginDate:
-          type:
-          - string
-          - 'null'
-          description: Begin date of the employee group.
-          format: date
-        endDate:
-          type:
-          - string
-          - 'null'
-          description: End date of the employee group.
-          format: date
-        deleted:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean to indicate that this employee group is deleted.
-        visible:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean to indicate that this employee group is visible.
-        allowDossierActions:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean to indicate that this employee group is allowed to create reports with actions. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
-        allowDossierConfidential:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean to indicate that this employee group is allowed to create confidential reports. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
-      description: 'Employee group used for authorizations in {@link ArchetypeWrapper} and
-
-        {@link CompositionWrapper}.
-
-
-        Employee groups can be based on {@link com.nedap.healthcare.domain.ExpertiseProfile}
-
-        and {@link com.nedap.healthcare.domain.ExpertiseGroup}.'
-      example:
-        id: 132
-        employeeGroupType: EXPERTISE_GROUP
-        originatingSystemId: Administratie
-        originatingSystemItemId: '11'
-        parentGroups:
-        - id: 57
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        childGroups:
-        - id: 134
-          employeeGroupType: EXPERTISE_PROFILE
-          name: Profile1
-          deleted: false
-          allowDossierActions: true
-          allowDossierConfidential: false
-        name: Group1
-        beginDate: '2020-05-11'
-        endDate: '2020-05-25'
-        deleted: false
-    openehr.ArchetypeWrapper:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/ArchetypeWrapperBase'
-      description: ArchetypeWrapper model (no description)
-      example:
-        updatedAt: '2018-06-28T00:00:00.000+02:00'
-        createdAt: '2018-06-28T00:00:00.000+02:00'
-        createdBy: Dummy
-        id: 1
-        archetypeId: Dummy
-        archetypeClass: Dummy
-        rootNodeRmTypeName: Dummy
-        rootNodeText: Dummy
-        rootNodeDescription: Dummy
-        purpose: Dummy
-        use: Dummy
-        misuse: Dummy
-        copyright: Dummy
-        keywords: []
-        creatable: true
-        enabled: true
-        enabledInUi: true
-        archetypeCategories:
-        - id: 1
-          name: GGZ
-        authorizedEmployeeGroupsForCreate:
-        - id: 1
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        authorizedEmployeeGroupsForRead: []
-        authorizedEmployeeGroupsForUpdate:
-        - id: 1
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        - id: 2
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        authorizedForCreate: true
-        archetype: Dummy
-        form: OPERATIONAL_TEMPLATE
-    openehr.list.ArchetypeWrapperList:
-      type: object
-      properties:
-        archetypeWrappers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/openehr.ArchetypeWrapper'
-      description: ArchetypeWrapperList model (no description)
-      example:
-        archetypeWrappers:
-        - updatedAt: '2018-06-28T00:00:00.000+02:00'
-          createdAt: '2018-06-28T00:00:00.000+02:00'
-          createdBy: Dummy
-          id: 1
-          archetypeId: openEHR-EHR-OBSERVATION.barthel.v2.0.0
-          archetypeClass: Dummy
-          rootNodeRmTypeName: Dummy
-          rootNodeText: Dummy
-          rootNodeDescription: Dummy
-          purpose: Dummy
-          use: Dummy
-          misuse: Dummy
-          copyright: Dummy
-          keywords: []
-          creatable: true
-          enabled: true
-          archetypeCategories:
-          - id: 1
-            name: GGZ
-          authorizedEmployeeGroupsForCreate:
-          - id: 1
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          authorizedEmployeeGroupsForRead: []
-          authorizedEmployeeGroupsForUpdate:
-          - id: 1
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          - id: 2
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          authorizedForCreate: true
-          archetype: Dummy
-          form: OPERATIONAL_TEMPLATE
-        - updatedAt: '2018-06-28T00:00:00.000+02:00'
-          createdAt: '2018-06-28T00:00:00.000+02:00'
-          createdBy: Dummy
-          id: 2
-          archetypeId: openEHR-EHR-OBSERVATION.laboratory_test_result.v1.1.2
-          archetypeClass: Dummy
-          rootNodeRmTypeName: Dummy
-          rootNodeText: Dummy
-          rootNodeDescription: Dummy
-          purpose: Dummy
-          use: Dummy
-          misuse: Dummy
-          copyright: Dummy
-          keywords: []
-          creatable: true
-          enabled: true
-          archetypeCategories:
-          - id: 2
-            name: VVT
-          authorizedEmployeeGroupsForCreate: []
-          authorizedEmployeeGroupsForRead: []
-          authorizedEmployeeGroupsForUpdate: []
-          archetype: Dummy
-          form: OPERATIONAL_TEMPLATE
-    openehr.ArchetypeForm:
-      enum:
-      - METADATA
-      - DIFFERENTIAL
-      - DIFFERENTIAL_STANDARDS_COMPLIANT_JSON
-      - FLAT
-      - FLAT_STANDARDS_COMPLIANT_JSON
-      - OPERATIONAL_TEMPLATE
-      - OPERATIONAL_TEMPLATE_STANDARDS_COMPLIANT_JSON
-      type: string
-      description: ArchetypeForm enum (no description)
-      example: METADATA
     ArchetypeWrapperBase:
       title: ArchetypeWrapper
       type: object
@@ -850,6 +598,258 @@ components:
 
 
         Created on 22/06/2018.'
+      example:
+        updatedAt: '2018-06-28T00:00:00.000+02:00'
+        createdAt: '2018-06-28T00:00:00.000+02:00'
+        createdBy: Dummy
+        id: 1
+        archetypeId: Dummy
+        archetypeClass: Dummy
+        rootNodeRmTypeName: Dummy
+        rootNodeText: Dummy
+        rootNodeDescription: Dummy
+        purpose: Dummy
+        use: Dummy
+        misuse: Dummy
+        copyright: Dummy
+        keywords: []
+        creatable: true
+        enabled: true
+        enabledInUi: true
+        archetypeCategories:
+        - id: 1
+          name: GGZ
+        authorizedEmployeeGroupsForCreate:
+        - id: 1
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        authorizedEmployeeGroupsForRead: []
+        authorizedEmployeeGroupsForUpdate:
+        - id: 1
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        - id: 2
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        authorizedForCreate: true
+        archetype: Dummy
+        form: OPERATIONAL_TEMPLATE
+    openehr.ArchetypeForm:
+      enum:
+      - METADATA
+      - DIFFERENTIAL
+      - DIFFERENTIAL_STANDARDS_COMPLIANT_JSON
+      - FLAT
+      - FLAT_STANDARDS_COMPLIANT_JSON
+      - OPERATIONAL_TEMPLATE
+      - OPERATIONAL_TEMPLATE_STANDARDS_COMPLIANT_JSON
+      type: string
+      description: ArchetypeForm enum (no description)
+      example: METADATA
+    openehr.list.ArchetypeWrapperList:
+      type: object
+      properties:
+        archetypeWrappers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/openehr.ArchetypeWrapper'
+      description: ArchetypeWrapperList model (no description)
+      example:
+        archetypeWrappers:
+        - updatedAt: '2018-06-28T00:00:00.000+02:00'
+          createdAt: '2018-06-28T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 1
+          archetypeId: openEHR-EHR-OBSERVATION.barthel.v2.0.0
+          archetypeClass: Dummy
+          rootNodeRmTypeName: Dummy
+          rootNodeText: Dummy
+          rootNodeDescription: Dummy
+          purpose: Dummy
+          use: Dummy
+          misuse: Dummy
+          copyright: Dummy
+          keywords: []
+          creatable: true
+          enabled: true
+          archetypeCategories:
+          - id: 1
+            name: GGZ
+          authorizedEmployeeGroupsForCreate:
+          - id: 1
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          authorizedEmployeeGroupsForRead: []
+          authorizedEmployeeGroupsForUpdate:
+          - id: 1
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          - id: 2
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          authorizedForCreate: true
+          archetype: Dummy
+          form: OPERATIONAL_TEMPLATE
+        - updatedAt: '2018-06-28T00:00:00.000+02:00'
+          createdAt: '2018-06-28T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 2
+          archetypeId: openEHR-EHR-OBSERVATION.laboratory_test_result.v1.1.2
+          archetypeClass: Dummy
+          rootNodeRmTypeName: Dummy
+          rootNodeText: Dummy
+          rootNodeDescription: Dummy
+          purpose: Dummy
+          use: Dummy
+          misuse: Dummy
+          copyright: Dummy
+          keywords: []
+          creatable: true
+          enabled: true
+          archetypeCategories:
+          - id: 2
+            name: VVT
+          authorizedEmployeeGroupsForCreate: []
+          authorizedEmployeeGroupsForRead: []
+          authorizedEmployeeGroupsForUpdate: []
+          archetype: Dummy
+          form: OPERATIONAL_TEMPLATE
+    openehr.EmployeeGroup:
+      title: EmployeeGroup
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        employeeGroupType:
+          type:
+          - string
+          - 'null'
+          description: Type of employee group, e.g. EXPERTISE_PROFILE or EXPERTISE_GROUP.
+        originatingSystemId:
+          type:
+          - string
+          - 'null'
+          description: Originating system of the employee group, e.g. Administratie.
+        originatingSystemItemId:
+          type: string
+          description: Id of the employee group in the originating system.
+        parentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct parents of the employee group.
+        childGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct children of the employee group.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the employee group.
+        beginDate:
+          type:
+          - string
+          - 'null'
+          description: Begin date of the employee group.
+          format: date
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: End date of the employee group.
+          format: date
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is deleted.
+        visible:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is visible.
+        allowDossierActions:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create reports with actions. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+        allowDossierConfidential:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create confidential reports. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+      description: 'Employee group used for authorizations in {@link ArchetypeWrapper} and
+
+        {@link CompositionWrapper}.
+
+
+        Employee groups can be based on {@link com.nedap.healthcare.domain.ExpertiseProfile}
+
+        and {@link com.nedap.healthcare.domain.ExpertiseGroup}.'
+      example:
+        id: 132
+        employeeGroupType: EXPERTISE_GROUP
+        originatingSystemId: Administratie
+        originatingSystemItemId: '11'
+        parentGroups:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        childGroups:
+        - id: 134
+          employeeGroupType: EXPERTISE_PROFILE
+          name: Profile1
+          deleted: false
+          allowDossierActions: true
+          allowDossierConfidential: false
+        name: Group1
+        beginDate: '2020-05-11'
+        endDate: '2020-05-25'
+        deleted: false
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    openehr.ArchetypeWrapper:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/ArchetypeWrapperBase'
+      description: ArchetypeWrapper model (no description)
       example:
         updatedAt: '2018-06-28T00:00:00.000+02:00'
         createdAt: '2018-06-28T00:00:00.000+02:00'

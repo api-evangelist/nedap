@@ -63,15 +63,84 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    caretech.Status:
-      enum:
-      - REQUEST
-      - ACTIVE
-      - INACTIVE
-      - UNKNOWN
-      type: string
-      description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
-      example: ACTIVE
+    caretech.ProductDto:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        manufacturer:
+          type: string
+        name:
+          type: string
+        orderable:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+          format: uuid
+        startDate:
+          type: string
+          format: date
+        stopDate:
+          type: string
+          format: date
+      description: Caretech product
+      example:
+        createdAt: '2017-10-02T21:10:43.000+02:00'
+        id: 1
+        manufacturer: Nedap
+        name: Nedap Luna
+        orderable: false
+        updatedAt: '2017-10-02T21:10:43.000+02:00'
+        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        startDate: '2024-01-02'
+        stopDate: '2024-04-17'
+      xml:
+        name: productDto
+    caretech.ProductInstanceDto:
+      required:
+      - product
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        externalId:
+          pattern: ^([A-Za-z0-9_., -]{1,50})$
+          type: string
+        id:
+          type: integer
+          format: int64
+        product:
+          $ref: '#/components/schemas/caretech.ProductDto'
+        updatedAt:
+          type: string
+          format: date-time
+        uuid:
+          type: string
+          format: uuid
+      description: Reference to a caretech product instance
+      example:
+        createdAt: '2017-10-02T21:10:43.000+02:00'
+        externalId: serial-12345678
+        id: 56
+        product:
+          createdAt: '2017-10-02T21:10:43.000+02:00'
+          id: 1
+          manufacturer: Nedap
+          name: Nedap Luna
+          updatedAt: '2017-10-02T21:10:43.000+02:00'
+          uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+        updatedAt: '2017-10-02T21:10:43.000+02:00'
+        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
+      xml:
+        name: productInstanceDto
     caretech.ProductAllocation:
       required:
       - clientId
@@ -139,84 +208,15 @@ components:
         uuid: 042f53df-37e5-4ad7-af77-16a212763bba
       xml:
         name: productAllocation
-    caretech.ProductInstanceDto:
-      required:
-      - product
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-        externalId:
-          pattern: ^([A-Za-z0-9_., -]{1,50})$
-          type: string
-        id:
-          type: integer
-          format: int64
-        product:
-          $ref: '#/components/schemas/caretech.ProductDto'
-        updatedAt:
-          type: string
-          format: date-time
-        uuid:
-          type: string
-          format: uuid
-      description: Reference to a caretech product instance
-      example:
-        createdAt: '2017-10-02T21:10:43.000+02:00'
-        externalId: serial-12345678
-        id: 56
-        product:
-          createdAt: '2017-10-02T21:10:43.000+02:00'
-          id: 1
-          manufacturer: Nedap
-          name: Nedap Luna
-          updatedAt: '2017-10-02T21:10:43.000+02:00'
-          uuid: 042f53df-37e5-4ad7-af77-16a212763bba
-        updatedAt: '2017-10-02T21:10:43.000+02:00'
-        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
-      xml:
-        name: productInstanceDto
-    caretech.ProductDto:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-        id:
-          type: integer
-          format: int64
-        manufacturer:
-          type: string
-        name:
-          type: string
-        orderable:
-          type: boolean
-        updatedAt:
-          type: string
-          format: date-time
-        uuid:
-          type: string
-          format: uuid
-        startDate:
-          type: string
-          format: date
-        stopDate:
-          type: string
-          format: date
-      description: Caretech product
-      example:
-        createdAt: '2017-10-02T21:10:43.000+02:00'
-        id: 1
-        manufacturer: Nedap
-        name: Nedap Luna
-        orderable: false
-        updatedAt: '2017-10-02T21:10:43.000+02:00'
-        uuid: 042f53df-37e5-4ad7-af77-16a212763bba
-        startDate: '2024-01-02'
-        stopDate: '2024-04-17'
-      xml:
-        name: productDto
+    caretech.Status:
+      enum:
+      - REQUEST
+      - ACTIVE
+      - INACTIVE
+      - UNKNOWN
+      type: string
+      description: The status of a product allocation, can be REQUEST, ACTIVE, INACTIVE or UNKNOWN
+      example: ACTIVE
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

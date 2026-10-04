@@ -537,152 +537,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    expense.list.ExpenseList:
-      type: object
-      properties:
-        expenses:
-          type: array
-          items:
-            $ref: '#/components/schemas/expense.Expense'
-          xml:
-            name: expense
-      description: ExpenseList model (no description)
-      example:
-        expenses:
-        - id: 1
-          expenseDate: '2015-09-15'
-          verifyDate: '2015-10-15'
-          expenseTypeObjectId: 1
-          employeeObjectId: 1
-          amount: 11.23
-          calculatedAmount: 1.23
-          deviation: 10.5
-          description: The bridge was open
-        - id: 1
-          expenseDate: '2015-09-15'
-          verifyDate: '2015-10-15'
-          expenseTypeObjectId: 1
-          employeeObjectId: 1
-          amount: 11.23
-          calculatedAmount: 1.23
-          deviation: 10.5
-          description: The bridge was open
-      xml:
-        name: expenses
-    registration.Position:
-      title: Position
-      type: object
-      properties:
-        city:
-          type:
-          - string
-          - 'null'
-          description: The city where this position is part of. Can be <code>null</code>.
-        homeNumber:
-          type:
-          - integer
-          - 'null'
-          description: The home number of the position. Can be <code>null</code>.
-          format: int32
-        homeNumberExtension:
-          type:
-          - string
-          - 'null'
-          description: 'The possible extension the #homeNumber. Can be <code>null</code>.'
-        street:
-          type:
-          - string
-          - 'null'
-          description: The position's street name. Can be <code>null</code>
-        zipCode:
-          type:
-          - string
-          - 'null'
-          description: Zipcode part of the position. Can be <code>null</code>
-        country:
-          type: string
-          description: The two-letter country code. Examples are 'NL' and 'BE'.
-        longitude:
-          type:
-          - number
-          - 'null'
-          description: Longitude part of the position.
-          format: double
-        latitude:
-          type:
-          - number
-          - 'null'
-          description: Latitude part of the position.
-          format: double
-        usedGoogleAddress:
-          type: string
-      description: 'A Position denotes a physical location on a map. This position can either consist of address information, a
-
-        longitude/latitude pair or both. Not all fields are guaranteed to be present.'
-      example:
-        city: Enschede
-        homeNumber: 5
-        homeNumberExtension: ''
-        street: Bomenlaan
-        zipCode: 6521YH
-        country: NL
-        longitude: 52.665171
-        latitude: 5.215021
-        usedGoogleAddress: Bovenlaan 5, 6521YH Enschede, Netherlands
-      xml:
-        name: position
-    expense.ExpenseDistance:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        description:
-          type: string
-          description: Description relevant to this distance, e.g. "Home" or client name
-        commute:
-          type: boolean
-          description: Is this distance part of commute traffic, i.e. was the previous address 'home', or is the next?
-        distance:
-          type: number
-          description: 'The distance traveled to get to this {@link #position}. The unit is kilometers.'
-          format: double
-        originalDistance:
-          type:
-          - number
-          - 'null'
-          description: The original distance traveled in kilometers. In case of commute km, the expense type may set a maximum and this field contains the amount when that maximum is exceeded.
-          format: double
-        position:
-          allOf:
-          - $ref: '#/components/schemas/registration.Position'
-          description: The position of this expense distance. For example a client's home.
-      description: An expense distance is the distance traveled to a location (position).
-      example:
-        id: 1
-        description: Mw. Pia Jansen
-        commute: true
-        distance: 12.5
-        originalDistance: 27.5
-        position:
-          city: Enschede
-          homeNumber: 5
-          homeNumberExtension: ''
-          street: Bomenlaan
-          zipCode: 6521YH
-          country: NL
-          longitude: 52.665171
-          latitude: 5.215021
-      xml:
-        name: expenseDistance
-    DepartureLocation:
-      enum:
-      - HOME
-      - OFFICE
-      type: string
-      description: DepartureLocation which is used to determine which address should be used for the automated travel calculations
-      example: HOME
     expense.Expense:
       type: object
       properties:
@@ -813,6 +667,152 @@ components:
         departureClusterObjectId: 1
       xml:
         name: expense
+    DepartureLocation:
+      enum:
+      - HOME
+      - OFFICE
+      type: string
+      description: DepartureLocation which is used to determine which address should be used for the automated travel calculations
+      example: HOME
+    expense.ExpenseDistance:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+          description: Description relevant to this distance, e.g. "Home" or client name
+        commute:
+          type: boolean
+          description: Is this distance part of commute traffic, i.e. was the previous address 'home', or is the next?
+        distance:
+          type: number
+          description: 'The distance traveled to get to this {@link #position}. The unit is kilometers.'
+          format: double
+        originalDistance:
+          type:
+          - number
+          - 'null'
+          description: The original distance traveled in kilometers. In case of commute km, the expense type may set a maximum and this field contains the amount when that maximum is exceeded.
+          format: double
+        position:
+          allOf:
+          - $ref: '#/components/schemas/registration.Position'
+          description: The position of this expense distance. For example a client's home.
+      description: An expense distance is the distance traveled to a location (position).
+      example:
+        id: 1
+        description: Mw. Pia Jansen
+        commute: true
+        distance: 12.5
+        originalDistance: 27.5
+        position:
+          city: Enschede
+          homeNumber: 5
+          homeNumberExtension: ''
+          street: Bomenlaan
+          zipCode: 6521YH
+          country: NL
+          longitude: 52.665171
+          latitude: 5.215021
+      xml:
+        name: expenseDistance
+    registration.Position:
+      title: Position
+      type: object
+      properties:
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city where this position is part of. Can be <code>null</code>.
+        homeNumber:
+          type:
+          - integer
+          - 'null'
+          description: The home number of the position. Can be <code>null</code>.
+          format: int32
+        homeNumberExtension:
+          type:
+          - string
+          - 'null'
+          description: 'The possible extension the #homeNumber. Can be <code>null</code>.'
+        street:
+          type:
+          - string
+          - 'null'
+          description: The position's street name. Can be <code>null</code>
+        zipCode:
+          type:
+          - string
+          - 'null'
+          description: Zipcode part of the position. Can be <code>null</code>
+        country:
+          type: string
+          description: The two-letter country code. Examples are 'NL' and 'BE'.
+        longitude:
+          type:
+          - number
+          - 'null'
+          description: Longitude part of the position.
+          format: double
+        latitude:
+          type:
+          - number
+          - 'null'
+          description: Latitude part of the position.
+          format: double
+        usedGoogleAddress:
+          type: string
+      description: 'A Position denotes a physical location on a map. This position can either consist of address information, a
+
+        longitude/latitude pair or both. Not all fields are guaranteed to be present.'
+      example:
+        city: Enschede
+        homeNumber: 5
+        homeNumberExtension: ''
+        street: Bomenlaan
+        zipCode: 6521YH
+        country: NL
+        longitude: 52.665171
+        latitude: 5.215021
+        usedGoogleAddress: Bovenlaan 5, 6521YH Enschede, Netherlands
+      xml:
+        name: position
+    expense.list.ExpenseList:
+      type: object
+      properties:
+        expenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense.Expense'
+          xml:
+            name: expense
+      description: ExpenseList model (no description)
+      example:
+        expenses:
+        - id: 1
+          expenseDate: '2015-09-15'
+          verifyDate: '2015-10-15'
+          expenseTypeObjectId: 1
+          employeeObjectId: 1
+          amount: 11.23
+          calculatedAmount: 1.23
+          deviation: 10.5
+          description: The bridge was open
+        - id: 1
+          expenseDate: '2015-09-15'
+          verifyDate: '2015-10-15'
+          expenseTypeObjectId: 1
+          employeeObjectId: 1
+          amount: 11.23
+          calculatedAmount: 1.23
+          deviation: 10.5
+          description: The bridge was open
+      xml:
+        name: expenses
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

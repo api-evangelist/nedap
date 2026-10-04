@@ -367,6 +367,109 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.ProfileActivityAssignmentList:
+      type: object
+      properties:
+        profileActivityAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileActivityAssignment'
+      description: ProfileActivityAssignmentList model (no description)
+      example:
+        profileActivityAssignments:
+        - id: 1
+          type: 3
+          mobile: false
+          ioMe: false
+    HourType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: An unique ID of this hourtype
+          format: int64
+          x-cupido-id: true
+        description:
+          type: string
+          description: A description of this hourtype
+        identificationNo:
+          type: string
+        activityGroupObjectId:
+          type: integer
+          format: int64
+        externalCode3:
+          type: string
+        active:
+          type: boolean
+          description: Indicates if the hourtype is active and can be used in presencelogs
+        payrolling:
+          type: boolean
+        direct:
+          type: boolean
+          description: Indicates if the hourtype is for client time a.k.a. direct time
+        systemDefined:
+          type: boolean
+        travelTime:
+          type: boolean
+        activityType:
+          type: string
+        groupCare:
+          type: boolean
+          description: Indicates if the hourtype is meant for group care
+        transport:
+          type: boolean
+        quantityBased:
+          type: boolean
+        directAllowed:
+          type: boolean
+          description: Indicates it is allowed to write direct clienttime on a presence log with this hourtype
+        indirectAllowed:
+          type: boolean
+          description: Indicates it is allowed to write indirect clienttime on a presence log with this hourtype
+        travelAllowed:
+          type: boolean
+          description: Indicates it is allowed to write travel clienttime on a presence log with this hourtype
+        noShow:
+          type: boolean
+          description: Indicates if the hour type is a no show hourtype
+        snomedCode:
+          type: string
+          description: Corresponding snomed code used for data exchange with zibs
+        travelCalculationDisabled:
+          type: boolean
+          description: When set to true, this hourtype will not be used in travel calculations like travel time or distances
+        absenceAllowed:
+          type: boolean
+          description: Indicates if client(s) are allowed to be partially absent during an activity with this hourtype
+        splitHourtype:
+          type: boolean
+          description: When set to true, this hourtype will be divided in Administration
+      description: A.K.A. Activity.
+      example:
+        id: 1
+        description: Activiteiten begeleiding - patiëntgebonden handelen
+        identificationNo: '194822'
+        activityGroupObjectId: 1
+        externalCode3: '3'
+        active: true
+        payrolling: true
+        direct: true
+        systemDefined: false
+        travelTime: false
+        activityType: Payrolling
+        groupCare: false
+        transport: false
+        quantityBased: true
+        directAllowed: true
+        indirectAllowed: true
+        travelAllowed: true
+        noShow: true
+        snomedCode: '1234'
+        travelCalculationDisabled: false
+        absenceAllowed: false
+        splitHourtype: false
+      xml:
+        name: hourType
     expense.ExpenseType:
       type: object
       properties:
@@ -464,109 +567,6 @@ components:
         alternativeToTravelCalc: true
       xml:
         name: expenseType
-    HourType:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: An unique ID of this hourtype
-          format: int64
-          x-cupido-id: true
-        description:
-          type: string
-          description: A description of this hourtype
-        identificationNo:
-          type: string
-        activityGroupObjectId:
-          type: integer
-          format: int64
-        externalCode3:
-          type: string
-        active:
-          type: boolean
-          description: Indicates if the hourtype is active and can be used in presencelogs
-        payrolling:
-          type: boolean
-        direct:
-          type: boolean
-          description: Indicates if the hourtype is for client time a.k.a. direct time
-        systemDefined:
-          type: boolean
-        travelTime:
-          type: boolean
-        activityType:
-          type: string
-        groupCare:
-          type: boolean
-          description: Indicates if the hourtype is meant for group care
-        transport:
-          type: boolean
-        quantityBased:
-          type: boolean
-        directAllowed:
-          type: boolean
-          description: Indicates it is allowed to write direct clienttime on a presence log with this hourtype
-        indirectAllowed:
-          type: boolean
-          description: Indicates it is allowed to write indirect clienttime on a presence log with this hourtype
-        travelAllowed:
-          type: boolean
-          description: Indicates it is allowed to write travel clienttime on a presence log with this hourtype
-        noShow:
-          type: boolean
-          description: Indicates if the hour type is a no show hourtype
-        snomedCode:
-          type: string
-          description: Corresponding snomed code used for data exchange with zibs
-        travelCalculationDisabled:
-          type: boolean
-          description: When set to true, this hourtype will not be used in travel calculations like travel time or distances
-        absenceAllowed:
-          type: boolean
-          description: Indicates if client(s) are allowed to be partially absent during an activity with this hourtype
-        splitHourtype:
-          type: boolean
-          description: When set to true, this hourtype will be divided in Administration
-      description: A.K.A. Activity.
-      example:
-        id: 1
-        description: Activiteiten begeleiding - patiëntgebonden handelen
-        identificationNo: '194822'
-        activityGroupObjectId: 1
-        externalCode3: '3'
-        active: true
-        payrolling: true
-        direct: true
-        systemDefined: false
-        travelTime: false
-        activityType: Payrolling
-        groupCare: false
-        transport: false
-        quantityBased: true
-        directAllowed: true
-        indirectAllowed: true
-        travelAllowed: true
-        noShow: true
-        snomedCode: '1234'
-        travelCalculationDisabled: false
-        absenceAllowed: false
-        splitHourtype: false
-      xml:
-        name: hourType
-    list.ProfileActivityAssignmentList:
-      type: object
-      properties:
-        profileActivityAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileActivityAssignment'
-      description: ProfileActivityAssignmentList model (no description)
-      example:
-        profileActivityAssignments:
-        - id: 1
-          type: 3
-          mobile: false
-          ioMe: false
     ProfileActivityAssignment:
       type: object
       properties:

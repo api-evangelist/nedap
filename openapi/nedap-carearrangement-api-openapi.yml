@@ -217,6 +217,35 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.CareArrangementList:
+      type: object
+      properties:
+        careArrangements:
+          type: array
+          items:
+            $ref: '#/components/schemas/CareArrangement'
+          xml:
+            name: careArrangement
+      description: CareArrangementList model (no description)
+      example:
+        careArrangements:
+        - id: 1
+          clientObjectId: 7815
+          teamObjectId: 0
+          activityObjectId: 39
+          category: 1
+          beginDate: '2010-02-22T00:00:00.000+01:00'
+          endDate: '2010-05-21T23:59:59.000+02:00'
+          normMorning: 180
+          normAfternoon: 0
+          normEvening: 0
+          normNight: 0
+          mornings: 1 2 3 4 5
+          afternoons: ''
+          evenings: ''
+          nights: ''
+      xml:
+        name: careArrangements
     CareArrangement:
       type: object
       properties:
@@ -282,35 +311,6 @@ components:
         nights: 1 2 3 4 5
       xml:
         name: careArrangement
-    list.CareArrangementList:
-      type: object
-      properties:
-        careArrangements:
-          type: array
-          items:
-            $ref: '#/components/schemas/CareArrangement'
-          xml:
-            name: careArrangement
-      description: CareArrangementList model (no description)
-      example:
-        careArrangements:
-        - id: 1
-          clientObjectId: 7815
-          teamObjectId: 0
-          activityObjectId: 39
-          category: 1
-          beginDate: '2010-02-22T00:00:00.000+01:00'
-          endDate: '2010-05-21T23:59:59.000+02:00'
-          normMorning: 180
-          normAfternoon: 0
-          normEvening: 0
-          normNight: 0
-          mornings: 1 2 3 4 5
-          afternoons: ''
-          evenings: ''
-          nights: ''
-      xml:
-        name: careArrangements
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

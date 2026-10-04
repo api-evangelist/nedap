@@ -452,57 +452,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ClientEmployeeRelationType:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/RelationType'
-      description: ClientEmployeeRelationType model (no description)
-      example:
-        id: 6
-        name: Coach
-        tag: tag
-        primary: true
-        exclusive: true
-        relevant: true
-        negative: false
-        active: true
-        legal: false
-        vbmResponsible: false
-        vektisCode: 1
-        reference: 1
-        relationCategory:
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          createdBy: user
-          id: 7
-          name: Standard
-        updatedAt: '2013-09-24T11:49:58.000+02:00'
-        createdAt: '2013-09-24T11:49:58.000+02:00'
-        createdBy: user
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     RelationType:
       type: object
       allOf:
@@ -565,41 +514,6 @@ components:
           createdBy: user
           id: 7
           name: Standard
-    list.ClientEmployeeRelationList:
-      type: object
-      properties:
-        clientEmployeeRelations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientEmployeeRelation'
-      description: ClientEmployeeRelationList model (no description)
-      example:
-        clientEmployeeRelations:
-        - updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
-          id: 17
-          relationName: Cach
-          validFrom: '2013-11-28T11:49:58.000+01:00'
-          validTo: '2013-11-30T11:49:58.000+01:00'
-          relationType:
-            id: 6
-            name: Cach
-            primary: true
-            exclusive: true
-            negative: false
-            active: true
-            vektisCode: 1
-            reference: 1
-            relationCategory:
-              updatedAt: '2013-09-24T11:49:58.000+02:00'
-              createdAt: '2013-09-24T11:49:58.000+02:00'
-              id: 7
-              name: Standard
-            updatedAt: '2013-09-24T11:49:58.000+02:00'
-            createdAt: '2013-09-24T11:49:58.000+02:00'
-          relationTypeId: 6
-          clientId: 3
-          employeeId: 12
     RelationCategory:
       type: object
       allOf:
@@ -683,6 +597,92 @@ components:
         relationTypeId: 6
         clientId: 3
         employeeId: 12
+    ClientEmployeeRelationType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/RelationType'
+      description: ClientEmployeeRelationType model (no description)
+      example:
+        id: 6
+        name: Coach
+        tag: tag
+        primary: true
+        exclusive: true
+        relevant: true
+        negative: false
+        active: true
+        legal: false
+        vbmResponsible: false
+        vektisCode: 1
+        reference: 1
+        relationCategory:
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          createdBy: user
+          id: 7
+          name: Standard
+        updatedAt: '2013-09-24T11:49:58.000+02:00'
+        createdAt: '2013-09-24T11:49:58.000+02:00'
+        createdBy: user
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    list.ClientEmployeeRelationList:
+      type: object
+      properties:
+        clientEmployeeRelations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientEmployeeRelation'
+      description: ClientEmployeeRelationList model (no description)
+      example:
+        clientEmployeeRelations:
+        - updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
+          id: 17
+          relationName: Cach
+          validFrom: '2013-11-28T11:49:58.000+01:00'
+          validTo: '2013-11-30T11:49:58.000+01:00'
+          relationType:
+            id: 6
+            name: Cach
+            primary: true
+            exclusive: true
+            negative: false
+            active: true
+            vektisCode: 1
+            reference: 1
+            relationCategory:
+              updatedAt: '2013-09-24T11:49:58.000+02:00'
+              createdAt: '2013-09-24T11:49:58.000+02:00'
+              id: 7
+              name: Standard
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+          relationTypeId: 6
+          clientId: 3
+          employeeId: 12
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -67,24 +67,46 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.omaha.list.ProblemList:
+    dossier.omaha.SignOrSymptom:
       type: object
       properties:
-        omahaProblems:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.omaha.Problem'
-          xml:
-            name: omahaProblem
-      description: ProblemList model (no description)
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit signaal/symptoom
+        problemId:
+          type: string
+          description: Object id of the related problem
+        textAllowed:
+          type: boolean
+          description: 'Indicates the presence of an extra textfield
+
+            (nl) Geeft aan of er een extra tekstveld aanwezig is'
+      description: 'Omaha definitie van ''signalen en symptomen'' '
       example:
-        omahaProblems:
-        - classificationId: classification.problem.health.physical_activity
-          name: Fysieke activiteit
-        - classificationId: classification.problem.health.substance_use
-          name: Gebruik van verslavende middelen
+        classificationId: Dummy
+        name: Dummy
+        problemId: some.classification.id
+        textAllowed: true
       xml:
-        name: omahaProblems
+        name: omahaSignOrSymptom
+    dossier.omaha.Domain:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+      description: 'Omaha Domein '
+      example:
+        classificationId: Dummy
+        name: Dummy
+      xml:
+        name: omahaDomain
     dossier.omaha.Problem:
       type: object
       properties:
@@ -123,46 +145,24 @@ components:
           textAllowed: true
       xml:
         name: omahaProblem
-    dossier.omaha.Domain:
+    dossier.omaha.list.ProblemList:
       type: object
       properties:
-        classificationId:
-          type: string
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit domein
-      description: 'Omaha Domein '
+        omahaProblems:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.omaha.Problem'
+          xml:
+            name: omahaProblem
+      description: ProblemList model (no description)
       example:
-        classificationId: Dummy
-        name: Dummy
+        omahaProblems:
+        - classificationId: classification.problem.health.physical_activity
+          name: Fysieke activiteit
+        - classificationId: classification.problem.health.substance_use
+          name: Gebruik van verslavende middelen
       xml:
-        name: omahaDomain
-    dossier.omaha.SignOrSymptom:
-      type: object
-      properties:
-        classificationId:
-          type: string
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit signaal/symptoom
-        problemId:
-          type: string
-          description: Object id of the related problem
-        textAllowed:
-          type: boolean
-          description: 'Indicates the presence of an extra textfield
-
-            (nl) Geeft aan of er een extra tekstveld aanwezig is'
-      description: 'Omaha definitie van ''signalen en symptomen'' '
-      example:
-        classificationId: Dummy
-        name: Dummy
-        problemId: some.classification.id
-        textAllowed: true
-      xml:
-        name: omahaSignOrSymptom
+        name: omahaProblems
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

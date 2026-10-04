@@ -183,6 +183,14 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.FlexSignupVisibility:
+      enum:
+      - hide_signups
+      - show_anonymous
+      - show_names
+      type: string
+      description: How flex request signups of colleagues are shown to employees
+      example: show_names
     moves.Team:
       type: object
       properties:
@@ -340,55 +348,6 @@ components:
         allowFlexSignup: true
         flexSignupVisibility: show_names
         whoMakesFlexAssignments: primary_flex_unit
-    moves.list.ClientList:
-      type: object
-      properties:
-        clients:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Client'
-      description: List of Clients
-      example:
-        clients:
-        - id: 5678
-          externalId: 5678
-    moves.Client:
-      required:
-      - id
-      - externalId
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The client identifier
-          format: int64
-        externalId:
-          type: integer
-          description: This field will be removed as it has the same contents as the id field
-          format: int64
-          deprecated: true
-          x-deprecated-since: 21-05-2025
-      description: A Client object in Moves
-      example:
-        id: 1234
-        externalId: 5678
-    moves.WhoMakesFlexAssignments:
-      enum:
-      - requesting_unit
-      - primary_flex_unit
-      - requesting_unit_and_primary_flex_unit
-      - all_units
-      type: string
-      description: Which unit assigns employees to flex requests
-      example: primary_flex_unit
-    moves.FlexSignupVisibility:
-      enum:
-      - hide_signups
-      - show_anonymous
-      - show_names
-      type: string
-      description: How flex request signups of colleagues are shown to employees
-      example: show_names
     moves.UnitType:
       enum:
       - Extramuraal
@@ -423,6 +382,47 @@ components:
           useSelfRostering: true
           selfRosteringStartDate: '2000-01-01'
           rosterPublicationDate: '2025-08-30'
+    moves.Client:
+      required:
+      - id
+      - externalId
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The client identifier
+          format: int64
+        externalId:
+          type: integer
+          description: This field will be removed as it has the same contents as the id field
+          format: int64
+          deprecated: true
+          x-deprecated-since: 21-05-2025
+      description: A Client object in Moves
+      example:
+        id: 1234
+        externalId: 5678
+    moves.list.ClientList:
+      type: object
+      properties:
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Client'
+      description: List of Clients
+      example:
+        clients:
+        - id: 5678
+          externalId: 5678
+    moves.WhoMakesFlexAssignments:
+      enum:
+      - requesting_unit
+      - primary_flex_unit
+      - requesting_unit_and_primary_flex_unit
+      - all_units
+      type: string
+      description: Which unit assigns employees to flex requests
+      example: primary_flex_unit
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

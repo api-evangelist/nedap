@@ -357,6 +357,17 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    medication.MedicationPlan:
+      required:
+      - documentUrl
+      type: object
+      properties:
+        documentUrl:
+          type: string
+          description: Complete and working URL where the medication plan can be retrieved from.
+      description: A medication plan holds the document URL required to download a weekly overview of medication information for a given client.
+      example:
+        documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -376,28 +387,6 @@ components:
         - field: two
           value: a
           message: too short
-    medication.list.MedicationPlanList:
-      type: object
-      properties:
-        medicationPlans:
-          type: array
-          items:
-            $ref: '#/components/schemas/medication.MedicationPlan'
-      description: MedicationPlanList model (no description)
-      example:
-        medicationPlans:
-        - documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
-    medication.MedicationPlan:
-      required:
-      - documentUrl
-      type: object
-      properties:
-        documentUrl:
-          type: string
-          description: Complete and working URL where the medication plan can be retrieved from.
-      description: A medication plan holds the document URL required to download a weekly overview of medication information for a given client.
-      example:
-        documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
     ErrorResponseEntry:
       title: ErrorResponseEntry
       type: object
@@ -413,6 +402,17 @@ components:
         field: one
         value: empty
         message: field can not be empty
+    medication.list.MedicationPlanList:
+      type: object
+      properties:
+        medicationPlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/medication.MedicationPlan'
+      description: MedicationPlanList model (no description)
+      example:
+        medicationPlans:
+        - documentUrl: https://api.ons.io/t/medication_plans/clients/12457/weeks/2023-W12
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

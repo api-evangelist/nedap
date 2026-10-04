@@ -561,6 +561,129 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.Plancard:
+      type: object
+      properties:
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        hourTypeName:
+          type:
+          - string
+          - 'null'
+        hourTypeCode:
+          type:
+          - string
+          - 'null'
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration of this Plancard in seconds.
+          format: int32
+        note:
+          type:
+          - string
+          - 'null'
+          description: The note added to this Plancard in the planscreen.
+        promisedStart:
+          type:
+          - string
+          - 'null'
+          description: The entered start time of this Plancard. This time is an intent, not a guarantee.
+          format: date-time
+        dayPart:
+          type:
+          - integer
+          - 'null'
+          description: 'Daypart on which this Plancard is defined in the care arrangement.
+
+
+            <pre>
+
+            1 - Morning
+
+            2 - Afternoon
+
+            3 - Evening
+
+            0 - Night (Night-plancards generally occur after Evening-plancards for the same date)
+
+            null - Incidentally added Plancard that is not linked to a care arrangement.
+
+            </pre>'
+          format: int32
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this Planccard has been incidentally deleted.
+        cycleBase:
+          type: string
+          description: The date from which the recurrence pattern is calculated (usually a Sunday)
+          format: date
+        cycleInterval:
+          type: integer
+          description: The plancard occurs every N-days
+          format: int32
+        cycleOffset:
+          type: integer
+          description: The number of days from cycleBase the plancard occurs, effectively indicating a day of the week. Usually [0-6], 0 is Sunday
+          format: int32
+        originalCycleOffset:
+          type: integer
+          description: When the plancard was incidentally moved, this attribute holds the original value of cycleOffset.
+          format: int32
+        incidentallyChanged:
+          type: boolean
+          description: The information on this plancard is different from its regular/structural state.
+        instanceOfType:
+          type: string
+          description: Either 'PatternRule' (a regular plancard created from the care arrangement) or 'EventRule' (a plancard that was incidentally added from the planscreen)
+        instanceOfId:
+          type: integer
+          description: Reference to 'PatternRule'-record in case `instanceOfType` is `PatternRule`
+          format: int32
+        kind:
+          type:
+          - string
+          - 'null'
+          description: Unused
+        exportable:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this Plancard will be exported. Only available through specific APIs.
+      description: '{@link PlannedVisit}s are the aggregation of a list of Plancards.'
+      example:
+        hourTypeId: 25
+        hourTypeName: PV eten en drinken
+        hourTypeCode: '31'
+        duration: 600
+        note: Les naïfs ægithales hâtifs pondant à Noël où il gèle sont sûrs d'être déçus en voyant leurs drôles d'œufs abîmés.
+        promisedStart: '2010-03-15T00:00:00.000+01:00'
+        dayPart: 1
+        deleted: false
+        cycleBase: '2021-06-24'
+        cycleInterval: 7
+        cycleOffset: 3
+        originalCycleOffset: 5
+        incidentallyChanged: false
+        instanceOfType: PatternRule
+        instanceOfId: 16
+        kind: arrangement
+        exportable: true
+    PronounsType:
+      enum:
+      - SHE_HER
+      - HE_HIS
+      - WHO_THEIR
+      - THEM_THEIRS
+      type: string
+      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
+      example: WHO_THEIR
     moves.RosterSlot:
       type: object
       properties:
@@ -798,6 +921,217 @@ components:
           employeeName: employee
           employeeGender: m
           employeeIsDummy: true
+    moves.ShiftAssignment:
+      title: ShiftAssignment
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        date:
+          type:
+          - string
+          - 'null'
+          format: date
+        beginTime:
+          type:
+          - string
+          - 'null'
+          description: Effective begin time (based on the shift or incidental)
+          format: date-time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: Effective end time (based on the shift or incidental)
+          format: date-time
+        shiftId:
+          type:
+          - string
+          - 'null'
+          description: 'Composed from the timeline_id and date: "413@2019-05-01"'
+        shiftName:
+          type:
+          - string
+          - 'null'
+          description: Name of the shift
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeLeadingName:
+          type:
+          - string
+          - 'null'
+        employeeName:
+          type:
+          - string
+          - 'null'
+        externalExpertiseProfileId:
+          type:
+          - integer
+          - 'null'
+          description: Effective expertise profile (based on the shift or incidentally changed)
+          format: int64
+        expertiseProfileName:
+          type:
+          - string
+          - 'null'
+          description: Name of the effective expertise profile
+        onCall:
+          type:
+          - boolean
+          - 'null'
+          description: Is it an on-call (bereikbaarheidsdienst) shift
+        timelineShiftId:
+          type:
+          - integer
+          - 'null'
+          description: To what shift does it belong
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          description: To what team does it belong
+          format: int64
+        unitId:
+          type:
+          - integer
+          - 'null'
+          description: To what team does it belong
+          format: int64
+          deprecated: true
+          x-deprecated-since: 01-06-2026
+        breakDuration:
+          type:
+          - integer
+          - 'null'
+          description: How long is the break (in minutes)
+          format: int64
+        incidental:
+          type:
+          - boolean
+          - 'null'
+          description: Has one of the following fields been changed in comparison to the original shift (begin/end time, start/stop break time and/or expertise profile).
+        order:
+          type:
+          - integer
+          - 'null'
+          description: Order of ShiftAssignments if there are multiple on the same date and shift.
+          format: int64
+        startBreakTime:
+          type:
+          - string
+          - 'null'
+          description: Effective start break time (based on the shift or incidental)
+          format: date-time
+        stopBreakTime:
+          type:
+          - string
+          - 'null'
+          description: Effective stop break time (based on the shift or incidental)
+          format: date-time
+        discardedAt:
+          type:
+          - string
+          - 'null'
+          description: Shift Assignments are not hard-deleted, but marked as discarded. When the Shift Assignment is discarded, discardedAt shows when this was discarded.
+          format: date-time
+        exportable:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this ShiftAssignnment will be exported. Only available through specific APIs.
+      description: Updated by Jurriën Gosselink on 04-03-19
+      example:
+        id: 1
+        date: '1999-12-31'
+        beginTime: '1999-12-31T22:00:00.000+01:00'
+        endTime: '1999-12-31T23:00:00.000+01:00'
+        shiftId: 1@2014-03-28
+        shiftName: (1) Morning
+        employeeId: 1
+        employeeLeadingName: Jan Henk
+        employeeName: Jan Henk Heilersig
+        externalExpertiseProfileId: 1
+        expertiseProfileName: Verpleegkundige
+        onCall: true
+        timelineShiftId: 1654
+        unitId: 5
+        teamId: 5
+        breakDuration: 15
+        incidental: true
+        order: 0
+        startBreakTime: '1999-12-31T22:15:00.000+01:00'
+        stopBreakTime: '1999-12-31T23:29:00.000+01:00'
+        discardedAt: '2000-12-31T23:29:00.000+01:00'
+        exportable: true
+      xml:
+        name: shiftAssignment
+    moves.PlannedAddress:
+      type:
+      - object
+      - 'null'
+      properties:
+        latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        city:
+          type:
+          - string
+          - 'null'
+        street:
+          type:
+          - string
+          - 'null'
+        zipcode:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        numberPostfix:
+          type:
+          - string
+          - 'null'
+        residenceAccessInfo:
+          type:
+          - string
+          - 'null'
+        roomNumber:
+          type:
+          - string
+          - 'null'
+      description: 'Address where {@link PlannedVisit}s are planned.
+
+
+        Moves has it''s own Address model, and plancards can be
+
+        planned tp addresses not known in other systems.'
+      example:
+        latitude: 52.038398
+        longitude: 6.624163
+        city: Groenlo
+        street: Parallelweg
+        zipcode: 7141DC
+        number: '31'
+        numberPostfix: a
+        residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
+        roomNumber: '1'
     moves.FlexSignup:
       type: object
       properties:
@@ -832,6 +1166,92 @@ components:
         employeeId: 1
         employeeLeadingName: Jan Henk
         employeeName: Jan Henk Heilersig
+    moves.FlexRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        date:
+          type: string
+          format: date
+        shiftTimelineId:
+          type: integer
+          format: int64
+        shiftId:
+          type: string
+        order:
+          type: integer
+          format: int64
+        rosterTeamId:
+          type: integer
+          format: int64
+        rosterUnitId:
+          type: integer
+          format: int64
+        requestingTeamId:
+          type: integer
+          format: int64
+        flexTeamId:
+          type: integer
+          format: int64
+        flexUnitId:
+          type: integer
+          format: int64
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        breakStartTime:
+          type: string
+          format: date-time
+        breakEndTime:
+          type: string
+          format: date-time
+        externalExpertiseProfileId:
+          type: integer
+          format: int64
+        expertiseProfileName:
+          type: string
+        requestedAt:
+          type: string
+          format: date-time
+        flexSignups:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.FlexSignup'
+      description: FlexRequest model (no description)
+      example:
+        id: 1
+        date: '2025-01-15'
+        shiftTimelineId: 123
+        shiftId: 123@2025-01-15
+        order: 0
+        rosterTeamId: 8
+        rosterUnitId: 15
+        requestingTeamId: 8
+        flexTeamId: 432
+        flexUnitId: 10
+        startTime: '2025-01-15T08:00:00.000+01:00'
+        endTime: '2025-01-15T16:00:00.000+01:00'
+        breakStartTime: '2025-01-15T12:00:00.000+01:00'
+        breakEndTime: '2025-01-15T12:30:00.000+01:00'
+        externalExpertiseProfileId: 10
+        expertiseProfileName: Verpleegkundige
+        requestedAt: '2025-01-01T14:30:00.000+01:00'
+        flexSignups:
+        - id: 1
+          shiftId: 123@2025-01-15
+          date: '2025-01-15'
+          employeeId: 1
+          employeeLeadingName: Jan Henk
+          employeeName: Jan Henk Heilersig
+          suggested: false
+          struckOut: false
+          signedUpAt: '2025-01-01T00:00:00.000+01:00'
     moves.list.RosterSlotList:
       type: object
       properties:
@@ -943,65 +1363,20 @@ components:
             employeeName: employee
             employeeGender: m
             employeeIsDummy: true
-    moves.PlannedAddress:
-      type:
-      - object
-      - 'null'
+    Pronouns:
+      type: object
       properties:
-        latitude:
-          type:
-          - number
-          - 'null'
-          format: double
-        longitude:
-          type:
-          - number
-          - 'null'
-          format: double
-        city:
-          type:
-          - string
-          - 'null'
-        street:
-          type:
-          - string
-          - 'null'
-        zipcode:
-          type:
-          - string
-          - 'null'
-        number:
-          type:
-          - string
-          - 'null'
-        numberPostfix:
-          type:
-          - string
-          - 'null'
-        residenceAccessInfo:
-          type:
-          - string
-          - 'null'
-        roomNumber:
-          type:
-          - string
-          - 'null'
-      description: 'Address where {@link PlannedVisit}s are planned.
-
-
-        Moves has it''s own Address model, and plancards can be
-
-        planned tp addresses not known in other systems.'
+        type:
+          $ref: '#/components/schemas/PronounsType'
+        description:
+          type: string
+          description: Translated description of the pronouns.
+      description: The usage of this schema is deprecated and has been replaced by PronounsType.
       example:
-        latitude: 52.038398
-        longitude: 6.624163
-        city: Groenlo
-        street: Parallelweg
-        zipcode: 7141DC
-        number: '31'
-        numberPostfix: a
-        residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
-        roomNumber: '1'
+        type: WHO_THEIR
+        description: die/diens
+      deprecated: true
+      x-deprecated-since: 21-08-2026
     moves.PlannedVisit:
       type:
       - object
@@ -1227,258 +1602,6 @@ components:
         employeeName: employee
         employeeGender: m
         employeeIsDummy: true
-    Pronouns:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/PronounsType'
-        description:
-          type: string
-          description: Translated description of the pronouns.
-      description: The usage of this schema is deprecated and has been replaced by PronounsType.
-      example:
-        type: WHO_THEIR
-        description: die/diens
-      deprecated: true
-      x-deprecated-since: 21-08-2026
-    moves.ShiftAssignment:
-      title: ShiftAssignment
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        date:
-          type:
-          - string
-          - 'null'
-          format: date
-        beginTime:
-          type:
-          - string
-          - 'null'
-          description: Effective begin time (based on the shift or incidental)
-          format: date-time
-        endTime:
-          type:
-          - string
-          - 'null'
-          description: Effective end time (based on the shift or incidental)
-          format: date-time
-        shiftId:
-          type:
-          - string
-          - 'null'
-          description: 'Composed from the timeline_id and date: "413@2019-05-01"'
-        shiftName:
-          type:
-          - string
-          - 'null'
-          description: Name of the shift
-        employeeId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        employeeLeadingName:
-          type:
-          - string
-          - 'null'
-        employeeName:
-          type:
-          - string
-          - 'null'
-        externalExpertiseProfileId:
-          type:
-          - integer
-          - 'null'
-          description: Effective expertise profile (based on the shift or incidentally changed)
-          format: int64
-        expertiseProfileName:
-          type:
-          - string
-          - 'null'
-          description: Name of the effective expertise profile
-        onCall:
-          type:
-          - boolean
-          - 'null'
-          description: Is it an on-call (bereikbaarheidsdienst) shift
-        timelineShiftId:
-          type:
-          - integer
-          - 'null'
-          description: To what shift does it belong
-          format: int64
-        teamId:
-          type:
-          - integer
-          - 'null'
-          description: To what team does it belong
-          format: int64
-        unitId:
-          type:
-          - integer
-          - 'null'
-          description: To what team does it belong
-          format: int64
-          deprecated: true
-          x-deprecated-since: 01-06-2026
-        breakDuration:
-          type:
-          - integer
-          - 'null'
-          description: How long is the break (in minutes)
-          format: int64
-        incidental:
-          type:
-          - boolean
-          - 'null'
-          description: Has one of the following fields been changed in comparison to the original shift (begin/end time, start/stop break time and/or expertise profile).
-        order:
-          type:
-          - integer
-          - 'null'
-          description: Order of ShiftAssignments if there are multiple on the same date and shift.
-          format: int64
-        startBreakTime:
-          type:
-          - string
-          - 'null'
-          description: Effective start break time (based on the shift or incidental)
-          format: date-time
-        stopBreakTime:
-          type:
-          - string
-          - 'null'
-          description: Effective stop break time (based on the shift or incidental)
-          format: date-time
-        discardedAt:
-          type:
-          - string
-          - 'null'
-          description: Shift Assignments are not hard-deleted, but marked as discarded. When the Shift Assignment is discarded, discardedAt shows when this was discarded.
-          format: date-time
-        exportable:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates if this ShiftAssignnment will be exported. Only available through specific APIs.
-      description: Updated by Jurriën Gosselink on 04-03-19
-      example:
-        id: 1
-        date: '1999-12-31'
-        beginTime: '1999-12-31T22:00:00.000+01:00'
-        endTime: '1999-12-31T23:00:00.000+01:00'
-        shiftId: 1@2014-03-28
-        shiftName: (1) Morning
-        employeeId: 1
-        employeeLeadingName: Jan Henk
-        employeeName: Jan Henk Heilersig
-        externalExpertiseProfileId: 1
-        expertiseProfileName: Verpleegkundige
-        onCall: true
-        timelineShiftId: 1654
-        unitId: 5
-        teamId: 5
-        breakDuration: 15
-        incidental: true
-        order: 0
-        startBreakTime: '1999-12-31T22:15:00.000+01:00'
-        stopBreakTime: '1999-12-31T23:29:00.000+01:00'
-        discardedAt: '2000-12-31T23:29:00.000+01:00'
-        exportable: true
-      xml:
-        name: shiftAssignment
-    moves.FlexRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        date:
-          type: string
-          format: date
-        shiftTimelineId:
-          type: integer
-          format: int64
-        shiftId:
-          type: string
-        order:
-          type: integer
-          format: int64
-        rosterTeamId:
-          type: integer
-          format: int64
-        rosterUnitId:
-          type: integer
-          format: int64
-        requestingTeamId:
-          type: integer
-          format: int64
-        flexTeamId:
-          type: integer
-          format: int64
-        flexUnitId:
-          type: integer
-          format: int64
-        startTime:
-          type: string
-          format: date-time
-        endTime:
-          type: string
-          format: date-time
-        breakStartTime:
-          type: string
-          format: date-time
-        breakEndTime:
-          type: string
-          format: date-time
-        externalExpertiseProfileId:
-          type: integer
-          format: int64
-        expertiseProfileName:
-          type: string
-        requestedAt:
-          type: string
-          format: date-time
-        flexSignups:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.FlexSignup'
-      description: FlexRequest model (no description)
-      example:
-        id: 1
-        date: '2025-01-15'
-        shiftTimelineId: 123
-        shiftId: 123@2025-01-15
-        order: 0
-        rosterTeamId: 8
-        rosterUnitId: 15
-        requestingTeamId: 8
-        flexTeamId: 432
-        flexUnitId: 10
-        startTime: '2025-01-15T08:00:00.000+01:00'
-        endTime: '2025-01-15T16:00:00.000+01:00'
-        breakStartTime: '2025-01-15T12:00:00.000+01:00'
-        breakEndTime: '2025-01-15T12:30:00.000+01:00'
-        externalExpertiseProfileId: 10
-        expertiseProfileName: Verpleegkundige
-        requestedAt: '2025-01-01T14:30:00.000+01:00'
-        flexSignups:
-        - id: 1
-          shiftId: 123@2025-01-15
-          date: '2025-01-15'
-          employeeId: 1
-          employeeLeadingName: Jan Henk
-          employeeName: Jan Henk Heilersig
-          suggested: false
-          struckOut: false
-          signedUpAt: '2025-01-01T00:00:00.000+01:00'
     moves.LocationAuthorization:
       type: object
       properties:
@@ -1493,129 +1616,6 @@ components:
       description: LocationAuthorization model (no description)
       example:
         locationId: 1
-    PronounsType:
-      enum:
-      - SHE_HER
-      - HE_HIS
-      - WHO_THEIR
-      - THEM_THEIRS
-      type: string
-      description: 'Predefined type of pronouns: SHE_HER: ''zij/haar'', HE_HIS: ''hij/hem'', WHO_THEIR: ''die/diens'', THEM_THEIRS: ''hen/hun'''
-      example: WHO_THEIR
-    moves.Plancard:
-      type: object
-      properties:
-        hourTypeId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        hourTypeName:
-          type:
-          - string
-          - 'null'
-        hourTypeCode:
-          type:
-          - string
-          - 'null'
-        duration:
-          type:
-          - integer
-          - 'null'
-          description: Duration of this Plancard in seconds.
-          format: int32
-        note:
-          type:
-          - string
-          - 'null'
-          description: The note added to this Plancard in the planscreen.
-        promisedStart:
-          type:
-          - string
-          - 'null'
-          description: The entered start time of this Plancard. This time is an intent, not a guarantee.
-          format: date-time
-        dayPart:
-          type:
-          - integer
-          - 'null'
-          description: 'Daypart on which this Plancard is defined in the care arrangement.
-
-
-            <pre>
-
-            1 - Morning
-
-            2 - Afternoon
-
-            3 - Evening
-
-            0 - Night (Night-plancards generally occur after Evening-plancards for the same date)
-
-            null - Incidentally added Plancard that is not linked to a care arrangement.
-
-            </pre>'
-          format: int32
-        deleted:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates if this Planccard has been incidentally deleted.
-        cycleBase:
-          type: string
-          description: The date from which the recurrence pattern is calculated (usually a Sunday)
-          format: date
-        cycleInterval:
-          type: integer
-          description: The plancard occurs every N-days
-          format: int32
-        cycleOffset:
-          type: integer
-          description: The number of days from cycleBase the plancard occurs, effectively indicating a day of the week. Usually [0-6], 0 is Sunday
-          format: int32
-        originalCycleOffset:
-          type: integer
-          description: When the plancard was incidentally moved, this attribute holds the original value of cycleOffset.
-          format: int32
-        incidentallyChanged:
-          type: boolean
-          description: The information on this plancard is different from its regular/structural state.
-        instanceOfType:
-          type: string
-          description: Either 'PatternRule' (a regular plancard created from the care arrangement) or 'EventRule' (a plancard that was incidentally added from the planscreen)
-        instanceOfId:
-          type: integer
-          description: Reference to 'PatternRule'-record in case `instanceOfType` is `PatternRule`
-          format: int32
-        kind:
-          type:
-          - string
-          - 'null'
-          description: Unused
-        exportable:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates if this Plancard will be exported. Only available through specific APIs.
-      description: '{@link PlannedVisit}s are the aggregation of a list of Plancards.'
-      example:
-        hourTypeId: 25
-        hourTypeName: PV eten en drinken
-        hourTypeCode: '31'
-        duration: 600
-        note: Les naïfs ægithales hâtifs pondant à Noël où il gèle sont sûrs d'être déçus en voyant leurs drôles d'œufs abîmés.
-        promisedStart: '2010-03-15T00:00:00.000+01:00'
-        dayPart: 1
-        deleted: false
-        cycleBase: '2021-06-24'
-        cycleInterval: 7
-        cycleOffset: 3
-        originalCycleOffset: 5
-        incidentallyChanged: false
-        instanceOfType: PatternRule
-        instanceOfId: 16
-        kind: arrangement
-        exportable: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -84,32 +84,6 @@ components:
           minutes: 60
           link: https://example.com
           description: Aantal gewerkte uren deze week
-    moves.EmployeeHoursReportCategory:
-      type: object
-      properties:
-        name:
-          type: string
-        label:
-          type: string
-        minutes:
-          type: integer
-          format: int64
-        link:
-          type: string
-        description:
-          type: string
-        subCategory:
-          $ref: '#/components/schemas/moves.EmployeeHoursReportSubCategory'
-      description: Describes a category of the worked and leave hours of an employee. E.g. 'worked_hours' or 'compensation'
-      example:
-        name: compensation
-        label: Compensatie
-        minutes: 480
-        link: https://example.com
-        description: Compensatiesaldo tot publicatiedatum
-        subCategory:
-          name: until_publication_date
-          label: Tot aan publicatiedatum (25-3-2024)
     moves.EmployeeHoursReport:
       type: object
       properties:
@@ -161,6 +135,32 @@ components:
             subCategory:
               name: expected_end_of_year
               label: Verwacht eind 2024
+    moves.EmployeeHoursReportCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        minutes:
+          type: integer
+          format: int64
+        link:
+          type: string
+        description:
+          type: string
+        subCategory:
+          $ref: '#/components/schemas/moves.EmployeeHoursReportSubCategory'
+      description: Describes a category of the worked and leave hours of an employee. E.g. 'worked_hours' or 'compensation'
+      example:
+        name: compensation
+        label: Compensatie
+        minutes: 480
+        link: https://example.com
+        description: Compensatiesaldo tot publicatiedatum
+        subCategory:
+          name: until_publication_date
+          label: Tot aan publicatiedatum (25-3-2024)
     moves.EmployeeHoursReportSubCategory:
       type: object
       properties:

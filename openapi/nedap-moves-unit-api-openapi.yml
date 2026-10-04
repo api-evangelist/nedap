@@ -219,6 +219,35 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.list.UnitList:
+      type: object
+      properties:
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Unit'
+          xml:
+            name: unit
+      description: UnitList model (no description)
+      example:
+        units:
+        - id: 1
+          code: ZTN
+          name: Zorg Team Nedap
+          unitId: 1
+          externalId: 123
+          validFrom: '1999-12-27'
+          validTo: '2015-12-27'
+          block: false
+          flexUnitId: 1
+          nexusGroupUuid: ''
+          cachedUsed: true
+          showCumulativeLedgersForecast: true
+          unitType: 2
+          allowSelfRostering: true
+          selfRosteringStartDate: '2015-07-13'
+      xml:
+        name: units
     moves.Unit:
       type: object
       properties:
@@ -297,35 +326,6 @@ components:
         selfRosteringStartDate: '2015-07-13'
       xml:
         name: unit
-    moves.list.UnitList:
-      type: object
-      properties:
-        units:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.Unit'
-          xml:
-            name: unit
-      description: UnitList model (no description)
-      example:
-        units:
-        - id: 1
-          code: ZTN
-          name: Zorg Team Nedap
-          unitId: 1
-          externalId: 123
-          validFrom: '1999-12-27'
-          validTo: '2015-12-27'
-          block: false
-          flexUnitId: 1
-          nexusGroupUuid: ''
-          cachedUsed: true
-          showCumulativeLedgersForecast: true
-          unitType: 2
-          allowSelfRostering: true
-          selfRosteringStartDate: '2015-07-13'
-      xml:
-        name: units
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

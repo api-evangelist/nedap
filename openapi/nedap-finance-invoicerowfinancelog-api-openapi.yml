@@ -83,6 +83,21 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.InvoiceRowFinanceLog:
+      type: object
+      properties:
+        invoiceRowId:
+          type: integer
+          format: int64
+        financeLogId:
+          type: integer
+          format: int64
+      description: Relations between InoviceRow and FinanceLog
+      example:
+        invoiceRowId: 1
+        financeLogId: 1
+      xml:
+        name: invoiceRowFinanceLog
     finance.list.InvoiceRowFinanceLogList:
       type: object
       properties:
@@ -105,21 +120,6 @@ components:
           financeLogId: 4
       xml:
         name: invoiceRowFinanceLogs
-    finance.InvoiceRowFinanceLog:
-      type: object
-      properties:
-        invoiceRowId:
-          type: integer
-          format: int64
-        financeLogId:
-          type: integer
-          format: int64
-      description: Relations between InoviceRow and FinanceLog
-      example:
-        invoiceRowId: 1
-        financeLogId: 1
-      xml:
-        name: invoiceRowFinanceLog
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

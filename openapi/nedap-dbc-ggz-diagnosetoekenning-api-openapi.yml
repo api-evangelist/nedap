@@ -215,6 +215,42 @@ components:
           omschrijving: Traject
           icd10: UUU
         zorgtrajectId: 1
+    dbc.StamData:
+      required:
+      - code
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: The code taken from NZA code lists.
+        begindatum:
+          type: string
+          description: The first date this value is valid at.
+          format: date
+        einddatum:
+          type: string
+          description: 'The last date this value is valid at.
+
+
+            May be 9999-12-31 to signify ''valid forever'''
+          format: date
+        omschrijving:
+          type: string
+          description: A humanly readable description for the value, in Dutch
+      description: 'Base class for a code list of the NZA.
+
+        See documentation at https://puc.overheid.nl/nza/zorgsectoren/pagina/NZA003b/-/gdlv/1/p/1/'
+      example:
+        id: 1
+        code: example
+        begindatum: '2014-12-29'
+        einddatum: '2014-12-29'
+        omschrijving: example
     dbc.ggz.Diagnose:
       type: object
       allOf:
@@ -340,42 +376,6 @@ components:
           zorgtrajectId: 1
       xml:
         name: diagnoseToekenningen
-    dbc.StamData:
-      required:
-      - code
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Object identifier
-          format: int64
-          x-cupido-id: true
-        code:
-          type: string
-          description: The code taken from NZA code lists.
-        begindatum:
-          type: string
-          description: The first date this value is valid at.
-          format: date
-        einddatum:
-          type: string
-          description: 'The last date this value is valid at.
-
-
-            May be 9999-12-31 to signify ''valid forever'''
-          format: date
-        omschrijving:
-          type: string
-          description: A humanly readable description for the value, in Dutch
-      description: 'Base class for a code list of the NZA.
-
-        See documentation at https://puc.overheid.nl/nza/zorgsectoren/pagina/NZA003b/-/gdlv/1/p/1/'
-      example:
-        id: 1
-        code: example
-        begindatum: '2014-12-29'
-        einddatum: '2014-12-29'
-        omschrijving: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

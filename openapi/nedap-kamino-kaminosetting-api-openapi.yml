@@ -156,6 +156,20 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    kamino.KaminoSetting:
+      type: object
+      properties:
+        notifyForTeamMessages:
+          type:
+          - boolean
+          - 'null'
+          xml:
+            name: notifyForTeamMessages
+      description: KaminoSetting model (no description)
+      example:
+        notifyForTeamMessages: true
+      xml:
+        name: kaminoSetting
     kamino.ErrorParam:
       type: object
       properties:
@@ -230,20 +244,6 @@ components:
         - code: missing_field
           field: body
           resource: Message
-    kamino.KaminoSetting:
-      type: object
-      properties:
-        notifyForTeamMessages:
-          type:
-          - boolean
-          - 'null'
-          xml:
-            name: notifyForTeamMessages
-      description: KaminoSetting model (no description)
-      example:
-        notifyForTeamMessages: true
-      xml:
-        name: kaminoSetting
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

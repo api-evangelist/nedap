@@ -289,6 +289,55 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.medical.involuntary_care.Incompetence:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        narrative:
+          type: string
+          description: Extra comments relating to this incompetence
+        startDate:
+          type: string
+          description: The start date of the incompetence.
+          format: date
+        endDate:
+          type: string
+          description: The end date of the incompetence. If this is in the past, the incompetence is no longer active
+          format: date
+        snomedExpressionValue:
+          type: string
+          description: The snomed expression of the incompetence decision
+        decisionBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
+          description: The decision builder to build the medical relation
+        decision:
+          type: string
+      description: An incompetence of a client
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        narrative: I can't do this
+        startDate: '2015-09-17'
+        endDate: '2015-09-27'
+        snomedExpressionValue: 285033005 | ability to manage medication |
+        decisionBuilders:
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        decision: Uitvoeren van gastroscopie
     dossier.medical.DecisionBuilder:
       type: object
       allOf:
@@ -380,55 +429,6 @@ components:
         system: Dummy
         query: Dummy
         name: Dummy
-    dossier.medical.involuntary_care.Incompetence:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        narrative:
-          type: string
-          description: Extra comments relating to this incompetence
-        startDate:
-          type: string
-          description: The start date of the incompetence.
-          format: date
-        endDate:
-          type: string
-          description: The end date of the incompetence. If this is in the past, the incompetence is no longer active
-          format: date
-        snomedExpressionValue:
-          type: string
-          description: The snomed expression of the incompetence decision
-        decisionBuilders:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
-          description: The decision builder to build the medical relation
-        decision:
-          type: string
-      description: An incompetence of a client
-      example:
-        id: 1
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 2
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-14T00:00:00.000+01:00'
-        updatedAt: '2014-11-14T00:00:00.000+01:00'
-        narrative: I can't do this
-        startDate: '2015-09-17'
-        endDate: '2015-09-27'
-        snomedExpressionValue: 285033005 | ability to manage medication |
-        decisionBuilders:
-        - system: example
-          query: example
-          name: example
-          outcome: example
-        - system: example
-          query: example
-          name: example
-          outcome: example
-        decision: Uitvoeren van gastroscopie
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

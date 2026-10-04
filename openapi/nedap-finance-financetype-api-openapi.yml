@@ -199,46 +199,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    finance.Shape:
-      type: string
-      oneOf:
-      - title: SQUARE
-        enum:
-        - square
-      - title: CIRCLE
-        enum:
-        - circle
-      - title: TRIANGLE
-        enum:
-        - triangle
-      description: This is the shape of the icon used in Administration
-      example: square
-    finance.list.FinanceTypeList:
-      type: object
-      properties:
-        financeTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.FinanceType'
-          xml:
-            name: financeType
-      description: FinanceTypeList model (no description)
-      example:
-        financeTypes:
-        - id: 1
-          externalCode: Dummy
-          description: Dummy
-          userIdentifier: Dummy
-          beginDate: '2015-01-01'
-          endDate: '2019-01-01'
-          systemDefined: true
-          covRequired: true
-          agbSelectionEnabled: true
-          cakDelivery: false
-          useWmoNumbering: false
-          zzpAllowed: false
-      xml:
-        name: financeTypes
     finance.FinanceType:
       type: object
       properties:
@@ -335,6 +295,46 @@ components:
         category: 2
       xml:
         name: financeType
+    finance.list.FinanceTypeList:
+      type: object
+      properties:
+        financeTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.FinanceType'
+          xml:
+            name: financeType
+      description: FinanceTypeList model (no description)
+      example:
+        financeTypes:
+        - id: 1
+          externalCode: Dummy
+          description: Dummy
+          userIdentifier: Dummy
+          beginDate: '2015-01-01'
+          endDate: '2019-01-01'
+          systemDefined: true
+          covRequired: true
+          agbSelectionEnabled: true
+          cakDelivery: false
+          useWmoNumbering: false
+          zzpAllowed: false
+      xml:
+        name: financeTypes
+    finance.Shape:
+      type: string
+      oneOf:
+      - title: SQUARE
+        enum:
+        - square
+      - title: CIRCLE
+        enum:
+        - circle
+      - title: TRIANGLE
+        enum:
+        - triangle
+      description: This is the shape of the icon used in Administration
+      example: square
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

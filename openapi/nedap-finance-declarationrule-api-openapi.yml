@@ -449,50 +449,6 @@ components:
         reason: Just Because!
       xml:
         name: booleanWithReason
-    finance.list.DeclarationRuleList:
-      type: object
-      properties:
-        declarationRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.DeclarationRule'
-          xml:
-            name: declarationRule
-      description: DeclarationRuleList model (no description)
-      example:
-        declarationRules:
-        - id: 1
-          clientObjectId: 1
-          beginDate: '2017-06-06'
-          endDate: '2017-06-06'
-          createdAt: '2017-06-06'
-          updatedAt: '2017-06-06'
-          tariff: 1
-          priority: 1
-          employeeObjectId: 1
-          productObjectId: 1
-          indicatieBesluitObjectId: 1
-          source: manual
-          instellingscode: '42420993'
-          zorgkantoorcode: '5521'
-          weekday1: 1
-          weekday2: 1
-          weekday3: 1
-          weekday4: 1
-          weekday5: 1
-          weekday6: 1
-          weekday7: 1
-          declareOnResidence: true
-          zzpType: zzp declaration
-          type: 1
-          careOrderProductObjectId: 1
-          clientScheduleObjectId: 1
-          amount: 1
-          declarablePeriods:
-          - start: '2017-06-06'
-            end: '2017-06-06'
-      xml:
-        name: declarationRules
     Period:
       type: object
       properties:
@@ -508,6 +464,18 @@ components:
       example:
         start: '2018-03-26'
         end: '2018-04-02'
+    DateWrapper:
+      type: object
+      properties:
+        date:
+          type: string
+          description: The wrapped date
+          format: date
+      description: 'DateWrapper can be used to return date''s from API calls. '
+      example:
+        date: '2018-03-26'
+      xml:
+        name: dateWrapper
     finance.DeclarationRule:
       type: object
       properties:
@@ -673,18 +641,50 @@ components:
           end: '2017-06-06'
       xml:
         name: declarationRule
-    DateWrapper:
+    finance.list.DeclarationRuleList:
       type: object
       properties:
-        date:
-          type: string
-          description: The wrapped date
-          format: date
-      description: 'DateWrapper can be used to return date''s from API calls. '
+        declarationRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.DeclarationRule'
+          xml:
+            name: declarationRule
+      description: DeclarationRuleList model (no description)
       example:
-        date: '2018-03-26'
+        declarationRules:
+        - id: 1
+          clientObjectId: 1
+          beginDate: '2017-06-06'
+          endDate: '2017-06-06'
+          createdAt: '2017-06-06'
+          updatedAt: '2017-06-06'
+          tariff: 1
+          priority: 1
+          employeeObjectId: 1
+          productObjectId: 1
+          indicatieBesluitObjectId: 1
+          source: manual
+          instellingscode: '42420993'
+          zorgkantoorcode: '5521'
+          weekday1: 1
+          weekday2: 1
+          weekday3: 1
+          weekday4: 1
+          weekday5: 1
+          weekday6: 1
+          weekday7: 1
+          declareOnResidence: true
+          zzpType: zzp declaration
+          type: 1
+          careOrderProductObjectId: 1
+          clientScheduleObjectId: 1
+          amount: 1
+          declarablePeriods:
+          - start: '2017-06-06'
+            end: '2017-06-06'
       xml:
-        name: dateWrapper
+        name: declarationRules
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

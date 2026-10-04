@@ -362,6 +362,103 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    milo.App:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: Id of the App
+          format: int64
+          x-cupido-id: true
+        employeeObjectId:
+          type:
+          - integer
+          - 'null'
+          description: Id of the employee this app belongs to
+          format: int64
+          deprecated: true
+          x-deprecated-since: 20-11-2023
+        name:
+          type:
+          - string
+          - 'null'
+          description: Description of the app (mostly the name)
+        userAgent:
+          type:
+          - string
+          - 'null'
+          description: String with version of user_agent on this device
+        deviceId:
+          type:
+          - integer
+          - 'null'
+          description: Id of the device this app belongs to
+          format: int64
+        accessedAt:
+          type:
+          - string
+          - 'null'
+          description: Datetime
+          format: date-time
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          description: The time when the app was deleted. Null otherwise.
+          format: date-time
+      description: App model (no description)
+      example:
+        id: 1
+        employeeObjectId: 123456
+        name: Ons Toegangscode
+        userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
+        deviceId: 129
+        accessedAt: '2018-03-29T00:00:00.000+02:00'
+        deletedAt: '2018-08-20T01:00:00.000+02:00'
+      xml:
+        name: app
+    milo.list.DeviceList:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/milo.Device'
+          xml:
+            name: device
+      description: DeviceList model (no description)
+      example:
+        devices:
+        - id: 129
+          employeeObjectId: 123456
+          description: Galaxy Nexus
+          accessedAt: '2014-06-02T17:12:00.000+02:00'
+          userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
+          supportsOneTimePassword: true
+          apps:
+          - id: 1
+            employeeObjectId: 123456
+            name: Ons Toegangscode
+            userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
+            deviceId: 129
+            accessedAt: '2018-03-29T00:00:00.000+02:00'
+            deletedAt: '2018-08-20T01:00:00.000+02:00'
+          deletedAt: '2018-08-20T01:00:00.000+02:00'
+      xml:
+        name: devices
+    milo.PasswordVerification:
+      type: object
+      properties:
+        valid:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean if passwordVerification is valid
+      description: PasswordVerification model (no description)
+      example:
+        valid: true
     milo.Device:
       type: object
       properties:
@@ -441,103 +538,6 @@ components:
         deletedAt: '2018-08-20T01:00:00.000+02:00'
       xml:
         name: device
-    milo.list.DeviceList:
-      type: object
-      properties:
-        devices:
-          type: array
-          items:
-            $ref: '#/components/schemas/milo.Device'
-          xml:
-            name: device
-      description: DeviceList model (no description)
-      example:
-        devices:
-        - id: 129
-          employeeObjectId: 123456
-          description: Galaxy Nexus
-          accessedAt: '2014-06-02T17:12:00.000+02:00'
-          userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
-          supportsOneTimePassword: true
-          apps:
-          - id: 1
-            employeeObjectId: 123456
-            name: Ons Toegangscode
-            userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
-            deviceId: 129
-            accessedAt: '2018-03-29T00:00:00.000+02:00'
-            deletedAt: '2018-08-20T01:00:00.000+02:00'
-          deletedAt: '2018-08-20T01:00:00.000+02:00'
-      xml:
-        name: devices
-    milo.PasswordVerification:
-      type: object
-      properties:
-        valid:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean if passwordVerification is valid
-      description: PasswordVerification model (no description)
-      example:
-        valid: true
-    milo.App:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          description: Id of the App
-          format: int64
-          x-cupido-id: true
-        employeeObjectId:
-          type:
-          - integer
-          - 'null'
-          description: Id of the employee this app belongs to
-          format: int64
-          deprecated: true
-          x-deprecated-since: 20-11-2023
-        name:
-          type:
-          - string
-          - 'null'
-          description: Description of the app (mostly the name)
-        userAgent:
-          type:
-          - string
-          - 'null'
-          description: String with version of user_agent on this device
-        deviceId:
-          type:
-          - integer
-          - 'null'
-          description: Id of the device this app belongs to
-          format: int64
-        accessedAt:
-          type:
-          - string
-          - 'null'
-          description: Datetime
-          format: date-time
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          description: The time when the app was deleted. Null otherwise.
-          format: date-time
-      description: App model (no description)
-      example:
-        id: 1
-        employeeObjectId: 123456
-        name: Ons Toegangscode
-        userAgent: Milo/2.2.1 Android/18 (4.3; 776638; samsung; Galaxy Nexus)
-        deviceId: 129
-        accessedAt: '2018-03-29T00:00:00.000+02:00'
-        deletedAt: '2018-08-20T01:00:00.000+02:00'
-      xml:
-        name: app
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

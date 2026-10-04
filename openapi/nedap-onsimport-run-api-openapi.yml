@@ -720,6 +720,52 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    onsimport.RunReport:
+      type: object
+      properties:
+        reportId:
+          type: string
+          description: Unique id for requesting the generated report.
+        report:
+          type: string
+          description: An Excel report for the run.
+          format: binary
+      description: Contains an Excel report for a run.
+      example:
+        reportId: reportid
+        report: QWxsIGhvcGUgaXMgbG9zdA==
+    onsimport.RecordsXmlRequest:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        xml:
+          type: string
+          description: 'XML as specified by the Ons Import XSD, optionally
+
+            Base64 encoded.'
+      description: 'Contains records to be added to a run in Ons Import,
+
+        formatted as XML as specified by the Ons Import XSD.'
+      example:
+        runId: runwithme
+        xml: <import></import>
+      xml:
+        name: recordsXmlRequest
+    onsimport.UploadResponse:
+      type: object
+      properties:
+        uploadId:
+          type: string
+          description: Unique id for requesting status info about the upload.
+      description: 'Contains a unique id by which information about an
+
+        upload can be retrieved.'
+      example:
+        uploadId: uploadid
+      xml:
+        name: uploadResponse
     onsimport.list.UploadInfoList:
       type: object
       properties:
@@ -735,6 +781,27 @@ components:
           uploadId: uploadid
           fileName: records.xml
           createdAt: '2026-04-07T10:57:00.000+02:00'
+    onsimport.list.RunList:
+      type: object
+      properties:
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/onsimport.Run'
+          xml:
+            name: run
+      description: RunList model (no description)
+      example:
+        runs:
+        - updatedAt: '2020-03-25T00:00:00.000+01:00'
+          createdAt: '2020-03-25T00:00:00.000+01:00'
+          createdBy: htaylor
+          id: runwithme
+          name: Run With Me
+          autoProcess: true
+          quickMatch: true
+      xml:
+        name: runs
     onsimport.Run:
       required:
       - name
@@ -780,127 +847,6 @@ components:
         quickMatch: true
       xml:
         name: run
-    onsimport.RecordsXmlRequest:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Object identifier of the run, usually in the form of a UUID.
-        xml:
-          type: string
-          description: 'XML as specified by the Ons Import XSD, optionally
-
-            Base64 encoded.'
-      description: 'Contains records to be added to a run in Ons Import,
-
-        formatted as XML as specified by the Ons Import XSD.'
-      example:
-        runId: runwithme
-        xml: <import></import>
-      xml:
-        name: recordsXmlRequest
-    onsimport.BinaryFileRequest:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Object identifier of the run, usually in the form of a UUID.
-        fileName:
-          type: string
-          description: File name of the binary file, optionally including a path.
-        content:
-          type: string
-          description: Content of the binary file.
-          format: binary
-      description: Contains a binary file to be added to a run in Ons Import.
-      example:
-        runId: runwithme
-        fileName: runwithme.pdf
-        content: JVBERi1jb250ZW50JSVFT0Y=
-      xml:
-        name: binaryFileRequest
-    onsimport.UploadInfo:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Object identifier of the run, usually in the form of a UUID.
-        runName:
-          type:
-          - string
-          - 'null'
-          description: Display name of the run. Empty when the run has been deleted.
-        uploadId:
-          type: string
-          description: Unique id for requesting status information about the upload.
-        fileName:
-          type: string
-          description: Original file name of the uploaded file.
-        createdAt:
-          type: string
-          description: Timestamp at which the file was uploaded.
-          format: date-time
-      description: Metadata about an uploaded file in Ons Import.
-      example:
-        runId: runwithme
-        runName: Run With Me
-        uploadId: uploadid
-        fileName: records.xml
-        createdAt: '2026-04-07T10:57:00.000+02:00'
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-    onsimport.RunStatus:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Object identifier of the run, usually in the form of a UUID.
-        processing:
-          type: boolean
-          description: Indicates records are still being processed.
-        statuses:
-          type: object
-          description: 'Map of record status to number of records having that status.
-
-            Also contains an entry ALL with the total number of records.'
-        fileValidations:
-          type: array
-          items:
-            type: string
-          description: 'List of validation messages resulting from uploading XML.
-
-            These typically concern invalid XML or XSD violations.'
-      description: Contains status information about a run in Ons Import.
-      example:
-        runId: runwithme
-        processing: false
-        statuses:
-          all: '1'
-          success: '1'
-        fileValidations:
-        - failtorun
     onsimport.list.ValidationList:
       type: object
       properties:
@@ -933,6 +879,108 @@ components:
           recordStatus: INVALID
           domain: Run
           importId: '001'
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    onsimport.BinaryFileRequest:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        fileName:
+          type: string
+          description: File name of the binary file, optionally including a path.
+        content:
+          type: string
+          description: Content of the binary file.
+          format: binary
+      description: Contains a binary file to be added to a run in Ons Import.
+      example:
+        runId: runwithme
+        fileName: runwithme.pdf
+        content: JVBERi1jb250ZW50JSVFT0Y=
+      xml:
+        name: binaryFileRequest
+    onsimport.RunStatus:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        processing:
+          type: boolean
+          description: Indicates records are still being processed.
+        statuses:
+          type: object
+          description: 'Map of record status to number of records having that status.
+
+            Also contains an entry ALL with the total number of records.'
+        fileValidations:
+          type: array
+          items:
+            type: string
+          description: 'List of validation messages resulting from uploading XML.
+
+            These typically concern invalid XML or XSD violations.'
+      description: Contains status information about a run in Ons Import.
+      example:
+        runId: runwithme
+        processing: false
+        statuses:
+          all: '1'
+          success: '1'
+        fileValidations:
+        - failtorun
+    onsimport.UploadInfo:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Object identifier of the run, usually in the form of a UUID.
+        runName:
+          type:
+          - string
+          - 'null'
+          description: Display name of the run. Empty when the run has been deleted.
+        uploadId:
+          type: string
+          description: Unique id for requesting status information about the upload.
+        fileName:
+          type: string
+          description: Original file name of the uploaded file.
+        createdAt:
+          type: string
+          description: Timestamp at which the file was uploaded.
+          format: date-time
+      description: Metadata about an uploaded file in Ons Import.
+      example:
+        runId: runwithme
+        runName: Run With Me
+        uploadId: uploadid
+        fileName: records.xml
+        createdAt: '2026-04-07T10:57:00.000+02:00'
     onsimport.Validation:
       type: object
       allOf:
@@ -982,54 +1030,6 @@ components:
         recordStatus: INVALID
         domain: Run
         importId: '001'
-    onsimport.RunReport:
-      type: object
-      properties:
-        reportId:
-          type: string
-          description: Unique id for requesting the generated report.
-        report:
-          type: string
-          description: An Excel report for the run.
-          format: binary
-      description: Contains an Excel report for a run.
-      example:
-        reportId: reportid
-        report: QWxsIGhvcGUgaXMgbG9zdA==
-    onsimport.UploadResponse:
-      type: object
-      properties:
-        uploadId:
-          type: string
-          description: Unique id for requesting status info about the upload.
-      description: 'Contains a unique id by which information about an
-
-        upload can be retrieved.'
-      example:
-        uploadId: uploadid
-      xml:
-        name: uploadResponse
-    onsimport.list.RunList:
-      type: object
-      properties:
-        runs:
-          type: array
-          items:
-            $ref: '#/components/schemas/onsimport.Run'
-          xml:
-            name: run
-      description: RunList model (no description)
-      example:
-        runs:
-        - updatedAt: '2020-03-25T00:00:00.000+01:00'
-          createdAt: '2020-03-25T00:00:00.000+01:00'
-          createdBy: htaylor
-          id: runwithme
-          name: Run With Me
-          autoProcess: true
-          quickMatch: true
-      xml:
-        name: runs
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

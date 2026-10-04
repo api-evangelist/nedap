@@ -79,6 +79,14 @@ components:
           state: DISABLED
         - key: SHIFT_TRANSFERS
           state: UNAVAILABLE
+    moves.NavigationAvailabilityState:
+      enum:
+      - AVAILABLE
+      - DISABLED
+      - UNAVAILABLE
+      type: string
+      description: State of the navigation availability
+      example: AVAILABLE
     moves.NavigationAvailabilityKey:
       enum:
       - PLANNING
@@ -90,14 +98,6 @@ components:
       type: string
       description: item for navigation availability request
       example: PLANNING
-    moves.NavigationAvailabilityState:
-      enum:
-      - AVAILABLE
-      - DISABLED
-      - UNAVAILABLE
-      type: string
-      description: State of the navigation availability
-      example: AVAILABLE
     moves.NavigationAvailability:
       required:
       - key

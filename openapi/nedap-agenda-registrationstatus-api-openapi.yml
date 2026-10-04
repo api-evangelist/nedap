@@ -115,38 +115,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    agenda.RegistrationStatusType:
-      type: string
-      oneOf:
-      - title: EMPLOYEE
-        enum:
-        - employee
-      - title: CLIENT
-        enum:
-        - client
-      - title: TEAM
-        enum:
-        - team
-      - title: LOCATION
-        enum:
-        - location
-      description: RegistrationStatusType model (no description)
-      example: employee
-    agenda.list.RegistrationStatusList:
-      title: RegistrationStatusList
-      type: object
-      properties:
-        registrationStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/agenda.RegistrationStatus'
-      description: RegistrationStatusList model (no description)
-      example:
-        registrationStatuses:
-        - undeclared: 1
-          failed: 1
-          type: employee
-          typeId: 1
     agenda.RegistrationStatus:
       title: RegistrationStatus
       type: object
@@ -186,6 +154,38 @@ components:
         failed: 1
         type: employee
         typeId: 1
+    agenda.list.RegistrationStatusList:
+      title: RegistrationStatusList
+      type: object
+      properties:
+        registrationStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.RegistrationStatus'
+      description: RegistrationStatusList model (no description)
+      example:
+        registrationStatuses:
+        - undeclared: 1
+          failed: 1
+          type: employee
+          typeId: 1
+    agenda.RegistrationStatusType:
+      type: string
+      oneOf:
+      - title: EMPLOYEE
+        enum:
+        - employee
+      - title: CLIENT
+        enum:
+        - client
+      - title: TEAM
+        enum:
+        - team
+      - title: LOCATION
+        enum:
+        - location
+      description: RegistrationStatusType model (no description)
+      example: employee
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

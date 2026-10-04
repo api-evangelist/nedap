@@ -67,6 +67,21 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.omaha.InterventionTarget:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit actievlak
+      description: 'Omaha Actievlak '
+      example:
+        classificationId: Dummy
+        name: Dummy
+      xml:
+        name: omahaInterventionTarget
     dossier.omaha.list.InterventionTargetList:
       type: object
       properties:
@@ -85,21 +100,6 @@ components:
           name: Anatomie/fysiologie
       xml:
         name: omahaInterventionTargets
-    dossier.omaha.InterventionTarget:
-      type: object
-      properties:
-        classificationId:
-          type: string
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit actievlak
-      description: 'Omaha Actievlak '
-      example:
-        classificationId: Dummy
-        name: Dummy
-      xml:
-        name: omahaInterventionTarget
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

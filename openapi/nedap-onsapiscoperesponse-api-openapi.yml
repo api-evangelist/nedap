@@ -67,6 +67,14 @@ paths:
                   $ref: '#/components/examples/SomeClientsInScopeExample'
 components:
   examples:
+    AllClientsInScopeExample:
+      description: All clients are in scope. The value of 'clientIds' will be an empty list, and the value of 'all' will be true.
+      value:
+        userUuid: string
+        employeeId: 123
+        date: '2024-01-01T00:00:00.000+01:00'
+        clientIds: []
+        all: true
     SomeClientsInScopeExample:
       description: Only some clients are in scope. The value of 'clientIds' will contain a list of all clients that are in scope, and the value of 'all' will be false.
       value:
@@ -78,14 +86,6 @@ components:
         - 2
         - 3
         all: false
-    AllClientsInScopeExample:
-      description: All clients are in scope. The value of 'clientIds' will be an empty list, and the value of 'all' will be true.
-      value:
-        userUuid: string
-        employeeId: 123
-        date: '2024-01-01T00:00:00.000+01:00'
-        clientIds: []
-        all: true
   schemas:
     OnsApiScopeResponse:
       type: object

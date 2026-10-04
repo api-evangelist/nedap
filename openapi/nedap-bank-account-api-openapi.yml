@@ -191,40 +191,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.BankAccountList:
-      type: object
-      properties:
-        bankAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BankAccount'
-          xml:
-            name: bankAccount
-      description: BankAccountList model (no description)
-      example:
-        bankAccounts:
-        - id: 1
-          number: NL27TRIO0207182531
-          nameOfOwner: Pietje puk
-          cityOfOwner: Lutjebroek
-          iban: Dummy
-          bic: Dummy
-          creditBankAccount: false
-          authorizationDate: '2016-01-01'
-          createdAt: '2016-01-01T12:00:00.000+01:00'
-          updatedAt: '2016-01-01T12:00:00.000+01:00'
-        - id: 2
-          number: NL27TRIO0207182532
-          nameOfOwner: Pietje pok
-          cityOfOwner: Lutjebroek
-          iban: Dummy
-          bic: Dummy
-          creditBankAccount: false
-          authorizationDate: '2016-01-01'
-          createdAt: '2016-01-01T12:00:00.000+01:00'
-          updatedAt: '2016-01-01T12:00:00.000+01:00'
-      xml:
-        name: bankAccounts
     BankAccount:
       type: object
       properties:
@@ -267,6 +233,40 @@ components:
         updatedAt: '2016-01-01T12:00:00.000+01:00'
       xml:
         name: bankAccount
+    list.BankAccountList:
+      type: object
+      properties:
+        bankAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankAccount'
+          xml:
+            name: bankAccount
+      description: BankAccountList model (no description)
+      example:
+        bankAccounts:
+        - id: 1
+          number: NL27TRIO0207182531
+          nameOfOwner: Pietje puk
+          cityOfOwner: Lutjebroek
+          iban: Dummy
+          bic: Dummy
+          creditBankAccount: false
+          authorizationDate: '2016-01-01'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+        - id: 2
+          number: NL27TRIO0207182532
+          nameOfOwner: Pietje pok
+          cityOfOwner: Lutjebroek
+          iban: Dummy
+          bic: Dummy
+          creditBankAccount: false
+          authorizationDate: '2016-01-01'
+          createdAt: '2016-01-01T12:00:00.000+01:00'
+          updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccounts
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

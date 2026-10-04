@@ -205,6 +205,44 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    caretech.OrderStatusUpdate:
+      required:
+      - accepted
+      type: object
+      properties:
+        accepted:
+          type: boolean
+        deviceIdentificationNumber:
+          maxLength: 50
+          minLength: 0
+          type: string
+        orderNumber:
+          maxLength: 50
+          minLength: 0
+          type: string
+        supplierNote:
+          maxLength: 140
+          minLength: 0
+          type: string
+        trackingUrl:
+          maxLength: 255
+          minLength: 0
+          type: string
+      description: Object for updating a set of fields related to a caretech Order
+      example:
+        accepted: true
+        deviceIdentificationNumber: DEV0123456
+        orderNumber: ORD-0123456
+        supplierNote: The device will be delivered by PostNL (see tracking url)
+        trackingUrl: www.postnl.nl/some-tracking-url/ORD-0123456
+    caretech.AddressType:
+      enum:
+      - CLIENT_HOME
+      - CLIENT_CARE_ALLOCATION
+      - MANUAL
+      type: string
+      description: The delivery address type, can be CLIENT_HOME, CLIENT_CARE_ALLOCATION, MANUAL
+      example: CLIENT_HOME
     caretech.Requester:
       required:
       - emailAddress
@@ -237,70 +275,6 @@ components:
         phoneNumber: 0612345678
         teamName: Groenlo Oost
         teamObjectId: 1
-    caretech.OrderStatusUpdate:
-      required:
-      - accepted
-      type: object
-      properties:
-        accepted:
-          type: boolean
-        deviceIdentificationNumber:
-          maxLength: 50
-          minLength: 0
-          type: string
-        orderNumber:
-          maxLength: 50
-          minLength: 0
-          type: string
-        supplierNote:
-          maxLength: 140
-          minLength: 0
-          type: string
-        trackingUrl:
-          maxLength: 255
-          minLength: 0
-          type: string
-      description: Object for updating a set of fields related to a caretech Order
-      example:
-        accepted: true
-        deviceIdentificationNumber: DEV0123456
-        orderNumber: ORD-0123456
-        supplierNote: The device will be delivered by PostNL (see tracking url)
-        trackingUrl: www.postnl.nl/some-tracking-url/ORD-0123456
-    caretech.list.OrderList:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/caretech.Order'
-      description: OrderList model (no description)
-      example:
-        orders:
-        - id: 1
-          uuid: 46ff9856-a645-4764-be01-9c64668bf93b
-          createdAt: '2025-01-01T12:00:00.000+01:00'
-          updatedAt: '2025-01-01T12:00:00.000+01:00'
-          productId: 1
-          removed: false
-          clientName: Dhr. P. Atient
-          clientObjectId: 1
-          deliveryAddress:
-            city: Groenlo
-            country: NL
-            homeNumber: 3
-            note: graag afleveren bij de buren op nr. 5
-            street: Industrieweg
-            type: CLIENT_HOME
-            zipcode: 7141DD
-          requester:
-            emailAddress: teamoost@groenlozorg.nl
-            employeeObjectId: 1
-            name: M. Edewerker
-            phoneNumber: 0612345678
-            teamName: Groenlo Oost
-            teamObjectId: 1
-          status: ACCEPTED
     caretech.OrderStatus:
       enum:
       - OPEN
@@ -310,14 +284,6 @@ components:
       type: string
       description: The status of an order, can be OPEN, DECLINED, ACCEPTED or COMPLETED
       example: OPEN
-    caretech.AddressType:
-      enum:
-      - CLIENT_HOME
-      - CLIENT_CARE_ALLOCATION
-      - MANUAL
-      type: string
-      description: The delivery address type, can be CLIENT_HOME, CLIENT_CARE_ALLOCATION, MANUAL
-      example: CLIENT_HOME
     caretech.Order:
       required:
       - clientName
@@ -455,6 +421,40 @@ components:
         street: Industrieweg
         type: CLIENT_HOME
         zipcode: 7141DD
+    caretech.list.OrderList:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/caretech.Order'
+      description: OrderList model (no description)
+      example:
+        orders:
+        - id: 1
+          uuid: 46ff9856-a645-4764-be01-9c64668bf93b
+          createdAt: '2025-01-01T12:00:00.000+01:00'
+          updatedAt: '2025-01-01T12:00:00.000+01:00'
+          productId: 1
+          removed: false
+          clientName: Dhr. P. Atient
+          clientObjectId: 1
+          deliveryAddress:
+            city: Groenlo
+            country: NL
+            homeNumber: 3
+            note: graag afleveren bij de buren op nr. 5
+            street: Industrieweg
+            type: CLIENT_HOME
+            zipcode: 7141DD
+          requester:
+            emailAddress: teamoost@groenlozorg.nl
+            employeeObjectId: 1
+            name: M. Edewerker
+            phoneNumber: 0612345678
+            teamName: Groenlo Oost
+            teamObjectId: 1
+          status: ACCEPTED
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

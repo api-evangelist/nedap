@@ -97,19 +97,15 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ons_administration.EmployeeWorkdayNormSettingsModel:
+    ons_administration.EmployeeExpertiseModel:
       required:
       - beginDate
       type: object
       properties:
         beginDate:
           type: string
-          description: The begin date of the period during which this setting is valid
+          description: Begin date and time of the expertise profile assignment
           format: date
-        claDefault:
-          type: boolean
-          description: If true, these settings are the default from the collective labour agreement. When set during an UPSERT, this setting will be ignored
-          readOnly: true
         employeeNumber:
           type: string
           description: User defined identifier for the employee, must be unique in combination with the employment number
@@ -122,33 +118,27 @@ components:
           description: Employment number for the employee, must be unique in combination with the employee number
         endDate:
           type: string
-          description: The end date of the period during which this setting is valid
+          description: End date and time of the expertise profile assignment
           format: date
-        normPeriod:
+        expertiseProfileCode:
+          type: string
+          description: User defined identifier for the expertise profile (also known as importCode). Either the expertiseProfileObjectId or expertiseProfileCode must be provided
+        expertiseProfileObjectId:
           type: integer
-          description: The measurement period in weeks to evaluate if the workday norm is exceeded. Required when optOut is false
-          format: int32
+          description: Unique identifier for the expertise profile used within the Ons suite as primary key. Either the expertiseProfileObjectId or expertiseProfileCode must be provided
+          format: int64
         id:
           type: integer
-          description: Unique identifier for the workday norm settings used within the Ons suite as primary key
+          description: Unique identifier for the expertise profile assignment used within the Ons suite as primary key
           format: int64
-        optOut:
-          type: boolean
-          description: If true, the employee is opted out of the workday norm
-        workdayNorm:
-          type: integer
-          description: The total number of workdays the employee has to work in the measurement period. Required when optOut is false
-          format: int32
-      description: 'Workday norm settings model. This model can be used on its own or as part of an extended employee model.
-
-        This model describes the maximum workdays a given employee has to work in total during a given measurement period.
+      description: 'Expertise profile assignment model for an employee. This model can be used on its own or as part of an extended employee model.
 
         When used on its own, either an employeeObjectId or employeeNumber must be provided. Note that the employeeNumber
 
         is not necessarily unique on its own, but might require an employmentNumber for uniqueness.
 
 
-        Multiple workday norms can be associated with an employee, but they cannot overlap in time.
+        Multiple expertise profiles can be associated with an employee, but they cannot overlap in time.
 
         '
       example:
@@ -156,11 +146,143 @@ components:
         employeeObjectId: 6789
         employeeNumber: '100042'
         employmentNumber: '1'
-        beginDate: '2025-12-29'
-        endDate: '2026-12-27'
-        workdayNorm: 20
-        normPeriod: 4
-        optOut: false
+        expertiseProfileObjectId: 1011
+        expertiseProfileCode: Verpleegkundige
+        beginDate: '2024-01-01'
+        endDate: '2024-12-31'
+    ons_administration.EmployeeHourlyWageModel:
+      required:
+      - beginDate
+      type: object
+      properties:
+        beginDate:
+          type: string
+          description: Begin date of the hourly wage
+          format: date
+        employeeNumber:
+          type: string
+          description: User defined identifier for the employee, must be unique in combination with the employment number
+        employeeObjectId:
+          type: integer
+          description: Unique identifier for the employee used within the Ons suite as primary key
+          format: int64
+        employmentNumber:
+          type: string
+          description: Employment number for the employee, must be unique in combination with the employee number
+        endDate:
+          type: string
+          description: End date of the hourly wage
+          format: date
+        id:
+          type: integer
+          description: Unique identifier for the hourly wage used within the Ons suite as primary key
+          format: int64
+        wageInCents:
+          minimum: 0
+          type: integer
+          description: The hourly wage in cents
+          format: int32
+      description: 'Hourly wage model for an employee. This model can be used on its own or as part of an extended employee model.
+
+        When used on its own, either an employeeObjectId or employeeNumber must be provided. Note that the employeeNumber
+
+        is not necessarily unique on its own, but might require an employmentNumber for uniqueness.
+
+
+        Multiple hourly wages can be associated with an employee, but they cannot overlap in time.
+
+        '
+      example:
+        id: 12345
+        employeeObjectId: 6789
+        employeeNumber: '100042'
+        employmentNumber: '1'
+        wageInCents: 1500
+        beginDate: '2024-01-01'
+        endDate: '2024-12-31'
+    payroll.ClaSettingsOptions:
+      enum:
+      - SLEEPSHIFT_COMPENSATE_IN_TIME
+      - ON_CALL_COMPENSATE_IN_TIME
+      - STANDBY_COMPENSATE_IN_TIME
+      - ON_CALL_PHONE_COMPENSATE_IN_TIME
+      - SUNDAY_WORKER
+      - CALCULATE_TRAVELTIME
+      - CALL_DURING_ON_CALL_COMPENSATE_IN_TIME
+      - CALL_DURING_ON_CALL_PHONE_COMPENSATE_IN_TIME
+      - IRREGULAR_SHIFTS
+      - ORT_COMPENSATE_IN_TIME
+      - OVERTIME_COMPENSATE_IN_TIME
+      - SLEEPSHIFT_CLAUSE
+      - CONSIGNMENT_COMPENSATE_IN_TIME
+      type: string
+      description: 'Enum defining the supported configuration options that can be applied to collective agreement assignments.
+
+
+        SLEEPSHIFT_COMPENSATE_IN_TIME:
+
+        Determines whether sleepshift compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        ON_CALL_COMPENSATE_IN_TIME:
+
+        Determines whether on call shift compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        STANDBY_COMPENSATE_IN_TIME:
+
+        Determines whether standby shift compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        ON_CALL_PHONE_COMPENSATE_IN_TIME:
+
+        Determines whether on call phone shift compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        SUNDAY_WORKER:
+
+        Indicates whether the employee qualifies as a structural Sunday-only weekend worker and should receive the applicable additional Sunday compensation.
+
+
+        CALCULATE_TRAVELTIME:
+
+        Determines whether travel time should be calculated between consecutive registrations.
+
+
+        CALL_DURING_ON_CALL_COMPENSATE_IN_TIME:
+
+        Determines whether call during on call compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        CALL_DURING_ON_CALL_PHONE_COMPENSATE_IN_TIME:
+
+        Determines whether call during on call phone compensation is granted in time (true) instead of monetary compensation (false).
+
+
+        IRREGULAR_SHIFTS:
+
+        Indicates whether the employee works irregular shifts.
+
+
+        ORT_COMPENSATE_IN_TIME:
+
+        Determines whether ORT compensation is granted in time (true) instead of the default monetary compensation (false).
+
+
+        OVERTIME_COMPENSATE_IN_TIME:
+
+        Determines whether overtime compensation is granted in time (true) instead of the default monetary compensation (false).
+
+
+        SLEEPSHIFT_CLAUSE:
+
+        Indicates whether the employee wants to make use of the previous sleep shift compensation clause.
+
+
+        CONSIGNMENT_COMPENSATE_IN_TIME:
+
+        Determines whether consignment compensation is granted in time (true) or monetary (false).'
+      example: SLEEPSHIFT_COMPENSATE_IN_TIME
     ons_administration.EmployeeTeamModel:
       required:
       - beginDate
@@ -214,95 +336,51 @@ components:
         teamId: TEAM-A
         beginDate: '2024-01-01'
         endDate: '2024-12-31'
-    ons_administration.EmployeeHourlyWageModel:
-      required:
-      - beginDate
-      type: object
-      properties:
-        beginDate:
-          type: string
-          description: Begin date of the hourly wage
-          format: date
-        employeeNumber:
-          type: string
-          description: User defined identifier for the employee, must be unique in combination with the employment number
-        employeeObjectId:
-          type: integer
-          description: Unique identifier for the employee used within the Ons suite as primary key
-          format: int64
-        employmentNumber:
-          type: string
-          description: Employment number for the employee, must be unique in combination with the employee number
-        endDate:
-          type: string
-          description: End date of the hourly wage
-          format: date
-        id:
-          type: integer
-          description: Unique identifier for the hourly wage used within the Ons suite as primary key
-          format: int64
-        wageInCents:
-          minimum: 0
-          type: integer
-          description: The hourly wage in cents
-          format: int32
-      description: 'Hourly wage model for an employee. This model can be used on its own or as part of an extended employee model.
-
-        When used on its own, either an employeeObjectId or employeeNumber must be provided. Note that the employeeNumber
-
-        is not necessarily unique on its own, but might require an employmentNumber for uniqueness.
-
-
-        Multiple hourly wages can be associated with an employee, but they cannot overlap in time.
-
-        '
-      example:
-        id: 12345
-        employeeObjectId: 6789
-        employeeNumber: '100042'
-        employmentNumber: '1'
-        wageInCents: 1500
-        beginDate: '2024-01-01'
-        endDate: '2024-12-31'
-    ProblemResponseReason:
-      required:
-      - code
-      - pointer
-      type: object
-      properties:
-        code:
-          type: string
-          description: 'Code identifying the error. ValidationType.java in ioserver defines the following, it is suggested to try and reuse these when possible: DUPLICATE_KEY, MISSING_FIELD, INVALID_FORMAT, INVALID_STATE, NOT_FOUND, TIME_CONFLICT'
-        detail:
-          type: string
-          description: A human-readable explanation specific to this reason.
-        pointer:
-          type: string
-          description: A JSON pointer to locate the problem within the request's content using a JSON Pointer
-          example: '#/profile/color'
-      description: Reasons for a problem response, lists attributes of the main or nested object sent
-      example:
-        code: MISSING_FIELD
-        detail: Name can't be blank
-        pointer: '#/name'
-    ons_administration.Gender:
+    ons_administration.CollectiveAgreementType:
       enum:
-      - M
-      - F
-      - X
-      - U
+      - VVT
+      - GHZ
+      - GGZ
+      - SW
+      - ZH
+      - HA
+      - JZ
       type: string
-      description: "Gender of the person:\n - M: Male\n - F: Female\n - X: Other\n - U: Unknown\n"
-      example: M
-    ons_administration.EmployeeRegistrationProfileModel:
+      description: 'Type of collective labour agreement:
+
+        - VVT: Verpleeg-, Verzorgingshuizen, Thuiszorg en Jeugdgezondheidszorg
+
+        - GHZ: Gehandicaptenzorg
+
+        - GGZ: Geestelijke gezondheidszorg
+
+        - SW: Sociaal Werk, Welzijn & Maatschappelijke Dienstverlening
+
+        - ZH: Ziekenhuizen
+
+        - HA: Huisartsenzorg
+
+        - JZ: Jeugdzorg
+
+        '
+      example: VVT
+    ons_administration.EmployeeAddressModel:
       required:
       - beginDate
       type: object
       properties:
         beginDate:
           type: string
-          description: Start date of the registration profile assignment
+          description: Begin date of the address
           format: date
+        city:
+          maxLength: 30
+          type: string
+          description: The city of the employee's address
+        country:
+          maxLength: 2
+          type: string
+          description: The country of the employee's address, ISO 3166-1 alpha-2
         employeeNumber:
           type: string
           description: User defined identifier for the employee, must be unique in combination with the employment number
@@ -315,33 +393,40 @@ components:
           description: Employment number for the employee, must be unique in combination with the employee number
         endDate:
           type: string
-          description: End date of the registration profile assignment
+          description: End date of the address
           format: date
+        homeNumber:
+          maxLength: 6
+          type: string
+          description: The home number of the employee's address
+        homeNumberExtension:
+          maxLength: 6
+          type: string
+          description: Optional extension of the home number of the employee's address
+        municipality:
+          maxLength: 50
+          type: string
+          description: The municipality of the employee's address
         id:
           type: integer
-          description: Unique identifier for the expertise profile assignment used within the Ons suite as primary key
+          description: Unique identifier for the address used within the Ons suite as primary key
           format: int64
-        registrationProfileName:
+        poBoxNumber:
+          maxLength: 10
           type: string
-          description: User defined identifier for the registration profile. Either the registrationProfileObjectId or registrationProfileName must be provided
-        registrationProfileObjectId:
-          type: integer
-          description: Unique identifier for the registration profile used within the Ons suite as primary key. Either the registrationProfileObjectId or registrationProfileName must be provided
-          format: int64
-      description: 'Registration profile assignment model for an employee. This model can be used on its own or as part of an extended employee model.
+          description: The optional PO-box number of the employee's address
+        street:
+          maxLength: 50
+          type: string
+          description: The street of the employee's address
+        zipcode:
+          type: string
+          description: The zipcode of the employee's address. Maximum length of 6 characters for addresses with country NL
+      description: 'Address model for an employee. This model can be used on its own or as part of an extended employee model.
 
         When used on its own, either an employeeObjectId or employeeNumber must be provided. Note that the employeeNumber
 
         is not necessarily unique on its own, but might require an employmentNumber for uniqueness.
-
-
-        **IMPORTANT!**
-
-        Currently, the registration profile assignment is not time dependent within the Ons suite. This model has been added for when
-
-        this might change in the future. When providing this model, the specified profile will be assigned to the employee if the assignment
-
-        is valid on the day of submitting the model, based on the provided begin and end dates.
 
         '
       example:
@@ -349,8 +434,12 @@ components:
         employeeObjectId: 6789
         employeeNumber: '100042'
         employmentNumber: '1'
-        registrationProfileObjectId: 16
-        registrationProfileName: Verpleegkunde
+        street: Main Street
+        homeNumber: '10'
+        homeNumberExtension: A
+        zipcode: 1234 AB
+        city: Amsterdam
+        country: NL
         beginDate: '2024-01-01'
         endDate: '2024-12-31'
     ons_administration.EmployeeContractModel:
@@ -441,6 +530,86 @@ components:
         collectiveAgreementAssignmentId: 1
         key: SLEEPSHIFT_COMPENSATE_IN_TIME
         value: 'true'
+    ProblemResponseReason:
+      required:
+      - code
+      - pointer
+      type: object
+      properties:
+        code:
+          type: string
+          description: 'Code identifying the error. ValidationType.java in ioserver defines the following, it is suggested to try and reuse these when possible: DUPLICATE_KEY, MISSING_FIELD, INVALID_FORMAT, INVALID_STATE, NOT_FOUND, TIME_CONFLICT'
+        detail:
+          type: string
+          description: A human-readable explanation specific to this reason.
+        pointer:
+          type: string
+          description: A JSON pointer to locate the problem within the request's content using a JSON Pointer
+          example: '#/profile/color'
+      description: Reasons for a problem response, lists attributes of the main or nested object sent
+      example:
+        code: MISSING_FIELD
+        detail: Name can't be blank
+        pointer: '#/name'
+    ons_administration.EmployeeRegistrationProfileModel:
+      required:
+      - beginDate
+      type: object
+      properties:
+        beginDate:
+          type: string
+          description: Start date of the registration profile assignment
+          format: date
+        employeeNumber:
+          type: string
+          description: User defined identifier for the employee, must be unique in combination with the employment number
+        employeeObjectId:
+          type: integer
+          description: Unique identifier for the employee used within the Ons suite as primary key
+          format: int64
+        employmentNumber:
+          type: string
+          description: Employment number for the employee, must be unique in combination with the employee number
+        endDate:
+          type: string
+          description: End date of the registration profile assignment
+          format: date
+        id:
+          type: integer
+          description: Unique identifier for the expertise profile assignment used within the Ons suite as primary key
+          format: int64
+        registrationProfileName:
+          type: string
+          description: User defined identifier for the registration profile. Either the registrationProfileObjectId or registrationProfileName must be provided
+        registrationProfileObjectId:
+          type: integer
+          description: Unique identifier for the registration profile used within the Ons suite as primary key. Either the registrationProfileObjectId or registrationProfileName must be provided
+          format: int64
+      description: 'Registration profile assignment model for an employee. This model can be used on its own or as part of an extended employee model.
+
+        When used on its own, either an employeeObjectId or employeeNumber must be provided. Note that the employeeNumber
+
+        is not necessarily unique on its own, but might require an employmentNumber for uniqueness.
+
+
+        **IMPORTANT!**
+
+        Currently, the registration profile assignment is not time dependent within the Ons suite. This model has been added for when
+
+        this might change in the future. When providing this model, the specified profile will be assigned to the employee if the assignment
+
+        is valid on the day of submitting the model, based on the provided begin and end dates.
+
+        '
+      example:
+        id: 12345
+        employeeObjectId: 6789
+        employeeNumber: '100042'
+        employmentNumber: '1'
+        registrationProfileObjectId: 16
+        registrationProfileName: Verpleegkunde
+        beginDate: '2024-01-01'
+        endDate: '2024-12-31'
     ProblemResponse:
       required:
       - type
@@ -476,126 +645,6 @@ components:
         title: Your request is not valid.
         status: 422
         provider: Nedap Planning
-    payroll.ClaSettingsOptions:
-      enum:
-      - SLEEPSHIFT_COMPENSATE_IN_TIME
-      - ON_CALL_COMPENSATE_IN_TIME
-      - STANDBY_COMPENSATE_IN_TIME
-      - ON_CALL_PHONE_COMPENSATE_IN_TIME
-      - SUNDAY_WORKER
-      - CALCULATE_TRAVELTIME
-      - CALL_DURING_ON_CALL_COMPENSATE_IN_TIME
-      - CALL_DURING_ON_CALL_PHONE_COMPENSATE_IN_TIME
-      - IRREGULAR_SHIFTS
-      - ORT_COMPENSATE_IN_TIME
-      - OVERTIME_COMPENSATE_IN_TIME
-      - SLEEPSHIFT_CLAUSE
-      - CONSIGNMENT_COMPENSATE_IN_TIME
-      type: string
-      description: 'Enum defining the supported configuration options that can be applied to collective agreement assignments.
-
-
-        SLEEPSHIFT_COMPENSATE_IN_TIME:
-
-        Determines whether sleepshift compensation is granted in time (true) instead of monetary compensation (false).
-
-
-        ON_CALL_COMPENSATE_IN_TIME:
-
-        Determines whether on call shift compensation is granted in time (true) instead of monetary compensation (false).
-
-
-        STANDBY_COMPENSATE_IN_TIME:
-
-        Determines whether standby shift compensation is granted in time (true) instead of monetary compensation (false).
-
-
-        ON_CALL_PHONE_COMPENSATE_IN_TIME:
-
-        Determines whether on call phone shift compensation is granted in time (true) instead of monetary compensation (false).
-
-
-        SUNDAY_WORKER:
-
-        Indicates whether the employee qualifies as a structural Sunday-only weekend worker and should receive the applicable additional Sunday compensation.
-
-
-        CALCULATE_TRAVELTIME:
-
-        Determines whether travel time should be calculated between consecutive registrations.
-
-
-        CALL_DURING_ON_CALL_COMPENSATE_IN_TIME:
-
-        Determines whether call during on call compensation is granted in time (true) instead of monetary compensation (false).
-
-
-        CALL_DURING_ON_CALL_PHONE_COMPENSATE_IN_TIME:
-
-        Determines whether call during on call phone compensation is granted in time (true) instead of monetary compensation (false).
-
-
-        IRREGULAR_SHIFTS:
-
-        Indicates whether the employee works irregular shifts.
-
-
-        ORT_COMPENSATE_IN_TIME:
-
-        Determines whether ORT compensation is granted in time (true) instead of the default monetary compensation (false).
-
-
-        OVERTIME_COMPENSATE_IN_TIME:
-
-        Determines whether overtime compensation is granted in time (true) instead of the default monetary compensation (false).
-
-
-        SLEEPSHIFT_CLAUSE:
-
-        Indicates whether the employee wants to make use of the previous sleep shift compensation clause.
-
-
-        CONSIGNMENT_COMPENSATE_IN_TIME:
-
-        Determines whether consignment compensation is granted in time (true) or monetary (false).'
-      example: SLEEPSHIFT_COMPENSATE_IN_TIME
-    ons_administration.CollectiveAgreementType:
-      enum:
-      - VVT
-      - GHZ
-      - GGZ
-      - SW
-      - ZH
-      - HA
-      - JZ
-      type: string
-      description: 'Type of collective labour agreement:
-
-        - VVT: Verpleeg-, Verzorgingshuizen, Thuiszorg en Jeugdgezondheidszorg
-
-        - GHZ: Gehandicaptenzorg
-
-        - GGZ: Geestelijke gezondheidszorg
-
-        - SW: Sociaal Werk, Welzijn & Maatschappelijke Dienstverlening
-
-        - ZH: Ziekenhuizen
-
-        - HA: Huisartsenzorg
-
-        - JZ: Jeugdzorg
-
-        '
-      example: VVT
-    ons_administration.NameType:
-      enum:
-      - OWN
-      - PARTNER
-      - OWN_PARTNER
-      - PARTNER_OWN
-      type: string
-      description: Printable format for the name of a person
-      example: OWN
     ons_administration.ExtendedEmployeeModel:
       required:
       - firstName
@@ -756,6 +805,88 @@ components:
         registrationProfiles:
         - registrationProfileName: Profile A
           beginDate: '2024-01-01'
+    ons_administration.EmployeeWorkdayNormSettingsModel:
+      required:
+      - beginDate
+      type: object
+      properties:
+        beginDate:
+          type: string
+          description: The begin date of the period during which this setting is valid
+          format: date
+        claDefault:
+          type: boolean
+          description: If true, these settings are the default from the collective labour agreement. When set during an UPSERT, this setting will be ignored
+          readOnly: true
+        employeeNumber:
+          type: string
+          description: User defined identifier for the employee, must be unique in combination with the employment number
+        employeeObjectId:
+          type: integer
+          description: Unique identifier for the employee used within the Ons suite as primary key
+          format: int64
+        employmentNumber:
+          type: string
+          description: Employment number for the employee, must be unique in combination with the employee number
+        endDate:
+          type: string
+          description: The end date of the period during which this setting is valid
+          format: date
+        normPeriod:
+          type: integer
+          description: The measurement period in weeks to evaluate if the workday norm is exceeded. Required when optOut is false
+          format: int32
+        id:
+          type: integer
+          description: Unique identifier for the workday norm settings used within the Ons suite as primary key
+          format: int64
+        optOut:
+          type: boolean
+          description: If true, the employee is opted out of the workday norm
+        workdayNorm:
+          type: integer
+          description: The total number of workdays the employee has to work in the measurement period. Required when optOut is false
+          format: int32
+      description: 'Workday norm settings model. This model can be used on its own or as part of an extended employee model.
+
+        This model describes the maximum workdays a given employee has to work in total during a given measurement period.
+
+        When used on its own, either an employeeObjectId or employeeNumber must be provided. Note that the employeeNumber
+
+        is not necessarily unique on its own, but might require an employmentNumber for uniqueness.
+
+
+        Multiple workday norms can be associated with an employee, but they cannot overlap in time.
+
+        '
+      example:
+        id: 12345
+        employeeObjectId: 6789
+        employeeNumber: '100042'
+        employmentNumber: '1'
+        beginDate: '2025-12-29'
+        endDate: '2026-12-27'
+        workdayNorm: 20
+        normPeriod: 4
+        optOut: false
+    ons_administration.NameType:
+      enum:
+      - OWN
+      - PARTNER
+      - OWN_PARTNER
+      - PARTNER_OWN
+      type: string
+      description: Printable format for the name of a person
+      example: OWN
+    ons_administration.Gender:
+      enum:
+      - M
+      - F
+      - X
+      - U
+      type: string
+      description: "Gender of the person:\n - M: Male\n - F: Female\n - X: Other\n - U: Unknown\n"
+      example: M
     ons_administration.EmployeeCollectiveAgreementModel:
       required:
       - beginDate
@@ -806,137 +937,6 @@ components:
         employeeNumber: '100042'
         employmentNumber: '1'
         collectiveAgreementType: VVT
-        beginDate: '2024-01-01'
-        endDate: '2024-12-31'
-    ons_administration.EmployeeAddressModel:
-      required:
-      - beginDate
-      type: object
-      properties:
-        beginDate:
-          type: string
-          description: Begin date of the address
-          format: date
-        city:
-          maxLength: 30
-          type: string
-          description: The city of the employee's address
-        country:
-          maxLength: 2
-          type: string
-          description: The country of the employee's address, ISO 3166-1 alpha-2
-        employeeNumber:
-          type: string
-          description: User defined identifier for the employee, must be unique in combination with the employment number
-        employeeObjectId:
-          type: integer
-          description: Unique identifier for the employee used within the Ons suite as primary key
-          format: int64
-        employmentNumber:
-          type: string
-          description: Employment number for the employee, must be unique in combination with the employee number
-        endDate:
-          type: string
-          description: End date of the address
-          format: date
-        homeNumber:
-          maxLength: 6
-          type: string
-          description: The home number of the employee's address
-        homeNumberExtension:
-          maxLength: 6
-          type: string
-          description: Optional extension of the home number of the employee's address
-        municipality:
-          maxLength: 50
-          type: string
-          description: The municipality of the employee's address
-        id:
-          type: integer
-          description: Unique identifier for the address used within the Ons suite as primary key
-          format: int64
-        poBoxNumber:
-          maxLength: 10
-          type: string
-          description: The optional PO-box number of the employee's address
-        street:
-          maxLength: 50
-          type: string
-          description: The street of the employee's address
-        zipcode:
-          type: string
-          description: The zipcode of the employee's address. Maximum length of 6 characters for addresses with country NL
-      description: 'Address model for an employee. This model can be used on its own or as part of an extended employee model.
-
-        When used on its own, either an employeeObjectId or employeeNumber must be provided. Note that the employeeNumber
-
-        is not necessarily unique on its own, but might require an employmentNumber for uniqueness.
-
-        '
-      example:
-        id: 12345
-        employeeObjectId: 6789
-        employeeNumber: '100042'
-        employmentNumber: '1'
-        street: Main Street
-        homeNumber: '10'
-        homeNumberExtension: A
-        zipcode: 1234 AB
-        city: Amsterdam
-        country: NL
-        beginDate: '2024-01-01'
-        endDate: '2024-12-31'
-    ons_administration.EmployeeExpertiseModel:
-      required:
-      - beginDate
-      type: object
-      properties:
-        beginDate:
-          type: string
-          description: Begin date and time of the expertise profile assignment
-          format: date
-        employeeNumber:
-          type: string
-          description: User defined identifier for the employee, must be unique in combination with the employment number
-        employeeObjectId:
-          type: integer
-          description: Unique identifier for the employee used within the Ons suite as primary key
-          format: int64
-        employmentNumber:
-          type: string
-          description: Employment number for the employee, must be unique in combination with the employee number
-        endDate:
-          type: string
-          description: End date and time of the expertise profile assignment
-          format: date
-        expertiseProfileCode:
-          type: string
-          description: User defined identifier for the expertise profile (also known as importCode). Either the expertiseProfileObjectId or expertiseProfileCode must be provided
-        expertiseProfileObjectId:
-          type: integer
-          description: Unique identifier for the expertise profile used within the Ons suite as primary key. Either the expertiseProfileObjectId or expertiseProfileCode must be provided
-          format: int64
-        id:
-          type: integer
-          description: Unique identifier for the expertise profile assignment used within the Ons suite as primary key
-          format: int64
-      description: 'Expertise profile assignment model for an employee. This model can be used on its own or as part of an extended employee model.
-
-        When used on its own, either an employeeObjectId or employeeNumber must be provided. Note that the employeeNumber
-
-        is not necessarily unique on its own, but might require an employmentNumber for uniqueness.
-
-
-        Multiple expertise profiles can be associated with an employee, but they cannot overlap in time.
-
-        '
-      example:
-        id: 12345
-        employeeObjectId: 6789
-        employeeNumber: '100042'
-        employmentNumber: '1'
-        expertiseProfileObjectId: 1011
-        expertiseProfileCode: Verpleegkundige
         beginDate: '2024-01-01'
         endDate: '2024-12-31'
 x-refined-from:

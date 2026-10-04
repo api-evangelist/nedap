@@ -362,22 +362,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    arrangement.list.StakeholderList:
-      type: object
-      properties:
-        stakeholders:
-          type: array
-          items:
-            $ref: '#/components/schemas/arrangement.Stakeholder'
-      description: StakeholderList model (no description)
-      example:
-        stakeholders:
-        - uuid: AAABB
-          timelineUuid: ABCDEF
-          intentUuid: AAAABB
-        - uuid: AAABC
-          timelineUuid: ABCDEF
-          intentUuid: AAAABB
     arrangement.Stakeholder:
       required:
       - uuid
@@ -440,6 +424,22 @@ components:
         travelTime: 5
       xml:
         name: stakeholder
+    arrangement.list.StakeholderList:
+      type: object
+      properties:
+        stakeholders:
+          type: array
+          items:
+            $ref: '#/components/schemas/arrangement.Stakeholder'
+      description: StakeholderList model (no description)
+      example:
+        stakeholders:
+        - uuid: AAABB
+          timelineUuid: ABCDEF
+          intentUuid: AAAABB
+        - uuid: AAABC
+          timelineUuid: ABCDEF
+          intentUuid: AAAABB
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

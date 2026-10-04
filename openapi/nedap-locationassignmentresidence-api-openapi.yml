@@ -242,16 +242,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    LocationAssignmentType:
-      enum:
-      - STANDARD
-      - MAIN
-      - MEDICINE
-      - GGZ
-      - WAITING_LIST
-      type: string
-      description: LocationAssignmentType enum (no description)
-      example: STANDARD
     LocationAssignmentResidence:
       type: object
       allOf:
@@ -372,6 +362,16 @@ components:
         medicineLocation: false
       xml:
         name: locationAssignment
+    LocationAssignmentType:
+      enum:
+      - STANDARD
+      - MAIN
+      - MEDICINE
+      - GGZ
+      - WAITING_LIST
+      type: string
+      description: LocationAssignmentType enum (no description)
+      example: STANDARD
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

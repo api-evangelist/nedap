@@ -250,23 +250,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    payroll.list.HourlyWageList:
-      type: object
-      properties:
-        hourlyWages:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.HourlyWage'
-      description: HourlyWageList model (no description)
-      example:
-        hourlyWages:
-        - id: 1
-          employeeId: 10
-          wageInCents: 1500
-          beginDate: '2017-01-01'
-          endDate: '2017-10-01'
-          createdAt: '2017-10-23T00:00:00.000+02:00'
-          updatedAt: '2017-10-23T00:00:00.000+02:00'
     payroll.HourlyWage:
       type: object
       properties:
@@ -303,6 +286,23 @@ components:
         updatedAt: '2017-10-23T00:00:00.000+02:00'
       xml:
         name: hourlyWage
+    payroll.list.HourlyWageList:
+      type: object
+      properties:
+        hourlyWages:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.HourlyWage'
+      description: HourlyWageList model (no description)
+      example:
+        hourlyWages:
+        - id: 1
+          employeeId: 10
+          wageInCents: 1500
+          beginDate: '2017-01-01'
+          endDate: '2017-10-01'
+          createdAt: '2017-10-23T00:00:00.000+02:00'
+          updatedAt: '2017-10-23T00:00:00.000+02:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

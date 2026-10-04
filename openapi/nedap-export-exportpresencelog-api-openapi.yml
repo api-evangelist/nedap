@@ -272,26 +272,30 @@ components:
           value: '2015-12-20T17:23:59.999+01:00'
       xml:
         name: exportStatus
-    export.ExportStatusType:
-      enum:
-      - STARTED
-      - RUNNING
-      - FINISHED
-      - ERROR
-      - UNKNOWN
-      type: string
-      description: ExportStatusType enum (no description)
-      example: STARTED
-    export.ExportUuid:
+    export.list.ExportPresenceLogList:
       type: object
       properties:
-        uuid:
-          type: string
-      description: Export Status entry returned from Cupido.
+        exportPresenceLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/export.ExportPresenceLog'
+          xml:
+            name: exportPresenceLog
+      description: ExportPresenceLogList model (no description)
       example:
-        uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
+        exportPresenceLogs:
+        - clientId: 234
+          employeeId: 123
+          teamId: 345
+          locationId: 456
+          employeeContractId: '567'
+          productName: name
+          isDuration: true
+          beginDate: '1973-12-20T17:00:00.000+01:00'
+          endDate: '2015-12-20T17:23:59.999+01:00'
+          duration: true
       xml:
-        name: exportUuid
+        name: exportPresenceLogs
     export.ExportPresenceLog:
       type: object
       properties:
@@ -351,30 +355,26 @@ components:
         value: '2015-12-20T17:23:59.999+01:00'
       xml:
         name: exportSetting
-    export.list.ExportPresenceLogList:
+    export.ExportUuid:
       type: object
       properties:
-        exportPresenceLogs:
-          type: array
-          items:
-            $ref: '#/components/schemas/export.ExportPresenceLog'
-          xml:
-            name: exportPresenceLog
-      description: ExportPresenceLogList model (no description)
+        uuid:
+          type: string
+      description: Export Status entry returned from Cupido.
       example:
-        exportPresenceLogs:
-        - clientId: 234
-          employeeId: 123
-          teamId: 345
-          locationId: 456
-          employeeContractId: '567'
-          productName: name
-          isDuration: true
-          beginDate: '1973-12-20T17:00:00.000+01:00'
-          endDate: '2015-12-20T17:23:59.999+01:00'
-          duration: true
+        uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
       xml:
-        name: exportPresenceLogs
+        name: exportUuid
+    export.ExportStatusType:
+      enum:
+      - STARTED
+      - RUNNING
+      - FINISHED
+      - ERROR
+      - UNKNOWN
+      type: string
+      description: ExportStatusType enum (no description)
+      example: STARTED
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

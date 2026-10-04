@@ -238,40 +238,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    bsn.BsnSource:
-      type: integer
-      oneOf:
-      - title: UNKNOWN
-        enum:
-        - -1
-      - title: OWN_ADMINISTRATION
-        enum:
-        - 0
-      - title: SBVZ
-        enum:
-        - 1
-      - title: GBA
-        enum:
-        - 2
-      - title: OTHER_BSN_USER
-        enum:
-        - 3
-      description: BsnSource model (no description)
-      example: -1
-    bsn.BsnIdVerifiedType:
-      type: integer
-      oneOf:
-      - title: GEEN
-        enum:
-        - 0
-      - title: VERGEWIST
-        enum:
-        - 1
-      - title: WID
-        enum:
-        - 2
-      description: BsnIdVerifiedType model (no description)
-      example: 0
     bsn.BsnDocumentType:
       type: integer
       oneOf:
@@ -360,6 +326,40 @@ components:
         bsnIdVerifiedType: 2
       xml:
         name: bsn
+    bsn.BsnSource:
+      type: integer
+      oneOf:
+      - title: UNKNOWN
+        enum:
+        - -1
+      - title: OWN_ADMINISTRATION
+        enum:
+        - 0
+      - title: SBVZ
+        enum:
+        - 1
+      - title: GBA
+        enum:
+        - 2
+      - title: OTHER_BSN_USER
+        enum:
+        - 3
+      description: BsnSource model (no description)
+      example: -1
+    bsn.BsnIdVerifiedType:
+      type: integer
+      oneOf:
+      - title: GEEN
+        enum:
+        - 0
+      - title: VERGEWIST
+        enum:
+        - 1
+      - title: WID
+        enum:
+        - 2
+      description: BsnIdVerifiedType model (no description)
+      example: 0
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

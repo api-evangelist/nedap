@@ -65,170 +65,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    drugstore.Medication:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/CodeableConcept'
-      properties:
-        requiresDoubleCheck:
-          type: boolean
-          description: 'Set to true if medication is present on the KNMP list to double check.
-
-            https://www.knmp.nl/downloads/dubbel-te-controleren-lijst.pdf
-
-            Not part of FHIR profile.'
-      description: 'Nictiz Medicatieproces
-
-        Based on https://simplifier.net/NictizSTU3-Zib2017/ZIB-Product'
-      example:
-        codings:
-        - system: urn:oid:2.16.840.1.113883.2.4.4.8
-          code: '14292998'
-          display: Carbasalaatcalcium Sandoz 600 30 sac
-        text: Carbasalaatcalcium Sandoz 600 30 sac
-        requiresDoubleCheck: true
-    Quantity:
-      type: object
-      properties:
-        value:
-          type: string
-          description: 'Numerical value (with implicit precision)
-
-            The precision is implied from the value, so ''0.10'' is different from ''0.1''
-
-            ''.'' is used as the expected decimal separator'
-        unit:
-          type: string
-          description: Unit representation (e.g. 'capsules' or 'mg/L')
-        system:
-          type: string
-          description: System that defines coded unit form (e.g. 'http://unitsofmeasure.org')
-        code:
-          type: string
-          description: Coded form of the unit (e.g. 'ug' or 's')
-      description: 'A measured or measurable amount
-
-        Based on http://hl7.org/fhir/STU3/datatypes-examples.html#Quantity'
-      example:
-        value: '1.00'
-        unit: capsules
-        system: http://snomed.info/sct
-        code: '385049006'
-    drugstore.AdministrationAgreement:
-      type: object
-      properties:
-        medication:
-          allOf:
-          - $ref: '#/components/schemas/drugstore.Medication'
-          description: 'A medicinal product as defined by the Dutch Medication v9 project.
-
-            https://simplifier.net/NictizSTU3-Zib2017/ZIB-Product'
-        dosage:
-          allOf:
-          - $ref: '#/components/schemas/drugstore.Dosage'
-          description: 'Instructions for the use of the medication, e.g. dose and route of administration.
-
-            https://simplifier.net/NictizSTU3-Zib2017/ZIB-InstructionsForUse'
-        periodOfUse:
-          allOf:
-          - $ref: '#/components/schemas/Period'
-          description: Period in which the medication is/was taken.
-        distributedAsUnitDose:
-          type: boolean
-          description: Indicates if medication is distributed as a unit dose.
-        updatedAt:
-          type: string
-          description: The date and time of the last change made to this administration agreement.
-          format: date-time
-        entityTag:
-          type: string
-          description: 'Changes when the contents of the agreement changes, similar to a weak
-
-            entity tag in HTTP.'
-      description: 'Nictic Medicatieproces
-
-        Based on https://simplifier.net/nictizstu3-zib2017/zibadministrationagreement'
-      example:
-        medication:
-          text: Carbasalaatcalcium Sandoz 600 30 sac
-          requiresDoubleCheck: true
-        dosage:
-          text: '3 x PER DAG 1 CAPSULE
-
-            Felle zon en UVlamp op de huid vermijden
-
-            Kuur afmaken
-
-            Zittend of staand innemen met veel water
-
-            1 uur voor of 2 uur na het eten innemen
-
-            Niet met zuivel innemen, zie bijsluiter'
-          doseAndRate: 3 x PER DAG 1 CAPSULE
-          additionalInstructions:
-          - codings:
-            - system: urn:oid:2.16.840.1.113883.2.4.4.5
-              code: '7'
-              display: Felle zon en UVlamp op de huid vermijden
-            text: Felle zon en UVlamp op de huid vermijden
-          - codings:
-            - system: urn:oid:2.16.840.1.113883.2.4.4.5
-              code: '12'
-              display: Kuur afmaken
-            text: Kuur afmaken
-          - codings:
-            - system: urn:oid:2.16.840.1.113883.2.4.4.5
-              code: '17'
-              display: Zittend of staand innemen met veel water
-            text: Zittend of staand innemen met veel water
-          patientInstructions:
-          - 1 uur voor of 2 uur na het eten innemen
-          - Niet met zuivel innemen, zie bijsluiter
-          route:
-            codings:
-            - system: urn:oid:2.16.840.1.113883.2.4.4.9
-              code: '2'
-              display: IM
-            text: INTRAMUSCULAIR
-          asNeeded: false
-          moments:
-          - 08:00
-          - '12:00'
-          - '18:15'
-          scheduledAdministrations:
-          - time: 08:00:00
-            quantity:
-              value: '1.00'
-              unit: capsules
-          - time: '12:00:00'
-            quantity:
-              value: '1.00'
-              unit: capsules
-          - time: '18:15:00'
-            quantity:
-              value: '1.00'
-              unit: capsules
-        periodOfUse:
-          start: '2018-03-26'
-          end: '2018-04-02'
-        distributedAsUnitDose: false
-        updatedAt: '2018-03-25T01:59:59.000+01:00'
-        entityTag: 634d9ac28f1b949e73f50e67321619d97f506ba612d449f8a9a331de647314b5
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          description: Starting time with inclusive boundary
-          format: date
-        end:
-          type: string
-          description: End time with inclusive boundary, if not ongoing
-          format: date
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
-      example:
-        start: '2018-03-26'
-        end: '2018-04-02'
     drugstore.Dosage:
       type: object
       properties:
@@ -333,6 +169,160 @@ components:
           quantity:
             value: '1.00'
             unit: capsules
+    drugstore.AdministrationAgreement:
+      type: object
+      properties:
+        medication:
+          allOf:
+          - $ref: '#/components/schemas/drugstore.Medication'
+          description: 'A medicinal product as defined by the Dutch Medication v9 project.
+
+            https://simplifier.net/NictizSTU3-Zib2017/ZIB-Product'
+        dosage:
+          allOf:
+          - $ref: '#/components/schemas/drugstore.Dosage'
+          description: 'Instructions for the use of the medication, e.g. dose and route of administration.
+
+            https://simplifier.net/NictizSTU3-Zib2017/ZIB-InstructionsForUse'
+        periodOfUse:
+          allOf:
+          - $ref: '#/components/schemas/Period'
+          description: Period in which the medication is/was taken.
+        distributedAsUnitDose:
+          type: boolean
+          description: Indicates if medication is distributed as a unit dose.
+        updatedAt:
+          type: string
+          description: The date and time of the last change made to this administration agreement.
+          format: date-time
+        entityTag:
+          type: string
+          description: 'Changes when the contents of the agreement changes, similar to a weak
+
+            entity tag in HTTP.'
+      description: 'Nictic Medicatieproces
+
+        Based on https://simplifier.net/nictizstu3-zib2017/zibadministrationagreement'
+      example:
+        medication:
+          text: Carbasalaatcalcium Sandoz 600 30 sac
+          requiresDoubleCheck: true
+        dosage:
+          text: '3 x PER DAG 1 CAPSULE
+
+            Felle zon en UVlamp op de huid vermijden
+
+            Kuur afmaken
+
+            Zittend of staand innemen met veel water
+
+            1 uur voor of 2 uur na het eten innemen
+
+            Niet met zuivel innemen, zie bijsluiter'
+          doseAndRate: 3 x PER DAG 1 CAPSULE
+          additionalInstructions:
+          - codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.5
+              code: '7'
+              display: Felle zon en UVlamp op de huid vermijden
+            text: Felle zon en UVlamp op de huid vermijden
+          - codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.5
+              code: '12'
+              display: Kuur afmaken
+            text: Kuur afmaken
+          - codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.5
+              code: '17'
+              display: Zittend of staand innemen met veel water
+            text: Zittend of staand innemen met veel water
+          patientInstructions:
+          - 1 uur voor of 2 uur na het eten innemen
+          - Niet met zuivel innemen, zie bijsluiter
+          route:
+            codings:
+            - system: urn:oid:2.16.840.1.113883.2.4.4.9
+              code: '2'
+              display: IM
+            text: INTRAMUSCULAIR
+          asNeeded: false
+          moments:
+          - 08:00
+          - '12:00'
+          - '18:15'
+          scheduledAdministrations:
+          - time: 08:00:00
+            quantity:
+              value: '1.00'
+              unit: capsules
+          - time: '12:00:00'
+            quantity:
+              value: '1.00'
+              unit: capsules
+          - time: '18:15:00'
+            quantity:
+              value: '1.00'
+              unit: capsules
+        periodOfUse:
+          start: '2018-03-26'
+          end: '2018-04-02'
+        distributedAsUnitDose: false
+        updatedAt: '2018-03-25T01:59:59.000+01:00'
+        entityTag: 634d9ac28f1b949e73f50e67321619d97f506ba612d449f8a9a331de647314b5
+    drugstore.Medication:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CodeableConcept'
+      properties:
+        requiresDoubleCheck:
+          type: boolean
+          description: 'Set to true if medication is present on the KNMP list to double check.
+
+            https://www.knmp.nl/downloads/dubbel-te-controleren-lijst.pdf
+
+            Not part of FHIR profile.'
+      description: 'Nictiz Medicatieproces
+
+        Based on https://simplifier.net/NictizSTU3-Zib2017/ZIB-Product'
+      example:
+        codings:
+        - system: urn:oid:2.16.840.1.113883.2.4.4.8
+          code: '14292998'
+          display: Carbasalaatcalcium Sandoz 600 30 sac
+        text: Carbasalaatcalcium Sandoz 600 30 sac
+        requiresDoubleCheck: true
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+          description: Identity of the terminology system (URI)
+        code:
+          type: string
+          description: Symbol in syntax defined by the system
+        display:
+          type: string
+          description: Representation defined by the system
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#Coding
+      example:
+        system: http://snomed.info/sct
+        code: '25064002'
+        display: Headache
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          description: Starting time with inclusive boundary
+          format: date
+        end:
+          type: string
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+      example:
+        start: '2018-03-26'
+        end: '2018-04-02'
     medication.DoubleCheck:
       type: object
       properties:
@@ -493,23 +483,6 @@ components:
         createdAt: '2018-09-27T00:00:00.000+02:00'
         decision: verified
         decisionAt: '2018-09-27T00:00:00.000+02:00'
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-          description: Identity of the terminology system (URI)
-        code:
-          type: string
-          description: Symbol in syntax defined by the system
-        display:
-          type: string
-          description: Representation defined by the system
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#Coding
-      example:
-        system: http://snomed.info/sct
-        code: '25064002'
-        display: Headache
     CodeableConcept:
       type: object
       properties:
@@ -530,6 +503,33 @@ components:
           code: '25064002'
           display: Headache
         text: general headache
+    Quantity:
+      type: object
+      properties:
+        value:
+          type: string
+          description: 'Numerical value (with implicit precision)
+
+            The precision is implied from the value, so ''0.10'' is different from ''0.1''
+
+            ''.'' is used as the expected decimal separator'
+        unit:
+          type: string
+          description: Unit representation (e.g. 'capsules' or 'mg/L')
+        system:
+          type: string
+          description: System that defines coded unit form (e.g. 'http://unitsofmeasure.org')
+        code:
+          type: string
+          description: Coded form of the unit (e.g. 'ug' or 's')
+      description: 'A measured or measurable amount
+
+        Based on http://hl7.org/fhir/STU3/datatypes-examples.html#Quantity'
+      example:
+        value: '1.00'
+        unit: capsules
+        system: http://snomed.info/sct
+        code: '385049006'
     drugstore.ScheduledAdministration:
       type: object
       properties:

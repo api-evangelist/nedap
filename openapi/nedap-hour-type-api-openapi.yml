@@ -224,35 +224,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.HourTypeList:
-      type: object
-      properties:
-        hourTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/HourType'
-          xml:
-            name: hourType
-      description: HourTypeList model (no description)
-      example:
-        hourTypes:
-        - id: 1
-          description: Activiteiten begeleiding - patiëntgebonden handelen
-          identificationNo: '194822'
-          activityGroupObjectId: 1
-          externalCode3: '3'
-          active: true
-          payrolling: true
-          direct: true
-          systemDefined: false
-          travelTime: false
-          activityType: Payrolling
-          groupCare: false
-          noShow: true
-          travelCalculationDisabled: false
-          absenceAllowed: false
-      xml:
-        name: hourTypes
     HourType:
       type: object
       properties:
@@ -342,6 +313,35 @@ components:
         splitHourtype: false
       xml:
         name: hourType
+    list.HourTypeList:
+      type: object
+      properties:
+        hourTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HourType'
+          xml:
+            name: hourType
+      description: HourTypeList model (no description)
+      example:
+        hourTypes:
+        - id: 1
+          description: Activiteiten begeleiding - patiëntgebonden handelen
+          identificationNo: '194822'
+          activityGroupObjectId: 1
+          externalCode3: '3'
+          active: true
+          payrolling: true
+          direct: true
+          systemDefined: false
+          travelTime: false
+          activityType: Payrolling
+          groupCare: false
+          noShow: true
+          travelCalculationDisabled: false
+          absenceAllowed: false
+      xml:
+        name: hourTypes
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

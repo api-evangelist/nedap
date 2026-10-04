@@ -1905,765 +1905,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    openehr.RuleEvaluationResult:
-      type: object
-      properties:
-        compositionAfterRuleEvaluation:
-          type:
-          - string
-          - 'null'
-          description: String containing the JSON-blob with the openEHR referenceModelObject obtained after rule evaluation of the build composition in Chiron.
-        evaluationResult:
-          type:
-          - string
-          - 'null'
-          description: 'String containing the evaluationResult
-
-            Example:
-
-            "evaluation_result": {
-
-            "assertion_results": [],
-
-            "paths_that_must_not_exist": [],
-
-            "set_path_values": {},
-
-            "paths_that_must_exist": []
-
-            }'
-          example: "\"evaluation_result\": {\n    \"assertion_results\": [],\n    \"paths_that_must_not_exist\": [],\n    \"set_path_values\": {},\n    \"paths_that_must_exist\": []\n}"
-        validationMessages:
-          type:
-          - string
-          - 'null'
-          description: 'String containing the validationMessages
-
-            Example: "validation_messages":
-
-            "validation_messages": [
-
-            {
-
-            "archetype_path": "/category",
-
-            "path": "/category",
-
-            "human_readable_archetype_path": "/category",
-
-            "message": "Attribute category of class COMPOSITION does not match existence 1..1",
-
-            "type": "REQUIRED"
-
-            }
-
-            ]'
-          example: "\"validation_messages\": [\n    {\n        \"archetype_path\": \"/category\",\n        \"path\": \"/category\",\n        \"human_readable_archetype_path\": \"/category\",\n        \"message\": \"Attribute category of class COMPOSITION does not match existence 1..1\",\n        \"type\": \"REQUIRED\"\n    }\n]"
-      description: 'OpenEHR RuleEvaluationResult model.
-
-        Object to return an RuleEvaluationResult, which checks the rules of an archetype.
-
-
-        Created on 18/06/2018.'
-      example:
-        compositionAfterRuleEvaluation: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
-        evaluationResult: '{"assertion_results":["raw result in json format per rule in the archetype"],"paths_that_must_exist":["/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude"],"paths_that_must_not_exist":["/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id124]/magnitude"],"set_path_values":{"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id5]/items[id508]/value/magnitude":{"paths":[],"null":true},"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id6]/items[id608]/value/magnitude":{"paths":[],"null":true}}}'
-        validationMessages: '[{"archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude","path":"/content[id0.0.100.1, 1]/data[id3]/events[id4, 1]/data[id2]/items[id12, 1]/items[id1201, 1]/value/magnitude[id9999]","human_readable_archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude","message":"De waarde 101 moet minimaal 0 en maximaal 100 zijn","type":"DEFAULT"},{"archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1202]","path":"/content[id0.0.100.1, 1]/data[id3]/events[id4, 1]/data[id2]/items[id12, 1]/items[id1202]","human_readable_archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1202]","message":"Attribuut komt 0 keer voor, maar dit moet 1..1 zijn","type":"REQUIRED"}]'
-    openehr.list.LinkedReferenceModelObjectWrapperList:
-      type: object
-      properties:
-        linkedReferenceModelObjectWrappers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/openehr.LinkedReferenceModelObjectWrapper'
-      description: List of wrapper openEHR LinkedReferenceModelObjects.
-      example:
-        linkedReferenceModelObjectWrappers:
-        - id: 1
-          ehrId: 1
-          clientId: 1
-          archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
-          storedCompositionId: 5
-          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
-          type: COMPOSITION
-          firstEventTime: '2018-06-08T00:00:00.000+02:00'
-          composerId: 9
-          composerName: R den Doorn
-          composerEmployeeId: 5
-          timeCommitted: '2018-06-08T00:00:00.000+02:00'
-          committerName: R den Doorn
-          committerEmployeeId: 5
-          authorizedForUpdate: true
-          lifecycleState: COMPLETE
-          referenceModelObject: '{"@type":"COMPOSITION","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/1"}}]}'
-          pathsAndValues: '{"/links/target/value":"ehr:compositions/1"}'
-          updatedAt: '2018-06-08T00:00:00.000+02:00'
-          createdAt: '2018-06-08T00:00:00.000+02:00'
-          createdBy: R den Doorn
-          sourcePath: /
-          targetEhrUri: ehr:compositions/1
-        - id: 2
-          ehrId: 1
-          clientId: 1
-          archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
-          storedCompositionId: 6
-          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
-          type: COMPOSITION
-          firstEventTime: '2018-06-08T00:00:00.000+02:00'
-          composerId: 9
-          composerName: R den Doorn
-          composerEmployeeId: 5
-          timeCommitted: '2018-06-08T00:00:00.000+02:00'
-          committerName: R den Doorn
-          committerEmployeeId: 5
-          authorizedForUpdate: true
-          lifecycleState: COMPLETE
-          referenceModelObject: '{"@type":"COMPOSITION","content":[{"@type":"OBSERVATION","archetype_node_id":"id0.0.100.1","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/97/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}}]}]}'
-          pathsAndValues: '{"/content[id0.0.100.1,1]/links/target/value":"ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}'
-          updatedAt: '2018-06-08T00:00:00.000+02:00'
-          createdAt: '2018-06-08T00:00:00.000+02:00'
-          createdBy: R den Doorn
-          sourcePath: /content[id0.0.100.1,1]
-          targetEhrUri: ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D
-          targetPathInsideTopLevelStructure: /content[id0.2]/data[id2]/events[id3]
-          linkMeaningValue: Meaning
-          linkTypeValue: Type
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
-      example:
-        field: one
-        value: empty
-        message: field can not be empty
-    openehr.ArchetypeSelection:
-      type: object
-      properties:
-        archetypeId:
-          type: string
-          description: Archetype id. Can be a archetype concept id without version number, or an archetype id with a major, minor or patch version number.
-        requestedPaths:
-          type: array
-          items:
-            type: string
-          description: List of paths to request the values of. Paths will also match specializations, e.g. '/content[id4]' will also match '/content[id4.2]'.
-        startDateTime:
-          type: string
-          description: When provided, only data from compositions with a first event time after the provided start date/time will be included.
-          format: date-time
-        endDateTime:
-          type: string
-          description: When provided, only data from compositions with a first event time before the provided end date/time will be included.
-          format: date-time
-        limit:
-          maximum: 1000
-          minimum: 1
-          type: integer
-          description: When provided, the number of results will be limited to the given value, starting with the most recent result.
-          format: int32
-      description: Requested archetype id and the paths to get the values for, optionally limited by a start and/or end date/time.
-      example:
-        archetypeId: openEHR-EHR-OBSERVATION.bem.v1
-        requestedPaths:
-        - /data[id2]/events[id3]/time/value
-        - /data[id2]/events[id3]/data[id4]/items[id31]/items[id77]/value/value
-        startDateTime: '2022-09-07T01:00:00.000+02:00'
-        endDateTime: '2023-09-14T23:59:59.000+02:00'
-        limit: 120
-    openehr.CompositionValuesForPath:
-      type: object
-      properties:
-        path:
-          type: string
-          description: The requested path
-        values:
-          type: array
-          items:
-            type: string
-          description: List of JSON-encoded values for the requested path in this composition
-      description: Combination of requested path and its values in this composition
-      example:
-        path: /data[id2]/events[id3]/time/value
-        values:
-        - '"2021-06-16T11:18:30+0100"'
-    openehr.CompositionValidationErrorResponse:
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.CompositionValidationErrorEntry'
-      description: Returned when a composition could not be created or updated because it failed validation. Contains one entry per validation error found. The property is named errorResponseEntries so that clients written against ErrorResponse keep working.
-      example:
-        errorResponseEntries:
-        - field: /content[id0001]/data
-          value: ''
-          archetypeId: openEHR-EHR-EVALUATION.problem_diagnosis.v1
-          archetypePath: /data
-          message: Attribuut data van class EVALUATION komt niet overeen met existence 1..1
-          type: REQUIRED
-        - field: /content[id0006]/data[id0002]/events[id0003]/data[id0004]/items[id0005]/value
-          value: '5'
-          archetypeId: openEHR-EHR-OBSERVATION.braden_scale.v1
-          archetypePath: /data[id0002]/events[id0003]/data[id0004]/items[id0005]/value
-          message: "Object komt niet overeen met tupel: [value, symbol] ∈ {\n\t[{4}, {[at66]}],\n\t[{3}, {[at67]}],\n\t[{2}, {[at68]}],\n\t[{1}, {[at69]}],\n\t[{0}, {[at70]}]\n}"
-          type: DEFAULT
-    openehr.CompositionVersionWrapper:
-      required:
-      - id
-      - objectVersion
-      - timeCommitted
-      - lifecycleState
-      - archetypeId
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        uid:
-          type: string
-          description: 'The UID of the composition version with lexical form: ''object_id::creating_system_id::version_tree_id'''
-        ehrId:
-          type: integer
-          description: The numberic id of the EHR containing the composition version
-          format: int64
-        versionedCompositionId:
-          type: integer
-          description: The id of the versionedComposition
-          format: int64
-        objectVersion:
-          type: string
-          description: The Composition version number as specified by openEHR. 1, 2, 3 for main versions, 1.1, 1.2, 1.3 for different branches, etc
-        precedingVersionId:
-          type: integer
-          description: The composition version that precedes this composition version
-          format: int64
-        timeCommitted:
-          type: string
-          description: Fetched from the contribution. Time that the composition was committed
-          format: date-time
-        committerName:
-          type:
-          - string
-          - 'null'
-          description: Fetched from the contribution. Name of the committer of the composition
-        committerEmployeeId:
-          type: integer
-          description: Fetched from contribution. Administratie employee id of the committer of the composition
-          format: int64
-        lifecycleState:
-          type:
-          - string
-          - 'null'
-          description: 'State of this particular composition version with possible values: COMPLETE, INCOMPLETE, DELETED'
-        composerName:
-          type:
-          - string
-          - 'null'
-          description: Name of the composer of this composition version
-        composerEmployeeId:
-          type: integer
-          description: Administration employee id of the composer of the composition
-          format: int64
-        archetypeId:
-          type: string
-          description: The id of the archetype version contained in this composition version
-        referenceModelObject:
-          type:
-          - string
-          - 'null'
-          description: The json RM object
-        pathsAndValues:
-          type:
-          - string
-          - 'null'
-          description: Contents of this composition version in JSON format
-        signature:
-          type:
-          - string
-          - 'null'
-          description: Digital signature of the committer
-        attestationPending:
-          type:
-          - boolean
-          - 'null'
-          description: True if this stored composition version is awaiting an attestation
-      description: CompositionVersionWrapper model (no description)
-      example:
-        id: 2
-        uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::2
-        ehrId: 1
-        versionedCompositionId: 1
-        objectVersion: '2'
-        precedingVersionId: 1
-        timeCommitted: '2021-06-16T11:18:30.000+02:00'
-        committerName: Dhr. Mike Wazowski
-        committerEmployeeId: 1
-        lifecycleState: COMPLETE
-        composerName: Dhr. Mike Wazowski
-        composerEmployeeId: 1
-        archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
-        referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
-        pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Tekst rapportage test"}'
-        signature: ea599408eeb005b1013131bd7d2bc05faf9b9b97
-        attestationPending: false
-    openehr.Instruction:
-      type: object
-      properties:
-        instructionCompositionId:
-          type: integer
-          description: Integer containing the id of the composition containing the instruction
-          format: int64
-        instructionCompositionUuid:
-          type: string
-          description: UUID of the composition containing the instruction
-          format: uuid
-        instructionCompositionArchetypeId:
-          type: string
-          description: The archetype id of the composition archetype the instruction is created from.
-        instructionArchetypeId:
-          type: string
-          description: The archetype id of the instruction archetype this instruction is created from.
-        pathFromCompositionRoot:
-          type: string
-          description: String containing the path where the instruction is located from the root of the composition containing it.
-        aggregatedState:
-          $ref: '#/components/schemas/openehr.InstructionState'
-        receiverMatchesUser:
-          type: boolean
-          description: Boolean to indicate whether the requesing user is a receiving person or part of a receiving employee group.
-        receivers:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.Receiver'
-          description: List of objects containing information about the receiver of the instruction.
-      description: Contains metadata of an ons-ehr-db Instruction like it's path within a composition, the aggregated state and the receivers of the Instruction.
-      example:
-        instructionCompositionId: 1
-        instructionCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
-        instructionCompositionArchetypeId: openEHR-EHR-COMPOSITION.generic_text_report.v1.0.0
-        instructionArchetypeId: openEHR-EHR-INSTRUCTION.service_request-report_action.v1.0.0
-        pathFromCompositionRoot: /content[id1]
-        aggregatedState: TERMINATED
-        receiverMatchesUser: true
-        receivers:
-        - personId: 1
-          employeeId: 1
-          employeeGroupId: 1
-          expertiseProfileId: 1
-          expertiseGroupId: 1
-          name: Verpleegkundige
-        - personId: 2
-          employeeId: 2
-          employeeGroupId: 2
-          expertiseProfileId: 2
-          expertiseGroupId: 2
-          name: Verpleegkundige
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
-    openehr.CompositionValuesForArchetype:
-      type: object
-      properties:
-        archetypeId:
-          type: string
-          description: The requested archetype id
-        compositionValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.CompositionValues'
-          description: List of compositions with the values for the requested paths
-      description: The requested archetype id and returned composition data including values for requested paths
-      example:
-        archetypeId: openEHR-EHR-OBSERVATION.bem.v1
-        compositionValues:
-        - archetypeId: openEHR-EHR-COMPOSITION.bem_ggz_report.v0.0.2
-          versionedCompositionId: 5
-          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
-          ehrId: 1
-          clientId: 3
-          composerId: 1
-          composerName: Dhr. Mike Wazowski
-          composerEmployeeId: 10
-          timeCommitted: '2024-05-03T10:43:45.000+02:00'
-          firstEventTime: '2023-05-03T10:43:45.000+02:00'
-          lifecycleState: COMPLETE
-          authorizedForUpdate: true
-          authorizedEmployeeGroupsForRead:
-          - id: 57
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          authorizedEmployeeGroupsForUpdate:
-          - id: 57
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          valuesForPath:
-          - path: /data[id2]/events[id3]/time/value
-            values:
-            - '"2021-06-16T11:18:30+0100"'
-          - path: /data[id2]/events[id3]/data[id4]/items[id31]/items[id77.1]/value/value
-            values:
-            - '"Categorie 1: cliënt bestelt en gebruikt medicatie zelf"'
-    openehr.LifecycleState:
-      enum:
-      - ABANDONED
-      - COMPLETE
-      - DELETED
-      - INACTIVE
-      - INCOMPLETE
-      type: string
-      description: The lifecycle state of a composition version.
-      example: COMPLETE
-    openehr.LinkedReferenceModelObjectWrapper:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/openehr.ReferenceModelObjectWrapper'
-      properties:
-        sourcePath:
-          type:
-          - string
-          - 'null'
-          description: 'String containing the path from where the link is made.
-
-            Example: "/" or "/content[id0.2]/data[id2]/events[id3]".'
-        targetEhrUri:
-          type:
-          - string
-          - 'null'
-          description: 'String containing the full target EHR URI of the link.
-
-            Note: Some characters might be escaped, e.g. square brackets can be %5B and %5D and spaces can be %20.
-
-            Example: "ehr:/32/compositions/42" or
-
-            "ehr:compositions/20/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]" or
-
-            "ehr:compositions/20/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D/data%5Bid4%5D/items%5Bid5.1%5D".'
-        targetPathInsideTopLevelStructure:
-          type:
-          - string
-          - 'null'
-          description: 'String containing target path inside the top level structure (composition).
-
-            Null when linked to the composition root.
-
-            Note: This will not contain escaped characters.
-
-            Example: "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]".'
-        linkMeaningValue:
-          type:
-          - string
-          - 'null'
-          description: 'String containing meaning value of the link.
-
-            Example: "related information".'
-        linkTypeValue:
-          type:
-          - string
-          - 'null'
-          description: 'String containing type value of the link.
-
-            Example: "intake".'
-      description: 'OpenEHR Linked Reference Model Object Wrapper model.
-
-        Object to return an LinkedReferenceModelObjectWrapper.
-
-
-        This object includes additional information about linked Reference Model Objects.
-
-
-        Created on 19/02/2019.'
-      example:
-        id: 1
-        ehrId: 1
-        clientId: 1
-        archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
-        storedCompositionId: 5
-        versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
-        type: COMPOSITION
-        firstEventTime: '2019-02-18T00:00:00.000+01:00'
-        composerId: 9
-        composerName: R den Doorn
-        composerEmployeeId: 5
-        timeCommitted: '2019-02-18T00:00:00.000+01:00'
-        committerName: R den Doorn
-        committerEmployeeId: 5
-        authorizedForUpdate: true
-        lifecycleState: COMPLETE
-        referenceModelObject: '{"@type":"COMPOSITION","content":[{"@type":"OBSERVATION","archetype_node_id":"id0.0.100.1","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/97/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}}]}]}'
-        pathsAndValues: '{"/content[id0.0.100.1,1]/links/target/value":"ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}'
-        authorizedEmployeeGroupsForRead: []
-        authorizedEmployeeGroupsForUpdate:
-        - id: 57
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        - id: 58
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        itemTags:
-        - id: 59
-          key: important
-          value: value
-          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
-        updatedAt: '2019-02-18T00:00:00.000+01:00'
-        createdAt: '2019-02-18T00:00:00.000+01:00'
-        createdBy: R den Doorn
-        sourcePath: /content[id0.0.100.1,1]
-        targetEhrUri: ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D
-        targetPathInsideTopLevelStructure: /content[id0.2]/data[id2]/events[id3]
-        linkMeaningValue: Meaning
-        linkTypeValue: Type
-        instructions: []
-    openehr.EmployeeGroup:
-      title: EmployeeGroup
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        employeeGroupType:
-          type:
-          - string
-          - 'null'
-          description: Type of employee group, e.g. EXPERTISE_PROFILE or EXPERTISE_GROUP.
-        originatingSystemId:
-          type:
-          - string
-          - 'null'
-          description: Originating system of the employee group, e.g. Administratie.
-        originatingSystemItemId:
-          type: string
-          description: Id of the employee group in the originating system.
-        parentGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.EmployeeGroup'
-          description: List of direct parents of the employee group.
-        childGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.EmployeeGroup'
-          description: List of direct children of the employee group.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the employee group.
-        beginDate:
-          type:
-          - string
-          - 'null'
-          description: Begin date of the employee group.
-          format: date
-        endDate:
-          type:
-          - string
-          - 'null'
-          description: End date of the employee group.
-          format: date
-        deleted:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean to indicate that this employee group is deleted.
-        visible:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean to indicate that this employee group is visible.
-        allowDossierActions:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean to indicate that this employee group is allowed to create reports with actions. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
-        allowDossierConfidential:
-          type:
-          - boolean
-          - 'null'
-          description: Boolean to indicate that this employee group is allowed to create confidential reports. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
-      description: 'Employee group used for authorizations in {@link ArchetypeWrapper} and
-
-        {@link CompositionWrapper}.
-
-
-        Employee groups can be based on {@link com.nedap.healthcare.domain.ExpertiseProfile}
-
-        and {@link com.nedap.healthcare.domain.ExpertiseGroup}.'
-      example:
-        id: 132
-        employeeGroupType: EXPERTISE_GROUP
-        originatingSystemId: Administratie
-        originatingSystemItemId: '11'
-        parentGroups:
-        - id: 57
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        childGroups:
-        - id: 134
-          employeeGroupType: EXPERTISE_PROFILE
-          name: Profile1
-          deleted: false
-          allowDossierActions: true
-          allowDossierConfidential: false
-        name: Group1
-        beginDate: '2020-05-11'
-        endDate: '2020-05-25'
-        deleted: false
-    openehr.CompositionWrapper:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/openehr.ReferenceModelObjectWrapper'
-      properties:
-        uuid:
-          type: string
-          description: UUID of the composition, referring to the UUID of the object in Chiron.
-        temporaryCompositionKey:
-          type:
-          - string
-          - 'null'
-          description: In combination with the archetype version, serves as a unique identifier for this temporary composition.
-      description: 'OpenEHR CompositionWrapper model, including relevant metadata.
-
-        Object to return an CompositionWrapper, which extends from the ReferenceModelObjectWrapper
-
-
-        See also https://www.openehr.org/releases/BASE/latest/docs/resource/resource.html
-
-
-        Created on 08/06/2018.'
-      example:
-        id: 1
-        ehrId: 1
-        clientId: 1
-        archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
-        storedCompositionId: 1
-        versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
-        temporaryCompositionKey: a2bc5e00-c67e-4d7e-bb87-b3b74cdefd00
-        type: COMPOSITION
-        firstEventTime: '2018-06-08T00:00:00.000+02:00'
-        composerId: 1
-        composerName: Dhr. Mike Wazowski
-        composerEmployeeId: 1
-        timeCommitted: '2021-06-16T11:18:30.000+02:00'
-        committerName: Dhr. Mike Wazowski
-        committerEmployeeId: 1
-        authorizedForUpdate: true
-        lifecycleState: COMPLETE
-        referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
-        pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Tekst rapportage test"}'
-        authorizedEmployeeGroupsForRead: []
-        authorizedEmployeeGroupsForUpdate:
-        - id: 57
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        - id: 58
-          employeeGroupType: EXPERTISE_GROUP
-          name: TestGroup
-          deleted: false
-        itemTags:
-        - id: 59
-          key: important
-          value: value
-          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
-        updatedAt: '2021-06-16T11:18:30.000+02:00'
-        createdAt: '2018-06-08T00:00:00.000+02:00'
-        createdBy: Dhr. Mike Wazowski
-        uuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
-        instructions: []
-    openehr.list.ItemTagList:
-      type: object
-      properties:
-        itemTags:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.ItemTag'
-      description: List of openEHR ItemTags.
-      example:
-        itemTags:
-        - id: 59
-          key: important
-          value: value
-          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
-    openehr.ItemTag:
-      required:
-      - key
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        key:
-          type: string
-          description: The tag key. May not be empty or contain leading or trailing whitespace.
-        value:
-          type: string
-          description: The value. If set, may not be empty.
-        targetPath:
-          type: string
-          description: Optional archetype or RM path within target, used to tag a fine-grained element.
-      description: OpenEHR ItemTag, which is a tag with a key and optional value that is associated with a target ReferenceModelObjectWrapper.
-      example:
-        id: 59
-        key: important
-        value: value
-        targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
-    openehr.list.ArchetypeSelectionList:
-      type: object
-      properties:
-        archetypeSelections:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.ArchetypeSelection'
-      description: List of archetypes and paths to request the values of
-      example:
-        archetypeSelections:
-        - archetypeId: openEHR-EHR-OBSERVATION.bem.v1
-          requestedPaths:
-          - /data[id2]/events[id3]/time/value
-          - /data[id2]/events[id3]/data[id4]/items[id31]/items[id77]/value/value
-          startDateTime: '2022-09-07T01:00:00.000+02:00'
-          endDateTime: '2023-09-14T23:59:59.000+02:00'
-        - archetypeId: openEHR-EHR-OBSERVATION.six_minute_walking_test.v1.0.0
-          requestedPaths:
-          - /data[id2]/events[id3]/time/value
-          - /data[id2]/events[id3]/data[id4]/items[id30]/value/magnitude
-          startDateTime: '2022-08-03T00:00:00.000+02:00'
-          endDateTime: '2023-06-01T00:00:00.000+02:00'
     openehr.ReferenceModelObjectWrapper:
       type: object
       allOf:
@@ -2941,100 +2182,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    openehr.ReferenceModelObjectForm:
-      enum:
-      - RM_OBJECT
-      - PATHS_AND_VALUES
-      - METADATA
-      - RM_OBJECT_STANDARDS_COMPLIANT_JSON
-      type: string
-      description: 'ReferenceModelObjectForm enum.
-
-        * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
-
-        * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
-
-        * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
-
-        * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
-      example: RM_OBJECT
-    openehr.list.CompositionVersionWrapperList:
-      type: object
-      properties:
-        compositionVersionWrappers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/openehr.CompositionVersionWrapper'
-      description: CompositionVersionWrapperList model (no description)
-      example:
-        compositionVersionWrappers:
-        - id: 1
-          uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::1
-          ehrId: 1
-          versionedCompositionId: 1
-          objectVersion: '1'
-          timeCommitted: '2021-06-16T11:18:30.000+02:00'
-          committerName: Dhr. Mike Wazowski
-          committerEmployeeId: 1
-          lifecycleState: COMPLETE
-          composerName: Dhr. Mike Wazowski
-          composerEmployeeId: 1
-          archetypeId: openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0
-          referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"dummy_archetype","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"at1"},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::7"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"TestEmployee"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"ovl-text_report-story-001","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5.1","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]","value":{"@type":"DV_TEXT","mappings":[],"value":"This is an initial dummy value"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Any event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story/History"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
-          pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30+0100", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]/value[id10.1]/value": "This is an initial dummy value"}'
-          signature: Dummy
-          attestationPending: false
-        - id: 2
-          uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::2
-          ehrId: 1
-          versionedCompositionId: 1
-          objectVersion: '2'
-          precedingVersionId: 1
-          timeCommitted: '2021-06-16T11:19:00.000+02:00'
-          committerName: Dhr. Mike Wazowski
-          committerEmployeeId: 1
-          lifecycleState: COMPLETE
-          composerName: Dhr. Mike Wazowski
-          composerEmployeeId: 1
-          archetypeId: openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0
-          referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"dummy_archetype","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"at1"},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::7"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"TestEmployee"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"ovl-text_report-story-001","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5.1","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]","value":{"@type":"DV_TEXT","mappings":[],"value":"This is an updated dummy value"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Any event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story/History"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
-          pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30+0100", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]/value[id10.1]/value": "This is an updated dummy value"}'
-          signature: Dummy
-          attestationPending: false
-    openehr.Receiver:
-      type: object
-      properties:
-        personId:
-          type: integer
-          description: The id of the receiving person as it is stored in ons-ehr-db.
-          format: int64
-        employeeId:
-          type: integer
-          description: The id of the receiving employee as it is stored in Ons Administratie.
-        employeeGroupId:
-          type: integer
-          description: The id of the employee group as it is stored in ons-ehr-db.
-          format: int64
-        expertiseProfileId:
-          type: integer
-          description: The id of the expertise profile as it is stored in Ons Administratie.
-          format: int64
-        expertiseGroupId:
-          type: integer
-          description: The id of the expertise group as it is stored in Ons Administratie.
-        name:
-          type: string
-          description: The name of the receiving person or employee group
-      description: Contains information about the receiving ons-ehr-db Person or EmployeeGroup.
-      example:
-        personId: 1
-        employeeId: 1
-        employeeGroupId: 1
-        expertiseProfileId: 1
-        expertiseGroupId: 1
-        name: Verpleegkundige
     openehr.CompositionValues:
       type: object
       properties:
@@ -3141,82 +2288,69 @@ components:
           key: evaluation
           value: value
           targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id7]
-    openehr.CompositionValidationErrorEntryType:
-      enum:
-      - DEFAULT
-      - REQUIRED
-      - WRONG_TYPE
-      - CARDINALITY_MISMATCH
-      - EMPTY_OBSERVATION
-      - ARCHETYPE_SLOT_ID_MISMATCH
-      - ARCHETYPE_NOT_FOUND
-      - INVARIANT_ERROR
-      - EXCEPTION
-      type: string
-      description: 'The kind of validation error reported by a composition validation error entry.
-
-
-        The `message` of an entry is raw output of the openEHR validator and is not understandable for end users. Clients should switch on this type to generate an understandable message themselves, and should treat an unknown type as `DEFAULT`.
-
-        * **DEFAULT**: A validation error that does not fall into any of the other categories.
-
-        * **REQUIRED**: A required element is missing.
-
-        * **WRONG_TYPE**: The value at the field does not have the type required by the archetype.
-
-        * **CARDINALITY_MISMATCH**: The cardinality of an attribute violates the cardinality constraint of the archetype.
-
-        * **EMPTY_OBSERVATION**: An observation was submitted without any data.
-
-        * **ARCHETYPE_SLOT_ID_MISMATCH**: The archetype filling an archetype slot does not match the constraint on that slot.
-
-        * **ARCHETYPE_NOT_FOUND**: The referenced archetype could not be found.
-
-        * **INVARIANT_ERROR**: An openEHR reference model invariant was violated.
-
-        * **EXCEPTION**: An unexpected exception occurred while validating the composition.'
-      example: REQUIRED
-    openehr.list.CompositionValuesForArchetypeList:
+    ErrorResponse:
+      title: ErrorResponse
       type: object
       properties:
-        compositionValuesForArchetypes:
+        errorResponseEntries:
           type: array
           items:
-            $ref: '#/components/schemas/openehr.CompositionValuesForArchetype'
-      description: List of the requested archetype ids and the values for the matching compositions. Will contain one entry for each of the requested archetype ids.
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
       example:
-        compositionValuesForArchetypes:
-        - archetypeId: openEHR-EHR-OBSERVATION.bem.v1
-          compositionValues:
-          - archetypeId: openEHR-EHR-COMPOSITION.bem_ggz_report.v0.0.2
-            versionedCompositionId: 5
-            versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
-            ehrId: 1
-            clientId: 3
-            composerId: 1
-            composerName: Dhr. Mike Wazowski
-            composerEmployeeId: 10
-            timeCommitted: '2024-05-03T10:43:45.000+02:00'
-            firstEventTime: '2023-05-03T10:43:45.000+02:00'
-            lifecycleState: COMPLETE
-            authorizedForUpdate: true
-            authorizedEmployeeGroupsForRead:
-            - id: 57
-              employeeGroupType: EXPERTISE_GROUP
-              name: TestGroup
-              deleted: false
-            authorizedEmployeeGroupsForUpdate:
-            - id: 57
-              employeeGroupType: EXPERTISE_GROUP
-              name: TestGroup
-              deleted: false
-            valuesForPath:
-            - path: /data[id2]/events[id3]/time/value
-              values:
-              - '"2021-06-16T11:18:30+0100"'
-            - path: /data[id2]/events[id3]/data[id4]/items[id31]/items[id77.1]/value/value
-              values:
-              - '"Categorie 1: cliënt bestelt en gebruikt medicatie zelf"'
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    openehr.CompositionValuesForArchetype:
+      type: object
+      properties:
+        archetypeId:
+          type: string
+          description: The requested archetype id
+        compositionValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CompositionValues'
+          description: List of compositions with the values for the requested paths
+      description: The requested archetype id and returned composition data including values for requested paths
+      example:
+        archetypeId: openEHR-EHR-OBSERVATION.bem.v1
+        compositionValues:
+        - archetypeId: openEHR-EHR-COMPOSITION.bem_ggz_report.v0.0.2
+          versionedCompositionId: 5
+          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+          ehrId: 1
+          clientId: 3
+          composerId: 1
+          composerName: Dhr. Mike Wazowski
+          composerEmployeeId: 10
+          timeCommitted: '2024-05-03T10:43:45.000+02:00'
+          firstEventTime: '2023-05-03T10:43:45.000+02:00'
+          lifecycleState: COMPLETE
+          authorizedForUpdate: true
+          authorizedEmployeeGroupsForRead:
+          - id: 57
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          authorizedEmployeeGroupsForUpdate:
+          - id: 57
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          valuesForPath:
+          - path: /data[id2]/events[id3]/time/value
+            values:
+            - '"2021-06-16T11:18:30+0100"'
+          - path: /data[id2]/events[id3]/data[id4]/items[id31]/items[id77.1]/value/value
+            values:
+            - '"Categorie 1: cliënt bestelt en gebruikt medicatie zelf"'
     openehr.InstructionState:
       enum:
       - PRE_ACTIVE
@@ -3226,6 +2360,70 @@ components:
       type: string
       description: The aggregated state of the instruction.
       example: TERMINATED
+    openehr.RuleEvaluationResult:
+      type: object
+      properties:
+        compositionAfterRuleEvaluation:
+          type:
+          - string
+          - 'null'
+          description: String containing the JSON-blob with the openEHR referenceModelObject obtained after rule evaluation of the build composition in Chiron.
+        evaluationResult:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the evaluationResult
+
+            Example:
+
+            "evaluation_result": {
+
+            "assertion_results": [],
+
+            "paths_that_must_not_exist": [],
+
+            "set_path_values": {},
+
+            "paths_that_must_exist": []
+
+            }'
+          example: "\"evaluation_result\": {\n    \"assertion_results\": [],\n    \"paths_that_must_not_exist\": [],\n    \"set_path_values\": {},\n    \"paths_that_must_exist\": []\n}"
+        validationMessages:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the validationMessages
+
+            Example: "validation_messages":
+
+            "validation_messages": [
+
+            {
+
+            "archetype_path": "/category",
+
+            "path": "/category",
+
+            "human_readable_archetype_path": "/category",
+
+            "message": "Attribute category of class COMPOSITION does not match existence 1..1",
+
+            "type": "REQUIRED"
+
+            }
+
+            ]'
+          example: "\"validation_messages\": [\n    {\n        \"archetype_path\": \"/category\",\n        \"path\": \"/category\",\n        \"human_readable_archetype_path\": \"/category\",\n        \"message\": \"Attribute category of class COMPOSITION does not match existence 1..1\",\n        \"type\": \"REQUIRED\"\n    }\n]"
+      description: 'OpenEHR RuleEvaluationResult model.
+
+        Object to return an RuleEvaluationResult, which checks the rules of an archetype.
+
+
+        Created on 18/06/2018.'
+      example:
+        compositionAfterRuleEvaluation: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+        evaluationResult: '{"assertion_results":["raw result in json format per rule in the archetype"],"paths_that_must_exist":["/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude"],"paths_that_must_not_exist":["/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id124]/magnitude"],"set_path_values":{"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id5]/items[id508]/value/magnitude":{"paths":[],"null":true},"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id6]/items[id608]/value/magnitude":{"paths":[],"null":true}}}'
+        validationMessages: '[{"archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude","path":"/content[id0.0.100.1, 1]/data[id3]/events[id4, 1]/data[id2]/items[id12, 1]/items[id1201, 1]/value/magnitude[id9999]","human_readable_archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1201]/value[id1211]/magnitude","message":"De waarde 101 moet minimaal 0 en maximaal 100 zijn","type":"DEFAULT"},{"archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1202]","path":"/content[id0.0.100.1, 1]/data[id3]/events[id4, 1]/data[id2]/items[id12, 1]/items[id1202]","human_readable_archetype_path":"/content[id0.0.100.1]/data[id3]/events[id4]/data[id2]/items[id12]/items[id1202]","message":"Attribuut komt 0 keer voor, maar dit moet 1..1 zijn","type":"REQUIRED"}]'
     openehr.list.CompositionWrapperList:
       type: object
       properties:
@@ -3302,6 +2500,127 @@ components:
           createdBy: Mevr. Celia Mae
           uuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
           instructions: []
+    openehr.EmployeeGroup:
+      title: EmployeeGroup
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        employeeGroupType:
+          type:
+          - string
+          - 'null'
+          description: Type of employee group, e.g. EXPERTISE_PROFILE or EXPERTISE_GROUP.
+        originatingSystemId:
+          type:
+          - string
+          - 'null'
+          description: Originating system of the employee group, e.g. Administratie.
+        originatingSystemItemId:
+          type: string
+          description: Id of the employee group in the originating system.
+        parentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct parents of the employee group.
+        childGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+          description: List of direct children of the employee group.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the employee group.
+        beginDate:
+          type:
+          - string
+          - 'null'
+          description: Begin date of the employee group.
+          format: date
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: End date of the employee group.
+          format: date
+        deleted:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is deleted.
+        visible:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is visible.
+        allowDossierActions:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create reports with actions. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+        allowDossierConfidential:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean to indicate that this employee group is allowed to create confidential reports. Boolean is null if the employeeGroupType is not EXPERTISE_PROFILE.
+      description: 'Employee group used for authorizations in {@link ArchetypeWrapper} and
+
+        {@link CompositionWrapper}.
+
+
+        Employee groups can be based on {@link com.nedap.healthcare.domain.ExpertiseProfile}
+
+        and {@link com.nedap.healthcare.domain.ExpertiseGroup}.'
+      example:
+        id: 132
+        employeeGroupType: EXPERTISE_GROUP
+        originatingSystemId: Administratie
+        originatingSystemItemId: '11'
+        parentGroups:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        childGroups:
+        - id: 134
+          employeeGroupType: EXPERTISE_PROFILE
+          name: Profile1
+          deleted: false
+          allowDossierActions: true
+          allowDossierConfidential: false
+        name: Group1
+        beginDate: '2020-05-11'
+        endDate: '2020-05-25'
+        deleted: false
+    openehr.list.ArchetypeSelectionList:
+      type: object
+      properties:
+        archetypeSelections:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.ArchetypeSelection'
+      description: List of archetypes and paths to request the values of
+      example:
+        archetypeSelections:
+        - archetypeId: openEHR-EHR-OBSERVATION.bem.v1
+          requestedPaths:
+          - /data[id2]/events[id3]/time/value
+          - /data[id2]/events[id3]/data[id4]/items[id31]/items[id77]/value/value
+          startDateTime: '2022-09-07T01:00:00.000+02:00'
+          endDateTime: '2023-09-14T23:59:59.000+02:00'
+        - archetypeId: openEHR-EHR-OBSERVATION.six_minute_walking_test.v1.0.0
+          requestedPaths:
+          - /data[id2]/events[id3]/time/value
+          - /data[id2]/events[id3]/data[id4]/items[id30]/value/magnitude
+          startDateTime: '2022-08-03T00:00:00.000+02:00'
+          endDateTime: '2023-06-01T00:00:00.000+02:00'
     openehr.CompositionValidationErrorEntry:
       type: object
       properties:
@@ -3330,6 +2649,687 @@ components:
         archetypePath: /data
         message: Attribuut data van class EVALUATION komt niet overeen met existence 1..1
         type: REQUIRED
+    openehr.list.ItemTagList:
+      type: object
+      properties:
+        itemTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.ItemTag'
+      description: List of openEHR ItemTags.
+      example:
+        itemTags:
+        - id: 59
+          key: important
+          value: value
+          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+    openehr.CompositionValidationErrorEntryType:
+      enum:
+      - DEFAULT
+      - REQUIRED
+      - WRONG_TYPE
+      - CARDINALITY_MISMATCH
+      - EMPTY_OBSERVATION
+      - ARCHETYPE_SLOT_ID_MISMATCH
+      - ARCHETYPE_NOT_FOUND
+      - INVARIANT_ERROR
+      - EXCEPTION
+      type: string
+      description: 'The kind of validation error reported by a composition validation error entry.
+
+
+        The `message` of an entry is raw output of the openEHR validator and is not understandable for end users. Clients should switch on this type to generate an understandable message themselves, and should treat an unknown type as `DEFAULT`.
+
+        * **DEFAULT**: A validation error that does not fall into any of the other categories.
+
+        * **REQUIRED**: A required element is missing.
+
+        * **WRONG_TYPE**: The value at the field does not have the type required by the archetype.
+
+        * **CARDINALITY_MISMATCH**: The cardinality of an attribute violates the cardinality constraint of the archetype.
+
+        * **EMPTY_OBSERVATION**: An observation was submitted without any data.
+
+        * **ARCHETYPE_SLOT_ID_MISMATCH**: The archetype filling an archetype slot does not match the constraint on that slot.
+
+        * **ARCHETYPE_NOT_FOUND**: The referenced archetype could not be found.
+
+        * **INVARIANT_ERROR**: An openEHR reference model invariant was violated.
+
+        * **EXCEPTION**: An unexpected exception occurred while validating the composition.'
+      example: REQUIRED
+    openehr.CompositionWrapper:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/openehr.ReferenceModelObjectWrapper'
+      properties:
+        uuid:
+          type: string
+          description: UUID of the composition, referring to the UUID of the object in Chiron.
+        temporaryCompositionKey:
+          type:
+          - string
+          - 'null'
+          description: In combination with the archetype version, serves as a unique identifier for this temporary composition.
+      description: 'OpenEHR CompositionWrapper model, including relevant metadata.
+
+        Object to return an CompositionWrapper, which extends from the ReferenceModelObjectWrapper
+
+
+        See also https://www.openehr.org/releases/BASE/latest/docs/resource/resource.html
+
+
+        Created on 08/06/2018.'
+      example:
+        id: 1
+        ehrId: 1
+        clientId: 1
+        archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
+        storedCompositionId: 1
+        versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        temporaryCompositionKey: a2bc5e00-c67e-4d7e-bb87-b3b74cdefd00
+        type: COMPOSITION
+        firstEventTime: '2018-06-08T00:00:00.000+02:00'
+        composerId: 1
+        composerName: Dhr. Mike Wazowski
+        composerEmployeeId: 1
+        timeCommitted: '2021-06-16T11:18:30.000+02:00'
+        committerName: Dhr. Mike Wazowski
+        committerEmployeeId: 1
+        authorizedForUpdate: true
+        lifecycleState: COMPLETE
+        referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+        pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Tekst rapportage test"}'
+        authorizedEmployeeGroupsForRead: []
+        authorizedEmployeeGroupsForUpdate:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        - id: 58
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        itemTags:
+        - id: 59
+          key: important
+          value: value
+          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+        updatedAt: '2021-06-16T11:18:30.000+02:00'
+        createdAt: '2018-06-08T00:00:00.000+02:00'
+        createdBy: Dhr. Mike Wazowski
+        uuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        instructions: []
+    openehr.CompositionVersionWrapper:
+      required:
+      - id
+      - objectVersion
+      - timeCommitted
+      - lifecycleState
+      - archetypeId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        uid:
+          type: string
+          description: 'The UID of the composition version with lexical form: ''object_id::creating_system_id::version_tree_id'''
+        ehrId:
+          type: integer
+          description: The numberic id of the EHR containing the composition version
+          format: int64
+        versionedCompositionId:
+          type: integer
+          description: The id of the versionedComposition
+          format: int64
+        objectVersion:
+          type: string
+          description: The Composition version number as specified by openEHR. 1, 2, 3 for main versions, 1.1, 1.2, 1.3 for different branches, etc
+        precedingVersionId:
+          type: integer
+          description: The composition version that precedes this composition version
+          format: int64
+        timeCommitted:
+          type: string
+          description: Fetched from the contribution. Time that the composition was committed
+          format: date-time
+        committerName:
+          type:
+          - string
+          - 'null'
+          description: Fetched from the contribution. Name of the committer of the composition
+        committerEmployeeId:
+          type: integer
+          description: Fetched from contribution. Administratie employee id of the committer of the composition
+          format: int64
+        lifecycleState:
+          type:
+          - string
+          - 'null'
+          description: 'State of this particular composition version with possible values: COMPLETE, INCOMPLETE, DELETED'
+        composerName:
+          type:
+          - string
+          - 'null'
+          description: Name of the composer of this composition version
+        composerEmployeeId:
+          type: integer
+          description: Administration employee id of the composer of the composition
+          format: int64
+        archetypeId:
+          type: string
+          description: The id of the archetype version contained in this composition version
+        referenceModelObject:
+          type:
+          - string
+          - 'null'
+          description: The json RM object
+        pathsAndValues:
+          type:
+          - string
+          - 'null'
+          description: Contents of this composition version in JSON format
+        signature:
+          type:
+          - string
+          - 'null'
+          description: Digital signature of the committer
+        attestationPending:
+          type:
+          - boolean
+          - 'null'
+          description: True if this stored composition version is awaiting an attestation
+      description: CompositionVersionWrapper model (no description)
+      example:
+        id: 2
+        uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::2
+        ehrId: 1
+        versionedCompositionId: 1
+        objectVersion: '2'
+        precedingVersionId: 1
+        timeCommitted: '2021-06-16T11:18:30.000+02:00'
+        committerName: Dhr. Mike Wazowski
+        committerEmployeeId: 1
+        lifecycleState: COMPLETE
+        composerName: Dhr. Mike Wazowski
+        composerEmployeeId: 1
+        archetypeId: openEHR-EHR-COMPOSITION.text_report.v1.0.0
+        referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.text_report.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"433","terminology_id":{"@type":"TERMINOLOGY_ID","value":"openehr"}},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::2"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"administrator"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"text_report","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.text_report.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.text_report.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5]"}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Point event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30.000+02:00"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+        pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30.000+02:00", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5,1]": "Tekst rapportage test"}'
+        signature: ea599408eeb005b1013131bd7d2bc05faf9b9b97
+        attestationPending: false
+    openehr.list.CompositionVersionWrapperList:
+      type: object
+      properties:
+        compositionVersionWrappers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/openehr.CompositionVersionWrapper'
+      description: CompositionVersionWrapperList model (no description)
+      example:
+        compositionVersionWrappers:
+        - id: 1
+          uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::1
+          ehrId: 1
+          versionedCompositionId: 1
+          objectVersion: '1'
+          timeCommitted: '2021-06-16T11:18:30.000+02:00'
+          committerName: Dhr. Mike Wazowski
+          committerEmployeeId: 1
+          lifecycleState: COMPLETE
+          composerName: Dhr. Mike Wazowski
+          composerEmployeeId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0
+          referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"dummy_archetype","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"at1"},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::7"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"TestEmployee"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"ovl-text_report-story-001","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5.1","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]","value":{"@type":"DV_TEXT","mappings":[],"value":"This is an initial dummy value"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Any event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story/History"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+          pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30+0100", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]/value[id10.1]/value": "This is an initial dummy value"}'
+          signature: Dummy
+          attestationPending: false
+        - id: 2
+          uid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9::nl.ons-ehr-db.NE0001::2
+          ehrId: 1
+          versionedCompositionId: 1
+          objectVersion: '2'
+          precedingVersionId: 1
+          timeCommitted: '2021-06-16T11:19:00.000+02:00'
+          committerName: Dhr. Mike Wazowski
+          committerEmployeeId: 1
+          lifecycleState: COMPLETE
+          composerName: Dhr. Mike Wazowski
+          composerEmployeeId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0
+          referenceModelObject: '{"@type":"COMPOSITION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"dummy_archetype","qualified_rm_entity":"openEHR-EHR-COMPOSITION","rm_entity":"COMPOSITION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1.0.0","semantic_id":"openEHR-EHR-COMPOSITION.dummy_archetype.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id1.1","category":{"@type":"DV_CODED_TEXT","defining_code":{"@type":"CODE_PHRASE","code_string":"at1"},"mappings":[],"value":"event"},"composer":{"@type":"PARTY_IDENTIFIED","external_ref":{"@type":"PARTY_REF","id":{"@type":"HIER_OBJECT_ID","value":"com.nedap.NE0001.employee::7"},"namespace":"demographic","type":"PERSON"},"identifiers":[],"name":"TestEmployee"},"content":[{"@type":"OBSERVATION","archetype_details":{"@type":"ARCHETYPED","archetype_id":{"@type":"ARCHETYPE_ID","domain_concept":"ovl-text_report-story-001","qualified_rm_entity":"openEHR-EHR-OBSERVATION","rm_entity":"OBSERVATION","rm_name":"EHR","rm_originator":"openEHR","value":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","versionId":"1.0.0","full_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1.0.0","semantic_id":"openEHR-EHR-OBSERVATION.ovl-text_report-story-001.v1"},"rm_version":"1.0.4"},"archetype_node_id":"id0.2","data":{"@type":"HISTORY","archetype_node_id":"id2","events":[{"@type":"POINT_EVENT","archetype_node_id":"id3","data":{"@type":"ITEM_TREE","archetype_node_id":"id4","items":[{"@type":"ELEMENT","archetype_node_id":"id5.1","links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story"},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]","value":{"@type":"DV_TEXT","mappings":[],"value":"This is an updated dummy value"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"path":"/content[id0.2]/data[id2]/events[id3]/data[id4]"},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Any event"},"path":"/content[id0.2]/data[id2]/events[id3]","time":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"}}],"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":""},"origin":{"@type":"DV_DATE_TIME","other_reference_ranges":[],"value":"2021-06-16T11:18:30+0100"},"path":"/content[id0.2]/data[id2]"},"encoding":{"@type":"CODE_PHRASE","code_string":"UTF-8","terminology_id":{"@type":"TERMINOLOGY_ID","value":"IANA_character-sets"}},"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Story/History"},"other_participations":[],"path":"/content[id0.2]","subject":{"@type":"PARTY_SELF"}}],"language":{"@type":"CODE_PHRASE","code_string":"en","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_639-1"}},"links":[],"name":{"@type":"DV_TEXT","mappings":[],"value":"Text report"},"path":"/","territory":{"@type":"CODE_PHRASE","code_string":"NL","terminology_id":{"@type":"TERMINOLOGY_ID","value":"ISO_3166-1"}}}'
+          pathsAndValues: '{"/content[id0.2]/data[id2]/events[id3]/time/value": "2021-06-16T11:18:30+0100", "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]/value[id10.1]/value": "This is an updated dummy value"}'
+          signature: Dummy
+          attestationPending: false
+    openehr.Receiver:
+      type: object
+      properties:
+        personId:
+          type: integer
+          description: The id of the receiving person as it is stored in ons-ehr-db.
+          format: int64
+        employeeId:
+          type: integer
+          description: The id of the receiving employee as it is stored in Ons Administratie.
+        employeeGroupId:
+          type: integer
+          description: The id of the employee group as it is stored in ons-ehr-db.
+          format: int64
+        expertiseProfileId:
+          type: integer
+          description: The id of the expertise profile as it is stored in Ons Administratie.
+          format: int64
+        expertiseGroupId:
+          type: integer
+          description: The id of the expertise group as it is stored in Ons Administratie.
+        name:
+          type: string
+          description: The name of the receiving person or employee group
+      description: Contains information about the receiving ons-ehr-db Person or EmployeeGroup.
+      example:
+        personId: 1
+        employeeId: 1
+        employeeGroupId: 1
+        expertiseProfileId: 1
+        expertiseGroupId: 1
+        name: Verpleegkundige
+    openehr.CompositionValidationErrorResponse:
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CompositionValidationErrorEntry'
+      description: Returned when a composition could not be created or updated because it failed validation. Contains one entry per validation error found. The property is named errorResponseEntries so that clients written against ErrorResponse keep working.
+      example:
+        errorResponseEntries:
+        - field: /content[id0001]/data
+          value: ''
+          archetypeId: openEHR-EHR-EVALUATION.problem_diagnosis.v1
+          archetypePath: /data
+          message: Attribuut data van class EVALUATION komt niet overeen met existence 1..1
+          type: REQUIRED
+        - field: /content[id0006]/data[id0002]/events[id0003]/data[id0004]/items[id0005]/value
+          value: '5'
+          archetypeId: openEHR-EHR-OBSERVATION.braden_scale.v1
+          archetypePath: /data[id0002]/events[id0003]/data[id0004]/items[id0005]/value
+          message: "Object komt niet overeen met tupel: [value, symbol] ∈ {\n\t[{4}, {[at66]}],\n\t[{3}, {[at67]}],\n\t[{2}, {[at68]}],\n\t[{1}, {[at69]}],\n\t[{0}, {[at70]}]\n}"
+          type: DEFAULT
+    openehr.ItemTag:
+      required:
+      - key
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        key:
+          type: string
+          description: The tag key. May not be empty or contain leading or trailing whitespace.
+        value:
+          type: string
+          description: The value. If set, may not be empty.
+        targetPath:
+          type: string
+          description: Optional archetype or RM path within target, used to tag a fine-grained element.
+      description: OpenEHR ItemTag, which is a tag with a key and optional value that is associated with a target ReferenceModelObjectWrapper.
+      example:
+        id: 59
+        key: important
+        value: value
+        targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+    openehr.CompositionValuesForPath:
+      type: object
+      properties:
+        path:
+          type: string
+          description: The requested path
+        values:
+          type: array
+          items:
+            type: string
+          description: List of JSON-encoded values for the requested path in this composition
+      description: Combination of requested path and its values in this composition
+      example:
+        path: /data[id2]/events[id3]/time/value
+        values:
+        - '"2021-06-16T11:18:30+0100"'
+    openehr.Instruction:
+      type: object
+      properties:
+        instructionCompositionId:
+          type: integer
+          description: Integer containing the id of the composition containing the instruction
+          format: int64
+        instructionCompositionUuid:
+          type: string
+          description: UUID of the composition containing the instruction
+          format: uuid
+        instructionCompositionArchetypeId:
+          type: string
+          description: The archetype id of the composition archetype the instruction is created from.
+        instructionArchetypeId:
+          type: string
+          description: The archetype id of the instruction archetype this instruction is created from.
+        pathFromCompositionRoot:
+          type: string
+          description: String containing the path where the instruction is located from the root of the composition containing it.
+        aggregatedState:
+          $ref: '#/components/schemas/openehr.InstructionState'
+        receiverMatchesUser:
+          type: boolean
+          description: Boolean to indicate whether the requesing user is a receiving person or part of a receiving employee group.
+        receivers:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.Receiver'
+          description: List of objects containing information about the receiver of the instruction.
+      description: Contains metadata of an ons-ehr-db Instruction like it's path within a composition, the aggregated state and the receivers of the Instruction.
+      example:
+        instructionCompositionId: 1
+        instructionCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        instructionCompositionArchetypeId: openEHR-EHR-COMPOSITION.generic_text_report.v1.0.0
+        instructionArchetypeId: openEHR-EHR-INSTRUCTION.service_request-report_action.v1.0.0
+        pathFromCompositionRoot: /content[id1]
+        aggregatedState: TERMINATED
+        receiverMatchesUser: true
+        receivers:
+        - personId: 1
+          employeeId: 1
+          employeeGroupId: 1
+          expertiseProfileId: 1
+          expertiseGroupId: 1
+          name: Verpleegkundige
+        - personId: 2
+          employeeId: 2
+          employeeGroupId: 2
+          expertiseProfileId: 2
+          expertiseGroupId: 2
+          name: Verpleegkundige
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    openehr.LifecycleState:
+      enum:
+      - ABANDONED
+      - COMPLETE
+      - DELETED
+      - INACTIVE
+      - INCOMPLETE
+      type: string
+      description: The lifecycle state of a composition version.
+      example: COMPLETE
+    openehr.LinkedReferenceModelObjectWrapper:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/openehr.ReferenceModelObjectWrapper'
+      properties:
+        sourcePath:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the path from where the link is made.
+
+            Example: "/" or "/content[id0.2]/data[id2]/events[id3]".'
+        targetEhrUri:
+          type:
+          - string
+          - 'null'
+          description: 'String containing the full target EHR URI of the link.
+
+            Note: Some characters might be escaped, e.g. square brackets can be %5B and %5D and spaces can be %20.
+
+            Example: "ehr:/32/compositions/42" or
+
+            "ehr:compositions/20/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]" or
+
+            "ehr:compositions/20/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D/data%5Bid4%5D/items%5Bid5.1%5D".'
+        targetPathInsideTopLevelStructure:
+          type:
+          - string
+          - 'null'
+          description: 'String containing target path inside the top level structure (composition).
+
+            Null when linked to the composition root.
+
+            Note: This will not contain escaped characters.
+
+            Example: "/content[id0.2]/data[id2]/events[id3]/data[id4]/items[id5.1]".'
+        linkMeaningValue:
+          type:
+          - string
+          - 'null'
+          description: 'String containing meaning value of the link.
+
+            Example: "related information".'
+        linkTypeValue:
+          type:
+          - string
+          - 'null'
+          description: 'String containing type value of the link.
+
+            Example: "intake".'
+      description: 'OpenEHR Linked Reference Model Object Wrapper model.
+
+        Object to return an LinkedReferenceModelObjectWrapper.
+
+
+        This object includes additional information about linked Reference Model Objects.
+
+
+        Created on 19/02/2019.'
+      example:
+        id: 1
+        ehrId: 1
+        clientId: 1
+        archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
+        storedCompositionId: 5
+        versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+        type: COMPOSITION
+        firstEventTime: '2019-02-18T00:00:00.000+01:00'
+        composerId: 9
+        composerName: R den Doorn
+        composerEmployeeId: 5
+        timeCommitted: '2019-02-18T00:00:00.000+01:00'
+        committerName: R den Doorn
+        committerEmployeeId: 5
+        authorizedForUpdate: true
+        lifecycleState: COMPLETE
+        referenceModelObject: '{"@type":"COMPOSITION","content":[{"@type":"OBSERVATION","archetype_node_id":"id0.0.100.1","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/97/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}}]}]}'
+        pathsAndValues: '{"/content[id0.0.100.1,1]/links/target/value":"ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}'
+        authorizedEmployeeGroupsForRead: []
+        authorizedEmployeeGroupsForUpdate:
+        - id: 57
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        - id: 58
+          employeeGroupType: EXPERTISE_GROUP
+          name: TestGroup
+          deleted: false
+        itemTags:
+        - id: 59
+          key: important
+          value: value
+          targetPath: /content[id0.1]/data[id2]/events[id3]/data[id4]/items[id5]
+        updatedAt: '2019-02-18T00:00:00.000+01:00'
+        createdAt: '2019-02-18T00:00:00.000+01:00'
+        createdBy: R den Doorn
+        sourcePath: /content[id0.0.100.1,1]
+        targetEhrUri: ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D
+        targetPathInsideTopLevelStructure: /content[id0.2]/data[id2]/events[id3]
+        linkMeaningValue: Meaning
+        linkTypeValue: Type
+        instructions: []
+    openehr.list.LinkedReferenceModelObjectWrapperList:
+      type: object
+      properties:
+        linkedReferenceModelObjectWrappers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/openehr.LinkedReferenceModelObjectWrapper'
+      description: List of wrapper openEHR LinkedReferenceModelObjects.
+      example:
+        linkedReferenceModelObjectWrappers:
+        - id: 1
+          ehrId: 1
+          clientId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
+          storedCompositionId: 5
+          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae8
+          type: COMPOSITION
+          firstEventTime: '2018-06-08T00:00:00.000+02:00'
+          composerId: 9
+          composerName: R den Doorn
+          composerEmployeeId: 5
+          timeCommitted: '2018-06-08T00:00:00.000+02:00'
+          committerName: R den Doorn
+          committerEmployeeId: 5
+          authorizedForUpdate: true
+          lifecycleState: COMPLETE
+          referenceModelObject: '{"@type":"COMPOSITION","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/1"}}]}'
+          pathsAndValues: '{"/links/target/value":"ehr:compositions/1"}'
+          updatedAt: '2018-06-08T00:00:00.000+02:00'
+          createdAt: '2018-06-08T00:00:00.000+02:00'
+          createdBy: R den Doorn
+          sourcePath: /
+          targetEhrUri: ehr:compositions/1
+        - id: 2
+          ehrId: 1
+          clientId: 1
+          archetypeId: openEHR-EHR-COMPOSITION.wound.v0.0.0
+          storedCompositionId: 6
+          versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+          type: COMPOSITION
+          firstEventTime: '2018-06-08T00:00:00.000+02:00'
+          composerId: 9
+          composerName: R den Doorn
+          composerEmployeeId: 5
+          timeCommitted: '2018-06-08T00:00:00.000+02:00'
+          committerName: R den Doorn
+          committerEmployeeId: 5
+          authorizedForUpdate: true
+          lifecycleState: COMPLETE
+          referenceModelObject: '{"@type":"COMPOSITION","content":[{"@type":"OBSERVATION","archetype_node_id":"id0.0.100.1","links":[{"target":{"@type":"DV_EHR_URI","value":"ehr:compositions/97/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}}]}]}'
+          pathsAndValues: '{"/content[id0.0.100.1,1]/links/target/value":"ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D"}'
+          updatedAt: '2018-06-08T00:00:00.000+02:00'
+          createdAt: '2018-06-08T00:00:00.000+02:00'
+          createdBy: R den Doorn
+          sourcePath: /content[id0.0.100.1,1]
+          targetEhrUri: ehr:compositions/1/content%5Bid0.2%5D/data%5Bid2%5D/events%5Bid3%5D
+          targetPathInsideTopLevelStructure: /content[id0.2]/data[id2]/events[id3]
+          linkMeaningValue: Meaning
+          linkTypeValue: Type
+    openehr.ReferenceModelObjectForm:
+      enum:
+      - RM_OBJECT
+      - PATHS_AND_VALUES
+      - METADATA
+      - RM_OBJECT_STANDARDS_COMPLIANT_JSON
+      type: string
+      description: 'ReferenceModelObjectForm enum.
+
+        * **METADATA**: Return only the metadata. `referenceModelObject` and `pathsAndValues` will be empty.
+
+        * **PATHS_AND_VALUES**: Return the `pathsAndValues`. `referenceModelObject` will be empty.
+
+        * **RM_OBJECT**: Return the `referenceModelObject` in the older Nedap specific JSON format. Matches `ArchieJacksonConfiguration.createLegacyConfiguration` in the Archie library. `pathsAndValues` will be empty.
+
+        * **RM_OBJECT_STANDARDS_COMPLIANT_JSON**: Return the `referenceModelObject` compliant with the openEHR JSON specification. Matches `ArchieJacksonConfiguration.createStandardsCompliant` in the Archie library. `pathsAndValues` will be empty.'
+      example: RM_OBJECT
+    openehr.ArchetypeSelection:
+      type: object
+      properties:
+        archetypeId:
+          type: string
+          description: Archetype id. Can be a archetype concept id without version number, or an archetype id with a major, minor or patch version number.
+        requestedPaths:
+          type: array
+          items:
+            type: string
+          description: List of paths to request the values of. Paths will also match specializations, e.g. '/content[id4]' will also match '/content[id4.2]'.
+        startDateTime:
+          type: string
+          description: When provided, only data from compositions with a first event time after the provided start date/time will be included.
+          format: date-time
+        endDateTime:
+          type: string
+          description: When provided, only data from compositions with a first event time before the provided end date/time will be included.
+          format: date-time
+        limit:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          description: When provided, the number of results will be limited to the given value, starting with the most recent result.
+          format: int32
+      description: Requested archetype id and the paths to get the values for, optionally limited by a start and/or end date/time.
+      example:
+        archetypeId: openEHR-EHR-OBSERVATION.bem.v1
+        requestedPaths:
+        - /data[id2]/events[id3]/time/value
+        - /data[id2]/events[id3]/data[id4]/items[id31]/items[id77]/value/value
+        startDateTime: '2022-09-07T01:00:00.000+02:00'
+        endDateTime: '2023-09-14T23:59:59.000+02:00'
+        limit: 120
+    openehr.list.CompositionValuesForArchetypeList:
+      type: object
+      properties:
+        compositionValuesForArchetypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.CompositionValuesForArchetype'
+      description: List of the requested archetype ids and the values for the matching compositions. Will contain one entry for each of the requested archetype ids.
+      example:
+        compositionValuesForArchetypes:
+        - archetypeId: openEHR-EHR-OBSERVATION.bem.v1
+          compositionValues:
+          - archetypeId: openEHR-EHR-COMPOSITION.bem_ggz_report.v0.0.2
+            versionedCompositionId: 5
+            versionedCompositionUuid: e3d332a0-27bf-42f8-8d7c-0997a9b74ae9
+            ehrId: 1
+            clientId: 3
+            composerId: 1
+            composerName: Dhr. Mike Wazowski
+            composerEmployeeId: 10
+            timeCommitted: '2024-05-03T10:43:45.000+02:00'
+            firstEventTime: '2023-05-03T10:43:45.000+02:00'
+            lifecycleState: COMPLETE
+            authorizedForUpdate: true
+            authorizedEmployeeGroupsForRead:
+            - id: 57
+              employeeGroupType: EXPERTISE_GROUP
+              name: TestGroup
+              deleted: false
+            authorizedEmployeeGroupsForUpdate:
+            - id: 57
+              employeeGroupType: EXPERTISE_GROUP
+              name: TestGroup
+              deleted: false
+            valuesForPath:
+            - path: /data[id2]/events[id3]/time/value
+              values:
+              - '"2021-06-16T11:18:30+0100"'
+            - path: /data[id2]/events[id3]/data[id4]/items[id31]/items[id77.1]/value/value
+              values:
+              - '"Categorie 1: cliënt bestelt en gebruikt medicatie zelf"'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

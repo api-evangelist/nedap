@@ -59,6 +59,19 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    openehr.CarePlanVvtCareProfileLink:
+      type: object
+      properties:
+        carePlanId:
+          type: integer
+          format: int64
+        compositionId:
+          type: integer
+          format: int64
+      description: CarePlanVvtCareProfileLink model (no description)
+      example:
+        carePlanId: 1189
+        compositionId: 2077
     openehr.list.CarePlanVvtCareProfileLinkList:
       type: object
       properties:
@@ -73,19 +86,6 @@ components:
           compositionId: 2077
         - carePlanId: 8119
           compositionId: 7022
-    openehr.CarePlanVvtCareProfileLink:
-      type: object
-      properties:
-        carePlanId:
-          type: integer
-          format: int64
-        compositionId:
-          type: integer
-          format: int64
-      description: CarePlanVvtCareProfileLink model (no description)
-      example:
-        carePlanId: 1189
-        compositionId: 2077
     openehr.CompositionIdList:
       type: object
       properties:

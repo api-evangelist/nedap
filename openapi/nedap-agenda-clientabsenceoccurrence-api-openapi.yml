@@ -142,16 +142,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    agenda.ClientAbsenceStatus:
-      enum:
-      - CREATED
-      - UPDATED
-      - DELETED
-      type:
-      - string
-      - 'null'
-      description: A status about the absence; can be created/updated/deleted.
-      example: CREATED
     agenda.list.ClientAbsenceOccurrenceList:
       title: ClientAbsenceOccurrenceList
       type: object
@@ -375,6 +365,16 @@ components:
       description: Frequency of the recurrence
       default: single
       example: single
+    agenda.ClientAbsenceStatus:
+      enum:
+      - CREATED
+      - UPDATED
+      - DELETED
+      type:
+      - string
+      - 'null'
+      description: A status about the absence; can be created/updated/deleted.
+      example: CREATED
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

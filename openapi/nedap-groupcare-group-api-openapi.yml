@@ -291,6 +291,46 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    groupcare.list.GroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/groupcare.Group'
+          xml:
+            name: group
+      description: GroupList model (no description)
+      example:
+        groups:
+        - id: 1
+          name: Testgroup
+          startTime: '08:00:00.000'
+          endTime: '16:00:00.000'
+          minimumCapacity: 0
+          maximumCapacity: 25
+          expiresAfter: '2040-01-01T00:00:00.000+01:00'
+          archived: false
+          useLocationAuthorisation: false
+          useAgendaAppointments: false
+          locationId: 10
+          teamId: 8
+          employeeIds:
+          - 10
+          activityIds:
+          - 1
+          uuid: 2d8b914f-33e3-4f15-b737-89bb1a58f122
+          monday: false
+          tuesday: false
+          wednesday: false
+          thursday: false
+          friday: false
+          saturday: true
+          sunday: true
+          cycleInterval: 1
+          recurrenceType: single
+      xml:
+        name: groups
     groupcare.Group:
       type: object
       properties:
@@ -421,46 +461,6 @@ components:
         recurrenceType: single
       xml:
         name: group
-    groupcare.list.GroupList:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/groupcare.Group'
-          xml:
-            name: group
-      description: GroupList model (no description)
-      example:
-        groups:
-        - id: 1
-          name: Testgroup
-          startTime: '08:00:00.000'
-          endTime: '16:00:00.000'
-          minimumCapacity: 0
-          maximumCapacity: 25
-          expiresAfter: '2040-01-01T00:00:00.000+01:00'
-          archived: false
-          useLocationAuthorisation: false
-          useAgendaAppointments: false
-          locationId: 10
-          teamId: 8
-          employeeIds:
-          - 10
-          activityIds:
-          - 1
-          uuid: 2d8b914f-33e3-4f15-b737-89bb1a58f122
-          monday: false
-          tuesday: false
-          wednesday: false
-          thursday: false
-          friday: false
-          saturday: true
-          sunday: true
-          cycleInterval: 1
-          recurrenceType: single
-      xml:
-        name: groups
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

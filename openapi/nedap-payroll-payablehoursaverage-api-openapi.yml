@@ -516,28 +516,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    payroll.list.PayableHoursAverageList:
-      type: object
-      properties:
-        payableHoursAverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.PayableHoursAverage'
-      description: PayableHoursAverageList model (no description)
-      example:
-        payableHoursAverages:
-        - value: 123.45
-          perDay: true
-          dayOfWeek: 4
-          employeeId: 1
-          validFrom: '2021-12-16'
-          validTo: '2021-12-16'
-        - value: 456.78
-          perDay: true
-          dayOfWeek: 5
-          employeeId: 1
-          validFrom: '2021-12-17'
-          validTo: '2021-12-17'
     payroll.PayableHoursAverage:
       required:
       - value
@@ -578,6 +556,28 @@ components:
         validTo: '2021-12-16'
       xml:
         name: payableHoursAverage
+    payroll.list.PayableHoursAverageList:
+      type: object
+      properties:
+        payableHoursAverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.PayableHoursAverage'
+      description: PayableHoursAverageList model (no description)
+      example:
+        payableHoursAverages:
+        - value: 123.45
+          perDay: true
+          dayOfWeek: 4
+          employeeId: 1
+          validFrom: '2021-12-16'
+          validTo: '2021-12-16'
+        - value: 456.78
+          perDay: true
+          dayOfWeek: 5
+          employeeId: 1
+          validFrom: '2021-12-17'
+          validTo: '2021-12-17'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

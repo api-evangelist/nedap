@@ -421,6 +421,24 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    client_story.Answer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        schema:
+          type: string
+          description: The JsonSchemaForm representation of this answer
+        data:
+          type: string
+          description: The JsonSchemaForm data for this answer
+      description: Answer model (no description)
+      example:
+        id: 1
+        schema: '{"type":"object","properties":{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":{"title":"Mijn favoriete gerecht is","description":"","type":"string"}}}'
+        data: '{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":"Spare ribs"}'
     client_story.Category:
       type: object
       properties:
@@ -498,24 +516,6 @@ components:
         updatedAt: '2019-05-09T00:00:00.000+02:00'
         updatedSource: CarenDeployment
         updatedBy: 1
-    client_story.Answer:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        schema:
-          type: string
-          description: The JsonSchemaForm representation of this answer
-        data:
-          type: string
-          description: The JsonSchemaForm data for this answer
-      description: Answer model (no description)
-      example:
-        id: 1
-        schema: '{"type":"object","properties":{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":{"title":"Mijn favoriete gerecht is","description":"","type":"string"}}}'
-        data: '{"/content[id3]/data[id4]/events[id5]/data[id6]/items[id65]/items[id2]":"Spare ribs"}'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

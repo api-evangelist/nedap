@@ -87,38 +87,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    ClientCard:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        beginDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        lastRead:
-          type: string
-          format: date-time
-        number:
-          type: string
-        status:
-          $ref: '#/components/schemas/TokenStatus'
-        statusFromDate:
-          type: string
-          format: date-time
-      description: Card model.
-      example:
-        id: 3
-        beginDate: '2012-08-02T13:48:46.836+02:00'
-        endDate: '2012-08-05T13:48:46.836+02:00'
-        lastRead: '2012-09-04T13:48:46.836+02:00'
-        number: '12345'
-        status: free
-        statusFromDate: '2012-02-01T12:48:46.836+01:00'
     list.ClientCardList:
       type: object
       properties:
@@ -159,6 +127,38 @@ components:
         - lost
       description: TokenStatus model (no description)
       example: unknown
+    ClientCard:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        lastRead:
+          type: string
+          format: date-time
+        number:
+          type: string
+        status:
+          $ref: '#/components/schemas/TokenStatus'
+        statusFromDate:
+          type: string
+          format: date-time
+      description: Card model.
+      example:
+        id: 3
+        beginDate: '2012-08-02T13:48:46.836+02:00'
+        endDate: '2012-08-05T13:48:46.836+02:00'
+        lastRead: '2012-09-04T13:48:46.836+02:00'
+        number: '12345'
+        status: free
+        statusFromDate: '2012-02-01T12:48:46.836+01:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -2778,6 +2778,179 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.ReportsWithActionsSummary:
+      type: object
+      properties:
+        actionsForUser:
+          type: integer
+          format: int64
+        actionsByUser:
+          type: integer
+          format: int64
+      description: ReportsWithActionsSummary model (no description)
+      example:
+        actionsForUser: 42
+        actionsByUser: 87
+    dossier.list.ReportAuthorizationList:
+      type: object
+      properties:
+        reportAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorization'
+          xml:
+            name: reportAuthorization
+      description: ReportAuthorizationList model (no description)
+      example:
+        reportAuthorizations:
+        - id: 1
+          expertiseProfileId: 1
+          expertiseGroupObjectId: 2
+        - id: 2
+          expertiseProfileId: 2
+          expertiseGroupObjectId: 1
+      xml:
+        name: reportAuthorizations
+    dossier.list.ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Report'
+          xml:
+            name: report
+      description: ReportList model (no description)
+      example:
+        reports:
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 1
+          reportingDate: '2014-04-01T17:00:00.000+02:00'
+          comment: Goed geplast
+          flagged: true
+          confidential: false
+          hidden: false
+          parentType: careplanreport
+          carenId: 10
+          carenName: Foeken
+          carenRole: Mantelzorger
+          status: 1
+          reportTypeId: 101
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 2
+          reportingDate: '2014-04-01T17:00:00.000+02:00'
+          comment: Goed geplast
+          flagged: true
+          confidential: false
+          hidden: false
+          parentType: careplanreport
+          carenId: 10
+          carenName: Foeken
+          carenRole: Mantelzorger
+          status: 1
+          reportTypeId: 101
+      xml:
+        name: reports
+    dossier.ReportVitalSign:
+      title: ReportVitalSign
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: generic name of vital sign
+        measuredAt:
+          type:
+          - string
+          - 'null'
+          description: Time when vital sign was measured.
+          format: date-time
+        unit:
+          type:
+          - string
+          - 'null'
+          description: unit of measurement
+        type:
+          type:
+          - string
+          - 'null'
+          description: Vital sign name
+        value:
+          type:
+          - string
+          - 'null'
+          description: value of vital sign
+      description: Vital sign from a report
+      example:
+        id: systolic_blood_pressure
+        measuredAt: '2014-07-24T02:00:00.000+02:00'
+        unit: mm[Hg]
+        type: Systolisch
+        value: '55'
+    dossier.ReportFilter:
+      type: string
+      oneOf:
+      - title: ALL
+        enum:
+        - all
+      - title: MARKED
+        enum:
+        - marked
+      - title: WITH_ACTIONS
+        enum:
+        - with_actions
+      - title: WITH_CREATED_ACTIONS
+        enum:
+        - with_created_actions
+      description: ReportFilter model (no description)
+      example: all
+    dossier.SoapReportEntry:
+      type: object
+      properties:
+        soapPart:
+          type: string
+        confidential:
+          type: boolean
+          description: When this is true this SOAP entry is shown regardless of the attached rights
+          default: false
+        content:
+          type: string
+        expertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseProfileId
+          xml:
+            wrapped: true
+        expertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseGroupId
+          xml:
+            wrapped: true
+      description: SoapReportEntry model (no description)
+      example:
+        soapPart: Subjective
+        confidential: true
+        content: Text about the subjective experiences of the client
+        expertiseProfileIds:
+        - 1
+        - 2
+        - 3
+        expertiseGroupIds:
+        - 4
+        - 5
+        - 6
+      xml:
+        name: soapReportEntry
     ExpertiseProfile:
       type: object
       properties:
@@ -2829,12 +3002,6 @@ components:
         - 1
         - 2
         - 3
-    dossier.ReportLinkType:
-      enum:
-      - NEXT_DOSSIER
-      type: string
-      description: ReportLinkType enum (no description)
-      example: NEXT_DOSSIER
     dossier.ReportEntry:
       type: object
       properties:
@@ -2880,100 +3047,79 @@ components:
         displayName: Systolic pressure
       xml:
         name: reportEntry
-    dossier.ReportAuthorization:
+    dossier.ReportVitalSignList:
+      title: VitalSignsReports
       type: object
       properties:
-        id:
+        systolic:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        diastolic:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        pulse:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        temperature:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+        saturation:
+          $ref: '#/components/schemas/dossier.ReportVitalSign'
+      description: List of vital signs
+      example:
+        systolic:
+          id: systolic_blood_pressure
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: mm[Hg]
+          type: Systolisch
+          value: '55'
+        diastolic:
+          id: diastolic_blood_pressure
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: mm[Hg]
+          type: Diastolisch
+          value: '55'
+        pulse:
+          id: pulse
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: /min
+          type: Frequentie
+          value: '55'
+        temperature:
+          id: body_temperature
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: Cek
+          type: Temperatuur
+          value: '55'
+        saturation:
+          id: body_saturation
+          measuredAt: '2014-07-24T02:00:00.000+02:00'
+          unit: '%'
+          type: Saturatie
+          value: '55'
+    dossier.ReportAction:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.ReportAuthorization'
+      properties:
+        employeeId:
           type: integer
           format: int64
-          x-cupido-id: true
-        carePlanId:
-          type: integer
-          description: 'Deprecated since: 14-03-2019'
-          format: int64
-          deprecated: true
-        expertiseProfileId:
-          type: integer
-          format: int64
-        expertiseGroupObjectId:
-          type: integer
-          format: int64
-      description: "Only present when dossier.Report.confidential == true, then:\n- In the case of SOEP-reports (reportType 315), contains all disciplines that can see any of the \nSOEP-report's reportEntries. Which discipline can see which entry is defined on the reportEntries themselves.\n- For other reports, contains which discipline can see the report."
+        dateFinished:
+          type: string
+          format: date-time
+      description: ReportAction model (no description)
       example:
         id: 1
         carePlanId: 1
         expertiseProfileId: 1
-        expertiseGroupObjectId: 1
+        expertiseGroupObjectId: 2
+        employeeId: 1
+        dateFinished: '2014-07-24T02:00:00.000+02:00'
       xml:
-        name: reportAuthorization
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-    dossier.SoapReportEntry:
-      type: object
-      properties:
-        soapPart:
-          type: string
-        confidential:
-          type: boolean
-          description: When this is true this SOAP entry is shown regardless of the attached rights
-          default: false
-        content:
-          type: string
-        expertiseProfileIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-            xml:
-              name: expertiseProfileId
-          xml:
-            wrapped: true
-        expertiseGroupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-            xml:
-              name: expertiseGroupId
-          xml:
-            wrapped: true
-      description: SoapReportEntry model (no description)
-      example:
-        soapPart: Subjective
-        confidential: true
-        content: Text about the subjective experiences of the client
-        expertiseProfileIds:
-        - 1
-        - 2
-        - 3
-        expertiseGroupIds:
-        - 4
-        - 5
-        - 6
-      xml:
-        name: soapReportEntry
+        name: reportAction
+    dossier.ReportLinkType:
+      enum:
+      - NEXT_DOSSIER
+      type: string
+      description: ReportLinkType enum (no description)
+      example: NEXT_DOSSIER
     dossier.Report:
       required:
       - reportTypeId
@@ -3196,202 +3342,56 @@ components:
         reportLinkType: NEXT_DOSSIER
       xml:
         name: report
-    dossier.list.ReportList:
+    AuditedBase:
+      title: AuditedBase
       type: object
       properties:
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Report'
-          xml:
-            name: report
-      description: ReportList model (no description)
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
       example:
-        reports:
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 1
-          reportingDate: '2014-04-01T17:00:00.000+02:00'
-          comment: Goed geplast
-          flagged: true
-          confidential: false
-          hidden: false
-          parentType: careplanreport
-          carenId: 10
-          carenName: Foeken
-          carenRole: Mantelzorger
-          status: 1
-          reportTypeId: 101
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 2
-          reportingDate: '2014-04-01T17:00:00.000+02:00'
-          comment: Goed geplast
-          flagged: true
-          confidential: false
-          hidden: false
-          parentType: careplanreport
-          carenId: 10
-          carenName: Foeken
-          carenRole: Mantelzorger
-          status: 1
-          reportTypeId: 101
-      xml:
-        name: reports
-    dossier.ReportVitalSign:
-      title: ReportVitalSign
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.ReportAuthorization:
       type: object
       properties:
         id:
-          type:
-          - string
-          - 'null'
-          description: generic name of vital sign
-        measuredAt:
-          type:
-          - string
-          - 'null'
-          description: Time when vital sign was measured.
-          format: date-time
-        unit:
-          type:
-          - string
-          - 'null'
-          description: unit of measurement
-        type:
-          type:
-          - string
-          - 'null'
-          description: Vital sign name
-        value:
-          type:
-          - string
-          - 'null'
-          description: value of vital sign
-      description: Vital sign from a report
-      example:
-        id: systolic_blood_pressure
-        measuredAt: '2014-07-24T02:00:00.000+02:00'
-        unit: mm[Hg]
-        type: Systolisch
-        value: '55'
-    dossier.list.ReportAuthorizationList:
-      type: object
-      properties:
-        reportAuthorizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.ReportAuthorization'
-          xml:
-            name: reportAuthorization
-      description: ReportAuthorizationList model (no description)
-      example:
-        reportAuthorizations:
-        - id: 1
-          expertiseProfileId: 1
-          expertiseGroupObjectId: 2
-        - id: 2
-          expertiseProfileId: 2
-          expertiseGroupObjectId: 1
-      xml:
-        name: reportAuthorizations
-    dossier.ReportAction:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.ReportAuthorization'
-      properties:
-        employeeId:
           type: integer
           format: int64
-        dateFinished:
-          type: string
-          format: date-time
-      description: ReportAction model (no description)
+          x-cupido-id: true
+        carePlanId:
+          type: integer
+          description: 'Deprecated since: 14-03-2019'
+          format: int64
+          deprecated: true
+        expertiseProfileId:
+          type: integer
+          format: int64
+        expertiseGroupObjectId:
+          type: integer
+          format: int64
+      description: "Only present when dossier.Report.confidential == true, then:\n- In the case of SOEP-reports (reportType 315), contains all disciplines that can see any of the \nSOEP-report's reportEntries. Which discipline can see which entry is defined on the reportEntries themselves.\n- For other reports, contains which discipline can see the report."
       example:
         id: 1
         carePlanId: 1
         expertiseProfileId: 1
-        expertiseGroupObjectId: 2
-        employeeId: 1
-        dateFinished: '2014-07-24T02:00:00.000+02:00'
+        expertiseGroupObjectId: 1
       xml:
-        name: reportAction
-    dossier.ReportVitalSignList:
-      title: VitalSignsReports
-      type: object
-      properties:
-        systolic:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-        diastolic:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-        pulse:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-        temperature:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-        saturation:
-          $ref: '#/components/schemas/dossier.ReportVitalSign'
-      description: List of vital signs
-      example:
-        systolic:
-          id: systolic_blood_pressure
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: mm[Hg]
-          type: Systolisch
-          value: '55'
-        diastolic:
-          id: diastolic_blood_pressure
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: mm[Hg]
-          type: Diastolisch
-          value: '55'
-        pulse:
-          id: pulse
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: /min
-          type: Frequentie
-          value: '55'
-        temperature:
-          id: body_temperature
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: Cek
-          type: Temperatuur
-          value: '55'
-        saturation:
-          id: body_saturation
-          measuredAt: '2014-07-24T02:00:00.000+02:00'
-          unit: '%'
-          type: Saturatie
-          value: '55'
-    dossier.ReportsWithActionsSummary:
-      type: object
-      properties:
-        actionsForUser:
-          type: integer
-          format: int64
-        actionsByUser:
-          type: integer
-          format: int64
-      description: ReportsWithActionsSummary model (no description)
-      example:
-        actionsForUser: 42
-        actionsByUser: 87
-    dossier.ReportFilter:
-      type: string
-      oneOf:
-      - title: ALL
-        enum:
-        - all
-      - title: MARKED
-        enum:
-        - marked
-      - title: WITH_ACTIONS
-        enum:
-        - with_actions
-      - title: WITH_CREATED_ACTIONS
-        enum:
-        - with_created_actions
-      description: ReportFilter model (no description)
-      example: all
+        name: reportAuthorization
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

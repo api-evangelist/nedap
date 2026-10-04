@@ -67,21 +67,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.omaha.InterventionCategory:
-      type: object
-      properties:
-        classificationId:
-          type: string
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van deze actie
-      description: 'Omaha soort actie '
-      example:
-        classificationId: Dummy
-        name: Dummy
-      xml:
-        name: omahaInterventionCategory
     dossier.omaha.list.InterventionCategoryList:
       type: object
       properties:
@@ -100,6 +85,21 @@ components:
           name: Behandelen en procedures toepassen
       xml:
         name: omahaInterventionCategories
+    dossier.omaha.InterventionCategory:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van deze actie
+      description: 'Omaha soort actie '
+      example:
+        classificationId: Dummy
+        name: Dummy
+      xml:
+        name: omahaInterventionCategory
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

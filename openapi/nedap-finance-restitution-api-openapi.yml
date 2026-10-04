@@ -140,40 +140,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    finance.list.RestitutionList:
-      type: object
-      properties:
-        restitutions:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.Restitution'
-          xml:
-            name: restitution
-      description: RestitutionList model (no description)
-      example:
-        restitutions:
-        - id: 1
-          financeLogId: 123
-          invoiceRowId: 124
-          originalAmount: 1
-          originalAmountUnit: 2
-          originalRate: 1
-          originalRateUnit: 2
-          restitutionAmount: 4
-          createdAt: '2016-02-01T00:00:00.000+01:00'
-          updatedAt: '2016-02-07T00:00:00.000+01:00'
-        - id: 2
-          financeLogId: 128
-          invoiceRowId: 129
-          originalAmount: 2
-          originalAmountUnit: 4
-          originalRate: 2
-          originalRateUnit: 4
-          restitutionAmount: 8
-          createdAt: '2016-02-01T00:00:00.000+01:00'
-          updatedAt: '2016-02-07T00:00:00.000+01:00'
-      xml:
-        name: restitutions
     finance.Restitution:
       type: object
       properties:
@@ -222,6 +188,40 @@ components:
         updatedAt: '2016-02-07T00:00:00.000+01:00'
       xml:
         name: restitution
+    finance.list.RestitutionList:
+      type: object
+      properties:
+        restitutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.Restitution'
+          xml:
+            name: restitution
+      description: RestitutionList model (no description)
+      example:
+        restitutions:
+        - id: 1
+          financeLogId: 123
+          invoiceRowId: 124
+          originalAmount: 1
+          originalAmountUnit: 2
+          originalRate: 1
+          originalRateUnit: 2
+          restitutionAmount: 4
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+        - id: 2
+          financeLogId: 128
+          invoiceRowId: 129
+          originalAmount: 2
+          originalAmountUnit: 4
+          originalRate: 2
+          originalRateUnit: 4
+          restitutionAmount: 8
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: restitutions
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

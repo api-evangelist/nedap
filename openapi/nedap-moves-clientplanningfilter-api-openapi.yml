@@ -95,58 +95,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.ClientPlanningFilter:
-      type: object
-      properties:
-        clientId:
-          type: integer
-          format: int64
-        reason:
-          type: string
-        availabilityName:
-          type: string
-          description: 'The availabiltity type name: e.g. Sick, Vacation, etc.'
-        comment:
-          type: string
-        validFrom:
-          type: string
-          format: date
-        validTo:
-          type: string
-          format: date
-        teamScope:
-          type: string
-          description: 'To which team(s) is this filter applied. When ''only'' or ''except'', team properties should be filled. Other possible values: ''all'', ''none''.'
-        teamId:
-          type: integer
-          format: int64
-        teamName:
-          type: string
-          description: The name of the team
-        teamType:
-          $ref: '#/components/schemas/moves.UnitType'
-        teamCode:
-          type: string
-          description: The customer's internal identifier for the team
-        startTime:
-          type: string
-        stopTime:
-          type: string
-      description: Relation between an Client and an Employee.
-      example:
-        clientId: 7607
-        reason: sick
-        availabilityName: Ziek
-        comment: comment
-        validFrom: '2013-12-05'
-        validTo: '2013-12-06'
-        teamScope: only
-        teamId: 328
-        teamName: V&V De Terp
-        teamCode: '1410'
-        teamType: Intramuraal
-        startTime: '15:00'
-        stopTime: '18:00'
     moves.UnitType:
       enum:
       - Extramuraal
@@ -225,6 +173,58 @@ components:
           reason: out_of_care
           validFrom: '2014-02-01'
           teamScope: all
+    moves.ClientPlanningFilter:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        reason:
+          type: string
+        availabilityName:
+          type: string
+          description: 'The availabiltity type name: e.g. Sick, Vacation, etc.'
+        comment:
+          type: string
+        validFrom:
+          type: string
+          format: date
+        validTo:
+          type: string
+          format: date
+        teamScope:
+          type: string
+          description: 'To which team(s) is this filter applied. When ''only'' or ''except'', team properties should be filled. Other possible values: ''all'', ''none''.'
+        teamId:
+          type: integer
+          format: int64
+        teamName:
+          type: string
+          description: The name of the team
+        teamType:
+          $ref: '#/components/schemas/moves.UnitType'
+        teamCode:
+          type: string
+          description: The customer's internal identifier for the team
+        startTime:
+          type: string
+        stopTime:
+          type: string
+      description: Relation between an Client and an Employee.
+      example:
+        clientId: 7607
+        reason: sick
+        availabilityName: Ziek
+        comment: comment
+        validFrom: '2013-12-05'
+        validTo: '2013-12-06'
+        teamScope: only
+        teamId: 328
+        teamName: V&V De Terp
+        teamCode: '1410'
+        teamType: Intramuraal
+        startTime: '15:00'
+        stopTime: '18:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

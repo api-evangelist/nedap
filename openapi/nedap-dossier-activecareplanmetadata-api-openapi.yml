@@ -71,6 +71,13 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.CarePlanName:
+      enum:
+      - CARE_PLAN
+      - PLAN
+      type: string
+      description: Care plan name set by the customer
+      example: PLAN
     dossier.ActiveCarePlanMetadata:
       type: object
       properties:
@@ -108,13 +115,6 @@ components:
         clientId: 1
         beginDate: '2021-01-01'
         endDate: '2021-02-06'
-    dossier.CarePlanName:
-      enum:
-      - CARE_PLAN
-      - PLAN
-      type: string
-      description: Care plan name set by the customer
-      example: PLAN
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

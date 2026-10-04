@@ -275,6 +275,29 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.snomed.ClinicalFinding:
+      enum:
+      - allergy
+      - adverse_reaction
+      type: string
+      description: ClinicalFinding enum (no description)
+      example: allergy
+    dossier.medical.CauseBuilder:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      description: CauseBuilder model (no description)
+      example:
+        system: SNOMED
+        query: 256259004 | pollen |
+        name: Pollen
+    dossier.FeederAuditContentStoreType:
+      enum:
+      - ons_ketenverkeer
+      - other
+      type: string
+      description: Identifier of the content store that is providing this content
+      example: ons_ketenverkeer
     dossier.medical.list.PropensityToAdverseReactionList:
       type: object
       properties:
@@ -328,53 +351,37 @@ components:
       type: string
       description: Type of the transfer containing this content (a.k.a. the use case)
       example: eoverdracht_nursing
-    dossier.medical.MedicalBase:
+    dossier.medical.encoded_concepts.CausativeAgent:
       type: object
       properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        uuid:
-          type:
-          - string
-          - 'null'
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        updatedById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      description: MedicalBase model (no description)
+        name:
+          type: string
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Encoding'
+      description: CausativeAgent model (no description)
       example:
-        id: 1
-        uuid: Dummy
-        clientId: 1
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T00:00:00.000+01:00'
-        updatedAt: '2014-11-10T00:00:00.000+01:00'
+        name: Aardbeien
+        encodings:
+        - code: '102261002'
+          codeSystem: SNOMED CT
+          displayName: strawberry
+    dossier.Encoding:
+      type: object
+      properties:
+        code:
+          type: string
+        codeSystem:
+          type: string
+        displayName:
+          type: string
+          description: The display name (or title) corresponding to the code in its code system
+      description: Encoding
+      example:
+        code: E10
+        codeSystem: ICD-10
+        displayName: Type 1-diabetes
     dossier.medical.PropensityToAdverseReaction:
       type: object
       allOf:
@@ -471,13 +478,6 @@ components:
         feederAuditSenderName: Some care organisation
         feederAuditTransferType: eoverdracht_nursing
         immutable: true
-    dossier.FeederAuditContentStoreType:
-      enum:
-      - ons_ketenverkeer
-      - other
-      type: string
-      description: Identifier of the content store that is providing this content
-      example: ons_ketenverkeer
     dossier.medical.RelationshipBuilder:
       type: object
       properties:
@@ -506,53 +506,53 @@ components:
         system: Dummy
         query: Dummy
         name: Dummy
-    dossier.Encoding:
+    dossier.medical.MedicalBase:
       type: object
       properties:
-        code:
-          type: string
-        codeSystem:
-          type: string
-        displayName:
-          type: string
-          description: The display name (or title) corresponding to the code in its code system
-      description: Encoding
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
       example:
-        code: E10
-        codeSystem: ICD-10
-        displayName: Type 1-diabetes
-    dossier.medical.encoded_concepts.CausativeAgent:
-      type: object
-      properties:
-        name:
-          type: string
-        encodings:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Encoding'
-      description: CausativeAgent model (no description)
-      example:
-        name: Aardbeien
-        encodings:
-        - code: '102261002'
-          codeSystem: SNOMED CT
-          displayName: strawberry
-    dossier.medical.CauseBuilder:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
-      description: CauseBuilder model (no description)
-      example:
-        system: SNOMED
-        query: 256259004 | pollen |
-        name: Pollen
-    dossier.snomed.ClinicalFinding:
-      enum:
-      - allergy
-      - adverse_reaction
-      type: string
-      description: ClinicalFinding enum (no description)
-      example: allergy
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

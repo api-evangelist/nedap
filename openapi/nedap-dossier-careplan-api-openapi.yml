@@ -648,15 +648,7 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.CarePlanStatus:
-      enum:
-      - DRAFT
-      - ACTIVE
-      - OLD
-      type: string
-      description: CarePlanStatus enum (no description)
-      example: DRAFT
-    survey.AnswerDefinition:
+    dossier.Demand:
       type: object
       allOf:
       - $ref: '#/components/schemas/AuditedBase'
@@ -665,90 +657,273 @@ components:
           type: integer
           format: int64
           x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
         definition:
           type: string
-        sequenceNumber:
-          type: integer
-          format: int32
-        hasInput:
+        protocolUrl:
+          type: string
+        hidden:
           type: boolean
-        active:
-          type: boolean
-        score:
-          type: integer
-          format: int32
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.Answer'
-          xml:
-            wrapped: true
+          default: false
         classificationId:
           type: string
-        answerDefinitionGroupId:
-          type: integer
-          format: int32
-      description: AnswerDefinition model (no description)
+      description: Zorgplan "aandachtspunt"
       example:
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
         createdBy: user
         id: 1
-        definition: heel oud
-        sequenceNumber: 1
-        hasInput: false
-        active: false
-        score: 12
-        answers: []
-        classificationId: classification.reach_modifier.individual
-        answerDefinitionGroupId: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        definition: Definitie
+        protocolUrl: http://www.nedap.com/
+        hidden: true
+        classificationId: classification.problem.health.nutrition
       xml:
-        name: answerDefinition
-    survey.AnsweredQuestion:
+        name: demand
+    dossier.DemandEntry:
       type: object
       allOf:
-      - $ref: '#/components/schemas/survey.Question'
+      - $ref: '#/components/schemas/AuditedBase'
       properties:
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.Answer'
-          xml:
-            wrapped: true
-      description: AnsweredQuestion model (no description)
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        carePlanEntryId:
+          type: integer
+          format: int64
+        demand:
+          $ref: '#/components/schemas/dossier.Demand'
+        demandId:
+          type: integer
+          format: int64
+        comment:
+          type: string
+      description: Zorgplan "aandachtspunt" entry
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        carePlanEntryId: 2
+        demand:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          definition: example
+          protocolUrl: example
+          hidden: true
+          classificationId: example
+        demandId: 3
+        comment: Een opmerking
+      xml:
+        name: demandEntry
+    dossier.GoalEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        comment:
+          type: string
+        title:
+          type: string
+        carePlanEntryId:
+          type: integer
+          format: int64
+        goal:
+          $ref: '#/components/schemas/dossier.Goal'
+        goalId:
+          type: integer
+          format: int64
+        targetDate:
+          type: string
+          format: date-time
+      description: Zorgplan "doel" entry.
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        comment: Een opmerking
+        title: Een titlel
+        carePlanEntryId: 2
+        goal:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          demandId: 1
+          definition: example
+          allowTitleOverride: true
+          allowComment: true
+          reportProgress: true
+          hidden: true
+          classificationId: example
+        goalId: 3
+        targetDate: '2014-04-01T17:00:00.000+02:00'
+      xml:
+        name: goalEntry
+    dossier.ActionEntry:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        carePlanEntryId:
+          type: integer
+          format: int64
+        action:
+          $ref: '#/components/schemas/dossier.Action'
+        actionId:
+          type: integer
+          format: int64
+        carePlanPersistentActionId:
+          type: integer
+          description: The care plan persistent action id of this action entry
+          format: int64
+        comment:
+          type: string
+        title:
+          type: string
+      description: Zorgplan "actie" entry
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        carePlanEntryId: 2
+        action:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          domain:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            name: example
+            hidden: true
+            classificationId: example
+          domainId: 1
+          goal:
+            updatedAt: '2014-12-29T00:00:00.000+01:00'
+            createdAt: '2014-12-29T00:00:00.000+01:00'
+            createdBy: example
+            id: 1
+            domain:
+              updatedAt: '2014-12-29T00:00:00.000+01:00'
+              createdAt: '2014-12-29T00:00:00.000+01:00'
+              createdBy: example
+              id: 1
+              name: example
+              hidden: true
+              classificationId: example
+            domainId: 1
+            demandId: 1
+            definition: example
+            allowTitleOverride: true
+            allowComment: true
+            reportProgress: true
+            hidden: true
+            classificationId: example
+          goalId: 1
+          definition: example
+          instructionUrl: example
+          allowTitleOverride: true
+          allowComment: true
+          hidden: true
+          classificationId: example
+        actionId: 3
+        carePlanPersistentActionId: 4
+        comment: commentaar
+        title: Een titel
+      xml:
+        name: actionEntry
+    survey.Answer:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        surveyResultObjectId:
+          type: integer
+          format: int64
+        questionObjectId:
+          type: integer
+          format: int64
+        answerDefinitionObjectId:
+          type: integer
+          format: int64
+        text:
+          type: string
+        important:
+          type: boolean
+        booleanAnswer:
+          type: boolean
+      description: Answer model (no description)
       example:
         id: 1
-        sequenceNumber: 1
-        answerType: 1
-        text: uw leeftijd?
-        additionalInfo: vul leeftijd in
-        defaultAnswer: 1
-        skipOnYes: true
-        active: true
-        required: true
-        answerMaxLength: 3
-        groupId: 1
-        classificationId: classification.problem.health.nutrition.signs
-        answerDefinitionGroup:
-          updatedAt: '2012-08-02T13:48:46.836+02:00'
-          createdAt: '2012-08-02T13:48:46.836+02:00'
-          createdBy: user
-          id: 1
-          description: heel oud
-          readOnly: false
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        surveyResultObjectId: 1
+        questionObjectId: 1
+        text: heeeeel oud
+        answerDefinitionObjectId: 1
+        important: false
+        booleanAnswer: false
         createdAt: '2012-08-02T13:48:46.836+02:00'
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
         createdBy: user
-        answers:
-        - updatedAt: '2012-08-02T13:48:46.836+02:00'
-          createdAt: '2012-08-02T13:48:46.836+02:00'
-          createdBy: user
-          id: 1
-          surveyResultObjectId: 1
-          questionObjectId: 1
-          answerDefinitionObjectId: 1
-          text: heeeeel oud
-          booleanAnswer: false
+      xml:
+        name: answer
+    dossier.CarePlanStatus:
+      enum:
+      - DRAFT
+      - ACTIVE
+      - OLD
+      type: string
+      description: CarePlanStatus enum (no description)
+      example: DRAFT
     dossier.CarePlan:
       type: object
       allOf:
@@ -1704,48 +1879,6 @@ components:
         endDate: '2014-05-01T17:00:00.000+02:00'
       xml:
         name: carePlan
-    dossier.list.CarePlanList:
-      type: object
-      properties:
-        carePlans:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.CarePlan'
-      description: CarePlanList model (no description)
-      example:
-        carePlans:
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 1
-          clientId: 1
-          employeeId: 1
-          status: ACTIVE
-          beginDate: '2014-01-01T08:00:00.000+01:00'
-          endDate: '2014-05-01T17:00:00.000+02:00'
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 10
-          clientId: 10
-          employeeId: 10
-          status: DRAFT
-          beginDate: '2014-01-01T08:00:00.000+01:00'
-          endDate: '2014-05-01T17:00:00.000+02:00'
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 11
-          clientId: 11
-          employeeId: 11
-          status: OLD
-          beginDate: '2014-01-01T08:00:00.000+01:00'
-          endDate: '2014-05-01T17:00:00.000+02:00'
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 12
-          clientId: 12
-          employeeId: 12
-          status: OLD
-          beginDate: '2014-01-01T08:00:00.000+01:00'
-          endDate: '2014-05-01T17:00:00.000+02:00'
     survey.Question:
       type: object
       allOf:
@@ -1811,135 +1944,6 @@ components:
           readOnly: false
       xml:
         name: question
-    dossier.Goal:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        domain:
-          $ref: '#/components/schemas/dossier.Domain'
-        domainId:
-          type: integer
-          format: int64
-        demandId:
-          type: integer
-          format: int64
-        definition:
-          type: string
-        allowTitleOverride:
-          type: boolean
-          default: false
-        allowComment:
-          type: boolean
-          default: false
-        reportProgress:
-          type: boolean
-          default: false
-        hidden:
-          type: boolean
-          default: false
-        classificationId:
-          type: string
-      description: Zorgplan "doel"
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        domain:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          name: example
-          hidden: true
-          classificationId: example
-        domainId: 2
-        demandId: 3
-        definition: Target definition
-        allowTitleOverride: true
-        allowComment: true
-        reportProgress: false
-        hidden: false
-        classificationId: intervention.category.case_management
-      xml:
-        name: goal
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-    dossier.DemandEntry:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        carePlanEntryId:
-          type: integer
-          format: int64
-        demand:
-          $ref: '#/components/schemas/dossier.Demand'
-        demandId:
-          type: integer
-          format: int64
-        comment:
-          type: string
-      description: Zorgplan "aandachtspunt" entry
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        carePlanEntryId: 2
-        demand:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          domain:
-            updatedAt: '2014-12-29T00:00:00.000+01:00'
-            createdAt: '2014-12-29T00:00:00.000+01:00'
-            createdBy: example
-            id: 1
-            name: example
-            hidden: true
-            classificationId: example
-          domainId: 1
-          definition: example
-          protocolUrl: example
-          hidden: true
-          classificationId: example
-        demandId: 3
-        comment: Een opmerking
-      xml:
-        name: demandEntry
     dossier.Action:
       type: object
       allOf:
@@ -2019,7 +2023,49 @@ components:
         classificationId: intervention.target.bowel_care
       xml:
         name: action
-    survey.Answer:
+    dossier.list.CarePlanList:
+      type: object
+      properties:
+        carePlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.CarePlan'
+      description: CarePlanList model (no description)
+      example:
+        carePlans:
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 1
+          clientId: 1
+          employeeId: 1
+          status: ACTIVE
+          beginDate: '2014-01-01T08:00:00.000+01:00'
+          endDate: '2014-05-01T17:00:00.000+02:00'
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 10
+          clientId: 10
+          employeeId: 10
+          status: DRAFT
+          beginDate: '2014-01-01T08:00:00.000+01:00'
+          endDate: '2014-05-01T17:00:00.000+02:00'
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 11
+          clientId: 11
+          employeeId: 11
+          status: OLD
+          beginDate: '2014-01-01T08:00:00.000+01:00'
+          endDate: '2014-05-01T17:00:00.000+02:00'
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 12
+          clientId: 12
+          employeeId: 12
+          status: OLD
+          beginDate: '2014-01-01T08:00:00.000+01:00'
+          endDate: '2014-05-01T17:00:00.000+02:00'
+    survey.AnswerDefinitionGroup:
       type: object
       allOf:
       - $ref: '#/components/schemas/AuditedBase'
@@ -2028,35 +2074,279 @@ components:
           type: integer
           format: int64
           x-cupido-id: true
-        surveyResultObjectId:
-          type: integer
-          format: int64
-        questionObjectId:
-          type: integer
-          format: int64
-        answerDefinitionObjectId:
-          type: integer
-          format: int64
-        text:
+        description:
           type: string
-        important:
+        readOnly:
           type: boolean
-        booleanAnswer:
+        answerDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnswerDefinition'
+          xml:
+            wrapped: true
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Question'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+      description: AnswerDefinitionGroup model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        description: heel oud
+        readOnly: false
+        answerDefinitions: []
+        questions:
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        - updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: example
+          additionalInfo: example
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 1
+          groupId: 1
+          classificationId: example
+        classificationId: classification.problem.health.nutrition
+      xml:
+        name: answerDefinitionGroup
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.Goal:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        domain:
+          $ref: '#/components/schemas/dossier.Domain'
+        domainId:
+          type: integer
+          format: int64
+        demandId:
+          type: integer
+          format: int64
+        definition:
+          type: string
+        allowTitleOverride:
           type: boolean
-      description: Answer model (no description)
+          default: false
+        allowComment:
+          type: boolean
+          default: false
+        reportProgress:
+          type: boolean
+          default: false
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "doel"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        domain:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
+          id: 1
+          name: example
+          hidden: true
+          classificationId: example
+        domainId: 2
+        demandId: 3
+        definition: Target definition
+        allowTitleOverride: true
+        allowComment: true
+        reportProgress: false
+        hidden: false
+        classificationId: intervention.category.case_management
+      xml:
+        name: goal
+    dossier.Domain:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
+      example:
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
+    survey.ImportantForCarePlanGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        groupAnswerId:
+          type: integer
+          format: int64
+        surveyTitle:
+          type: string
+        description:
+          type: string
+        answeredQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnsweredQuestion'
+          xml:
+            wrapped: true
+      description: ImportantForCarePlanGroup model (no description)
       example:
         id: 1
-        surveyResultObjectId: 1
-        questionObjectId: 1
-        text: heeeeel oud
-        answerDefinitionObjectId: 1
-        important: false
-        booleanAnswer: false
-        createdAt: '2012-08-02T13:48:46.836+02:00'
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdBy: user
+        groupAnswerId: 5
+        surveyTitle: Mooie vragenlijst
+        description: Leeftijd vragen
+        answeredQuestions:
+        - id: 1
+          sequenceNumber: 1
+          answerType: 1
+          text: uw leeftijd?
+          additionalInfo: vul leeftijd in
+          defaultAnswer: 1
+          skipOnYes: true
+          active: true
+          required: true
+          answerMaxLength: 3
+          groupId: 1
+          answerDefinitionGroup:
+            updatedAt: '2012-08-02T13:48:46.836+02:00'
+            createdAt: '2012-08-02T13:48:46.836+02:00'
+            id: 1
+            description: heel oud
+            readOnly: false
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          answers:
+          - updatedAt: '2012-08-02T13:48:46.836+02:00'
+            createdAt: '2012-08-02T13:48:46.836+02:00'
+            id: 1
+            surveyResultObjectId: 1
+            questionObjectId: 1
+            answerDefinitionObjectId: 1
+            text: heeeeel oud
+            booleanAnswer: false
       xml:
-        name: answer
+        name: importantForCarePlanGroup
+    survey.AnswerDefinition:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        definition:
+          type: string
+        sequenceNumber:
+          type: integer
+          format: int32
+        hasInput:
+          type: boolean
+        active:
+          type: boolean
+        score:
+          type: integer
+          format: int32
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.Answer'
+          xml:
+            wrapped: true
+        classificationId:
+          type: string
+        answerDefinitionGroupId:
+          type: integer
+          format: int32
+      description: AnswerDefinition model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        definition: heel oud
+        sequenceNumber: 1
+        hasInput: false
+        active: false
+        score: 12
+        answers: []
+        classificationId: classification.reach_modifier.individual
+        answerDefinitionGroupId: 1
+      xml:
+        name: answerDefinition
     dossier.CarePlanEntry:
       type: object
       allOf:
@@ -2558,341 +2848,51 @@ components:
               booleanAnswer: true
       xml:
         name: carePlanEntry
-    survey.ImportantForCarePlanGroup:
+    survey.AnsweredQuestion:
       type: object
+      allOf:
+      - $ref: '#/components/schemas/survey.Question'
       properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        groupAnswerId:
-          type: integer
-          format: int64
-        surveyTitle:
-          type: string
-        description:
-          type: string
-        answeredQuestions:
+        answers:
           type: array
           items:
-            $ref: '#/components/schemas/survey.AnsweredQuestion'
+            $ref: '#/components/schemas/survey.Answer'
           xml:
             wrapped: true
-      description: ImportantForCarePlanGroup model (no description)
+      description: AnsweredQuestion model (no description)
       example:
         id: 1
-        groupAnswerId: 5
-        surveyTitle: Mooie vragenlijst
-        description: Leeftijd vragen
-        answeredQuestions:
-        - id: 1
-          sequenceNumber: 1
-          answerType: 1
-          text: uw leeftijd?
-          additionalInfo: vul leeftijd in
-          defaultAnswer: 1
-          skipOnYes: true
-          active: true
-          required: true
-          answerMaxLength: 3
-          groupId: 1
-          answerDefinitionGroup:
-            updatedAt: '2012-08-02T13:48:46.836+02:00'
-            createdAt: '2012-08-02T13:48:46.836+02:00'
-            id: 1
-            description: heel oud
-            readOnly: false
+        sequenceNumber: 1
+        answerType: 1
+        text: uw leeftijd?
+        additionalInfo: vul leeftijd in
+        defaultAnswer: 1
+        skipOnYes: true
+        active: true
+        required: true
+        answerMaxLength: 3
+        groupId: 1
+        classificationId: classification.problem.health.nutrition.signs
+        answerDefinitionGroup:
           updatedAt: '2012-08-02T13:48:46.836+02:00'
           createdAt: '2012-08-02T13:48:46.836+02:00'
-          answers:
-          - updatedAt: '2012-08-02T13:48:46.836+02:00'
-            createdAt: '2012-08-02T13:48:46.836+02:00'
-            id: 1
-            surveyResultObjectId: 1
-            questionObjectId: 1
-            answerDefinitionObjectId: 1
-            text: heeeeel oud
-            booleanAnswer: false
-      xml:
-        name: importantForCarePlanGroup
-    dossier.GoalEntry:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        comment:
-          type: string
-        title:
-          type: string
-        carePlanEntryId:
-          type: integer
-          format: int64
-        goal:
-          $ref: '#/components/schemas/dossier.Goal'
-        goalId:
-          type: integer
-          format: int64
-        targetDate:
-          type: string
-          format: date-time
-      description: Zorgplan "doel" entry.
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        comment: Een opmerking
-        title: Een titlel
-        carePlanEntryId: 2
-        goal:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
+          createdBy: user
           id: 1
-          domain:
-            updatedAt: '2014-12-29T00:00:00.000+01:00'
-            createdAt: '2014-12-29T00:00:00.000+01:00'
-            createdBy: example
-            id: 1
-            name: example
-            hidden: true
-            classificationId: example
-          domainId: 1
-          demandId: 1
-          definition: example
-          allowTitleOverride: true
-          allowComment: true
-          reportProgress: true
-          hidden: true
-          classificationId: example
-        goalId: 3
-        targetDate: '2014-04-01T17:00:00.000+02:00'
-      xml:
-        name: goalEntry
-    dossier.Domain:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit domein
-        hidden:
-          type: boolean
-          default: false
-        classificationId:
-          type: string
-      description: Zorgplan "domein"
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        name: Domein naam
-        hidden: false
-        classificationId: classification.domain.health
-    survey.AnswerDefinitionGroup:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        description:
-          type: string
-        readOnly:
-          type: boolean
-        answerDefinitions:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.AnswerDefinition'
-          xml:
-            wrapped: true
-        questions:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.Question'
-          xml:
-            wrapped: true
-        classificationId:
-          type: string
-      description: AnswerDefinitionGroup model (no description)
-      example:
+          description: heel oud
+          readOnly: false
         updatedAt: '2012-08-02T13:48:46.836+02:00'
         createdAt: '2012-08-02T13:48:46.836+02:00'
         createdBy: user
-        id: 1
-        description: heel oud
-        readOnly: false
-        answerDefinitions: []
-        questions:
-        - updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
+        answers:
+        - updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          createdBy: user
           id: 1
-          sequenceNumber: 1
-          answerType: 1
-          text: example
-          additionalInfo: example
-          defaultAnswer: 1
-          skipOnYes: true
-          active: true
-          required: true
-          answerMaxLength: 1
-          groupId: 1
-          classificationId: example
-        - updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          sequenceNumber: 1
-          answerType: 1
-          text: example
-          additionalInfo: example
-          defaultAnswer: 1
-          skipOnYes: true
-          active: true
-          required: true
-          answerMaxLength: 1
-          groupId: 1
-          classificationId: example
-        classificationId: classification.problem.health.nutrition
-      xml:
-        name: answerDefinitionGroup
-    dossier.Demand:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        domain:
-          $ref: '#/components/schemas/dossier.Domain'
-        domainId:
-          type: integer
-          format: int64
-        definition:
-          type: string
-        protocolUrl:
-          type: string
-        hidden:
-          type: boolean
-          default: false
-        classificationId:
-          type: string
-      description: Zorgplan "aandachtspunt"
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        domain:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          name: example
-          hidden: true
-          classificationId: example
-        domainId: 2
-        definition: Definitie
-        protocolUrl: http://www.nedap.com/
-        hidden: true
-        classificationId: classification.problem.health.nutrition
-      xml:
-        name: demand
-    dossier.ActionEntry:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        carePlanEntryId:
-          type: integer
-          format: int64
-        action:
-          $ref: '#/components/schemas/dossier.Action'
-        actionId:
-          type: integer
-          format: int64
-        carePlanPersistentActionId:
-          type: integer
-          description: The care plan persistent action id of this action entry
-          format: int64
-        comment:
-          type: string
-        title:
-          type: string
-      description: Zorgplan "actie" entry
-      example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        carePlanEntryId: 2
-        action:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          domain:
-            updatedAt: '2014-12-29T00:00:00.000+01:00'
-            createdAt: '2014-12-29T00:00:00.000+01:00'
-            createdBy: example
-            id: 1
-            name: example
-            hidden: true
-            classificationId: example
-          domainId: 1
-          goal:
-            updatedAt: '2014-12-29T00:00:00.000+01:00'
-            createdAt: '2014-12-29T00:00:00.000+01:00'
-            createdBy: example
-            id: 1
-            domain:
-              updatedAt: '2014-12-29T00:00:00.000+01:00'
-              createdAt: '2014-12-29T00:00:00.000+01:00'
-              createdBy: example
-              id: 1
-              name: example
-              hidden: true
-              classificationId: example
-            domainId: 1
-            demandId: 1
-            definition: example
-            allowTitleOverride: true
-            allowComment: true
-            reportProgress: true
-            hidden: true
-            classificationId: example
-          goalId: 1
-          definition: example
-          instructionUrl: example
-          allowTitleOverride: true
-          allowComment: true
-          hidden: true
-          classificationId: example
-        actionId: 3
-        carePlanPersistentActionId: 4
-        comment: commentaar
-        title: Een titel
-      xml:
-        name: actionEntry
+          surveyResultObjectId: 1
+          questionObjectId: 1
+          answerDefinitionObjectId: 1
+          text: heeeeel oud
+          booleanAnswer: false
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

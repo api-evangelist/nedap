@@ -80,6 +80,14 @@ components:
       type: string
       description: Recording mode to use.
       example: Bulk
+    whismur.Recorder:
+      enum:
+      - OnsSpraak
+      - AttendiLimited
+      - AttendiFull
+      type: string
+      description: Recorder to use for speech to text service.
+      example: OnsSpraak
     whismur.Provider:
       enum:
       - NONE
@@ -89,14 +97,6 @@ components:
       type: string
       description: The speech to text provider configured for this care organization.
       example: ATTENDI
-    whismur.Recorder:
-      enum:
-      - OnsSpraak
-      - AttendiLimited
-      - AttendiFull
-      type: string
-      description: Recorder to use for speech to text service.
-      example: OnsSpraak
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -595,25 +595,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    list.ExpertiseProfileAssignmentList:
-      type: object
-      properties:
-        expertiseProfileAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpertiseProfileAssignment'
-          xml:
-            name: expertiseProfileAssignment
-      description: ExpertiseProfileAssignmentList model (no description)
-      example:
-        expertiseProfileAssignments:
-        - id: 1
-          startTime: '2012-08-02T11:48:46.836+02:00'
-          endTime: '2012-08-02T11:48:46.836+02:00'
-          employeeObjectId: 9941
-          expertiseProfileObjectId: 2
-      xml:
-        name: expertiseProfileAssignments
     ExpertiseProfileAssignment:
       type: object
       properties:
@@ -642,6 +623,25 @@ components:
         expertiseProfileObjectId: 2
       xml:
         name: expertiseProfileAssignment
+    list.ExpertiseProfileAssignmentList:
+      type: object
+      properties:
+        expertiseProfileAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpertiseProfileAssignment'
+          xml:
+            name: expertiseProfileAssignment
+      description: ExpertiseProfileAssignmentList model (no description)
+      example:
+        expertiseProfileAssignments:
+        - id: 1
+          startTime: '2012-08-02T11:48:46.836+02:00'
+          endTime: '2012-08-02T11:48:46.836+02:00'
+          employeeObjectId: 9941
+          expertiseProfileObjectId: 2
+      xml:
+        name: expertiseProfileAssignments
     ExpertiseProfileAssignmentUpdateModel:
       type: object
       properties:

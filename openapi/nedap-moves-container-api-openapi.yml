@@ -83,61 +83,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.ContainerTimeBlockType:
-      enum:
-      - AVAILABLE
-      - UNAVAILABLE
-      type: string
-      description: Whether this availability marks an unavailability in which work cannot be planned, or an availability in which work can be planned.
-      example: AVAILABLE
-    moves.ContainerSearchRequest:
-      title: ContainerSearchRequest
-      required:
-      - from
-      - to
-      type: object
-      properties:
-        from:
-          type: string
-          description: The date from which all the results need to be found
-          format: date
-        to:
-          type: string
-          description: The exclusive date until all the results need to be found
-          format: date
-        unitIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int64
-          description: The identifiers of the units that need to be attached to the result
-        shiftTimelineIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int64
-          description: The timeline ids of the shifts that need to be attached to the result
-        employeeIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int64
-          description: The identifiers of the employees that need to be attached to the result
-      description: The request body used to search for containers
-      example:
-        from: '2025-05-20'
-        to: '2025-05-30'
-        unitIds:
-        - 1
-        - 2
-        shiftTimelineIds: []
-        employeeIds: []
     moves.Container:
       title: Container
       required:
@@ -226,31 +171,54 @@ components:
           endDateTime: '2025-05-25T12:30:00.000+02:00'
           plannable: true
           type: AVAILABLE
-    moves.list.ContainerList:
-      title: ContainerList
+    moves.ContainerSearchRequest:
+      title: ContainerSearchRequest
       required:
-      - containers
+      - from
+      - to
       type: object
       properties:
-        containers:
-          type: array
+        from:
+          type: string
+          description: The date from which all the results need to be found
+          format: date
+        to:
+          type: string
+          description: The exclusive date until all the results need to be found
+          format: date
+        unitIds:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/moves.Container'
-      description: A response body that contains a list of containers.
+            type: integer
+            format: int64
+          description: The identifiers of the units that need to be attached to the result
+        shiftTimelineIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The timeline ids of the shifts that need to be attached to the result
+        employeeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The identifiers of the employees that need to be attached to the result
+      description: The request body used to search for containers
       example:
-        containers:
-        - containerId: '|EMPLOYEE:1|UNIT:1|DAY:MONDAY|'
-          containerType: EMPLOYEE
-          containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
-          unitId: 1
-          date: '2025-05-25'
-          startDateTime: '2025-05-25T09:30:00.000+02:00'
-          endDateTime: '2025-05-25T12:30:00.000+02:00'
-          timeBlocks:
-          - startDateTime: '2025-05-25T09:30:00.000+02:00'
-            endDateTime: '2025-05-25T12:30:00.000+02:00'
-            type: AVAILABLE
-            plannable: true
+        from: '2025-05-20'
+        to: '2025-05-30'
+        unitIds:
+        - 1
+        - 2
+        shiftTimelineIds: []
+        employeeIds: []
     moves.ContainerType:
       enum:
       - SHIFT
@@ -286,6 +254,31 @@ components:
         endDateTime: '2025-05-25T12:30:00.000+02:00'
         type: AVAILABLE
         plannable: true
+    moves.list.ContainerList:
+      title: ContainerList
+      required:
+      - containers
+      type: object
+      properties:
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.Container'
+      description: A response body that contains a list of containers.
+      example:
+        containers:
+        - containerId: '|EMPLOYEE:1|UNIT:1|DAY:MONDAY|'
+          containerType: EMPLOYEE
+          containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+          unitId: 1
+          date: '2025-05-25'
+          startDateTime: '2025-05-25T09:30:00.000+02:00'
+          endDateTime: '2025-05-25T12:30:00.000+02:00'
+          timeBlocks:
+          - startDateTime: '2025-05-25T09:30:00.000+02:00'
+            endDateTime: '2025-05-25T12:30:00.000+02:00'
+            type: AVAILABLE
+            plannable: true
     moves.MovesRatelimitError:
       title: MovesRatelimitError
       type: object
@@ -305,6 +298,13 @@ components:
         type: ratelimit-error
         title: Rate-limit reached
         status: 429
+    moves.ContainerTimeBlockType:
+      enum:
+      - AVAILABLE
+      - UNAVAILABLE
+      type: string
+      description: Whether this availability marks an unavailability in which work cannot be planned, or an availability in which work can be planned.
+      example: AVAILABLE
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

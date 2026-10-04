@@ -67,6 +67,43 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.InvoiceProviderGroupList:
+      type: object
+      properties:
+        invoiceProviderGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.InvoiceProviderGroup'
+          xml:
+            name: invoiceProviderGroup
+      description: InvoiceProviderGroupList model (no description)
+      example:
+        invoiceProviderGroups:
+        - id: 1
+          beginDate: '2018-01-28T00:00:00.000+01:00'
+          active: true
+          updatedAt: '2018-02-07T00:00:00.000+01:00'
+          koepelCode: '12345678'
+          debtorIds:
+          - 1
+          - 2
+          - 3
+          - 4
+          providers:
+          - '11111111'
+          - '22222222'
+        - id: 2
+          beginDate: '2018-01-28T00:00:00.000+01:00'
+          active: false
+          updatedAt: '2018-02-07T00:00:00.000+01:00'
+          koepelCode: '87654321'
+          debtorIds:
+          - 5
+          providers:
+          - '33333333'
+          - '44444444'
+      xml:
+        name: invoiceProviderGroups
     finance.InvoiceProviderGroup:
       type: object
       properties:
@@ -140,43 +177,6 @@ components:
         - '22222222'
       xml:
         name: invoiceProviderGroup
-    finance.list.InvoiceProviderGroupList:
-      type: object
-      properties:
-        invoiceProviderGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.InvoiceProviderGroup'
-          xml:
-            name: invoiceProviderGroup
-      description: InvoiceProviderGroupList model (no description)
-      example:
-        invoiceProviderGroups:
-        - id: 1
-          beginDate: '2018-01-28T00:00:00.000+01:00'
-          active: true
-          updatedAt: '2018-02-07T00:00:00.000+01:00'
-          koepelCode: '12345678'
-          debtorIds:
-          - 1
-          - 2
-          - 3
-          - 4
-          providers:
-          - '11111111'
-          - '22222222'
-        - id: 2
-          beginDate: '2018-01-28T00:00:00.000+01:00'
-          active: false
-          updatedAt: '2018-02-07T00:00:00.000+01:00'
-          koepelCode: '87654321'
-          debtorIds:
-          - 5
-          providers:
-          - '33333333'
-          - '44444444'
-      xml:
-        name: invoiceProviderGroups
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

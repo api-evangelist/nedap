@@ -210,62 +210,61 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    Referral:
+    ReferrerCategory:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
+        code:
+          type: string
           x-cupido-id: true
-        clientId:
-          type: integer
-          format: int64
-        documentId:
-          type: integer
-          format: int64
-        date:
+        description:
           type: string
-          format: date
-        referrerType:
-          type: string
-        referrerCategory:
-          type: string
-        agbCode:
-          type: string
-        referrer:
-          type: string
-        specialism:
-          type: string
-        institution:
-          type: integer
-          description: 'Institution type for the referral. Can be
-
-            <ul>
-
-            <li>0 - institution</li>
-
-            <li>1 - practice</li>
-
-            <li>2 - care giver</li>
-
-            <li>or null</li>
-
-            </ul>'
-          format: int32
-      description: Referral model (no description)
+        requiresDocument:
+          type: boolean
+          default: false
+        referrerTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReferrerType'
+          xml:
+            wrapped: true
+      description: ReferrerCategory model (no description)
       example:
-        id: 1
-        clientId: 2
-        documentId: 1
-        date: '2017-01-01'
-        referrerType: '01'
-        referrerCategory: '02'
-        agbCode: '12345678'
-        referrer: naam
-        specialism: '0100'
-        institution: 2
+        code: '01'
+        description: GGZ
+        requiresDocument: true
+        referrerTypes:
+        - code: '01'
+          description: Verwezen patiënt vanuit de eerste lijn
+        - code: '02'
+          description: Verwezen patiënt vanuit een (andere) GGZ-instelling, instelling MSZ of GGZ-praktijk
+        - code: '03'
+          description: Verwezen patiënt vanuit de crisiszorg of spoedeisende hulp
+        - code: '04'
+          description: Eigen patiënt
+        - code: '05'
+          description: Verwezen patiënt, maar verwijzer heeft geen AGB-code
+        - code: '06'
+          description: Zelfverwijzer
+        - code: '07'
+          description: Bemoeizorg
+        - code: 08
+          description: Verwijzing langdurige GGZ
       xml:
-        name: referral
+        name: referrerCategory
+    ReferrerType:
+      type: object
+      properties:
+        code:
+          type: string
+          x-cupido-id: true
+        description:
+          type: string
+      description: ReferrerType model (no description)
+      example:
+        code: '01'
+        description: Verwezen patiënt vanuit de eerste lijn
+      xml:
+        name: referrerType
     list.ReferrerCategoryList:
       type: object
       properties:
@@ -356,61 +355,62 @@ components:
             description: Eigen patiënt
       xml:
         name: referrerCategories
-    ReferrerCategory:
+    Referral:
       type: object
       properties:
-        code:
-          type: string
+        id:
+          type: integer
+          format: int64
           x-cupido-id: true
-        description:
+        clientId:
+          type: integer
+          format: int64
+        documentId:
+          type: integer
+          format: int64
+        date:
           type: string
-        requiresDocument:
-          type: boolean
-          default: false
-        referrerTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReferrerType'
-          xml:
-            wrapped: true
-      description: ReferrerCategory model (no description)
+          format: date
+        referrerType:
+          type: string
+        referrerCategory:
+          type: string
+        agbCode:
+          type: string
+        referrer:
+          type: string
+        specialism:
+          type: string
+        institution:
+          type: integer
+          description: 'Institution type for the referral. Can be
+
+            <ul>
+
+            <li>0 - institution</li>
+
+            <li>1 - practice</li>
+
+            <li>2 - care giver</li>
+
+            <li>or null</li>
+
+            </ul>'
+          format: int32
+      description: Referral model (no description)
       example:
-        code: '01'
-        description: GGZ
-        requiresDocument: true
-        referrerTypes:
-        - code: '01'
-          description: Verwezen patiënt vanuit de eerste lijn
-        - code: '02'
-          description: Verwezen patiënt vanuit een (andere) GGZ-instelling, instelling MSZ of GGZ-praktijk
-        - code: '03'
-          description: Verwezen patiënt vanuit de crisiszorg of spoedeisende hulp
-        - code: '04'
-          description: Eigen patiënt
-        - code: '05'
-          description: Verwezen patiënt, maar verwijzer heeft geen AGB-code
-        - code: '06'
-          description: Zelfverwijzer
-        - code: '07'
-          description: Bemoeizorg
-        - code: 08
-          description: Verwijzing langdurige GGZ
+        id: 1
+        clientId: 2
+        documentId: 1
+        date: '2017-01-01'
+        referrerType: '01'
+        referrerCategory: '02'
+        agbCode: '12345678'
+        referrer: naam
+        specialism: '0100'
+        institution: 2
       xml:
-        name: referrerCategory
-    ReferrerType:
-      type: object
-      properties:
-        code:
-          type: string
-          x-cupido-id: true
-        description:
-          type: string
-      description: ReferrerType model (no description)
-      example:
-        code: '01'
-        description: Verwezen patiënt vanuit de eerste lijn
-      xml:
-        name: referrerType
+        name: referral
     list.ReferralList:
       type: object
       properties:

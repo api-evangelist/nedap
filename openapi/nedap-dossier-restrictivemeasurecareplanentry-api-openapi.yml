@@ -476,189 +476,6 @@ components:
         updatedById: 6
         createdAt: '2021-01-01T00:00:00.000+01:00'
         updatedAt: '2021-01-01T00:00:00.000+01:00'
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
-    dossier.RestrictiveMeasureEntry:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        expertiseProfile:
-          type:
-          - integer
-          - 'null'
-          description: Optional expertise profile that can apply the measure
-          format: int64
-        frequency:
-          type:
-          - string
-          - 'null'
-          description: Optional frequency the restrictive measure should be applied
-        frequencyNarrative:
-          type:
-          - string
-          - 'null'
-          description: Optional explanation of the frequency
-        frequencyUnit:
-          type: integer
-          description: 'Optional the unit of the frequency with this structural measure is applied.
-
-            <pre>
-
-            Possible values:
-
-            - 0 daily
-
-            - 1 weekly
-
-            - 2 monthly
-
-            - 3 yearly
-
-            </pre>'
-          format: int32
-        frequencyAmount:
-          type: integer
-          description: Optional the frequency with which this structural measure is applied.
-          format: int32
-        durationAmount:
-          type: integer
-          description: The duration of the application of the structural measure application.
-          format: int32
-        narrative:
-          type:
-          - string
-          - 'null'
-          description: Optional additional explanation for this restrictive measure
-        snomedExpressionValue:
-          type:
-          - string
-          - 'null'
-          description: Optional snomed expression of the restrictive measure
-        deviceBuilders:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/dossier.medical.DeviceBuilder'
-          description: Optional device builder to build the restrictive measure relation
-        device:
-          allOf:
-          - $ref: '#/components/schemas/dossier.medical.Device'
-          description: Optional device that was used as a restrictive measure
-        typeAgreement:
-          type:
-          - boolean
-          - 'null'
-          description: Optional whether a client or representative agrees with this measure
-        typeResistant:
-          type:
-          - boolean
-          - 'null'
-          description: Optional whether a client resists this measure
-        ordinal:
-          type:
-          - integer
-          - 'null'
-          description: Optional the ordinal number of this measure in a restrictive measure care plan entry
-          format: int32
-          default: 0
-        ambulatoryCaregivers:
-          type:
-          - integer
-          - 'null'
-          description: 'Optional if this measure is applied in an ambulatory situation: the minimum amount of caregivers that are required to apply this measure'
-          format: int32
-        fixedBeginTime:
-          type:
-          - string
-          - 'null'
-          description: 'Optional if this measure is applied at fixed times: when the application of this measure should begin'
-          format: time
-        fixedEndTime:
-          type:
-          - string
-          - 'null'
-          description: 'Optional if this measure is applied at fixed times: when the application of this measure should end'
-          format: time
-        categoryCode:
-          type:
-          - string
-          - 'null'
-          description: The code of the category the measure belongs to
-        duration:
-          type:
-          - string
-          - 'null'
-          description: Optional duration
-        instruction:
-          type:
-          - string
-          - 'null'
-          description: 'Optional instruction (original usage)
-
-            Repurposed to be a combined "toelichting" field
-
-            (includes "Proportionality", "Subsidiarity", "Effectiveness", and possibly "Safety")'
-        applicable:
-          type:
-          - boolean
-          - 'null'
-          description: Optional whether the measure is applicable
-      description: RestrictiveMeasureEntry model (no description)
-      example:
-        id: 1
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 2
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-14T00:00:00.000+01:00'
-        updatedAt: '2014-11-14T00:00:00.000+01:00'
-        expertiseProfile: 3
-        frequency: continual
-        frequencyNarrative: All the time
-        frequencyUnit: 1
-        frequencyAmount: 2
-        durationAmount: 3
-        narrative: RM entry narrative
-        snomedExpressionValue: 37953008 | bedrails |
-        deviceBuilders:
-        - system: example
-          query: example
-          name: example
-        - system: example
-          query: example
-          name: example
-        device:
-          id: 1
-          name: Bedrails
-        typeAgreement: true
-        typeResistant: false
-        ordinal: 1
-        ambulatoryCaregivers: 4
-        fixedBeginTime: '20:50:00.000'
-        fixedEndTime: '07:45:00.000'
-        categoryCode: wzd_medication
-        duration: duration
-        instruction: instruction
-        applicable: true
     dossier.RestrictiveMeasureCarePlanEntry:
       type: object
       allOf:
@@ -1130,108 +947,15 @@ components:
           updatedById: 6
           createdAt: '2021-01-01T00:00:00.000+01:00'
           updatedAt: '2021-01-01T00:00:00.000+01:00'
-    dossier.medical.MedicalBase:
+    dossier.medical.DeviceBuilder:
       type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          x-cupido-id: true
-        uuid:
-          type:
-          - string
-          - 'null'
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        updatedById:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      description: MedicalBase model (no description)
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
+      description: DeviceBuilder model (no description)
       example:
-        id: 1
-        uuid: Dummy
-        clientId: 1
-        createdById: 1
-        updatedById: 1
-        createdAt: '2014-11-10T00:00:00.000+01:00'
-        updatedAt: '2014-11-10T00:00:00.000+01:00'
-    dossier.RestrictiveMeasureCarePlanEntryProblemNarrative:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          description: The problem narrative's ID.
-          format: int64
-          x-cupido-id: true
-        tag:
-          type:
-          - string
-          - 'null'
-          description: 'The problem narrative description. Possible values and their Dutch translations:
-
-
-            WZD-labels:
-
-            <ul>
-
-            <li>mortal_danger_self_others: levensgevaar voor de cliënt of iemand anders</li>
-
-            <li>bodily_harm: ernstig lichamelijk letsel voor de cliënt of iemand anders</li>
-
-            <li>damage_self_others: ernstige psychische, materiële, immateriële of financiële schade voor de cliënt of iemand anders</li>
-
-            <li>severe_neglect: ernstige verwaarlozing of maatschappelijke teloorgang van de cliënt of iemand anders</li>
-
-            <li>disturbed_development: ernstig verstoorde ontwikkeling van de cliënt of iemand anders</li>
-
-            <li>safety_client: bedreiging van de veiligheid van de cliënt al dan niet doordat hij onder invloed van een ander raakt</li>
-
-            <li>aggression_others: de situatie dat de cliënt met hinderlijk gedrag agressie van anderen oproept</li>
-
-            <li>general_safety: de situatie dat de algemene veiligheid van personen of goederen in gevaar is</li>
-
-            </ul>
-
-
-            WZD-FZ-labels:
-
-            <ul>
-
-            <li>danger_order_safety: gevaar voor de orde en veiligheid afwenden</li>
-
-            <li>risk_for_felony: het risico op een ernstig strafbaar feit afwenden</li>
-
-            <li>health_client: ernstige nadelige gevolgen voor de gezondheidstoestand van de cliënt afwenden</li>
-
-            </ul>'
-      description: A problem narrative for a {@link RestrictiveMeasureCarePlanEntry}.
-      example:
-        id: 1
-        tag: general_safety
+        system: SNOMED
+        query: 37953008 | bedrails |
+        name: Bedrails
     dossier.RestrictiveMeasureCarePlanEntryReason:
       type: object
       properties:
@@ -1282,75 +1006,134 @@ components:
       example:
         id: 1
         tag: prevent_crisis
-    dossier.medical.DeviceBuilder:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.RelationshipBuilder'
-      description: DeviceBuilder model (no description)
-      example:
-        system: SNOMED
-        query: 37953008 | bedrails |
-        name: Bedrails
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
-      example:
-        field: one
-        value: empty
-        message: field can not be empty
-    dossier.medical.RelationshipBuilder:
-      type: object
-      properties:
-        system:
-          type:
-          - string
-          - 'null'
-          description: 'Which code system this builder should query
-
-            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
-        query:
-          type:
-          - string
-          - 'null'
-          description: 'Query used to build the correct concept within the given code system.
-
-            Will use the first concept within the code system that matches the query,
-
-            for the best results your query should be as close as possible to a complete code from the system'
-        name:
-          type:
-          - string
-          - 'null'
-      description: RelationshipBuilder model (no description)
-      example:
-        system: Dummy
-        query: Dummy
-        name: Dummy
-    dossier.RestrictiveMeasureEvaluation:
+    dossier.RestrictiveMeasureEntry:
       type: object
       allOf:
       - $ref: '#/components/schemas/dossier.medical.MedicalBase'
       properties:
-        evaluationText:
+        expertiseProfile:
+          type:
+          - integer
+          - 'null'
+          description: Optional expertise profile that can apply the measure
+          format: int64
+        frequency:
           type:
           - string
           - 'null'
-          description: The text of the evaluation
-        evaluationDate:
+          description: Optional frequency the restrictive measure should be applied
+        frequencyNarrative:
           type:
           - string
           - 'null'
-          description: The date of the evaluation
-          format: date
-      description: RestrictiveMeasureEvaluation model (no description)
+          description: Optional explanation of the frequency
+        frequencyUnit:
+          type: integer
+          description: 'Optional the unit of the frequency with this structural measure is applied.
+
+            <pre>
+
+            Possible values:
+
+            - 0 daily
+
+            - 1 weekly
+
+            - 2 monthly
+
+            - 3 yearly
+
+            </pre>'
+          format: int32
+        frequencyAmount:
+          type: integer
+          description: Optional the frequency with which this structural measure is applied.
+          format: int32
+        durationAmount:
+          type: integer
+          description: The duration of the application of the structural measure application.
+          format: int32
+        narrative:
+          type:
+          - string
+          - 'null'
+          description: Optional additional explanation for this restrictive measure
+        snomedExpressionValue:
+          type:
+          - string
+          - 'null'
+          description: Optional snomed expression of the restrictive measure
+        deviceBuilders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.medical.DeviceBuilder'
+          description: Optional device builder to build the restrictive measure relation
+        device:
+          allOf:
+          - $ref: '#/components/schemas/dossier.medical.Device'
+          description: Optional device that was used as a restrictive measure
+        typeAgreement:
+          type:
+          - boolean
+          - 'null'
+          description: Optional whether a client or representative agrees with this measure
+        typeResistant:
+          type:
+          - boolean
+          - 'null'
+          description: Optional whether a client resists this measure
+        ordinal:
+          type:
+          - integer
+          - 'null'
+          description: Optional the ordinal number of this measure in a restrictive measure care plan entry
+          format: int32
+          default: 0
+        ambulatoryCaregivers:
+          type:
+          - integer
+          - 'null'
+          description: 'Optional if this measure is applied in an ambulatory situation: the minimum amount of caregivers that are required to apply this measure'
+          format: int32
+        fixedBeginTime:
+          type:
+          - string
+          - 'null'
+          description: 'Optional if this measure is applied at fixed times: when the application of this measure should begin'
+          format: time
+        fixedEndTime:
+          type:
+          - string
+          - 'null'
+          description: 'Optional if this measure is applied at fixed times: when the application of this measure should end'
+          format: time
+        categoryCode:
+          type:
+          - string
+          - 'null'
+          description: The code of the category the measure belongs to
+        duration:
+          type:
+          - string
+          - 'null'
+          description: Optional duration
+        instruction:
+          type:
+          - string
+          - 'null'
+          description: 'Optional instruction (original usage)
+
+            Repurposed to be a combined "toelichting" field
+
+            (includes "Proportionality", "Subsidiarity", "Effectiveness", and possibly "Safety")'
+        applicable:
+          type:
+          - boolean
+          - 'null'
+          description: Optional whether the measure is applicable
+      description: RestrictiveMeasureEntry model (no description)
       example:
         id: 1
         uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
@@ -1359,8 +1142,34 @@ components:
         updatedById: 1
         createdAt: '2014-11-14T00:00:00.000+01:00'
         updatedAt: '2014-11-14T00:00:00.000+01:00'
-        evaluationText: Evaluation text
-        evaluationDate: '2014-11-14'
+        expertiseProfile: 3
+        frequency: continual
+        frequencyNarrative: All the time
+        frequencyUnit: 1
+        frequencyAmount: 2
+        durationAmount: 3
+        narrative: RM entry narrative
+        snomedExpressionValue: 37953008 | bedrails |
+        deviceBuilders:
+        - system: example
+          query: example
+          name: example
+        - system: example
+          query: example
+          name: example
+        device:
+          id: 1
+          name: Bedrails
+        typeAgreement: true
+        typeResistant: false
+        ordinal: 1
+        ambulatoryCaregivers: 4
+        fixedBeginTime: '20:50:00.000'
+        fixedEndTime: '07:45:00.000'
+        categoryCode: wzd_medication
+        duration: duration
+        instruction: instruction
+        applicable: true
     dossier.list.RestrictiveMeasureCarePlanEntryList:
       type: object
       properties:
@@ -1457,6 +1266,197 @@ components:
       example:
         id: 1
         name: Bedrails
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    dossier.RestrictiveMeasureCarePlanEntryProblemNarrative:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The problem narrative's ID.
+          format: int64
+          x-cupido-id: true
+        tag:
+          type:
+          - string
+          - 'null'
+          description: 'The problem narrative description. Possible values and their Dutch translations:
+
+
+            WZD-labels:
+
+            <ul>
+
+            <li>mortal_danger_self_others: levensgevaar voor de cliënt of iemand anders</li>
+
+            <li>bodily_harm: ernstig lichamelijk letsel voor de cliënt of iemand anders</li>
+
+            <li>damage_self_others: ernstige psychische, materiële, immateriële of financiële schade voor de cliënt of iemand anders</li>
+
+            <li>severe_neglect: ernstige verwaarlozing of maatschappelijke teloorgang van de cliënt of iemand anders</li>
+
+            <li>disturbed_development: ernstig verstoorde ontwikkeling van de cliënt of iemand anders</li>
+
+            <li>safety_client: bedreiging van de veiligheid van de cliënt al dan niet doordat hij onder invloed van een ander raakt</li>
+
+            <li>aggression_others: de situatie dat de cliënt met hinderlijk gedrag agressie van anderen oproept</li>
+
+            <li>general_safety: de situatie dat de algemene veiligheid van personen of goederen in gevaar is</li>
+
+            </ul>
+
+
+            WZD-FZ-labels:
+
+            <ul>
+
+            <li>danger_order_safety: gevaar voor de orde en veiligheid afwenden</li>
+
+            <li>risk_for_felony: het risico op een ernstig strafbaar feit afwenden</li>
+
+            <li>health_client: ernstige nadelige gevolgen voor de gezondheidstoestand van de cliënt afwenden</li>
+
+            </ul>'
+      description: A problem narrative for a {@link RestrictiveMeasureCarePlanEntry}.
+      example:
+        id: 1
+        tag: general_safety
+    dossier.RestrictiveMeasureEvaluation:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        evaluationText:
+          type:
+          - string
+          - 'null'
+          description: The text of the evaluation
+        evaluationDate:
+          type:
+          - string
+          - 'null'
+          description: The date of the evaluation
+          format: date
+      description: RestrictiveMeasureEvaluation model (no description)
+      example:
+        id: 1
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 2
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        evaluationText: Evaluation text
+        evaluationDate: '2014-11-14'
+    dossier.medical.RelationshipBuilder:
+      type: object
+      properties:
+        system:
+          type:
+          - string
+          - 'null'
+          description: 'Which code system this builder should query
+
+            Can be any of CUSTOM, SNOMED, ICD-10, ICPC-1 or ICPC-2'
+        query:
+          type:
+          - string
+          - 'null'
+          description: 'Query used to build the correct concept within the given code system.
+
+            Will use the first concept within the code system that matches the query,
+
+            for the best results your query should be as close as possible to a complete code from the system'
+        name:
+          type:
+          - string
+          - 'null'
+      description: RelationshipBuilder model (no description)
+      example:
+        system: Dummy
+        query: Dummy
+        name: Dummy
+    dossier.medical.MedicalBase:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          x-cupido-id: true
+        uuid:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        updatedById:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      description: MedicalBase model (no description)
+      example:
+        id: 1
+        uuid: Dummy
+        clientId: 1
+        createdById: 1
+        updatedById: 1
+        createdAt: '2014-11-10T00:00:00.000+01:00'
+        updatedAt: '2014-11-10T00:00:00.000+01:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -142,17 +142,6 @@ components:
         - field: two
           value: a
           message: too short
-    zorgdomein_module.BundleWrapper:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          type: string
-          description: Data from original HL7 FHIR DSTU3 bundle. Contains JSON.
-      description: BundleWrapper model for transporting HL7 FHIR DSTU3 bundle data to the Zorgdomein module.
-      example:
-        data: bundlejson
     ErrorResponseEntry:
       title: ErrorResponseEntry
       type: object
@@ -168,6 +157,17 @@ components:
         field: one
         value: empty
         message: field can not be empty
+    zorgdomein_module.BundleWrapper:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: string
+          description: Data from original HL7 FHIR DSTU3 bundle. Contains JSON.
+      description: BundleWrapper model for transporting HL7 FHIR DSTU3 bundle data to the Zorgdomein module.
+      example:
+        data: bundlejson
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

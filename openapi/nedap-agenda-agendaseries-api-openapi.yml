@@ -210,6 +210,44 @@ components:
       description: Frequency of the recurrence
       default: single
       example: single
+    agenda.AgendaClientInvitation:
+      title: ClientInvitation
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/agenda.AgendaInvitation'
+      properties:
+        hourTypeId:
+          type:
+          - integer
+          - 'null'
+          description: 'Identifier of Hour Type
+
+
+            When _not_ using the per-client product selection (part of _uitgebreide workflow_), use the `hourTypeId` field  in the appointment instead'
+          format: int64
+        careOrderId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        surchargeIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+      description: Agenda client invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
+        hourTypeId: 52
+        careOrderId: 2
+        surchargeIds:
+        - 9
+        - 10
     agenda.AgendaInvitation:
       title: Invitation
       type: object
@@ -249,44 +287,20 @@ components:
         teamId: 3
         groupId: 12
         accepted: true
-    agenda.AgendaClientInvitation:
-      title: ClientInvitation
+    agenda.Label:
+      title: Label
       type: object
-      allOf:
-      - $ref: '#/components/schemas/agenda.AgendaInvitation'
       properties:
-        hourTypeId:
-          type:
-          - integer
-          - 'null'
-          description: 'Identifier of Hour Type
-
-
-            When _not_ using the per-client product selection (part of _uitgebreide workflow_), use the `hourTypeId` field  in the appointment instead'
+        id:
+          type: integer
           format: int64
-        careOrderId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        surchargeIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-      description: Agenda client invitation domain model used by Cupido system.
+          x-cupido-id: true
+        name:
+          type: string
+      description: Domain model for Labels for AgendaOccurrences/AgendaSeries
       example:
-        clientId: 1
-        employeeId: 2
-        locationId: 4
-        teamId: 3
-        groupId: 12
-        accepted: true
-        hourTypeId: 52
-        careOrderId: 2
-        surchargeIds:
-        - 9
-        - 10
+        id: 1
+        name: Telefonisch
     agenda.AgendaSeries:
       title: EventSeries
       required:
@@ -545,20 +559,6 @@ components:
         travelTimeBefore: 15
         travelTimeAfter: 35
         labels: []
-    agenda.Label:
-      title: Label
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-      description: Domain model for Labels for AgendaOccurrences/AgendaSeries
-      example:
-        id: 1
-        name: Telefonisch
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

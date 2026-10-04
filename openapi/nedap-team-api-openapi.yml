@@ -816,6 +816,28 @@ components:
         longitude: 6.9
         situationDescription: Woont bij ex
         residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
+    list.TeamList:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+          xml:
+            name: team
+      description: TeamList model (no description)
+      example:
+        teams:
+        - id: 1
+          beginDate: '1999-12-31T23:00:00.000+01:00'
+          externCode: ''
+          identificationNo: '0001'
+          name: Nedap Demo
+          poolTeam: false
+          costCenterNumber: '0001'
+          parentObjectId: 0
+      xml:
+        name: teams
     Team:
       title: Team
       type: object
@@ -879,28 +901,6 @@ components:
         addresses: []
       xml:
         name: team
-    list.TeamList:
-      type: object
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-          xml:
-            name: team
-      description: TeamList model (no description)
-      example:
-        teams:
-        - id: 1
-          beginDate: '1999-12-31T23:00:00.000+01:00'
-          externCode: ''
-          identificationNo: '0001'
-          name: Nedap Demo
-          poolTeam: false
-          costCenterNumber: '0001'
-          parentObjectId: 0
-      xml:
-        name: teams
     TeamAddress:
       type: object
       allOf:

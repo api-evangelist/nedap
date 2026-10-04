@@ -504,6 +504,56 @@ components:
         digitalCare: false
       xml:
         name: product
+    list.PresenceLogList:
+      type: object
+      properties:
+        presenceLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/PresenceLog'
+          xml:
+            name: presenceLog
+      description: PresenceLogList model (no description)
+      example:
+        presenceLogs:
+        - id: 1234
+          activityObjectId: 999
+          duration: 100
+          reason: Moves import
+          action: create
+          externalId: '1'
+          sourceType: '6'
+          clientObjectId: 12344
+          employeeObjectId: 557
+          careOrderObjectId: 123
+          startDate: '2012-08-02T11:48:46.000+02:00'
+          endDate: '2012-08-02T11:48:46.000+02:00'
+          clusterObjectId: 1
+      xml:
+        name: presenceLogs
+    PresenceLogPermission:
+      type: object
+      properties:
+        add_before:
+          type: boolean
+          default: false
+        add_after:
+          type: boolean
+          default: false
+        modify:
+          type: boolean
+          default: false
+        remove:
+          type: boolean
+          default: false
+      description: PresenceLogPermission model (no description)
+      example:
+        add_before: true
+        add_after: true
+        modify: true
+        remove: true
+      xml:
+        name: presenceLogPermission
     PresenceLogORT:
       type: object
       properties:
@@ -532,6 +582,18 @@ components:
         description: Dummy
       xml:
         name: ortHour
+    PresenceLogMetadata:
+      type:
+      - object
+      - 'null'
+      properties:
+        shortNotice:
+          type: boolean
+          description: When true, the correct short notice hour type will be added by OA
+          default: false
+      description: Metadata corresponding to the presence log
+      example:
+        shortNotice: true
     registration.Position:
       title: Position
       type: object
@@ -594,33 +656,6 @@ components:
         usedGoogleAddress: Bovenlaan 5, 6521YH Enschede, Netherlands
       xml:
         name: position
-    list.PresenceLogList:
-      type: object
-      properties:
-        presenceLogs:
-          type: array
-          items:
-            $ref: '#/components/schemas/PresenceLog'
-          xml:
-            name: presenceLog
-      description: PresenceLogList model (no description)
-      example:
-        presenceLogs:
-        - id: 1234
-          activityObjectId: 999
-          duration: 100
-          reason: Moves import
-          action: create
-          externalId: '1'
-          sourceType: '6'
-          clientObjectId: 12344
-          employeeObjectId: 557
-          careOrderObjectId: 123
-          startDate: '2012-08-02T11:48:46.000+02:00'
-          endDate: '2012-08-02T11:48:46.000+02:00'
-          clusterObjectId: 1
-      xml:
-        name: presenceLogs
     PresenceLogLocation:
       title: PresenceLogLocation
       type:
@@ -697,29 +732,6 @@ components:
         - delete
       description: PresenceLogAction model (no description)
       example: create
-    PresenceLogPermission:
-      type: object
-      properties:
-        add_before:
-          type: boolean
-          default: false
-        add_after:
-          type: boolean
-          default: false
-        modify:
-          type: boolean
-          default: false
-        remove:
-          type: boolean
-          default: false
-      description: PresenceLogPermission model (no description)
-      example:
-        add_before: true
-        add_after: true
-        modify: true
-        remove: true
-      xml:
-        name: presenceLogPermission
     PresenceLog:
       title: PresenceLog
       type:
@@ -925,18 +937,6 @@ components:
         uuid: 48b99408-f6e0-11ec-b939-0242ac120002
       xml:
         name: presenceLog
-    PresenceLogMetadata:
-      type:
-      - object
-      - 'null'
-      properties:
-        shortNotice:
-          type: boolean
-          description: When true, the correct short notice hour type will be added by OA
-          default: false
-      description: Metadata corresponding to the presence log
-      example:
-        shortNotice: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

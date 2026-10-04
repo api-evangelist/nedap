@@ -227,70 +227,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dbc.list.DBCSubTrajectList:
-      type: object
-      properties:
-        dbcSubTrajects:
-          type: array
-          items:
-            $ref: '#/components/schemas/dbc.DBCSubTraject'
-          xml:
-            name: dbcSubTraject
-      description: DBCSubTrajectList model (no description)
-      example:
-        dbcSubTrajects:
-        - updatedAt: '2014-09-17T00:00:00.000+02:00'
-          createdAt: '2014-09-17T00:00:00.000+02:00'
-          createdBy: Dummy
-          id: 1
-          source: Dummy
-          dbcIdentifier: Dummy
-          clientId: 1
-          clientIdentifier: Dummy
-          financeTypeId: 1
-          contactPerson: Dummy
-          startDate: '2014-09-17T00:00:00.000+02:00'
-          endDate: '2014-09-17T00:00:00.000+02:00'
-          issueDate: '2014-09-17T00:00:00.000+02:00'
-          startDateClipped: '2014-09-17T00:00:00.000+02:00'
-          endDateClipped: '2014-09-17T00:00:00.000+02:00'
-          debtorId: 1
-          comments: Dummy
-          dbcDiagnosisCode: Dummy
-          endOfCare: '2014-09-17T00:00:00.000+02:00'
-          afsluitingsCode: Dummy
-          zorgTypeCode: Dummy
-          resignationDestination: Dummy
-          dischargeDestinationId: 1
-          transport: true
-          grouperCheck: true
-          dbcTrajectId: 1
-      xml:
-        name: dbcSubTrajects
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     dbc.DBCSubTraject:
       type: object
       allOf:
@@ -387,6 +323,70 @@ components:
         dbcTrajectId: 1
       xml:
         name: dbcSubTraject
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dbc.list.DBCSubTrajectList:
+      type: object
+      properties:
+        dbcSubTrajects:
+          type: array
+          items:
+            $ref: '#/components/schemas/dbc.DBCSubTraject'
+          xml:
+            name: dbcSubTraject
+      description: DBCSubTrajectList model (no description)
+      example:
+        dbcSubTrajects:
+        - updatedAt: '2014-09-17T00:00:00.000+02:00'
+          createdAt: '2014-09-17T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 1
+          source: Dummy
+          dbcIdentifier: Dummy
+          clientId: 1
+          clientIdentifier: Dummy
+          financeTypeId: 1
+          contactPerson: Dummy
+          startDate: '2014-09-17T00:00:00.000+02:00'
+          endDate: '2014-09-17T00:00:00.000+02:00'
+          issueDate: '2014-09-17T00:00:00.000+02:00'
+          startDateClipped: '2014-09-17T00:00:00.000+02:00'
+          endDateClipped: '2014-09-17T00:00:00.000+02:00'
+          debtorId: 1
+          comments: Dummy
+          dbcDiagnosisCode: Dummy
+          endOfCare: '2014-09-17T00:00:00.000+02:00'
+          afsluitingsCode: Dummy
+          zorgTypeCode: Dummy
+          resignationDestination: Dummy
+          dischargeDestinationId: 1
+          transport: true
+          grouperCheck: true
+          dbcTrajectId: 1
+      xml:
+        name: dbcSubTrajects
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

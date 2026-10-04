@@ -640,74 +640,6 @@ components:
           clippedEndDate: '2014-12-29T00:00:00.000+01:00'
       xml:
         name: careOrder
-    finance.list.CareOrderList:
-      type: object
-      properties:
-        careOrders:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.CareOrder'
-          xml:
-            name: careOrder
-      description: CareOrderList model (no description)
-      example:
-        careOrders:
-        - id: 1
-          userIdentifier: Dummy
-          clientIdentifier: Dummy
-          beschikkingsNummer: Dummy
-          lawIdentification: Dummy
-          indicatieorgaanCode: Dummy
-          aanvraagNummer: Dummy
-          issueDate: '2014-12-29T00:00:00.000+01:00'
-          contactPerson: Dummy
-          comments: Dummy
-          beginDate: '2014-12-29T00:00:00.000+01:00'
-          endDate: '2014-12-29T00:00:00.000+01:00'
-          clientId: 1
-          financeTypeId: 1
-          debtorId: 1
-          careOrderProducts:
-          - id: 1
-            careOrderId: 1
-            userIdentifier: '1'
-            quantity: 1
-            quantityUnit: MinutesPerWeek
-            magnitudeQuantityValue: 1
-            magnitudeUnitQuantity: 1
-            magnitudeUnitType: MINUTE
-            magnitudeFrequency: PER_WEEK
-            comments: comments
-            productId: 1
-            financeTypeId: 1
-            instellingsCode: ABCD
-            functietype: ZZP
-            debtorId: 1
-            beginDate: '2014-12-29T00:00:00.000+01:00'
-            endDate: '2014-12-29T00:00:00.000+01:00'
-            clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
-            clippedEndDate: '2014-12-29T00:00:00.000+01:00'
-          - id: 2
-            careOrderId: 1
-            userIdentifier: '1'
-            quantity: 2
-            quantityUnit: MinutesPerWeek
-            magnitudeQuantityValue: 1
-            magnitudeUnitQuantity: 1
-            magnitudeUnitType: MINUTE
-            magnitudeFrequency: PER_WEEK
-            comments: comments
-            productId: 1
-            financeTypeId: 1
-            instellingsCode: ABCD
-            functietype: ZZP
-            debtorId: 1
-            beginDate: '2014-12-29T00:00:00.000+01:00'
-            endDate: '2014-12-29T00:00:00.000+01:00'
-            clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
-            clippedEndDate: '2014-12-29T00:00:00.000+01:00'
-      xml:
-        name: careOrders
     finance.CareOrderProduct:
       type: object
       properties:
@@ -812,6 +744,74 @@ components:
         clippedEndDate: '2014-12-29T00:00:00.000+01:00'
       xml:
         name: careOrderProduct
+    finance.list.CareOrderList:
+      type: object
+      properties:
+        careOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.CareOrder'
+          xml:
+            name: careOrder
+      description: CareOrderList model (no description)
+      example:
+        careOrders:
+        - id: 1
+          userIdentifier: Dummy
+          clientIdentifier: Dummy
+          beschikkingsNummer: Dummy
+          lawIdentification: Dummy
+          indicatieorgaanCode: Dummy
+          aanvraagNummer: Dummy
+          issueDate: '2014-12-29T00:00:00.000+01:00'
+          contactPerson: Dummy
+          comments: Dummy
+          beginDate: '2014-12-29T00:00:00.000+01:00'
+          endDate: '2014-12-29T00:00:00.000+01:00'
+          clientId: 1
+          financeTypeId: 1
+          debtorId: 1
+          careOrderProducts:
+          - id: 1
+            careOrderId: 1
+            userIdentifier: '1'
+            quantity: 1
+            quantityUnit: MinutesPerWeek
+            magnitudeQuantityValue: 1
+            magnitudeUnitQuantity: 1
+            magnitudeUnitType: MINUTE
+            magnitudeFrequency: PER_WEEK
+            comments: comments
+            productId: 1
+            financeTypeId: 1
+            instellingsCode: ABCD
+            functietype: ZZP
+            debtorId: 1
+            beginDate: '2014-12-29T00:00:00.000+01:00'
+            endDate: '2014-12-29T00:00:00.000+01:00'
+            clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+            clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+          - id: 2
+            careOrderId: 1
+            userIdentifier: '1'
+            quantity: 2
+            quantityUnit: MinutesPerWeek
+            magnitudeQuantityValue: 1
+            magnitudeUnitQuantity: 1
+            magnitudeUnitType: MINUTE
+            magnitudeFrequency: PER_WEEK
+            comments: comments
+            productId: 1
+            financeTypeId: 1
+            instellingsCode: ABCD
+            functietype: ZZP
+            debtorId: 1
+            beginDate: '2014-12-29T00:00:00.000+01:00'
+            endDate: '2014-12-29T00:00:00.000+01:00'
+            clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+            clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+      xml:
+        name: careOrders
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

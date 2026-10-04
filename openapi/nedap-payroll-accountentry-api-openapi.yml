@@ -537,6 +537,47 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    payroll.SubType:
+      type: string
+      oneOf:
+      - title: NONE
+        enum:
+        - none
+      - title: PLB
+        enum:
+        - plb
+      - title: LFB
+        enum:
+        - lfb
+      - title: SPECIAL_LEAVE
+        enum:
+        - special leave
+      description: SubType model (no description)
+      example: none
+    payroll.list.AccountEntryList:
+      type: object
+      properties:
+        accountEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.AccountEntry'
+      description: AccountEntryList model (no description)
+      example:
+        accountEntries:
+        - id: 1741079
+          employeeId: 3
+          date: '2015-09-03'
+          minutes: 30
+          reason: Calculated
+          comment: Een comment op deze accountEntry
+          accountTypeId: 2
+          subType: lfb
+          absolute: false
+          correction: false
+          verified: true
+          createdAt: '2015-09-03T00:00:00.000+02:00'
+          updatedAt: '2015-09-03T00:00:00.000+02:00'
+          reasonAsText: Berekend over week 35 2015
     payroll.AccountEntry:
       type: object
       properties:
@@ -596,47 +637,6 @@ components:
         updatedAt: '2015-09-03T00:00:00.000+02:00'
         reasonAsText: Berekend over week 35 2015
         includedInStartingBalance: false
-    payroll.SubType:
-      type: string
-      oneOf:
-      - title: NONE
-        enum:
-        - none
-      - title: PLB
-        enum:
-        - plb
-      - title: LFB
-        enum:
-        - lfb
-      - title: SPECIAL_LEAVE
-        enum:
-        - special leave
-      description: SubType model (no description)
-      example: none
-    payroll.list.AccountEntryList:
-      type: object
-      properties:
-        accountEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.AccountEntry'
-      description: AccountEntryList model (no description)
-      example:
-        accountEntries:
-        - id: 1741079
-          employeeId: 3
-          date: '2015-09-03'
-          minutes: 30
-          reason: Calculated
-          comment: Een comment op deze accountEntry
-          accountTypeId: 2
-          subType: lfb
-          absolute: false
-          correction: false
-          verified: true
-          createdAt: '2015-09-03T00:00:00.000+02:00'
-          updatedAt: '2015-09-03T00:00:00.000+02:00'
-          reasonAsText: Berekend over week 35 2015
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -69,58 +69,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    RecurrenceType:
-      title: RecurrenceType
-      type:
-      - string
-      - 'null'
-      oneOf:
-      - title: SINGLE
-        enum:
-        - single
-      - title: DAILY
-        enum:
-        - daily
-      - title: WEEKLY
-        enum:
-        - weekly
-      - title: MONTHLY_ON_DAY
-        enum:
-        - monthly_on_day
-      - title: MONTHLY_ON_WEEK
-        enum:
-        - monthly_on_week
-      - title: YEARLY
-        enum:
-        - yearly
-      description: Frequency of the recurrence
-      default: single
-      example: single
-    tasque.Executor:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          format: int64
-        locationId:
-          type: integer
-          format: int64
-        teamId:
-          type: integer
-          format: int64
-        expertiseProfileId:
-          type: integer
-          format: int64
-        expertiseGroupId:
-          type: integer
-          format: int64
-      description: Executor model (no description)
-      example:
-        employeeId: 1
-        locationId: 1
-        teamId: 1
-        expertiseProfileId: 1
-        expertiseGroupId: 1
     tasque.CareTaskSeries:
       type: object
       properties:
@@ -345,6 +293,79 @@ components:
         rights:
         - client_overview
         hideExpiredSubject: true
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
+    tasque.Executor:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        locationId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
+        expertiseProfileId:
+          type: integer
+          format: int64
+        expertiseGroupId:
+          type: integer
+          format: int64
+      description: Executor model (no description)
+      example:
+        employeeId: 1
+        locationId: 1
+        teamId: 1
+        expertiseProfileId: 1
+        expertiseGroupId: 1
+    tasque.Subject:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        employeeId:
+          type: integer
+          format: int64
+        locationId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
+      description: A client, employee, location or team
+      example:
+        clientId: 1
+        employeeId: 1
+        locationId: 1
+        teamId: 1
     tasque.CareTaskGroup:
       required:
       - namedPath
@@ -381,27 +402,6 @@ components:
         qualityTask: true
         rights:
         - client_overview
-    tasque.Subject:
-      type: object
-      properties:
-        clientId:
-          type: integer
-          format: int64
-        employeeId:
-          type: integer
-          format: int64
-        locationId:
-          type: integer
-          format: int64
-        teamId:
-          type: integer
-          format: int64
-      description: A client, employee, location or team
-      example:
-        clientId: 1
-        employeeId: 1
-        locationId: 1
-        teamId: 1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

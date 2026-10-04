@@ -140,6 +140,66 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.InvoiceRowList:
+      type: object
+      properties:
+        invoiceRows:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.InvoiceRow'
+          xml:
+            name: invoiceRow
+      description: InvoiceRowList model (no description)
+      example:
+        invoiceRows:
+        - id: 1
+          invoiceId: 1
+          clientId: 1
+          previousInvoiceRowId: -1
+          productId: 1
+          beginDate: '2016-01-28T00:00:00.000+01:00'
+          endDate: '2016-01-29T00:00:00.000+01:00'
+          careOrderProductType: 0
+          careOrderProductId: 4
+          amount: 1
+          rate: 3204
+          unit: 12
+          provider: '12345678'
+          debtorId: 44
+          vat: 6.5
+          vatAmount: 192
+          rateUnit: 12
+          accepted: true
+          acceptedAmount: 3396
+          calculatedAmount: 3396
+          totalCostAmount: 3396
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+        - id: 2
+          invoiceId: 1
+          clientId: 1
+          previousInvoiceRowId: -1
+          productId: 1
+          beginDate: '2016-01-30T00:00:00.000+01:00'
+          endDate: '2016-01-31T00:00:00.000+01:00'
+          careOrderProductType: 0
+          careOrderProductId: 4
+          amount: 1
+          rate: 3204
+          unit: 12
+          provider: '12345678'
+          debtorId: 44
+          vat: 6.5
+          vatAmount: 192
+          rateUnit: 12
+          accepted: true
+          acceptedAmount: 3396
+          calculatedAmount: 3396
+          totalCostAmount: 3396
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: invoiceRows
     finance.InvoiceRow:
       type: object
       properties:
@@ -242,66 +302,6 @@ components:
         updatedAt: '2016-02-07T00:00:00.000+01:00'
       xml:
         name: invoiceRow
-    finance.list.InvoiceRowList:
-      type: object
-      properties:
-        invoiceRows:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.InvoiceRow'
-          xml:
-            name: invoiceRow
-      description: InvoiceRowList model (no description)
-      example:
-        invoiceRows:
-        - id: 1
-          invoiceId: 1
-          clientId: 1
-          previousInvoiceRowId: -1
-          productId: 1
-          beginDate: '2016-01-28T00:00:00.000+01:00'
-          endDate: '2016-01-29T00:00:00.000+01:00'
-          careOrderProductType: 0
-          careOrderProductId: 4
-          amount: 1
-          rate: 3204
-          unit: 12
-          provider: '12345678'
-          debtorId: 44
-          vat: 6.5
-          vatAmount: 192
-          rateUnit: 12
-          accepted: true
-          acceptedAmount: 3396
-          calculatedAmount: 3396
-          totalCostAmount: 3396
-          createdAt: '2016-02-01T00:00:00.000+01:00'
-          updatedAt: '2016-02-07T00:00:00.000+01:00'
-        - id: 2
-          invoiceId: 1
-          clientId: 1
-          previousInvoiceRowId: -1
-          productId: 1
-          beginDate: '2016-01-30T00:00:00.000+01:00'
-          endDate: '2016-01-31T00:00:00.000+01:00'
-          careOrderProductType: 0
-          careOrderProductId: 4
-          amount: 1
-          rate: 3204
-          unit: 12
-          provider: '12345678'
-          debtorId: 44
-          vat: 6.5
-          vatAmount: 192
-          rateUnit: 12
-          accepted: true
-          acceptedAmount: 3396
-          calculatedAmount: 3396
-          totalCostAmount: 3396
-          createdAt: '2016-02-01T00:00:00.000+01:00'
-          updatedAt: '2016-02-07T00:00:00.000+01:00'
-      xml:
-        name: invoiceRows
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

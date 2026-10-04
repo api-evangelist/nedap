@@ -49,6 +49,19 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    tasque.list.CareTaskGroupStatusList:
+      type: object
+      properties:
+        careTaskGroupStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/tasque.CareTaskGroupStatus'
+      description: CareTaskGroupStatusList model (no description)
+      example:
+        careTaskGroupStatuses:
+        - name: Care plan
+          overdue: 12
+          upcoming: 20
     tasque.CareTaskGroupStatus:
       type: object
       properties:
@@ -74,19 +87,6 @@ components:
         filterParam: group_ids[]=12
         overdue: 12
         upcoming: 20
-    tasque.list.CareTaskGroupStatusList:
-      type: object
-      properties:
-        careTaskGroupStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/tasque.CareTaskGroupStatus'
-      description: CareTaskGroupStatusList model (no description)
-      example:
-        careTaskGroupStatuses:
-        - name: Care plan
-          overdue: 12
-          upcoming: 20
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

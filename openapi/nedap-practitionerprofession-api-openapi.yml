@@ -353,20 +353,6 @@ components:
         professionType: 0
         beginDate: '2018-01-01'
         endDate: '2018-12-31'
-    PractitionerProfessionType:
-      type: integer
-      oneOf:
-      - title: COD878_GZ_BEROEPZORGVERLENER
-        enum:
-        - 0
-      - title: COD016_PEZ_GRZ_SUBBEROEPSGROEP
-        enum:
-        - 1
-      - title: ZPM_BEROEP
-        enum:
-        - 2
-      description: Indicates the codelist this profession orginates from
-      example: 0
     list.PractitionerProfessionList:
       type: object
       properties:
@@ -386,6 +372,20 @@ components:
           professionType: 0
           beginDate: '2018-01-01'
           endDate: '2018-12-31'
+    PractitionerProfessionType:
+      type: integer
+      oneOf:
+      - title: COD878_GZ_BEROEPZORGVERLENER
+        enum:
+        - 0
+      - title: COD016_PEZ_GRZ_SUBBEROEPSGROEP
+        enum:
+        - 1
+      - title: ZPM_BEROEP
+        enum:
+        - 2
+      description: Indicates the codelist this profession orginates from
+      example: 0
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

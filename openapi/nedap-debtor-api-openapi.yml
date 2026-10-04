@@ -333,6 +333,27 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    InsuranceType:
+      enum:
+      - BV
+      - AV
+      - TV
+      - HV
+      type: string
+      description: 'Insurance type. Possible values:
+
+        <pre>
+
+        BV (Basis Verzekering)
+
+        AV (Aanvullende Verzekering)
+
+        TV (Tand Verzekering)
+
+        HV (Hoofd Verzekering)
+
+        </pre>'
+      example: BV
     Insurance:
       required:
       - clientObjectId
@@ -459,115 +480,6 @@ components:
         updatedAt: '2012-08-02T11:48:46.836+02:00'
       xml:
         name: insurance
-    list.DebtorList:
-      type: object
-      properties:
-        debtors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Debtor'
-          xml:
-            name: debtor
-      description: DebtorList model (no description)
-      example:
-        debtors:
-        - id: 1
-          type: '2'
-          uzoviCode: '3'
-          beginDate: '2012-08-02T11:48:46.836+02:00'
-          endDate: '2012-08-02T11:48:46.836+02:00'
-          phone1: '4'
-          phone2: '5'
-          phone3: '6'
-          fax: '7'
-          email: '8'
-          gender: '9'
-          debtorNumber: '10'
-          organizationName: '11'
-          firstName: '12'
-          lastName: '13'
-          lastNameOwn: '13'
-          streetName: '14'
-          addressNumber: 15
-          addressNumberExt: '16'
-          zipCode: '17'
-          city: '18'
-          sourceType: '19'
-          clientObjectId: 20
-          bankAccount:
-            id: 21
-            number: NL27TRIO0207182531
-            nameOfOwner: Pietje Puk
-            cityOfOwner: Lutjebroek
-          paymentMethod: '26'
-          closedAt: '2012-08-02T11:48:46.836+02:00'
-          hidden: true
-          invoicePerEmail: false
-      xml:
-        name: debtors
-    InsuranceType:
-      enum:
-      - BV
-      - AV
-      - TV
-      - HV
-      type: string
-      description: 'Insurance type. Possible values:
-
-        <pre>
-
-        BV (Basis Verzekering)
-
-        AV (Aanvullende Verzekering)
-
-        TV (Tand Verzekering)
-
-        HV (Hoofd Verzekering)
-
-        </pre>'
-      example: BV
-    BankAccount:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        number:
-          type: string
-        nameOfOwner:
-          type: string
-        cityOfOwner:
-          type: string
-        iban:
-          type: string
-        bic:
-          type: string
-        creditBankAccount:
-          type: boolean
-        authorizationDate:
-          type: string
-          format: date
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      description: BankAccount model (no description)
-      example:
-        id: 1
-        number: Dummy
-        nameOfOwner: Dummy
-        cityOfOwner: Dummy
-        iban: Dummy
-        bic: Dummy
-        creditBankAccount: false
-        authorizationDate: '2016-01-01'
-        createdAt: '2016-01-01T12:00:00.000+01:00'
-        updatedAt: '2016-01-01T12:00:00.000+01:00'
-      xml:
-        name: bankAccount
     Debtor:
       type: object
       properties:
@@ -785,6 +697,94 @@ components:
         creditOnToewijzingnummerChangeStartDate: '2015-08-02T11:48:46.836+02:00'
       xml:
         name: debtor
+    list.DebtorList:
+      type: object
+      properties:
+        debtors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Debtor'
+          xml:
+            name: debtor
+      description: DebtorList model (no description)
+      example:
+        debtors:
+        - id: 1
+          type: '2'
+          uzoviCode: '3'
+          beginDate: '2012-08-02T11:48:46.836+02:00'
+          endDate: '2012-08-02T11:48:46.836+02:00'
+          phone1: '4'
+          phone2: '5'
+          phone3: '6'
+          fax: '7'
+          email: '8'
+          gender: '9'
+          debtorNumber: '10'
+          organizationName: '11'
+          firstName: '12'
+          lastName: '13'
+          lastNameOwn: '13'
+          streetName: '14'
+          addressNumber: 15
+          addressNumberExt: '16'
+          zipCode: '17'
+          city: '18'
+          sourceType: '19'
+          clientObjectId: 20
+          bankAccount:
+            id: 21
+            number: NL27TRIO0207182531
+            nameOfOwner: Pietje Puk
+            cityOfOwner: Lutjebroek
+          paymentMethod: '26'
+          closedAt: '2012-08-02T11:48:46.836+02:00'
+          hidden: true
+          invoicePerEmail: false
+      xml:
+        name: debtors
+    BankAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        number:
+          type: string
+        nameOfOwner:
+          type: string
+        cityOfOwner:
+          type: string
+        iban:
+          type: string
+        bic:
+          type: string
+        creditBankAccount:
+          type: boolean
+        authorizationDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: BankAccount model (no description)
+      example:
+        id: 1
+        number: Dummy
+        nameOfOwner: Dummy
+        cityOfOwner: Dummy
+        iban: Dummy
+        bic: Dummy
+        creditBankAccount: false
+        authorizationDate: '2016-01-01'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccount
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

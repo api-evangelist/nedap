@@ -253,6 +253,30 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.admin.alerts.list.TopicList:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.admin.alerts.Topic'
+      description: TopicList model (no description)
+      example:
+        topics:
+        - id: 1
+          name: Covid-19
+          active: true
+          protocol: http://www.example.org
+          showDescription: true
+          alertType: danger_medical
+          icon: virus
+        - id: 2
+          name: Dangerous dog
+          active: true
+          protocol: http://www.example.org
+          showDescription: false
+          alertType: danger_non_medical
+          icon: aggression
     dossier.admin.alerts.Topic:
       type: object
       properties:
@@ -296,30 +320,6 @@ components:
         showDescription: true
         alertType: danger_medical
         icon: virus
-    dossier.admin.alerts.list.TopicList:
-      type: object
-      properties:
-        topics:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.admin.alerts.Topic'
-      description: TopicList model (no description)
-      example:
-        topics:
-        - id: 1
-          name: Covid-19
-          active: true
-          protocol: http://www.example.org
-          showDescription: true
-          alertType: danger_medical
-          icon: virus
-        - id: 2
-          name: Dangerous dog
-          active: true
-          protocol: http://www.example.org
-          showDescription: false
-          alertType: danger_non_medical
-          icon: aggression
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

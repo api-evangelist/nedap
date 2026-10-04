@@ -140,56 +140,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    finance.list.InvoiceList:
-      type: object
-      properties:
-        invoices:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.Invoice'
-          xml:
-            name: invoice
-      description: InvoiceList model (no description)
-      example:
-        invoices:
-        - id: 1
-          invoiceCreationDate: '2016-02-01T00:00:00.000+01:00'
-          exportBeginDate: '2016-01-28T00:00:00.000+01:00'
-          beginDate: '2016-01-28T00:00:00.000+01:00'
-          endDate: '2016-01-31T00:00:00.000+01:00'
-          provider: '12345678'
-          debtorId: 44
-          invoiceType: 0
-          exportProfileId: 1
-          description: desc1
-          invoiceNumber: ONS1234
-          completed: true
-          returnProcessedAt: '2016-02-07T00:00:00.000+01:00'
-          rejected: false
-          bookDate: '2016-02-01T00:00:00.000+01:00'
-          numericInvoiceNumber: 1234
-          createdAt: '2016-02-01T00:00:00.000+01:00'
-          updatedAt: '2016-02-07T00:00:00.000+01:00'
-        - id: 2
-          invoiceCreationDate: '2016-02-02T00:00:00.000+01:00'
-          exportBeginDate: '2016-01-28T00:00:00.000+01:00'
-          beginDate: '2016-01-28T00:00:00.000+01:00'
-          endDate: '2016-01-31T00:00:00.000+01:00'
-          provider: '87654321'
-          debtorId: 47
-          invoiceType: 0
-          exportProfileId: 1
-          description: desc2
-          invoiceNumber: ONS1235
-          completed: true
-          returnProcessedAt: '2016-02-07T00:00:00.000+01:00'
-          rejected: false
-          bookDate: '2016-02-01T00:00:00.000+01:00'
-          numericInvoiceNumber: 1235
-          createdAt: '2016-02-02T00:00:00.000+01:00'
-          updatedAt: '2016-02-07T00:00:00.000+01:00'
-      xml:
-        name: invoices
     finance.Invoice:
       type: object
       properties:
@@ -274,6 +224,56 @@ components:
         updatedAt: '2016-02-07T00:00:00.000+01:00'
       xml:
         name: invoice
+    finance.list.InvoiceList:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.Invoice'
+          xml:
+            name: invoice
+      description: InvoiceList model (no description)
+      example:
+        invoices:
+        - id: 1
+          invoiceCreationDate: '2016-02-01T00:00:00.000+01:00'
+          exportBeginDate: '2016-01-28T00:00:00.000+01:00'
+          beginDate: '2016-01-28T00:00:00.000+01:00'
+          endDate: '2016-01-31T00:00:00.000+01:00'
+          provider: '12345678'
+          debtorId: 44
+          invoiceType: 0
+          exportProfileId: 1
+          description: desc1
+          invoiceNumber: ONS1234
+          completed: true
+          returnProcessedAt: '2016-02-07T00:00:00.000+01:00'
+          rejected: false
+          bookDate: '2016-02-01T00:00:00.000+01:00'
+          numericInvoiceNumber: 1234
+          createdAt: '2016-02-01T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+        - id: 2
+          invoiceCreationDate: '2016-02-02T00:00:00.000+01:00'
+          exportBeginDate: '2016-01-28T00:00:00.000+01:00'
+          beginDate: '2016-01-28T00:00:00.000+01:00'
+          endDate: '2016-01-31T00:00:00.000+01:00'
+          provider: '87654321'
+          debtorId: 47
+          invoiceType: 0
+          exportProfileId: 1
+          description: desc2
+          invoiceNumber: ONS1235
+          completed: true
+          returnProcessedAt: '2016-02-07T00:00:00.000+01:00'
+          rejected: false
+          bookDate: '2016-02-01T00:00:00.000+01:00'
+          numericInvoiceNumber: 1235
+          createdAt: '2016-02-02T00:00:00.000+01:00'
+          updatedAt: '2016-02-07T00:00:00.000+01:00'
+      xml:
+        name: invoices
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json
