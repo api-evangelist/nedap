@@ -1,0 +1,278 @@
+slug: nedap
+provider: Nedap
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 25
+edges:
+- tag: Employee
+  spec_file: nedap-employee-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.88
+  evidence: 'POST /t/employees EmployeeAPI.create ''Create Employee''; GET /t/employees/{employee_id}/bank_account
+    ''Return the bank account assigned to the Employee''; schemas: Employee, Person, BankAccount, EmployeePrivacySettings'
+  reason: CRUD and search over employee master records including bank account and identification number
+    — employee record keeping / HR operations, not patient or client data.
+- tag: authorization.provisioning.User
+  spec_file: nedap-authorization-provisioning-user-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: '"This endpoint is meant to assign roles with a certain scope (teams/locations)…"'
+  reason: Assigns roles and scopes to a user account; schemas are authorization.provisioning.User / Duty.
+    This is user access provisioning (joiners-movers-leavers / RBAC), not employee master data.
+- tag: EmployeeAddress
+  spec_file: nedap-employeeaddress-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.85
+  evidence: 'POST /t/employee_addresses ''Create EmployeeAddress''; schemas: EmployeeAddress, Address'
+  reason: Maintains address records attached to employees — a core employee-record (HR operations) data
+    object.
+- tag: authorization.provisioning.UserDuties
+  spec_file: nedap-authorization-provisioning-userduties-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: '"This endpoint is meant to assign roles with a certain scope to a user"'
+  reason: '''Duties'' here are scoped role assignments in the authorization provisioning namespace, i.e.
+    entitlement administration under Identity & Access Management rather than HR job duties.'
+- tag: moves.RosterSlot
+  spec_file: nedap-moves-rosterslot-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.85
+  evidence: '"Assigns a RosterSlot to an Employee by creating a ShiftAssignment for it"; "Return the on
+    call roster slots of a unit on the specified date"; "Clears all ShiftAssignments for the specified
+    RosterSlot"'
+  reason: Creating and clearing shift assignments of employees against roster slots and on-call rosters
+    is unambiguously workforce rostering within Human Capital Management. No listed L2 matches operational
+    shift rostering precisely.
+- tag: ons_administration.ExtendedEmployeeModel
+  spec_file: nedap-ons-administration-extendedemployeemodel-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.85
+  evidence: '"Create or update an employee snapshot" with schemas ons_administration.EmployeeContractModel,
+    EmployeeHourlyWageModel, EmployeeCollectiveAgreementModel, EmployeeAddressModel'
+  reason: Writes a full employee master record including contract, hourly wage, collective agreement and
+    address — core employee record maintenance, i.e. HR operations management. Some overlap with compensation
+    administration but the surface is primarily employee data upsert.
+- tag: authorization.provisioning.DefaultScope
+  spec_file: nedap-authorization-provisioning-defaultscope-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: '"This endpoint is meant to set the default scope of a user" (PUT /t/authorization/provisioning/users/{user_uuid}/scopes)'
+  reason: User authorization provisioning — setting the access scope of a user account. That is Identity
+    & Access Management, not a healthcare or tenant-configuration capability.
+- tag: authorization.provisioning.Role
+  spec_file: nedap-authorization-provisioning-role-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: '"Returns every Role available from the RoleAPI" with schema authorization.provisioning.Role'
+  reason: Role catalogue used for authorization provisioning — role-based access control metadata, squarely
+    Identity & Access Management.
+- tag: moves.EmployeePlanning
+  spec_file: nedap-moves-employeeplanning-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.8
+  evidence: '"Returns the Planning for the given Employee for the requested period"; "Returns the Roster
+    for the given Employee for the requested period"; schemas moves.EmployeeRosterDayShiftAssignment,
+    moves.EmployeeRosterDayAvailability'
+  reason: Employee rosters, shift assignments and availability per period — workforce scheduling, part
+    of the employee lifecycle. No candidate L2 cleanly covers operational rostering (BC-300.50 is strategic
+    workforce planning), so L1 only.
+- tag: moves.EmployeeSchedule
+  spec_file: nedap-moves-employeeschedule-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.8
+  evidence: '"Returns the EmployeeSchedule for the given Employee for the requested period"; schemas moves.ShiftAssignment,
+    moves.LeaveRequestOccurrence, moves.UnavailabilityOccurrence, moves.FlexRequest'
+  reason: Employee schedules with shift assignments, leave requests and unavailability are workforce scheduling/absence
+    administration under Human Capital Management. L2 withheld because operational rostering is not explicitly
+    one of the listed sub-capabilities.
+- tag: payroll.Contract
+  spec_file: nedap-payroll-contract-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.8
+  evidence: '"Create a new Contract" and "Return the contracts of an Employee corresponding to the given
+    id"; schema payroll.Contract'
+  reason: CRUD over employment contracts attached to employees in the payroll namespace — core employee
+    record administration, i.e. HR Operations Management. Note these are employment contracts, not commercial
+    contracts, so BC-150.10 would be wrong.
+- tag: User
+  spec_file: nedap-user-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: PUT /t/users/{user_id}/password "Changes the users password", "Return the User with the given
+    SSO id", schemas Role, UserStatus, PasswordChange
+  reason: The operations create/update/delete user accounts, change passwords, return user status, resolve
+    users by SSO id, and expose roles and viewable locations — account lifecycle, credential and authorisation-scope
+    management, i.e. Identity & Access Management. Some chance it is better read as plain application
+    user administration, hence not 0.95.
+- tag: authorization.provisioning.UserScopeSettings
+  spec_file: nedap-authorization-provisioning-userscopesettings-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.76
+  evidence: PUT /t/authorization/provisioning/users/{user_uuid}/scope_settings — "Updates scope settings
+    of a user"; schema authorization.provisioning.UserLegacyAuthScopingOptions
+  reason: Operations provision and update a user's authorization scope, i.e. access rights administration
+    for user accounts. That is Identity & Access Management, not a healthcare-domain capability. Slight
+    ambiguity remains as to whether this is tenant-level identity federation, but the surface is plain
+    user authorization provisioning.
+- tag: authorization.provisioning.MyLocations
+  spec_file: nedap-authorization-provisioning-mylocations-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: '"This endpoint is meant to set the list of MyLocations of a user"'
+  reason: Sits under the authorization/provisioning namespace and sets the location scope attached to
+    a user account, i.e. access-rights provisioning. Slightly thinner evidence than the Role/User endpoints,
+    hence 0.75.
+- tag: authorization.provisioning.MyTeams
+  spec_file: nedap-authorization-provisioning-myteams-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: '"This endpoint is meant to set the list of MyTeams of a user"'
+  reason: Authorization provisioning of the team scope attached to a user account — access entitlement
+    administration under Identity & Access Management. Could alternatively be read as organisational data,
+    hence 0.75.
+- tag: moves.FlexSignup
+  spec_file: nedap-moves-flexsignup-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.75
+  evidence: POST /t/moves/flex_signups — "Creates a flex signup for an employee on a flex request"
+  reason: Employees signing up for open/flex shifts is workforce scheduling and shift-filling, an HCM
+    function. No listed L2 covers operational shift management precisely.
+- tag: moves.Shift
+  spec_file: nedap-moves-shift-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.75
+  evidence: '"Get a shift by its ID" under /v0/plannen_roosteren/shifts/{id}; schemas moves.Shift, moves.list.ShiftList'
+  reason: Shift definitions served from the planning-and-rostering module support employee shift scheduling,
+    an HCM function; the surface is partly bulk streaming so confidence is moderate and no L2 is claimed.
+- tag: moves.ShiftAssignment
+  spec_file: nedap-moves-shiftassignment-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.75
+  evidence: GET /t/moves/shift_assignments/starting_between — "Return all the shift assignments starting
+    within the specified period"; "Return the first upcoming shift assignment of an Employee specified
+    by id"
+  reason: Employee shift assignments from the Ons planning/rostering module (path segment plannen_roosteren)
+    are workforce scheduling, i.e. human capital management. No candidate L2 cleanly covers operational
+    rostering (workforce planning is strategic, HR operations is records/payroll), so only the L1 is asserted.
+- tag: ons_administration.WorkdayNormSettingsModel
+  spec_file: nedap-ons-administration-workdaynormsettingsmodel-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.75
+  evidence: '"Creates a new workday norm settings for the given employee" / "Returns all workday norms
+    settings for the given employee."'
+  reason: Full CRUD over per-employee working-time norm settings — employee record administration in an
+    HR/payroll module. Clearly Human Capital Management at L1; L2 left null because the surface spans
+    time administration rather than naming a specific sub-capability.
+- tag: payroll.CollectiveAgreementAssignment
+  spec_file: nedap-payroll-collectiveagreementassignment-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.75
+  evidence: '"Create the provided collective agreement assignment and assign it to the…" and "Return the
+    collective agreement assignments of an Employee corresponding to the…"'
+  reason: Assigns collective labour agreements and their settings to individual employees — employment
+    terms administration, firmly Human Capital Management. L2 left open between labour relations and HR
+    operations.
+- tag: ons_administration.TimeCompensationFactorModel
+  spec_file: nedap-ons-administration-timecompensationfactormodel-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.72
+  evidence: GET /t/employees/time_compensation_factors — "Returns the time compensation factor (minimum
+    wage divided by hourly wage) for…" employees
+  reason: Operations expose per-employee wage-derived factors from the Ons administration module, i.e.
+    employee/payroll administration data. That is Human Capital Management; the evidence (minimum wage
+    vs hourly wage) touches compensation but is used for time/wage administration, so no single L2 is
+    clearly named. Nothing here is healthcare-clinical, and no SaaS-specific capability fits.
+- tag: Debtor
+  spec_file: nedap-debtor-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.7
+  evidence: 'GET /t/clients/{client_id}/debtors Return the debtors of a Client corresponding to the given
+    id; schemas: Insurance, InsuranceType, BankAccount, Debtor'
+  reason: Debtor records with bank account and insurance payer details per client are the receivables/payer
+    master behind billing for care delivered. Maps to accounts receivable management; read-only surface
+    keeps confidence below 0.8.
+- tag: EmployeeWorkflow
+  spec_file: nedap-employeeworkflow-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.7
+  evidence: PUT /t/employee_workflows/{employee_id}/timesheet_submit_date 'Employee workflow API set timesheet
+    submit date' and '...timesheet_submit_date_authorized'
+  reason: Sets and authorises employee timesheet submission dates — time administration within HR operations/payroll
+    administration.
+- tag: payroll.AccountEntry
+  spec_file: nedap-payroll-accountentry-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.7
+  evidence: '"Retrieve all AccountEntry for an Employee for a specific AccountType in a period"; schema
+    payroll.AccountEntry'
+  reason: Payroll-namespaced account entries booked per employee per account type and period — employee
+    leave/time-and-pay balance administration, i.e. HR Operations Management (payroll administration).
+    Moderate confidence because the entries' exact economic nature (leave hours vs pay components) is
+    not spelled out.
+- tag: payroll.CollectiveAgreement
+  spec_file: nedap-payroll-collectiveagreement-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.7
+  evidence: '"Returns every CollectiveAgreement available"; schema payroll.CollectiveAgreement'
+  reason: Collective labour agreements (CAOs) maintained within the payroll namespace. Clearly human capital
+    management; ambiguous between Employee & Labour Relations (the agreements themselves) and HR Operations
+    (their payroll application), so only the L1 is asserted.

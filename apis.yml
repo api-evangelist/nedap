@@ -5219,6 +5219,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/nedap-capability-edges.yml
+  name: Nedap Business Capability Map
 - type: VulnerabilityDisclosure
   url: security/nedap-vulnerability-disclosure.yml
 - type: DomainSecurity
