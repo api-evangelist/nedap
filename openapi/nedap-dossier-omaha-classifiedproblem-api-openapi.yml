@@ -290,44 +290,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.omaha.Problem:
-      type: object
-      properties:
-        classificationId:
-          type: string
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit gebied
-        omahaDomain:
-          allOf:
-          - $ref: '#/components/schemas/dossier.omaha.Domain'
-          description: (nl) Domein van dit gebied
-        omahaSignsAndSymptoms:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.omaha.SignOrSymptom'
-          description: (nl) Gerelateerde signalen en symptomen
-          xml:
-            wrapped: true
-      description: 'Omaha definitie van ''gebied'' '
-      example:
-        classificationId: Dummy
-        name: Dummy
-        omahaDomain:
-          classificationId: example
-          name: example
-        omahaSignsAndSymptoms:
-        - classificationId: example
-          name: example
-          problemId: example
-          textAllowed: true
-        - classificationId: example
-          name: example
-          problemId: example
-          textAllowed: true
-      xml:
-        name: omahaProblem
     dossier.omaha.ClassifiedIntervention:
       type: object
       properties:
@@ -368,59 +330,26 @@ components:
         actionEntryId: 14
       xml:
         name: omahaClassifiedIntervention
-    dossier.omaha.ModifierProblemLevel:
-      type: string
-      oneOf:
-      - title: HealthPromotion
-        enum:
-        - HealthPromotion
-      - title: Potential
-        enum:
-        - Potential
-      - title: Actual
-        enum:
-        - Actual
-      description: (nl) Omaha kenmerken (2/2)
-      example: HealthPromotion
-    dossier.omaha.InterventionTarget:
+    dossier.omaha.ClassifiedSignOrSymptom:
       type: object
       properties:
-        classificationId:
+        text:
           type: string
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit actievlak
-      description: 'Omaha Actievlak '
+          description: (nl) Toelichting bij signalen en symptomen
+        omahaSignOrSymptom:
+          allOf:
+          - $ref: '#/components/schemas/dossier.omaha.SignOrSymptom'
+          description: (nl) Definitie van dit signaal/symptoom
+      description: '(nl) Omaha ''Signalen en symptomen'' '
       example:
-        classificationId: Dummy
-        name: Dummy
+        text: Some text
+        omahaSignOrSymptom:
+          classificationId: example
+          name: example
+          problemId: example
+          textAllowed: true
       xml:
-        name: omahaInterventionTarget
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
+        name: omahaClassifiedSignOrSymptom
     dossier.omaha.ClassifiedProblem:
       type: object
       allOf:
@@ -570,6 +499,44 @@ components:
         name: Dummy
       xml:
         name: omahaDomain
+    dossier.omaha.ModifierReach:
+      type: string
+      oneOf:
+      - title: Individual
+        enum:
+        - Individual
+      - title: Family
+        enum:
+        - Family
+      - title: Community
+        enum:
+        - Community
+      description: (nl) Omaha kenmerken (1/2)
+      example: Individual
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
     dossier.omaha.InterventionCategory:
       type: object
       properties:
@@ -585,26 +552,73 @@ components:
         name: Dummy
       xml:
         name: omahaInterventionCategory
-    dossier.omaha.ClassifiedSignOrSymptom:
+    dossier.omaha.Problem:
       type: object
       properties:
-        text:
+        classificationId:
           type: string
-          description: (nl) Toelichting bij signalen en symptomen
-        omahaSignOrSymptom:
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit gebied
+        omahaDomain:
           allOf:
-          - $ref: '#/components/schemas/dossier.omaha.SignOrSymptom'
-          description: (nl) Definitie van dit signaal/symptoom
-      description: '(nl) Omaha ''Signalen en symptomen'' '
+          - $ref: '#/components/schemas/dossier.omaha.Domain'
+          description: (nl) Domein van dit gebied
+        omahaSignsAndSymptoms:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.omaha.SignOrSymptom'
+          description: (nl) Gerelateerde signalen en symptomen
+          xml:
+            wrapped: true
+      description: 'Omaha definitie van ''gebied'' '
       example:
-        text: Some text
-        omahaSignOrSymptom:
+        classificationId: Dummy
+        name: Dummy
+        omahaDomain:
           classificationId: example
+          name: example
+        omahaSignsAndSymptoms:
+        - classificationId: example
+          name: example
+          problemId: example
+          textAllowed: true
+        - classificationId: example
           name: example
           problemId: example
           textAllowed: true
       xml:
-        name: omahaClassifiedSignOrSymptom
+        name: omahaProblem
+    dossier.omaha.InterventionTarget:
+      type: object
+      properties:
+        classificationId:
+          type: string
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit actievlak
+      description: 'Omaha Actievlak '
+      example:
+        classificationId: Dummy
+        name: Dummy
+      xml:
+        name: omahaInterventionTarget
+    dossier.omaha.ModifierProblemLevel:
+      type: string
+      oneOf:
+      - title: HealthPromotion
+        enum:
+        - HealthPromotion
+      - title: Potential
+        enum:
+        - Potential
+      - title: Actual
+        enum:
+        - Actual
+      description: (nl) Omaha kenmerken (2/2)
+      example: HealthPromotion
     dossier.omaha.SignOrSymptom:
       type: object
       properties:
@@ -630,20 +644,6 @@ components:
         textAllowed: true
       xml:
         name: omahaSignOrSymptom
-    dossier.omaha.ModifierReach:
-      type: string
-      oneOf:
-      - title: Individual
-        enum:
-        - Individual
-      - title: Family
-        enum:
-        - Family
-      - title: Community
-        enum:
-        - Community
-      description: (nl) Omaha kenmerken (1/2)
-      example: Individual
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

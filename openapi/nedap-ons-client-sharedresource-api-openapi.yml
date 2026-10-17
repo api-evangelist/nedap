@@ -77,6 +77,37 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ons_client.list.SharedResourceList:
+      type: object
+      properties:
+        sharedResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_client.SharedResource'
+      description: SharedResourceList model (no description)
+      example:
+        sharedResources:
+        - id: 1
+          resourceName: Dossier.CarePlan
+          resourceId: '13'
+          clientId: 1
+          recipientGroup: client
+          shareReason: Beste Henk, bij deze een nieuw zorgplan nav ons vorige gesprek. Ik heb nu ook als doel je slikprobleem meegenomen.
+          sharedAt: '2016-10-10T00:00:00.000+02:00'
+          sharedByEmployeeId: 2
+          unshareReason: Deze versie bevatte een spelfout. Ik heb dit in de nieuwe versie aangepast.
+          unsharedAt: '2016-10-12T00:00:00.000+02:00'
+          unsharedByEmployeeId: 2
+          writable: true
+        - id: 2
+          resourceName: Survey.SurveyResult
+          resourceId: '13'
+          clientId: 1
+          recipientGroup: client
+          shareReason: Dit is de ingevulde MIC-melding van afgelopen woensdg.
+          sharedAt: '2016-10-14T13:16:00.000+02:00'
+          sharedByEmployeeId: 2
+          writable: false
     ons_client.SharedResource:
       type: object
       properties:
@@ -125,37 +156,6 @@ components:
         unsharedAt: '2016-10-12T00:00:00.000+02:00'
         unsharedByEmployeeId: 2
         writable: true
-    ons_client.list.SharedResourceList:
-      type: object
-      properties:
-        sharedResources:
-          type: array
-          items:
-            $ref: '#/components/schemas/ons_client.SharedResource'
-      description: SharedResourceList model (no description)
-      example:
-        sharedResources:
-        - id: 1
-          resourceName: Dossier.CarePlan
-          resourceId: '13'
-          clientId: 1
-          recipientGroup: client
-          shareReason: Beste Henk, bij deze een nieuw zorgplan nav ons vorige gesprek. Ik heb nu ook als doel je slikprobleem meegenomen.
-          sharedAt: '2016-10-10T00:00:00.000+02:00'
-          sharedByEmployeeId: 2
-          unshareReason: Deze versie bevatte een spelfout. Ik heb dit in de nieuwe versie aangepast.
-          unsharedAt: '2016-10-12T00:00:00.000+02:00'
-          unsharedByEmployeeId: 2
-          writable: true
-        - id: 2
-          resourceName: Survey.SurveyResult
-          resourceId: '13'
-          clientId: 1
-          recipientGroup: client
-          shareReason: Dit is de ingevulde MIC-melding van afgelopen woensdg.
-          sharedAt: '2016-10-14T13:16:00.000+02:00'
-          sharedByEmployeeId: 2
-          writable: false
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

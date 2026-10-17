@@ -79,25 +79,6 @@ components:
           state: DISABLED
         - key: SHIFT_TRANSFERS
           state: UNAVAILABLE
-    moves.NavigationAvailabilityState:
-      enum:
-      - AVAILABLE
-      - DISABLED
-      - UNAVAILABLE
-      type: string
-      description: State of the navigation availability
-      example: AVAILABLE
-    moves.NavigationAvailabilityKey:
-      enum:
-      - PLANNING
-      - ROSTER
-      - SHIFT_TRANSFERS
-      - FLEX_REQUESTS
-      - VACATION_OVERVIEW
-      - LEAVE_REQUESTS
-      type: string
-      description: item for navigation availability request
-      example: PLANNING
     moves.NavigationAvailability:
       required:
       - key
@@ -112,6 +93,25 @@ components:
       example:
         key: ROSTER
         state: AVAILABLE
+    moves.NavigationAvailabilityKey:
+      enum:
+      - PLANNING
+      - ROSTER
+      - SHIFT_TRANSFERS
+      - FLEX_REQUESTS
+      - VACATION_OVERVIEW
+      - LEAVE_REQUESTS
+      type: string
+      description: item for navigation availability request
+      example: PLANNING
+    moves.NavigationAvailabilityState:
+      enum:
+      - AVAILABLE
+      - DISABLED
+      - UNAVAILABLE
+      type: string
+      description: State of the navigation availability
+      example: AVAILABLE
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

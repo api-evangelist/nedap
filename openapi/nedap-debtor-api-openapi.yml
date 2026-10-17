@@ -354,132 +354,6 @@ components:
 
         </pre>'
       example: BV
-    Insurance:
-      required:
-      - clientObjectId
-      - debtorObjectId
-      - sourceType
-      - insuranceType
-      - comments
-      - beginDate
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        registrationNumber:
-          type: string
-          description: Registration number, required if sourceType is other than SYSTEM.
-        clientObjectId:
-          type: integer
-          description: Client objectId.
-          format: int64
-        debtorObjectId:
-          type: integer
-          description: Debtor objectId.
-          format: int64
-        insurer:
-          allOf:
-          - $ref: '#/components/schemas/Debtor'
-          description: insurer.
-        sourceType:
-          type: integer
-          description: 'Source type. Possible values:
-
-            <pre>
-
-            0 (System defined)
-
-            1 (Manual)
-
-            2 (Third parties)
-
-            3 (Vecozo)
-
-            4 (XML import)
-
-            </pre>'
-          format: int32
-        insuranceType:
-          allOf:
-          - $ref: '#/components/schemas/InsuranceType'
-          description: 'Insurance type. Possible values:
-
-            <pre>
-
-            BV (Basis Verzekering)
-
-            AV (Aanvullende Verzekering)
-
-            TV (Tand Verzekering)
-
-            HV (Hoofd Verzekering)
-
-            </pre>'
-        packageCode:
-          type: string
-          description: Package code, required if sourceType is VECOZO.
-        packageName:
-          type: string
-          description: Package name, required if sourceType is VECOZO.
-        labelCode:
-          type: string
-          description: Label code, must be a label of debtor. Required if sourceType is VECOZO.
-        labelName:
-          type: string
-          description: Label name, must be a label of debtor. Required if sourceType is VECOZO.
-        requestedDate:
-          type: string
-          description: Requested date, required if sourceType is VECOZO.
-          format: date
-        clientIsDead:
-          type: boolean
-          description: Indicates client is deceased.
-        comments:
-          type: string
-          description: Comments.
-          default: ''
-        beginDate:
-          type: string
-          description: Begin date.
-          format: date-time
-        endDate:
-          type: string
-          description: End date.
-          format: date-time
-        careProviderObjectId:
-          type: integer
-          description: Care provider objectId.
-          format: int64
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      description: Insurance entry for a Client.
-      example:
-        id: 1
-        registrationNumber: '1'
-        clientObjectId: 1234
-        debtorObjectId: 4321
-        sourceType: 1
-        insuranceType: AV
-        packageCode: 001T0
-        packageName: Top geen Tandarts
-        labelCode: '001'
-        labelName: Salland Zorgverzekeringen
-        requestedDate: '2012-08-02'
-        clientIsDead: false
-        comments: comments
-        beginDate: '2014-08-02T11:48:46.836+02:00'
-        endDate: '2015-08-02T11:48:46.836+02:00'
-        careProviderObjectId: 5678
-        createdAt: '2012-08-02T11:48:46.836+02:00'
-        updatedAt: '2012-08-02T11:48:46.836+02:00'
-      xml:
-        name: insurance
     Debtor:
       type: object
       properties:
@@ -743,6 +617,132 @@ components:
           invoicePerEmail: false
       xml:
         name: debtors
+    Insurance:
+      required:
+      - clientObjectId
+      - debtorObjectId
+      - sourceType
+      - insuranceType
+      - comments
+      - beginDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        registrationNumber:
+          type: string
+          description: Registration number, required if sourceType is other than SYSTEM.
+        clientObjectId:
+          type: integer
+          description: Client objectId.
+          format: int64
+        debtorObjectId:
+          type: integer
+          description: Debtor objectId.
+          format: int64
+        insurer:
+          allOf:
+          - $ref: '#/components/schemas/Debtor'
+          description: insurer.
+        sourceType:
+          type: integer
+          description: 'Source type. Possible values:
+
+            <pre>
+
+            0 (System defined)
+
+            1 (Manual)
+
+            2 (Third parties)
+
+            3 (Vecozo)
+
+            4 (XML import)
+
+            </pre>'
+          format: int32
+        insuranceType:
+          allOf:
+          - $ref: '#/components/schemas/InsuranceType'
+          description: 'Insurance type. Possible values:
+
+            <pre>
+
+            BV (Basis Verzekering)
+
+            AV (Aanvullende Verzekering)
+
+            TV (Tand Verzekering)
+
+            HV (Hoofd Verzekering)
+
+            </pre>'
+        packageCode:
+          type: string
+          description: Package code, required if sourceType is VECOZO.
+        packageName:
+          type: string
+          description: Package name, required if sourceType is VECOZO.
+        labelCode:
+          type: string
+          description: Label code, must be a label of debtor. Required if sourceType is VECOZO.
+        labelName:
+          type: string
+          description: Label name, must be a label of debtor. Required if sourceType is VECOZO.
+        requestedDate:
+          type: string
+          description: Requested date, required if sourceType is VECOZO.
+          format: date
+        clientIsDead:
+          type: boolean
+          description: Indicates client is deceased.
+        comments:
+          type: string
+          description: Comments.
+          default: ''
+        beginDate:
+          type: string
+          description: Begin date.
+          format: date-time
+        endDate:
+          type: string
+          description: End date.
+          format: date-time
+        careProviderObjectId:
+          type: integer
+          description: Care provider objectId.
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Insurance entry for a Client.
+      example:
+        id: 1
+        registrationNumber: '1'
+        clientObjectId: 1234
+        debtorObjectId: 4321
+        sourceType: 1
+        insuranceType: AV
+        packageCode: 001T0
+        packageName: Top geen Tandarts
+        labelCode: '001'
+        labelName: Salland Zorgverzekeringen
+        requestedDate: '2012-08-02'
+        clientIsDead: false
+        comments: comments
+        beginDate: '2014-08-02T11:48:46.836+02:00'
+        endDate: '2015-08-02T11:48:46.836+02:00'
+        careProviderObjectId: 5678
+        createdAt: '2012-08-02T11:48:46.836+02:00'
+        updatedAt: '2012-08-02T11:48:46.836+02:00'
+      xml:
+        name: insurance
     BankAccount:
       type: object
       properties:

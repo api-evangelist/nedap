@@ -161,6 +161,38 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.DebtorGroupList:
+      type: object
+      properties:
+        debtorGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.DebtorGroup'
+          xml:
+            name: debtorGroup
+      description: DebtorGroupList model (no description)
+      example:
+        debtorGroups:
+        - id: 1
+          name: VGZ
+          description: Koepel VGZ
+          debtorIds:
+          - 4
+          - 5
+          - 7
+          - 8
+          - 100
+        - id: 2
+          name: Achmea
+          description: Koepel Achmea
+          debtorIds:
+          - 104
+          - 105
+          - 107
+          - 108
+          - 200
+      xml:
+        name: debtorGroups
     finance.DebtorGroup:
       type: object
       properties:
@@ -198,38 +230,6 @@ components:
         - 100
       xml:
         name: debtorGroup
-    finance.list.DebtorGroupList:
-      type: object
-      properties:
-        debtorGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.DebtorGroup'
-          xml:
-            name: debtorGroup
-      description: DebtorGroupList model (no description)
-      example:
-        debtorGroups:
-        - id: 1
-          name: VGZ
-          description: Koepel VGZ
-          debtorIds:
-          - 4
-          - 5
-          - 7
-          - 8
-          - 100
-        - id: 2
-          name: Achmea
-          description: Koepel Achmea
-          debtorIds:
-          - 104
-          - 105
-          - 107
-          - 108
-          - 200
-      xml:
-        name: debtorGroups
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

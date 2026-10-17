@@ -262,6 +262,28 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    payroll.list.WorkHoursBalanceList:
+      type: object
+      properties:
+        workHoursBalances:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.WorkHoursBalance'
+      description: WorkHoursBalanceList model (no description)
+      example:
+        workHoursBalances:
+        - employeeId: 4
+          accountTypeId: 3
+          unverifiedBalance: 2
+          verifiedBalance: 1
+          date: '2016-01-02'
+          verifiedUntil: '2016-01-15'
+        - employeeId: 1
+          accountTypeId: 2
+          unverifiedBalance: 3
+          verifiedBalance: 4
+          date: '2016-02-15'
+          verifiedUntil: '2016-02-27'
     payroll.WorkHoursBalance:
       type: object
       properties:
@@ -291,28 +313,6 @@ components:
         verifiedBalance: 1
         date: '2016-01-02'
         verifiedUntil: '2016-01-15'
-    payroll.list.WorkHoursBalanceList:
-      type: object
-      properties:
-        workHoursBalances:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.WorkHoursBalance'
-      description: WorkHoursBalanceList model (no description)
-      example:
-        workHoursBalances:
-        - employeeId: 4
-          accountTypeId: 3
-          unverifiedBalance: 2
-          verifiedBalance: 1
-          date: '2016-01-02'
-          verifiedUntil: '2016-01-15'
-        - employeeId: 1
-          accountTypeId: 2
-          unverifiedBalance: 3
-          verifiedBalance: 4
-          date: '2016-02-15'
-          verifiedUntil: '2016-02-27'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

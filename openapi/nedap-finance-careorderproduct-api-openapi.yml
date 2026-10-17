@@ -415,6 +415,35 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    finance.list.CareOrderProductList:
+      type: object
+      properties:
+        careOrderProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/finance.CareOrderProduct'
+          xml:
+            name: careOrderProduct
+      description: CareOrderProductList model (no description)
+      example:
+        careOrderProducts:
+        - id: 1
+          careOrderId: 1
+          userIdentifier: Dummy
+          quantity: 1
+          quantityUnit: Dummy
+          comments: Dummy
+          productId: 1
+          financeTypeId: 1
+          instellingsCode: Dummy
+          functietype: Dummy
+          debtorId: 1
+          beginDate: '2014-12-29T00:00:00.000+01:00'
+          endDate: '2014-12-29T00:00:00.000+01:00'
+          clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
+          clippedEndDate: '2014-12-29T00:00:00.000+01:00'
+      xml:
+        name: careOrderProducts
     finance.CareOrderProduct:
       type: object
       properties:
@@ -519,35 +548,6 @@ components:
         clippedEndDate: '2014-12-29T00:00:00.000+01:00'
       xml:
         name: careOrderProduct
-    finance.list.CareOrderProductList:
-      type: object
-      properties:
-        careOrderProducts:
-          type: array
-          items:
-            $ref: '#/components/schemas/finance.CareOrderProduct'
-          xml:
-            name: careOrderProduct
-      description: CareOrderProductList model (no description)
-      example:
-        careOrderProducts:
-        - id: 1
-          careOrderId: 1
-          userIdentifier: Dummy
-          quantity: 1
-          quantityUnit: Dummy
-          comments: Dummy
-          productId: 1
-          financeTypeId: 1
-          instellingsCode: Dummy
-          functietype: Dummy
-          debtorId: 1
-          beginDate: '2014-12-29T00:00:00.000+01:00'
-          endDate: '2014-12-29T00:00:00.000+01:00'
-          clippedBeginDate: '2014-12-29T00:00:00.000+01:00'
-          clippedEndDate: '2014-12-29T00:00:00.000+01:00'
-      xml:
-        name: careOrderProducts
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

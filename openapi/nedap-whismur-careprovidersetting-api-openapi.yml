@@ -49,6 +49,21 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    whismur.Recorder:
+      enum:
+      - OnsSpraak
+      - AttendiLimited
+      - AttendiFull
+      type: string
+      description: Recorder to use for speech to text service.
+      example: OnsSpraak
+    whismur.RecordingMode:
+      enum:
+      - Bulk
+      - Streaming
+      type: string
+      description: Recording mode to use.
+      example: Bulk
     whismur.CareProviderSetting:
       type: object
       properties:
@@ -73,21 +88,6 @@ components:
         recorder: OnsSpraak
         recordingMode: Bulk
         speechToTextActive: true
-    whismur.RecordingMode:
-      enum:
-      - Bulk
-      - Streaming
-      type: string
-      description: Recording mode to use.
-      example: Bulk
-    whismur.Recorder:
-      enum:
-      - OnsSpraak
-      - AttendiLimited
-      - AttendiFull
-      type: string
-      description: Recorder to use for speech to text service.
-      example: OnsSpraak
     whismur.Provider:
       enum:
       - NONE

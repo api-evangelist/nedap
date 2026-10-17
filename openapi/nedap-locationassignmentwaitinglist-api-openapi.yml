@@ -256,6 +256,100 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    LocationAssignmentWaitingList:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/LocationAssignment'
+      properties:
+        waitingFor:
+          type: string
+          description: 'Description field for what event/resources the client is waiting for.
+
+            Possible values are defined by the care organisation'
+        status:
+          type: string
+          description: 'Wachtstatus (urgentie)
+
+            Possible values are defined by the care organisation'
+        description:
+          type: string
+          description: 'Description
+
+            Possible values are defined by the care organisation'
+        classification:
+          type: string
+          description: 'optional field used for financetype ''WLZ''.
+
+            https://assets.zn.nl/p/32768/none/Langdurige%20zorg/Wachtlijsten%20langdurige%20zorg/ZN-Infographic.pdf'
+        closingReason:
+          type: string
+          description: 'Indication of under what circumstances the client is taken off the waiting list
+
+            Assumed use: BI tooling
+
+            Possible values are defined by the care organisation'
+      description: Developed as a (temporary) solution to enable (GGZ) customers to indicate a client is on a 'waiting list'
+      example:
+        id: 1
+        beginDate: '2012-08-02'
+        beginTime: '10:11:00.000'
+        endDate: '2012-08-02'
+        endTime: '12:13:00.000'
+        clientObjectId: 2
+        locationObjectId: 3
+        moveDate: '2012-08-02'
+        locationAssignmentType: WAITING_LIST
+        residence: false
+        mainLocation: false
+        medicineLocation: false
+        waitingFor: BESCHIKBARE_PLEK
+        status: ACTIEF_PLAATSEN
+        description: Client wacht met smart. Contact direct met client, niet via ouders.
+        classification: DREIGENDE_CRISIS_THUIS
+        closingReason: GEPLAATST
+      xml:
+        name: locationAssignmentWaitingList
+    LocationAssignmentType:
+      enum:
+      - STANDARD
+      - MAIN
+      - MEDICINE
+      - GGZ
+      - WAITING_LIST
+      type: string
+      description: LocationAssignmentType enum (no description)
+      example: STANDARD
+    list.LocationAssignmentWaitingListList:
+      type: object
+      properties:
+        locationAssignmentWaitingLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAssignmentWaitingList'
+          xml:
+            name: locationAssignmentWaitingList
+      description: LocationAssignmentWaitingListList model (no description)
+      example:
+        locationAssignmentWaitingLists:
+        - id: 1
+          beginDate: '2012-08-02'
+          beginTime: '10:11:00.000'
+          endDate: '2012-08-02'
+          endTime: '12:13:00.000'
+          clientObjectId: 2
+          locationObjectId: 3
+          moveDate: '2012-08-02'
+          locationAssignmentType: WAITING_LIST
+          residence: false
+          mainLocation: false
+          medicineLocation: false
+          waitingFor: BESCHIKBARE_PLEK
+          status: ACTIEF_PLAATSEN
+          description: Client wacht met smart. Contact direct met client, niet via ouders.
+          classification: DREIGENDE_CRISIS_THUIS
+          closingReason: GEPLAATST
+      xml:
+        name: locationAssignmentWaitingLists
     LocationAssignment:
       type: object
       properties:
@@ -313,100 +407,6 @@ components:
         medicineLocation: false
       xml:
         name: locationAssignment
-    LocationAssignmentType:
-      enum:
-      - STANDARD
-      - MAIN
-      - MEDICINE
-      - GGZ
-      - WAITING_LIST
-      type: string
-      description: LocationAssignmentType enum (no description)
-      example: STANDARD
-    list.LocationAssignmentWaitingListList:
-      type: object
-      properties:
-        locationAssignmentWaitingLists:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationAssignmentWaitingList'
-          xml:
-            name: locationAssignmentWaitingList
-      description: LocationAssignmentWaitingListList model (no description)
-      example:
-        locationAssignmentWaitingLists:
-        - id: 1
-          beginDate: '2012-08-02'
-          beginTime: '10:11:00.000'
-          endDate: '2012-08-02'
-          endTime: '12:13:00.000'
-          clientObjectId: 2
-          locationObjectId: 3
-          moveDate: '2012-08-02'
-          locationAssignmentType: WAITING_LIST
-          residence: false
-          mainLocation: false
-          medicineLocation: false
-          waitingFor: BESCHIKBARE_PLEK
-          status: ACTIEF_PLAATSEN
-          description: Client wacht met smart. Contact direct met client, niet via ouders.
-          classification: DREIGENDE_CRISIS_THUIS
-          closingReason: GEPLAATST
-      xml:
-        name: locationAssignmentWaitingLists
-    LocationAssignmentWaitingList:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/LocationAssignment'
-      properties:
-        waitingFor:
-          type: string
-          description: 'Description field for what event/resources the client is waiting for.
-
-            Possible values are defined by the care organisation'
-        status:
-          type: string
-          description: 'Wachtstatus (urgentie)
-
-            Possible values are defined by the care organisation'
-        description:
-          type: string
-          description: 'Description
-
-            Possible values are defined by the care organisation'
-        classification:
-          type: string
-          description: 'optional field used for financetype ''WLZ''.
-
-            https://assets.zn.nl/p/32768/none/Langdurige%20zorg/Wachtlijsten%20langdurige%20zorg/ZN-Infographic.pdf'
-        closingReason:
-          type: string
-          description: 'Indication of under what circumstances the client is taken off the waiting list
-
-            Assumed use: BI tooling
-
-            Possible values are defined by the care organisation'
-      description: Developed as a (temporary) solution to enable (GGZ) customers to indicate a client is on a 'waiting list'
-      example:
-        id: 1
-        beginDate: '2012-08-02'
-        beginTime: '10:11:00.000'
-        endDate: '2012-08-02'
-        endTime: '12:13:00.000'
-        clientObjectId: 2
-        locationObjectId: 3
-        moveDate: '2012-08-02'
-        locationAssignmentType: WAITING_LIST
-        residence: false
-        mainLocation: false
-        medicineLocation: false
-        waitingFor: BESCHIKBARE_PLEK
-        status: ACTIEF_PLAATSEN
-        description: Client wacht met smart. Contact direct met client, niet via ouders.
-        classification: DREIGENDE_CRISIS_THUIS
-        closingReason: GEPLAATST
-      xml:
-        name: locationAssignmentWaitingList
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

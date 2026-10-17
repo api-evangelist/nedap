@@ -249,6 +249,52 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    export.ExportPresenceLog:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        employeeId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
+        locationId:
+          type: integer
+          format: int64
+        employeeContractId:
+          type: string
+        productName:
+          type: string
+        isDuration:
+          type: boolean
+          default: false
+        beginDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        duration:
+          type: boolean
+          description: 'Deprecated since: 2022-06-28, use is_duration instead'
+          deprecated: true
+      description: Export presence log entry returned from Cupido.
+      example:
+        clientId: 234
+        employeeId: 123
+        teamId: 345
+        locationId: 456
+        employeeContractId: '567'
+        productName: name
+        isDuration: true
+        beginDate: '1973-12-20T17:00:00.000+01:00'
+        endDate: '2015-12-20T17:23:59.999+01:00'
+        duration: true
+      xml:
+        name: exportPresenceLog
     export.ExportStatus:
       type: object
       properties:
@@ -296,52 +342,6 @@ components:
           duration: true
       xml:
         name: exportPresenceLogs
-    export.ExportPresenceLog:
-      type: object
-      properties:
-        clientId:
-          type: integer
-          format: int64
-        employeeId:
-          type: integer
-          format: int64
-        teamId:
-          type: integer
-          format: int64
-        locationId:
-          type: integer
-          format: int64
-        employeeContractId:
-          type: string
-        productName:
-          type: string
-        isDuration:
-          type: boolean
-          default: false
-        beginDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        duration:
-          type: boolean
-          description: 'Deprecated since: 2022-06-28, use is_duration instead'
-          deprecated: true
-      description: Export presence log entry returned from Cupido.
-      example:
-        clientId: 234
-        employeeId: 123
-        teamId: 345
-        locationId: 456
-        employeeContractId: '567'
-        productName: name
-        isDuration: true
-        beginDate: '1973-12-20T17:00:00.000+01:00'
-        endDate: '2015-12-20T17:23:59.999+01:00'
-        duration: true
-      xml:
-        name: exportPresenceLog
     export.ExportSetting:
       type: object
       properties:
@@ -355,16 +355,6 @@ components:
         value: '2015-12-20T17:23:59.999+01:00'
       xml:
         name: exportSetting
-    export.ExportUuid:
-      type: object
-      properties:
-        uuid:
-          type: string
-      description: Export Status entry returned from Cupido.
-      example:
-        uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
-      xml:
-        name: exportUuid
     export.ExportStatusType:
       enum:
       - STARTED
@@ -375,6 +365,16 @@ components:
       type: string
       description: ExportStatusType enum (no description)
       example: STARTED
+    export.ExportUuid:
+      type: object
+      properties:
+        uuid:
+          type: string
+      description: Export Status entry returned from Cupido.
+      example:
+        uuid: af99a660-c49d-11e7-abc4-cec278b6b50a
+      xml:
+        name: exportUuid
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

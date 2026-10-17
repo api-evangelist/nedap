@@ -93,21 +93,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    payroll.list.AccountTypeExpireStatisticList:
-      type: object
-      properties:
-        accountTypeExpireStatistics:
-          type: array
-          items:
-            $ref: '#/components/schemas/payroll.AccountTypeExpireStatistic'
-      description: AccountTypeExpireStatisticList model (no description)
-      example:
-        accountTypeExpireStatistics:
-        - accountTypeId: 3
-          minutes: 100
-          expirationDate: '2019-12-31'
-          year: 2019
-          description: test description
     payroll.AccountTypeExpireStatistic:
       type: object
       properties:
@@ -136,6 +121,21 @@ components:
         expirationDate: '2019-12-31'
         year: 2019
         description: test description
+    payroll.list.AccountTypeExpireStatisticList:
+      type: object
+      properties:
+        accountTypeExpireStatistics:
+          type: array
+          items:
+            $ref: '#/components/schemas/payroll.AccountTypeExpireStatistic'
+      description: AccountTypeExpireStatisticList model (no description)
+      example:
+        accountTypeExpireStatistics:
+        - accountTypeId: 3
+          minutes: 100
+          expirationDate: '2019-12-31'
+          year: 2019
+          description: test description
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

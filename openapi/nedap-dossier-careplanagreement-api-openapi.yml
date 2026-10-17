@@ -77,6 +77,40 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        errorResponseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponseEntry'
+          xml:
+            wrapped: true
+      description: Error response model
+      example:
+        errorResponseEntries:
+        - field: one
+          value: a
+          message: field can not be empty
+        - field: two
+          value: a
+          message: too short
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
     dossier.CarePlanAgreement:
       type: object
       allOf:
@@ -115,25 +149,6 @@ components:
         carePlanId: 12
         employeeId: 13
         clientId: 14
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        errorResponseEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorResponseEntry'
-          xml:
-            wrapped: true
-      description: Error response model
-      example:
-        errorResponseEntries:
-        - field: one
-          value: a
-          message: field can not be empty
-        - field: two
-          value: a
-          message: too short
     AuditedBase:
       title: AuditedBase
       type: object
@@ -158,21 +173,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
-      example:
-        field: one
-        value: empty
-        message: field can not be empty
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -158,6 +158,94 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.EmployeeRosterDayAvailability:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        stopTime:
+          type: string
+          format: date-time
+        name:
+          type: string
+      description: Employee roster availability
+      example:
+        startTime: '2023-11-25T07:00:00.000+01:00'
+        stopTime: '2023-11-25T11:00:00.000+01:00'
+        name: Hallo
+    moves.EmployeePlanningClient:
+      type: object
+      properties:
+        externalId:
+          type: integer
+          format: int64
+        identificationNo:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        gender:
+          type: string
+      description: Part of the employee planning
+      example:
+        externalId: 123
+        identificationNo: abc123
+        name: Koning, F.C.
+        address: Groeneweg 25, Groenlo
+        gender: M
+    moves.EmployeePlanningPlanCard:
+      type: object
+      properties:
+        startsAt:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+          format: int64
+        description:
+          type: string
+      description: Part of the employee planning
+      example:
+        startsAt: '2023-11-24T16:39:00.000+01:00'
+        duration: 1337
+        description: (O4) Ochtenddienst 4
+    moves.EmployeePlanningEventGroup:
+      type: object
+      properties:
+        startsAt:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+          format: int64
+        client:
+          $ref: '#/components/schemas/moves.EmployeePlanningClient'
+        notes:
+          type: array
+          items:
+            type: string
+        planCards:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.EmployeePlanningPlanCard'
+      description: Part of the employee planning
+      example:
+        startsAt: '2023-11-24T13:29:00.000+01:00'
+        duration: 1234
+        client:
+          externalId: 123
+          identificationNo: abc123
+          name: Koning, F.C.
+          address: Groeneweg 25, Groenlo
+          gender: M
+        notes:
+        - sleutel onder de mat
+        planCards:
+        - startsAt: '2023-11-24T16:39:00.000+01:00'
+          duration: 1337
+          description: (O4) Ochtenddienst 4
     moves.EmployeePlanning:
       type: object
       properties:
@@ -198,59 +286,6 @@ components:
         startTime: '2023-11-25T07:00:00.000+01:00'
         stopTime: '2023-11-25T11:00:00.000+01:00'
         name: Ochtenddienst 4
-    moves.EmployeePlanningPlanCard:
-      type: object
-      properties:
-        startsAt:
-          type: string
-          format: date-time
-        duration:
-          type: integer
-          format: int64
-        description:
-          type: string
-      description: Part of the employee planning
-      example:
-        startsAt: '2023-11-24T16:39:00.000+01:00'
-        duration: 1337
-        description: (O4) Ochtenddienst 4
-    moves.EmployeePlanningClient:
-      type: object
-      properties:
-        externalId:
-          type: integer
-          format: int64
-        identificationNo:
-          type: string
-        name:
-          type: string
-        address:
-          type: string
-        gender:
-          type: string
-      description: Part of the employee planning
-      example:
-        externalId: 123
-        identificationNo: abc123
-        name: Koning, F.C.
-        address: Groeneweg 25, Groenlo
-        gender: M
-    moves.EmployeeRosterDayAvailability:
-      type: object
-      properties:
-        startTime:
-          type: string
-          format: date-time
-        stopTime:
-          type: string
-          format: date-time
-        name:
-          type: string
-      description: Employee roster availability
-      example:
-        startTime: '2023-11-25T07:00:00.000+01:00'
-        stopTime: '2023-11-25T11:00:00.000+01:00'
-        name: Hallo
     moves.EmployeeRosterDay:
       type: object
       properties:
@@ -295,41 +330,6 @@ components:
           - startTime: '2023-11-25T07:00:00.000+01:00'
             stopTime: '2023-11-25T11:00:00.000+01:00'
             name: Ochtenddienst 4
-    moves.EmployeePlanningEventGroup:
-      type: object
-      properties:
-        startsAt:
-          type: string
-          format: date-time
-        duration:
-          type: integer
-          format: int64
-        client:
-          $ref: '#/components/schemas/moves.EmployeePlanningClient'
-        notes:
-          type: array
-          items:
-            type: string
-        planCards:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.EmployeePlanningPlanCard'
-      description: Part of the employee planning
-      example:
-        startsAt: '2023-11-24T13:29:00.000+01:00'
-        duration: 1234
-        client:
-          externalId: 123
-          identificationNo: abc123
-          name: Koning, F.C.
-          address: Groeneweg 25, Groenlo
-          gender: M
-        notes:
-        - sleutel onder de mat
-        planCards:
-        - startsAt: '2023-11-24T16:39:00.000+01:00'
-          duration: 1337
-          description: (O4) Ochtenddienst 4
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

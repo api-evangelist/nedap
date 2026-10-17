@@ -154,26 +154,6 @@ components:
         clientId: 1
         clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
         employeeId: 1
-    hermes.CareProviderSettings:
-      type: object
-      properties:
-        enabled:
-          type:
-          - boolean
-          - 'null'
-        defaultTemplateSet:
-          type:
-          - string
-          - 'null'
-        defaultContactMethod:
-          type:
-          - string
-          - 'null'
-      description: CareProviderSettings model (no description)
-      example:
-        enabled: true
-        defaultTemplateSet: junior
-        defaultContactMethod: Email
     hermes.ContactMethod:
       type: object
       properties:
@@ -238,6 +218,26 @@ components:
       example:
         type: SMS
         allowNotifications: true
+    hermes.CareProviderSettings:
+      type: object
+      properties:
+        enabled:
+          type:
+          - boolean
+          - 'null'
+        defaultTemplateSet:
+          type:
+          - string
+          - 'null'
+        defaultContactMethod:
+          type:
+          - string
+          - 'null'
+      description: CareProviderSettings model (no description)
+      example:
+        enabled: true
+        defaultTemplateSet: junior
+        defaultContactMethod: Email
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -449,21 +449,6 @@ components:
         reason: Just Because!
       xml:
         name: booleanWithReason
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          description: Starting time with inclusive boundary
-          format: date
-        end:
-          type: string
-          description: End time with inclusive boundary, if not ongoing
-          format: date
-      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
-      example:
-        start: '2018-03-26'
-        end: '2018-04-02'
     DateWrapper:
       type: object
       properties:
@@ -641,6 +626,21 @@ components:
           end: '2017-06-06'
       xml:
         name: declarationRule
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          description: Starting time with inclusive boundary
+          format: date
+        end:
+          type: string
+          description: End time with inclusive boundary, if not ongoing
+          format: date
+      description: Based on http://hl7.org/fhir/STU3/datatypes.html#period
+      example:
+        start: '2018-03-26'
+        end: '2018-04-02'
     finance.list.DeclarationRuleList:
       type: object
       properties:

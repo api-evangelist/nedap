@@ -265,38 +265,235 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.RecurrenceType:
-      enum:
-      - WEEKLY
-      - INCIDENTAL
-      type: string
-      description: The type of repetition between occurrences. Weekly means once a week, Incidental means once for this validFrom until validTo period.
-      example: WEEKLY
-    moves.Recurrence:
-      title: Recurrence
+    moves.PlanCardOccurrenceAttributesRequest:
+      title: PlanCardOccurrenceAttributesRequest
       required:
-      - recurrenceStartDate
-      - recurrenceType
-      - stepSize
+      - date
+      - occurrenceId
+      - planCardChecksum
+      - planCardTimelineId
       type: object
       properties:
-        recurrenceStartDate:
+        date:
           type: string
-          description: The starting date from which this plan card is supposed to take place. The expected weekday can be infered from this date.
+          description: The date to apply the attributes to
           format: date
-        recurrenceType:
-          $ref: '#/components/schemas/moves.RecurrenceType'
-        stepSize:
-          type:
-          - integer
-          - 'null'
-          description: Describes how many recurrence periods are between every occurrence. For example, with this being 2 and the recurrenceType being WEEKLY, it means this plan card occurs once every two weeks.
+        occurrenceId:
+          type: string
+          description: The ID that links to this specific plan card occurrence
+        planCardChecksum:
+          type: string
+          description: The url-encoded checksum used to check if planning changes are made with the correct updated data
+        planCardTimelineId:
+          type: integer
+          description: The timeline id that links this plan card occurrence to the other moments that were planned in the past and in the future
           format: int64
-      description: This describes how often this plan card should occur.
+        canceled:
+          type: boolean
+          description: Whether the plan card occurrence is canceled or not
+      description: Incidentally update a plan card occurrence, for example by canceling a single care moment
       example:
-        recurrenceStartDate: '2025-05-09'
-        recurrenceType: WEEKLY
-        stepSize: 1
+        occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+        planCardChecksum: 1:oAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+        planCardTimelineId: 1
+        date: '2025-06-16'
+        canceled: true
+    moves.ContainerSearchRequest:
+      title: ContainerSearchRequest
+      required:
+      - from
+      - to
+      type: object
+      properties:
+        from:
+          type: string
+          description: The date from which all the results need to be found
+          format: date
+        to:
+          type: string
+          description: The exclusive date until all the results need to be found
+          format: date
+        unitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The identifiers of the units that need to be attached to the result
+        shiftTimelineIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The timeline ids of the shifts that need to be attached to the result
+        employeeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+          description: The identifiers of the employees that need to be attached to the result
+      description: The request body used to search for containers
+      example:
+        from: '2025-05-20'
+        to: '2025-05-30'
+        unitIds:
+        - 1
+        - 2
+        shiftTimelineIds: []
+        employeeIds: []
+    moves.PlanCardOccurrenceList:
+      title: PlanCardOccurrenceList
+      required:
+      - metadata
+      - planCardOccurrences
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/moves.ContainerSearchRequest'
+        planCardOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.PlanCardOccurrence'
+      description: A response body that contains a list of plan tasks found for this search
+      example:
+        metadata:
+          from: '2025-05-20'
+          to: '2025-05-30'
+          unitIds:
+          - 1
+          - 2
+          shiftTimelineIds: []
+          employeeIds: []
+        planCardOccurrences:
+        - occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+          planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+          planCardTimelineId: 1
+          clientId: 1
+          hourTypeId: 1
+          durationInSeconds: 900
+          travelTimeBeforeInSeconds: 18000
+          travelTimeAfterInSeconds: 18000
+          transportationMethodId: 1
+          date: '2025-05-23'
+          startDateTime: '2025-05-23T12:30:00.000+02:00'
+          fixedStartTime: '12:30:00'
+          incidental: false
+          canceled: false
+          address:
+            latitude: 52.1
+            longitude: 5.1
+          assignment:
+            containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+          recurrence:
+            recurrenceStartDate: '2025-05-09'
+            recurrenceType: WEEKLY
+            stepSize: 1
+    moves.PlanCardOccurrenceResponse:
+      title: PlanCardOccurrenceResponse
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/moves.PlanCardOccurrenceResponseMetadata'
+        planCardOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/moves.PlanCardOccurrence'
+      description: The response from a successful plan card planning mutation
+      example:
+        metadata:
+          impact:
+            containers:
+            - containerId: '|SHIFT:1|UNIT:1|THURSDAY|'
+              containerChecksum: 1:3AjzryeZVF5WQXkpToQYFst.07yuJc.vN.2pPMBhjPvJOV.grawLgU2
+            - containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+              containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+        planCardOccurrences:
+        - occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+          planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+          planCardTimelineId: 1
+          clientId: 1
+          hourTypeId: 1
+          durationInSeconds: 900
+          travelTimeBeforeInSeconds: 18000
+          travelTimeAfterInSeconds: 18000
+          transportationMethodId: 1
+          date: '2025-05-23'
+          startDateTime: '2025-05-23T12:30:00.000+02:00'
+          fixedStartTime: '12:30:00'
+          incidental: false
+          canceled: false
+          address:
+            latitude: 52.1
+            longitude: 5.1
+          assignment:
+            containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+          recurrence:
+            recurrenceStartDate: '2025-05-09'
+            recurrenceType: WEEKLY
+            stepSize: 1
+    moves.PlanCardOccurrencePlanRequest:
+      title: PlanCardOccurrencePlanRequest
+      required:
+      - date
+      - occurrenceId
+      - planCardChecksum
+      - planCardTimelineId
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date to plan the plan card to.
+          format: date
+        occurrenceId:
+          type: string
+          description: The ID that links to this specific plan card occurrence
+        planCardChecksum:
+          type: string
+          description: The url-encoded checksum used to check if planning changes are made with the correct updated data
+        planCardTimelineId:
+          type: integer
+          description: The timeline id that links this plan card occurrence to the other moments that were planned in the past and in the future
+          format: int64
+        fixedStartTime:
+          pattern: ^\d{2}:\d{2}:\d{2}$
+          type:
+          - string
+          - 'null'
+          description: The local fixed start time on which this PlanCardOccurrence should occur. This time remains the same when going through DST changes. When set to null, the start time will be calculated automatically.
+        incidental:
+          type: boolean
+          description: Whether this plan action is an incidental action
+        assignment:
+          $ref: '#/components/schemas/moves.ContainerAssignment'
+        beforePlanCard:
+          $ref: '#/components/schemas/moves.PlanCardOccurrenceId'
+        afterPlanCard:
+          $ref: '#/components/schemas/moves.PlanCardOccurrenceId'
+      description: Moves a single plan card to another time and order in a container
+      example:
+        occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
+        planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
+        planCardTimelineId: 1
+        date: '2025-06-16'
+        fixedStartTime: '12:30:00'
+        assignment:
+          containerId: '|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|'
+          containerChecksum: 1:3A4htqjKzgaY4J23Xehi1wouSatlJVl%2FGbYQbQ%2FuQTAmQp8rpKzrvge
+        afterPlanCard:
+          occurrenceId: 2025-03-18--2025-05-23--20--true--4--|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|
+          planCardChecksum: 1:3AGRpMLiogzgMpVz8s2MlSueNO5Wg0wZncQlt0lQfMxFDlS%2FIfYu0D6
+          planCardTimelineId: 4
+        beforePlanCard:
+          occurrenceId: 2025-03-18--2025-05-23--54--false--2--|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|
+          planCardChecksum: 1:3ALkpfLodVXYnuLpF6ClKYsu8lkXwRUP01Iaq6gNJ7VGjjhHlO%2FTl0W
+          planCardTimelineId: 2
     moves.PlanCardOccurrence:
       title: PlanCardOccurrence
       required:
@@ -421,68 +618,40 @@ components:
           recurrenceStartDate: '2025-05-09'
           recurrenceType: WEEKLY
           stepSize: 1
-    moves.ContainerSearchRequest:
-      title: ContainerSearchRequest
+    moves.Recurrence:
+      title: Recurrence
       required:
-      - from
-      - to
+      - recurrenceStartDate
+      - recurrenceType
+      - stepSize
       type: object
       properties:
-        from:
+        recurrenceStartDate:
           type: string
-          description: The date from which all the results need to be found
+          description: The starting date from which this plan card is supposed to take place. The expected weekday can be infered from this date.
           format: date
-        to:
-          type: string
-          description: The exclusive date until all the results need to be found
-          format: date
-        unitIds:
+        recurrenceType:
+          $ref: '#/components/schemas/moves.RecurrenceType'
+        stepSize:
           type:
-          - array
+          - integer
           - 'null'
-          items:
-            type: integer
-            format: int64
-          description: The identifiers of the units that need to be attached to the result
-        shiftTimelineIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int64
-          description: The timeline ids of the shifts that need to be attached to the result
-        employeeIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int64
-          description: The identifiers of the employees that need to be attached to the result
-      description: The request body used to search for containers
+          description: Describes how many recurrence periods are between every occurrence. For example, with this being 2 and the recurrenceType being WEEKLY, it means this plan card occurs once every two weeks.
+          format: int64
+      description: This describes how often this plan card should occur.
       example:
-        from: '2025-05-20'
-        to: '2025-05-30'
-        unitIds:
-        - 1
-        - 2
-        shiftTimelineIds: []
-        employeeIds: []
-    moves.PlanCardOccurrenceResponseMetadata:
-      title: PlanCardOccurrenceResponseMetadata
+        recurrenceStartDate: '2025-05-09'
+        recurrenceType: WEEKLY
+        stepSize: 1
+    moves.PlanCardRecurrenceInformation:
       type: object
-      properties:
-        impact:
-          $ref: '#/components/schemas/moves.PlanCardOccurrenceResponseMetadataImpact'
-      description: Metadata about the impact of the plan card occurrence planning
+      allOf:
+      - $ref: '#/components/schemas/moves.Recurrence'
+      description: This describes how often this plan card should occur.
       example:
-        impact:
-          containers:
-          - containerId: '|SHIFT:1|UNIT:1|THURSDAY|'
-            containerChecksum: 1:3AjzryeZVF5WQXkpToQYFst.07yuJc.vN.2pPMBhjPvJOV.grawLgU2
-          - containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
-            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
+        recurrenceStartDate: '2025-05-09'
+        recurrenceType: WEEKLY
+        stepSize: 1
     moves.PlanCardOccurrenceResponseMetadataImpact:
       title: PlanCardOccurrenceResponseMetadataImpact
       type: object
@@ -498,92 +667,25 @@ components:
           containerChecksum: 1:3AjzryeZVF5WQXkpToQYFst.07yuJc.vN.2pPMBhjPvJOV.grawLgU2
         - containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
           containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
-    moves.PlanCardRecurrenceInformation:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/moves.Recurrence'
-      description: This describes how often this plan card should occur.
-      example:
-        recurrenceStartDate: '2025-05-09'
-        recurrenceType: WEEKLY
-        stepSize: 1
-    moves.PlanCardOccurrenceAttributesRequest:
-      title: PlanCardOccurrenceAttributesRequest
-      required:
-      - date
-      - occurrenceId
-      - planCardChecksum
-      - planCardTimelineId
+    moves.MovesRatelimitError:
+      title: MovesRatelimitError
       type: object
       properties:
-        date:
+        type:
           type: string
-          description: The date to apply the attributes to
-          format: date
-        occurrenceId:
+          description: The type of error raised
+        title:
           type: string
-          description: The ID that links to this specific plan card occurrence
-        planCardChecksum:
-          type: string
-          description: The url-encoded checksum used to check if planning changes are made with the correct updated data
-        planCardTimelineId:
+          description: The human readable title of the rate limit error
+        status:
           type: integer
-          description: The timeline id that links this plan card occurrence to the other moments that were planned in the past and in the future
+          description: The HTTP status code being given
           format: int64
-        canceled:
-          type: boolean
-          description: Whether the plan card occurrence is canceled or not
-      description: Incidentally update a plan card occurrence, for example by canceling a single care moment
+      description: An error describing a specific rate limit has been reached and that the client should wait to retry the response
       example:
-        occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
-        planCardChecksum: 1:oAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
-        planCardTimelineId: 1
-        date: '2025-06-16'
-        canceled: true
-    moves.PlanCardOccurrenceResponse:
-      title: PlanCardOccurrenceResponse
-      type: object
-      properties:
-        metadata:
-          $ref: '#/components/schemas/moves.PlanCardOccurrenceResponseMetadata'
-        planCardOccurrences:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.PlanCardOccurrence'
-      description: The response from a successful plan card planning mutation
-      example:
-        metadata:
-          impact:
-            containers:
-            - containerId: '|SHIFT:1|UNIT:1|THURSDAY|'
-              containerChecksum: 1:3AjzryeZVF5WQXkpToQYFst.07yuJc.vN.2pPMBhjPvJOV.grawLgU2
-            - containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
-              containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
-        planCardOccurrences:
-        - occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
-          planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
-          planCardTimelineId: 1
-          clientId: 1
-          hourTypeId: 1
-          durationInSeconds: 900
-          travelTimeBeforeInSeconds: 18000
-          travelTimeAfterInSeconds: 18000
-          transportationMethodId: 1
-          date: '2025-05-23'
-          startDateTime: '2025-05-23T12:30:00.000+02:00'
-          fixedStartTime: '12:30:00'
-          incidental: false
-          canceled: false
-          address:
-            latitude: 52.1
-            longitude: 5.1
-          assignment:
-            containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
-            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
-          recurrence:
-            recurrenceStartDate: '2025-05-09'
-            recurrenceType: WEEKLY
-            stepSize: 1
+        type: ratelimit-error
+        title: Rate-limit reached
+        status: 429
     moves.PlannedAddress:
       type:
       - object
@@ -643,6 +745,13 @@ components:
         numberPostfix: a
         residenceAccessInfo: Keybox is behind drain pipe. Code is 1234
         roomNumber: '1'
+    moves.RecurrenceType:
+      enum:
+      - WEEKLY
+      - INCIDENTAL
+      type: string
+      description: The type of repetition between occurrences. Weekly means once a week, Incidental means once for this validFrom until validTo period.
+      example: WEEKLY
     moves.PlanCardOccurrenceId:
       title: PlanCardOccurrenceId
       required:
@@ -666,6 +775,20 @@ components:
         occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
         planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
         planCardTimelineId: 1
+    moves.PlanCardOccurrenceResponseMetadata:
+      title: PlanCardOccurrenceResponseMetadata
+      type: object
+      properties:
+        impact:
+          $ref: '#/components/schemas/moves.PlanCardOccurrenceResponseMetadataImpact'
+      description: Metadata about the impact of the plan card occurrence planning
+      example:
+        impact:
+          containers:
+          - containerId: '|SHIFT:1|UNIT:1|THURSDAY|'
+            containerChecksum: 1:3AjzryeZVF5WQXkpToQYFst.07yuJc.vN.2pPMBhjPvJOV.grawLgU2
+          - containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
+            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
     moves.ContainerAssignment:
       title: ContainerAssignment
       required:
@@ -685,129 +808,6 @@ components:
       example:
         containerId: '|SHIFT:1|UNIT:1|DAY:MONDAY|'
         containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
-    moves.PlanCardOccurrenceList:
-      title: PlanCardOccurrenceList
-      required:
-      - metadata
-      - planCardOccurrences
-      type: object
-      properties:
-        metadata:
-          $ref: '#/components/schemas/moves.ContainerSearchRequest'
-        planCardOccurrences:
-          type: array
-          items:
-            $ref: '#/components/schemas/moves.PlanCardOccurrence'
-      description: A response body that contains a list of plan tasks found for this search
-      example:
-        metadata:
-          from: '2025-05-20'
-          to: '2025-05-30'
-          unitIds:
-          - 1
-          - 2
-          shiftTimelineIds: []
-          employeeIds: []
-        planCardOccurrences:
-        - occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
-          planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
-          planCardTimelineId: 1
-          clientId: 1
-          hourTypeId: 1
-          durationInSeconds: 900
-          travelTimeBeforeInSeconds: 18000
-          travelTimeAfterInSeconds: 18000
-          transportationMethodId: 1
-          date: '2025-05-23'
-          startDateTime: '2025-05-23T12:30:00.000+02:00'
-          fixedStartTime: '12:30:00'
-          incidental: false
-          canceled: false
-          address:
-            latitude: 52.1
-            longitude: 5.1
-          assignment:
-            containerId: '|SHIFT:1|UNIT:1|FRIDAY|'
-            containerChecksum: 1:3AVMN3il5ywyQXDqzgfKITtet6kEKcnmxgKM6TDD2hLLb23SQzA685S
-          recurrence:
-            recurrenceStartDate: '2025-05-09'
-            recurrenceType: WEEKLY
-            stepSize: 1
-    moves.MovesRatelimitError:
-      title: MovesRatelimitError
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of error raised
-        title:
-          type: string
-          description: The human readable title of the rate limit error
-        status:
-          type: integer
-          description: The HTTP status code being given
-          format: int64
-      description: An error describing a specific rate limit has been reached and that the client should wait to retry the response
-      example:
-        type: ratelimit-error
-        title: Rate-limit reached
-        status: 429
-    moves.PlanCardOccurrencePlanRequest:
-      title: PlanCardOccurrencePlanRequest
-      required:
-      - date
-      - occurrenceId
-      - planCardChecksum
-      - planCardTimelineId
-      type: object
-      properties:
-        date:
-          type: string
-          description: Date to plan the plan card to.
-          format: date
-        occurrenceId:
-          type: string
-          description: The ID that links to this specific plan card occurrence
-        planCardChecksum:
-          type: string
-          description: The url-encoded checksum used to check if planning changes are made with the correct updated data
-        planCardTimelineId:
-          type: integer
-          description: The timeline id that links this plan card occurrence to the other moments that were planned in the past and in the future
-          format: int64
-        fixedStartTime:
-          pattern: ^\d{2}:\d{2}:\d{2}$
-          type:
-          - string
-          - 'null'
-          description: The local fixed start time on which this PlanCardOccurrence should occur. This time remains the same when going through DST changes. When set to null, the start time will be calculated automatically.
-        incidental:
-          type: boolean
-          description: Whether this plan action is an incidental action
-        assignment:
-          $ref: '#/components/schemas/moves.ContainerAssignment'
-        beforePlanCard:
-          $ref: '#/components/schemas/moves.PlanCardOccurrenceId'
-        afterPlanCard:
-          $ref: '#/components/schemas/moves.PlanCardOccurrenceId'
-      description: Moves a single plan card to another time and order in a container
-      example:
-        occurrenceId: 2025-05-18--2025-05-23--98--true--1--null
-        planCardChecksum: 1:3AoAdyjHX3rvpvjlbc%2F4TkTunSATrXeAnjKt8.ToIBL9yq5sZzlf.D2
-        planCardTimelineId: 1
-        date: '2025-06-16'
-        fixedStartTime: '12:30:00'
-        assignment:
-          containerId: '|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|'
-          containerChecksum: 1:3A4htqjKzgaY4J23Xehi1wouSatlJVl%2FGbYQbQ%2FuQTAmQp8rpKzrvge
-        afterPlanCard:
-          occurrenceId: 2025-03-18--2025-05-23--20--true--4--|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|
-          planCardChecksum: 1:3AGRpMLiogzgMpVz8s2MlSueNO5Wg0wZncQlt0lQfMxFDlS%2FIfYu0D6
-          planCardTimelineId: 4
-        beforePlanCard:
-          occurrenceId: 2025-03-18--2025-05-23--54--false--2--|UNIT:1|EMPLOYEE:1|DAY:FRIDAY|
-          planCardChecksum: 1:3ALkpfLodVXYnuLpF6ClKYsu8lkXwRUP01Iaq6gNJ7VGjjhHlO%2FTl0W
-          planCardTimelineId: 2
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

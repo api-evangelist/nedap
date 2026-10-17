@@ -2778,118 +2778,27 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.ReportsWithActionsSummary:
+    dossier.ReportAction:
       type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.ReportAuthorization'
       properties:
-        actionsForUser:
+        employeeId:
           type: integer
           format: int64
-        actionsByUser:
-          type: integer
-          format: int64
-      description: ReportsWithActionsSummary model (no description)
-      example:
-        actionsForUser: 42
-        actionsByUser: 87
-    dossier.list.ReportAuthorizationList:
-      type: object
-      properties:
-        reportAuthorizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.ReportAuthorization'
-          xml:
-            name: reportAuthorization
-      description: ReportAuthorizationList model (no description)
-      example:
-        reportAuthorizations:
-        - id: 1
-          expertiseProfileId: 1
-          expertiseGroupObjectId: 2
-        - id: 2
-          expertiseProfileId: 2
-          expertiseGroupObjectId: 1
-      xml:
-        name: reportAuthorizations
-    dossier.list.ReportList:
-      type: object
-      properties:
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.Report'
-          xml:
-            name: report
-      description: ReportList model (no description)
-      example:
-        reports:
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 1
-          reportingDate: '2014-04-01T17:00:00.000+02:00'
-          comment: Goed geplast
-          flagged: true
-          confidential: false
-          hidden: false
-          parentType: careplanreport
-          carenId: 10
-          carenName: Foeken
-          carenRole: Mantelzorger
-          status: 1
-          reportTypeId: 101
-        - updatedAt: '2014-04-01T17:00:00.000+02:00'
-          createdAt: '2013-12-01T17:00:00.000+01:00'
-          id: 2
-          reportingDate: '2014-04-01T17:00:00.000+02:00'
-          comment: Goed geplast
-          flagged: true
-          confidential: false
-          hidden: false
-          parentType: careplanreport
-          carenId: 10
-          carenName: Foeken
-          carenRole: Mantelzorger
-          status: 1
-          reportTypeId: 101
-      xml:
-        name: reports
-    dossier.ReportVitalSign:
-      title: ReportVitalSign
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: generic name of vital sign
-        measuredAt:
-          type:
-          - string
-          - 'null'
-          description: Time when vital sign was measured.
+        dateFinished:
+          type: string
           format: date-time
-        unit:
-          type:
-          - string
-          - 'null'
-          description: unit of measurement
-        type:
-          type:
-          - string
-          - 'null'
-          description: Vital sign name
-        value:
-          type:
-          - string
-          - 'null'
-          description: value of vital sign
-      description: Vital sign from a report
+      description: ReportAction model (no description)
       example:
-        id: systolic_blood_pressure
-        measuredAt: '2014-07-24T02:00:00.000+02:00'
-        unit: mm[Hg]
-        type: Systolisch
-        value: '55'
+        id: 1
+        carePlanId: 1
+        expertiseProfileId: 1
+        expertiseGroupObjectId: 2
+        employeeId: 1
+        dateFinished: '2014-07-24T02:00:00.000+02:00'
+      xml:
+        name: reportAction
     dossier.ReportFilter:
       type: string
       oneOf:
@@ -2907,50 +2816,6 @@ components:
         - with_created_actions
       description: ReportFilter model (no description)
       example: all
-    dossier.SoapReportEntry:
-      type: object
-      properties:
-        soapPart:
-          type: string
-        confidential:
-          type: boolean
-          description: When this is true this SOAP entry is shown regardless of the attached rights
-          default: false
-        content:
-          type: string
-        expertiseProfileIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-            xml:
-              name: expertiseProfileId
-          xml:
-            wrapped: true
-        expertiseGroupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-            xml:
-              name: expertiseGroupId
-          xml:
-            wrapped: true
-      description: SoapReportEntry model (no description)
-      example:
-        soapPart: Subjective
-        confidential: true
-        content: Text about the subjective experiences of the client
-        expertiseProfileIds:
-        - 1
-        - 2
-        - 3
-        expertiseGroupIds:
-        - 4
-        - 5
-        - 6
-      xml:
-        name: soapReportEntry
     ExpertiseProfile:
       type: object
       properties:
@@ -3047,6 +2912,155 @@ components:
         displayName: Systolic pressure
       xml:
         name: reportEntry
+    dossier.ReportLinkType:
+      enum:
+      - NEXT_DOSSIER
+      type: string
+      description: ReportLinkType enum (no description)
+      example: NEXT_DOSSIER
+    dossier.ReportsWithActionsSummary:
+      type: object
+      properties:
+        actionsForUser:
+          type: integer
+          format: int64
+        actionsByUser:
+          type: integer
+          format: int64
+      description: ReportsWithActionsSummary model (no description)
+      example:
+        actionsForUser: 42
+        actionsByUser: 87
+    dossier.list.ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.Report'
+          xml:
+            name: report
+      description: ReportList model (no description)
+      example:
+        reports:
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 1
+          reportingDate: '2014-04-01T17:00:00.000+02:00'
+          comment: Goed geplast
+          flagged: true
+          confidential: false
+          hidden: false
+          parentType: careplanreport
+          carenId: 10
+          carenName: Foeken
+          carenRole: Mantelzorger
+          status: 1
+          reportTypeId: 101
+        - updatedAt: '2014-04-01T17:00:00.000+02:00'
+          createdAt: '2013-12-01T17:00:00.000+01:00'
+          id: 2
+          reportingDate: '2014-04-01T17:00:00.000+02:00'
+          comment: Goed geplast
+          flagged: true
+          confidential: false
+          hidden: false
+          parentType: careplanreport
+          carenId: 10
+          carenName: Foeken
+          carenRole: Mantelzorger
+          status: 1
+          reportTypeId: 101
+      xml:
+        name: reports
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.SoapReportEntry:
+      type: object
+      properties:
+        soapPart:
+          type: string
+        confidential:
+          type: boolean
+          description: When this is true this SOAP entry is shown regardless of the attached rights
+          default: false
+        content:
+          type: string
+        expertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseProfileId
+          xml:
+            wrapped: true
+        expertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseGroupId
+          xml:
+            wrapped: true
+      description: SoapReportEntry model (no description)
+      example:
+        soapPart: Subjective
+        confidential: true
+        content: Text about the subjective experiences of the client
+        expertiseProfileIds:
+        - 1
+        - 2
+        - 3
+        expertiseGroupIds:
+        - 4
+        - 5
+        - 6
+      xml:
+        name: soapReportEntry
+    dossier.list.ReportAuthorizationList:
+      type: object
+      properties:
+        reportAuthorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.ReportAuthorization'
+          xml:
+            name: reportAuthorization
+      description: ReportAuthorizationList model (no description)
+      example:
+        reportAuthorizations:
+        - id: 1
+          expertiseProfileId: 1
+          expertiseGroupObjectId: 2
+        - id: 2
+          expertiseProfileId: 2
+          expertiseGroupObjectId: 1
+      xml:
+        name: reportAuthorizations
     dossier.ReportVitalSignList:
       title: VitalSignsReports
       type: object
@@ -3093,33 +3107,43 @@ components:
           unit: '%'
           type: Saturatie
           value: '55'
-    dossier.ReportAction:
+    dossier.ReportVitalSign:
+      title: ReportVitalSign
       type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.ReportAuthorization'
       properties:
-        employeeId:
-          type: integer
-          format: int64
-        dateFinished:
-          type: string
+        id:
+          type:
+          - string
+          - 'null'
+          description: generic name of vital sign
+        measuredAt:
+          type:
+          - string
+          - 'null'
+          description: Time when vital sign was measured.
           format: date-time
-      description: ReportAction model (no description)
+        unit:
+          type:
+          - string
+          - 'null'
+          description: unit of measurement
+        type:
+          type:
+          - string
+          - 'null'
+          description: Vital sign name
+        value:
+          type:
+          - string
+          - 'null'
+          description: value of vital sign
+      description: Vital sign from a report
       example:
-        id: 1
-        carePlanId: 1
-        expertiseProfileId: 1
-        expertiseGroupObjectId: 2
-        employeeId: 1
-        dateFinished: '2014-07-24T02:00:00.000+02:00'
-      xml:
-        name: reportAction
-    dossier.ReportLinkType:
-      enum:
-      - NEXT_DOSSIER
-      type: string
-      description: ReportLinkType enum (no description)
-      example: NEXT_DOSSIER
+        id: systolic_blood_pressure
+        measuredAt: '2014-07-24T02:00:00.000+02:00'
+        unit: mm[Hg]
+        type: Systolisch
+        value: '55'
     dossier.Report:
       required:
       - reportTypeId
@@ -3342,30 +3366,6 @@ components:
         reportLinkType: NEXT_DOSSIER
       xml:
         name: report
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     dossier.ReportAuthorization:
       type: object
       properties:

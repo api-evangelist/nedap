@@ -531,21 +531,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    arrangement.RecurrenceType:
-      enum:
-      - HOUR
-      - DAY
-      - WEEK
-      - PERIOD
-      type: string
-      description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
-
-        Examples:
-
-        - 1, WEEK corresponds to ''every week''
-
-        - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
-      example: HOUR
     arrangement.Intent:
       required:
       - uuid
@@ -666,6 +651,21 @@ components:
         plannable: true
       xml:
         name: intent
+    arrangement.RecurrenceType:
+      enum:
+      - HOUR
+      - DAY
+      - WEEK
+      - PERIOD
+      type: string
+      description: 'Together with the recurrence interval, the recurrence type determines how the intent is repeated over time.
+
+        Examples:
+
+        - 1, WEEK corresponds to ''every week''
+
+        - 2, DAY corresponds to ''every 2 days'' or ''every other day'''
+      example: HOUR
     arrangement.QuantityUnit:
       enum:
       - MINUTE

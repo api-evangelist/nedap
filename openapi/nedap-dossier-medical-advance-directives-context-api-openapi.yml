@@ -285,128 +285,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.medical.advance_directives.context.StatusKey:
-      enum:
-      - ACTIVE
-      - DISCUSSED_WITH_PATIENT
-      - DISCUSSED_WITH_RELATIVE
-      type: string
-      description: The status of the AdvanceDirective Context.
-      example: DISCUSSED_WITH_PATIENT
-    dossier.medical.advance_directives.Context:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
-      properties:
-        narrative:
-          type: string
-        snomedExpressionValue:
-          type: string
-        date:
-          type: string
-          format: date
-        employeeId:
-          type: integer
-          format: int64
-        status:
-          type: string
-          description: The human readable status of the AdvanceDirective Context.
-        statusKey:
-          allOf:
-          - $ref: '#/components/schemas/dossier.medical.advance_directives.context.StatusKey'
-          description: The status of the AdvanceDirective Context.
-        documentId:
-          type: integer
-          format: int32
-        documentName:
-          type: string
-          deprecated: true
-          x-deprecated-since: 01-04-2026
-        decisionBuilders:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
-          description: 'Used by the update and create api''s to build the Decisions of this AdvanceDirective
-
-            Both the update and create api will only look at the builders and not at the decision list.'
-        decisions:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.advance_directives.Decision'
-          description: The decisions of the AdvanceDirective Context.
-        immutable:
-          type: boolean
-          description: Whether or not the context is immutable
-      description: The current medical policy of the client
-      example:
-        id: 3
-        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-        clientId: 1
-        createdById: 2
-        updatedById: 4
-        createdAt: '2014-11-14T00:00:00.000+01:00'
-        updatedAt: '2014-11-14T00:00:00.000+01:00'
-        narrative: Thats what I want
-        snomedExpressionValue: Dummy
-        date: '2014-11-14'
-        employeeId: 1337
-        status: Discussed with patient
-        statusKey: DISCUSSED_WITH_PATIENT
-        documentId: 1
-        documentName: Document
-        decisionBuilders:
-        - system: example
-          query: example
-          name: example
-          outcome: example
-        - system: example
-          query: example
-          name: example
-          outcome: example
-        decisions:
-        - name: Resuscitation
-          outcome: 'Yes'
-        immutable: true
-    dossier.medical.advance_directives.list.ContextList:
-      type: object
-      properties:
-        contexts:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.medical.advance_directives.Context'
-      description: ContextList model (no description)
-      example:
-        contexts:
-        - id: 3
-          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
-          clientId: 1
-          createdById: 2
-          updatedById: 4
-          createdAt: '2014-11-14T00:00:00.000+01:00'
-          updatedAt: '2014-11-14T00:00:00.000+01:00'
-          narrative: Thats what I want
-          snomedExpressionValue: Dummy
-          date: '2014-11-14'
-          employeeId: 1337
-          status: Discussed with patient
-          immutable: true
-    dossier.medical.advance_directives.Decision:
-      type: object
-      properties:
-        name:
-          type: string
-        outcome:
-          type: string
-        snomedExpressionValue:
-          type: string
-          description: 'snomedexpression of the whole decision.
-
-            Example: "363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |"'
-      description: Decision model (no description)
-      example:
-        name: Resuscitation
-        outcome: 'Yes'
-        snomedExpressionValue: '363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |'
     dossier.medical.RelationshipBuilder:
       type: object
       properties:
@@ -498,6 +376,128 @@ components:
         updatedById: 1
         createdAt: '2014-11-10T00:00:00.000+01:00'
         updatedAt: '2014-11-10T00:00:00.000+01:00'
+    dossier.medical.advance_directives.context.StatusKey:
+      enum:
+      - ACTIVE
+      - DISCUSSED_WITH_PATIENT
+      - DISCUSSED_WITH_RELATIVE
+      type: string
+      description: The status of the AdvanceDirective Context.
+      example: DISCUSSED_WITH_PATIENT
+    dossier.medical.advance_directives.Context:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.medical.MedicalBase'
+      properties:
+        narrative:
+          type: string
+        snomedExpressionValue:
+          type: string
+        date:
+          type: string
+          format: date
+        employeeId:
+          type: integer
+          format: int64
+        status:
+          type: string
+          description: The human readable status of the AdvanceDirective Context.
+        statusKey:
+          allOf:
+          - $ref: '#/components/schemas/dossier.medical.advance_directives.context.StatusKey'
+          description: The status of the AdvanceDirective Context.
+        documentId:
+          type: integer
+          format: int32
+        documentName:
+          type: string
+          deprecated: true
+          x-deprecated-since: 01-04-2026
+        decisionBuilders:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.DecisionBuilder'
+          description: 'Used by the update and create api''s to build the Decisions of this AdvanceDirective
+
+            Both the update and create api will only look at the builders and not at the decision list.'
+        decisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.advance_directives.Decision'
+          description: The decisions of the AdvanceDirective Context.
+        immutable:
+          type: boolean
+          description: Whether or not the context is immutable
+      description: The current medical policy of the client
+      example:
+        id: 3
+        uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+        clientId: 1
+        createdById: 2
+        updatedById: 4
+        createdAt: '2014-11-14T00:00:00.000+01:00'
+        updatedAt: '2014-11-14T00:00:00.000+01:00'
+        narrative: Thats what I want
+        snomedExpressionValue: Dummy
+        date: '2014-11-14'
+        employeeId: 1337
+        status: Discussed with patient
+        statusKey: DISCUSSED_WITH_PATIENT
+        documentId: 1
+        documentName: Document
+        decisionBuilders:
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        - system: example
+          query: example
+          name: example
+          outcome: example
+        decisions:
+        - name: Resuscitation
+          outcome: 'Yes'
+        immutable: true
+    dossier.medical.advance_directives.Decision:
+      type: object
+      properties:
+        name:
+          type: string
+        outcome:
+          type: string
+        snomedExpressionValue:
+          type: string
+          description: 'snomedexpression of the whole decision.
+
+            Example: "363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |"'
+      description: Decision model (no description)
+      example:
+        name: Resuscitation
+        outcome: 'Yes'
+        snomedExpressionValue: '363589002 | associated procedure |: 246456000 | has interpretation | =439569004 | resuscitation |, 408729009 | finding context | =373066001 | yes |'
+    dossier.medical.advance_directives.list.ContextList:
+      type: object
+      properties:
+        contexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.medical.advance_directives.Context'
+      description: ContextList model (no description)
+      example:
+        contexts:
+        - id: 3
+          uuid: 02a26900-64d4-11e4-b4af-0002a5d5c51b
+          clientId: 1
+          createdById: 2
+          updatedById: 4
+          createdAt: '2014-11-14T00:00:00.000+01:00'
+          updatedAt: '2014-11-14T00:00:00.000+01:00'
+          narrative: Thats what I want
+          snomedExpressionValue: Dummy
+          date: '2014-11-14'
+          employeeId: 1337
+          status: Discussed with patient
+          immutable: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

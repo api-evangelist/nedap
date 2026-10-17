@@ -244,87 +244,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.episodes.list.SubGoalList:
-      type: object
-      properties:
-        subGoals:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.episodes.SubGoal'
-      description: SubGoalList model (no description)
-      example:
-        subGoals:
-        - updatedAt: '2017-11-27T00:00:00.000+01:00'
-          createdAt: '2017-11-27T00:00:00.000+01:00'
-          createdBy: Dummy
-          id: 2
-          title: Some sub goal
-          episodeId: 1
-          archived: false
-        - updatedAt: '2017-11-27T00:00:00.000+01:00'
-          createdAt: '2017-11-27T00:00:00.000+01:00'
-          createdBy: Dummy
-          id: 5
-          title: Some archived sub goal
-          episodeId: 22
-          archived: true
-    dossier.episodes.Action:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          description: Object id of this episode action
-          format: int64
-          x-cupido-id: true
-        title:
-          type: string
-          description: Title of this episode action
-        subGoalId:
-          type: integer
-          description: Object id of the parent episode sub goal
-          format: int64
-        showInCarePlan:
-          type: boolean
-          description: Show this action in the care plan
-        archived:
-          type: boolean
-          description: Archive status of this action
-      description: Action model (no description)
-      example:
-        updatedAt: '2017-11-27T00:00:00.000+01:00'
-        createdAt: '2017-11-27T00:00:00.000+01:00'
-        createdBy: Dummy
-        id: 3
-        title: Some action
-        subGoalId: 2
-        showInCarePlan: true
-        archived: false
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
     dossier.episodes.SubGoal:
       type: object
       allOf:
@@ -376,6 +295,87 @@ components:
           subGoalId: 1
           showInCarePlan: true
           archived: true
+    dossier.episodes.list.SubGoalList:
+      type: object
+      properties:
+        subGoals:
+          type: array
+          items:
+            $ref: '#/components/schemas/dossier.episodes.SubGoal'
+      description: SubGoalList model (no description)
+      example:
+        subGoals:
+        - updatedAt: '2017-11-27T00:00:00.000+01:00'
+          createdAt: '2017-11-27T00:00:00.000+01:00'
+          createdBy: Dummy
+          id: 2
+          title: Some sub goal
+          episodeId: 1
+          archived: false
+        - updatedAt: '2017-11-27T00:00:00.000+01:00'
+          createdAt: '2017-11-27T00:00:00.000+01:00'
+          createdBy: Dummy
+          id: 5
+          title: Some archived sub goal
+          episodeId: 22
+          archived: true
+    AuditedBase:
+      title: AuditedBase
+      type: object
+      properties:
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.episodes.Action:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          description: Object id of this episode action
+          format: int64
+          x-cupido-id: true
+        title:
+          type: string
+          description: Title of this episode action
+        subGoalId:
+          type: integer
+          description: Object id of the parent episode sub goal
+          format: int64
+        showInCarePlan:
+          type: boolean
+          description: Show this action in the care plan
+        archived:
+          type: boolean
+          description: Archive status of this action
+      description: Action model (no description)
+      example:
+        updatedAt: '2017-11-27T00:00:00.000+01:00'
+        createdAt: '2017-11-27T00:00:00.000+01:00'
+        createdBy: Dummy
+        id: 3
+        title: Some action
+        subGoalId: 2
+        showInCarePlan: true
+        archived: false
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

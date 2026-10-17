@@ -352,21 +352,6 @@ components:
         endTime: '2021-01-02T00:00:00.000+01:00'
         createdAt: '2014-11-14T00:00:00.000+01:00'
         updatedAt: '2014-11-14T00:00:00.000+01:00'
-    ErrorResponseEntry:
-      title: ErrorResponseEntry
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-      description: Error response entry model
-      example:
-        field: one
-        value: empty
-        message: field can not be empty
     dossier.list.RestrictiveMeasureRegistrationList:
       type: object
       properties:
@@ -403,6 +388,21 @@ components:
           endTime: '2021-01-02T00:00:00.000+01:00'
           createdAt: '2014-11-14T00:00:00.000+01:00'
           updatedAt: '2014-11-14T00:00:00.000+01:00'
+    ErrorResponseEntry:
+      title: ErrorResponseEntry
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+      description: Error response entry model
+      example:
+        field: one
+        value: empty
+        message: field can not be empty
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

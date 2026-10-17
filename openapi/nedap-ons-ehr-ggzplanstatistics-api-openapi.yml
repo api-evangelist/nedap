@@ -49,6 +49,26 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    ons_ehr.GgzPlanStatistics:
+      type: object
+      properties:
+        customerCode:
+          type: string
+        pilotEnabled:
+          type: boolean
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/ons_ehr.GgzPlanStatistic'
+      description: GgzPlanStatistics model
+      example:
+        customerCode: NE0001
+        pilotEnabled: true
+        plans:
+        - planId: 1
+          clientId: '2'
+          createdAt: '2023-10-12T10:00:00.000+02:00'
+          employeeId: '3'
     ons_ehr.GgzPlanStatistic:
       type: object
       properties:
@@ -72,26 +92,6 @@ components:
         clientId: '2'
         createdAt: '2023-10-12T10:00:00.000+02:00'
         employeeId: '3'
-    ons_ehr.GgzPlanStatistics:
-      type: object
-      properties:
-        customerCode:
-          type: string
-        pilotEnabled:
-          type: boolean
-        plans:
-          type: array
-          items:
-            $ref: '#/components/schemas/ons_ehr.GgzPlanStatistic'
-      description: GgzPlanStatistics model
-      example:
-        customerCode: NE0001
-        pilotEnabled: true
-        plans:
-        - planId: 1
-          clientId: '2'
-          createdAt: '2023-10-12T10:00:00.000+02:00'
-          employeeId: '3'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

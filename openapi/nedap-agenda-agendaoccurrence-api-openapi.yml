@@ -743,6 +743,20 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    agenda.Label:
+      title: Label
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+      description: Domain model for Labels for AgendaOccurrences/AgendaSeries
+      example:
+        id: 1
+        name: Telefonisch
     agenda.AgendaOccurrence:
       title: EventOccurrence
       type: object
@@ -1007,6 +1021,70 @@ components:
         clientPresent: true
         private: false
         labels: []
+    agenda.AgendaInvitation:
+      title: Invitation
+      type: object
+      properties:
+        clientId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        employeeId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        teamId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        accepted:
+          type:
+          - boolean
+          - 'null'
+        groupId:
+          type: integer
+          format: int64
+      description: Agenda invitation domain model used by Cupido system.
+      example:
+        clientId: 1
+        employeeId: 2
+        locationId: 4
+        teamId: 3
+        groupId: 12
+        accepted: true
+    agenda.list.AgendaOccurrenceList:
+      title: EventOccurrenceList
+      type: object
+      properties:
+        agendaOccurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/agenda.AgendaOccurrence'
+      description: AgendaOccurrenceList model (no description)
+      example:
+        agendaOccurrences:
+        - id: 2@2012-08-02
+          occurrenceDate: '2012-08-02'
+          uuid: abca58ed-0138-4aec-87c6-5d391e98161b
+          name: fysio
+          comment: no comment
+          validFrom: '2012-08-02'
+          validTo: '2012-08-03'
+          startTime: '08:10:00.000'
+          endTime: '08:20:00.000'
+          startsAt: '2022-08-02T08:10:00.000+02:00'
+          endsAt: '2022-08-02T08:20:00.000+02:00'
+          duration: 0
+          recurrenceType: single
+          cycleInterval: 1
     RecurrenceType:
       title: RecurrenceType
       type:
@@ -1072,84 +1150,6 @@ components:
         surchargeIds:
         - 9
         - 10
-    agenda.AgendaInvitation:
-      title: Invitation
-      type: object
-      properties:
-        clientId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        employeeId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        locationId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        teamId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        accepted:
-          type:
-          - boolean
-          - 'null'
-        groupId:
-          type: integer
-          format: int64
-      description: Agenda invitation domain model used by Cupido system.
-      example:
-        clientId: 1
-        employeeId: 2
-        locationId: 4
-        teamId: 3
-        groupId: 12
-        accepted: true
-    agenda.Label:
-      title: Label
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-      description: Domain model for Labels for AgendaOccurrences/AgendaSeries
-      example:
-        id: 1
-        name: Telefonisch
-    agenda.list.AgendaOccurrenceList:
-      title: EventOccurrenceList
-      type: object
-      properties:
-        agendaOccurrences:
-          type: array
-          items:
-            $ref: '#/components/schemas/agenda.AgendaOccurrence'
-      description: AgendaOccurrenceList model (no description)
-      example:
-        agendaOccurrences:
-        - id: 2@2012-08-02
-          occurrenceDate: '2012-08-02'
-          uuid: abca58ed-0138-4aec-87c6-5d391e98161b
-          name: fysio
-          comment: no comment
-          validFrom: '2012-08-02'
-          validTo: '2012-08-03'
-          startTime: '08:10:00.000'
-          endTime: '08:20:00.000'
-          startsAt: '2022-08-02T08:10:00.000+02:00'
-          endsAt: '2022-08-02T08:20:00.000+02:00'
-          duration: 0
-          recurrenceType: single
-          cycleInterval: 1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

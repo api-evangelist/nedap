@@ -201,6 +201,42 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    toezicht.Audit:
+      required:
+      - createdAt
+      type: object
+      properties:
+        activeIdentity:
+          $ref: '#/components/schemas/toezicht.AuditIdentity'
+        createdAt:
+          type: string
+        deploymentType:
+          type: string
+        description:
+          type: string
+        failed:
+          type: boolean
+        name:
+          type: string
+        references:
+          $ref: '#/components/schemas/toezicht.AuditReferences'
+        title:
+          type: string
+      description: A single exported audit
+      example:
+        activeIdentity:
+          employeeId: 10
+          userName: administrator
+        createdAt: '2024-01-01T01:35:19.498+01:00'
+        deploymentType: PlanningDeployment
+        description: Sync Notes.
+        failed: false
+        name: SyncClient::NotesSyncJob
+        references:
+          clients:
+          - 10
+          - 12
+        title: Overnemen cliëntnotities uit Ons Dossier
     toezicht.AuditIdentity:
       type: object
       properties:
@@ -250,42 +286,6 @@ components:
         clients:
         - 10
         - 12
-    toezicht.Audit:
-      required:
-      - createdAt
-      type: object
-      properties:
-        activeIdentity:
-          $ref: '#/components/schemas/toezicht.AuditIdentity'
-        createdAt:
-          type: string
-        deploymentType:
-          type: string
-        description:
-          type: string
-        failed:
-          type: boolean
-        name:
-          type: string
-        references:
-          $ref: '#/components/schemas/toezicht.AuditReferences'
-        title:
-          type: string
-      description: A single exported audit
-      example:
-        activeIdentity:
-          employeeId: 10
-          userName: administrator
-        createdAt: '2024-01-01T01:35:19.498+01:00'
-        deploymentType: PlanningDeployment
-        description: Sync Notes.
-        failed: false
-        name: SyncClient::NotesSyncJob
-        references:
-          clients:
-          - 10
-          - 12
-        title: Overnemen cliëntnotities uit Ons Dossier
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

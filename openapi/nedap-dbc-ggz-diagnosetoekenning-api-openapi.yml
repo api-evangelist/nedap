@@ -134,6 +134,34 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dbc.ggz.list.DiagnoseToekenningList:
+      type: object
+      properties:
+        diagnoseToekenningen:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/dbc.ggz.DiagnoseToekenning'
+            xml:
+              name: diagnoseToekenning
+      description: DiagnoseToekenningList model (no description)
+      example:
+        diagnoseToekenningen:
+        - id: 1
+          externalId: 1
+          primair: true
+          trekkenVan: false
+          datum: '2016-08-19'
+          diagnoseCode:
+            id: 1
+            code: '000'
+            begindatum: '2016-08-16'
+            einddatum: '2016-08-16'
+            omschrijving: Traject
+            icd10: UUU
+          zorgtrajectId: 1
+      xml:
+        name: diagnoseToekenningen
     dbc.ggz.DiagnoseToekenning:
       required:
       - primair
@@ -215,42 +243,6 @@ components:
           omschrijving: Traject
           icd10: UUU
         zorgtrajectId: 1
-    dbc.StamData:
-      required:
-      - code
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Object identifier
-          format: int64
-          x-cupido-id: true
-        code:
-          type: string
-          description: The code taken from NZA code lists.
-        begindatum:
-          type: string
-          description: The first date this value is valid at.
-          format: date
-        einddatum:
-          type: string
-          description: 'The last date this value is valid at.
-
-
-            May be 9999-12-31 to signify ''valid forever'''
-          format: date
-        omschrijving:
-          type: string
-          description: A humanly readable description for the value, in Dutch
-      description: 'Base class for a code list of the NZA.
-
-        See documentation at https://puc.overheid.nl/nza/zorgsectoren/pagina/NZA003b/-/gdlv/1/p/1/'
-      example:
-        id: 1
-        code: example
-        begindatum: '2014-12-29'
-        einddatum: '2014-12-29'
-        omschrijving: example
     dbc.ggz.Diagnose:
       type: object
       allOf:
@@ -348,34 +340,42 @@ components:
         parallelliteitscodeGGZ: '28'
         parallelliteitscodeFZ: '1'
         brancheIndicatie: '0'
-    dbc.ggz.list.DiagnoseToekenningList:
+    dbc.StamData:
+      required:
+      - code
       type: object
       properties:
-        diagnoseToekenningen:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/dbc.ggz.DiagnoseToekenning'
-            xml:
-              name: diagnoseToekenning
-      description: DiagnoseToekenningList model (no description)
+        id:
+          type: integer
+          description: Object identifier
+          format: int64
+          x-cupido-id: true
+        code:
+          type: string
+          description: The code taken from NZA code lists.
+        begindatum:
+          type: string
+          description: The first date this value is valid at.
+          format: date
+        einddatum:
+          type: string
+          description: 'The last date this value is valid at.
+
+
+            May be 9999-12-31 to signify ''valid forever'''
+          format: date
+        omschrijving:
+          type: string
+          description: A humanly readable description for the value, in Dutch
+      description: 'Base class for a code list of the NZA.
+
+        See documentation at https://puc.overheid.nl/nza/zorgsectoren/pagina/NZA003b/-/gdlv/1/p/1/'
       example:
-        diagnoseToekenningen:
-        - id: 1
-          externalId: 1
-          primair: true
-          trekkenVan: false
-          datum: '2016-08-19'
-          diagnoseCode:
-            id: 1
-            code: '000'
-            begindatum: '2016-08-16'
-            einddatum: '2016-08-16'
-            omschrijving: Traject
-            icd10: UUU
-          zorgtrajectId: 1
-      xml:
-        name: diagnoseToekenningen
+        id: 1
+        code: example
+        begindatum: '2014-12-29'
+        einddatum: '2014-12-29'
+        omschrijving: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

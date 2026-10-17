@@ -59,6 +59,20 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    openehr.CompositionIdList:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+      description: CompositionIdList model (no description)
+      example:
+        ids:
+        - 101
+        - 102
+        - 103
     openehr.CarePlanVvtCareProfileLink:
       type: object
       properties:
@@ -86,20 +100,6 @@ components:
           compositionId: 2077
         - carePlanId: 8119
           compositionId: 7022
-    openehr.CompositionIdList:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: integer
-            format: int64
-      description: CompositionIdList model (no description)
-      example:
-        ids:
-        - 101
-        - 102
-        - 103
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

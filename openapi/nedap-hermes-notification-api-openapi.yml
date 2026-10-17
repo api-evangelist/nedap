@@ -244,6 +244,39 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    hermes.list.NotificationList:
+      type: object
+      properties:
+        hermesNotifications:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/hermes.Notification'
+            xml:
+              name: hermesNotification
+      description: NotificationList model (no description)
+      example:
+        hermesNotifications:
+        - id: 1
+          title: spam
+          message: You have new spam
+          path: /spam
+          deploymentType: PortalDeployment
+          collapseKey: blik
+          collapseMethod: replace
+          collapseTitle: '%{count} spam'
+          collapseMessage: You have %{count} new spam
+          createdAt: '2015-01-01T12:00:00.000+01:00'
+          updatedAt: '2015-01-01T12:00:00.000+01:00'
+          iconId: default
+          silent: false
+          recipient:
+            clientId: 1
+            clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
+            employeeId: 1
+          read: true
+      xml:
+        name: hermesNotifications
     hermes.Recipient:
       type:
       - object
@@ -395,39 +428,6 @@ components:
         read: true
       xml:
         name: hermesNotification
-    hermes.list.NotificationList:
-      type: object
-      properties:
-        hermesNotifications:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/hermes.Notification'
-            xml:
-              name: hermesNotification
-      description: NotificationList model (no description)
-      example:
-        hermesNotifications:
-        - id: 1
-          title: spam
-          message: You have new spam
-          path: /spam
-          deploymentType: PortalDeployment
-          collapseKey: blik
-          collapseMethod: replace
-          collapseTitle: '%{count} spam'
-          collapseMessage: You have %{count} new spam
-          createdAt: '2015-01-01T12:00:00.000+01:00'
-          updatedAt: '2015-01-01T12:00:00.000+01:00'
-          iconId: default
-          silent: false
-          recipient:
-            clientId: 1
-            clientUuid: abca58ed-0138-4aec-87c6-5d391e98161b
-            employeeId: 1
-          read: true
-      xml:
-        name: hermesNotifications
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

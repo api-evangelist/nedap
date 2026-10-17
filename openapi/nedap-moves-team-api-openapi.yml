@@ -183,14 +183,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    moves.FlexSignupVisibility:
-      enum:
-      - hide_signups
-      - show_anonymous
-      - show_names
-      type: string
-      description: How flex request signups of colleagues are shown to employees
-      example: show_names
     moves.Team:
       type: object
       properties:
@@ -348,14 +340,6 @@ components:
         allowFlexSignup: true
         flexSignupVisibility: show_names
         whoMakesFlexAssignments: primary_flex_unit
-    moves.UnitType:
-      enum:
-      - Extramuraal
-      - Intramuraal
-      - WMO
-      type: string
-      description: Type of the unit
-      example: Intramuraal
     moves.list.TeamList:
       type: object
       properties:
@@ -382,26 +366,6 @@ components:
           useSelfRostering: true
           selfRosteringStartDate: '2000-01-01'
           rosterPublicationDate: '2025-08-30'
-    moves.Client:
-      required:
-      - id
-      - externalId
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The client identifier
-          format: int64
-        externalId:
-          type: integer
-          description: This field will be removed as it has the same contents as the id field
-          format: int64
-          deprecated: true
-          x-deprecated-since: 21-05-2025
-      description: A Client object in Moves
-      example:
-        id: 1234
-        externalId: 5678
     moves.list.ClientList:
       type: object
       properties:
@@ -423,6 +387,42 @@ components:
       type: string
       description: Which unit assigns employees to flex requests
       example: primary_flex_unit
+    moves.FlexSignupVisibility:
+      enum:
+      - hide_signups
+      - show_anonymous
+      - show_names
+      type: string
+      description: How flex request signups of colleagues are shown to employees
+      example: show_names
+    moves.UnitType:
+      enum:
+      - Extramuraal
+      - Intramuraal
+      - WMO
+      type: string
+      description: Type of the unit
+      example: Intramuraal
+    moves.Client:
+      required:
+      - id
+      - externalId
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The client identifier
+          format: int64
+        externalId:
+          type: integer
+          description: This field will be removed as it has the same contents as the id field
+          format: int64
+          deprecated: true
+          x-deprecated-since: 21-05-2025
+      description: A Client object in Moves
+      example:
+        id: 1234
+        externalId: 5678
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

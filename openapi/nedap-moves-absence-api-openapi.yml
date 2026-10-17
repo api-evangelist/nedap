@@ -205,6 +205,43 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    moves.AbsenceType:
+      enum:
+      - A
+      - B
+      - D
+      - O
+      - P
+      - Z
+      - ZB
+      - ZOD
+      - ZW
+      - ZZW
+      type: string
+      description: 'The type of absence. Possible values:
+
+        - `A`: adoptie
+
+        - `B`: bedrijfsongeval
+
+        - `D`: arbeidsongeschikt_door_derde
+
+        - `O`: overig_ongeval
+
+        - `P`: pleegzorg
+
+        - `Z`: ziek
+
+        - `ZB`: ziek_als_gevolg_van_bevalling
+
+        - `ZOD`: ziek_als_gevolg_van_orgaandonatie
+
+        - `ZW`: zwangerschap_bevalling
+
+        - `ZZW`: ziek_als_gevolg_van_zwangerschap
+
+        '
+      example: Z
     moves.AbsenceUpsert:
       title: AbsenceUpsert
       required:
@@ -354,43 +391,6 @@ components:
         title: Your request is not valid.
         status: 422
         provider: Nedap Planning
-    moves.AbsenceType:
-      enum:
-      - A
-      - B
-      - D
-      - O
-      - P
-      - Z
-      - ZB
-      - ZOD
-      - ZW
-      - ZZW
-      type: string
-      description: 'The type of absence. Possible values:
-
-        - `A`: adoptie
-
-        - `B`: bedrijfsongeval
-
-        - `D`: arbeidsongeschikt_door_derde
-
-        - `O`: overig_ongeval
-
-        - `P`: pleegzorg
-
-        - `Z`: ziek
-
-        - `ZB`: ziek_als_gevolg_van_bevalling
-
-        - `ZOD`: ziek_als_gevolg_van_orgaandonatie
-
-        - `ZW`: zwangerschap_bevalling
-
-        - `ZZW`: ziek_als_gevolg_van_zwangerschap
-
-        '
-      example: Z
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

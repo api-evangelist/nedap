@@ -296,23 +296,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    survey.list.AnswerDefinitionGroupList:
-      type: object
-      properties:
-        answerDefinitionGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
-          xml:
-            name: answerDefinitionGroup
-      description: AnswerDefinitionGroupList model (no description)
-      example:
-        answerDefinitionGroups:
-        - id: 11
-          description: ADG test
-          readOnly: false
-      xml:
-        name: answerDefinitionGroups
     survey.Answer:
       type: object
       allOf:
@@ -351,71 +334,6 @@ components:
         createdBy: user
       xml:
         name: answer
-    survey.Question:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        sequenceNumber:
-          type: integer
-          format: int32
-          default: 0
-        answerType:
-          type: integer
-          format: int32
-          default: 0
-        text:
-          type: string
-        additionalInfo:
-          type: string
-        defaultAnswer:
-          type: integer
-          format: int32
-        skipOnYes:
-          type: boolean
-        active:
-          type: boolean
-        required:
-          type: boolean
-        answerMaxLength:
-          type: integer
-          format: int32
-        groupId:
-          type: integer
-          format: int64
-        classificationId:
-          type: string
-        answerDefinitionGroup:
-          $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
-      description: Question model (no description)
-      example:
-        updatedAt: '2012-08-02T13:48:46.836+02:00'
-        createdAt: '2012-08-02T13:48:46.836+02:00'
-        createdBy: user
-        id: 1
-        sequenceNumber: 1
-        answerType: 1
-        text: uw leeftijd?
-        additionalInfo: vul leeftijd in
-        defaultAnswer: 1
-        skipOnYes: true
-        active: true
-        required: true
-        answerMaxLength: 3
-        groupId: 1
-        classificationId: classification.problem.health.nutrition.signs
-        answerDefinitionGroup:
-          updatedAt: '2012-08-02T13:48:46.836+02:00'
-          createdAt: '2012-08-02T13:48:46.836+02:00'
-          id: 1
-          description: heel oud
-          readOnly: false
-      xml:
-        name: question
     survey.AnswerDefinitionGroup:
       type: object
       allOf:
@@ -510,6 +428,88 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
+    survey.Question:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        sequenceNumber:
+          type: integer
+          format: int32
+          default: 0
+        answerType:
+          type: integer
+          format: int32
+          default: 0
+        text:
+          type: string
+        additionalInfo:
+          type: string
+        defaultAnswer:
+          type: integer
+          format: int32
+        skipOnYes:
+          type: boolean
+        active:
+          type: boolean
+        required:
+          type: boolean
+        answerMaxLength:
+          type: integer
+          format: int32
+        groupId:
+          type: integer
+          format: int64
+        classificationId:
+          type: string
+        answerDefinitionGroup:
+          $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+      description: Question model (no description)
+      example:
+        updatedAt: '2012-08-02T13:48:46.836+02:00'
+        createdAt: '2012-08-02T13:48:46.836+02:00'
+        createdBy: user
+        id: 1
+        sequenceNumber: 1
+        answerType: 1
+        text: uw leeftijd?
+        additionalInfo: vul leeftijd in
+        defaultAnswer: 1
+        skipOnYes: true
+        active: true
+        required: true
+        answerMaxLength: 3
+        groupId: 1
+        classificationId: classification.problem.health.nutrition.signs
+        answerDefinitionGroup:
+          updatedAt: '2012-08-02T13:48:46.836+02:00'
+          createdAt: '2012-08-02T13:48:46.836+02:00'
+          id: 1
+          description: heel oud
+          readOnly: false
+      xml:
+        name: question
+    survey.list.AnswerDefinitionGroupList:
+      type: object
+      properties:
+        answerDefinitionGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/survey.AnswerDefinitionGroup'
+          xml:
+            name: answerDefinitionGroup
+      description: AnswerDefinitionGroupList model (no description)
+      example:
+        answerDefinitionGroups:
+        - id: 11
+          description: ADG test
+          readOnly: false
+      xml:
+        name: answerDefinitionGroups
     survey.AnswerDefinition:
       type: object
       allOf:

@@ -81,50 +81,50 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    dossier.SoapReportEntry:
+    dossier.ReportAction:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.ReportAuthorization'
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        dateFinished:
+          type: string
+          format: date-time
+      description: ReportAction model (no description)
+      example:
+        id: 1
+        carePlanId: 1
+        expertiseProfileId: 1
+        expertiseGroupObjectId: 2
+        employeeId: 1
+        dateFinished: '2014-07-24T02:00:00.000+02:00'
+      xml:
+        name: reportAction
+    dossier.list.CarePlanReportRightList:
       type: object
       properties:
-        soapPart:
-          type: string
-        confidential:
-          type: boolean
-          description: When this is true this SOAP entry is shown regardless of the attached rights
-          default: false
-        content:
-          type: string
-        expertiseProfileIds:
+        carePlanReportRights:
           type: array
           items:
-            type: integer
-            format: int64
-            xml:
-              name: expertiseProfileId
+            $ref: '#/components/schemas/dossier.CarePlanReportRight'
           xml:
-            wrapped: true
-        expertiseGroupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-            xml:
-              name: expertiseGroupId
-          xml:
-            wrapped: true
-      description: SoapReportEntry model (no description)
+            name: carePlanReportRight
+      description: CarePlanReportRightList model (no description)
       example:
-        soapPart: Subjective
-        confidential: true
-        content: Text about the subjective experiences of the client
-        expertiseProfileIds:
-        - 1
-        - 2
-        - 3
-        expertiseGroupIds:
-        - 4
-        - 5
-        - 6
+        carePlanReportRights:
+        - updatedAt: '2018-07-18T00:00:00.000+02:00'
+          createdAt: '2018-07-18T00:00:00.000+02:00'
+          createdBy: Dummy
+          id: 1
+          educationObjectId: 1
+          expertiseGroupObjectId: 1
+          type: RIGHT
+          actionEmployeeId: 1
+          actionDateFinished: '2018-08-18'
       xml:
-        name: soapReportEntry
+        name: carePlanReportRights
     ExpertiseProfile:
       type: object
       properties:
@@ -221,56 +221,216 @@ components:
         displayName: Systolic pressure
       xml:
         name: reportEntry
-    dossier.list.CarePlanReportRightList:
+    dossier.CarePlanReportRight:
       type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
       properties:
-        carePlanReportRights:
-          type: array
-          items:
-            $ref: '#/components/schemas/dossier.CarePlanReportRight'
-          xml:
-            name: carePlanReportRight
-      description: CarePlanReportRightList model (no description)
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        report:
+          allOf:
+          - $ref: '#/components/schemas/dossier.Report'
+          description: The report for which this report right applies
+        educationObjectId:
+          type: integer
+          description: The education linked to this report right
+          format: int64
+        expertiseGroupObjectId:
+          type: integer
+          description: The expertise group linked to this report right
+          format: int64
+        type:
+          allOf:
+          - $ref: '#/components/schemas/dossier.ReportRightType'
+          default: RIGHT
+        actionEmployeeId:
+          type: integer
+          format: int64
+        actionDateFinished:
+          type: string
+          format: date
+      description: CarePlanReportRight model (no description)
       example:
-        carePlanReportRights:
-        - updatedAt: '2018-07-18T00:00:00.000+02:00'
-          createdAt: '2018-07-18T00:00:00.000+02:00'
-          createdBy: Dummy
+        updatedAt: '2018-07-18T00:00:00.000+02:00'
+        createdAt: '2018-07-18T00:00:00.000+02:00'
+        createdBy: Dummy
+        id: 1
+        report:
+          updatedAt: '2014-12-29T00:00:00.000+01:00'
+          createdAt: '2014-12-29T00:00:00.000+01:00'
+          createdBy: example
           id: 1
-          educationObjectId: 1
-          expertiseGroupObjectId: 1
-          type: RIGHT
-          actionEmployeeId: 1
-          actionDateFinished: '2018-08-18'
+          uuid: example
+          reportingDate: '2014-12-29T00:00:00.000+01:00'
+          comment: example
+          flagged: true
+          confidential: true
+          hidden: true
+          hidingReason: example
+          parentId: 1
+          parentType: example
+          carenId: 1
+          carenName: example
+          carenRole: example
+          status: 1
+          clientId: 1
+          employeeId: 1
+          reportTypeId: 1
+          carePlanEntryId: 1
+          reportEntries:
+          - name: example
+            value: example
+            format: example
+            unit: example
+            displayName: example
+          - name: example
+            value: example
+            format: example
+            unit: example
+            displayName: example
+          expertiseProfile:
+            id: 1
+            description: example
+            visible: true
+            beginDate: '2014-12-29T00:00:00.000+01:00'
+            endDate: '2014-12-29T00:00:00.000+01:00'
+            allowDossierActions: true
+            allowDossierConfidential: true
+            hourTypeIds:
+            - 1
+            - 1
+          reportActions:
+          - id: 1
+            carePlanId: 1
+            expertiseProfileId: 1
+            expertiseGroupObjectId: 1
+            employeeId: 1
+            dateFinished: '2014-12-29T00:00:00.000+01:00'
+          - id: 1
+            carePlanId: 1
+            expertiseProfileId: 1
+            expertiseGroupObjectId: 1
+            employeeId: 1
+            dateFinished: '2014-12-29T00:00:00.000+01:00'
+          reportAuthorizations:
+          - id: 1
+            carePlanId: 1
+            expertiseProfileId: 1
+            expertiseGroupObjectId: 1
+          - id: 1
+            carePlanId: 1
+            expertiseProfileId: 1
+            expertiseGroupObjectId: 1
+          soapReportEntries:
+          - soapPart: example
+            confidential: true
+            content: example
+            expertiseProfileIds:
+            - 1
+            - 1
+            expertiseGroupIds:
+            - 1
+            - 1
+          - soapPart: example
+            confidential: true
+            content: example
+            expertiseProfileIds:
+            - 1
+            - 1
+            expertiseGroupIds:
+            - 1
+            - 1
+          episodeId: 1
+          episodeIds:
+          - 1
+          - 1
+          restrictiveMeasureId: 1
+          reportLinkId: 1
+          reportLinkType: NEXT_DOSSIER
+        educationObjectId: 1
+        expertiseGroupObjectId: 1
+        type: RIGHT
+        actionEmployeeId: 1
+        actionDateFinished: '2018-08-18'
       xml:
-        name: carePlanReportRights
+        name: carePlanReportRight
     dossier.ReportLinkType:
       enum:
       - NEXT_DOSSIER
       type: string
       description: ReportLinkType enum (no description)
       example: NEXT_DOSSIER
-    dossier.ReportAction:
+    AuditedBase:
+      title: AuditedBase
       type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.ReportAuthorization'
       properties:
-        employeeId:
-          type: integer
-          format: int64
-        dateFinished:
-          type: string
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
           format: date-time
-      description: ReportAction model (no description)
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
       example:
-        id: 1
-        carePlanId: 1
-        expertiseProfileId: 1
-        expertiseGroupObjectId: 2
-        employeeId: 1
-        dateFinished: '2014-07-24T02:00:00.000+02:00'
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+    dossier.SoapReportEntry:
+      type: object
+      properties:
+        soapPart:
+          type: string
+        confidential:
+          type: boolean
+          description: When this is true this SOAP entry is shown regardless of the attached rights
+          default: false
+        content:
+          type: string
+        expertiseProfileIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseProfileId
+          xml:
+            wrapped: true
+        expertiseGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+            xml:
+              name: expertiseGroupId
+          xml:
+            wrapped: true
+      description: SoapReportEntry model (no description)
+      example:
+        soapPart: Subjective
+        confidential: true
+        content: Text about the subjective experiences of the client
+        expertiseProfileIds:
+        - 1
+        - 2
+        - 3
+        expertiseGroupIds:
+        - 4
+        - 5
+        - 6
       xml:
-        name: reportAction
+        name: soapReportEntry
     dossier.Report:
       required:
       - reportTypeId
@@ -493,37 +653,6 @@ components:
         reportLinkType: NEXT_DOSSIER
       xml:
         name: report
-    AuditedBase:
-      title: AuditedBase
-      type: object
-      properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-    dossier.ReportRightType:
-      enum:
-      - RIGHT
-      - ACTION
-      type: string
-      description: ReportRightType enum (no description)
-      example: RIGHT
     dossier.ReportAuthorization:
       type: object
       properties:
@@ -550,142 +679,13 @@ components:
         expertiseGroupObjectId: 1
       xml:
         name: reportAuthorization
-    dossier.CarePlanReportRight:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        report:
-          allOf:
-          - $ref: '#/components/schemas/dossier.Report'
-          description: The report for which this report right applies
-        educationObjectId:
-          type: integer
-          description: The education linked to this report right
-          format: int64
-        expertiseGroupObjectId:
-          type: integer
-          description: The expertise group linked to this report right
-          format: int64
-        type:
-          allOf:
-          - $ref: '#/components/schemas/dossier.ReportRightType'
-          default: RIGHT
-        actionEmployeeId:
-          type: integer
-          format: int64
-        actionDateFinished:
-          type: string
-          format: date
-      description: CarePlanReportRight model (no description)
-      example:
-        updatedAt: '2018-07-18T00:00:00.000+02:00'
-        createdAt: '2018-07-18T00:00:00.000+02:00'
-        createdBy: Dummy
-        id: 1
-        report:
-          updatedAt: '2014-12-29T00:00:00.000+01:00'
-          createdAt: '2014-12-29T00:00:00.000+01:00'
-          createdBy: example
-          id: 1
-          uuid: example
-          reportingDate: '2014-12-29T00:00:00.000+01:00'
-          comment: example
-          flagged: true
-          confidential: true
-          hidden: true
-          hidingReason: example
-          parentId: 1
-          parentType: example
-          carenId: 1
-          carenName: example
-          carenRole: example
-          status: 1
-          clientId: 1
-          employeeId: 1
-          reportTypeId: 1
-          carePlanEntryId: 1
-          reportEntries:
-          - name: example
-            value: example
-            format: example
-            unit: example
-            displayName: example
-          - name: example
-            value: example
-            format: example
-            unit: example
-            displayName: example
-          expertiseProfile:
-            id: 1
-            description: example
-            visible: true
-            beginDate: '2014-12-29T00:00:00.000+01:00'
-            endDate: '2014-12-29T00:00:00.000+01:00'
-            allowDossierActions: true
-            allowDossierConfidential: true
-            hourTypeIds:
-            - 1
-            - 1
-          reportActions:
-          - id: 1
-            carePlanId: 1
-            expertiseProfileId: 1
-            expertiseGroupObjectId: 1
-            employeeId: 1
-            dateFinished: '2014-12-29T00:00:00.000+01:00'
-          - id: 1
-            carePlanId: 1
-            expertiseProfileId: 1
-            expertiseGroupObjectId: 1
-            employeeId: 1
-            dateFinished: '2014-12-29T00:00:00.000+01:00'
-          reportAuthorizations:
-          - id: 1
-            carePlanId: 1
-            expertiseProfileId: 1
-            expertiseGroupObjectId: 1
-          - id: 1
-            carePlanId: 1
-            expertiseProfileId: 1
-            expertiseGroupObjectId: 1
-          soapReportEntries:
-          - soapPart: example
-            confidential: true
-            content: example
-            expertiseProfileIds:
-            - 1
-            - 1
-            expertiseGroupIds:
-            - 1
-            - 1
-          - soapPart: example
-            confidential: true
-            content: example
-            expertiseProfileIds:
-            - 1
-            - 1
-            expertiseGroupIds:
-            - 1
-            - 1
-          episodeId: 1
-          episodeIds:
-          - 1
-          - 1
-          restrictiveMeasureId: 1
-          reportLinkId: 1
-          reportLinkType: NEXT_DOSSIER
-        educationObjectId: 1
-        expertiseGroupObjectId: 1
-        type: RIGHT
-        actionEmployeeId: 1
-        actionDateFinished: '2018-08-18'
-      xml:
-        name: carePlanReportRight
+    dossier.ReportRightType:
+      enum:
+      - RIGHT
+      - ACTION
+      type: string
+      description: ReportRightType enum (no description)
+      example: RIGHT
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

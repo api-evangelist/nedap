@@ -106,22 +106,6 @@ components:
         - field: two
           value: a
           message: too short
-    dossier.list.ActionEntrySummaryList:
-      type: object
-      properties:
-        actionEntrySummaries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/dossier.ActionEntrySummary'
-      description: ActionEntrySummaryList model (no description)
-      example:
-        actionEntrySummaries:
-        - id: 10561
-          comment: Gebruik van hulpmiddelen aanleren; rollator les bij ergo
-        - id: 10562
-          comment: Conditie verbeteren door dagelijks 3 maal 15 minuten oefenen achter rollator
     ErrorResponseEntry:
       title: ErrorResponseEntry
       type: object
@@ -181,6 +165,22 @@ components:
         goalName: goal
         demandName: demand
         domainName: domain
+    dossier.list.ActionEntrySummaryList:
+      type: object
+      properties:
+        actionEntrySummaries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/dossier.ActionEntrySummary'
+      description: ActionEntrySummaryList model (no description)
+      example:
+        actionEntrySummaries:
+        - id: 10561
+          comment: Gebruik van hulpmiddelen aanleren; rollator les bij ergo
+        - id: 10562
+          comment: Conditie verbeteren door dagelijks 3 maal 15 minuten oefenen achter rollator
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

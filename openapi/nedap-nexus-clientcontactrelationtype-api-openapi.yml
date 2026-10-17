@@ -134,31 +134,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    nexus.list.ClientContactRelationTypeList:
-      type: object
-      properties:
-        clientContactRelationTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/nexus.ClientContactRelationType'
-      description: ClientContactRelationTypeList model (no description)
-      example:
-        clientContactRelationTypes:
-        - id: 6
-          name: Curator
-          primary: true
-          exclusive: true
-          negative: false
-          active: true
-          vektisCode: 1
-          reference: 1
-          relationCategory:
-            updatedAt: '2013-09-24T11:49:58.000+02:00'
-            createdAt: '2013-09-24T11:49:58.000+02:00'
-            id: 7
-            name: Standard
-          updatedAt: '2013-09-24T11:49:58.000+02:00'
-          createdAt: '2013-09-24T11:49:58.000+02:00'
     nexus.ClientContactRelationType:
       type: object
       allOf:
@@ -296,6 +271,31 @@ components:
           name: Standard
       deprecated: true
       x-deprecated-since: 03-10-2014
+    nexus.list.ClientContactRelationTypeList:
+      type: object
+      properties:
+        clientContactRelationTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/nexus.ClientContactRelationType'
+      description: ClientContactRelationTypeList model (no description)
+      example:
+        clientContactRelationTypes:
+        - id: 6
+          name: Curator
+          primary: true
+          exclusive: true
+          negative: false
+          active: true
+          vektisCode: 1
+          reference: 1
+          relationCategory:
+            updatedAt: '2013-09-24T11:49:58.000+02:00'
+            createdAt: '2013-09-24T11:49:58.000+02:00'
+            id: 7
+            name: Standard
+          updatedAt: '2013-09-24T11:49:58.000+02:00'
+          createdAt: '2013-09-24T11:49:58.000+02:00'
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

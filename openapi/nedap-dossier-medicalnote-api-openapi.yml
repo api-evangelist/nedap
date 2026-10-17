@@ -495,6 +495,70 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    dossier.BaseNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        content:
+          type: string
+        visibleOnWorksheet:
+          type: boolean
+        deleted:
+          type: boolean
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        updatedByAuthorId:
+          type: integer
+          format: int64
+        authorId:
+          type: integer
+          format: int64
+      description: BaseNote model (no description)
+      example:
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
+        id: 1
+        content: example
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-12-29'
+        endDate: '2014-12-29'
+        updatedByAuthorId: 1
+        authorId: 1
+    dossier.MedicalNote:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/dossier.BaseNote'
+      properties:
+        clientId:
+          type: integer
+          format: int64
+      description: MedicalNote model (no description)
+      example:
+        id: 1
+        content: Dummy
+        visibleOnWorksheet: true
+        deleted: true
+        startDate: '2014-06-16'
+        endDate: '2014-06-16'
+        updatedByAuthorId: 1
+        authorId: 1
+        updatedAt: '2014-06-16T02:00:00.000+02:00'
+        createdAt: '2014-06-16T02:00:00.000+02:00'
+        createdBy: Dummy
+        clientId: 1
+      xml:
+        name: medicalNote
     AuditedBase:
       title: AuditedBase
       type: object
@@ -553,70 +617,6 @@ components:
           createdAt: '2014-06-16T02:00:00.000+02:00'
           createdBy: Dummy
           clientId: 2
-    dossier.MedicalNote:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/dossier.BaseNote'
-      properties:
-        clientId:
-          type: integer
-          format: int64
-      description: MedicalNote model (no description)
-      example:
-        id: 1
-        content: Dummy
-        visibleOnWorksheet: true
-        deleted: true
-        startDate: '2014-06-16'
-        endDate: '2014-06-16'
-        updatedByAuthorId: 1
-        authorId: 1
-        updatedAt: '2014-06-16T02:00:00.000+02:00'
-        createdAt: '2014-06-16T02:00:00.000+02:00'
-        createdBy: Dummy
-        clientId: 1
-      xml:
-        name: medicalNote
-    dossier.BaseNote:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        content:
-          type: string
-        visibleOnWorksheet:
-          type: boolean
-        deleted:
-          type: boolean
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        updatedByAuthorId:
-          type: integer
-          format: int64
-        authorId:
-          type: integer
-          format: int64
-      description: BaseNote model (no description)
-      example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
-        id: 1
-        content: example
-        visibleOnWorksheet: true
-        deleted: true
-        startDate: '2014-12-29'
-        endDate: '2014-12-29'
-        updatedByAuthorId: 1
-        authorId: 1
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

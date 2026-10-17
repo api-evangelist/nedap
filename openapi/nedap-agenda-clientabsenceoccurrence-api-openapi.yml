@@ -195,6 +195,33 @@ components:
           sunday: false
           clientAbsenceReasonId: 1
           clientId: 142
+    RecurrenceType:
+      title: RecurrenceType
+      type:
+      - string
+      - 'null'
+      oneOf:
+      - title: SINGLE
+        enum:
+        - single
+      - title: DAILY
+        enum:
+        - daily
+      - title: WEEKLY
+        enum:
+        - weekly
+      - title: MONTHLY_ON_DAY
+        enum:
+        - monthly_on_day
+      - title: MONTHLY_ON_WEEK
+        enum:
+        - monthly_on_week
+      - title: YEARLY
+        enum:
+        - yearly
+      description: Frequency of the recurrence
+      default: single
+      example: single
     agenda.ClientAbsenceOccurrence:
       title: ClientAbsenceOccurrence
       type: object
@@ -338,33 +365,6 @@ components:
         sunday: false
         clientAbsenceReasonId: 1
         clientId: 142
-    RecurrenceType:
-      title: RecurrenceType
-      type:
-      - string
-      - 'null'
-      oneOf:
-      - title: SINGLE
-        enum:
-        - single
-      - title: DAILY
-        enum:
-        - daily
-      - title: WEEKLY
-        enum:
-        - weekly
-      - title: MONTHLY_ON_DAY
-        enum:
-        - monthly_on_day
-      - title: MONTHLY_ON_WEEK
-        enum:
-        - monthly_on_week
-      - title: YEARLY
-        enum:
-        - yearly
-      description: Frequency of the recurrence
-      default: single
-      example: single
     agenda.ClientAbsenceStatus:
       enum:
       - CREATED

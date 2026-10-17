@@ -183,21 +183,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    lz.Bericht:
-      required:
-      - content
-      type: object
-      properties:
-        content:
-          type: string
-          description: 'The content of the messages, surrounded with CDATA tags.
-
-            The content needs to be a valid AW33 / AW35 or AW39 message.'
-      description: Bericht model (no description)
-      example:
-        content: Dummy
-      xml:
-        name: bericht
     wlz.WlzZorglegitimatie:
       required:
       - id
@@ -232,6 +217,21 @@ components:
         - content: test
       xml:
         name: wlzZorglegitimatie
+    lz.Bericht:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: string
+          description: 'The content of the messages, surrounded with CDATA tags.
+
+            The content needs to be a valid AW33 / AW35 or AW39 message.'
+      description: Bericht model (no description)
+      example:
+        content: Dummy
+      xml:
+        name: bericht
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

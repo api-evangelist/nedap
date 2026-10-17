@@ -122,6 +122,34 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    nuts.list.ConsentList:
+      type: object
+      properties:
+        consents:
+          type: array
+          items:
+            $ref: '#/components/schemas/nuts.Consent'
+      description: ConsentList model (no description)
+      example:
+        consents:
+        - updatedAt: '2018-11-30T00:00:00.000+01:00'
+          createdAt: '2018-11-30T00:00:00.000+01:00'
+          createdBy: user
+          id: 1
+          clientId: 1
+          purpose: Het delen van medische gegevens met de huisarts.
+          careProviderId: 2
+          policy: PERMIT_ALL
+          category: MEDICAL
+          documentId: 1337
+          signedDocumentIds:
+          - 1337
+          - 1338
+          validFrom: '2018-01-01'
+          validTo: '2050-01-01'
+          party: GENERAL_PRACTITIONERS
+          goal: EXECUTION_OF_CARE
+          subject: MEDICAL_INFORMATION
     nuts.Consent:
       type: object
       allOf:
@@ -261,34 +289,6 @@ components:
         updatedAt: '2014-12-29T00:00:00.000+01:00'
         createdAt: '2014-12-29T00:00:00.000+01:00'
         createdBy: example
-    nuts.list.ConsentList:
-      type: object
-      properties:
-        consents:
-          type: array
-          items:
-            $ref: '#/components/schemas/nuts.Consent'
-      description: ConsentList model (no description)
-      example:
-        consents:
-        - updatedAt: '2018-11-30T00:00:00.000+01:00'
-          createdAt: '2018-11-30T00:00:00.000+01:00'
-          createdBy: user
-          id: 1
-          clientId: 1
-          purpose: Het delen van medische gegevens met de huisarts.
-          careProviderId: 2
-          policy: PERMIT_ALL
-          category: MEDICAL
-          documentId: 1337
-          signedDocumentIds:
-          - 1337
-          - 1338
-          validFrom: '2018-01-01'
-          validTo: '2050-01-01'
-          party: GENERAL_PRACTITIONERS
-          goal: EXECUTION_OF_CARE
-          subject: MEDICAL_INFORMATION
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

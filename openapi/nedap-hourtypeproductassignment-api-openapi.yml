@@ -165,6 +165,32 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    list.HourTypeProductAssignmentList:
+      type: object
+      properties:
+        hourTypeProductAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/HourTypeProductAssignment'
+          xml:
+            name: hourTypeProductAssignment
+      description: HourTypeProductAssignmentList model (no description)
+      example:
+        hourTypeProductAssignments:
+        - id: 1
+          productId: 1
+          debtorId: 1
+          hourTypeId: 1
+          expertiseProfileId: 1
+          agbCode: '12345678'
+          rank: 1
+          declarableProductId: 1
+          leveringsvoorwaardePerClient: false
+          beginDate: '2022-01-01'
+          endDate: '2022-12-31'
+          percentage: 100
+      xml:
+        name: hourTypeProductAssignments
     HourTypeProductAssignment:
       type: object
       properties:
@@ -231,32 +257,6 @@ components:
         percentage: 100
       xml:
         name: hourTypeProductAssignment
-    list.HourTypeProductAssignmentList:
-      type: object
-      properties:
-        hourTypeProductAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/HourTypeProductAssignment'
-          xml:
-            name: hourTypeProductAssignment
-      description: HourTypeProductAssignmentList model (no description)
-      example:
-        hourTypeProductAssignments:
-        - id: 1
-          productId: 1
-          debtorId: 1
-          hourTypeId: 1
-          expertiseProfileId: 1
-          agbCode: '12345678'
-          rank: 1
-          declarableProductId: 1
-          leveringsvoorwaardePerClient: false
-          beginDate: '2022-01-01'
-          endDate: '2022-12-31'
-          percentage: 100
-      xml:
-        name: hourTypeProductAssignments
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

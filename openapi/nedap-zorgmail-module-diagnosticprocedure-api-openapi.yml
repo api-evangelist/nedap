@@ -158,6 +158,65 @@ components:
         comment: Here is all the bloodwork
       xml:
         name: diagnosticReport
+    zorgmail_module.DiagnosticProcedure:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        issued:
+          type: string
+          description: When was the report made
+          format: date-time
+        diagnosticReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/zorgmail_module.DiagnosticReport'
+          xml:
+            wrapped: true
+        clientId:
+          type: integer
+          description: id of the client
+          format: int64
+        identification:
+          type: string
+          description: unique identification for this procedure
+        requestComment:
+          type: string
+          description: comment made by requester
+        reportComment:
+          type: string
+          description: comment made by the lab
+        status:
+          type: string
+          description: 'one of: PARTIAL or FINAL'
+      description: DiagnosticProcedure model (no description)
+      example:
+        id: 1
+        issued: '2017-11-15T00:00:00.000+01:00'
+        diagnosticReports:
+        - id: 1
+          observations:
+          - id: 1
+            referenceValueIndication: true
+            code: HT B
+            comment: Some observation
+            name: Hb
+            lowerLimit: '0.40'
+            unit: l/l
+            upperLimit: '0.52'
+            value: '0.42'
+            groupName: Differentiatie
+          category: HEAMATOLOGIE
+          comment: Here is all the bloodwork
+        clientId: 1
+        identification: 0805-12345
+        requestComment: I would like a full checkup for mister X
+        reportComment: Here is all we could find and more
+        status: finished
+      xml:
+        name: diagnosticProcedure
     zorgmail_module.DiagnosticProcedureSearchResult:
       type: object
       properties:
@@ -245,65 +304,6 @@ components:
         groupName: Differentiatie
       xml:
         name: observation
-    zorgmail_module.DiagnosticProcedure:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        issued:
-          type: string
-          description: When was the report made
-          format: date-time
-        diagnosticReports:
-          type: array
-          items:
-            $ref: '#/components/schemas/zorgmail_module.DiagnosticReport'
-          xml:
-            wrapped: true
-        clientId:
-          type: integer
-          description: id of the client
-          format: int64
-        identification:
-          type: string
-          description: unique identification for this procedure
-        requestComment:
-          type: string
-          description: comment made by requester
-        reportComment:
-          type: string
-          description: comment made by the lab
-        status:
-          type: string
-          description: 'one of: PARTIAL or FINAL'
-      description: DiagnosticProcedure model (no description)
-      example:
-        id: 1
-        issued: '2017-11-15T00:00:00.000+01:00'
-        diagnosticReports:
-        - id: 1
-          observations:
-          - id: 1
-            referenceValueIndication: true
-            code: HT B
-            comment: Some observation
-            name: Hb
-            lowerLimit: '0.40'
-            unit: l/l
-            upperLimit: '0.52'
-            value: '0.42'
-            groupName: Differentiatie
-          category: HEAMATOLOGIE
-          comment: Here is all the bloodwork
-        clientId: 1
-        identification: 0805-12345
-        requestComment: I would like a full checkup for mister X
-        reportComment: Here is all we could find and more
-        status: finished
-      xml:
-        name: diagnosticProcedure
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -1078,6 +1078,30 @@ components:
           birthName: Wazowski
       xml:
         name: employees
+    EmployeePrivacySettings:
+      type: object
+      properties:
+        employeeObjectId:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        shareBirthDay:
+          type: boolean
+        sharePrivateEmailAddress:
+          type: boolean
+        sharePrivateTelephoneNumber:
+          type: boolean
+        shareResidence:
+          type: boolean
+      description: EmployeePrivacySettings model (no description)
+      example:
+        employeeObjectId: 1
+        shareBirthDay: true
+        sharePrivateEmailAddress: true
+        sharePrivateTelephoneNumber: true
+        shareResidence: true
+      xml:
+        name: employeePrivacySettings
     Employee:
       type: object
       allOf:
@@ -1190,6 +1214,48 @@ components:
           shareResidence: true
       xml:
         name: employee
+    BankAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        number:
+          type: string
+        nameOfOwner:
+          type: string
+        cityOfOwner:
+          type: string
+        iban:
+          type: string
+        bic:
+          type: string
+        creditBankAccount:
+          type: boolean
+        authorizationDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: BankAccount model (no description)
+      example:
+        id: 1
+        number: Dummy
+        nameOfOwner: Dummy
+        cityOfOwner: Dummy
+        iban: Dummy
+        bic: Dummy
+        creditBankAccount: false
+        authorizationDate: '2016-01-01'
+        createdAt: '2016-01-01T12:00:00.000+01:00'
+        updatedAt: '2016-01-01T12:00:00.000+01:00'
+      xml:
+        name: bankAccount
     Person:
       type: object
       properties:
@@ -1297,72 +1363,6 @@ components:
         freeField4: Free field 4 description
         updatedAt: '2016-01-01T12:00:00.000+01:00'
         createdAt: '2016-01-01T12:00:00.000+01:00'
-    EmployeePrivacySettings:
-      type: object
-      properties:
-        employeeObjectId:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        shareBirthDay:
-          type: boolean
-        sharePrivateEmailAddress:
-          type: boolean
-        sharePrivateTelephoneNumber:
-          type: boolean
-        shareResidence:
-          type: boolean
-      description: EmployeePrivacySettings model (no description)
-      example:
-        employeeObjectId: 1
-        shareBirthDay: true
-        sharePrivateEmailAddress: true
-        sharePrivateTelephoneNumber: true
-        shareResidence: true
-      xml:
-        name: employeePrivacySettings
-    BankAccount:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        number:
-          type: string
-        nameOfOwner:
-          type: string
-        cityOfOwner:
-          type: string
-        iban:
-          type: string
-        bic:
-          type: string
-        creditBankAccount:
-          type: boolean
-        authorizationDate:
-          type: string
-          format: date
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      description: BankAccount model (no description)
-      example:
-        id: 1
-        number: Dummy
-        nameOfOwner: Dummy
-        cityOfOwner: Dummy
-        iban: Dummy
-        bic: Dummy
-        creditBankAccount: false
-        authorizationDate: '2016-01-01'
-        createdAt: '2016-01-01T12:00:00.000+01:00'
-        updatedAt: '2016-01-01T12:00:00.000+01:00'
-      xml:
-        name: bankAccount
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

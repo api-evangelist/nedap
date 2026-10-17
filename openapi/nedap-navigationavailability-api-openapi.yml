@@ -65,12 +65,14 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    NavigationAvailabilityKey:
+    NavigationAvailabilityState:
       enum:
-      - VERIFY_DECLARATION_RULES
+      - AVAILABLE
+      - DISABLED
+      - UNAVAILABLE
       type: string
       description: Item for navigation availability request
-      example: VERIFY_DECLARATION_RULES
+      example: AVAILABLE
     list.NavigationAvailabilityList:
       type: object
       properties:
@@ -87,14 +89,6 @@ components:
           value: AVAILABLE
       xml:
         name: navigationAvailabilities
-    NavigationAvailabilityState:
-      enum:
-      - AVAILABLE
-      - DISABLED
-      - UNAVAILABLE
-      type: string
-      description: Item for navigation availability request
-      example: AVAILABLE
     NavigationAvailability:
       type: object
       properties:
@@ -112,6 +106,12 @@ components:
         value: AVAILABLE
       xml:
         name: navigationAvailability
+    NavigationAvailabilityKey:
+      enum:
+      - VERIFY_DECLARATION_RULES
+      type: string
+      description: Item for navigation availability request
+      example: VERIFY_DECLARATION_RULES
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -653,6 +653,91 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    Team:
+      title: Team
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        beginDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        externCode:
+          type:
+          - string
+          - 'null'
+        identificationNo:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        poolTeam:
+          type:
+          - boolean
+          - 'null'
+        costCenterNumber:
+          type:
+          - string
+          - 'null'
+        parentObjectId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TeamAddress'
+      description: Team (Cluster)
+      example:
+        id: 1
+        beginDate: '2000-01-01T00:00:00.000+01:00'
+        endDate: '2001-01-01T00:00:00.000+01:00'
+        externCode: agb
+        identificationNo: '0001'
+        name: Nedap Demo
+        poolTeam: false
+        costCenterNumber: '0001'
+        parentObjectId: 0
+        addresses: []
+      xml:
+        name: team
+    list.TeamList:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+          xml:
+            name: team
+      description: TeamList model (no description)
+      example:
+        teams:
+        - id: 1
+          beginDate: '1999-12-31T23:00:00.000+01:00'
+          externCode: ''
+          identificationNo: '0001'
+          name: Nedap Demo
+          poolTeam: false
+          costCenterNumber: '0001'
+          parentObjectId: 0
+      xml:
+        name: teams
     Address:
       type: object
       properties:
@@ -816,91 +901,6 @@ components:
         longitude: 6.9
         situationDescription: Woont bij ex
         residenceAccessInfo: Sleutel ligt onder de blauwe bloempot
-    list.TeamList:
-      type: object
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-          xml:
-            name: team
-      description: TeamList model (no description)
-      example:
-        teams:
-        - id: 1
-          beginDate: '1999-12-31T23:00:00.000+01:00'
-          externCode: ''
-          identificationNo: '0001'
-          name: Nedap Demo
-          poolTeam: false
-          costCenterNumber: '0001'
-          parentObjectId: 0
-      xml:
-        name: teams
-    Team:
-      title: Team
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        beginDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        externCode:
-          type:
-          - string
-          - 'null'
-        identificationNo:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        poolTeam:
-          type:
-          - boolean
-          - 'null'
-        costCenterNumber:
-          type:
-          - string
-          - 'null'
-        parentObjectId:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TeamAddress'
-      description: Team (Cluster)
-      example:
-        id: 1
-        beginDate: '2000-01-01T00:00:00.000+01:00'
-        endDate: '2001-01-01T00:00:00.000+01:00'
-        externCode: agb
-        identificationNo: '0001'
-        name: Nedap Demo
-        poolTeam: false
-        costCenterNumber: '0001'
-        parentObjectId: 0
-        addresses: []
-      xml:
-        name: team
     TeamAddress:
       type: object
       allOf:

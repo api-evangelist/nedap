@@ -97,18 +97,6 @@ components:
           employees:
           - externalId: 123
             name: Dhr. Bakker
-    moves.ClientPlannedSchedulePlannedVisitEmployee:
-      type: object
-      properties:
-        externalId:
-          type: integer
-          format: int64
-        name:
-          type: string
-      description: An employee during a single visit in the planned schedule of a client
-      example:
-        externalId: 123
-        name: Dhr. Bakker
     moves.ClientPlannedSchedulePlannedVisit:
       type: object
       properties:
@@ -132,6 +120,18 @@ components:
         employees:
         - externalId: 123
           name: Dhr. Bakker
+    moves.ClientPlannedSchedulePlannedVisitEmployee:
+      type: object
+      properties:
+        externalId:
+          type: integer
+          format: int64
+        name:
+          type: string
+      description: An employee during a single visit in the planned schedule of a client
+      example:
+        externalId: 123
+        name: Dhr. Bakker
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

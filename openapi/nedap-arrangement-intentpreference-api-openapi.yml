@@ -353,6 +353,68 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
+    arrangement.TimeSlot:
+      required:
+      - uuid
+      - clientId
+      - clientUuid
+      - dayOfWeek
+      - beginAfter
+      - endBefore
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID identifying this time slot
+          x-cupido-id: true
+        clientId:
+          type: integer
+          description: Client of this time slot
+          format: int64
+        clientUuid:
+          type: string
+          description: Client UUID of this time slot
+        dayOfWeek:
+          type: integer
+          description: 'Day number of the week of this time slot
+
+            Monday = 1 ... Sunday = 7'
+          format: int32
+          default: 0
+        beginAfter:
+          type: string
+          description: Start time of this time slot
+          format: time
+        endBefore:
+          type: string
+          description: End time of this time slot
+          format: time
+      description: TimeSlot of the preference
+      example:
+        uuid: TIME_SLOT_UUID
+        clientId: 1
+        clientUuid: CLIENT_UUID
+        dayOfWeek: 1
+        beginAfter: '00:00:00.000'
+        endBefore: '00:00:00.000'
+      xml:
+        name: timeSlot
+    arrangement.QuantityUnit:
+      enum:
+      - MINUTE
+      - HOUR
+      - DAY_PART
+      - DAY
+      - PIECE
+      type: string
+      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
+
+        quantity of th the care that is intended. For example:
+
+        - 2, HOUR means ''2 hours''
+
+        - 120, MINUTE means ''120 minutes'''
+      example: MINUTE
     arrangement.Intent:
       required:
       - uuid
@@ -473,64 +535,24 @@ components:
         plannable: true
       xml:
         name: intent
-    arrangement.IntentPreference:
-      required:
-      - intent
-      - timeSlot
+    arrangement.UuidList:
       type: object
       properties:
-        intent:
-          allOf:
-          - $ref: '#/components/schemas/arrangement.Intent'
-          description: Intent of the preference
-        timeSlot:
-          allOf:
-          - $ref: '#/components/schemas/arrangement.TimeSlot'
-          description: TimeSlot of the preference
-      description: IntentPreference model (no description)
+        uuids:
+          type: array
+          items:
+            type: string
+            xml:
+              name: uuid
+          xml:
+            wrapped: true
+      description: UuidList model (no description)
       example:
-        intent:
-          uuid: '12345'
-          timelineUuid: '12344'
-          clientUuid: CLIENT_UUID
-          clientId: 24
-          beginDate: '2018-06-14'
-          endDate: '2018-05-20'
-          hourTypeId: 12
-          frequency: 3
-          quantityAmount: 1
-          quantityUnit: DAY_PART
-          recurrenceInterval: 1
-          recurrenceType: WEEK
-          sourceApp: PLANNING
-          sourceReference: planning/123
-          sourceDescription: for someone
-          splittable: true
-        timeSlot:
-          uuid: TIME_SLOT_UUID
-          clientId: 1
-          clientUuid: CLIENT_UUID
-          dayOfWeek: 1
-          beginAfter: '00:00:00.000'
-          endBefore: '00:00:00.000'
+        uuids:
+        - UUID
+        - UUID
       xml:
-        name: intentPreference
-    arrangement.QuantityUnit:
-      enum:
-      - MINUTE
-      - HOUR
-      - DAY_PART
-      - DAY
-      - PIECE
-      type: string
-      description: 'The Intent''s quantity unit, for example MINUTE or HOUR. In combination with the quantity amount, it determines the
-
-        quantity of th the care that is intended. For example:
-
-        - 2, HOUR means ''2 hours''
-
-        - 120, MINUTE means ''120 minutes'''
-      example: MINUTE
+        name: uuidList
     arrangement.RecurrenceType:
       enum:
       - HOUR
@@ -608,70 +630,48 @@ components:
             endBefore: '00:00:00.000'
       xml:
         name: intentPreferences
-    arrangement.TimeSlot:
+    arrangement.IntentPreference:
       required:
-      - uuid
-      - clientId
-      - clientUuid
-      - dayOfWeek
-      - beginAfter
-      - endBefore
+      - intent
+      - timeSlot
       type: object
       properties:
-        uuid:
-          type: string
-          description: UUID identifying this time slot
-          x-cupido-id: true
-        clientId:
-          type: integer
-          description: Client of this time slot
-          format: int64
-        clientUuid:
-          type: string
-          description: Client UUID of this time slot
-        dayOfWeek:
-          type: integer
-          description: 'Day number of the week of this time slot
-
-            Monday = 1 ... Sunday = 7'
-          format: int32
-          default: 0
-        beginAfter:
-          type: string
-          description: Start time of this time slot
-          format: time
-        endBefore:
-          type: string
-          description: End time of this time slot
-          format: time
-      description: TimeSlot of the preference
+        intent:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.Intent'
+          description: Intent of the preference
+        timeSlot:
+          allOf:
+          - $ref: '#/components/schemas/arrangement.TimeSlot'
+          description: TimeSlot of the preference
+      description: IntentPreference model (no description)
       example:
-        uuid: TIME_SLOT_UUID
-        clientId: 1
-        clientUuid: CLIENT_UUID
-        dayOfWeek: 1
-        beginAfter: '00:00:00.000'
-        endBefore: '00:00:00.000'
+        intent:
+          uuid: '12345'
+          timelineUuid: '12344'
+          clientUuid: CLIENT_UUID
+          clientId: 24
+          beginDate: '2018-06-14'
+          endDate: '2018-05-20'
+          hourTypeId: 12
+          frequency: 3
+          quantityAmount: 1
+          quantityUnit: DAY_PART
+          recurrenceInterval: 1
+          recurrenceType: WEEK
+          sourceApp: PLANNING
+          sourceReference: planning/123
+          sourceDescription: for someone
+          splittable: true
+        timeSlot:
+          uuid: TIME_SLOT_UUID
+          clientId: 1
+          clientUuid: CLIENT_UUID
+          dayOfWeek: 1
+          beginAfter: '00:00:00.000'
+          endBefore: '00:00:00.000'
       xml:
-        name: timeSlot
-    arrangement.UuidList:
-      type: object
-      properties:
-        uuids:
-          type: array
-          items:
-            type: string
-            xml:
-              name: uuid
-          xml:
-            wrapped: true
-      description: UuidList model (no description)
-      example:
-        uuids:
-        - UUID
-        - UUID
-      xml:
-        name: uuidList
+        name: intentPreference
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

@@ -193,59 +193,6 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    openehr.list.EmployeeGroupList:
-      type: object
-      properties:
-        employeeGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/openehr.EmployeeGroup'
-      description: EmployeeGroupList model (no description)
-      example:
-        employeeGroups:
-        - id: 132
-          employeeGroupType: EXPERTISE_GROUP
-          originatingSystemId: Administratie
-          originatingSystemItemId: '11'
-          parentGroups:
-          - id: 57
-            employeeGroupType: EXPERTISE_GROUP
-            name: TestGroup
-            deleted: false
-          childGroups:
-          - id: 134
-            employeeGroupType: EXPERTISE_PROFILE
-            name: Profile1
-            deleted: false
-          name: Group1
-          beginDate: '2020-05-11'
-          endDate: '2020-05-25'
-          deleted: false
-        - id: 133
-          employeeGroupType: EXPERTISE_GROUP
-          name: Group2
-          deleted: false
-        - id: 134
-          employeeGroupType: EXPERTISE_PROFILE
-          originatingSystemId: Administratie
-          originatingSystemItemId: '13'
-          name: Profile1
-          parentGroups:
-          - id: 132
-            employeeGroupType: EXPERTISE_GROUP
-            originatingSystemId: Administratie
-            originatingSystemItemId: '11'
-            name: Group1
-            beginDate: '2020-05-11'
-            endDate: '2020-05-25'
-            deleted: false
-          beginDate: '2020-05-17'
-          deleted: false
-        - id: 135
-          employeeGroupType: EXPERTISE_PROFILE
-          name: Profile2
-          endDate: '2020-05-19'
-          deleted: true
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -379,6 +326,59 @@ components:
         beginDate: '2020-05-11'
         endDate: '2020-05-25'
         deleted: false
+    openehr.list.EmployeeGroupList:
+      type: object
+      properties:
+        employeeGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/openehr.EmployeeGroup'
+      description: EmployeeGroupList model (no description)
+      example:
+        employeeGroups:
+        - id: 132
+          employeeGroupType: EXPERTISE_GROUP
+          originatingSystemId: Administratie
+          originatingSystemItemId: '11'
+          parentGroups:
+          - id: 57
+            employeeGroupType: EXPERTISE_GROUP
+            name: TestGroup
+            deleted: false
+          childGroups:
+          - id: 134
+            employeeGroupType: EXPERTISE_PROFILE
+            name: Profile1
+            deleted: false
+          name: Group1
+          beginDate: '2020-05-11'
+          endDate: '2020-05-25'
+          deleted: false
+        - id: 133
+          employeeGroupType: EXPERTISE_GROUP
+          name: Group2
+          deleted: false
+        - id: 134
+          employeeGroupType: EXPERTISE_PROFILE
+          originatingSystemId: Administratie
+          originatingSystemItemId: '13'
+          name: Profile1
+          parentGroups:
+          - id: 132
+            employeeGroupType: EXPERTISE_GROUP
+            originatingSystemId: Administratie
+            originatingSystemItemId: '11'
+            name: Group1
+            beginDate: '2020-05-11'
+            endDate: '2020-05-25'
+            deleted: false
+          beginDate: '2020-05-17'
+          deleted: false
+        - id: 135
+          employeeGroupType: EXPERTISE_PROFILE
+          name: Profile2
+          endDate: '2020-05-19'
+          deleted: true
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json

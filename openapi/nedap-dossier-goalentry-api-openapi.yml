@@ -282,30 +282,32 @@ paths:
     - url: https://api-development.ons.io
 components:
   schemas:
-    AuditedBase:
-      title: AuditedBase
+    dossier.Domain:
       type: object
+      allOf:
+      - $ref: '#/components/schemas/AuditedBase'
       properties:
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          description: Dated Base extension.
-          format: date-time
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-      description: AuditedBase model (no description)
+        id:
+          type: integer
+          format: int64
+          x-cupido-id: true
+        name:
+          type: string
+          description: (nl) Naam van dit domein
+        hidden:
+          type: boolean
+          default: false
+        classificationId:
+          type: string
+      description: Zorgplan "domein"
       example:
-        updatedAt: '2014-12-29T00:00:00.000+01:00'
-        createdAt: '2014-12-29T00:00:00.000+01:00'
-        createdBy: example
+        updatedAt: '2014-04-01T17:00:00.000+02:00'
+        createdAt: '2013-12-01T17:00:00.000+01:00'
+        createdBy: user
+        id: 1
+        name: Domein naam
+        hidden: false
+        classificationId: classification.domain.health
     dossier.GoalEntry:
       type: object
       allOf:
@@ -421,32 +423,30 @@ components:
         classificationId: intervention.category.case_management
       xml:
         name: goal
-    dossier.Domain:
+    AuditedBase:
+      title: AuditedBase
       type: object
-      allOf:
-      - $ref: '#/components/schemas/AuditedBase'
       properties:
-        id:
-          type: integer
-          format: int64
-          x-cupido-id: true
-        name:
-          type: string
-          description: (nl) Naam van dit domein
-        hidden:
-          type: boolean
-          default: false
-        classificationId:
-          type: string
-      description: Zorgplan "domein"
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Dated Base extension.
+          format: date-time
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+      description: AuditedBase model (no description)
       example:
-        updatedAt: '2014-04-01T17:00:00.000+02:00'
-        createdAt: '2013-12-01T17:00:00.000+01:00'
-        createdBy: user
-        id: 1
-        name: Domein naam
-        hidden: false
-        classificationId: classification.domain.health
+        updatedAt: '2014-12-29T00:00:00.000+01:00'
+        createdAt: '2014-12-29T00:00:00.000+01:00'
+        createdBy: example
 x-refined-from:
 - nedap-ons-deprecated-openapi-original.json
 - nedap-ons-openapi-original.json
